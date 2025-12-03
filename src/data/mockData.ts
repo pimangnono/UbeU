@@ -1,73 +1,4 @@
-export const sectors = [
-    {
-        id: 'accountancy',
-        label: 'Accountancy',
-        tracks: [
-            {
-                id: 'assurance',
-                label: 'Assurance',
-                roles: [
-                    { id: 'audit-manager', label: 'Audit Manager' },
-                    { id: 'senior-associate', label: 'Senior Associate' },
-                    { id: 'junior-auditor', label: 'Junior Auditor' },
-                ],
-            },
-            {
-                id: 'tax',
-                label: 'Tax',
-                roles: [
-                    { id: 'tax-consultant', label: 'Tax Consultant' },
-                    { id: 'tax-manager', label: 'Tax Manager' },
-                ],
-            },
-            {
-                id: 'advisory',
-                label: 'Advisory',
-                roles: [
-                    { id: 'risk-consultant', label: 'Risk Consultant' },
-                    { id: 'strategy-associate', label: 'Strategy Associate' },
-                ],
-            },
-        ],
-    },
-    {
-        id: 'technology',
-        label: 'Technology',
-        tracks: [
-            {
-                id: 'software-engineering',
-                label: 'Software Engineering',
-                roles: [
-                    { id: 'frontend-dev', label: 'Frontend Developer' },
-                    { id: 'backend-dev', label: 'Backend Developer' },
-                    { id: 'fullstack-dev', label: 'Fullstack Developer' },
-                ],
-            },
-            {
-                id: 'data',
-                label: 'Data Science',
-                roles: [
-                    { id: 'data-analyst', label: 'Data Analyst' },
-                    { id: 'ml-engineer', label: 'Machine Learning Engineer' },
-                ],
-            },
-        ],
-    },
-    {
-        id: 'marketing',
-        label: 'Marketing',
-        tracks: [
-            {
-                id: 'digital',
-                label: 'Digital Marketing',
-                roles: [
-                    { id: 'seo-specialist', label: 'SEO Specialist' },
-                    { id: 'content-strategist', label: 'Content Strategist' },
-                ],
-            },
-        ],
-    },
-];
+export { sectors } from './sectorsData';
 
 export const difficultyLevels = [
     { id: 'intern', label: 'Intern', description: 'Basic concepts and behavioral fit' },
@@ -91,9 +22,9 @@ export const timeDurations = [
 ];
 
 export const interviewTypes = [
-    { id: '1-to-1', label: '1-to-1 Interview', description: 'Standard individual interview format.' },
-    { id: 'group-case', label: 'Group Case Study', description: 'Candidates work together to solve a business case.' },
-    { id: 'group-discussion', label: 'Group Discussion', description: 'Candidates discuss a specific topic or issue.' },
+    { id: '1-to-1', label: '1-to-1 AI Interview', description: 'Standard individual interview format.' },
+    { id: 'group-case', label: 'AI Group Case Study', description: 'Candidates work together to solve a business case.' },
+    { id: 'group-discussion', label: 'AI Group Discussion', description: 'Candidates discuss a specific topic or issue.' },
     { id: 'role-play', label: 'Role-Play Simulation', description: 'Simulated scenario to test specific skills.' },
 ];
 
