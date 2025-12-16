@@ -1,0 +1,389 @@
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.header {
+    margin-bottom: 2rem;
+}
+
+.breadcrumbs {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+}
+
+.breadcrumbs a:hover {
+    color: var(--accent);
+    text-decoration: underline;
+}
+
+.headerContent {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.headerLeft h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+}
+
+.metaRow {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.trackBadge {
+    display: inline-block;
+    padding: 0.25rem 0.6rem;
+    background: var(--accent-light);
+    color: var(--accent);
+    border-radius: var(--radius-sm);
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.statusBadge {
+    display: inline-block;
+    padding: 0.25rem 0.6rem;
+    border-radius: 100px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.statusOpened {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.statusInactive {
+    background: #fef3c7;
+    color: #b45309;
+}
+
+.statusClosed {
+    background: #f3f4f6;
+    color: #6b7280;
+}
+
+.meta {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.headerActions {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.btn {
+    padding: 0.6rem 1.25rem;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+}
+
+.btnPrimary {
+    background: var(--primary);
+    color: white;
+}
+
+.btnPrimary:hover {
+    background: var(--primary-light);
+}
+
+.btnOutline {
+    background: white;
+    border: 1px solid var(--border-medium);
+    color: var(--text-main);
+}
+
+.btnOutline:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.card {
+    background: var(--bg-surface);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-light);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-sm);
+}
+
+.cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.cardHeader h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+/* Details Grid */
+.detailsGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+}
+
+.detailItem {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.detailLabel {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.detailValue {
+    color: var(--text-main);
+    font-size: 0.95rem;
+}
+
+.assignedList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+}
+
+.assignedBadge {
+    display: inline-block;
+    padding: 0.2rem 0.5rem;
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.noAssigned {
+    color: var(--text-muted);
+    font-style: italic;
+    font-size: 0.85rem;
+}
+
+/* Scenario Content */
+.scenarioContent {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    font-size: 0.95rem;
+}
+
+.scenarioContent p {
+    margin-bottom: 0.5rem;
+}
+
+.scenarioTextarea {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid var(--border-medium);
+    border-radius: var(--radius-md);
+    font-family: inherit;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    resize: vertical;
+    min-height: 300px;
+}
+
+.scenarioTextarea:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+/* Persona Grid */
+.personaGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+}
+
+.personaCard {
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    padding: 1.25rem;
+}
+
+.personaHeader {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.personaIcon {
+    width: 40px;
+    height: 40px;
+    background: var(--accent-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+    flex-shrink: 0;
+}
+
+.personaIcon svg {
+    width: 22px;
+    height: 22px;
+}
+
+.personaHeader h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.15rem;
+}
+
+.personaRole {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.personaPurpose {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 0.75rem;
+}
+
+.personaPurpose strong {
+    color: var(--text-main);
+}
+
+.personaSection {
+    margin-bottom: 0.6rem;
+}
+
+.sectionLabel {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+.personaSection p {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+    white-space: pre-line;
+}
+
+.exampleText {
+    font-style: italic;
+    background: white;
+    padding: 0.5rem;
+    border-radius: var(--radius-sm);
+    border-left: 3px solid var(--accent);
+}
+
+.personaTraits {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.traitBadge {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.5rem;
+    background: white;
+    border: 1px solid var(--border-medium);
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .headerContent {
+        flex-direction: column;
+    }
+
+    .detailsGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .personaGrid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Editable Persona Styles */
+.personaCardEditing {
+    background: white;
+    border: 2px solid var(--accent);
+}
+
+.editField {
+    margin-bottom: 0.75rem;
+}
+
+.editField label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 0.25rem;
+}
+
+.editInput,
+.editTextarea,
+.editSelect {
+    width: 100%;
+    padding: 0.5rem 0.6rem;
+    border: 1px solid var(--border-medium);
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+    font-family: inherit;
+    background: var(--bg-body);
+    transition: border-color 0.2s;
+}
+
+.editInput:focus,
+.editTextarea:focus,
+.editSelect:focus {
+    outline: none;
+    border-color: var(--accent);
+    background: white;
+}
+
+.editTextarea {
+    resize: vertical;
+    min-height: 60px;
+}
+
+.editFieldRow {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.editFieldRow .editField {
+    flex: 1;
+}
