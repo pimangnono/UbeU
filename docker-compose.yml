@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  # 1. Redis (The "Hot Path" Memory)
+  # Used for: Chat History, Celery Task Queue
+  redis:
+    image: redis:alpine
+    container_name: ubeu_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+  # 2. Neo4j (The "Cold Path" Knowledge Graph)
+  # Used for: Graphiti, Long-term candidate profiles
+  neo4j:
+    image: neo4j:latest
+    container_name: ubeu_neo4j
+    ports:
+      - "7474:7474" # Browser Interface (HTTP)
+      - "7687:7687" # Code Connection (Bolt)
+    environment:
+      # Sets the default login to: user='neo4j', password='ubeufyptest'
+      # CRITICAL: This must match what we put in the Python code later.
+      NEO4J_AUTH: neo4j/ubeufyptest 
+    volumes:
+      - neo4j_data:/data
+
+volumes:
+  redis_data:
+  neo4j_data:
