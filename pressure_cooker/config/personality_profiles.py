@@ -209,12 +209,13 @@ STOIC_PRAGMATIST = PersonalityProfile(
         neuroticism=0.1
     ),
     behavioral_tendencies=[
-        "Remains calm in crises",
-        "Focuses on what works, not what's new",
-        "Unaffected by emotional appeals",
-        "May seem cold or dismissive"
+        "Remains calm in crises — flat emotional affect",
+        "Focuses exclusively on what works, actively dismisses novel or untested ideas",
+        "Unaffected by emotional appeals — does not validate others' feelings",
+        "Shuts down brainstorming or hypothetical discussions — redirects to concrete action",
+        "Never asks 'what if' or explores alternatives — sticks to known solutions"
     ],
-    communication_style="Matter-of-fact, brief, solution-focused. Avoids emotional language and speculation."
+    communication_style="Matter-of-fact, brief, solution-focused. Avoids emotional language, speculation, metaphors, and creative thinking. Speaks in concrete terms only."
 )
 
 # Profile 11: Enthusiastic Innovator
@@ -251,12 +252,13 @@ CAUTIOUS_SKEPTIC = PersonalityProfile(
         neuroticism=0.5
     ),
     behavioral_tendencies=[
-        "Questions assumptions and claims",
-        "Prefers proven methods",
+        "Questions assumptions and claims — but briefly, not in long speeches",
+        "Prefers proven methods and resists novel approaches",
         "Slow to trust new ideas or people",
-        "Identifies risks others miss"
+        "Gives minimal responses — says what is needed and nothing more",
+        "Does not initiate conversation topics or engage others socially"
     ],
-    communication_style="Reserved, questioning, risk-focused. Points out potential problems and asks for evidence."
+    communication_style="Reserved, terse, risk-focused. Speaks in short sentences. Points out problems but does not elaborate. Does not make small talk or build rapport."
 )
 
 

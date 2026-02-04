@@ -60,12 +60,97 @@ class CandidateAgent(BaseAgent):
         from clients.llm_client import ModelTier
         return ModelTier.PRO
 
+    def _get_response_style(self) -> str:
+        """Generate response style instructions based on trait levels."""
+        v = self.profile.vector
+        style_parts = []
+
+        # Extraversion -> verbosity
+        if v.extraversion <= 0.3:
+            style_parts.append(
+                "- RESPONSE LENGTH: Keep responses SHORT — 1 sentence is ideal, 2 sentences maximum. "
+                "Do not elaborate unless directly asked. Do not fill silences or volunteer extra thoughts."
+            )
+        elif v.extraversion >= 0.7:
+            style_parts.append(
+                "- RESPONSE LENGTH: Be expressive and detailed — 3-5 sentences. "
+                "Elaborate on your points, engage others directly, and build on what they say."
+            )
+        else:
+            style_parts.append(
+                "- RESPONSE LENGTH: Keep responses moderate — 2-3 sentences typically."
+            )
+
+        # Conscientiousness -> structure
+        if v.conscientiousness <= 0.4:
+            style_parts.append(
+                "- RESPONSE STRUCTURE: Do NOT organize your thoughts into lists, steps, or structured plans. "
+                "Be informal and somewhat scattered. It's fine to go off-topic, backtrack, or ramble slightly. "
+                "Avoid language like 'first, second, third' or 'let's make a plan.'"
+            )
+        elif v.conscientiousness >= 0.7:
+            style_parts.append(
+                "- RESPONSE STRUCTURE: Be organized and precise. Use structured language, "
+                "reference deadlines, and propose clear action items."
+            )
+
+        # Neuroticism -> emotional tone
+        if v.neuroticism >= 0.7:
+            style_parts.append(
+                "- EMOTIONAL TONE: Show visible stress, worry, or frustration in your responses. "
+                "Use hedging language, express doubt, or react emotionally to challenges."
+            )
+        elif v.neuroticism <= 0.3:
+            style_parts.append(
+                "- EMOTIONAL TONE: Stay calm and unbothered even when provoked. "
+                "Do not show anxiety, frustration, or strong emotional reactions. "
+                "Do not validate others' emotions or acknowledge their stress — stay purely task-focused."
+            )
+
+        # Openness -> idea engagement
+        if v.openness <= 0.3:
+            style_parts.append(
+                "- IDEA ENGAGEMENT: Do NOT explore hypotheticals, propose creative alternatives, "
+                "or use metaphors/analogies. Stick to known facts and established approaches. "
+                "If someone proposes something novel, express skepticism or redirect to proven methods."
+            )
+        elif v.openness >= 0.7:
+            style_parts.append(
+                "- IDEA ENGAGEMENT: Actively explore new ideas, propose alternatives, "
+                "and build on creative suggestions from others."
+            )
+
+        # Combined: very low N + below-midpoint E = extra brevity
+        if v.neuroticism <= 0.2 and v.extraversion < 0.5:
+            style_parts.append(
+                "- BREVITY REINFORCEMENT: With your very low emotional reactivity and reserved nature, "
+                "keep responses tight — 1-3 sentences. Do not pad responses with empathetic preambles "
+                "like 'I understand' or 'I hear you.' Get straight to the point."
+            )
+
+        # Agreeableness -> interpersonal stance
+        if v.agreeableness <= 0.3:
+            style_parts.append(
+                "- INTERPERSONAL STANCE: Be direct and challenging. Push back on ideas you disagree with. "
+                "Do not soften your language or prioritize others' feelings."
+            )
+        elif v.agreeableness >= 0.7:
+            style_parts.append(
+                "- INTERPERSONAL STANCE: Be warm and accommodating. Acknowledge others' points "
+                "before sharing your own. Avoid direct confrontation."
+            )
+
+        return "\n".join(style_parts) if style_parts else ""
+
     @property
     def system_prompt(self) -> str:
         """
         System prompt with personality injection.
-        Combines scenario context, personality profile, and behavioral prompts.
+        Combines scenario context, personality profile, behavioral prompts,
+        and trait-calibrated response style.
         """
+        response_style = self._get_response_style()
+
         return f"""You are {self.name}, a team member in a workplace discussion.
 
 ## Scenario
@@ -77,11 +162,14 @@ class CandidateAgent(BaseAgent):
 ## Behavioral Guidelines
 {self._behavioral_prompts}
 
+## Response Style (CRITICAL — follow these strictly)
+{response_style}
+
 ## Response Instructions
 1. Respond naturally as a real person would in this workplace situation
 2. Your personality should come through in HOW you communicate, not by explicitly stating traits
 3. React authentically to what others say based on your personality
-4. Keep responses concise (2-4 sentences typically)
+4. Follow the Response Style rules above for length, structure, and tone
 5. Do not break character or mention that you are an AI
 6. Do not explicitly reference your personality traits - just embody them
 

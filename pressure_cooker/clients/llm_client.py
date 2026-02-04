@@ -13,6 +13,7 @@ from dotenv import load_dotenv
 
 try:
     from openai import AsyncOpenAI
+    from httpx import Timeout
 except ImportError:
     AsyncOpenAI = None
 
@@ -104,6 +105,7 @@ class LLMClient:
         self.client = AsyncOpenAI(
             api_key=self.api_key,
             base_url=base_url,
+            timeout=Timeout(120.0, connect=10.0),
         )
 
         self.pro_model_name = pro_model or os.getenv("LLM_PRO_MODEL", "deepseek/deepseek-chat-v3-0324")
@@ -145,11 +147,14 @@ class LLMClient:
         messages.append({"role": "user", "content": prompt})
 
         try:
-            response = await self.client.chat.completions.create(
-                model=self._get_model_name(tier),
-                messages=messages,
-                temperature=temperature,
-                max_tokens=max_tokens,
+            response = await asyncio.wait_for(
+                self.client.chat.completions.create(
+                    model=self._get_model_name(tier),
+                    messages=messages,
+                    temperature=temperature,
+                    max_tokens=max_tokens,
+                ),
+                timeout=120.0,
             )
 
             self.rate_limiter.record_request()
@@ -198,11 +203,14 @@ class LLMClient:
             api_messages.append({"role": role, "content": msg["content"]})
 
         try:
-            response = await self.client.chat.completions.create(
-                model=self._get_model_name(tier),
-                messages=api_messages,
-                temperature=temperature,
-                max_tokens=max_tokens,
+            response = await asyncio.wait_for(
+                self.client.chat.completions.create(
+                    model=self._get_model_name(tier),
+                    messages=api_messages,
+                    temperature=temperature,
+                    max_tokens=max_tokens,
+                ),
+                timeout=120.0,
             )
 
             self.rate_limiter.record_request()

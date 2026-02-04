@@ -20,20 +20,44 @@ if TYPE_CHECKING:
 
 
 INFERENCE_PROMPT = """You are an expert psychologist trained in the Big Five personality model.
-Analyze the following conversation and infer the personality traits of the person named "{candidate_name}".
+Analyze the following group discussion and infer the personality traits of the person named "{candidate_name}".
 
 ## Conversation
 {conversation}
 
-## Task
-Based on {candidate_name}'s responses, estimate their Big Five personality scores on a scale of 0.0 to 1.0:
+## Behavioral Statistics for {candidate_name}
+{behavioral_stats}
 
-1. **Openness to Experience**: curiosity, creativity, preference for novelty vs. routine
-2. **Conscientiousness**: organization, dependability, self-discipline vs. spontaneity
-3. **Extraversion**: sociability, assertiveness, positive emotions vs. reserve
-4. **Agreeableness**: cooperation, trust, empathy vs. competitiveness
-5. **Neuroticism**: emotional reactivity, anxiety, moodiness vs. emotional stability
+## Scoring Guide
 
+Rate each trait on a 0.0 to 1.0 scale. Use the FULL range — 0.1-0.2 for very low, 0.8-0.9 for very high.
+
+**Openness to Experience** (0.0 = conventional, 1.0 = highly curious):
+- HIGH signals: proposes novel ideas, uses metaphors/analogies, explores hypotheticals ("what if..."), builds on creative suggestions, asks exploratory questions
+- LOW signals: dismisses new ideas, demands proven methods, avoids abstract thinking, redirects to concrete/practical matters, shows no curiosity about alternatives
+- CAUTION: Simply participating in a discussion is NOT a sign of openness. Look for active idea exploration vs. sticking to known approaches.
+
+**Conscientiousness** (0.0 = spontaneous/disorganized, 1.0 = highly organized):
+- HIGH signals: proposes plans/checklists, references deadlines, uses structured language ("first... second... third"), documents decisions, follows up on action items
+- LOW signals: goes off-topic, loses track of discussion, informal/casual language, no references to process or timelines, comfortable with ambiguity, does not propose structure
+- CAUTION: In a structured group discussion, most people sound somewhat organized by default. Only rate HIGH (>0.7) if {candidate_name} actively imposes additional structure beyond what the conversation demands. Rate LOW (<0.4) if responses are notably scattered, informal, or process-averse.
+
+**Extraversion** (0.0 = very reserved, 1.0 = very outgoing):
+- HIGH signals: long/elaborate responses, initiates topics, addresses others by name, expresses enthusiasm, builds rapport, high energy language
+- LOW signals: SHORT responses (1-2 sentences), speaks only when necessary, does not elaborate, does not initiate topics, does not engage others socially, minimal/terse language
+- CAUTION: Response LENGTH is a critical signal. Count the words: if {candidate_name}'s responses are consistently under 20 words, this strongly suggests low extraversion (0.1-0.3) regardless of content. If responses are 50+ words with elaboration, this suggests higher extraversion.
+
+**Agreeableness** (0.0 = competitive/challenging, 1.0 = cooperative/warm):
+- HIGH signals: validates others' feelings, seeks consensus, uses "we" language, avoids confrontation, offers to help, acknowledges others' contributions
+- LOW signals: blunt disagreement, dismisses others' views, focuses on own interests, challenges without softening, does not build rapport, skeptical of others' motives
+- CAUTION: Politeness alone is not high agreeableness. Look for genuine warmth, accommodation, and conflict avoidance vs. directness and self-interest.
+
+**Neuroticism** (0.0 = very calm/stable, 1.0 = very emotionally reactive):
+- HIGH signals: expresses worry/anxiety, reacts emotionally to challenges, uses hedging language ("I'm not sure if..."), defensive when challenged, catastrophizes problems
+- LOW signals: calm under provocation, unbothered by criticism, does not acknowledge stress, task-focused without emotional language, flat affect, no empathetic preambles
+- CAUTION: Not expressing emotions is different from being calm. Very low neuroticism (0.1-0.2) means the person shows almost NO emotional reaction even when directly provoked or when others are stressed.
+
+## Response Format
 Respond ONLY in this JSON format:
 {{
     "openness": 0.0-1.0,
@@ -41,7 +65,7 @@ Respond ONLY in this JSON format:
     "extraversion": 0.0-1.0,
     "agreeableness": 0.0-1.0,
     "neuroticism": 0.0-1.0,
-    "reasoning": "brief explanation of key behavioral indicators observed"
+    "reasoning": "brief explanation citing specific behavioral evidence for each trait score"
 }}"""
 
 
@@ -71,6 +95,52 @@ def format_conversation_for_inference(
     return "\n".join(lines)
 
 
+def compute_behavioral_stats(
+    turns: list[Turn],
+    candidate_name: str = "Alex",
+) -> str:
+    """
+    Compute observable behavioral statistics for the candidate.
+
+    Provides the judge with quantitative signals about response patterns
+    that are hard to assess from reading alone (word counts, turn frequency).
+    """
+    candidate_turns = [t for t in turns if t.speaker == SpeakerRole.CANDIDATE]
+    other_turns = [t for t in turns if t.speaker != SpeakerRole.CANDIDATE]
+
+    if not candidate_turns:
+        return "No candidate turns found."
+
+    word_counts = [len(t.content.split()) for t in candidate_turns]
+    avg_words = sum(word_counts) / len(word_counts)
+    min_words = min(word_counts)
+    max_words = max(word_counts)
+
+    # Count questions asked by candidate
+    questions = sum(1 for t in candidate_turns if "?" in t.content)
+
+    # Count times candidate addresses others by name
+    other_names = set(t.speaker_name for t in other_turns)
+    name_mentions = sum(
+        sum(1 for name in other_names if name in t.content)
+        for t in candidate_turns
+    )
+
+    total_turns = len(turns)
+    candidate_pct = len(candidate_turns) / total_turns * 100 if total_turns else 0
+
+    lines = [
+        f"- Total conversation turns: {total_turns}",
+        f"- {candidate_name}'s turns: {len(candidate_turns)} ({candidate_pct:.0f}% of total)",
+        f"- Average words per response: {avg_words:.0f}",
+        f"- Response length range: {min_words}-{max_words} words",
+        f"- Questions asked: {questions}",
+        f"- Times addressing others by name: {name_mentions}",
+    ]
+
+    return "\n".join(lines)
+
+
 async def infer_personality(
     session: SessionOutput,
     client: "GeminiClient | MockGeminiClient",
@@ -94,9 +164,15 @@ async def infer_personality(
         candidate_name,
     )
 
+    behavioral_stats = compute_behavioral_stats(
+        session.conversation,
+        candidate_name,
+    )
+
     prompt = INFERENCE_PROMPT.format(
         candidate_name=candidate_name,
         conversation=conversation,
+        behavioral_stats=behavioral_stats,
     )
 
     response = await client.generate(
@@ -230,11 +306,24 @@ async def batch_validate(
         if verbose:
             print(f"Validating session {i+1}/{len(sessions)}: {session.metadata.session_id}")
 
-        result = await validate_session(session, client)
-        results.append(result)
-
-        if verbose:
-            print(f"  Overall accuracy: {result.overall_accuracy:.1%}")
+        max_retries = 3
+        for attempt in range(max_retries):
+            try:
+                result = await validate_session(session, client)
+                results.append(result)
+                if verbose:
+                    print(f"  Overall accuracy: {result.overall_accuracy:.1%}")
+                break
+            except Exception as e:
+                if attempt < max_retries - 1:
+                    wait = 10 * (attempt + 1)
+                    if verbose:
+                        print(f"  Attempt {attempt+1} failed: {e}. Retrying in {wait}s...")
+                    await asyncio.sleep(wait)
+                else:
+                    if verbose:
+                        print(f"  SKIPPED after {max_retries} attempts: {e}")
+                    # Skip this session rather than crashing
 
     return results
 
