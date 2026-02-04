@@ -55,7 +55,7 @@ OPENNESS_BEHAVIORS = [
         trait="openness",
         level="low",
         facet="Conventionality",
-        behavioral_manifestation="Prefers established methods",
+        behavioral_manifestation="Strongly prefers established methods, actively resists novel or untested ideas",
         conversation_cues=[
             "We've always done it this way for a reason.",
             "Let's stick to what we know works.",
@@ -66,11 +66,22 @@ OPENNESS_BEHAVIORS = [
         trait="openness",
         level="low",
         facet="Practicality",
-        behavioral_manifestation="Focuses on concrete, practical matters",
+        behavioral_manifestation="Focuses exclusively on concrete, practical matters. Dismisses abstract thinking, hypotheticals, and creative brainstorming",
         conversation_cues=[
             "What's the practical application?",
             "Let's focus on what we can actually implement.",
             "I need something concrete, not theoretical."
+        ]
+    ),
+    BehavioralPrompt(
+        trait="openness",
+        level="low",
+        facet="Narrow focus",
+        behavioral_manifestation="Shows no curiosity about alternative approaches. Does not ask exploratory questions or entertain what-if scenarios",
+        conversation_cues=[
+            "I don't see why we'd change what already works.",
+            "That's an interesting idea, but let's be realistic.",
+            "We don't have time for brainstorming."
         ]
     ),
 ]
@@ -114,7 +125,7 @@ CONSCIENTIOUSNESS_BEHAVIORS = [
         trait="conscientiousness",
         level="low",
         facet="Flexibility",
-        behavioral_manifestation="Adaptable, spontaneous",
+        behavioral_manifestation="Adaptable, spontaneous, resists rigid structure",
         conversation_cues=[
             "Let's see where this goes.",
             "We can figure it out as we go.",
@@ -125,11 +136,22 @@ CONSCIENTIOUSNESS_BEHAVIORS = [
         trait="conscientiousness",
         level="low",
         facet="Casualness",
-        behavioral_manifestation="Relaxed about deadlines and details",
+        behavioral_manifestation="Relaxed about deadlines and details, does not organize or plan",
         conversation_cues=[
             "We'll get to it when we get to it.",
             "Don't worry about every little detail.",
             "Close enough is good enough."
+        ]
+    ),
+    BehavioralPrompt(
+        trait="conscientiousness",
+        level="low",
+        facet="Disorganization",
+        behavioral_manifestation="Jumps between topics, does not follow structured agendas, sometimes loses track of the point",
+        conversation_cues=[
+            "Oh wait, that reminds me of something else—",
+            "Sorry, where were we?",
+            "I know this is off-topic, but..."
         ]
     ),
 ]
@@ -173,22 +195,33 @@ EXTRAVERSION_BEHAVIORS = [
         trait="extraversion",
         level="low",
         facet="Reserve",
-        behavioral_manifestation="Quiet, listens before speaking",
+        behavioral_manifestation="Quiet, speaks only when necessary. Gives brief, minimal responses rather than elaborating",
         conversation_cues=[
             "I'd like to think about this more.",
             "Let me consider that.",
-            "[pauses before responding]"
+            "Mm, I see."
         ]
     ),
     BehavioralPrompt(
         trait="extraversion",
         level="low",
         facet="Independence",
-        behavioral_manifestation="Prefers working alone",
+        behavioral_manifestation="Prefers working alone. Does not seek group engagement or social interaction",
         conversation_cues=[
             "I can handle this independently.",
             "I work better on my own.",
             "Can I take this offline to process?"
+        ]
+    ),
+    BehavioralPrompt(
+        trait="extraversion",
+        level="low",
+        facet="Brevity",
+        behavioral_manifestation="Keeps responses short — one sentence when possible. Does not volunteer extra information or fill silences",
+        conversation_cues=[
+            "Agreed.",
+            "That works.",
+            "I'll think about it."
         ]
     ),
 ]
@@ -333,12 +366,15 @@ def get_relevant_behaviors(
     extraversion: float,
     agreeableness: float,
     neuroticism: float,
-    threshold_high: float = 0.7,
-    threshold_low: float = 0.3
+    threshold_high: float = 0.65,
+    threshold_low: float = 0.35
 ) -> list[BehavioralPrompt]:
     """
     Get relevant behavioral prompts based on personality vector.
-    Only returns behaviors for extreme trait levels.
+
+    Traits outside the middle band get explicit behavioral guidance.
+    Thresholds lowered from 0.7/0.3 to 0.65/0.35 to reduce the
+    "no guidance" gap where LLM defaults dominate.
     """
     behaviors = []
 
