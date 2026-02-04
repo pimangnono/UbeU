@@ -62,6 +62,12 @@ def parse_args():
         help="Output directory for results",
     )
     parser.add_argument(
+        "--model",
+        type=str,
+        default=None,
+        help="Override model for LLM validation (e.g. x-ai/grok-4.1-fast)",
+    )
+    parser.add_argument(
         "--mock",
         action="store_true",
         help="Use mock client for LLM validation",
@@ -82,13 +88,14 @@ def load_session(filepath: str) -> SessionOutput:
     return SessionOutput.model_validate(data)
 
 
-async def validate_single_llm(session_path: str, mock: bool, output_dir: str, verbose: bool):
+async def validate_single_llm(session_path: str, mock: bool, output_dir: str, verbose: bool, model: str = None):
     """Run LLM validation on a single session."""
     session = load_session(session_path)
-    client = create_client(use_mock=mock)
+    client = create_client(use_mock=mock, pro_model=model, flash_model=model) if model else create_client(use_mock=mock)
 
     print(f"Validating session: {session.metadata.session_id}")
     print(f"Profile: {session.profile.name}")
+    print(f"Validation model: {client.pro_model_name if hasattr(client, 'pro_model_name') else 'mock'}")
     print(f"Ground truth traits: {session.profile.vector.to_dict()}")
 
     result = await validate_session(session, client)
@@ -101,7 +108,8 @@ async def validate_single_llm(session_path: str, mock: bool, output_dir: str, ve
     # Save result
     output_path = Path(output_dir)
     output_path.mkdir(parents=True, exist_ok=True)
-    result_file = output_path / f"llm_validation_{session.metadata.session_id}.json"
+    model_tag = client.pro_model_name.replace("/", "_") if hasattr(client, "pro_model_name") else "mock"
+    result_file = output_path / f"llm_validation_{model_tag}_{session.metadata.session_id}.json"
 
     with open(result_file, "w") as f:
         f.write(result.model_dump_json(indent=2))
@@ -111,7 +119,7 @@ async def validate_single_llm(session_path: str, mock: bool, output_dir: str, ve
     return result
 
 
-async def validate_batch_llm(batch_path: str, mock: bool, output_dir: str, verbose: bool):
+async def validate_batch_llm(batch_path: str, mock: bool, output_dir: str, verbose: bool, model: str = None):
     """Run LLM validation on a batch of sessions."""
     batch_dir = Path(batch_path)
     sessions_dir = batch_dir / "sessions"
@@ -125,7 +133,8 @@ async def validate_batch_llm(batch_path: str, mock: bool, output_dir: str, verbo
     print(f"Found {len(session_files)} sessions to validate")
 
     sessions = [load_session(str(f)) for f in session_files]
-    client = create_client(use_mock=mock)
+    client = create_client(use_mock=mock, pro_model=model, flash_model=model) if model else create_client(use_mock=mock)
+    print(f"Validation model: {client.pro_model_name if hasattr(client, 'pro_model_name') else 'mock'}")
 
     # Run validation
     results = await batch_validate(sessions, client, verbose=verbose)
@@ -146,13 +155,14 @@ async def validate_batch_llm(batch_path: str, mock: bool, output_dir: str, verbo
     output_path.mkdir(parents=True, exist_ok=True)
 
     # Save individual results
+    model_tag = client.pro_model_name.replace("/", "_") if hasattr(client, "pro_model_name") else "mock"
     for result in results:
-        result_file = output_path / f"llm_validation_{result.session_id}.json"
+        result_file = output_path / f"llm_validation_{model_tag}_{result.session_id}.json"
         with open(result_file, "w") as f:
             f.write(result.model_dump_json(indent=2))
 
     # Save summary
-    summary_file = output_path / f"batch_validation_summary_{batch_dir.name}.json"
+    summary_file = output_path / f"batch_validation_summary_{model_tag}_{batch_dir.name}.json"
     with open(summary_file, "w") as f:
         json.dump(summary, f, indent=2)
 
@@ -201,11 +211,11 @@ async def main():
     if args.mode == "llm":
         if args.session:
             await validate_single_llm(
-                args.session, args.mock, args.output_dir, args.verbose
+                args.session, args.mock, args.output_dir, args.verbose, args.model
             )
         else:
             await validate_batch_llm(
-                args.batch, args.mock, args.output_dir, args.verbose
+                args.batch, args.mock, args.output_dir, args.verbose, args.model
             )
     else:  # human
         if not args.session:

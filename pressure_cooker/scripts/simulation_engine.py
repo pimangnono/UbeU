@@ -224,7 +224,7 @@ class SimulationEngine:
             total_turns=len(self.turns),
             duration_seconds=duration,
             api_calls=self.client.total_requests,
-            model_used="gemini",
+            model_used=self.client.pro_model_name if hasattr(self.client, "pro_model_name") else "mock",
         )
 
         output = SessionOutput(
