@@ -120,7 +120,7 @@ async def run_batch(config: BatchConfig, mock: bool = False, dry_run: bool = Fal
         print(f"\nDaily API calls remaining: {remaining}")
         print(f"Estimated calls needed: {estimated_calls}")
 
-        if estimated_calls > remaining:
+        if estimated_calls > remaining and remaining < 900:
             print(f"\nWARNING: May exceed daily limit!")
             response = input("Continue anyway? [y/N]: ")
             if response.lower() != "y":
