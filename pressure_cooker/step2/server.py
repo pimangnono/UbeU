@@ -8,10 +8,11 @@ Endpoints:
   POST /session/create           — create LiveEngine, return opening message
   GET  /session/{sid}/status     — get conversation history + state
   POST /session/{sid}/message    — submit human message, return AI responses
-  POST /session/{sid}/end        — end session
+  POST /session/{sid}/end        — end session + run Senior Analyst validation
   POST /participant/{pid}/survey — submit post-session survey
 """
 
+import json
 import os
 import sys
 from datetime import datetime
@@ -26,8 +27,10 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 from dotenv import load_dotenv
 load_dotenv()
 
-from clients.llm_client import create_client
+from clients.llm_client import create_client, LLMClient
 from step2.bfi44 import score_bfi44
+from step2.consulting_scenarios import get_consulting_scenario
+from step2.validator_agent import validate_session
 from step2.models import (
     SessionState,
     PostSessionSurvey,
@@ -50,7 +53,7 @@ from step2.session_manager import SessionManager
 
 app = FastAPI(
     title="Pressure Cooker — Step 2 Live Interview",
-    version="1.0.0",
+    version="2.0.0",
 )
 
 app.add_middleware(
@@ -62,14 +65,19 @@ app.add_middleware(
 
 # Global singletons (initialized on startup)
 _client = None
+_validator_client = None
 _participant_mgr = None
 _session_mgr = None
 
 
 @app.on_event("startup")
 async def startup():
-    global _client, _participant_mgr, _session_mgr
+    global _client, _validator_client, _participant_mgr, _session_mgr
     _client = create_client()
+    # Senior Analyst uses Claude Haiku 4.5 via OpenRouter for post-session validation
+    _validator_client = LLMClient(
+        pro_model="anthropic/claude-haiku-4.5",
+    )
     _participant_mgr = ParticipantManager()
     _session_mgr = SessionManager(client=_client)
 
@@ -165,11 +173,19 @@ async def create_session(req: CreateSessionRequest):
             ],
         )
 
+    # Load consulting case study
+    case_study = None
+    try:
+        case_study = get_consulting_scenario(record.assigned_scenario)
+    except ValueError:
+        pass  # Fall back to legacy scenario if not a consulting scenario ID
+
     # Create new session
     session = s_mgr.create_session(
         participant_id=req.participant_id,
         scenario_id=record.assigned_scenario,
         participant_name=record.name,
+        case_study=case_study,
     )
 
     # Update participant with session ID
@@ -260,7 +276,7 @@ async def submit_message(sid: str, req: SubmitMessageRequest):
 
 @app.post("/session/{sid}/end")
 async def end_session(sid: str):
-    """Manually end a session."""
+    """Manually end a session and run post-session validation."""
     s_mgr = _get_session_mgr()
     session = s_mgr.get_session(sid)
     if session is None:
@@ -275,12 +291,46 @@ async def end_session(sid: str):
     output = await session.engine.finalize_session_output(session.participant_id)
     p_mgr.save_session_output(session.participant_id, output.model_dump())
 
+    # Run Senior Analyst post-session validation (Claude Haiku 4.5)
+    validation_report = None
+    if _validator_client and session.engine.case_study:
+        try:
+            validation_report = await validate_session(
+                transcript=session.engine.turns,
+                case_study=session.engine.case_study,
+                client=_validator_client,
+            )
+            # Save validation report
+            participant_dir = p_mgr._get_dir(session.participant_id)
+            participant_dir.mkdir(parents=True, exist_ok=True)
+            validation_path = participant_dir / "logic_validation.json"
+            with open(validation_path, "w") as f:
+                json.dump(validation_report, f, indent=2)
+        except Exception as e:
+            # Don't fail the session end if validation fails
+            validation_report = {"error": str(e)}
+            # Still save the error report to disk for debugging
+            try:
+                participant_dir = p_mgr._get_dir(session.participant_id)
+                participant_dir.mkdir(parents=True, exist_ok=True)
+                validation_path = participant_dir / "logic_validation.json"
+                with open(validation_path, "w") as f:
+                    json.dump(validation_report, f, indent=2)
+            except Exception:
+                pass
+
     s_mgr.persist_session(sid)
+
+    validation_error = None
+    if validation_report and "error" in validation_report:
+        validation_error = validation_report["error"]
 
     return {
         "status": "ended",
         "total_turns": len(session.engine.turns),
         "closing_message": closing.content if closing else None,
+        "validation_completed": validation_report is not None and "error" not in validation_report,
+        "validation_error": validation_error,
     }
 
 

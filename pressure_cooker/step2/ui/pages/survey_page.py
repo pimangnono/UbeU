@@ -13,7 +13,7 @@ API_BASE = "http://localhost:8000"
 SURVEY_ITEMS = [
     ("naturalness", "How natural did the conversation feel?"),
     ("authenticity", "How authentic did the AI characters (Jordan and Sam) seem?"),
-    ("realism", "How realistic was the workplace scenario?"),
+    ("realism", "How realistic was the business case scenario?"),
     ("engagement", "How engaged were you in the discussion?"),
     ("recommendation", "Would you recommend this experience to others?"),
 ]

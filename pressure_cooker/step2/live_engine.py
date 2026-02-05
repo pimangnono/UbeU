@@ -8,9 +8,15 @@ Replaces SimulationEngine.run() with discrete steps:
   - to_session_output(): converts to existing SessionOutput format
 
 The human fully replaces CandidateAgent — no AI candidate is created.
+
+Supports consulting case studies with information gating:
+  - CaseStudy data is hidden until the candidate asks about it
+  - Facilitator context is rebuilt each turn with only revealed data
+  - Engagement checks model analytical questioning if human is passive
 """
 
 import asyncio
+import re
 import time
 import uuid
 from datetime import datetime
@@ -33,6 +39,7 @@ from utils.models import (
     SessionOutput,
 )
 from step2.models import SessionState
+from step2.case_data import CaseStudy
 
 if TYPE_CHECKING:
     from clients.llm_client import GeminiClient, MockGeminiClient
@@ -42,6 +49,14 @@ if TYPE_CHECKING:
 SESSION_MAX_SECONDS = 15 * 60    # 15 minutes hard stop
 WARN_AT_SECONDS = 12 * 60       # 12 minutes: facilitator warns
 WRAPUP_AT_SECONDS = 14 * 60     # 14 minutes: facilitator starts wrapping up
+
+# Engagement check constants
+ENGAGEMENT_CHECK_TURN = 8       # Check engagement after this many total turns
+QUESTION_PATTERNS = re.compile(
+    r'\?|'
+    r'\b(what|how|why|when|where|who|which|can you|could you|do you|is there|are there|tell me)\b',
+    re.IGNORECASE,
+)
 
 
 class LiveEngine:
@@ -57,11 +72,13 @@ class LiveEngine:
         client: "GeminiClient | MockGeminiClient",
         scenario: ScenarioConfig,
         participant_name: str,
+        case_study: Optional[CaseStudy] = None,
     ):
         self.client = client
         self.scenario = scenario
         self.participant_name = participant_name
         self.session_id = str(uuid.uuid4())[:8]
+        self.case_study = case_study
 
         # Create AI agents (no CandidateAgent — human fills that role)
         self.provoker = ProvokerAgent(
@@ -101,6 +118,11 @@ class LiveEngine:
         self._warned_time = False
         self._wrapping_up = False
 
+        # Case study / information gating state
+        self.revealed_categories: set[str] = set()
+        self.human_question_count: int = 0
+        self.engagement_nudge_sent: bool = False
+
     @property
     def elapsed_seconds(self) -> float:
         """Seconds since session started."""
@@ -122,19 +144,38 @@ class LiveEngine:
         """
         Generate the opening of the conversation.
 
-        The Facilitator introduces the scenario, then the Provoker makes
-        the first substantive statement. Returns these turns.
+        For case studies: Facilitator introduces the company, industry, and
+        problem statement (but NOT hidden data). Provoker makes initial
+        skeptical observation.
+
+        For legacy scenarios: Facilitator introduces the discussion topic,
+        Provoker states their position.
         """
         self.start_time = time.time()
         self.state = SessionState.OPENING
         opening_turns = []
 
-        # Facilitator introduces the scenario
-        intro_context = (
-            f"Introduce the discussion topic to the group. The participants are "
-            f"{self.participant_name}, Jordan, and Sam. Briefly explain the situation "
-            f"and invite everyone to share their thoughts."
-        )
+        if self.case_study:
+            # Case study opening: introduce the case
+            intro_context = (
+                f"You are the facilitator for a consulting case discussion. "
+                f"Introduce the case to the group. The participants are "
+                f"{self.participant_name}, Jordan, and Sam.\n\n"
+                f"Company: {self.case_study.company_name}\n"
+                f"Industry: {self.case_study.industry}\n"
+                f"Problem: {self.case_study.problem_statement}\n\n"
+                f"Present the company and problem clearly. Invite the team to "
+                f"analyze the problem and ask questions about the available data. "
+                f"Do NOT share any detailed data yet — wait for them to ask."
+            )
+        else:
+            # Legacy scenario opening
+            intro_context = (
+                f"Introduce the discussion topic to the group. The participants are "
+                f"{self.participant_name}, Jordan, and Sam. Briefly explain the situation "
+                f"and invite everyone to share their thoughts."
+            )
+
         intro = await self.system_manager.generate_response(intro_context)
         turn = self._create_turn(SpeakerRole.SYSTEM, "Facilitator", intro)
         self.turns.append(turn)
@@ -143,10 +184,21 @@ class LiveEngine:
         # Update agents with the intro
         self._sync_agent_histories()
 
-        # Provoker sets the stage with their position
+        # Provoker sets the stage
+        if self.case_study:
+            provoker_context = (
+                f"The facilitator just introduced a case about {self.case_study.company_name}. "
+                f"Make a skeptical initial observation about the problem: "
+                f"'{self.case_study.problem_statement}'. "
+                f"Challenge whether the stated goal is realistic or ask what data "
+                f"we'd need to even begin analyzing this."
+            )
+        else:
+            provoker_context = "Open the discussion by stating your position on the issue."
+
         tension = 0.3
         provoker_response = await self.provoker.generate_response(
-            "Open the discussion by stating your position on the issue.", tension
+            provoker_context, tension
         )
         turn = self._create_turn(SpeakerRole.PROVOKER, "Jordan", provoker_response)
         self.turns.append(turn)
@@ -158,6 +210,10 @@ class LiveEngine:
     def submit_human_turn(self, content: str) -> Turn:
         """
         Record a human participant's message as a CANDIDATE turn.
+
+        Also performs:
+        - Keyword matching against case study data categories
+        - Question detection for engagement tracking
 
         Args:
             content: The human's message text.
@@ -171,6 +227,16 @@ class LiveEngine:
             content,
         )
         self.turns.append(turn)
+
+        # Case study: match keywords to reveal data categories
+        if self.case_study:
+            newly_matched = self.case_study.match_categories(content)
+            self.revealed_categories.update(newly_matched)
+
+        # Track analytical questions
+        if self._detect_questions(content):
+            self.human_question_count += 1
+
         return turn
 
     async def generate_ai_turns_until_human(self) -> list[Turn]:
@@ -205,8 +271,13 @@ class LiveEngine:
             should_intervene, reason = await self.system_manager.should_intervene(
                 self.turns
             )
+
+            # Build gated context for facilitator if case study active
+            gated_context = self._build_gated_context() if self.case_study else ""
+
             if should_intervene:
-                response = await self.system_manager.generate_response(reason)
+                context = f"{reason}\n\n{gated_context}" if gated_context else reason
+                response = await self.system_manager.generate_response(context)
                 turn = self._create_turn(SpeakerRole.SYSTEM, "Facilitator", response)
                 self.turns.append(turn)
                 ai_turns.append(turn)
@@ -228,7 +299,8 @@ class LiveEngine:
                 break
 
             if isinstance(agent, SystemManagerAgent):
-                response = await agent.generate_response()
+                context = gated_context if gated_context else ""
+                response = await agent.generate_response(context)
             else:
                 response = await agent.generate_response(
                     context="", tension_level=tension
@@ -258,6 +330,11 @@ class LiveEngine:
                     ai_turns.append(close_turn)
                     self.state = SessionState.ENDED
                     break
+
+        # Check engagement after AI turns
+        engagement_turn = self._check_engagement()
+        if engagement_turn is not None:
+            ai_turns.append(engagement_turn)
 
         return ai_turns
 
@@ -393,6 +470,10 @@ class LiveEngine:
             "wrapping_up": self._wrapping_up,
             "turns": [t.model_dump() for t in self.turns],
             "tension_history": self.tension_history,
+            # Case study gating state
+            "revealed_categories": list(self.revealed_categories),
+            "human_question_count": self.human_question_count,
+            "engagement_nudge_sent": self.engagement_nudge_sent,
         }
 
     def restore_from_state(self, state: dict) -> None:
@@ -404,6 +485,10 @@ class LiveEngine:
         self._wrapping_up = state["wrapping_up"]
         self.turns = [Turn.model_validate(t) for t in state["turns"]]
         self.tension_history = state["tension_history"]
+        # Restore case study gating state
+        self.revealed_categories = set(state.get("revealed_categories", []))
+        self.human_question_count = state.get("human_question_count", 0)
+        self.engagement_nudge_sent = state.get("engagement_nudge_sent", False)
         self._sync_agent_histories()
 
     # --- Private helpers ---
@@ -480,3 +565,91 @@ class LiveEngine:
             turns.append(turn)
 
         return turns
+
+    def _build_gated_context(self) -> str:
+        """
+        Build facilitator context with only revealed data categories.
+
+        Returns instruction string telling the facilitator what data
+        has been unlocked and what to share.
+        """
+        if not self.case_study:
+            return ""
+
+        all_labels = self.case_study.get_all_category_labels()
+        revealed_data = self.case_study.get_revealed_data(self.revealed_categories)
+        unrevealed = [
+            label for cat, label in all_labels.items()
+            if cat not in self.revealed_categories
+        ]
+
+        parts = [
+            f"You are the facilitator for the {self.case_study.company_name} case study.",
+        ]
+
+        if revealed_data:
+            parts.append(
+                f"\nThe candidate has asked about the following data. "
+                f"You may share this information:\n\n{revealed_data}"
+            )
+
+        if unrevealed:
+            unrevealed_str = ", ".join(unrevealed)
+            parts.append(
+                f"\nDo NOT proactively share data about: {unrevealed_str}. "
+                f"Only share this data if the candidate specifically asks about it."
+            )
+
+        parts.append(
+            "\nIf asked about data not listed here, respond: "
+            "'That specific data isn't available for this case. "
+            "Let me share what we do have about [nearest available category].'"
+        )
+
+        return "\n".join(parts)
+
+    def _detect_questions(self, text: str) -> bool:
+        """Check if text contains analytical questions."""
+        return bool(QUESTION_PATTERNS.search(text))
+
+    def _check_engagement(self) -> Optional[Turn]:
+        """
+        Check if the human needs an engagement nudge.
+
+        At turn ~8+, if the human hasn't asked any analytical questions,
+        Sam models the behavior by asking about a key data category.
+        """
+        if self.engagement_nudge_sent:
+            return None
+        if len(self.turns) < ENGAGEMENT_CHECK_TURN:
+            return None
+        if self.human_question_count > 0:
+            return None
+        if not self.case_study:
+            return None
+
+        self.engagement_nudge_sent = True
+
+        # Pick a data category to ask about
+        unrevealed = [
+            item for item in self.case_study.data_items
+            if item.category not in self.revealed_categories
+        ]
+        if not unrevealed:
+            return None
+
+        # Sam models analytical questioning
+        target = unrevealed[0]
+        nudge_content = (
+            f"Before we dive deeper, I think we should understand the "
+            f"{target.label.lower()} better. Facilitator, can you walk us "
+            f"through the {target.label.lower()}?"
+        )
+
+        turn = self._create_turn(SpeakerRole.MEDIATOR, "Sam", nudge_content)
+        self.turns.append(turn)
+
+        # This also reveals the category so the facilitator can respond
+        self.revealed_categories.add(target.category)
+
+        return turn

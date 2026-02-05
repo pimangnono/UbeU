@@ -11,7 +11,7 @@ from typing import Optional
 import sys
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from config.scenarios import get_all_scenario_ids
+from step2.consulting_scenarios import get_all_consulting_scenario_ids
 from step2.models import ParticipantRecord
 
 
@@ -20,7 +20,7 @@ class ParticipantManager:
     Manages participant IDs, scenario assignment, and persistence.
 
     - IDs are sequential: P001, P002, ...
-    - Scenarios are counterbalanced via round-robin across the 4 scenarios.
+    - Scenarios are counterbalanced via round-robin across the 4 consulting scenarios.
     - Each participant's data is stored in outputs/step2/participants/{pid}/
     """
 
@@ -28,7 +28,7 @@ class ParticipantManager:
         self._base_dir = Path(base_dir) if base_dir else Path("outputs/step2/participants")
         self._base_dir.mkdir(parents=True, exist_ok=True)
         self._lock = threading.Lock()
-        self._scenario_ids = get_all_scenario_ids()
+        self._scenario_ids = get_all_consulting_scenario_ids()
         self._counter = self._discover_next_id()
 
     def _discover_next_id(self) -> int:

@@ -19,22 +19,23 @@ def render():
     st.markdown("""
     ### About This Study
 
-    You are invited to participate in a research study on workplace communication
+    You are invited to participate in a research study on analytical discussion
     and personality expression. The study involves:
 
     1. **Personality Questionnaire** (~5 min): A standard 44-item personality
        questionnaire (BFI-44).
-    2. **Group Discussion** (~15 min): A simulated workplace discussion with
-       AI-powered colleagues about a realistic workplace scenario. You will
+    2. **Case Study Discussion** (~15 min): A business case study discussion with
+       AI-powered colleagues about a realistic business problem. You will
        participate as yourself.
     3. **Brief Survey** (~2 min): A short survey about your experience.
 
     ### What to Expect
 
-    During the group discussion, you will interact with two AI colleagues
-    (Jordan and Sam) and a facilitator in a workplace scenario involving a
-    team decision. Please respond naturally as you would in a real workplace
-    discussion.
+    During the case study discussion, you will interact with two AI colleagues
+    (Jordan and Sam) and a facilitator in a consulting-style scenario involving
+    business problem analysis. You'll be presented with a company and its
+    challenge, and can ask for data to support your analysis. Please respond
+    naturally as you would in a real team discussion.
 
     ### Data Usage
 

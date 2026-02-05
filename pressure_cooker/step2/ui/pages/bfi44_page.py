@@ -1,8 +1,10 @@
 """
 Page 2: BFI-44 Questionnaire
 
-44 items in st.form() with Likert radio buttons (1-5).
-Single submit to avoid 44 reruns.
+44 items with horizontal dot scale (1-5).
+Uses clickable dots in a row per item via st.columns + st.button.
+Labels: "Strongly Disagree" on left, "Strongly Agree" on right.
+Selected dot highlighted with CSS (filled circle vs hollow).
 """
 
 import time
@@ -61,13 +63,63 @@ BFI44_ITEMS = [
     (44, "Is sophisticated in art, music, or literature"),
 ]
 
-LIKERT_OPTIONS = {
-    1: "Disagree strongly",
-    2: "Disagree a little",
-    3: "Neither agree nor disagree",
-    4: "Agree a little",
-    5: "Agree strongly",
+# CSS for the horizontal dot scale
+DOT_SCALE_CSS = """
+<style>
+.dot-scale-container {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding: 4px 0;
 }
+.dot-scale-labels {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 0.75rem;
+    color: #888;
+    margin-top: 2px;
+}
+.dot-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 2px solid #666;
+    background: transparent;
+    cursor: pointer;
+    margin: 0 6px;
+    padding: 0;
+    transition: all 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.dot-btn:hover {
+    border-color: #4A90D9;
+    background: rgba(74, 144, 217, 0.1);
+}
+.dot-btn.selected {
+    background: #4A90D9;
+    border-color: #4A90D9;
+}
+.bfi-item-row {
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+.bfi-item-text {
+    flex: 0 0 45%;
+    font-size: 0.95rem;
+}
+.bfi-item-scale {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+</style>
+"""
 
 
 def render():
@@ -83,39 +135,65 @@ def render():
         "Please indicate how much you agree or disagree with each statement. "
         "**\"I see myself as someone who...\"**"
     )
+
+    # Inject dot scale CSS
+    st.markdown(DOT_SCALE_CSS, unsafe_allow_html=True)
+
     st.markdown("---")
 
     # Track start time
     if "bfi44_start_time" not in st.session_state:
         st.session_state.bfi44_start_time = time.time()
 
-    with st.form("bfi44_form"):
-        responses = {}
+    # Initialize responses in session state if needed
+    if "bfi44_responses" not in st.session_state:
+        st.session_state.bfi44_responses = {num: 3 for num, _ in BFI44_ITEMS}
 
-        for idx, (item_num, item_text) in enumerate(BFI44_ITEMS):
-            col1, col2 = st.columns([3, 5])
-            with col1:
-                st.markdown(f"**{item_num}.** ...{item_text}")
-            with col2:
-                val = st.radio(
-                    f"Item {item_num}",
-                    options=[1, 2, 3, 4, 5],
-                    format_func=lambda x: LIKERT_OPTIONS[x],
-                    horizontal=True,
-                    key=f"bfi44_item_{item_num}",
-                    label_visibility="collapsed",
-                )
-                responses[item_num] = val
+    # Scale labels header
+    label_cols = st.columns([4, 1, 1, 1, 1, 1])
+    with label_cols[0]:
+        st.markdown("")
+    with label_cols[1]:
+        st.caption("Strongly Disagree")
+    with label_cols[3]:
+        st.caption("Neutral")
+    with label_cols[5]:
+        st.caption("Strongly Agree")
 
-            # Add visual separator every 11 items
-            if (idx + 1) % 11 == 0 and idx < len(BFI44_ITEMS) - 1:
-                st.markdown("---")
+    st.markdown("---")
 
-        st.markdown("---")
-        submitted = st.form_submit_button("Submit Questionnaire", type="primary")
+    for idx, (item_num, item_text) in enumerate(BFI44_ITEMS):
+        cols = st.columns([4, 1, 1, 1, 1, 1])
 
-    if submitted:
+        with cols[0]:
+            st.markdown(f"**{item_num}.** ...{item_text}")
+
+        current_val = st.session_state.bfi44_responses.get(item_num, 3)
+
+        for dot_idx, value in enumerate([1, 2, 3, 4, 5]):
+            with cols[dot_idx + 1]:
+                # Use filled/hollow circle based on selection
+                is_selected = current_val == value
+                label = "\u25CF" if is_selected else "\u25CB"  # Filled vs hollow circle
+                if st.button(
+                    label,
+                    key=f"dot_{item_num}_{value}",
+                    help=f"{value}",
+                    use_container_width=True,
+                ):
+                    st.session_state.bfi44_responses[item_num] = value
+                    st.rerun()
+
+        # Add visual separator every 11 items
+        if (idx + 1) % 11 == 0 and idx < len(BFI44_ITEMS) - 1:
+            st.markdown("---")
+
+    st.markdown("---")
+
+    # Check all items answered (they default to 3, so always answered)
+    if st.button("Submit Questionnaire", type="primary"):
         duration = time.time() - st.session_state.bfi44_start_time
+        responses = st.session_state.bfi44_responses
 
         with st.spinner("Scoring your responses..."):
             try:
