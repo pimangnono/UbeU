@@ -263,24 +263,23 @@ class TestRateLimiter:
         """Test creating a rate limiter."""
         from clients.llm_client import RateLimiter
 
-        limiter = RateLimiter(rpm_limit=2, rpd_limit=50)
+        limiter = RateLimiter(rpm_limit=2)
         assert limiter.rpm_limit == 2
-        assert limiter.rpd_limit == 50
-        assert limiter.daily_count == 0
+        assert limiter.request_times == []
 
     def test_rate_limiter_remaining(self):
         """Test tracking remaining requests."""
         from clients.llm_client import RateLimiter
 
-        limiter = RateLimiter(rpm_limit=2, rpd_limit=50)
+        limiter = RateLimiter(rpm_limit=2)
 
-        assert limiter.get_remaining_daily() == 50
-
-        limiter.record_request()
-        assert limiter.get_remaining_daily() == 49
+        assert limiter.get_remaining_daily() == 999
 
         limiter.record_request()
-        assert limiter.get_remaining_daily() == 48
+        assert len(limiter.request_times) == 1
+
+        limiter.record_request()
+        assert len(limiter.request_times) == 2
 
 
 class TestIntentClassification:
