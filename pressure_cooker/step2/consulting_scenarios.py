@@ -87,6 +87,46 @@ TECHFLOW = CaseStudy(
             ),
             keywords=["operation", "product", "team", "employee", "platform", "technical", "infrastructure", "headcount"],
         ),
+        CaseDataItem(
+            category="unit_economics",
+            label="Unit Economics & Metrics",
+            detail=(
+                "Lifetime value (LTV) by segment:\n"
+                "- Enterprise: $450K (avg lifetime 3.0 years × $150K ACV)\n"
+                "- Mid-market: $56K (avg lifetime 2.2 years × $25K ACV)\n"
+                "- SMB: $5.1K (avg lifetime 1.7 years × $3K ACV)\n\n"
+                "CAC payback period:\n"
+                "- Enterprise: 3.6 months (CAC $45K ÷ monthly ACV $12.5K)\n"
+                "- Mid-market: 3.8 months (CAC $8K ÷ monthly ACV $2.1K)\n"
+                "- SMB: 8.0 months (CAC $2K ÷ monthly ACV $250)\n\n"
+                "LTV:CAC ratio:\n"
+                "- Enterprise: 10.0x — highly profitable\n"
+                "- Mid-market: 7.0x — healthy\n"
+                "- SMB: 2.6x — below 3.0x threshold, unprofitable after support costs\n\n"
+                "Monthly churn rates:\n"
+                "- Enterprise: 0.4%, Mid-market: 1.3%, SMB: 2.9%\n"
+                "Expansion revenue (upsell/cross-sell): 12% of Enterprise, 5% Mid-market, <1% SMB"
+            ),
+            keywords=["unit", "LTV", "lifetime", "churn", "payback", "economics", "retention rate", "upsell", "expansion"],
+        ),
+        CaseDataItem(
+            category="quarterly_trends",
+            label="Quarterly Trends",
+            detail=(
+                "Revenue (quarterly ARR snapshots):\n"
+                "- Q1 2023: $9.8M (margin 78%)\n"
+                "- Q2 2023: $10.4M (margin 76%)\n"
+                "- Q3 2023: $11.1M (margin 74%)\n"
+                "- Q4 2023: $11.6M (margin 73%)\n"
+                "- Q1 2024: $12.0M (margin 72%)\n\n"
+                "Margin decline drivers:\n"
+                "- SMB support cost growing +25% YoY (vs revenue +8%)\n"
+                "- Infrastructure costs +18% YoY from scaling SMB tier\n"
+                "- Enterprise margins stable at 85%\n"
+                "- SMB segment-level margin: -5% (net loss after allocated support & infra)"
+            ),
+            keywords=["trend", "quarter", "history", "growth", "decline", "trajectory", "over time", "year"],
+        ),
     ],
 )
 
@@ -171,6 +211,46 @@ GREENLEAF = CaseStudy(
                 "- D2C return rate: industry avg 3-5% for food/beverage"
             ),
             keywords=["supply", "logistics", "shipping", "warehouse", "fulfillment", "distribution", "chain", "delivery"],
+        ),
+        CaseDataItem(
+            category="market_size",
+            label="Market Size & Growth",
+            detail=(
+                "US Organic Snack Market:\n"
+                "- TAM: $12.8B (2024), growing 9.2% CAGR\n"
+                "- SAM (premium organic bars/granola): $3.4B\n"
+                "- SOM (GreenLeaf addressable): $340M (10% of SAM)\n\n"
+                "Channel trends:\n"
+                "- Retail organic food: $48B total, growing 6% YoY\n"
+                "- D2C food & beverage: $8.2B, growing 22% YoY\n"
+                "- Subscription food boxes: $2.1B, growing 15% YoY\n\n"
+                "Consumer trends:\n"
+                "- 67% of millennials willing to pay premium for organic\n"
+                "- D2C brand awareness growing 3x faster than retail-first brands\n"
+                "- Average D2C food brand achieves 40% repeat rate vs 25% in retail"
+            ),
+            keywords=["market size", "TAM", "SAM", "SOM", "growth", "trend", "industry", "how big", "opportunity"],
+        ),
+        CaseDataItem(
+            category="unit_economics",
+            label="Unit Economics by Channel",
+            detail=(
+                "Per-unit breakdown (snack bar, retail price $3.49):\n"
+                "- COGS: $0.92 (ingredients $0.58, packaging $0.18, labor $0.16)\n"
+                "- Retail channel: wholesale price $1.92, retailer margin 45%\n"
+                "  → GreenLeaf gross margin per unit: $1.00 (52%)\n"
+                "  → Slotting fee amortized: $0.15/unit in year 1\n"
+                "  → Net margin per unit (retail): $0.85\n\n"
+                "- D2C channel: selling price $4.29 (subscription $3.89)\n"
+                "  → GreenLeaf gross margin per unit: $3.37 (79%)\n"
+                "  → Fulfillment & shipping: $0.85/unit\n"
+                "  → Digital marketing (allocated): $0.65/unit\n"
+                "  → Net margin per unit (D2C): $1.87\n\n"
+                "Break-even analysis:\n"
+                "- Retail expansion: ~18 months to break even on $4M investment\n"
+                "- D2C launch: ~12 months to break even on $2M investment"
+            ),
+            keywords=["unit", "economics", "COGS", "margin per", "break even", "breakeven", "per unit", "contribution"],
         ),
     ],
 )
@@ -264,6 +344,44 @@ MEDICORE = CaseStudy(
                 "- Medication error rate: slightly above average (1.2 vs 0.9 per 1000 patient days)"
             ),
             keywords=["patient", "flow", "admission", "discharge", "readmission", "quality", "satisfaction", "wait", "throughput"],
+        ),
+        CaseDataItem(
+            category="technology",
+            label="Technology & IT Systems",
+            detail=(
+                "Current systems:\n"
+                "- EHR: Legacy system (12 years old), vendor support ending in 18 months\n"
+                "- Scheduling: Manual spreadsheet-based for 2 of 4 hospitals\n"
+                "- Hospitals A & B use digital scheduling; C & D use manual\n"
+                "- No centralized bed management system\n"
+                "- Paper-based discharge documentation at Hospitals C & D\n\n"
+                "IT spending: $14M/year (2.9% of revenue, benchmark: 3.5-4.0%)\n"
+                "Estimated EHR replacement cost: $18-22M over 3 years\n"
+                "Estimated digital scheduling rollout: $1.2M (6-month implementation)\n"
+                "Potential savings from centralized bed management: $4-6M/year\n"
+                "Potential savings from discharge automation: $2-3M/year (reduced delays)"
+            ),
+            keywords=["technology", "IT", "system", "EHR", "digital", "software", "automation", "scheduling system", "computer"],
+        ),
+        CaseDataItem(
+            category="cost_breakdown",
+            label="Detailed Cost Breakdown",
+            detail=(
+                "Cost per hospital (annual):\n"
+                "           Hospital A  Hospital B  Hospital C  Hospital D\n"
+                "Revenue    $145M       $130M       $110M       $95M\n"
+                "Labor      $82M        $74M        $65M        $59M\n"
+                "Supplies   $28M        $25M        $22M        $20M\n"
+                "Facility   $13M        $12M        $12M        $11M\n"
+                "Admin      $12M        $11M        $10M        $9M\n"
+                "Margin     6.9%        6.2%        0.9%        -4.2%\n\n"
+                "Hospital D is operating at a loss. Key drivers:\n"
+                "- Lowest occupancy (68%) but same fixed cost base\n"
+                "- Highest nurse agency spend: $5.2M (vs $2.1M avg for others)\n"
+                "- Oldest facility: maintenance costs 40% above network average\n"
+                "- Administrative overhead: 22% of staff (vs 18% network average)"
+            ),
+            keywords=["cost breakdown", "per hospital", "which hospital", "detail cost", "where is the cost", "Hospital D", "loss"],
         ),
     ],
 )
@@ -364,6 +482,51 @@ SWIFTCART = CaseStudy(
                 "- No post-purchase engagement program currently"
             ),
             keywords=["support", "service", "complaint", "return", "delivery", "experience", "satisfaction", "NPS", "CSAT", "help"],
+        ),
+        CaseDataItem(
+            category="unit_economics",
+            label="Unit Economics & LTV",
+            detail=(
+                "Customer lifetime value by cohort:\n"
+                "- Power users: LTV $820, CAC $19, LTV:CAC 43x, payback <1 month\n"
+                "- Regular users: LTV $185, CAC $19, LTV:CAC 9.7x, payback 2 months\n"
+                "- One-time buyers: LTV $62, CAC $19, LTV:CAC 3.3x, payback at purchase\n\n"
+                "Contribution margin per order:\n"
+                "- Average order value: $62\n"
+                "- COGS (product cost): $37.20 (60%)\n"
+                "- Fulfillment & shipping: $8.50\n"
+                "- Payment processing: $1.86 (3%)\n"
+                "- Returns & refunds (allocated): $4.46\n"
+                "- Contribution margin: $9.98 (16.1%)\n\n"
+                "Repeat purchase economics:\n"
+                "- 1st order: contribution $9.98, marketing cost $19 → net -$9.02\n"
+                "- 2nd order: contribution $9.98, marketing cost $5 (retargeting) → net +$4.98\n"
+                "- 3rd+ order: contribution $9.98, marketing cost $2 (email/push) → net +$7.98\n"
+                "- Break-even requires 2.9 orders per customer (currently avg 1.8)"
+            ),
+            keywords=["unit", "economics", "LTV", "lifetime", "contribution", "margin per order", "break even", "payback"],
+        ),
+        CaseDataItem(
+            category="platform_tech",
+            label="Platform & Technology",
+            detail=(
+                "App performance:\n"
+                "- Mobile app: 3.8/5 star rating (down from 4.2 last year)\n"
+                "- Page load time: 3.8 seconds (benchmark: 2.0 seconds)\n"
+                "- Checkout abandonment rate: 72% (industry avg: 65%)\n"
+                "- Search-to-purchase conversion: 2.1% (industry avg: 3.5%)\n\n"
+                "Conversion funnel (monthly):\n"
+                "- Homepage visits: 8.5M\n"
+                "- Product page views: 3.2M (38% click-through)\n"
+                "- Add to cart: 640K (7.5% of visits)\n"
+                "- Begin checkout: 280K (44% of add-to-cart)\n"
+                "- Complete purchase: 178K (64% of checkout, 2.1% overall)\n\n"
+                "Personalization:\n"
+                "- Recommendation engine: basic collaborative filtering (2 years old)\n"
+                "- Personalized email conversion: 1.2% (industry avg with ML: 3.5%)\n"
+                "- No personalized homepage or push notifications currently"
+            ),
+            keywords=["platform", "technology", "app", "website", "conversion", "funnel", "checkout", "performance", "tech stack"],
         ),
     ],
 )

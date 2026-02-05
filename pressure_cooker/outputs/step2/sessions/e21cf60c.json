@@ -1,0 +1,32 @@
+{
+  "participant_id": "P024",
+  "engine_state": {
+    "session_id": "e21cf60c",
+    "scenario_id": "swiftcart",
+    "participant_name": "Alex",
+    "state": "active",
+    "start_time": 1770295969.021962,
+    "turn_counter": 1,
+    "warned_time": false,
+    "wrapping_up": false,
+    "turns": [
+      {
+        "turn_number": 0,
+        "speaker": "system",
+        "speaker_name": "Facilitator",
+        "content": "\"Let's discuss SwiftCart, an e-commerce platform with 2M active users experiencing a concerning drop in repeat purchase rate from 35% to 22%. Our goal is to identify strategies to recover customer retention.\"",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "e21cf60c"
+        }
+      }
+    ],
+    "tension_history": [],
+    "revealed_categories": [],
+    "human_question_count": 0,
+    "engagement_nudge_sent": false
+  },
+  "case_study_id": "swiftcart"
+}

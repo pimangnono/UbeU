@@ -208,6 +208,9 @@ def render():
                 resp.raise_for_status()
 
                 st.session_state.current_step = "interview"
+                st.html(
+                    '<script>window.parent.document.querySelector("section.main").scrollTo(0,0);</script>'
+                )
                 st.rerun()
 
             except httpx.HTTPError as e:

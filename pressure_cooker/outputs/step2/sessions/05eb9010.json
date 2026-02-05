@@ -1,0 +1,110 @@
+{
+  "participant_id": "P028",
+  "engine_state": {
+    "session_id": "05eb9010",
+    "scenario_id": "swiftcart",
+    "participant_name": "aa",
+    "state": "active",
+    "start_time": 1770296872.827102,
+    "turn_counter": 7,
+    "warned_time": false,
+    "wrapping_up": false,
+    "turns": [
+      {
+        "turn_number": 0,
+        "speaker": "system",
+        "speaker_name": "Facilitator",
+        "content": "Let's examine SwiftCart's e-commerce retention challenge. They have 2M active users but repeat purchase rates have declined from 35% to 22%.",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "05eb9010"
+        }
+      },
+      {
+        "turn_number": 1,
+        "speaker": "candidate",
+        "speaker_name": "aa",
+        "content": "can I know their product mix?",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "05eb9010"
+        }
+      },
+      {
+        "turn_number": 2,
+        "speaker": "provoker",
+        "speaker_name": "Jordan",
+        "content": "\"Product mix is irrelevant if we don't first diagnose why existing customers aren't returning. What specific data points suggest this is a product issue versus say, pricing or experience?\" \n\n\"Before diving into product categories, shouldn't we quantify how much revenue this 13% drop represents? That's the real business impact we need to address urgently.\" \n\n\"You're jumping to solutions without validating root causes - how do we know product mix changes will move the needle on retention?\"",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "05eb9010"
+        }
+      },
+      {
+        "turn_number": 3,
+        "speaker": "mediator",
+        "speaker_name": "Sam",
+        "content": "\"That's a fair point about quantifying the revenue impact Jordan - maybe we could look at average order value alongside the retention drop? And aa, understanding the product mix could help us see if certain categories are driving the decline.\" \n\n\"Let's not get stuck in either/or thinking - both product mix and customer experience data could be valuable here. What metrics do we have access to that could shed light on both angles?\"",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.5,
+        "metadata": {
+          "session_id": "05eb9010"
+        }
+      },
+      {
+        "turn_number": 4,
+        "speaker": "candidate",
+        "speaker_name": "aa",
+        "content": "can I know their product mix?",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.4,
+        "metadata": {
+          "session_id": "05eb9010"
+        }
+      },
+      {
+        "turn_number": 5,
+        "speaker": "candidate",
+        "speaker_name": "aa",
+        "content": "can I know their product mix?",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.4,
+        "metadata": {
+          "session_id": "05eb9010"
+        }
+      },
+      {
+        "turn_number": 6,
+        "speaker": "system",
+        "speaker_name": "Facilitator",
+        "content": "**Product & Category Mix:**\nProduct categories (by GMV):\n- Electronics: 35% ($52.5M) \u2014 highest AOV ($120), lowest repeat rate (15%)\n- Fashion: 28% ($42M) \u2014 moderate AOV ($55), moderate repeat (32%)\n- Home & Living: 22% ($33M) \u2014 moderate AOV ($65), highest repeat (48%)\n- Beauty & Personal Care: 15% ($22.5M) \u2014 lowest AOV ($35), high repeat (44%)\n\nTotal GMV: $150M\nAverage order value: $62 (",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.4,
+        "metadata": {
+          "session_id": "05eb9010"
+        }
+      }
+    ],
+    "tension_history": [
+      0.5,
+      0.4,
+      0.4
+    ],
+    "revealed_categories": [
+      "product_mix"
+    ],
+    "human_question_count": 3,
+    "engagement_nudge_sent": false
+  },
+  "case_study_id": "swiftcart"
+}

@@ -120,6 +120,7 @@ class LiveEngine:
 
         # Case study / information gating state
         self.revealed_categories: set[str] = set()
+        self._last_newly_revealed: set[str] = set()
         self.human_question_count: int = 0
         self.engagement_nudge_sent: bool = False
 
@@ -156,17 +157,16 @@ class LiveEngine:
         opening_turns = []
 
         if self.case_study:
-            # Case study opening: introduce the case
+            # Case study opening: present the case briefing only
             intro_context = (
-                f"You are the facilitator for a consulting case discussion. "
-                f"Introduce the case to the group. The participants are "
-                f"{self.participant_name}, Jordan, and Sam.\n\n"
-                f"Company: {self.case_study.company_name}\n"
-                f"Industry: {self.case_study.industry}\n"
-                f"Problem: {self.case_study.problem_statement}\n\n"
-                f"Present the company and problem clearly. Invite the team to "
-                f"analyze the problem and ask questions about the available data. "
-                f"Do NOT share any detailed data yet — wait for them to ask."
+                f"Present this case briefing in 3-4 sentences. The team is "
+                f"{self.participant_name}, Jordan, and Sam.\n"
+                f"Company: {self.case_study.company_name} ({self.case_study.industry})\n"
+                f"Problem: {self.case_study.problem_statement}\n"
+                f"State the company and problem clearly. "
+                f"Do NOT ask any questions. Do NOT end with a question mark. "
+                f"Do NOT invite discussion. Do NOT suggest what to do next. "
+                f"Do NOT share detailed data yet. Just present the problem and stop."
             )
         else:
             # Legacy scenario opening
@@ -184,25 +184,17 @@ class LiveEngine:
         # Update agents with the intro
         self._sync_agent_histories()
 
-        # Provoker sets the stage
-        if self.case_study:
-            provoker_context = (
-                f"The facilitator just introduced a case about {self.case_study.company_name}. "
-                f"Make a skeptical initial observation about the problem: "
-                f"'{self.case_study.problem_statement}'. "
-                f"Challenge whether the stated goal is realistic or ask what data "
-                f"we'd need to even begin analyzing this."
-            )
-        else:
+        # For case studies: human starts the discussion (no provoker opening)
+        # For legacy scenarios: provoker sets the stage
+        if not self.case_study:
             provoker_context = "Open the discussion by stating your position on the issue."
-
-        tension = 0.3
-        provoker_response = await self.provoker.generate_response(
-            provoker_context, tension
-        )
-        turn = self._create_turn(SpeakerRole.PROVOKER, "Jordan", provoker_response)
-        self.turns.append(turn)
-        opening_turns.append(turn)
+            tension = 0.3
+            provoker_response = await self.provoker.generate_response(
+                provoker_context, tension
+            )
+            turn = self._create_turn(SpeakerRole.PROVOKER, "Jordan", provoker_response)
+            self.turns.append(turn)
+            opening_turns.append(turn)
 
         self.state = SessionState.ACTIVE
         return opening_turns
@@ -231,7 +223,11 @@ class LiveEngine:
         # Case study: match keywords to reveal data categories
         if self.case_study:
             newly_matched = self.case_study.match_categories(content)
+            # Track which categories were NEWLY revealed (for smart routing)
+            self._last_newly_revealed = newly_matched - self.revealed_categories
             self.revealed_categories.update(newly_matched)
+        else:
+            self._last_newly_revealed = set()
 
         # Track analytical questions
         if self._detect_questions(content):
@@ -239,10 +235,17 @@ class LiveEngine:
 
         return turn
 
-    async def generate_ai_turns_until_human(self) -> list[Turn]:
+    async def generate_ai_turns_until_human(
+        self,
+        target_speaker: Optional[str] = None,
+    ) -> list[Turn]:
         """
         Generate AI turns until the SystemManager decides the human
         should speak next (or session ends).
+
+        Args:
+            target_speaker: If set, generate a response only from this
+                speaker and return immediately. Bypasses decide_next_speaker().
 
         Returns:
             List of AI turns generated in this step.
@@ -251,7 +254,96 @@ class LiveEngine:
             return []
 
         ai_turns: list[Turn] = []
+
+        # --- Targeted-speaker bypass ---
+        if target_speaker and target_speaker in self.ai_agents:
+            # Still run time checks and sync history
+            time_turns = await self._check_time_events()
+            ai_turns.extend(time_turns)
+            if self.state == SessionState.ENDED:
+                return ai_turns
+
+            self._sync_agent_histories()
+            tension = await self._get_tension()
+            gated_context = self._build_gated_context() if self.case_study else ""
+
+            agent = self.ai_agents[target_speaker]
+            if isinstance(agent, SystemManagerAgent):
+                response = await agent.generate_response(gated_context if gated_context else "")
+            else:
+                case_context = (
+                    "IMPORTANT: This is a consulting case study. The human candidate must "
+                    "lead the analysis. Do NOT propose frameworks, structure, or analytical "
+                    "approaches. Only react to what the candidate says — challenge weak "
+                    "reasoning, ask for clarification, or support good points. Never suggest "
+                    "what to look at next or how to break down the problem."
+                ) if self.case_study else ""
+                response = await agent.generate_response(
+                    context=case_context, tension_level=tension
+                )
+
+            turn = self._create_turn(agent.role, target_speaker, response)
+            self.turns.append(turn)
+            ai_turns.append(turn)
+            self._sync_agent_histories()
+
+            # Check engagement after targeted turn
+            engagement_turn = self._check_engagement()
+            if engagement_turn is not None:
+                ai_turns.append(engagement_turn)
+
+            return ai_turns
+
         max_consecutive_ai = 5  # Safety limit
+
+        # Case study fast path: skip tension/intervention/decide overhead.
+        if self.case_study:
+            time_turns = await self._check_time_events()
+            ai_turns.extend(time_turns)
+            if self.state == SessionState.ENDED:
+                return ai_turns
+
+            self._sync_agent_histories()
+            tension = self.tension_history[-1] if self.tension_history else 0.3
+
+            # Check if the human's last message was a data question.
+            # Route to Facilitator only if submit_human_turn revealed new data
+            # categories (keyword match). Generic questions without data keywords
+            # go to colleagues instead.
+            is_data_question = bool(getattr(self, '_last_newly_revealed', set()))
+
+            if is_data_question:
+                # Facilitator responds with data
+                gated_context = self._build_gated_context()
+                fac_response = await self.system_manager.generate_response(gated_context)
+                fac_turn = self._create_turn(SpeakerRole.SYSTEM, "Facilitator", fac_response)
+                self.turns.append(fac_turn)
+                ai_turns.append(fac_turn)
+                self._sync_agent_histories()
+            else:
+                # Colleague responds (alternate Jordan/Sam)
+                next_speaker = "Jordan" if len(self.turns) % 2 == 0 else "Sam"
+                agent = self.ai_agents[next_speaker]
+                case_context = (
+                    "IMPORTANT: This is a consulting case study. The human candidate must "
+                    "lead the analysis. Do NOT propose frameworks, structure, or analytical "
+                    "approaches. Only react to what the candidate says — challenge weak "
+                    "reasoning, ask for clarification, or support good points. Never suggest "
+                    "what to look at next or how to break down the problem."
+                )
+                response = await agent.generate_response(
+                    context=case_context, tension_level=tension
+                )
+                turn = self._create_turn(agent.role, next_speaker, response)
+                self.turns.append(turn)
+                ai_turns.append(turn)
+                self._sync_agent_histories()
+
+            engagement_turn = self._check_engagement()
+            if engagement_turn is not None:
+                ai_turns.append(engagement_turn)
+
+            return ai_turns
 
         for _ in range(max_consecutive_ai):
             # Check time-based events
@@ -273,7 +365,7 @@ class LiveEngine:
             )
 
             # Build gated context for facilitator if case study active
-            gated_context = self._build_gated_context() if self.case_study else ""
+            gated_context = ""
 
             if should_intervene:
                 context = f"{reason}\n\n{gated_context}" if gated_context else reason
@@ -302,8 +394,15 @@ class LiveEngine:
                 context = gated_context if gated_context else ""
                 response = await agent.generate_response(context)
             else:
+                case_context = (
+                    "IMPORTANT: This is a consulting case study. The human candidate must "
+                    "lead the analysis. Do NOT propose frameworks, structure, or analytical "
+                    "approaches. Only react to what the candidate says — challenge weak "
+                    "reasoning, ask for clarification, or support good points. Never suggest "
+                    "what to look at next or how to break down the problem."
+                ) if self.case_study else ""
                 response = await agent.generate_response(
-                    context="", tension_level=tension
+                    context=case_context, tension_level=tension
                 )
 
             turn = self._create_turn(agent.role, next_speaker, response)
@@ -602,8 +701,24 @@ class LiveEngine:
 
         parts.append(
             "\nIf asked about data not listed here, respond: "
-            "'That specific data isn't available for this case. "
-            "Let me share what we do have about [nearest available category].'"
+            "'That specific data isn't available for this case.'"
+        )
+
+        parts.append(
+            "\n## STRICT RULES — FOLLOW EXACTLY:"
+            "\n- You are a DATA CLERK, not a discussion participant."
+            "\n- Your ONLY job: state the requested numbers/facts, then STOP."
+            "\n- NEVER ask questions. NEVER end with a question mark."
+            "\n- NEVER offer additional data (no 'Would you like...', no 'I can also share...')."
+            "\n- NEVER suggest what to analyze or look at next."
+            "\n- NEVER recommend an approach or framework."
+            "\n- NEVER give opinions or commentary on the data."
+            "\n- NEVER use directive phrases like 'Let's consider...', 'This suggests...', "
+            "'It's worth noting...', 'This could mean...', 'Keep in mind...', "
+            "'This is important because...', 'You might want to...'."
+            "\n- NEVER add concluding sentences after the data. No summaries, no implications."
+            "\n- Format: 'Here is [data category]: [numbers/facts].' — FULL STOP. Nothing after."
+            "\n- If data has multiple parts, list them with bullet points, then stop."
         )
 
         return "\n".join(parts)

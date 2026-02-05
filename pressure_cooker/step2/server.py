@@ -15,6 +15,7 @@ Endpoints:
 import json
 import os
 import sys
+import time
 from datetime import datetime
 from pathlib import Path
 
@@ -192,8 +193,11 @@ async def create_session(req: CreateSessionRequest):
     record.session_id = session.session_id
     p_mgr.update_participant(record)
 
-    # Generate opening
+    # Generate opening (compensate timer — LLM latency for opening shouldn't count)
+    llm_start = time.time()
     opening_turns = await session.engine.generate_opening()
+    if session.engine.start_time is not None:
+        session.engine.start_time += time.time() - llm_start
 
     # Persist state
     s_mgr.persist_session(session.session_id)
@@ -258,7 +262,24 @@ async def submit_message(sid: str, req: SubmitMessageRequest):
     engine.submit_human_turn(req.content)
 
     # Generate AI responses until it's the human's turn again
-    ai_turns = await engine.generate_ai_turns_until_human()
+    # Compensate engine timer: LLM latency shouldn't count against participant
+    llm_start = time.time()
+    try:
+        ai_turns = await engine.generate_ai_turns_until_human(
+            target_speaker=req.target_speaker,
+        )
+    except Exception as e:
+        # Compensate timer even on error
+        if engine.start_time is not None:
+            engine.start_time += time.time() - llm_start
+        s_mgr.persist_session(sid)
+        raise HTTPException(
+            503,
+            detail=f"AI response timed out. Please try again. ({type(e).__name__})",
+        )
+    # Shift start_time forward so LLM wait doesn't count as elapsed discussion time
+    if engine.start_time is not None:
+        engine.start_time += time.time() - llm_start
 
     # Persist state
     s_mgr.persist_session(sid)

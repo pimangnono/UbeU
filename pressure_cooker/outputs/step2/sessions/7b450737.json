@@ -1,0 +1,100 @@
+{
+  "participant_id": "P010",
+  "engine_state": {
+    "session_id": "7b450737",
+    "scenario_id": "greenleaf",
+    "participant_name": "TestUser",
+    "state": "active",
+    "start_time": 1770279788.438486,
+    "turn_counter": 6,
+    "warned_time": false,
+    "wrapping_up": false,
+    "turns": [
+      {
+        "turn_number": 0,
+        "speaker": "system",
+        "speaker_name": "Facilitator",
+        "content": "\"Welcome everyone. Today we're discussing GreenLeaf, a regional organic food brand considering national expansion through retail or D2C channels. What initial questions do you have about this decision?\"",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "7b450737"
+        }
+      },
+      {
+        "turn_number": 1,
+        "speaker": "provoker",
+        "speaker_name": "Jordan",
+        "content": "Before we jump into channels, shouldn't we verify if national expansion is even the right move? What data do we have showing demand exists beyond our current region?",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "7b450737"
+        }
+      },
+      {
+        "turn_number": 2,
+        "speaker": "candidate",
+        "speaker_name": "TestUser",
+        "content": "I think we should look at the financials first. What are their current revenue numbers and margins?",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "7b450737"
+        }
+      },
+      {
+        "turn_number": 3,
+        "speaker": "mediator",
+        "speaker_name": "Sam",
+        "content": "That's a great point about validating national demand, Jordan. TestUser, since we're looking at $8M revenue currently, maybe we could compare how much growth potential each channel offers to inform our expansion decision?",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "7b450737"
+        }
+      },
+      {
+        "turn_number": 4,
+        "speaker": "provoker",
+        "speaker_name": "Jordan",
+        "content": "You're both missing the point - revenue numbers don't tell us if customers outside our region even want our products. Where's the market research showing national demand? \n\nAnd Sam, growth potential means nothing if we can't actually capture it. What's our competitive advantage against national organic brands?",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "7b450737"
+        }
+      },
+      {
+        "turn_number": 5,
+        "speaker": "mediator",
+        "speaker_name": "Sam",
+        "content": "Jordan makes a fair point about validating national demand - maybe we should look at market research alongside financial data? Let's explore both customer demand indicators and competitive positioning to make an informed decision.",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.5,
+        "metadata": {
+          "session_id": "7b450737"
+        }
+      }
+    ],
+    "tension_history": [
+      0.3,
+      0.3,
+      0.5,
+      0.4
+    ],
+    "revealed_categories": [
+      "current_operations",
+      "financials"
+    ],
+    "human_question_count": 1,
+    "engagement_nudge_sent": false
+  },
+  "case_study_id": "greenleaf"
+}

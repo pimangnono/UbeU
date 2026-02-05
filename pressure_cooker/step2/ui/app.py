@@ -25,8 +25,14 @@ import streamlit as st
 st.set_page_config(
     page_title="Workplace Discussion Study",
     page_icon="💼",
-    layout="centered",
+    layout="wide",
     initial_sidebar_state="collapsed",
+)
+
+# Hide auto-generated page navigation from sidebar
+st.markdown(
+    "<style>[data-testid='stSidebarNav'] {display:none !important;}</style>",
+    unsafe_allow_html=True,
 )
 
 # Initialize session state defaults
@@ -69,9 +75,10 @@ def main():
             st.divider()
             st.caption(f"ID: {st.session_state.participant_id}")
 
-    # Title
-    st.title("Workplace Discussion Study")
-    st.markdown("---")
+    # Title (hidden on interview page for compact layout)
+    if st.session_state.current_step != "interview":
+        st.title("Workplace Discussion Study")
+        st.markdown("---")
 
     # Route to current step
     step = st.session_state.current_step

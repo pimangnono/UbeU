@@ -1,0 +1,87 @@
+{
+  "participant_id": "P027",
+  "engine_state": {
+    "session_id": "0ba05b64",
+    "scenario_id": "medicore",
+    "participant_name": "Alex",
+    "state": "active",
+    "start_time": 1770296553.542177,
+    "turn_counter": 5,
+    "warned_time": false,
+    "wrapping_up": false,
+    "turns": [
+      {
+        "turn_number": 0,
+        "speaker": "system",
+        "speaker_name": "Facilitator",
+        "content": "\"Let me introduce our case: We're examining MediCore, a hospital network with 78% bed occupancy but operating costs 15% above regional average. The challenge is improving efficiency while maintaining quality care.\"",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "0ba05b64"
+        }
+      },
+      {
+        "turn_number": 1,
+        "speaker": "candidate",
+        "speaker_name": "Alex",
+        "content": "can I have the cost breakdown?",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "0ba05b64"
+        }
+      },
+      {
+        "turn_number": 2,
+        "speaker": "system",
+        "speaker_name": "Facilitator",
+        "content": "\"Here's the cost breakdown: Labor accounts for 60% at $280M, supplies 20% at $95M, facility 10% at $48M, and admin 9% at $42M. Would you like the detailed breakdown by hospital as well?\"",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "0ba05b64"
+        }
+      },
+      {
+        "turn_number": 3,
+        "speaker": "candidate",
+        "speaker_name": "Alex",
+        "content": "do you think we can focus on labor since it takes alot",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "0ba05b64"
+        }
+      },
+      {
+        "turn_number": 4,
+        "speaker": "mediator",
+        "speaker_name": "Sam",
+        "content": "That makes sense - labor is definitely our biggest cost driver at 60%. I wonder if we should also glance at supply costs too since they're the next largest bucket at 20%? Might help prioritize.",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.2,
+        "metadata": {
+          "session_id": "0ba05b64"
+        }
+      }
+    ],
+    "tension_history": [
+      0.2
+    ],
+    "revealed_categories": [
+      "financials",
+      "cost_breakdown",
+      "staffing",
+      "technology"
+    ],
+    "human_question_count": 2,
+    "engagement_nudge_sent": false
+  },
+  "case_study_id": "medicore"
+}

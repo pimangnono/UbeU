@@ -1,0 +1,44 @@
+{
+  "participant_id": "P013",
+  "engine_state": {
+    "session_id": "4e0f402e",
+    "scenario_id": "techflow",
+    "participant_name": "Alex",
+    "state": "active",
+    "start_time": 1770280336.233484,
+    "turn_counter": 2,
+    "warned_time": false,
+    "wrapping_up": false,
+    "turns": [
+      {
+        "turn_number": 0,
+        "speaker": "system",
+        "speaker_name": "Facilitator",
+        "content": "\"Let's discuss TechFlow, a B2B SaaS company with $12M ARR facing declining margins. Our goal is to improve profitability by 5 percentage points. Alex, Jordan, Sam - what initial questions or thoughts do you have?\"",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "4e0f402e"
+        }
+      },
+      {
+        "turn_number": 1,
+        "speaker": "provoker",
+        "speaker_name": "Jordan",
+        "content": "Before we jump to solutions, I want to challenge whether we're focusing on the right thing - why are margins declining in the first place? What specific cost categories have increased disproportionately compared to revenue growth?",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "4e0f402e"
+        }
+      }
+    ],
+    "tension_history": [],
+    "revealed_categories": [],
+    "human_question_count": 0,
+    "engagement_nudge_sent": false
+  },
+  "case_study_id": "techflow"
+}

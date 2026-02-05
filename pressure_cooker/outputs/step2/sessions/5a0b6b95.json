@@ -1,0 +1,219 @@
+{
+  "participant_id": "P032",
+  "engine_state": {
+    "session_id": "5a0b6b95",
+    "scenario_id": "swiftcart",
+    "participant_name": "aaaa",
+    "state": "active",
+    "start_time": 1770300364.2090292,
+    "turn_counter": 16,
+    "warned_time": false,
+    "wrapping_up": false,
+    "turns": [
+      {
+        "turn_number": 0,
+        "speaker": "system",
+        "speaker_name": "Facilitator",
+        "content": "Let's examine SwiftCart's situation: an e-commerce platform with 2 million active users experiencing a repeat purchase rate decline from 35% to 22%. Our focus is recovering customer retention.",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "5a0b6b95"
+        }
+      },
+      {
+        "turn_number": 1,
+        "speaker": "candidate",
+        "speaker_name": "aaaa",
+        "content": "can I know about product mix",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "5a0b6b95"
+        }
+      },
+      {
+        "turn_number": 2,
+        "speaker": "system",
+        "speaker_name": "Facilitator",
+        "content": "Here is the product mix data by category, GMV, AOV, and repeat rates: Electronics 35% at $120 AOV with 15% repeat, Fashion 28% at $55 AOV with 32% repeat, Home & Living 22% at $65 AOV with 48% repeat, Beauty & Personal Care 15% at $35 AOV with 44% repeat.",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "5a0b6b95"
+        }
+      },
+      {
+        "turn_number": 3,
+        "speaker": "candidate",
+        "speaker_name": "aaaa",
+        "content": "what sector should we focus on",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "5a0b6b95"
+        }
+      },
+      {
+        "turn_number": 4,
+        "speaker": "provoker",
+        "speaker_name": "Jordan",
+        "content": "You're jumping straight to focusing on sectors without diagnosing the root cause of the retention drop. What data suggests this is a product mix issue rather than something like customer experience or pricing? \n\nElectronics has the lowest repeat rate but highest AOV - are we sure shifting focus away from it is the right move without understanding why customers aren't returning?",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "5a0b6b95"
+        }
+      },
+      {
+        "turn_number": 5,
+        "speaker": "candidate",
+        "speaker_name": "aaaa",
+        "content": "you are correct. let's start with the problem ",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "5a0b6b95"
+        }
+      },
+      {
+        "turn_number": 6,
+        "speaker": "candidate",
+        "speaker_name": "aaaa",
+        "content": "what is the revenue stream?",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.4,
+        "metadata": {
+          "session_id": "5a0b6b95"
+        }
+      },
+      {
+        "turn_number": 7,
+        "speaker": "mediator",
+        "speaker_name": "Sam",
+        "content": "Great point Jordan - let's understand whether this is a product mix issue or something deeper. Aaaa, let's look at revenue streams alongside customer behavior data to identify patterns. \n\nPerhaps we could examine revenue trends alongside repeat rates by customer segment? That might reveal whether certain groups are driving the decline.",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.4,
+        "metadata": {
+          "session_id": "5a0b6b95"
+        }
+      },
+      {
+        "turn_number": 8,
+        "speaker": "candidate",
+        "speaker_name": "aaaa",
+        "content": "what is the revenue stream like?",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.4,
+        "metadata": {
+          "session_id": "5a0b6b95"
+        }
+      },
+      {
+        "turn_number": 9,
+        "speaker": "mediator",
+        "speaker_name": "Sam",
+        "content": "That's a smart pivot to examine revenue streams first. The electronics category brings in the highest AOV, so understanding its revenue contribution versus repeat rates could reveal interesting tradeoffs. Maybe we could compare revenue per customer across categories to see where we're losing value?",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.4,
+        "metadata": {
+          "session_id": "5a0b6b95"
+        }
+      },
+      {
+        "turn_number": 10,
+        "speaker": "candidate",
+        "speaker_name": "aaaa",
+        "content": "what is the revenue stream? ",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.4,
+        "metadata": {
+          "session_id": "5a0b6b95"
+        }
+      },
+      {
+        "turn_number": 11,
+        "speaker": "system",
+        "speaker_name": "Facilitator",
+        "content": "\"Here's the revenue breakdown by category: Electronics $52.5M, Fashion $42M, Home & Living $33M, Beauty & Personal Care $22.5M, totaling $150M GMV.\"",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.4,
+        "metadata": {
+          "session_id": "5a0b6b95"
+        }
+      },
+      {
+        "turn_number": 12,
+        "speaker": "candidate",
+        "speaker_name": "aaaa",
+        "content": "we can focus on personal care",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.4,
+        "metadata": {
+          "session_id": "5a0b6b95"
+        }
+      },
+      {
+        "turn_number": 13,
+        "speaker": "mediator",
+        "speaker_name": "Sam",
+        "content": "Interesting that Beauty & Personal Care has the lowest revenue but potentially higher repeat potential. How might we balance focusing there while maintaining our electronics revenue? \n\nJordan made a good point earlier about needing to understand why electronics customers aren't returning - maybe we should examine both categories side by side?",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.4,
+        "metadata": {
+          "session_id": "5a0b6b95"
+        }
+      },
+      {
+        "turn_number": 14,
+        "speaker": "candidate",
+        "speaker_name": "aaaa",
+        "content": "what is the customer segment for electronics? ",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.4,
+        "metadata": {
+          "session_id": "5a0b6b95"
+        }
+      },
+      {
+        "turn_number": 15,
+        "speaker": "system",
+        "speaker_name": "Facilitator",
+        "content": "\"Here are the electronics customer segments: Power users (5+ orders/year) make up 15% of electronics buyers, regular users (2-4 orders/year) 25%, and one-time buyers 60%.\"",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.2,
+        "metadata": {
+          "session_id": "5a0b6b95"
+        }
+      }
+    ],
+    "tension_history": [
+      0.4,
+      0.4,
+      0.2
+    ],
+    "revealed_categories": [
+      "product_mix",
+      "user_data"
+    ],
+    "human_question_count": 5,
+    "engagement_nudge_sent": false
+  },
+  "case_study_id": "swiftcart"
+}
