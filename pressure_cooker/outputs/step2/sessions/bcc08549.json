@@ -1,0 +1,124 @@
+{
+  "participant_id": "P030",
+  "engine_state": {
+    "session_id": "bcc08549",
+    "scenario_id": "greenleaf",
+    "participant_name": "aaaa",
+    "state": "active",
+    "start_time": 1770297449.448205,
+    "turn_counter": 8,
+    "warned_time": false,
+    "wrapping_up": false,
+    "turns": [
+      {
+        "turn_number": 0,
+        "speaker": "system",
+        "speaker_name": "Facilitator",
+        "content": "GreenLeaf is a regional organic food brand with $8M revenue evaluating national expansion through either retail or direct-to-consumer channels. The team will analyze which path makes the most strategic sense.",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "bcc08549"
+        }
+      },
+      {
+        "turn_number": 1,
+        "speaker": "candidate",
+        "speaker_name": "aaaa",
+        "content": "can I have product mix",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "bcc08549"
+        }
+      },
+      {
+        "turn_number": 2,
+        "speaker": "system",
+        "speaker_name": "Facilitator",
+        "content": "Current product mix: organic snack bars (60% of revenue), granola (25%), trail mix (15%).",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "bcc08549"
+        }
+      },
+      {
+        "turn_number": 3,
+        "speaker": "candidate",
+        "speaker_name": "aaaa",
+        "content": "should we focus on organic snack bars",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "bcc08549"
+        }
+      },
+      {
+        "turn_number": 4,
+        "speaker": "provoker",
+        "speaker_name": "Jordan",
+        "content": "Focusing solely on snack bars ignores 40% of our revenue. Aren't you concerned about cannibalizing our other profitable product lines? \n\nAnd what data supports snack bars being the best driver for national expansion? Retail buyers want diverse offerings.",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.1,
+        "metadata": {
+          "session_id": "bcc08549"
+        }
+      },
+      {
+        "turn_number": 5,
+        "speaker": "mediator",
+        "speaker_name": "Sam",
+        "content": "Jordan makes a fair point about product diversity being important for retail buyers. Aaaa, maybe we could explore how snack bars perform in retail vs D2C channels specifically? That might help us focus the discussion.",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.4,
+        "metadata": {
+          "session_id": "bcc08549"
+        }
+      },
+      {
+        "turn_number": 6,
+        "speaker": "candidate",
+        "speaker_name": "aaaa",
+        "content": "what are customer segment for snack bars in retail and d2c channels?",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.4,
+        "metadata": {
+          "session_id": "bcc08549"
+        }
+      },
+      {
+        "turn_number": 7,
+        "speaker": "system",
+        "speaker_name": "Facilitator",
+        "content": "Current customer segments: Retail buyers are primarily health-conscious grocery shoppers aged 28-45, while D2C customers skew slightly younger (25-40) with higher digital engagement.",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.4,
+        "metadata": {
+          "session_id": "bcc08549"
+        }
+      }
+    ],
+    "tension_history": [
+      0.1,
+      0.4,
+      0.4,
+      0.4
+    ],
+    "revealed_categories": [
+      "current_operations",
+      "customer_base"
+    ],
+    "human_question_count": 1,
+    "engagement_nudge_sent": false
+  },
+  "case_study_id": "greenleaf"
+}

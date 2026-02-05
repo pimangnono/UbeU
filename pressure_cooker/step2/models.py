@@ -133,6 +133,7 @@ class SessionStatusResponse(BaseModel):
 class SubmitMessageRequest(BaseModel):
     """Request to submit a human message."""
     content: str
+    target_speaker: Optional[str] = None
 
 
 class SubmitMessageResponse(BaseModel):

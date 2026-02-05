@@ -1,0 +1,56 @@
+{
+  "participant_id": "P025",
+  "engine_state": {
+    "session_id": "bc91b048",
+    "scenario_id": "techflow",
+    "participant_name": "aa",
+    "state": "active",
+    "start_time": 1770295985.920516,
+    "turn_counter": 3,
+    "warned_time": false,
+    "wrapping_up": false,
+    "turns": [
+      {
+        "turn_number": 0,
+        "speaker": "system",
+        "speaker_name": "Facilitator",
+        "content": "\"Let me introduce our case: TechFlow is a B2B SaaS company with $12M ARR facing declining margins. Our goal is to identify ways to improve profitability by 5 percentage points.\"",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "bc91b048"
+        }
+      },
+      {
+        "turn_number": 1,
+        "speaker": "candidate",
+        "speaker_name": "aa",
+        "content": "asdfaasdfasdf",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "bc91b048"
+        }
+      },
+      {
+        "turn_number": 2,
+        "speaker": "mediator",
+        "speaker_name": "Sam",
+        "content": "That's an important problem to tackle. Let's start by understanding what's driving the margin decline - maybe we should look at both cost structure and pricing? \n\nAlso, could we break this into revenue opportunities vs. cost optimization levers? That might help structure our discussion.",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "bc91b048"
+        }
+      }
+    ],
+    "tension_history": [],
+    "revealed_categories": [],
+    "human_question_count": 0,
+    "engagement_nudge_sent": false
+  },
+  "case_study_id": "techflow"
+}

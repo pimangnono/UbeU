@@ -1,0 +1,44 @@
+{
+  "participant_id": "P012",
+  "engine_state": {
+    "session_id": "79b661bd",
+    "scenario_id": "swiftcart",
+    "participant_name": "a",
+    "state": "active",
+    "start_time": 1770279935.8433459,
+    "turn_counter": 2,
+    "warned_time": false,
+    "wrapping_up": false,
+    "turns": [
+      {
+        "turn_number": 0,
+        "speaker": "system",
+        "speaker_name": "Facilitator",
+        "content": "\"Let's discuss SwiftCart's challenge: their repeat purchase rate has dropped from 35% to 22% despite 2M active users. Jordan and Sam, what initial questions or thoughts do you have about this retention issue?\"",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "79b661bd"
+        }
+      },
+      {
+        "turn_number": 1,
+        "speaker": "provoker",
+        "speaker_name": "Jordan",
+        "content": "\"We're bleeding nearly 40% of our repeat customers - what hard data do we have proving whether this is a pricing issue, satisfaction problem, or competitive poaching?\"",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "79b661bd"
+        }
+      }
+    ],
+    "tension_history": [],
+    "revealed_categories": [],
+    "human_question_count": 0,
+    "engagement_nudge_sent": false
+  },
+  "case_study_id": "swiftcart"
+}

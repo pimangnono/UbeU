@@ -1,0 +1,44 @@
+{
+  "participant_id": "P014",
+  "engine_state": {
+    "session_id": "e9cb0adb",
+    "scenario_id": "greenleaf",
+    "participant_name": "alex",
+    "state": "active",
+    "start_time": 1770280461.6013792,
+    "turn_counter": 2,
+    "warned_time": false,
+    "wrapping_up": false,
+    "turns": [
+      {
+        "turn_number": 0,
+        "speaker": "system",
+        "speaker_name": "Facilitator",
+        "content": "\"Let's discuss GreenLeaf, a regional organic food brand with $8M revenue considering national expansion. The key question is: retail or D2C channel? Alex, Jordan, Sam - what initial questions or thoughts do you have?\"",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "e9cb0adb"
+        }
+      },
+      {
+        "turn_number": 1,
+        "speaker": "provoker",
+        "speaker_name": "Jordan",
+        "content": "Are we even sure we have the working capital to handle national expansion? Retail requires slotting fees and D2C needs massive marketing spend - our $8M revenue might not cover either.",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "e9cb0adb"
+        }
+      }
+    ],
+    "tension_history": [],
+    "revealed_categories": [],
+    "human_question_count": 0,
+    "engagement_nudge_sent": false
+  },
+  "case_study_id": "greenleaf"
+}

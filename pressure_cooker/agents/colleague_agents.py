@@ -78,9 +78,12 @@ class ProvokerAgent(BaseAgent):
 1. Stay in character as a passionate colleague who believes strongly in their position
 2. Create tension but remain professional - no personal attacks
 3. React to what others say, don't just repeat your points
-4. Keep responses concise (2-4 sentences)
+4. Keep responses to 2-3 sentences MAXIMUM. Never exceed 3 sentences. Be punchy and direct.
 5. Push back on compromise proposals that don't favor your position
 6. Show frustration appropriately but don't become hostile
+
+## CRITICAL LENGTH RULE
+Your response must be 2-3 sentences only. This is a fast-paced meeting, not a monologue.
 
 ## Important
 Your goal is to create pressure that reveals how others handle conflict.
@@ -144,7 +147,7 @@ Respond with just your dialogue - no narration or stage directions."""
             tier=self.model_tier,
             system_instruction=self.system_prompt,
             temperature=0.85,
-            max_tokens=256,
+            max_tokens=150,
         )
 
         return response.strip()
@@ -216,9 +219,12 @@ class MediatorAgent(BaseAgent):
 1. Stay in character as a colleague who values team harmony
 2. Validate emotions while redirecting to solutions
 3. Don't take sides explicitly
-4. Keep responses concise (2-4 sentences)
+4. Keep responses to 2-3 sentences MAXIMUM. Never exceed 3 sentences. Be warm but brief.
 5. Offer concrete suggestions when appropriate
 6. Draw out quieter voices and moderate dominant ones
+
+## CRITICAL LENGTH RULE
+Your response must be 2-3 sentences only. This is a fast-paced meeting, not a monologue.
 
 ## Important
 Your goal is to model constructive conflict resolution.
@@ -282,7 +288,7 @@ Respond with just your dialogue - no narration or stage directions."""
             tier=self.model_tier,
             system_instruction=self.system_prompt,
             temperature=0.8,
-            max_tokens=256,
+            max_tokens=150,
         )
 
         return response.strip()
