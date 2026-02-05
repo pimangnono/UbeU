@@ -13,9 +13,9 @@ from typing import Optional, TYPE_CHECKING
 import sys
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from config.scenarios import get_scenario
 from step2.live_engine import LiveEngine
 from step2.models import SessionState
+from step2.case_data import CaseStudy
 
 if TYPE_CHECKING:
     from clients.llm_client import GeminiClient, MockGeminiClient
@@ -67,6 +67,7 @@ class SessionManager:
         participant_id: str,
         scenario_id: str,
         participant_name: str,
+        case_study: Optional[CaseStudy] = None,
     ) -> LiveSession:
         """
         Create a new live interview session.
@@ -75,16 +76,24 @@ class SessionManager:
             participant_id: ID of the participant.
             scenario_id: ID of the scenario to use.
             participant_name: Participant's display name.
+            case_study: Optional CaseStudy for consulting scenarios.
+                        If provided, uses case_study.to_scenario_config()
+                        instead of loading from config/scenarios.py.
 
         Returns:
             The created LiveSession.
         """
-        scenario = get_scenario(scenario_id)
+        if case_study:
+            scenario = case_study.to_scenario_config()
+        else:
+            from config.scenarios import get_scenario
+            scenario = get_scenario(scenario_id)
 
         engine = LiveEngine(
             client=self.client,
             scenario=scenario,
             participant_name=participant_name,
+            case_study=case_study,
         )
 
         session = LiveSession(engine=engine, participant_id=participant_id)
@@ -117,6 +126,10 @@ class SessionManager:
             "engine_state": session.engine.to_state_dict(),
         }
 
+        # Store case study ID if present
+        if session.engine.case_study:
+            state["case_study_id"] = session.engine.case_study.id
+
         path = self._persist_dir / f"{session_id}.json"
         with open(path, "w") as f:
             json.dump(state, f, indent=2, default=str)
@@ -136,12 +149,28 @@ class SessionManager:
             state = json.load(f)
 
         engine_state = state["engine_state"]
-        scenario = get_scenario(engine_state["scenario_id"])
+        case_study_id = state.get("case_study_id")
+
+        # Restore case study if present
+        case_study = None
+        if case_study_id:
+            try:
+                from step2.consulting_scenarios import get_consulting_scenario
+                case_study = get_consulting_scenario(case_study_id)
+            except (ImportError, ValueError):
+                pass
+
+        if case_study:
+            scenario = case_study.to_scenario_config()
+        else:
+            from config.scenarios import get_scenario
+            scenario = get_scenario(engine_state["scenario_id"])
 
         engine = LiveEngine(
             client=self.client,
             scenario=scenario,
             participant_name=engine_state["participant_name"],
+            case_study=case_study,
         )
         engine.session_id = engine_state["session_id"]
         engine.restore_from_state(engine_state)

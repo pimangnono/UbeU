@@ -11,21 +11,21 @@ def render():
     st.markdown("""
     ### Your participation is complete.
 
-    Thank you for taking part in this study on workplace communication
+    Thank you for taking part in this study on analytical discussion
     and personality expression.
 
     ### What was this about?
 
     This study investigates how personality traits are expressed during
     group discussions. During the discussion, you interacted with AI-powered
-    colleagues in a realistic workplace scenario. The AI characters
+    colleagues in a consulting-style case study scenario. The AI characters
     ("Jordan" and "Sam") were designed to create a natural group dynamic
-    with different perspectives.
+    with different analytical perspectives.
 
     Your conversation will be analyzed (anonymously) to understand how
-    personality is expressed in workplace interactions. The BFI-44
-    questionnaire you completed provides a baseline measure of your
-    personality traits, which we compare against what observers can
+    personality is expressed in analytical discussion and problem-solving.
+    The BFI-44 questionnaire you completed provides a baseline measure of
+    your personality traits, which we compare against what observers can
     infer from the conversation alone.
 
     ### Key points:

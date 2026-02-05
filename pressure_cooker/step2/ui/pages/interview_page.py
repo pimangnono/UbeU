@@ -6,6 +6,7 @@ Page 3: Live Interview Chat Interface
 - Speaker names: "Jordan", "Sam", "Facilitator"
 - st.spinner as typing indicator during backend call
 - Timer display (countdown from 15 min)
+- Case brief display at top (company, industry, problem)
 """
 
 import time
@@ -32,7 +33,7 @@ def render():
         st.rerun()
         return
 
-    st.header("Workplace Discussion")
+    st.header("Case Study Discussion")
 
     # --- Session initialization ---
     if "session_id" not in st.session_state or st.session_state.session_id is None:
@@ -100,7 +101,7 @@ def render():
         st.session_state.messages = messages
 
         # Send to backend and get AI responses
-        with st.spinner("Others are responding..."):
+        with st.spinner("The team is discussing..."):
             try:
                 resp = httpx.post(
                     f"{API_BASE}/session/{sid}/message",
@@ -133,7 +134,7 @@ def render():
 
 def _initialize_session(pid: str):
     """Create a new session via the backend."""
-    st.info("Starting the discussion...")
+    st.info("Starting the case study discussion...")
 
     with st.spinner("Setting up the discussion..."):
         try:
