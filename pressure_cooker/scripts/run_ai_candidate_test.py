@@ -19,16 +19,24 @@ from step2.consulting_scenarios import get_consulting_scenario, get_all_consulti
 from step2.live_engine import LiveEngine, SmartLiveEngine
 from step2.validator_agent import validate_session
 from config.scenarios import SCENARIOS
+from pipeline.facet_detector import FacetDetector
 
 DEFAULT_MAX_TURNS = 30
 
 
 class AIInterviewTester:
-    def __init__(self, output_dir: Path = Path("outputs/step2/ai_tests"), max_turns: int = DEFAULT_MAX_TURNS, use_smart_engine: bool = False):
+    def __init__(
+        self,
+        output_dir: Path = Path("outputs/step2/ai_tests"),
+        max_turns: int = DEFAULT_MAX_TURNS,
+        use_smart_engine: bool = False,
+        enable_facet_detection: bool = False,
+    ):
         self.output_dir = output_dir
         self.output_dir.mkdir(parents=True, exist_ok=True)
         self.max_turns = max_turns
         self.use_smart_engine = use_smart_engine
+        self.enable_facet_detection = enable_facet_detection
 
     def _create_client(self) -> LLMClient:
         return LLMClient()
@@ -100,6 +108,15 @@ class AIInterviewTester:
         validation_result = await validate_session(engine.turns, case_study, validator_client, num_passes=3)
         print(f"  Validation: depth={validation_result.get('analytical_depth')}, rec={validation_result.get('recommendation_quality')}")
 
+        # Run facet-level detection if enabled
+        facet_assessment = None
+        if self.enable_facet_detection:
+            print(f"  Running facet-level personality detection (28 facets)...")
+            facet_detector = FacetDetector(client, use_flash_model=True)
+            facet_assessment = await facet_detector.detect_facets(engine.turns, persona.display_name)
+            print(f"  Facet detection: {facet_assessment.total_evidence_count} evidence points across {len([f for f in facet_assessment.facet_scores.values() if f.score > 0])} facets")
+            print(f"  OCEAN scores: O={facet_assessment.ocean_scores.openness:.2f} C={facet_assessment.ocean_scores.conscientiousness:.2f} E={facet_assessment.ocean_scores.extraversion:.2f} A={facet_assessment.ocean_scores.agreeableness:.2f} N={facet_assessment.ocean_scores.neuroticism:.2f}")
+
         result = {
             "test_id": test_id,
             "timestamp": datetime.now().isoformat(),
@@ -134,11 +151,29 @@ class AIInterviewTester:
                         for score in evidence.competency_scores
                     } if evidence.competency_scores else {},
                 }
+                # Add personality inference (OCEAN Big Five traits)
+                if evidence.personality_inference:
+                    pi = evidence.personality_inference
+                    result["evidence_assessment"]["personality_inference"] = {
+                        "ocean_scores": pi.inferred_vector.model_dump(),
+                        "confidence": pi.confidence,
+                        "trait_evidence": {
+                            trait: [
+                                {"direction": e.direction.value, "strength": e.strength, "quote": e.quote}
+                                for e in evidences
+                            ]
+                            for trait, evidences in pi.trait_evidence.items()
+                        } if pi.trait_evidence else {},
+                    }
             print(f"  Final phase: {engine.get_discussion_phase()}")
             coverage = engine.get_competency_coverage()
             for name, data in coverage.items():
                 status = "✓" if data["coverage"] >= 0.5 else "○"
                 print(f"    {status} {name}: {data['tested']}/{data['total']} ({data['coverage']*100:.0f}%)")
+
+        # Add facet assessment if available
+        if facet_assessment:
+            result["facet_assessment"] = facet_assessment.to_dict()
 
         output_file = self.output_dir / f"{test_id}.json"
         with open(output_file, "w") as f:
@@ -181,9 +216,14 @@ async def main():
     parser.add_argument("--scenario", choices=get_all_consulting_scenario_ids())
     parser.add_argument("--max-turns", type=int, default=DEFAULT_MAX_TURNS)
     parser.add_argument("--smart", action="store_true", help="Use SmartLiveEngine with competency targeting")
+    parser.add_argument("--facets", action="store_true", help="Enable 28-facet BFI personality detection")
     args = parser.parse_args()
 
-    tester = AIInterviewTester(max_turns=args.max_turns, use_smart_engine=args.smart)
+    tester = AIInterviewTester(
+        max_turns=args.max_turns,
+        use_smart_engine=args.smart,
+        enable_facet_detection=args.facets,
+    )
     persona_ids = [args.persona] if args.persona else None
     scenario_ids = [args.scenario] if args.scenario else None
     await tester.run_all_tests(persona_ids, scenario_ids)

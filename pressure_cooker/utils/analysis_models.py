@@ -469,6 +469,12 @@ class EvidenceBasedAssessment(BaseModel):
         description="Logical/analytical assessment with evidence"
     )
 
+    # Facet-level assessment (28 BFI facets)
+    facet_assessment: Optional[dict] = Field(
+        default=None,
+        description="28-facet BFI assessment with evidence (from FacetDetector)"
+    )
+
     # Per-turn analyses (the raw data)
     turn_analyses: list[TurnAnalysis] = Field(
         default_factory=list,

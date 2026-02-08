@@ -17,6 +17,8 @@ This document covers all changes made to the Step 2 Live Interview Platform duri
 | **Evidence-Based Assessment** | `turn_analyzer.py`, `assessment_builder.py`, `analysis_models.py` | Per-turn analysis with quote extraction, transparent scoring |
 | **Smart Agent Workflow** | `smart_agents.py`, `discussion_orchestrator.py` | Competency-targeted challenges, phase-aware speaker selection |
 | **SmartLiveEngine** | `live_engine.py` | Integrated smart agents with evidence-based analysis |
+| **Facet-Level Detection** | `facet_detector.py` (new) | 28-facet BFI assessment with evidence extraction |
+| **Ensemble Aggregation** | `run_step2_evaluation.py` | Multi-judge OCEAN aggregation with agreement metrics |
 
 ---
 
@@ -637,5 +639,248 @@ session_output/
     │   ├── problem_solving {score, evidence[]}
     │   ├── communication {score, evidence[]}
     │   └── stress_management {score, evidence[]}
-    └── personality_inference (Big Five with evidence)
+    ├── personality_inference (Big Five with evidence)
+    └── facet_assessment (NEW - 28-facet BFI detection)
+        ├── ocean_scores (aggregated from facets)
+        ├── ocean_confidence (per-trait confidence)
+        └── facet_scores{} (28 facets with evidence)
 ```
+
+---
+
+## 14. Facet-Level Personality Detection
+
+### Problem
+The original personality assessment used 10 behavioral intents as proxies for OCEAN traits. While fast for real-time classification, this approach:
+- Collapsed similar facets into single categories (e.g., Trust + Altruism + Compliance → "cooperative")
+- Lost granular facet-level information
+- Provided no direct evidence linking quotes to specific BFI facets
+
+### Solution: Two-Layer Architecture
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                           CONVERSATION TRANSCRIPT                            │
+└─────────────────────────────────────────────────────────────────────────────┘
+                                      │
+                    ┌─────────────────┴─────────────────┐
+                    ▼                                   ▼
+┌───────────────────────────────────┐   ┌───────────────────────────────────┐
+│     LAYER 1: REAL-TIME            │   │     LAYER 2: POST-PROCESSING      │
+│     (Per-Turn, Fast)              │   │     (End of Session, Thorough)    │
+├───────────────────────────────────┤   ├───────────────────────────────────┤
+│                                   │   │                                   │
+│  10 IntentCategories              │   │  28 Facet-Level Detection         │
+│  ─────────────────────            │   │  ─────────────────────────        │
+│  • Rule-based keyword matching    │   │  • LLM-based evidence extraction  │
+│  • ~1ms per turn                  │   │  • Quotes + confidence scores     │
+│  • Used for live UI feedback      │   │  • Maps to all BFI facets         │
+│                                   │   │                                   │
+│  Output: intent per turn          │   │  Output: FacetAssessment          │
+│                                   │   │    - 28 facet scores (0-1)        │
+│                                   │   │    - Evidence per facet           │
+│                                   │   │    - Aggregated OCEAN scores      │
+└───────────────────────────────────┘   └───────────────────────────────────┘
+```
+
+### The 28 BFI Facets
+
+| Trait | HIGH Facets | LOW Facets |
+|-------|-------------|------------|
+| **Openness** | Ideas, Fantasy, Aesthetics | Conventionality, Practicality, Narrow Focus |
+| **Conscientiousness** | Order, Dutifulness, Achievement-Striving | Flexibility, Casualness, Disorganization |
+| **Extraversion** | Assertiveness, Gregariousness, Positive Emotions | Reserve, Independence, Brevity |
+| **Agreeableness** | Trust, Altruism, Compliance | Skepticism, Competitiveness |
+| **Neuroticism** | Anxiety, Anger, Self-Consciousness | Calm, Resilience |
+
+### Design Rationale: Why 10 Intents + 28 Facets?
+
+**Why not replace 10 intents with 28 facets?**
+
+| Aspect | 10 Intents | 28 Facets |
+|--------|------------|-----------|
+| **Speed** | ~1ms (rule-based) | ~2-3s (LLM call) |
+| **Use Case** | Real-time feedback during interview | Post-session detailed analysis |
+| **Granularity** | Coarse (2 per trait avg) | Fine (5-6 per trait) |
+| **Evidence** | None (pattern matching) | Full quotes with reasoning |
+| **Detection Reliability** | High (distinct patterns) | Medium (requires LLM interpretation) |
+
+**Why 10 intents work for real-time:**
+- Many facets are indistinguishable from text alone (e.g., "Trust" vs "Altruism" vs "Compliance")
+- Intents collapse similar behaviors into reliably detectable categories
+- Fast enough for per-turn classification without LLM calls
+
+**Why 28 facets needed for final assessment:**
+- Provides granular BFI-aligned personality profile
+- Evidence quotes enable auditability and human review
+- Facet-level scores can be validated against BFI-44 self-report
+
+### Implementation
+
+**New Module:** `pipeline/facet_detector.py`
+
+```python
+from pipeline.facet_detector import FacetDetector
+
+detector = FacetDetector(client, use_flash_model=True)  # Uses DeepSeek FLASH tier
+assessment = await detector.detect_facets(turns, candidate_name)
+
+# Output structure:
+assessment.ocean_scores       # PersonalityVector (O, C, E, A, N)
+assessment.ocean_confidence   # Per-trait confidence based on evidence coverage
+assessment.facet_scores       # Dict of 28 FacetScore objects with evidence
+assessment.total_evidence_count
+```
+
+**Usage in AI Test Runner:**
+
+```bash
+# Enable facet detection
+python scripts/run_ai_candidate_test.py --smart --facets --persona fluent_expert
+
+# Output includes:
+# - facet_assessment.ocean_scores
+# - facet_assessment.facet_scores (28 facets with evidence)
+```
+
+### OCEAN Score Calculation from Facets
+
+```
+For each trait:
+    HIGH facets → push score toward 1.0
+    LOW facets  → push score toward 0.0
+
+    score = 0.5 + (high_contribution × 0.5) - (low_contribution × 0.5)
+
+    confidence = (facet_coverage × 0.5) + (evidence_count × 0.5)
+```
+
+### Files Changed
+
+| File | Change |
+|------|--------|
+| `pipeline/facet_detector.py` | **NEW** - Core facet detection module |
+| `utils/analysis_models.py` | Added `facet_assessment` field to `EvidenceBasedAssessment` |
+| `scripts/run_ai_candidate_test.py` | Added `--facets` flag, integrated FacetDetector |
+
+---
+
+## 15. Ensemble Aggregation for Multi-Judge OCEAN Assessment
+
+### Problem
+The human participant evaluation uses 3 LLM judges (DeepSeek, Gemini, Grok) to infer OCEAN traits from interview transcripts. Previously, each judge's results were stored separately with no aggregation into a final ensemble prediction.
+
+### Solution
+Added `aggregate_ensemble_scores()` function that combines multiple judges' predictions using configurable aggregation methods.
+
+### Aggregation Methods
+
+| Method | Description | Best For |
+|--------|-------------|----------|
+| `median` | Middle value across judges | Robust to outlier predictions (default) |
+| `mean` | Simple average | When all judges are equally reliable |
+| `weighted` | Weighted by each judge's accuracy | When some judges consistently perform better |
+
+### Implementation
+
+**Location:** `step2/evaluation/run_step2_evaluation.py`
+
+```python
+from step2.evaluation.run_step2_evaluation import aggregate_ensemble_scores
+
+# Run after all judges complete
+ensemble_results = aggregate_ensemble_scores(all_results, method="median")
+
+# Output per participant:
+{
+    "participant_id": "P001",
+    "ensemble_method": "median",
+    "ensemble_scores": {"openness": 0.72, "conscientiousness": 0.65, ...},
+    "per_judge_scores": {"deepseek": {...}, "gemini": {...}, "grok": {...}},
+    "per_judge_accuracy": {"deepseek": 0.85, "gemini": 0.82, "grok": 0.79},
+    "trait_agreement": {
+        "openness": {"std_dev": 0.08, "range": 0.15, "high_agreement": true},
+        ...
+    },
+    "overall_confidence": 0.84,  # Based on inter-judge agreement
+    "low_agreement_traits": ["neuroticism"],  # Flagged for review
+    "ensemble_accuracy": {"overall": 0.87, ...},  # vs BFI-44 ground truth
+    "improvement_over_best_judge": 0.02  # Ensemble vs best single judge
+}
+```
+
+### Usage
+
+```bash
+# Run evaluation with all judges, then aggregate
+python step2/evaluation/run_step2_evaluation.py --verbose
+
+# Output files:
+# - ensemble_median_results.json
+# - ensemble_mean_results.json
+# - ensemble_weighted_results.json
+
+# Or specify method:
+python step2/evaluation/run_step2_evaluation.py --ensemble-method weighted
+```
+
+### Agreement Metrics
+
+For each trait, the ensemble tracks:
+- **std_dev**: Standard deviation across judges (lower = more agreement)
+- **range**: Max - min score across judges
+- **high_agreement**: Boolean flag (true if std_dev < 0.15)
+
+Traits with low agreement are flagged for human review, as judges may be detecting different signals.
+
+### Files Changed
+
+| File | Change |
+|------|--------|
+| `step2/evaluation/run_step2_evaluation.py` | Added `aggregate_ensemble_scores()`, `print_ensemble_summary()`, `--ensemble-method` arg |
+
+---
+
+## Updated Assessment Output Structure
+
+```
+session_output/
+├── metadata (session_id, duration, total_turns)
+├── turns[] (raw conversation)
+├── intent_statistics (10 behavioral intents - real-time)
+├── assessment_mapping (legacy formula-based competency scores)
+├── logical_validation (3-pass validator)
+├── evidence_assessment
+│   ├── turn_analyses[] (per-turn LLM analysis)
+│   ├── competency_scores (with evidence trails)
+│   └── personality_inference (trait signals from turns)
+└── facet_assessment (NEW - 28-facet post-processing)
+    ├── candidate_name
+    ├── total_turns_analyzed
+    ├── assessment_method: "facet_aggregation"
+    ├── total_evidence_count
+    ├── ocean_scores (aggregated from facets)
+    │   ├── openness: 0.0-1.0
+    │   ├── conscientiousness: 0.0-1.0
+    │   ├── extraversion: 0.0-1.0
+    │   ├── agreeableness: 0.0-1.0
+    │   └── neuroticism: 0.0-1.0
+    ├── ocean_confidence (per-trait confidence)
+    │   └── {trait: confidence_score}
+    └── facet_scores (28 facets)
+        └── {facet_id: {
+                facet_name, trait, direction, score,
+                evidence_count, evidence: [{quote, turn_number, signal_strength, reasoning}]
+            }}
+```
+
+---
+
+## Summary: Personality Assessment Layers
+
+| Layer | Speed | Granularity | Evidence | Use Case |
+|-------|-------|-------------|----------|----------|
+| **10 Intents** | ~1ms | 2/trait | None | Real-time UI feedback |
+| **Turn Analysis** | ~1s/turn | 5 traits | Quotes + signals | Per-turn evidence collection |
+| **28 Facets** | ~2-3s | 5-6/trait | Quotes + reasoning | Post-session detailed analysis |
+| **3-Judge Ensemble** | ~10s | 5 traits | Confidence + agreement | Final validated assessment |

@@ -21,6 +21,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
+import statistics
 from clients.llm_client import LLMClient, ModelTier
 from utils.models import SessionOutput, PersonalityVector
 from validation.reverse_inference import (
@@ -37,6 +38,191 @@ JUDGES = {
     "gemini": "google/gemini-2.5-flash-preview",
     "grok": "x-ai/grok-4.1-fast",
 }
+
+TRAITS = ["openness", "conscientiousness", "extraversion", "agreeableness", "neuroticism"]
+
+
+def aggregate_ensemble_scores(
+    all_results: dict[str, list[dict]],
+    method: str = "median",
+) -> dict[str, dict]:
+    """
+    Aggregate OCEAN scores from multiple judges into ensemble predictions.
+
+    Args:
+        all_results: Dict mapping judge_label -> list of result dicts
+        method: Aggregation method - "mean", "median", or "weighted"
+                (weighted uses accuracy-based weights)
+
+    Returns:
+        Dict mapping participant_id -> ensemble result with:
+        - ensemble_scores: Final aggregated OCEAN scores
+        - per_judge_scores: Individual judge predictions
+        - agreement_metrics: Inter-judge agreement statistics
+        - confidence: Overall confidence based on agreement
+        - accuracy_vs_ground_truth: Accuracy of ensemble vs BFI-44 ground truth
+    """
+    # Group results by participant
+    participant_results: dict[str, dict[str, dict]] = {}
+
+    for judge_label, results in all_results.items():
+        for result in results:
+            pid = result["participant_id"]
+            if pid not in participant_results:
+                participant_results[pid] = {
+                    "ground_truth": result["ground_truth_profile"],
+                    "judges": {},
+                }
+            participant_results[pid]["judges"][judge_label] = {
+                "inferred": result["inferred_profile"],
+                "accuracy": result["overall_accuracy"],
+            }
+
+    ensemble_results = {}
+
+    for pid, data in participant_results.items():
+        judges_data = data["judges"]
+        ground_truth = data["ground_truth"]
+
+        if len(judges_data) < 2:
+            # Need at least 2 judges for ensemble
+            continue
+
+        # Collect per-trait scores from each judge
+        trait_scores: dict[str, list[float]] = {t: [] for t in TRAITS}
+        judge_weights: dict[str, float] = {}
+
+        for judge_label, judge_data in judges_data.items():
+            inferred = judge_data["inferred"]
+            judge_weights[judge_label] = judge_data["accuracy"]
+
+            for trait in TRAITS:
+                trait_scores[trait].append(inferred[trait])
+
+        # Aggregate scores based on method
+        ensemble_scores: dict[str, float] = {}
+        trait_agreement: dict[str, dict] = {}
+
+        for trait in TRAITS:
+            scores = trait_scores[trait]
+
+            if method == "median":
+                ensemble_scores[trait] = round(statistics.median(scores), 3)
+            elif method == "weighted":
+                # Weight by each judge's overall accuracy
+                total_weight = sum(judge_weights.values())
+                weighted_sum = sum(
+                    score * judge_weights[judge]
+                    for judge, score in zip(judges_data.keys(), scores)
+                )
+                ensemble_scores[trait] = round(weighted_sum / total_weight, 3)
+            else:  # mean
+                ensemble_scores[trait] = round(statistics.mean(scores), 3)
+
+            # Calculate agreement metrics for this trait
+            trait_std = statistics.stdev(scores) if len(scores) > 1 else 0.0
+            trait_range = max(scores) - min(scores)
+
+            trait_agreement[trait] = {
+                "std_dev": round(trait_std, 3),
+                "range": round(trait_range, 3),
+                "min": round(min(scores), 3),
+                "max": round(max(scores), 3),
+                "high_agreement": trait_std < 0.15,  # Threshold for "good" agreement
+            }
+
+        # Calculate overall agreement (inverse of average std dev)
+        avg_std = statistics.mean(ta["std_dev"] for ta in trait_agreement.values())
+        overall_confidence = round(max(0.0, 1.0 - (avg_std * 2)), 3)  # Scale: 0.15 std -> 0.7 conf
+
+        # Calculate ensemble accuracy vs ground truth
+        ensemble_vector = PersonalityVector(**ensemble_scores)
+        ground_truth_vector = PersonalityVector(**ground_truth)
+        ensemble_accuracy = calculate_accuracy(ensemble_vector, ground_truth_vector)
+
+        # Flag traits with low agreement for review
+        low_agreement_traits = [
+            trait for trait, metrics in trait_agreement.items()
+            if not metrics["high_agreement"]
+        ]
+
+        ensemble_results[pid] = {
+            "participant_id": pid,
+            "ensemble_method": method,
+            "num_judges": len(judges_data),
+            "ensemble_scores": ensemble_scores,
+            "per_judge_scores": {
+                judge: data["inferred"] for judge, data in judges_data.items()
+            },
+            "per_judge_accuracy": {
+                judge: data["accuracy"] for judge, data in judges_data.items()
+            },
+            "ground_truth": ground_truth,
+            "trait_agreement": trait_agreement,
+            "overall_confidence": overall_confidence,
+            "low_agreement_traits": low_agreement_traits,
+            "ensemble_accuracy": ensemble_accuracy,
+            "improvement_over_best_judge": round(
+                ensemble_accuracy["overall"] - max(d["accuracy"] for d in judges_data.values()),
+                3
+            ),
+        }
+
+    return ensemble_results
+
+
+def print_ensemble_summary(ensemble_results: dict[str, dict]) -> None:
+    """Print a summary of ensemble results."""
+    if not ensemble_results:
+        print("No ensemble results to summarize.")
+        return
+
+    print("\n" + "=" * 70)
+    print("ENSEMBLE AGGREGATION SUMMARY")
+    print("=" * 70)
+
+    # Overall statistics
+    accuracies = [r["ensemble_accuracy"]["overall"] for r in ensemble_results.values()]
+    confidences = [r["overall_confidence"] for r in ensemble_results.values()]
+    improvements = [r["improvement_over_best_judge"] for r in ensemble_results.values()]
+
+    print(f"\nParticipants with ensemble scores: {len(ensemble_results)}")
+    print(f"Mean ensemble accuracy: {statistics.mean(accuracies):.3f}")
+    print(f"Mean confidence (agreement): {statistics.mean(confidences):.3f}")
+    print(f"Mean improvement over best single judge: {statistics.mean(improvements):+.3f}")
+
+    # Per-trait agreement
+    print("\nPer-Trait Agreement (avg std dev across participants):")
+    for trait in TRAITS:
+        std_devs = [r["trait_agreement"][trait]["std_dev"] for r in ensemble_results.values()]
+        avg_std = statistics.mean(std_devs)
+        agreement_pct = sum(1 for r in ensemble_results.values()
+                          if r["trait_agreement"][trait]["high_agreement"]) / len(ensemble_results) * 100
+        print(f"  {trait:20s}: std={avg_std:.3f}, high agreement={agreement_pct:.0f}%")
+
+    # Low agreement flags
+    all_low_agreement = []
+    for r in ensemble_results.values():
+        all_low_agreement.extend(r["low_agreement_traits"])
+
+    if all_low_agreement:
+        from collections import Counter
+        trait_counts = Counter(all_low_agreement)
+        print("\nTraits frequently flagged for low agreement:")
+        for trait, count in trait_counts.most_common():
+            print(f"  {trait}: {count} participants ({count/len(ensemble_results)*100:.0f}%)")
+
+    # Per-participant details
+    print("\nPer-Participant Results:")
+    print("-" * 70)
+    print(f"{'PID':<8} {'Ensemble Acc':>12} {'Confidence':>10} {'Improvement':>11} {'Low Agreement Traits'}")
+    print("-" * 70)
+    for pid, result in sorted(ensemble_results.items()):
+        low_traits = ", ".join(result["low_agreement_traits"][:2]) or "none"
+        print(f"{pid:<8} {result['ensemble_accuracy']['overall']:>12.3f} "
+              f"{result['overall_confidence']:>10.3f} "
+              f"{result['improvement_over_best_judge']:>+11.3f} "
+              f"{low_traits}")
 
 
 def load_participant_data(participants_dir: Path) -> list[dict]:
@@ -165,6 +351,13 @@ async def main():
         help="Run only a specific judge",
     )
     parser.add_argument("--verbose", "-v", action="store_true")
+    parser.add_argument(
+        "--ensemble-method",
+        type=str,
+        choices=["median", "mean", "weighted"],
+        default="median",
+        help="Method for ensemble aggregation (default: median)",
+    )
     args = parser.parse_args()
 
     participants_dir = Path(args.participants_dir)
@@ -213,15 +406,33 @@ async def main():
         json.dump(all_results, f, indent=2)
     print(f"\nResults saved to {summary_path}")
 
-    # Print summary
+    # Print per-judge summary
     print("\n" + "=" * 60)
-    print("EVALUATION SUMMARY")
+    print("PER-JUDGE SUMMARY")
     print("=" * 60)
     for judge_label, results in all_results.items():
         if results:
             accs = [r["overall_accuracy"] for r in results]
             mean_acc = sum(accs) / len(accs)
             print(f"  {judge_label}: mean accuracy = {mean_acc:.3f} ({len(results)} sessions)")
+
+    # Run ensemble aggregation if we have multiple judges
+    if len(all_results) >= 2:
+        # Run all three aggregation methods
+        for method in ["median", "mean", "weighted"]:
+            ensemble_results = aggregate_ensemble_scores(all_results, method=method)
+
+            # Save ensemble results
+            ensemble_path = output_dir / f"ensemble_{method}_results.json"
+            with open(ensemble_path, "w") as f:
+                json.dump(ensemble_results, f, indent=2, default=str)
+
+            if method == "median":  # Print detailed summary for default method
+                print_ensemble_summary(ensemble_results)
+
+        print(f"\nEnsemble results saved to {output_dir}/ensemble_*.json")
+    else:
+        print("\nSkipping ensemble aggregation (need at least 2 judges)")
 
 
 if __name__ == "__main__":
