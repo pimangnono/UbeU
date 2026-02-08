@@ -14,6 +14,9 @@ This document covers all changes made to the Step 2 Live Interview Platform duri
 | Validation | `validator_agent.py` | Rubric anchors, multi-pass scoring |
 | Analysis | `aggregate_results.py` (new) | Cross-participant aggregation with CSV, markdown, JSON exports |
 | Navigation | `app.py`, `bfi44_page.py` | Sidebar cleanup, scroll-to-top on page transition |
+| **Evidence-Based Assessment** | `turn_analyzer.py`, `assessment_builder.py`, `analysis_models.py` | Per-turn analysis with quote extraction, transparent scoring |
+| **Smart Agent Workflow** | `smart_agents.py`, `discussion_orchestrator.py` | Competency-targeted challenges, phase-aware speaker selection |
+| **SmartLiveEngine** | `live_engine.py` | Integrated smart agents with evidence-based analysis |
 
 ---
 
@@ -324,20 +327,275 @@ python3 step2/evaluation/aggregate_results.py --output-dir outputs/step2/analysi
 
 ---
 
+## 13. Evidence-Based Assessment System
+
+### Problem
+The original assessment system lacked transparency:
+- Intent classification was a single label without reasoning
+- Personality inference used formula-based scoring without evidence
+- Assessment scores had no audit trail showing which responses contributed to which scores
+- No way to trace back why a candidate received specific competency ratings
+
+### Solution — Per-Turn Analysis with Quote Extraction
+
+Created a new evidence-based analysis pipeline that analyzes each candidate turn individually and extracts direct quotes as evidence.
+
+**New Data Models (`utils/analysis_models.py`):**
+
+| Model | Purpose |
+|-------|---------|
+| `TraitSignal` | Single personality trait observation with quote evidence |
+| `ReasoningAssessment` | Logic quality assessment per turn |
+| `IntentAnalysis` | Intent with confidence and reasoning |
+| `TurnAnalysis` | Complete per-turn analysis combining all above |
+| `ScoringEvidence` | Evidence item with quote, turn number, weight |
+| `CompetencyScore` | Final competency score with supporting evidence |
+| `EvidenceBasedAssessment` | Complete assessment with full audit trail |
+
+**TurnAnalyzer (`pipeline/turn_analyzer.py`):**
+- LLM-powered analysis of individual candidate turns
+- Extracts exact quotes as evidence for each observation
+- Identifies personality trait signals (Big Five) with supporting text
+- Assesses reasoning quality (clarity, depth, data usage)
+- Detects competency behaviors (collaboration, leadership, problem-solving, etc.)
+
+**AssessmentBuilder (`pipeline/assessment_builder.py`):**
+- Aggregates per-turn analyses into final competency scores
+- Each score includes list of supporting evidence with:
+  - Direct quote from candidate
+  - Turn number for reference
+  - Behavior type detected
+  - Weight based on signal strength
+
+### Example Evidence Trail
+
+```json
+{
+  "competency_scores": {
+    "problem_solving": {
+      "score": 0.78,
+      "evidence": [
+        {
+          "quote": "Let me structure this using a profitability framework",
+          "turn_number": 1,
+          "behavior": "used_framework",
+          "weight": 0.8
+        },
+        {
+          "quote": "The SMB segment has a 2.6x LTV:CAC ratio compared to Enterprise at 10x",
+          "turn_number": 5,
+          "behavior": "used_data",
+          "weight": 0.9
+        }
+      ]
+    }
+  }
+}
+```
+
+### Files
+- `pressure_cooker/utils/analysis_models.py` — Evidence-based data models
+- `pressure_cooker/pipeline/turn_analyzer.py` — Per-turn LLM analysis
+- `pressure_cooker/pipeline/assessment_builder.py` — Evidence aggregation
+- `pressure_cooker/pipeline/statistics.py` — Integration functions
+
+---
+
+## 14. Smart Agent Workflow
+
+### Problem
+The original AI agents (ProvokerAgent, MediatorAgent) had several limitations:
+- **Random challenges**: Provoker generated generic challenges without strategic targeting
+- **Passive mediation**: Mediator mostly validated the candidate instead of advancing discussion
+- **No competency tracking**: No awareness of which competencies had been tested
+- **No phase awareness**: Same behavior throughout the 15-minute session
+
+### Solution — Strategic, Phase-Aware Agents
+
+**DiscussionContext (`agents/discussion_orchestrator.py`):**
+Shared state object that tracks:
+- Current discussion phase (8 phases)
+- Turns spent in each phase
+- Data categories revealed
+- Hypotheses stated
+- Tension level
+- Competency coverage
+
+**Discussion Phases:**
+
+| Phase | Purpose | Typical Duration |
+|-------|---------|------------------|
+| OPENING | Introduction, case setup | 1-2 turns |
+| PROBLEM_FRAMING | Structure the problem | 2-3 turns |
+| HYPOTHESIS_GENERATION | Form initial theories | 2-3 turns |
+| DATA_GATHERING | Request and analyze data | 3-5 turns |
+| SYNTHESIS | Connect findings | 2-3 turns |
+| RECOMMENDATION | Commit to a decision | 2-3 turns |
+| STRESS_TEST | Defend under pressure | 2-4 turns |
+| CLOSING | Summarize conclusions | 1-2 turns |
+
+**CompetencyCoverageTracker:**
+Tracks 21 observable behaviors across 5 competency dimensions:
+
+| Competency | Behaviors Tracked |
+|------------|-------------------|
+| Collaboration | acknowledged_others, built_on_ideas, resolved_conflict, sought_input |
+| Leadership | set_direction, made_decisions, took_initiative, delegated_tasks |
+| Problem Solving | used_data, identified_root_cause, used_framework, evaluated_alternatives, synthesized_info |
+| Communication | clear_explanations, summarized, asked_clarifying_questions, adapted_style |
+| Stress Management | handled_pushback, maintained_composure, adapted_approach, managed_time |
+
+### SmartProvokerAgent (`agents/smart_agents.py`)
+
+**Key improvements:**
+- **Competency targeting**: Selects challenges based on untested competencies
+- **Phase-appropriate intensity**: Gentle in opening, aggressive in stress test
+- **Challenge templates**: Pre-defined provocations mapped to specific behaviors
+
+**Intensity by Phase:**
+
+| Phase | Intensity | Behavior |
+|-------|-----------|----------|
+| Opening | 0.3 | Measured, diplomatic concerns |
+| Problem Framing | 0.4 | Skeptical but professional |
+| Hypothesis | 0.5 | Question assumptions |
+| Data Gathering | 0.5 | Demand evidence |
+| Synthesis | 0.6 | Press for specifics |
+| Recommendation | 0.7 | Firm challenges |
+| **Stress Test** | **0.9** | Direct confrontation |
+| Closing | 0.4 | Final pushback |
+
+**Example targeted challenge for `stress_management.handled_pushback`:**
+```
+"That's a terrible recommendation. It ignores everything we've discussed."
+```
+
+### ActiveMediatorAgent (`agents/smart_agents.py`)
+
+**Key improvements:**
+- **Active advancement**: Prompts candidate to move through phases
+- **Missing element detection**: Identifies when hypotheses, synthesis, or recommendations are missing
+- **Behavior modeling**: Occasionally demonstrates good analytical behavior
+- **Bridge building**: Helps candidate respond to provoker challenges
+
+**Phase-specific roles:**
+
+| Phase | Mediator Role |
+|-------|---------------|
+| Opening | Help frame the discussion |
+| Hypothesis | Prompt for hypotheses if none stated |
+| Data Gathering | Help connect data to hypotheses |
+| Synthesis | Push for cross-category connections |
+| Recommendation | Encourage commitment to a decision |
+| Stress Test | Bridge between provoker and candidate |
+
+### SmartSystemManager (`agents/smart_agents.py`)
+
+**Strategic speaker selection:**
+- Phase-aware: Favors provoker in stress test, mediator when tension is high
+- Competency-driven: Routes to provoker when stress_management untested
+- Pattern-aware: Prevents same speaker from dominating
+- Tension assessment: LLM-based analysis of conversation dynamics
+
+**Speaker selection logic:**
+```
+After candidate speaks:
+├── If STRESS_TEST phase → Provoker
+├── If tension > 0.7 → Mediator (de-escalate)
+├── If stress_management untested → Provoker
+└── Else → Alternate based on recent pattern
+```
+
+### Files
+- `pressure_cooker/agents/discussion_orchestrator.py` — DiscussionContext, CompetencyCoverageTracker, phase triggers
+- `pressure_cooker/agents/smart_agents.py` — SmartProvokerAgent, ActiveMediatorAgent, SmartSystemManager
+
+---
+
+## 15. SmartLiveEngine Integration
+
+### Purpose
+Combines the evidence-based assessment system with the smart agent workflow into a single integrated engine.
+
+### SmartLiveEngine (`step2/live_engine.py`)
+
+Extends `LiveEngine` with:
+- Smart agent initialization (SmartProvokerAgent, ActiveMediatorAgent, SmartSystemManager)
+- Shared DiscussionContext between all agents
+- Competency behavior detection on each candidate turn
+- Phase advancement logic
+- Evidence-based analysis generation on session finalization
+
+### Key Methods
+
+| Method | Purpose |
+|--------|---------|
+| `get_discussion_phase()` | Current phase name |
+| `get_phase_guidance()` | Instructions for current phase |
+| `get_competency_coverage()` | Coverage stats for all 5 competencies |
+| `get_targeting_info()` | Provoker's current target competency/behavior |
+| `get_evidence_assessment()` | Full evidence-based assessment with quotes |
+
+### State Persistence
+
+SmartLiveEngine serializes additional state:
+- `discussion_context`: Phase, turns in phase, tension, data revealed, hypotheses
+- `competency_coverage`: Per-competency behavior observations with turn numbers and quotes
+
+This enables session recovery with full context preserved.
+
+### Usage
+
+```python
+from step2.live_engine import SmartLiveEngine
+
+engine = SmartLiveEngine(
+    client=llm_client,
+    scenario=scenario,
+    participant_name="Jin",
+    case_study=case_study,
+    use_smart_agents=True,  # Enable smart workflow
+)
+
+# Session runs normally...
+await engine.generate_opening()
+engine.submit_human_turn("Let me analyze the cost structure...")
+await engine.generate_ai_turns_until_human()
+
+# On finalization, evidence-based analysis is generated
+output = await engine.finalize_session_output("P001")
+# output.evidence_assessment contains full audit trail
+```
+
+### Files
+- `pressure_cooker/step2/live_engine.py` — SmartLiveEngine class (lines 550-800)
+- `pressure_cooker/scripts/test_smart_live_engine.py` — Integration tests
+
+---
+
 ## Architecture Overview
 
 ```
 Browser (Streamlit)                    Backend (FastAPI)
-┌─────────────────────┐               ┌──────────────────────────┐
-│ Consent → BFI-44 →  │  HTTP/JSON    │ ParticipantManager       │
-│ Interview → Survey   │◄────────────►│ SessionManager           │
-│                      │               │ LiveEngine               │
-│ Meeting Room HTML    │               │   ├─ ProvokerAgent       │
-│ Data Panel           │               │   ├─ MediatorAgent       │
-│ Timer (JS countdown) │               │   ├─ SystemManagerAgent  │
-│ Speaker Targeting    │               │   └─ CaseStudy (gating)  │
-│ TTS (Web Speech API) │               │ ValidatorAgent (3-pass)  │
-└─────────────────────┘               └──────────────────────────┘
+┌─────────────────────┐               ┌────────────────────────────────────────┐
+│ Consent → BFI-44 →  │  HTTP/JSON    │ ParticipantManager                     │
+│ Interview → Survey   │◄────────────►│ SessionManager                         │
+│                      │               │                                        │
+│ Meeting Room HTML    │               │ SmartLiveEngine                        │
+│ Data Panel           │               │   ├─ SmartProvokerAgent (targeting)    │
+│ Timer (JS countdown) │               │   ├─ ActiveMediatorAgent (advancement) │
+│ Speaker Targeting    │               │   ├─ SmartSystemManager (selection)    │
+│ TTS (Web Speech API) │               │   ├─ DiscussionContext (shared state)  │
+│                      │               │   │    ├─ Phase tracking (8 phases)    │
+│                      │               │   │    └─ CompetencyCoverageTracker    │
+│                      │               │   └─ CaseStudy (data gating)           │
+│                      │               │                                        │
+│                      │               │ Evidence-Based Analysis                │
+│                      │               │   ├─ TurnAnalyzer (per-turn LLM)       │
+│                      │               │   └─ AssessmentBuilder (aggregation)   │
+│                      │               │                                        │
+│                      │               │ ValidatorAgent (3-pass)                │
+└─────────────────────┘               └────────────────────────────────────────┘
                                               │
                                         OpenRouter API
                                        (DeepSeek V3 / Claude Haiku)
@@ -345,8 +603,39 @@ Browser (Streamlit)                    Backend (FastAPI)
 
 ### Data Flow
 1. Participant registers → BFI-44 scored → scenario assigned (counterbalanced)
-2. Session created → opening generated → loading page → reveal
-3. Each turn: human input → smart routing → AI response → timer compensated → sequential reveal
-4. Session ends → intent classification → assessment mapping → 3-pass logic validation
+2. Session created → SmartLiveEngine initialized → opening generated → loading page → reveal
+3. Each turn:
+   - Human input → competency behavior detection → phase check
+   - Smart speaker selection (phase-aware, competency-driven)
+   - Targeted AI response (provoker challenges untested competencies)
+   - Timer compensated → sequential reveal
+4. Session ends:
+   - Per-turn analysis (TurnAnalyzer extracts quotes and signals)
+   - Evidence aggregation (AssessmentBuilder computes scores with audit trail)
+   - 3-pass logic validation (ValidatorAgent)
 5. Post-session survey → all data persisted to `outputs/step2/participants/{PID}/`
 6. Run `aggregate_results.py` → CSV + report + JSON for analysis
+
+### Assessment Output Structure
+
+```
+session_output/
+├── metadata (session_id, duration, total_turns)
+├── turns[] (raw conversation)
+├── intent_statistics (legacy)
+├── assessment_mapping (legacy formula-based)
+├── logical_validation (3-pass validator)
+└── evidence_assessment (NEW)
+    ├── turn_analyses[] (per-turn analysis)
+    │   ├── intent_analysis (with reasoning)
+    │   ├── trait_signals[] (quotes + Big Five)
+    │   ├── reasoning_assessment
+    │   └── competency_signals
+    ├── competency_scores (with evidence trails)
+    │   ├── collaboration {score, evidence[]}
+    │   ├── leadership {score, evidence[]}
+    │   ├── problem_solving {score, evidence[]}
+    │   ├── communication {score, evidence[]}
+    │   └── stress_management {score, evidence[]}
+    └── personality_inference (Big Five with evidence)
+```
