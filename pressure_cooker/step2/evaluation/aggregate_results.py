@@ -19,13 +19,24 @@ import csv
 import json
 import sys
 from collections import Counter
-from io import StringIO
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
 
 TRAITS = ["openness", "conscientiousness", "extraversion", "agreeableness", "neuroticism"]
+FACET_IDS = [
+    # Openness
+    "O_ideas", "O_fantasy", "O_aesthetics", "O_conventionality", "O_practicality", "O_narrow_focus",
+    # Conscientiousness
+    "C_order", "C_dutifulness", "C_achievement", "C_flexibility", "C_casualness", "C_disorganization",
+    # Extraversion
+    "E_assertiveness", "E_gregariousness", "E_positive_emotions", "E_reserve", "E_independence", "E_brevity",
+    # Agreeableness
+    "A_trust", "A_altruism", "A_compliance", "A_skepticism", "A_competitiveness",
+    # Neuroticism
+    "N_anxiety", "N_anger", "N_self_consciousness", "N_calm", "N_resilience",
+]
 ASSESSMENT_KEYS = [
     "collaboration_score", "leadership_score", "stress_management_score",
     "communication_score", "problem_solving_score",
@@ -38,13 +49,19 @@ INTENT_TYPES = [
 
 
 def load_all_participants(participants_dir: Path) -> list[dict]:
-    """Load all participant data (record + session_output + validation)."""
+    """Load all participant data (record + session_output + validation + facet_assessment)."""
     participants = []
     for pid_dir in sorted(participants_dir.iterdir()):
         if not pid_dir.is_dir() or not pid_dir.name.startswith("P"):
             continue
 
-        entry = {"pid": pid_dir.name, "has_record": False, "has_session": False, "has_validation": False}
+        entry = {
+            "pid": pid_dir.name,
+            "has_record": False,
+            "has_session": False,
+            "has_validation": False,
+            "has_facet_assessment": False,
+        }
 
         # Load record
         record_path = pid_dir / "record.json"
@@ -59,6 +76,10 @@ def load_all_participants(participants_dir: Path) -> list[dict]:
             with open(session_path) as f:
                 entry["session"] = json.load(f)
             entry["has_session"] = True
+            # Check for embedded facet_assessment
+            if entry["session"].get("facet_assessment"):
+                entry["facet_assessment"] = entry["session"]["facet_assessment"]
+                entry["has_facet_assessment"] = True
 
         # Load logic validation
         validation_path = pid_dir / "logic_validation.json"
@@ -67,9 +88,29 @@ def load_all_participants(participants_dir: Path) -> list[dict]:
                 entry["validation"] = json.load(f)
             entry["has_validation"] = True
 
+        # Load standalone facet assessment if not embedded
+        facet_path = pid_dir / "facet_assessment.json"
+        if facet_path.exists() and not entry["has_facet_assessment"]:
+            with open(facet_path) as f:
+                entry["facet_assessment"] = json.load(f)
+            entry["has_facet_assessment"] = True
+
         participants.append(entry)
 
     return participants
+
+
+def load_ensemble_results(evaluation_dir: Path) -> dict:
+    """Load ensemble aggregation results if available."""
+    ensemble_data = {}
+
+    for method in ["median", "mean", "weighted"]:
+        ensemble_path = evaluation_dir / f"ensemble_{method}_results.json"
+        if ensemble_path.exists():
+            with open(ensemble_path) as f:
+                ensemble_data[method] = json.load(f)
+
+    return ensemble_data
 
 
 def compute_stats(values: list[float]) -> dict:
@@ -151,6 +192,24 @@ def build_summary_rows(participants: list[dict]) -> list[dict]:
         row["depth_agreement"] = scoring.get("depth_agreement", "")
         row["rec_agreement"] = scoring.get("rec_agreement", "")
 
+        # Facet assessment (28-facet BFI detection)
+        facet = p.get("facet_assessment", {})
+        row["has_facet_assessment"] = p.get("has_facet_assessment", False)
+        facet_ocean = facet.get("ocean_scores", {})
+        facet_conf = facet.get("ocean_confidence", {})
+        for t in TRAITS:
+            row[f"facet_{t}"] = facet_ocean.get(t, "")
+            row[f"facet_{t}_conf"] = facet_conf.get(t, "")
+        row["facet_evidence_count"] = facet.get("total_evidence_count", "")
+
+        # Evidence-based personality inference (from turn analysis)
+        evidence = sess.get("evidence_assessment", {})
+        pi = evidence.get("personality_inference", {})
+        pi_ocean = pi.get("ocean_scores", {}) if isinstance(pi, dict) else {}
+        for t in TRAITS:
+            row[f"evidence_{t}"] = pi_ocean.get(t, "")
+        row["evidence_confidence"] = pi.get("confidence", "") if isinstance(pi, dict) else ""
+
         # Survey
         survey = rec.get("survey")
         if survey:
@@ -192,7 +251,11 @@ def build_conversation_rows(participants: list[dict]) -> list[dict]:
     return rows
 
 
-def generate_report(participants: list[dict], summary_rows: list[dict]) -> str:
+def generate_report(
+    participants: list[dict],
+    summary_rows: list[dict],
+    ensemble_data: dict = None,
+) -> str:
     """Generate a comprehensive markdown report."""
     lines = []
     lines.append("# Step 2 Aggregate Analysis Report")
@@ -202,6 +265,7 @@ def generate_report(participants: list[dict], summary_rows: list[dict]) -> str:
     completed = [p for p in participants if p["has_session"]]
     with_survey = [p for p in participants if p.get("record", {}).get("survey")]
     with_validation = [p for p in participants if p["has_validation"]]
+    with_facet = [p for p in participants if p.get("has_facet_assessment")]
 
     lines.append("## 1. Overview")
     lines.append("")
@@ -211,6 +275,9 @@ def generate_report(participants: list[dict], summary_rows: list[dict]) -> str:
     lines.append(f"| Completed sessions | {len(completed)} |")
     lines.append(f"| With post-session survey | {len(with_survey)} |")
     lines.append(f"| With logic validation | {len(with_validation)} |")
+    lines.append(f"| With facet assessment | {len(with_facet)} |")
+    if ensemble_data:
+        lines.append(f"| With ensemble evaluation | {len(ensemble_data.get('median', {}))} |")
     lines.append("")
 
     # Scenario distribution
@@ -479,9 +546,261 @@ def generate_report(participants: list[dict], summary_rows: list[dict]) -> str:
         lines.append("_No survey responses collected yet._")
         lines.append("")
 
+    # --- Facet Assessment Summary ---
+    lines.append("---")
+    lines.append("## 8. Facet-Level Personality Assessment (28 BFI Facets)")
+    lines.append("")
+
+    with_facet = [p for p in participants if p.get("has_facet_assessment")]
+    if with_facet:
+        lines.append(f"**Participants with facet assessment**: {len(with_facet)}")
+        lines.append("")
+
+        # OCEAN scores from facets
+        facet_ocean_data = {t: [] for t in TRAITS}
+        facet_conf_data = {t: [] for t in TRAITS}
+        evidence_counts = []
+
+        for p in with_facet:
+            fa = p.get("facet_assessment", {})
+            ocean = fa.get("ocean_scores", {})
+            conf = fa.get("ocean_confidence", {})
+            for t in TRAITS:
+                if t in ocean and ocean[t] is not None:
+                    facet_ocean_data[t].append(ocean[t])
+                if t in conf and conf[t] is not None:
+                    facet_conf_data[t].append(conf[t])
+            if fa.get("total_evidence_count"):
+                evidence_counts.append(fa["total_evidence_count"])
+
+        lines.append("### OCEAN Scores (Aggregated from 28 Facets)")
+        lines.append("")
+        lines.append("| Trait | N | Mean | Std | Min | Max | Avg Confidence |")
+        lines.append("|-------|---|------|-----|-----|-----|----------------|")
+        for t in TRAITS:
+            s = compute_stats(facet_ocean_data[t])
+            c = compute_stats(facet_conf_data[t])
+            lines.append(f"| {t.capitalize()} | {s['n']} | {s['mean']:.3f} | {s['std']:.3f} | {s['min']:.3f} | {s['max']:.3f} | {c['mean']:.3f} |")
+        lines.append("")
+
+        # Evidence statistics
+        if evidence_counts:
+            ev_stats = compute_stats(evidence_counts)
+            lines.append(f"**Evidence extraction**: mean={ev_stats['mean']:.1f} quotes/session (range: {ev_stats['min']:.0f}-{ev_stats['max']:.0f})")
+            lines.append("")
+
+        # Top detected facets across all participants
+        facet_detections = Counter()
+        for p in with_facet:
+            fa = p.get("facet_assessment", {})
+            for fid, fdata in fa.get("facet_scores", {}).items():
+                if isinstance(fdata, dict) and fdata.get("score", 0) > 0:
+                    facet_detections[fid] += 1
+
+        if facet_detections:
+            lines.append("### Most Frequently Detected Facets")
+            lines.append("")
+            lines.append("| Facet | Trait | Direction | Detected In |")
+            lines.append("|-------|-------|-----------|-------------|")
+            for fid, count in facet_detections.most_common(10):
+                # Parse facet info from ID
+                trait_prefix = fid.split("_")[0]
+                trait_map = {"O": "Openness", "C": "Conscientiousness", "E": "Extraversion", "A": "Agreeableness", "N": "Neuroticism"}
+                trait_name = trait_map.get(trait_prefix, trait_prefix)
+                facet_name = fid.replace(trait_prefix + "_", "").replace("_", " ").title()
+                # Determine direction based on facet
+                low_facets = ["conventionality", "practicality", "narrow_focus", "flexibility", "casualness",
+                             "disorganization", "reserve", "independence", "brevity", "skepticism",
+                             "competitiveness", "calm", "resilience"]
+                direction = "LOW" if any(lf in fid.lower() for lf in low_facets) else "HIGH"
+                pct = 100 * count / len(with_facet)
+                lines.append(f"| {facet_name} | {trait_name} | {direction} | {count}/{len(with_facet)} ({pct:.0f}%) |")
+            lines.append("")
+    else:
+        lines.append("_No facet assessments found._")
+        lines.append("")
+
+    # --- Ensemble Evaluation Summary ---
+    lines.append("---")
+    lines.append("## 9. Multi-Judge Ensemble Evaluation")
+    lines.append("")
+
+    if ensemble_data and ensemble_data.get("median"):
+        median_ensemble = ensemble_data["median"]
+        lines.append(f"**Participants evaluated**: {len(median_ensemble)}")
+        lines.append(f"**Aggregation methods available**: {', '.join(ensemble_data.keys())}")
+        lines.append("")
+
+        # Ensemble accuracy vs ground truth
+        ensemble_accuracies = {t: [] for t in TRAITS}
+        ensemble_accuracies["overall"] = []
+        improvements = []
+        confidences = []
+        low_agreement_counts = Counter()
+
+        for pid, result in median_ensemble.items():
+            ea = result.get("ensemble_accuracy", {})
+            for t in TRAITS:
+                if t in ea:
+                    ensemble_accuracies[t].append(ea[t])
+            if "overall" in ea:
+                ensemble_accuracies["overall"].append(ea["overall"])
+            if result.get("improvement_over_best_judge") is not None:
+                improvements.append(result["improvement_over_best_judge"])
+            if result.get("overall_confidence") is not None:
+                confidences.append(result["overall_confidence"])
+            for trait in result.get("low_agreement_traits", []):
+                low_agreement_counts[trait] += 1
+
+        lines.append("### Ensemble Accuracy vs BFI-44 Ground Truth (Median Method)")
+        lines.append("")
+        lines.append("| Trait | N | Mean Accuracy | Std | Min | Max |")
+        lines.append("|-------|---|---------------|-----|-----|-----|")
+        for t in TRAITS + ["overall"]:
+            s = compute_stats(ensemble_accuracies[t])
+            label = t.capitalize() if t != "overall" else "**Overall**"
+            lines.append(f"| {label} | {s['n']} | {s['mean']:.3f} | {s['std']:.3f} | {s['min']:.3f} | {s['max']:.3f} |")
+        lines.append("")
+
+        # Improvement and confidence
+        if improvements:
+            imp_stats = compute_stats(improvements)
+            lines.append(f"**Improvement over best single judge**: mean={imp_stats['mean']:+.3f} (range: {imp_stats['min']:+.3f} to {imp_stats['max']:+.3f})")
+        if confidences:
+            conf_stats = compute_stats(confidences)
+            lines.append(f"**Inter-judge agreement (confidence)**: mean={conf_stats['mean']:.3f} (range: {conf_stats['min']:.3f}-{conf_stats['max']:.3f})")
+        lines.append("")
+
+        # Low agreement traits
+        if low_agreement_counts:
+            lines.append("### Traits with Low Inter-Judge Agreement")
+            lines.append("")
+            lines.append("| Trait | Flagged In | % of Participants |")
+            lines.append("|-------|------------|-------------------|")
+            for trait, count in low_agreement_counts.most_common():
+                pct = 100 * count / len(median_ensemble)
+                lines.append(f"| {trait.capitalize()} | {count} | {pct:.0f}% |")
+            lines.append("")
+            lines.append("_Low agreement (std_dev > 0.15) indicates judges detected different signals for this trait._")
+            lines.append("")
+    else:
+        lines.append("_No ensemble evaluation results found. Run `run_step2_evaluation.py` to generate._")
+        lines.append("")
+
+    # --- OCEAN Comparison Across Methods ---
+    lines.append("---")
+    lines.append("## 10. OCEAN Score Comparison Across Methods")
+    lines.append("")
+
+    # Build comparison data
+    comparison_data = []
+    for p in participants:
+        if not p["has_session"]:
+            continue
+
+        pid = p["pid"]
+        row = {"pid": pid}
+
+        # BFI-44 ground truth
+        bfi = p.get("record", {}).get("bfi44_scores", {})
+        for t in TRAITS:
+            row[f"bfi_{t}"] = bfi.get(t)
+
+        # Evidence-based (turn analysis)
+        evidence = p.get("session", {}).get("evidence_assessment", {})
+        pi = evidence.get("personality_inference", {})
+        pi_ocean = pi.get("ocean_scores", {}) if isinstance(pi, dict) else {}
+        for t in TRAITS:
+            row[f"evidence_{t}"] = pi_ocean.get(t)
+
+        # Facet-based
+        if p.get("has_facet_assessment"):
+            facet_ocean = p.get("facet_assessment", {}).get("ocean_scores", {})
+            for t in TRAITS:
+                row[f"facet_{t}"] = facet_ocean.get(t)
+        else:
+            for t in TRAITS:
+                row[f"facet_{t}"] = None
+
+        # Ensemble (if available)
+        if ensemble_data and ensemble_data.get("median"):
+            ens_result = ensemble_data["median"].get(pid, {})
+            ens_scores = ens_result.get("ensemble_scores", {})
+            for t in TRAITS:
+                row[f"ensemble_{t}"] = ens_scores.get(t)
+        else:
+            for t in TRAITS:
+                row[f"ensemble_{t}"] = None
+
+        comparison_data.append(row)
+
+    if comparison_data:
+        # Show method availability
+        has_evidence = sum(1 for r in comparison_data if r.get("evidence_openness") is not None)
+        has_facet = sum(1 for r in comparison_data if r.get("facet_openness") is not None)
+        has_ensemble = sum(1 for r in comparison_data if r.get("ensemble_openness") is not None)
+
+        lines.append(f"| Method | Participants with Data |")
+        lines.append(f"|--------|------------------------|")
+        lines.append(f"| BFI-44 Ground Truth | {sum(1 for r in comparison_data if r.get('bfi_openness') is not None)} |")
+        lines.append(f"| Evidence-Based (Turn Analysis) | {has_evidence} |")
+        lines.append(f"| Facet-Based (28 Facets) | {has_facet} |")
+        lines.append(f"| Ensemble (3 Judges) | {has_ensemble} |")
+        lines.append("")
+
+        # Per-participant comparison table (first 10)
+        lines.append("### Sample Comparison (First 10 Participants)")
+        lines.append("")
+        lines.append("| PID | Trait | BFI-44 | Evidence | Facet | Ensemble | Δ Facet | Δ Ensemble |")
+        lines.append("|-----|-------|--------|----------|-------|----------|---------|------------|")
+
+        for row in comparison_data[:10]:
+            for t in TRAITS:
+                bfi_val = row.get(f"bfi_{t}")
+                ev_val = row.get(f"evidence_{t}")
+                fa_val = row.get(f"facet_{t}")
+                en_val = row.get(f"ensemble_{t}")
+
+                bfi_str = f"{bfi_val:.2f}" if bfi_val is not None else "-"
+                ev_str = f"{ev_val:.2f}" if ev_val is not None else "-"
+                fa_str = f"{fa_val:.2f}" if fa_val is not None else "-"
+                en_str = f"{en_val:.2f}" if en_val is not None else "-"
+
+                # Calculate deltas vs ground truth
+                delta_fa = f"{fa_val - bfi_val:+.2f}" if (fa_val is not None and bfi_val is not None) else "-"
+                delta_en = f"{en_val - bfi_val:+.2f}" if (en_val is not None and bfi_val is not None) else "-"
+
+                lines.append(f"| {row['pid']} | {t[:1].upper()} | {bfi_str} | {ev_str} | {fa_str} | {en_str} | {delta_fa} | {delta_en} |")
+        lines.append("")
+
+        # Method correlation summary
+        lines.append("### Method Agreement Summary")
+        lines.append("")
+        lines.append("Mean absolute error vs BFI-44 ground truth:")
+        lines.append("")
+
+        for method, prefix in [("Evidence-Based", "evidence"), ("Facet-Based", "facet"), ("Ensemble", "ensemble")]:
+            errors = {t: [] for t in TRAITS}
+            for row in comparison_data:
+                for t in TRAITS:
+                    bfi_val = row.get(f"bfi_{t}")
+                    method_val = row.get(f"{prefix}_{t}")
+                    if bfi_val is not None and method_val is not None:
+                        errors[t].append(abs(method_val - bfi_val))
+
+            if any(errors[t] for t in TRAITS):
+                all_errors = [e for t in TRAITS for e in errors[t]]
+                overall_mae = sum(all_errors) / len(all_errors) if all_errors else 0
+                overall_acc = 1 - overall_mae
+                lines.append(f"- **{method}**: MAE={overall_mae:.3f}, Accuracy={overall_acc:.3f}")
+        lines.append("")
+    else:
+        lines.append("_No data available for comparison._")
+        lines.append("")
+
     # --- Per-Participant Summary Table ---
     lines.append("---")
-    lines.append("## 8. Per-Participant Summary")
+    lines.append("## 11. Per-Participant Summary")
     lines.append("")
     lines.append("| PID | Name | Scenario | Completed | Turns | Duration | Depth | Rec. Quality | Survey Mean |")
     lines.append("|-----|------|----------|-----------|-------|----------|-------|-------------|-------------|")
@@ -544,6 +863,12 @@ def main():
         help="Participants data directory",
     )
     parser.add_argument(
+        "--evaluation-dir",
+        type=str,
+        default="outputs/step2/evaluation",
+        help="Evaluation results directory (for ensemble data)",
+    )
+    parser.add_argument(
         "--output-dir",
         type=str,
         default="outputs/step2/analysis",
@@ -553,10 +878,13 @@ def main():
     args = parser.parse_args()
 
     participants_dir = Path(args.participants_dir)
+    evaluation_dir = Path(args.evaluation_dir)
     output_dir = Path(args.output_dir)
 
     if not participants_dir.is_absolute():
         participants_dir = Path(__file__).parent.parent.parent / participants_dir
+    if not evaluation_dir.is_absolute():
+        evaluation_dir = Path(__file__).parent.parent.parent / evaluation_dir
     if not output_dir.is_absolute():
         output_dir = Path(__file__).parent.parent.parent / output_dir
 
@@ -567,11 +895,22 @@ def main():
     participants = load_all_participants(participants_dir)
     total = len(participants)
     completed = sum(1 for p in participants if p["has_session"])
-    print(f"  Found {total} participants, {completed} with completed sessions")
+    with_facet = sum(1 for p in participants if p.get("has_facet_assessment"))
+    print(f"  Found {total} participants, {completed} with completed sessions, {with_facet} with facet assessment")
 
     if not participants:
         print("No participants found.")
         return
+
+    # Load ensemble results
+    print("Loading ensemble evaluation results...")
+    ensemble_data = load_ensemble_results(evaluation_dir)
+    if ensemble_data:
+        print(f"  Found ensemble results: {', '.join(ensemble_data.keys())}")
+        for method, data in ensemble_data.items():
+            print(f"    {method}: {len(data)} participants")
+    else:
+        print("  No ensemble results found (run run_step2_evaluation.py to generate)")
 
     # Build summary CSV
     print("Building summary CSV...")
@@ -590,7 +929,7 @@ def main():
     # Generate report
     if not args.csv_only:
         print("Generating report...")
-        report = generate_report(participants, summary_rows)
+        report = generate_report(participants, summary_rows, ensemble_data)
         report_path = output_dir / "aggregate_report.md"
         with open(report_path, "w") as f:
             f.write(report)
@@ -603,11 +942,14 @@ def main():
         "generated_at": str(__import__("datetime").datetime.now()),
         "total_participants": total,
         "completed_sessions": completed,
+        "with_facet_assessment": with_facet,
+        "with_ensemble_evaluation": len(ensemble_data.get("median", {})) if ensemble_data else 0,
         "participants": [
             {
                 "pid": p["pid"],
                 "has_session": p["has_session"],
                 "has_validation": p["has_validation"],
+                "has_facet_assessment": p.get("has_facet_assessment", False),
                 "record": p.get("record"),
                 "assessment": p.get("session", {}).get("assessment_mapping"),
                 "intent_statistics": p.get("session", {}).get("intent_statistics"),
@@ -616,6 +958,10 @@ def main():
                     "recommendation_quality": p.get("validation", {}).get("recommendation_quality"),
                     "num_gaps": len(p.get("validation", {}).get("logical_gaps", [])),
                 } if p["has_validation"] else None,
+                "facet_ocean_scores": p.get("facet_assessment", {}).get("ocean_scores") if p.get("has_facet_assessment") else None,
+                "facet_confidence": p.get("facet_assessment", {}).get("ocean_confidence") if p.get("has_facet_assessment") else None,
+                "ensemble_scores": ensemble_data.get("median", {}).get(p["pid"], {}).get("ensemble_scores") if ensemble_data else None,
+                "ensemble_accuracy": ensemble_data.get("median", {}).get(p["pid"], {}).get("ensemble_accuracy") if ensemble_data else None,
             }
             for p in participants
         ],
