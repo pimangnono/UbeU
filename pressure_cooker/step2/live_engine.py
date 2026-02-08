@@ -28,6 +28,8 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from agents.colleague_agents import ProvokerAgent, MediatorAgent
 from agents.system_manager import SystemManagerAgent
+from agents.smart_agents import SmartProvokerAgent, ActiveMediatorAgent, SmartSystemManager
+from agents.discussion_orchestrator import DiscussionPhase, DiscussionContext
 from pipeline.statistics import classify_all_turns, calculate_intent_statistics, map_to_assessment
 from utils.models import (
     PersonalityProfile,
@@ -306,22 +308,48 @@ class LiveEngine:
             self._sync_agent_histories()
             tension = self.tension_history[-1] if self.tension_history else 0.3
 
+            # Get the human's last message
+            human_message = ""
+            for t in reversed(self.turns):
+                if t.speaker == SpeakerRole.CANDIDATE:
+                    human_message = t.content.lower()
+                    break
+
             # Check if the human's last message was a data question.
-            # Route to Facilitator only if submit_human_turn revealed new data
-            # categories (keyword match). Generic questions without data keywords
-            # go to colleagues instead.
-            is_data_question = bool(getattr(self, '_last_newly_revealed', set()))
+            # Use BOTH keyword matching AND common data request patterns.
+            newly_revealed = getattr(self, '_last_newly_revealed', set())
+            is_data_question = bool(newly_revealed) or self._is_data_request(human_message)
 
             if is_data_question:
-                # Facilitator responds with data
+                # Facilitator responds with data FIRST
                 gated_context = self._build_gated_context()
                 fac_response = await self.system_manager.generate_response(gated_context)
                 fac_turn = self._create_turn(SpeakerRole.SYSTEM, "Facilitator", fac_response)
                 self.turns.append(fac_turn)
                 ai_turns.append(fac_turn)
                 self._sync_agent_histories()
+
+                # Only THEN let a colleague react (briefly) if they have something to add
+                # But skip if Facilitator already gave substantial data
+                if len(fac_response) < 200:  # Short response = maybe colleague can add
+                    next_speaker = "Jordan" if len(self.turns) % 2 == 0 else "Sam"
+                    agent = self.ai_agents[next_speaker]
+                    case_context = (
+                        "IMPORTANT: The Facilitator just shared data. You may briefly react "
+                        "(1-2 sentences max) if you have a specific insight about the data. "
+                        "Do NOT ask for more data — the candidate leads that. Do NOT propose "
+                        "frameworks or next steps. If you have nothing specific to add, "
+                        "just say something brief like 'Interesting, let's see what [candidate name] thinks.'"
+                    )
+                    response = await agent.generate_response(
+                        context=case_context, tension_level=tension
+                    )
+                    turn = self._create_turn(agent.role, next_speaker, response)
+                    self.turns.append(turn)
+                    ai_turns.append(turn)
+                    self._sync_agent_histories()
             else:
-                # Colleague responds (alternate Jordan/Sam)
+                # No data question — colleague responds to the candidate's point
                 next_speaker = "Jordan" if len(self.turns) % 2 == 0 else "Sam"
                 agent = self.ai_agents[next_speaker]
                 case_context = (
@@ -329,7 +357,8 @@ class LiveEngine:
                     "lead the analysis. Do NOT propose frameworks, structure, or analytical "
                     "approaches. Only react to what the candidate says — challenge weak "
                     "reasoning, ask for clarification, or support good points. Never suggest "
-                    "what to look at next or how to break down the problem."
+                    "what to look at next or how to break down the problem. "
+                    "Do NOT ask the Facilitator for data — only the candidate can do that."
                 )
                 response = await agent.generate_response(
                     context=case_context, tension_level=tension
@@ -705,20 +734,29 @@ class LiveEngine:
         )
 
         parts.append(
-            "\n## STRICT RULES — FOLLOW EXACTLY:"
-            "\n- You are a DATA CLERK, not a discussion participant."
-            "\n- Your ONLY job: state the requested numbers/facts, then STOP."
-            "\n- NEVER ask questions. NEVER end with a question mark."
-            "\n- NEVER offer additional data (no 'Would you like...', no 'I can also share...')."
-            "\n- NEVER suggest what to analyze or look at next."
-            "\n- NEVER recommend an approach or framework."
-            "\n- NEVER give opinions or commentary on the data."
-            "\n- NEVER use directive phrases like 'Let's consider...', 'This suggests...', "
-            "'It's worth noting...', 'This could mean...', 'Keep in mind...', "
-            "'This is important because...', 'You might want to...'."
-            "\n- NEVER add concluding sentences after the data. No summaries, no implications."
-            "\n- Format: 'Here is [data category]: [numbers/facts].' — FULL STOP. Nothing after."
-            "\n- If data has multiple parts, list them with bullet points, then stop."
+            "\n## ABSOLUTE RULES — VIOLATING THESE IS FORBIDDEN:"
+            "\n"
+            "\n### WHAT YOU MUST DO:"
+            "\n- State ONLY the requested data/numbers."
+            "\n- Format: 'Here is [category]: [data]' then STOP."
+            "\n- Use bullet points for multiple items, then STOP."
+            "\n"
+            "\n### WHAT YOU MUST NEVER DO:"
+            "\n- NEVER use names (Jordan, Sam, Morgan, etc.) in your response."
+            "\n- NEVER ask questions or end with '?'"
+            "\n- NEVER say 'let's', 'we should', 'how do you', 'what do you think'"
+            "\n- NEVER say 'discuss', 'focus on', 'consider', 'analyze'"
+            "\n- NEVER offer opinions, commentary, or analysis"
+            "\n- NEVER suggest next steps or actions"
+            "\n- NEVER add concluding remarks after the data"
+            "\n- NEVER hand off to others ('Over to you', 'What does X think')"
+            "\n- NEVER facilitate or moderate in ANY way"
+            "\n"
+            "\n### EXAMPLE OF CORRECT RESPONSE:"
+            "\n'Here is the cost breakdown: Engineering 40%, Sales 25%, Support 20%, G&A 15%.'"
+            "\n"
+            "\n### EXAMPLE OF WRONG RESPONSE (DO NOT DO THIS):"
+            "\n'Here is the cost breakdown... Jordan and Sam, what are your thoughts on this?'"
         )
 
         return "\n".join(parts)
@@ -726,6 +764,46 @@ class LiveEngine:
     def _detect_questions(self, text: str) -> bool:
         """Check if text contains analytical questions."""
         return bool(QUESTION_PATTERNS.search(text))
+
+    def _is_data_request(self, text: str) -> bool:
+        """
+        Check if text is asking the Facilitator for data.
+
+        Detects common patterns like:
+        - "can we get..." / "could we see..."
+        - "what is the..." / "what are the..."
+        - "facilitator, ..." / "@facilitator"
+        - "do we have data on..."
+        - "show me..." / "tell me about..."
+        """
+        text = text.lower()
+
+        # Direct facilitator address
+        if "facilitator" in text:
+            return True
+
+        # Common data request patterns
+        data_patterns = [
+            r"\bcan (we|you|i) (get|see|have|look at)\b",
+            r"\bcould (we|you|i) (get|see|have|look at)\b",
+            r"\bdo (we|you) have (data|numbers|info|information)\b",
+            r"\bwhat (is|are|about) the\b.*\?",
+            r"\bshow (me|us)\b",
+            r"\btell (me|us) about\b",
+            r"\bgive (me|us)\b.*\b(data|numbers|breakdown)\b",
+            r"\bi('d| would) like to (see|know|understand)\b",
+            r"\bwhat('s| is) (the|our)\b.*\b(margin|cost|revenue|rate|ratio|percentage)\b",
+            r"\bhow (much|many)\b.*\?",
+            r"\bbreakdown\b.*\?",
+            r"\bcan you (share|provide|walk us through)\b",
+        ]
+
+        import re
+        for pattern in data_patterns:
+            if re.search(pattern, text):
+                return True
+
+        return False
 
     def _check_engagement(self) -> Optional[Turn]:
         """
@@ -768,3 +846,485 @@ class LiveEngine:
         self.revealed_categories.add(target.category)
 
         return turn
+
+
+# =============================================================================
+# Smart Live Engine with Evidence-Based Analysis
+# =============================================================================
+
+class SmartLiveEngine(LiveEngine):
+    """
+    Enhanced LiveEngine with:
+    - Smart agents (competency-targeted provoker, active mediator)
+    - Discussion phase management
+    - Competency coverage tracking
+    - Evidence-based analysis output
+
+    Use this engine for interviews where you want transparent,
+    evidence-backed assessments.
+    """
+
+    def __init__(
+        self,
+        client: "GeminiClient | MockGeminiClient",
+        scenario: ScenarioConfig,
+        participant_name: str,
+        case_study: Optional[CaseStudy] = None,
+        use_smart_agents: bool = True,
+    ):
+        """
+        Initialize smart live engine.
+
+        Args:
+            client: LLM client.
+            scenario: Scenario configuration.
+            participant_name: Human participant's name.
+            case_study: Optional case study for consulting scenarios.
+            use_smart_agents: If True, use smart agents; else fall back to basic agents.
+        """
+        # Initialize parent
+        super().__init__(client, scenario, participant_name, case_study)
+
+        self.use_smart_agents = use_smart_agents
+
+        # Create shared discussion context
+        self.discussion_context = DiscussionContext()
+
+        if use_smart_agents:
+            # Replace agents with smart versions
+            self.provoker = SmartProvokerAgent(
+                name="Jordan",
+                client=client,
+                scenario=scenario,
+                context=self.discussion_context,
+            )
+            self.mediator = ActiveMediatorAgent(
+                name="Sam",
+                client=client,
+                scenario=scenario,
+                context=self.discussion_context,
+            )
+            self.system_manager = SmartSystemManager(
+                name="Facilitator",
+                client=client,
+                scenario=scenario,
+                context=self.discussion_context,
+            )
+
+            self.ai_agents = {
+                "Jordan": self.provoker,
+                "Sam": self.mediator,
+                "Facilitator": self.system_manager,
+            }
+
+        # Evidence-based analysis storage
+        self._turn_analyses: list = []
+        self._evidence_assessment = None
+
+    def _record_turn_to_context(self, turn: Turn) -> None:
+        """Record a turn to the discussion context and detect competency behaviors."""
+        self.discussion_context.record_turn(turn)
+
+        # Track revealed data
+        if turn.speaker == SpeakerRole.CANDIDATE:
+            self.discussion_context.data_requested.update(self.revealed_categories)
+
+        # Check for phase advancement
+        if self.discussion_context.should_advance_phase():
+            old_phase = self.discussion_context.current_phase
+            self.discussion_context.advance_phase()
+            new_phase = self.discussion_context.current_phase
+            # Log phase transition (could emit an event here)
+            if old_phase != new_phase:
+                pass  # Phase advanced from {old_phase} to {new_phase}
+
+    def submit_human_turn(self, content: str) -> Turn:
+        """
+        Record human turn and update discussion context.
+
+        Extends parent to also:
+        - Update discussion context
+        - Detect competency behaviors
+        - Check for phase advancement
+        """
+        turn = super().submit_human_turn(content)
+
+        # Record to discussion context
+        self._record_turn_to_context(turn)
+
+        # Track data usage
+        if self.case_study:
+            self.discussion_context.data_revealed.update(self.revealed_categories)
+
+        return turn
+
+    async def generate_ai_turns_until_human(
+        self,
+        target_speaker: Optional[str] = None,
+    ) -> list[Turn]:
+        """
+        Generate AI turns with smart agent behavior.
+
+        Enhancements over parent:
+        - Uses competency-targeted challenges
+        - Active mediator advancement
+        - Phase-aware speaker selection
+        - Records all turns to discussion context
+        """
+        if self.state == SessionState.ENDED:
+            return []
+
+        ai_turns: list[Turn] = []
+
+        # Time checks
+        time_turns = await self._check_time_events()
+        ai_turns.extend(time_turns)
+        if self.state == SessionState.ENDED:
+            return ai_turns
+
+        self._sync_agent_histories()
+
+        # Get candidate's last turn for context
+        candidate_last_turn = None
+        for t in reversed(self.turns):
+            if t.speaker == SpeakerRole.CANDIDATE:
+                candidate_last_turn = t
+                break
+
+        # Update tension
+        tension = await self._get_tension()
+        self.discussion_context.tension_level = tension
+
+        # --- Targeted speaker bypass ---
+        if target_speaker and target_speaker in self.ai_agents:
+            agent = self.ai_agents[target_speaker]
+            response = await self._generate_smart_response(
+                agent, target_speaker, tension, candidate_last_turn
+            )
+            turn = self._create_turn(agent.role, target_speaker, response)
+            self.turns.append(turn)
+            ai_turns.append(turn)
+            self._record_turn_to_context(turn)
+            self._sync_agent_histories()
+            return ai_turns
+
+        # --- Case study smart flow ---
+        if self.case_study:
+            human_message = candidate_last_turn.content.lower() if candidate_last_turn else ""
+
+            # Check if human requested data
+            newly_revealed = getattr(self, '_last_newly_revealed', set())
+            is_data_question = bool(newly_revealed) or self._is_data_request(human_message)
+
+            if is_data_question:
+                # Facilitator provides data
+                gated_context = self._build_gated_context()
+                fac_response = await self.system_manager.generate_response(gated_context)
+                fac_turn = self._create_turn(SpeakerRole.SYSTEM, "Facilitator", fac_response)
+                self.turns.append(fac_turn)
+                ai_turns.append(fac_turn)
+                self._record_turn_to_context(fac_turn)
+                self._sync_agent_histories()
+
+                # Track that data was revealed
+                self.discussion_context.data_revealed.update(self.revealed_categories)
+
+                # Colleague reaction (brief)
+                if len(fac_response) < 200 and self.use_smart_agents:
+                    # Use smart speaker selection
+                    next_speaker = self._select_smart_speaker()
+                    agent = self.ai_agents[next_speaker]
+                    response = await self._generate_smart_response(
+                        agent, next_speaker, tension, candidate_last_turn,
+                        context="The Facilitator just shared data. React briefly (1-2 sentences) if you have specific insight."
+                    )
+                    turn = self._create_turn(agent.role, next_speaker, response)
+                    self.turns.append(turn)
+                    ai_turns.append(turn)
+                    self._record_turn_to_context(turn)
+                    self._sync_agent_histories()
+            else:
+                # No data question - colleague responds
+                next_speaker = self._select_smart_speaker()
+                agent = self.ai_agents[next_speaker]
+                response = await self._generate_smart_response(
+                    agent, next_speaker, tension, candidate_last_turn
+                )
+                turn = self._create_turn(agent.role, next_speaker, response)
+                self.turns.append(turn)
+                ai_turns.append(turn)
+                self._record_turn_to_context(turn)
+                self._sync_agent_histories()
+
+            # Check engagement
+            engagement_turn = self._check_engagement()
+            if engagement_turn is not None:
+                ai_turns.append(engagement_turn)
+                self._record_turn_to_context(engagement_turn)
+
+            return ai_turns
+
+        # --- Non-case-study flow (original behavior with smart agents) ---
+        max_consecutive_ai = 5
+
+        for _ in range(max_consecutive_ai):
+            time_turns = await self._check_time_events()
+            ai_turns.extend(time_turns)
+            if self.state == SessionState.ENDED:
+                break
+
+            self._sync_agent_histories()
+            tension = await self._get_tension()
+
+            # Check for intervention
+            should_intervene, reason = await self.system_manager.should_intervene(self.turns)
+            if should_intervene:
+                response = await self.system_manager.generate_response(reason)
+                turn = self._create_turn(SpeakerRole.SYSTEM, "Facilitator", response)
+                self.turns.append(turn)
+                ai_turns.append(turn)
+                self._record_turn_to_context(turn)
+                self._sync_agent_histories()
+
+            # Smart speaker selection
+            next_speaker = self._select_smart_speaker()
+
+            if next_speaker == self.participant_name:
+                break
+
+            agent = self.ai_agents.get(next_speaker)
+            if agent is None:
+                break
+
+            response = await self._generate_smart_response(
+                agent, next_speaker, tension, candidate_last_turn
+            )
+            turn = self._create_turn(agent.role, next_speaker, response)
+            self.turns.append(turn)
+            ai_turns.append(turn)
+            self._record_turn_to_context(turn)
+            self._sync_agent_histories()
+
+            # Check resolution
+            if len(self.turns) >= self.scenario.min_turns:
+                resolved, summary = await self.system_manager.check_resolution(
+                    self.turns, self.scenario.min_turns
+                )
+                if resolved:
+                    closing = await self.system_manager.generate_response(
+                        f"The discussion has reached a natural conclusion: {summary}. "
+                        f"Thank everyone and wrap up."
+                    )
+                    close_turn = self._create_turn(SpeakerRole.SYSTEM, "Facilitator", closing)
+                    self.turns.append(close_turn)
+                    ai_turns.append(close_turn)
+                    self._record_turn_to_context(close_turn)
+                    self.state = SessionState.ENDED
+                    break
+
+        return ai_turns
+
+    def _select_smart_speaker(self, ai_only: bool = True) -> str:
+        """
+        Select next speaker using smart logic.
+
+        Args:
+            ai_only: If True, only return AI agent names (Jordan/Sam).
+                     If False, may return participant name.
+        """
+        if self.use_smart_agents and isinstance(self.system_manager, SmartSystemManager):
+            selected = self.system_manager.decide_next_speaker_strategic(
+                self.turns,
+                provoker_name="Jordan",
+                mediator_name="Sam",
+                candidate_name=self.participant_name,
+            )
+            # If ai_only and selected is human, fall back to alternating AI
+            if ai_only and selected == self.participant_name:
+                return "Jordan" if len(self.turns) % 2 == 0 else "Sam"
+            return selected
+        else:
+            # Fallback to alternating
+            return "Jordan" if len(self.turns) % 2 == 0 else "Sam"
+
+    async def _generate_smart_response(
+        self,
+        agent,
+        speaker_name: str,
+        tension: float,
+        candidate_last_turn: Optional[Turn],
+        context: str = "",
+    ) -> str:
+        """Generate response from smart agent with appropriate parameters."""
+        if isinstance(agent, SmartProvokerAgent):
+            return await agent.generate_response(
+                context=context or self._get_case_context(),
+                tension_level=tension,
+                candidate_last_turn=candidate_last_turn,
+            )
+        elif isinstance(agent, ActiveMediatorAgent):
+            # Determine if should advance
+            should_advance = self.discussion_context.turns_in_phase >= 3
+            return await agent.generate_response(
+                context=context or self._get_case_context(),
+                tension_level=tension,
+                should_advance=should_advance,
+            )
+        elif isinstance(agent, SmartSystemManager):
+            return await agent.generate_response(context)
+        else:
+            # Fallback for basic agents
+            return await agent.generate_response(
+                context=context or self._get_case_context(),
+                tension_level=tension,
+            )
+
+    def _get_case_context(self) -> str:
+        """Get case study context instruction for agents."""
+        if not self.case_study:
+            return ""
+        return (
+            "IMPORTANT: This is a consulting case study. The human candidate must "
+            "lead the analysis. Do NOT propose frameworks, structure, or analytical "
+            "approaches. Only react to what the candidate says — challenge weak "
+            "reasoning, ask for clarification, or support good points."
+        )
+
+    async def finalize_session_output(
+        self,
+        participant_id: str,
+        profile: Optional[PersonalityProfile] = None,
+    ) -> SessionOutput:
+        """
+        Finalize session with optional evidence-based analysis.
+
+        Returns standard SessionOutput for backwards compatibility,
+        but also generates evidence-based assessment internally.
+        """
+        # Get standard output
+        output = await super().finalize_session_output(participant_id, profile)
+
+        # Generate evidence-based analysis if smart agents were used
+        if self.use_smart_agents:
+            try:
+                await self._generate_evidence_based_analysis(participant_id)
+            except Exception as e:
+                # Log error but don't fail the session
+                print(f"Warning: Evidence-based analysis failed: {e}")
+
+        return output
+
+    async def _generate_evidence_based_analysis(self, participant_id: str) -> None:
+        """Generate evidence-based analysis using the new pipeline."""
+        try:
+            from pipeline.turn_analyzer import TurnAnalyzer
+            from pipeline.assessment_builder import build_evidence_based_assessment
+
+            # Create analyzer
+            case_context = ""
+            if self.case_study:
+                case_context = f"{self.case_study.company_name} ({self.case_study.industry}): {self.case_study.problem_statement}"
+
+            analyzer = TurnAnalyzer(
+                client=self.client,
+                case_context=case_context,
+                candidate_name=self.participant_name,
+            )
+
+            # Build revealed data by turn
+            revealed_by_turn = {}
+            revealed_so_far = set()
+            for turn in self.turns:
+                if turn.speaker == SpeakerRole.CANDIDATE:
+                    # Check what was revealed after this turn
+                    if self.case_study:
+                        matched = self.case_study.match_categories(turn.content)
+                        revealed_so_far.update(matched)
+                    revealed_by_turn[turn.turn_number] = list(revealed_so_far)
+
+            # Analyze all turns
+            self._turn_analyses = await analyzer.analyze_conversation(
+                turns=self.turns,
+                revealed_data_by_turn=revealed_by_turn,
+            )
+
+            # Build assessment
+            self._evidence_assessment = build_evidence_based_assessment(
+                session_id=self.session_id,
+                candidate_name=self.participant_name,
+                turn_analyses=self._turn_analyses,
+            )
+
+        except ImportError:
+            # Analysis modules not available
+            pass
+
+    def get_evidence_assessment(self):
+        """Get the evidence-based assessment if available."""
+        return self._evidence_assessment
+
+    def get_competency_coverage(self) -> dict:
+        """Get current competency coverage summary."""
+        return self.discussion_context.competency_tracker.get_coverage_summary()
+
+    def get_discussion_phase(self) -> str:
+        """Get current discussion phase."""
+        return self.discussion_context.current_phase.value
+
+    def get_phase_guidance(self) -> str:
+        """Get guidance for current phase."""
+        return self.discussion_context.get_phase_guidance()
+
+    def get_targeting_info(self) -> dict:
+        """Get info about what competencies are being targeted."""
+        if isinstance(self.provoker, SmartProvokerAgent):
+            return self.provoker.get_targeting_summary()
+        return {}
+
+    def to_state_dict(self) -> dict:
+        """Serialize engine state including discussion context."""
+        state = super().to_state_dict()
+
+        # Add discussion context state
+        state["discussion_context"] = {
+            "current_phase": self.discussion_context.current_phase.value,
+            "turns_in_phase": self.discussion_context.turns_in_phase,
+            "total_turns": self.discussion_context.total_turns,
+            "candidate_turns": self.discussion_context.candidate_turns,
+            "tension_level": self.discussion_context.tension_level,
+            "data_revealed": list(self.discussion_context.data_revealed),
+            "data_requested": list(self.discussion_context.data_requested),
+            "hypotheses_stated": self.discussion_context.hypotheses_stated,
+            "has_recommendation": self.discussion_context.has_recommendation,
+        }
+
+        # Add competency coverage
+        state["competency_coverage"] = self.get_competency_coverage()
+
+        return state
+
+    def restore_from_state(self, state: dict) -> None:
+        """Restore engine state including discussion context."""
+        super().restore_from_state(state)
+
+        # Restore discussion context
+        if "discussion_context" in state:
+            ctx = state["discussion_context"]
+            self.discussion_context.current_phase = DiscussionPhase(ctx.get("current_phase", "opening"))
+            self.discussion_context.turns_in_phase = ctx.get("turns_in_phase", 0)
+            self.discussion_context.total_turns = ctx.get("total_turns", 0)
+            self.discussion_context.candidate_turns = ctx.get("candidate_turns", 0)
+            self.discussion_context.tension_level = ctx.get("tension_level", 0.3)
+            self.discussion_context.data_revealed = set(ctx.get("data_revealed", []))
+            self.discussion_context.data_requested = set(ctx.get("data_requested", []))
+            self.discussion_context.hypotheses_stated = ctx.get("hypotheses_stated", [])
+            self.discussion_context.has_recommendation = ctx.get("has_recommendation", False)
+
+        # Update smart agents with context
+        if self.use_smart_agents:
+            if isinstance(self.provoker, SmartProvokerAgent):
+                self.provoker.set_context(self.discussion_context)
+            if isinstance(self.mediator, ActiveMediatorAgent):
+                self.mediator.set_context(self.discussion_context)
+            if isinstance(self.system_manager, SmartSystemManager):
+                self.system_manager.set_context(self.discussion_context)

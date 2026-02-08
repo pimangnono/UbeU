@@ -1,9 +1,17 @@
 """
 Statistics Pipeline for Pressure Cooker Framework.
 Calculates intent statistics and maps them to assessment scores.
+
+This module provides both:
+1. Legacy formula-based scoring (for backwards compatibility)
+2. New evidence-based analysis (via TurnAnalyzer and AssessmentBuilder)
+
+For transparent, evidence-based assessment, use:
+    from pipeline.turn_analyzer import TurnAnalyzer
+    from pipeline.assessment_builder import build_evidence_based_assessment
 """
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 
 from utils.models import (
     Turn,
@@ -14,7 +22,8 @@ from utils.models import (
 )
 
 if TYPE_CHECKING:
-    from clients.llm_client import GeminiClient, MockGeminiClient
+    from clients.llm_client import GeminiClient, MockGeminiClient, LLMClient
+    from utils.analysis_models import EvidenceBasedAssessment, TurnAnalysis
 
 
 # Intent classification keywords/patterns for rule-based fallback
@@ -307,3 +316,116 @@ async def classify_all_turns(
             classified_turns.append(turn)
 
     return classified_turns
+
+
+# =============================================================================
+# Evidence-Based Analysis (New System)
+# =============================================================================
+
+async def analyze_conversation_with_evidence(
+    turns: list[Turn],
+    client: "LLMClient",
+    session_id: str,
+    candidate_name: str,
+    case_context: str = "",
+    revealed_data_by_turn: Optional[dict[int, list[str]]] = None,
+    logical_validation: Optional[dict] = None,
+) -> "EvidenceBasedAssessment":
+    """
+    Analyze a conversation using the new evidence-based system.
+
+    This provides transparent, quote-backed assessments instead of
+    opaque formula-based scores.
+
+    Args:
+        turns: All turns in the conversation.
+        client: LLM client for analysis.
+        session_id: Session identifier.
+        candidate_name: Name of the candidate.
+        case_context: Brief description of the case study.
+        revealed_data_by_turn: Mapping of turn number to revealed data.
+        logical_validation: Optional validator output to incorporate.
+
+    Returns:
+        EvidenceBasedAssessment with full evidence trails.
+
+    Example:
+        >>> from clients.llm_client import LLMClient
+        >>> client = LLMClient()
+        >>> assessment = await analyze_conversation_with_evidence(
+        ...     turns=conversation,
+        ...     client=client,
+        ...     session_id="abc123",
+        ...     candidate_name="Jin",
+        ...     case_context="TechFlow profitability case",
+        ... )
+        >>> print(assessment.get_score_value(CompetencyDimension.LEADERSHIP))
+        0.72
+        >>> for evidence in assessment.get_competency_score(CompetencyDimension.LEADERSHIP).evidence[:3]:
+        ...     print(f"Turn {evidence.turn_number}: \"{evidence.quote[:50]}...\"")
+    """
+    from pipeline.turn_analyzer import TurnAnalyzer
+    from pipeline.assessment_builder import build_evidence_based_assessment
+
+    # Create analyzer
+    analyzer = TurnAnalyzer(
+        client=client,
+        case_context=case_context,
+        candidate_name=candidate_name,
+    )
+
+    # Start session
+    analyzer.start_session(session_id)
+
+    # Analyze all candidate turns
+    turn_analyses = await analyzer.analyze_conversation(
+        turns=turns,
+        revealed_data_by_turn=revealed_data_by_turn,
+    )
+
+    # Build final assessment
+    assessment = build_evidence_based_assessment(
+        session_id=session_id,
+        candidate_name=candidate_name,
+        turn_analyses=turn_analyses,
+        logical_validation=logical_validation,
+    )
+
+    return assessment
+
+
+async def analyze_single_turn_with_evidence(
+    turn: Turn,
+    client: "LLMClient",
+    previous_turn: Optional[Turn] = None,
+    case_context: str = "",
+    revealed_data: Optional[list[str]] = None,
+) -> "TurnAnalysis":
+    """
+    Analyze a single turn using the evidence-based system.
+
+    Useful for real-time analysis during a live session.
+
+    Args:
+        turn: The turn to analyze.
+        client: LLM client.
+        previous_turn: The turn being responded to.
+        case_context: Brief case description.
+        revealed_data: Data categories revealed so far.
+
+    Returns:
+        TurnAnalysis with evidence-based assessments.
+    """
+    from pipeline.turn_analyzer import TurnAnalyzer
+
+    analyzer = TurnAnalyzer(
+        client=client,
+        case_context=case_context,
+        candidate_name=turn.speaker_name,
+    )
+
+    return await analyzer.analyze_turn(
+        turn=turn,
+        previous_turn=previous_turn,
+        revealed_data=revealed_data,
+    )
