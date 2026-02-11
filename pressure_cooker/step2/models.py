@@ -115,10 +115,19 @@ class CreateSessionRequest(BaseModel):
     participant_id: str
 
 
+class CaseDataItemResponse(BaseModel):
+    """A single data item from the case study."""
+    label: str
+    detail: str
+
+
 class CreateSessionResponse(BaseModel):
     """Response after session creation."""
     session_id: str
     opening_messages: list[dict]  # list of {"speaker": str, "content": str}
+    case_data: list[CaseDataItemResponse] = []  # all data items for the case study
+    problem_statement: str = ""  # the case study problem statement
+    company_name: str = ""  # the company name for the case study
 
 
 class SessionStatusResponse(BaseModel):

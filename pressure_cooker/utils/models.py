@@ -250,6 +250,11 @@ class SessionOutput(BaseModel):
     intent_statistics: Optional[IntentStatistics] = Field(default=None)
     assessment_mapping: Optional[AssessmentMapping] = Field(default=None)
     validation_results: Optional[dict] = Field(default=None)
+    # Multi-model OCEAN personality inference
+    personality_inference: Optional[dict] = Field(
+        default=None,
+        description="Ensemble OCEAN inference from multiple models with individual and average scores"
+    )
 
     def to_json(self) -> str:
         """Serialize to JSON string."""

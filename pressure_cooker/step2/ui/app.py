@@ -58,32 +58,47 @@ STEPS = {
 def main():
     # Sidebar with minimal info
     with st.sidebar:
-        st.markdown("### Study Progress")
-        steps_display = ["Consent", "Questionnaire", "Interview", "Survey", "Complete"]
-        step_map = {"consent": 0, "bfi44": 1, "interview": 2, "survey": 3, "thankyou": 4}
-        current_idx = step_map.get(st.session_state.current_step, 0)
+        # Admin toggle at top
+        st.markdown("---")
+        admin_mode = st.toggle("🔐 Admin Mode", key="admin_toggle")
+        if admin_mode and st.session_state.current_step != "admin":
+            st.session_state.current_step = "admin"
+            st.rerun()
+        elif not admin_mode and st.session_state.current_step == "admin":
+            st.session_state.current_step = "consent"
+            st.rerun()
+        st.markdown("---")
 
-        for i, step_name in enumerate(steps_display):
-            if i < current_idx:
-                st.markdown(f"~~{step_name}~~")
-            elif i == current_idx:
-                st.markdown(f"**> {step_name}**")
-            else:
-                st.markdown(f"  {step_name}")
+        if st.session_state.current_step != "admin":
+            st.markdown("### Study Progress")
+            steps_display = ["Consent", "Questionnaire", "Interview", "Survey", "Complete"]
+            step_map = {"consent": 0, "bfi44": 1, "interview": 2, "survey": 3, "thankyou": 4}
+            current_idx = step_map.get(st.session_state.current_step, 0)
 
-        if st.session_state.participant_id:
-            st.divider()
-            st.caption(f"ID: {st.session_state.participant_id}")
+            for i, step_name in enumerate(steps_display):
+                if i < current_idx:
+                    st.markdown(f"~~{step_name}~~")
+                elif i == current_idx:
+                    st.markdown(f"**> {step_name}**")
+                else:
+                    st.markdown(f"  {step_name}")
 
-    # Title (hidden on interview page for compact layout)
-    if st.session_state.current_step != "interview":
+            if st.session_state.participant_id:
+                st.divider()
+                st.caption(f"ID: {st.session_state.participant_id}")
+
+    # Title (hidden on interview and admin pages for compact layout)
+    if st.session_state.current_step not in ("interview", "admin"):
         st.title("Workplace Discussion Study")
         st.markdown("---")
 
     # Route to current step
     step = st.session_state.current_step
 
-    if step == "consent":
+    if step == "admin":
+        from step2.ui.pages import admin_page
+        admin_page.render()
+    elif step == "consent":
         from step2.ui.pages import consent_page
         consent_page.render()
     elif step == "bfi44":

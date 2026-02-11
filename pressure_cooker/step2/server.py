@@ -42,6 +42,7 @@ from step2.models import (
     BFI44SubmitResponse,
     CreateSessionRequest,
     CreateSessionResponse,
+    CaseDataItemResponse,
     SessionStatusResponse,
     SubmitMessageRequest,
     SubmitMessageResponse,
@@ -162,6 +163,25 @@ async def create_session(req: CreateSessionRequest):
     if record.assigned_scenario is None:
         raise HTTPException(400, "No scenario assigned")
 
+    # Load consulting case study
+    case_study = None
+    try:
+        case_study = get_consulting_scenario(record.assigned_scenario)
+    except ValueError:
+        pass  # Fall back to legacy scenario if not a consulting scenario ID
+
+    # Extract all case data items for the UI data panel
+    case_data_items = []
+    problem_statement = ""
+    company_name = ""
+    if case_study:
+        case_data_items = [
+            CaseDataItemResponse(label=item.label, detail=item.detail)
+            for item in case_study.data_items
+        ]
+        problem_statement = case_study.problem_statement
+        company_name = case_study.company_name
+
     # Check for existing session
     existing = s_mgr.get_session_by_participant(req.participant_id)
     if existing and existing.state != SessionState.ENDED:
@@ -172,14 +192,10 @@ async def create_session(req: CreateSessionRequest):
                 {"speaker": t.speaker_name, "content": t.content}
                 for t in existing.engine.turns
             ],
+            case_data=case_data_items,
+            problem_statement=problem_statement,
+            company_name=company_name,
         )
-
-    # Load consulting case study
-    case_study = None
-    try:
-        case_study = get_consulting_scenario(record.assigned_scenario)
-    except ValueError:
-        pass  # Fall back to legacy scenario if not a consulting scenario ID
 
     # Create new session
     session = s_mgr.create_session(
@@ -208,6 +224,9 @@ async def create_session(req: CreateSessionRequest):
             {"speaker": t.speaker_name, "content": t.content}
             for t in opening_turns
         ],
+        case_data=case_data_items,
+        problem_statement=problem_statement,
+        company_name=company_name,
     )
 
 

@@ -19,6 +19,9 @@ This document covers all changes made to the Step 2 Live Interview Platform duri
 | **SmartLiveEngine** | `live_engine.py` | Integrated smart agents with evidence-based analysis |
 | **Facet-Level Detection** | `facet_detector.py` (new) | 28-facet BFI assessment with evidence extraction |
 | **Ensemble Aggregation** | `run_step2_evaluation.py` | Multi-judge OCEAN aggregation with agreement metrics |
+| **Admin Dashboard** | `admin_page.py` (new), `app.py` | Protected dashboard with participant reports, evidence display |
+| **Multi-Model Personality Inference** | `ensemble_detector.py` (new), `live_engine.py` | 3-model parallel inference with evidence extraction |
+| **UX Improvements** | `interview_page.py`, `survey_page.py`, `bfi44_page.py` | Larger input, sticky scale headers, full-screen loading |
 
 ---
 
@@ -884,3 +887,150 @@ session_output/
 | **Turn Analysis** | ~1s/turn | 5 traits | Quotes + signals | Per-turn evidence collection |
 | **28 Facets** | ~2-3s | 5-6/trait | Quotes + reasoning | Post-session detailed analysis |
 | **3-Judge Ensemble** | ~10s | 5 traits | Confidence + agreement | Final validated assessment |
+
+---
+
+## 16. Admin Dashboard
+
+### Problem
+No way to view participant reports, search by participant ID, or compare ground truth vs inferred personality traits without manually reading JSON files.
+
+### Solution
+Created a protected admin dashboard accessible via sidebar toggle.
+
+**Authentication:**
+- Login credentials: `ubeutest` / `ubeutest`
+- Session state: `admin_logged_in` flag
+- Styled login form with gradient background
+
+**Dashboard Features:**
+- Search by participant ID
+- Summary metrics (total participants, sessions completed, surveys submitted, completion rate)
+- Expandable participant cards with 4 tabs:
+
+| Tab | Contents |
+|-----|----------|
+| **Overview** | Participant info, session metadata, survey results |
+| **Personality** | OCEAN comparison table (ground truth vs inferred), evidence quotes grouped by trait, model breakdown, strengths/weaknesses |
+| **Conversation** | Full transcript with color-coded speakers |
+| **Assessment** | Competency scores, logic validation summary |
+
+**Evidence Display:**
+- Quotes grouped by OCEAN trait with expandable sections
+- Signal indicators (high/low/neutral)
+- Facet names for each evidence item
+- Max 5 quotes shown per trait with "and X more" indicator
+
+### Files
+- `pressure_cooker/step2/ui/pages/admin_page.py` — **NEW** - Complete admin dashboard
+- `pressure_cooker/step2/ui/app.py` — Added admin toggle in sidebar, routing
+
+---
+
+## 17. Multi-Model Personality Inference
+
+### Problem
+Single-model personality inference is susceptible to model-specific biases. No way to get consensus across multiple LLMs.
+
+### Solution
+Created `EnsembleDetector` that runs 3 models in parallel and aggregates results.
+
+**Models Used:**
+- DeepSeek V3 (`deepseek/deepseek-chat-v3-0324`)
+- Claude Haiku 3.5 (`anthropic/claude-3.5-haiku`)
+- Gemini Flash 2.0 (`google/gemini-2.0-flash-001`)
+
+**Parallel Execution:**
+```python
+results = await asyncio.gather(
+    self._run_single_model(model1, prompt),
+    self._run_single_model(model2, prompt),
+    self._run_single_model(model3, prompt),
+    return_exceptions=True
+)
+```
+
+**Output Structure:**
+```json
+{
+  "model_results": [
+    {
+      "model": "deepseek/deepseek-chat-v3-0324",
+      "success": true,
+      "ocean_scores": {"openness": 0.7, ...},
+      "evidence": [{"facet": "ideas", "quote": "...", "signal": "high"}],
+      "evidence_count": 12
+    },
+    ...
+  ],
+  "average_ocean": {"openness": 0.68, ...},
+  "strengths": [{"trait": "openness", "description": "...", "evidence": [...]}],
+  "weaknesses": [{"trait": "neuroticism", "description": "...", "evidence": [...]}]
+}
+```
+
+**Strengths/Weaknesses Detection:**
+- High traits (score > 0.65): Listed as strengths
+- Low traits (score < 0.35): Listed as areas for development
+- Each includes supporting evidence quotes
+
+### Integration
+Added `personality_inference` field to `SessionOutput` in `utils/models.py`. Ensemble detection runs during `finalize_session_output()` in `live_engine.py`.
+
+### Files
+- `pressure_cooker/pipeline/ensemble_detector.py` — **NEW** - Multi-model ensemble detector
+- `pressure_cooker/utils/models.py` — Added `personality_inference` field
+- `pressure_cooker/step2/live_engine.py` — Integrated ensemble detection in finalization
+
+---
+
+## 18. UX Improvements
+
+### Typing Box Enhancement
+**Problem:** Small text input made it hard to see user's typed answers.
+**Solution:** Changed from `st.text_input` to `st.text_area` with `height=120`.
+
+### Sticky Scale Headers (BFI-44)
+**Problem:** When scrolling through 44 BFI questions, the Likert scale labels (Strongly Disagree to Strongly Agree) were no longer visible.
+**Solution:** Added sticky CSS for scale header:
+```css
+.sticky-scale-header {
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 100;
+    padding: 10px 0;
+}
+```
+
+### Full-Screen Loading (Survey)
+**Problem:** Small loading spinner when submitting survey; users might accidentally close the window.
+**Solution:** Full-screen overlay with 100px spinner and warning message using `components.html` for proper z-index handling.
+
+### Notification Sound
+**Problem:** No audio notification when AI bot messages arrive.
+**Solution:** Web Audio API integration that plays a subtle notification sound when new messages appear from AI speakers.
+
+### AI Bot Instructions
+**Problem:** AI bots (Jordan/Sam) sometimes addressed the Facilitator directly or lacked access to case data.
+**Solution:**
+- Added "NEVER address the Facilitator" to agent prompts
+- Added `_build_case_data_context()` to include case study data in agent context
+
+### Timer Configuration
+Changed timer constants for demo purposes:
+```python
+SESSION_MAX_SECONDS = 2 * 60  # 2 minutes (was 15)
+WARN_AT_SECONDS = 1 * 60
+WRAPUP_AT_SECONDS = 90
+```
+
+### Session Result Saving Fix
+**Problem:** Auto-timeout wasn't properly redirecting to survey and session output wasn't being saved.
+**Solution:** Fixed timeout condition from `session_state not in ("ended", "wrapping_up")` to `session_state != "ended"`, added explicit "End Session" button when time expires.
+
+### Files
+- `pressure_cooker/step2/ui/pages/interview_page.py` — Larger text area, notification sound, timer fix
+- `pressure_cooker/step2/ui/pages/bfi44_page.py` — Sticky scale header
+- `pressure_cooker/step2/ui/pages/survey_page.py` — Full-screen loading overlay
+- `pressure_cooker/step2/live_engine.py` — Case data context for agents, timer constants
