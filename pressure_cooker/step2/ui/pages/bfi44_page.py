@@ -63,9 +63,52 @@ BFI44_ITEMS = [
     (44, "Is sophisticated in art, music, or literature"),
 ]
 
-# CSS for the horizontal dot scale
+# CSS for the horizontal dot scale with sticky header
 DOT_SCALE_CSS = """
 <style>
+/* Sticky scale header that stays visible when scrolling */
+.sticky-scale-header {
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 100;
+    padding: 12px 0;
+    margin: 0 -1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    border-bottom: 2px solid #e2e8f0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+.scale-labels-row {
+    display: flex;
+    align-items: center;
+}
+.scale-label-statement {
+    flex: 0 0 45%;
+    font-weight: 600;
+    color: #374151;
+}
+.scale-label-numbers {
+    flex: 1;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.scale-label-item {
+    text-align: center;
+    font-size: 0.7rem;
+    color: #6b7280;
+    line-height: 1.2;
+    width: 60px;
+}
+.scale-label-item .number {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #374151;
+    display: block;
+    margin-bottom: 2px;
+}
+
 .dot-scale-container {
     display: flex;
     align-items: center;
@@ -149,18 +192,39 @@ def render():
     if "bfi44_responses" not in st.session_state:
         st.session_state.bfi44_responses = {num: 3 for num, _ in BFI44_ITEMS}
 
-    # Scale labels header
-    label_cols = st.columns([4, 1, 1, 1, 1, 1])
-    with label_cols[0]:
-        st.markdown("")
-    with label_cols[1]:
-        st.caption("Strongly Disagree")
-    with label_cols[3]:
-        st.caption("Neutral")
-    with label_cols[5]:
-        st.caption("Strongly Agree")
-
-    st.markdown("---")
+    # Sticky scale labels header with clear numbers and labels
+    st.markdown(
+        """
+        <div class="sticky-scale-header">
+            <div class="scale-labels-row">
+                <div class="scale-label-statement">Statement</div>
+                <div class="scale-label-numbers">
+                    <div class="scale-label-item">
+                        <span class="number">1</span>
+                        Strongly<br>Disagree
+                    </div>
+                    <div class="scale-label-item">
+                        <span class="number">2</span>
+                        Disagree
+                    </div>
+                    <div class="scale-label-item">
+                        <span class="number">3</span>
+                        Neutral
+                    </div>
+                    <div class="scale-label-item">
+                        <span class="number">4</span>
+                        Agree
+                    </div>
+                    <div class="scale-label-item">
+                        <span class="number">5</span>
+                        Strongly<br>Agree
+                    </div>
+                </div>
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
     for idx, (item_num, item_text) in enumerate(BFI44_ITEMS):
         cols = st.columns([4, 1, 1, 1, 1, 1])

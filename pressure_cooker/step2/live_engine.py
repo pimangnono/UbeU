@@ -48,9 +48,9 @@ if TYPE_CHECKING:
 
 
 # Timer constants (seconds)
-SESSION_MAX_SECONDS = 15 * 60    # 15 minutes hard stop
-WARN_AT_SECONDS = 12 * 60       # 12 minutes: facilitator warns
-WRAPUP_AT_SECONDS = 14 * 60     # 14 minutes: facilitator starts wrapping up
+SESSION_MAX_SECONDS = 2 * 60     # 2 minutes hard stop (change to 15 * 60 for production)
+WARN_AT_SECONDS = 1 * 60         # 1 minute: facilitator warns
+WRAPUP_AT_SECONDS = 90           # 1.5 minutes: facilitator starts wrapping up
 
 # Engagement check constants
 ENGAGEMENT_CHECK_TURN = 8       # Check engagement after this many total turns
@@ -299,6 +299,7 @@ class LiveEngine:
         max_consecutive_ai = 5  # Safety limit
 
         # Case study fast path: skip tension/intervention/decide overhead.
+        # All data is shown upfront in the UI data panel, so no facilitator responses needed.
         if self.case_study:
             time_turns = await self._check_time_events()
             ai_turns.extend(time_turns)
@@ -308,69 +309,47 @@ class LiveEngine:
             self._sync_agent_histories()
             tension = self.tension_history[-1] if self.tension_history else 0.3
 
-            # Get the human's last message
-            human_message = ""
-            for t in reversed(self.turns):
-                if t.speaker == SpeakerRole.CANDIDATE:
-                    human_message = t.content.lower()
-                    break
+            # Build case data context for agents
+            case_data_context = self._build_case_data_context()
 
-            # Check if the human's last message was a data question.
-            # Use BOTH keyword matching AND common data request patterns.
-            newly_revealed = getattr(self, '_last_newly_revealed', set())
-            is_data_question = bool(newly_revealed) or self._is_data_request(human_message)
+            # Both Jordan and Sam respond to create more dynamic discussion
+            # First responder alternates to keep variety
+            first_speaker = "Jordan" if len(self.turns) % 2 == 0 else "Sam"
+            second_speaker = "Sam" if first_speaker == "Jordan" else "Jordan"
 
-            if is_data_question:
-                # Facilitator responds with data FIRST
-                gated_context = self._build_gated_context()
-                fac_response = await self.system_manager.generate_response(gated_context)
-                fac_turn = self._create_turn(SpeakerRole.SYSTEM, "Facilitator", fac_response)
-                self.turns.append(fac_turn)
-                ai_turns.append(fac_turn)
-                self._sync_agent_histories()
+            # First response (more critical/challenging)
+            agent1 = self.ai_agents[first_speaker]
+            context1 = (
+                "IMPORTANT: This is a consulting case study. The human candidate leads the analysis. "
+                f"{case_data_context}"
+                "Keep your response SHORT (1-2 sentences max). "
+                "React to what the candidate just said. You can challenge, question, or support. "
+                "If the candidate asks about specific data, reference the relevant numbers from the case data above and help them interpret it. "
+                "Do NOT propose frameworks. Let the candidate lead. "
+                "NEVER address the Facilitator. NEVER ask the Facilitator for data or questions."
+            )
+            response1 = await agent1.generate_response(context=context1, tension_level=tension)
+            turn1 = self._create_turn(agent1.role, first_speaker, response1)
+            self.turns.append(turn1)
+            ai_turns.append(turn1)
+            self._sync_agent_histories()
 
-                # Only THEN let a colleague react (briefly) if they have something to add
-                # But skip if Facilitator already gave substantial data
-                if len(fac_response) < 200:  # Short response = maybe colleague can add
-                    next_speaker = "Jordan" if len(self.turns) % 2 == 0 else "Sam"
-                    agent = self.ai_agents[next_speaker]
-                    case_context = (
-                        "IMPORTANT: The Facilitator just shared data. You may briefly react "
-                        "(1-2 sentences max) if you have a specific insight about the data. "
-                        "Do NOT ask for more data — the candidate leads that. Do NOT propose "
-                        "frameworks or next steps. If you have nothing specific to add, "
-                        "just say something brief like 'Interesting, let's see what [candidate name] thinks.'"
-                    )
-                    response = await agent.generate_response(
-                        context=case_context, tension_level=tension
-                    )
-                    turn = self._create_turn(agent.role, next_speaker, response)
-                    self.turns.append(turn)
-                    ai_turns.append(turn)
-                    self._sync_agent_histories()
-            else:
-                # No data question — colleague responds to the candidate's point
-                next_speaker = "Jordan" if len(self.turns) % 2 == 0 else "Sam"
-                agent = self.ai_agents[next_speaker]
-                case_context = (
-                    "IMPORTANT: This is a consulting case study. The human candidate must "
-                    "lead the analysis. Do NOT propose frameworks, structure, or analytical "
-                    "approaches. Only react to what the candidate says — challenge weak "
-                    "reasoning, ask for clarification, or support good points. Never suggest "
-                    "what to look at next or how to break down the problem. "
-                    "Do NOT ask the Facilitator for data — only the candidate can do that."
-                )
-                response = await agent.generate_response(
-                    context=case_context, tension_level=tension
-                )
-                turn = self._create_turn(agent.role, next_speaker, response)
-                self.turns.append(turn)
-                ai_turns.append(turn)
-                self._sync_agent_histories()
-
-            engagement_turn = self._check_engagement()
-            if engagement_turn is not None:
-                ai_turns.append(engagement_turn)
+            # Second response (adds different perspective)
+            agent2 = self.ai_agents[second_speaker]
+            context2 = (
+                "IMPORTANT: Your colleague just responded. Add a DIFFERENT perspective briefly. "
+                f"{case_data_context}"
+                "Keep it SHORT (1-2 sentences max). "
+                "If they challenged, you can support. If they supported, add nuance or a question. "
+                "If the candidate asks about data, cite specific numbers from the case data and offer analysis. "
+                "Do NOT repeat what was said. Do NOT propose frameworks. Be concise. "
+                "NEVER address the Facilitator. NEVER ask the Facilitator for data or questions."
+            )
+            response2 = await agent2.generate_response(context=context2, tension_level=tension)
+            turn2 = self._create_turn(agent2.role, second_speaker, response2)
+            self.turns.append(turn2)
+            ai_turns.append(turn2)
+            self._sync_agent_histories()
 
             return ai_turns
 
@@ -551,8 +530,8 @@ class LiveEngine:
         profile: Optional[PersonalityProfile] = None,
     ) -> SessionOutput:
         """
-        Async version of to_session_output that also classifies intents
-        and computes statistics.
+        Async version of to_session_output that also classifies intents,
+        computes statistics, and runs multi-model OCEAN personality inference.
         """
         output = self.to_session_output(participant_id, profile)
 
@@ -571,6 +550,19 @@ class LiveEngine:
             else 0.5
         )
         output.assessment_mapping = map_to_assessment(intent_stats, avg_tension)
+
+        # Run multi-model OCEAN personality inference
+        try:
+            from pipeline.ensemble_detector import detect_personality_ensemble
+            ensemble_result = await detect_personality_ensemble(
+                turns=self.turns,
+                candidate_name=self.participant_name,
+                client=self.client,
+            )
+            output.personality_inference = ensemble_result.to_dict()
+        except Exception as e:
+            # Don't fail session output if personality inference fails
+            output.personality_inference = {"error": str(e)}
 
         return output
 
@@ -765,6 +757,29 @@ class LiveEngine:
         """Check if text contains analytical questions."""
         return bool(QUESTION_PATTERNS.search(text))
 
+    def _build_case_data_context(self) -> str:
+        """
+        Build context string with all case data for AI agents.
+
+        Returns a formatted string with all data items so agents can
+        reference the data in their responses.
+        """
+        if not self.case_study:
+            return ""
+
+        data_parts = [
+            f"\n--- CASE DATA (you have access to this) ---\n"
+            f"Company: {self.case_study.company_name} ({self.case_study.industry})\n"
+            f"Problem: {self.case_study.problem_statement}\n"
+        ]
+
+        for item in self.case_study.data_items:
+            data_parts.append(f"\n{item.label}:\n{item.detail}\n")
+
+        data_parts.append("--- END CASE DATA ---\n\n")
+
+        return "".join(data_parts)
+
     def _is_data_request(self, text: str) -> bool:
         """
         Check if text is asking the Facilitator for data.
@@ -831,12 +846,11 @@ class LiveEngine:
         if not unrevealed:
             return None
 
-        # Sam models analytical questioning
+        # Sam models analytical thinking (without asking facilitator)
         target = unrevealed[0]
         nudge_content = (
-            f"Before we dive deeper, I think we should understand the "
-            f"{target.label.lower()} better. Facilitator, can you walk us "
-            f"through the {target.label.lower()}?"
+            f"I think we should consider the {target.label.lower()} more carefully. "
+            f"It might give us important insights into the situation."
         )
 
         turn = self._create_turn(SpeakerRole.MEDIATOR, "Sam", nudge_content)

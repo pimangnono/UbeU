@@ -19,7 +19,6 @@ API_BASE = "http://localhost:8000"
 
 # Speaker config: color, initial, CSS position
 SPEAKERS = {
-    "Facilitator": {"color": "#6b7280", "initial": "F", "pos": "top"},
     "Jordan":      {"color": "#dc2626", "initial": "J", "pos": "left"},
     "Sam":         {"color": "#16a34a", "initial": "S", "pos": "right"},
 }
@@ -27,7 +26,6 @@ SPEAKERS = {
 TTS_VOICE_SETTINGS = {
     "Jordan":      {"pitch": 0.9, "rate": 1.0},
     "Sam":         {"pitch": 1.1, "rate": 1.0},
-    "Facilitator": {"pitch": 1.0, "rate": 0.9},
 }
 
 
@@ -41,41 +39,190 @@ def _display_duration(content: str, is_typing: bool = False, tts_enabled: bool =
     return max(3.0, word_count * 0.3)  # ~200 WPM reading
 
 
-def _render_data_panel(placeholder) -> None:
-    """Render the facilitator data panel into the given st.empty() placeholder."""
+def _parse_data_to_html(detail: str) -> str:
+    """Parse case data detail text into formatted HTML with tables and charts."""
+    import html as _html_mod
+    import re
+
+    lines = detail.strip().split("\n")
+    html_parts = []
+    current_section = None
+    table_rows = []
+    bar_data = []  # For percentage-based bar charts
+
+    def flush_table():
+        nonlocal table_rows
+        if table_rows:
+            table_html = (
+                '<table style="width:100%;border-collapse:collapse;font-size:12px;margin:8px 0;">'
+            )
+            for row in table_rows:
+                table_html += (
+                    f'<tr style="border-bottom:1px solid #e2e8f0;">'
+                    f'<td style="padding:6px 8px;color:#374151;font-weight:500;">{row[0]}</td>'
+                    f'<td style="padding:6px 8px;color:#1e293b;text-align:right;">{row[1]}</td>'
+                    f'</tr>'
+                )
+            table_html += '</table>'
+            html_parts.append(table_html)
+            table_rows = []
+
+    def flush_bars():
+        nonlocal bar_data
+        if bar_data:
+            bars_html = '<div style="margin:8px 0;">'
+            colors = ['#3b82f6', '#22c55e', '#f59e0b', '#ef4444', '#8b5cf6']
+            for i, (label, pct) in enumerate(bar_data):
+                color = colors[i % len(colors)]
+                bars_html += (
+                    f'<div style="margin:4px 0;">'
+                    f'<div style="display:flex;justify-content:space-between;font-size:11px;color:#64748b;margin-bottom:2px;">'
+                    f'<span>{label}</span><span>{pct}%</span></div>'
+                    f'<div style="height:8px;background:#e2e8f0;border-radius:4px;overflow:hidden;">'
+                    f'<div style="height:100%;width:{min(pct, 100)}%;background:{color};border-radius:4px;"></div>'
+                    f'</div></div>'
+                )
+            bars_html += '</div>'
+            html_parts.append(bars_html)
+            bar_data = []
+
+    for line in lines:
+        line = line.strip()
+        if not line:
+            flush_table()
+            flush_bars()
+            continue
+
+        # Section header (ends with ":")
+        if line.endswith(":") and not line.startswith("-"):
+            flush_table()
+            flush_bars()
+            current_section = line[:-1]
+            html_parts.append(
+                f'<div style="font-weight:600;font-size:11px;color:#6b7280;'
+                f'margin-top:10px;margin-bottom:4px;text-transform:uppercase;">'
+                f'{_html_mod.escape(current_section)}</div>'
+            )
+            continue
+
+        # Bullet point with data
+        if line.startswith("- "):
+            content = line[2:]
+
+            # Try to extract percentage for bar chart
+            pct_match = re.search(r'\((\d+(?:\.\d+)?)\s*%\)', content)
+            if pct_match:
+                pct = float(pct_match.group(1))
+                label = re.sub(r'\s*\(\d+(?:\.\d+)?%\).*', '', content).strip()
+                if ":" in label:
+                    label = label.split(":")[0].strip()
+                bar_data.append((label, pct))
+                continue
+
+            # Try to parse as table row (label: value or label — value)
+            if ": " in content or " — " in content:
+                flush_bars()
+                sep = " — " if " — " in content else ": "
+                parts = content.split(sep, 1)
+                if len(parts) == 2:
+                    table_rows.append((_html_mod.escape(parts[0]), _html_mod.escape(parts[1])))
+                    continue
+
+            # Fallback: add as text
+            flush_table()
+            flush_bars()
+            html_parts.append(
+                f'<div style="font-size:12px;color:#374151;padding:2px 0;padding-left:12px;">'
+                f'• {_html_mod.escape(content)}</div>'
+            )
+            continue
+
+        # Numbered item
+        if re.match(r'^\d+\.', line):
+            flush_table()
+            flush_bars()
+            html_parts.append(
+                f'<div style="font-size:12px;color:#374151;padding:4px 0;'
+                f'border-left:3px solid #3b82f6;padding-left:10px;margin:4px 0;">'
+                f'{_html_mod.escape(line)}</div>'
+            )
+            continue
+
+        # Key metric line (contains $, %, or numbers)
+        if re.search(r'\$[\d.]+[MKB]?|\d+(?:\.\d+)?%', line):
+            flush_table()
+            flush_bars()
+            html_parts.append(
+                f'<div style="font-size:12px;color:#1e293b;padding:4px 8px;'
+                f'background:#f0fdf4;border-radius:4px;margin:4px 0;">'
+                f'{_html_mod.escape(line)}</div>'
+            )
+            continue
+
+        # Regular text
+        flush_table()
+        flush_bars()
+        html_parts.append(
+            f'<div style="font-size:12px;color:#374151;padding:2px 0;">'
+            f'{_html_mod.escape(line)}</div>'
+        )
+
+    flush_table()
+    flush_bars()
+    return "".join(html_parts)
+
+
+def _render_data_panel(placeholder, is_new: bool = False) -> None:
+    """Render the case data panel into the given st.empty() placeholder."""
     import html as _html_mod
 
-    fac_history = st.session_state.get("facilitator_history", [])
+    case_data = st.session_state.get("case_data_items", [])
 
-    if not fac_history:
+    if not case_data:
         placeholder.html(
-            '<div style="border:1px solid #e2e8f0;border-radius:12px;padding:16px;'
-            'height:300px;display:flex;align-items:center;justify-content:center;'
-            'color:#94a3b8;font-size:14px;">'
-            "No data shared yet.<br>Ask the Facilitator for data to see it here.</div>"
+            '<div style="border:2px dashed #cbd5e1;border-radius:12px;padding:20px;'
+            'height:300px;display:flex;flex-direction:column;align-items:center;'
+            'justify-content:center;background:linear-gradient(135deg,#f8fafc 0%,#f1f5f9 100%);">'
+            '<div style="font-size:32px;margin-bottom:12px;">📊</div>'
+            '<div style="color:#64748b;font-size:14px;font-weight:600;text-align:center;">'
+            'Case Data Loading...</div>'
+            "</div>"
         )
         return
 
     cards = ""
-    for i, fmsg in enumerate(fac_history):
-        escaped = _html_mod.escape(fmsg).replace("\n", "<br>")
+    for i, item in enumerate(case_data):
+        label = _html_mod.escape(item.get("label", f"Data {i+1}"))
+        detail = item.get("detail", "")
+        formatted_detail = _parse_data_to_html(detail)
         cards += (
-            f'<div style="background:#f8fafc;border:1px solid #e2e8f0;'
-            f'border-radius:8px;padding:10px 12px;margin-bottom:8px;">'
-            f'<div style="font-weight:600;font-size:11px;color:#6b7280;'
-            f'text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px;">'
-            f"Data #{i + 1}</div>"
-            f'<div style="font-size:13px;color:#1e293b;line-height:1.5;">'
-            f"{escaped}</div></div>"
+            f'<details style="background:#f8fafc;border:1px solid #e2e8f0;'
+            f'border-radius:8px;margin-bottom:8px;">'
+            f'<summary style="padding:10px 14px;cursor:pointer;font-weight:600;'
+            f'font-size:12px;color:#16a34a;text-transform:uppercase;letter-spacing:0.5px;'
+            f'list-style:none;display:flex;align-items:center;gap:6px;">'
+            f'<span style="transition:transform 0.2s;">▼</span> {label}</summary>'
+            f'<div style="padding:0 14px 12px 14px;">'
+            f"{formatted_detail}</div></details>"
         )
 
     placeholder.html(
-        '<div style="border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;">'
-        '<div style="background:#f1f5f9;padding:10px 14px;'
-        'font-weight:700;font-size:13px;color:#475569;'
-        'text-transform:uppercase;letter-spacing:0.5px;'
-        'border-bottom:1px solid #e2e8f0;">Data Panel</div>'
-        '<div style="padding:10px;max-height:350px;overflow-y:auto;">'
+        f'<style>'
+        f'details[open] > summary span {{ transform: rotate(0deg); }}'
+        f'details:not([open]) > summary span {{ transform: rotate(-90deg); }}'
+        f'details summary::-webkit-details-marker {{ display: none; }}'
+        f'</style>'
+        f'<div style="border:2px solid #22c55e;border-radius:12px;overflow:hidden;'
+        f'background:#fff;box-shadow:0 4px 12px rgba(34,197,94,0.15);">'
+        f'<div style="background:linear-gradient(135deg,#22c55e 0%,#16a34a 100%);'
+        f'padding:12px 16px;display:flex;align-items:center;gap:8px;">'
+        f'<span style="font-size:18px;">📊</span>'
+        f'<span style="font-weight:700;font-size:14px;color:white;'
+        f'text-transform:uppercase;letter-spacing:1px;">Case Data</span>'
+        f'<span style="margin-left:auto;background:rgba(255,255,255,0.25);'
+        f'padding:2px 8px;border-radius:10px;font-size:11px;color:white;">'
+        f'{len(case_data)} items</span></div>'
+        f'<div style="padding:12px;max-height:550px;overflow-y:auto;">'
         f"{cards}</div></div>"
     )
 
@@ -158,31 +305,61 @@ def _meeting_room_css() -> str:
     text-align: center;
 }
 
-/* Speaker card below the meeting room */
+/* Speaker card below the meeting room - more immersive */
 .speaker-card {
     max-width: 720px;
-    margin: 0.5rem auto 0 auto;
-    padding: 12px 16px;
-    background: white;
-    border-radius: 14px;
-    font-size: 14px;
-    line-height: 1.45;
+    margin: 1rem auto 0 auto;
+    padding: 16px 20px;
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    border-radius: 16px;
+    font-size: 15px;
+    line-height: 1.55;
     color: #1e293b;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    border: 1px solid #e2e8f0;
-    animation: fade-in 0.3s ease-out;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.05);
+    border-left: 4px solid currentColor;
+    animation: message-appear 0.4s ease-out;
+    position: relative;
+}
+.speaker-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 16px;
+    pointer-events: none;
+    animation: glow-fade 1.5s ease-out;
 }
 .speaker-card .speaker-label {
-    font-weight: 700;
-    font-size: 12px;
-    margin-bottom: 4px;
+    font-weight: 800;
+    font-size: 13px;
+    margin-bottom: 8px;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.speaker-card .speaker-label::before {
+    content: '💬';
+    font-size: 14px;
 }
 
-@keyframes fade-in {
-    from { opacity: 0; transform: translateY(6px); }
-    to   { opacity: 1; transform: translateY(0); }
+@keyframes message-appear {
+    from {
+        opacity: 0;
+        transform: translateY(15px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes glow-fade {
+    0% { box-shadow: 0 0 30px rgba(59,130,246,0.4); }
+    100% { box-shadow: 0 0 0px rgba(59,130,246,0); }
 }
 
 /* Typing dots */
@@ -219,6 +396,7 @@ def _build_meeting_html(
     typing_speaker: str | None = None,
     tts_enabled: bool = False,
     tts_settings: dict | None = None,
+    fullscreen_mode: bool = False,
 ) -> str:
     """Build the meeting room HTML with avatars and optional speech bubble."""
     import html as html_mod
@@ -311,7 +489,7 @@ def _build_meeting_html(
         </script>
         """
 
-    return f"""
+    base_html = f"""
     {_meeting_room_css()}
     <div class="meeting-room">
         <div class="meeting-table"></div>
@@ -320,6 +498,16 @@ def _build_meeting_html(
     {card_html}
     {tts_html}
     """
+
+    if fullscreen_mode:
+        return f"""
+        <div style="position:fixed;top:0;left:0;right:0;bottom:0;background:#0f172a;z-index:999998;"></div>
+        <div style="position:relative;z-index:999999;min-height:100vh;background:#0f172a;
+                    display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;">
+            {base_html}
+        </div>
+        """
+    return base_html
 
 
 def render():
@@ -340,15 +528,31 @@ def render():
     sid = st.session_state.session_id
     participant_name = st.session_state.get("participant_name", "You")
 
-    # Initialize facilitator history
-    if "facilitator_history" not in st.session_state:
-        st.session_state.facilitator_history = []
-
     # --- Loading page + opening reveal (runs once after session creation) ---
     pending = st.session_state.get("pending_opening")
     if pending:
         _show_loading_and_reveal(pending, participant_name)
         return
+
+    # --- Auto-timeout check: end session if 15 minutes have passed ---
+    session_state = st.session_state.get("session_state", "active")
+    if (
+        session_state != "ended"
+        and "interview_start" in st.session_state
+        and time.time() > st.session_state.interview_start + 2 * 60
+    ):
+        # Time's up — automatically end the session and go to survey
+        try:
+            resp = httpx.post(f"{API_BASE}/session/{sid}/end", timeout=60.0)
+            resp.raise_for_status()
+        except Exception:
+            pass
+        # Mark as ended and redirect to survey
+        st.session_state.session_state = "ended"
+        st.session_state.waiting_for_response = False
+        st.session_state.queued_message = None
+        st.session_state.current_step = "survey"
+        st.rerun()
 
     # --- Timer display (real-time JS) + TTS toggle ---
     if "tts_enabled" not in st.session_state:
@@ -357,139 +561,186 @@ def render():
     if "interview_start" in st.session_state:
         import streamlit.components.v1 as stc
 
-        end_time_ms = int((st.session_state.interview_start + 15 * 60) * 1000)
+        end_time_ms = int((st.session_state.interview_start + 2 * 60) * 1000)
         session_state = st.session_state.get("session_state", "active")
 
-        timer_col, sound_col = st.columns([3, 1])
-        with timer_col:
-            is_waiting = st.session_state.get("waiting_for_response", False)
-            if session_state == "ended":
-                st.markdown("**00:00** — Discussion ended")
-            elif is_waiting:
-                # Timer paused while waiting for AI — show frozen time
-                stc.html(f"""
-                <div id="timer" style="font-weight:700; font-size:18px;
-                     font-family:ui-monospace,SFMono-Regular,monospace;
-                     padding:2px 0; line-height:1.4;"></div>
-                <script>
-                (function(){{
-                    var end={end_time_ms};
-                    var el=document.getElementById('timer');
+        # Timer display (sound toggle hidden - TTS not implemented)
+        is_waiting = st.session_state.get("waiting_for_response", False)
+        if session_state == "ended":
+            st.markdown("**00:00** — Discussion ended")
+        elif is_waiting:
+            # Timer paused while waiting for AI — show frozen time
+            stc.html(f"""
+            <div id="timer" style="font-weight:700; font-size:18px;
+                 font-family:ui-monospace,SFMono-Regular,monospace;
+                 padding:2px 0; line-height:1.4;"></div>
+            <script>
+            (function(){{
+                var end={end_time_ms};
+                var el=document.getElementById('timer');
+                var r=Math.max(0,end-Date.now());
+                var m=Math.floor(r/60000);
+                var s=Math.floor(r%60000/1000);
+                el.textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s+' remaining  ⏸ paused';
+                el.style.color='#6b7280';
+            }})();
+            </script>
+            """, height=35)
+        else:
+            stc.html(f"""
+            <div id="timer" style="font-weight:700; font-size:18px;
+                 font-family:ui-monospace,SFMono-Regular,monospace;
+                 padding:2px 0; line-height:1.4;"></div>
+            <script>
+            (function(){{
+                var end={end_time_ms};
+                var el=document.getElementById('timer');
+                var ended=false;
+                function tick(){{
                     var r=Math.max(0,end-Date.now());
                     var m=Math.floor(r/60000);
                     var s=Math.floor(r%60000/1000);
-                    el.textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s+' remaining  ⏸ paused';
-                    el.style.color='#6b7280';
-                }})();
-                </script>
-                """, height=35)
-            else:
-                stc.html(f"""
-                <div id="timer" style="font-weight:700; font-size:18px;
-                     font-family:ui-monospace,SFMono-Regular,monospace;
-                     padding:2px 0; line-height:1.4;"></div>
-                <script>
-                (function(){{
-                    var end={end_time_ms};
-                    var el=document.getElementById('timer');
-                    function tick(){{
-                        var r=Math.max(0,end-Date.now());
-                        var m=Math.floor(r/60000);
-                        var s=Math.floor(r%60000/1000);
-                        el.textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s+' remaining';
-                        el.style.color=r<=60000?'#dc2626':r<=180000?'#ea580c':'#1e293b';
-                        if(r>0)setTimeout(tick,500);
+                    el.textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s+' remaining';
+                    el.style.color=r<=60000?'#dc2626':r<=180000?'#ea580c':'#1e293b';
+                    if(r>0){{
+                        setTimeout(tick,500);
+                    }}else if(!ended){{
+                        ended=true;
+                        el.textContent='00:00 — Time up! Click anywhere to continue to survey.';
+                        el.style.color='#dc2626';
+                        el.style.cursor='pointer';
+                        el.onclick=function(){{
+                            // Use streamlit's setComponentValue to trigger rerun
+                            window.parent.postMessage({{type:'streamlit:setComponentValue',value:true}},'*');
+                        }};
                     }}
-                    tick();
-                }})();
-                </script>
-                """, height=35)
-        with sound_col:
-            st.session_state.tts_enabled = st.toggle(
-                "Sound", value=st.session_state.tts_enabled
-            )
+                }}
+                tick();
+            }})();
+            </script>
+            """, height=35)
 
-    # --- Two-column layout: Meeting Room (left) + Data Panel (right) ---
-    main_col, data_col = st.columns([3, 2])
+    # --- Check if time has expired (show end button) ---
+    time_expired = (
+        "interview_start" in st.session_state
+        and time.time() > st.session_state.interview_start + 2 * 60
+    )
+    if time_expired and st.session_state.get("session_state") != "ended":
+        st.warning("⏰ Time is up! Please end the session to continue to the survey.")
+        if st.button("End Session & Continue to Survey", type="primary"):
+            try:
+                httpx.post(f"{API_BASE}/session/{sid}/end", timeout=60.0)
+            except Exception:
+                pass
+            st.session_state.session_state = "ended"
+            st.session_state.waiting_for_response = False
+            st.session_state.queued_message = None
+            st.session_state.current_step = "survey"
+            st.rerun()
 
-    with main_col:
-        # --- Meeting room display ---
-        room_placeholder = st.empty()
+    # --- Check state before layout ---
+    session_state = st.session_state.get("session_state", "active")
+    demo_mode = st.session_state.get("demo_mode", False)
+    waiting = st.session_state.get("waiting_for_response", False)
 
-        latest = st.session_state.get("latest_display", [])
-        opening = st.session_state.get("opening_display", [])
+    # --- Anchored Problem Statement Header ---
+    problem_statement = st.session_state.get("problem_statement", "")
+    company_name = st.session_state.get("company_name", "")
+    if problem_statement:
+        st.markdown(
+            f'<div style="background:linear-gradient(135deg,#1e3a5f 0%,#0f172a 100%);'
+            f'border:2px solid #3b82f6;border-radius:12px;padding:16px 20px;margin-bottom:16px;'
+            f'box-shadow:0 4px 12px rgba(59,130,246,0.2);">'
+            f'<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">'
+            f'<span style="font-size:20px;">🎯</span>'
+            f'<span style="font-weight:700;font-size:14px;color:#93c5fd;'
+            f'text-transform:uppercase;letter-spacing:1px;">Your Task</span>'
+            f'{f\'<span style="margin-left:auto;background:#3b82f6;padding:4px 12px;border-radius:16px;font-size:12px;color:white;font-weight:600;">{company_name}</span>\' if company_name else ""}'
+            f'</div>'
+            f'<div style="font-size:15px;color:#e2e8f0;line-height:1.6;">'
+            f'{problem_statement}</div></div>',
+            unsafe_allow_html=True,
+        )
 
-        if latest:
-            last_msg = latest[-1]
-            room_placeholder.html(
-                _build_meeting_html(
-                    active_speaker=last_msg["speaker"],
-                    bubble_speaker=last_msg["speaker"],
-                    bubble_content=last_msg["content"],
-                    participant_name=participant_name,
-                ),
-            )
-        elif opening:
-            last_msg = opening[-1]
-            room_placeholder.html(
-                _build_meeting_html(
-                    active_speaker=last_msg["speaker"],
-                    bubble_speaker=last_msg["speaker"],
-                    bubble_content=last_msg["content"],
-                    participant_name=participant_name,
-                ),
-            )
-        else:
-            room_placeholder.html(
-                _build_meeting_html(
-                    active_speaker=None,
-                    bubble_speaker=None,
-                    bubble_content=None,
-                    participant_name=participant_name,
-                ),
-            )
+    # --- Two-column layout: Data Panel (main, left) + Chat Area (right) ---
+    data_col, chat_col = st.columns([3, 2])
 
     with data_col:
-        # --- Data Panel (scrollable, fixed height, updated in real-time) ---
+        # --- Data Panel (scrollable, main focus) ---
         data_placeholder = st.empty()
         _render_data_panel(data_placeholder)
 
-    # --- Check if session ended ---
-    session_state = st.session_state.get("session_state", "active")
-    if session_state == "ended":
-        st.markdown("---")
-        if st.button("Continue to Survey", type="primary"):
-            st.session_state.current_step = "survey"
-            st.rerun()
-        return
+    with chat_col:
+        # --- Last message from bots ---
+        latest = st.session_state.get("latest_display", [])
+        opening = st.session_state.get("opening_display", [])
+        last_msg = None
+        if latest:
+            last_msg = latest[-1]
+        elif opening:
+            last_msg = opening[-1]
 
-    # --- Chat form (two-phase: save → rerun disabled → process → rerun enabled) ---
-    waiting = st.session_state.get("waiting_for_response", False)
-    target_options = ["Everyone", "Jordan", "Sam", "Facilitator"]
+        if last_msg:
+            speaker = last_msg["speaker"]
+            content = last_msg["content"]
+            speaker_colors = {"Jordan": "#dc2626", "Sam": "#16a34a"}
+            color = speaker_colors.get(speaker, "#6b7280")
+            st.markdown(
+                f'<div style="background:#f8fafc;border-left:4px solid {color};'
+                f'border-radius:0 8px 8px 0;padding:12px 16px;margin-bottom:12px;">'
+                f'<div style="font-weight:600;font-size:13px;color:{color};margin-bottom:6px;">'
+                f'{speaker}</div>'
+                f'<div style="font-size:14px;color:#1e293b;line-height:1.5;">'
+                f'{content}</div></div>',
+                unsafe_allow_html=True,
+            )
+        else:
+            st.markdown(
+                '<div style="background:#f1f5f9;border-radius:8px;padding:16px;'
+                'text-align:center;color:#64748b;font-size:13px;margin-bottom:12px;">'
+                'Discussion will appear here</div>',
+                unsafe_allow_html=True,
+            )
 
-    with st.form("chat_form", clear_on_submit=True):
-        selected = st.radio(
-            "Talk to",
-            target_options,
-            index=0,
-            horizontal=True,
-            disabled=waiting,
-        )
-        input_col, btn_col = st.columns([6, 1])
-        with input_col:
-            user_input = st.text_input(
+        # Keep room_placeholder for compatibility (hidden)
+        room_placeholder = st.empty()
+
+        # --- Session ended check ---
+        if session_state == "ended":
+            if st.button("Continue to Survey", type="primary", use_container_width=True):
+                st.session_state.current_step = "survey"
+                st.rerun()
+            return
+
+        # --- Demo Mode check ---
+        if demo_mode:
+            _run_demo_turn(sid, participant_name, room_placeholder, data_placeholder)
+            return
+
+        # --- Chat form inside chat column ---
+        target_options = ["Everyone", "Jordan", "Sam"]
+
+        with st.form("chat_form", clear_on_submit=True):
+            selected = st.radio(
+                "Talk to",
+                target_options,
+                index=0,
+                horizontal=True,
+                disabled=waiting,
+            )
+            user_input = st.text_area(
                 "Message",
                 placeholder=(
                     "Waiting for response..."
                     if waiting
-                    else "Type your response... (or @Jordan to target someone)"
+                    else "Type your message..."
                 ),
                 label_visibility="collapsed",
                 disabled=waiting,
+                height=120,
             )
-        with btn_col:
             submitted = st.form_submit_button(
-                "..." if waiting else "Send",
+                "Sending..." if waiting else "Send",
                 use_container_width=True,
                 disabled=waiting,
             )
@@ -525,14 +776,17 @@ def render():
         messages.append({"speaker": participant_name, "content": queued_input})
         st.session_state.messages = messages
 
-        # Show user's bubble immediately
+        # Show user's message in static format
+        import html as _html_mod
+        speaker_colors = {"Jordan": "#dc2626", "Sam": "#16a34a", participant_name: "#2563eb"}
         room_placeholder.html(
-            _build_meeting_html(
-                active_speaker=participant_name,
-                bubble_speaker=participant_name,
-                bubble_content=queued_input,
-                participant_name=participant_name,
-            ),
+            f'<div style="background:#eff6ff;border-left:4px solid #2563eb;'
+            f'border-radius:0 8px 8px 0;padding:12px 16px;margin-bottom:8px;">'
+            f'<div style="font-weight:600;font-size:13px;color:#2563eb;margin-bottom:6px;">You</div>'
+            f'<div style="font-size:14px;color:#1e293b;line-height:1.5;">'
+            f'{_html_mod.escape(queued_input)}</div></div>'
+            f'<div style="text-align:center;color:#64748b;font-size:12px;padding:8px;">'
+            f'Waiting for response...</div>'
         )
 
         # Send to backend and get AI responses
@@ -552,47 +806,75 @@ def render():
 
             ai_turns = data["ai_turns"]
 
-            # Sequential reveal: show each AI turn one at a time
+            # Build static message display for all AI responses
             display_turns = [{"speaker": participant_name, "content": queued_input}]
+            all_messages_html = (
+                f'<div style="background:#eff6ff;border-left:4px solid #2563eb;'
+                f'border-radius:0 8px 8px 0;padding:12px 16px;margin-bottom:8px;">'
+                f'<div style="font-weight:600;font-size:13px;color:#2563eb;margin-bottom:6px;">You</div>'
+                f'<div style="font-size:14px;color:#1e293b;line-height:1.5;">'
+                f'{_html_mod.escape(queued_input)}</div></div>'
+            )
+
             for ai_turn in ai_turns:
                 speaker = ai_turn["speaker"]
                 content = ai_turn["content"]
                 messages.append({"speaker": speaker, "content": content})
-
-                # Append to facilitator data history and update panel immediately
-                if speaker == "Facilitator":
-                    hist = st.session_state.get("facilitator_history", [])
-                    hist.append(content)
-                    st.session_state.facilitator_history = hist
-                    _render_data_panel(data_placeholder)
-
-                # 1. Show typing dots
-                room_placeholder.html(
-                    _build_meeting_html(
-                        active_speaker=speaker,
-                        bubble_speaker=None,
-                        bubble_content=None,
-                        participant_name=participant_name,
-                        show_typing=True,
-                        typing_speaker=speaker,
-                    ),
-                )
-                time.sleep(_display_duration(content, is_typing=True))
-
-                # 2. Show the actual message (with TTS if enabled)
-                tts_on = st.session_state.get("tts_enabled", False)
-                room_placeholder.html(
-                    _build_meeting_html(
-                        active_speaker=speaker,
-                        bubble_speaker=speaker,
-                        bubble_content=content,
-                        participant_name=participant_name,
-                        tts_enabled=tts_on,
-                        tts_settings=TTS_VOICE_SETTINGS,
-                    ),
-                )
                 display_turns.append({"speaker": speaker, "content": content})
-                time.sleep(_display_duration(content, tts_enabled=tts_on))
+
+                color = speaker_colors.get(speaker, "#6b7280")
+                all_messages_html += (
+                    f'<div style="background:#f8fafc;border-left:4px solid {color};'
+                    f'border-radius:0 8px 8px 0;padding:12px 16px;margin-bottom:8px;">'
+                    f'<div style="font-weight:600;font-size:13px;color:{color};margin-bottom:6px;">'
+                    f'{speaker}</div>'
+                    f'<div style="font-size:14px;color:#1e293b;line-height:1.5;">'
+                    f'{_html_mod.escape(content)}</div></div>'
+                )
+
+            # Add notification sound using parent window context
+            notification_sound = """
+            <script>
+            (function() {
+                try {
+                    // Access parent window's AudioContext to bypass iframe restrictions
+                    var win = window.parent || window;
+                    var AudioContext = win.AudioContext || win.webkitAudioContext;
+                    if (AudioContext) {
+                        var ctx = new AudioContext();
+                        // Resume context if suspended (required for autoplay policies)
+                        if (ctx.state === 'suspended') {
+                            ctx.resume();
+                        }
+                        var osc = ctx.createOscillator();
+                        var gain = ctx.createGain();
+                        osc.connect(gain);
+                        gain.connect(ctx.destination);
+                        osc.frequency.value = 660;
+                        osc.type = 'sine';
+                        gain.gain.setValueAtTime(0.15, ctx.currentTime);
+                        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.2);
+                        osc.start(ctx.currentTime);
+                        osc.stop(ctx.currentTime + 0.2);
+                        // Play second tone for "ding-dong" effect
+                        setTimeout(function() {
+                            var osc2 = ctx.createOscillator();
+                            var gain2 = ctx.createGain();
+                            osc2.connect(gain2);
+                            gain2.connect(ctx.destination);
+                            osc2.frequency.value = 880;
+                            osc2.type = 'sine';
+                            gain2.gain.setValueAtTime(0.15, ctx.currentTime);
+                            gain2.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
+                            osc2.start(ctx.currentTime);
+                            osc2.stop(ctx.currentTime + 0.3);
+                        }, 150);
+                    }
+                } catch(e) { console.log('Sound error:', e); }
+            })();
+            </script>
+            """
+            room_placeholder.html(all_messages_html + notification_sound)
 
             # Save display state — only latest exchange visible
             st.session_state.messages = messages
@@ -625,15 +907,30 @@ def _show_loading_and_reveal(pending_messages: list, participant_name: str):
     """Show instruction page, then transition to opening message reveal."""
     import streamlit.components.v1 as stc
 
-    # Dark background + hide sidebar (applies to whole page)
+    # Full-screen dark overlay that covers everything including any remnant UI
     st.markdown(
         "<style>"
+        "html, body, [data-testid='stAppViewContainer'], section[data-testid='stMain'] {"
+        "  overflow: hidden !important;"
+        "  height: 100vh !important;"
+        "  max-height: 100vh !important;"
+        "}"
         "section[data-testid='stMain'] {background:#0f172a !important;}"
-        "[data-testid='stMainBlockContainer'] {background:#0f172a !important;}"
-        "header[data-testid='stHeader'] {background:#0f172a !important;}"
+        "[data-testid='stMainBlockContainer'] {"
+        "  background:#0f172a !important;"
+        "  overflow: hidden !important;"
+        "  height: 100vh !important;"
+        "}"
+        "header[data-testid='stHeader'] {background:#0f172a !important; display:none !important;}"
         "[data-testid='stSidebar'] {display:none !important;}"
-        ".block-container {padding-top:1rem !important;}"
-        "</style>",
+        ".block-container {padding-top:0 !important; overflow: hidden !important;}"
+        "/* Hide all other streamlit elements */"
+        "[data-testid='stBottom'], [data-testid='stToolbar'], "
+        "[data-testid='stDecoration'], footer {display:none !important;}"
+        "</style>"
+        "<!-- Full screen overlay to hide any background content -->"
+        '<div style="position:fixed;top:0;left:0;right:0;bottom:0;'
+        'background:#0f172a;z-index:999998;"></div>',
         unsafe_allow_html=True,
     )
 
@@ -664,8 +961,8 @@ def _show_loading_and_reveal(pending_messages: list, participant_name: str):
         "  to{opacity:1;transform:translateY(0);}"
         "}"
         "</style>"
-        '<div style="display:flex;flex-direction:column;align-items:center;'
-        "justify-content:center;min-height:85vh;color:#e2e8f0;"
+        '<div style="position:relative;z-index:999999;display:flex;flex-direction:column;align-items:center;'
+        "justify-content:center;min-height:100vh;color:#e2e8f0;background:#0f172a;"
         "font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;"
         'animation:fade-up 0.6s ease-out;">'
         '<div style="width:80px;height:80px;border-radius:50%;'
@@ -685,11 +982,10 @@ def _show_loading_and_reveal(pending_messages: list, participant_name: str):
         "How it works</div>"
         '<div style="padding:6px 0;font-size:15px;color:#cbd5e1;line-height:1.5;">'
         '<span style="color:#3b82f6;font-weight:700;">&#8594; </span>'
-        "The <strong>Facilitator</strong> will present a business case</div>"
+        "Review the <strong>Case Data</strong> panel on the right</div>"
         '<div style="padding:6px 0;font-size:15px;color:#cbd5e1;line-height:1.5;">'
         '<span style="color:#3b82f6;font-weight:700;">&#8594; </span>'
-        "Ask the Facilitator for specific data when you need it "
-        "(costs, revenue, customers, etc.)</div>"
+        "Discuss and analyze the problem with Jordan and Sam</div>"
         '<div style="padding:6px 0;font-size:15px;color:#cbd5e1;line-height:1.5;">'
         '<span style="color:#3b82f6;font-weight:700;">&#8594; </span>'
         "You have <strong>15 minutes</strong> for the discussion</div>"
@@ -707,18 +1003,15 @@ def _show_loading_and_reveal(pending_messages: list, participant_name: str):
     )
 
     # Let user read the instructions
-    time.sleep(4)
+    # Demo mode: 5 seconds, Normal mode: 30 seconds
+    demo_mode = st.session_state.get("demo_mode", False)
+    time.sleep(5 if demo_mode else 30)
 
     # Transition: replace instruction card with sequential meeting room reveal
     revealed = []
     for msg in pending_messages:
         speaker = msg["speaker"]
         msg_content = msg["content"]
-
-        if speaker == "Facilitator":
-            hist = st.session_state.get("facilitator_history", [])
-            hist.append(msg_content)
-            st.session_state.facilitator_history = hist
 
         # Typing dots
         content_area.html(
@@ -729,6 +1022,7 @@ def _show_loading_and_reveal(pending_messages: list, participant_name: str):
                 participant_name=participant_name,
                 show_typing=True,
                 typing_speaker=speaker,
+                fullscreen_mode=True,
             ),
         )
         time.sleep(_display_duration(msg_content, is_typing=True))
@@ -743,6 +1037,7 @@ def _show_loading_and_reveal(pending_messages: list, participant_name: str):
                 participant_name=participant_name,
                 tts_enabled=tts_on,
                 tts_settings=TTS_VOICE_SETTINGS,
+                fullscreen_mode=True,
             ),
         )
         revealed.append(msg)
@@ -781,7 +1076,182 @@ def _initialize_session(pid: str):
             st.session_state.latest_display = []
             st.session_state.pending_opening = opening_messages
 
+            # Populate data panel with all case data at start
+            case_data = data.get("case_data", [])
+            st.session_state.case_data_items = case_data
+
+            # Store problem statement for anchored header
+            st.session_state.problem_statement = data.get("problem_statement", "")
+            st.session_state.company_name = data.get("company_name", "")
+
             st.rerun()
 
         except httpx.HTTPError as e:
             st.error(f"Failed to start session: {e}. Is the backend running?")
+
+
+def _run_demo_turn(sid: str, participant_name: str, room_placeholder, data_placeholder):
+    """Run a demo turn with AI-generated response."""
+    import asyncio
+
+    # Show demo mode indicator
+    demo_persona = st.session_state.get("demo_persona", "fluent_expert")
+    persona_names = {
+        "fluent_expert": "🎓 Fluent Expert",
+        "reluctant_expert": "😓 Reluctant Expert",
+        "novice_learner": "🌱 Novice Learner",
+    }
+
+    st.markdown(
+        f'<div style="background:linear-gradient(135deg,#3b82f6,#8b5cf6);'
+        f'color:white;padding:8px 16px;border-radius:8px;margin-bottom:10px;'
+        f'font-weight:600;text-align:center;">'
+        f'🤖 DEMO MODE — {persona_names.get(demo_persona, demo_persona)} is responding...</div>',
+        unsafe_allow_html=True,
+    )
+
+    # Check turn count to prevent infinite loops
+    demo_turns = st.session_state.get("demo_turn_count", 0)
+    max_demo_turns = 15
+
+    if demo_turns >= max_demo_turns:
+        st.success(f"Demo complete! {demo_turns} turns processed.")
+        if st.button("End Demo & Continue to Survey"):
+            try:
+                httpx.post(f"{API_BASE}/session/{sid}/end", timeout=60.0)
+            except Exception:
+                pass
+            st.session_state.session_state = "ended"
+            st.session_state.demo_mode = False
+            st.session_state.current_step = "survey"
+            st.rerun()
+        return
+
+    # Generate AI response
+    if st.button(f"▶️ Generate Response (Turn {demo_turns + 1}/{max_demo_turns})", type="primary"):
+        st.session_state.demo_generating = True
+        st.rerun()
+
+    if st.session_state.get("demo_generating", False):
+        with st.spinner("AI candidate is thinking..."):
+            try:
+                # Get AI response from our test candidate
+                response = asyncio.run(_generate_demo_response(
+                    demo_persona,
+                    st.session_state.get("messages", []),
+                    participant_name,
+                ))
+
+                # Show candidate's response
+                room_placeholder.html(
+                    _build_meeting_html(
+                        active_speaker=participant_name,
+                        bubble_speaker=participant_name,
+                        bubble_content=response,
+                        participant_name=participant_name,
+                    ),
+                )
+                time.sleep(2)
+
+                # Send to backend
+                resp = httpx.post(
+                    f"{API_BASE}/session/{sid}/message",
+                    json={"content": response, "target_speaker": None},
+                    timeout=180.0,
+                )
+                resp.raise_for_status()
+                data = resp.json()
+
+                # Process AI turns
+                messages = st.session_state.get("messages", [])
+                messages.append({"speaker": participant_name, "content": response})
+                display_turns = [{"speaker": participant_name, "content": response}]
+
+                for ai_turn in data.get("ai_turns", []):
+                    speaker = ai_turn["speaker"]
+                    content = ai_turn["content"]
+                    messages.append({"speaker": speaker, "content": content})
+
+                    # Show typing then message
+                    room_placeholder.html(
+                        _build_meeting_html(
+                            active_speaker=speaker,
+                            bubble_speaker=None,
+                            bubble_content=None,
+                            participant_name=participant_name,
+                            show_typing=True,
+                            typing_speaker=speaker,
+                        ),
+                    )
+                    time.sleep(_display_duration(content, is_typing=True))
+
+                    room_placeholder.html(
+                        _build_meeting_html(
+                            active_speaker=speaker,
+                            bubble_speaker=speaker,
+                            bubble_content=content,
+                            participant_name=participant_name,
+                        ),
+                    )
+                    display_turns.append({"speaker": speaker, "content": content})
+                    time.sleep(_display_duration(content))
+
+                st.session_state.messages = messages
+                st.session_state.latest_display = display_turns
+                st.session_state.session_state = data.get("session_state", "active")
+                st.session_state.demo_turn_count = demo_turns + 1
+                st.session_state.demo_generating = False
+
+                if data.get("session_state") == "ended":
+                    st.session_state.demo_mode = False
+
+                st.rerun()
+
+            except Exception as e:
+                st.error(f"Error generating response: {e}")
+                st.session_state.demo_generating = False
+
+    # Show stop button
+    if st.button("⏹️ Stop Demo"):
+        try:
+            httpx.post(f"{API_BASE}/session/{sid}/end", timeout=60.0)
+        except Exception:
+            pass
+        st.session_state.session_state = "ended"
+        st.session_state.demo_mode = False
+        st.rerun()
+
+
+async def _generate_demo_response(persona_id: str, messages: list, participant_name: str) -> str:
+    """Generate a response using the AI test candidate."""
+    import sys
+    from pathlib import Path
+    sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
+
+    from agents.test_candidate_agent import AITestCandidate
+    from clients.llm_client import LLMClient
+    from config.test_personas import get_test_persona
+    from config.scenarios import SCENARIOS
+
+    persona = get_test_persona(persona_id)
+    scenario = list(SCENARIOS.values())[0]
+
+    client = LLMClient()
+    candidate = AITestCandidate(
+        client=client,
+        scenario=scenario,
+        persona=persona,
+        case_study=None,
+    )
+
+    # Build context from recent messages
+    context_parts = []
+    for msg in messages[-8:]:
+        context_parts.append(f"[{msg['speaker']}]: {msg['content']}")
+
+    context = "\n".join(context_parts)
+    if context:
+        context = f"Recent conversation:\n{context}"
+
+    response = await candidate.generate_response(context)
+    return response
