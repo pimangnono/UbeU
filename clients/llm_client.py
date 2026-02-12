@@ -1,0 +1,303 @@
+"""
+LLM Client for V3 Platform.
+Implements OpenRouter API integration using OpenAI-compatible SDK.
+Default model: DeepSeek V3 (deepseek/deepseek-chat-v3-0324)
+
+Based on pressure_cooker implementation.
+"""
+
+import asyncio
+import os
+from dataclasses import dataclass, field
+from enum import Enum
+from typing import Optional
+
+from dotenv import load_dotenv
+
+try:
+    from openai import AsyncOpenAI
+    from httpx import Timeout
+except ImportError:
+    AsyncOpenAI = None
+
+load_dotenv()
+
+
+class ModelTier(str, Enum):
+    """Model selection for different use cases."""
+    PRO = "pro"      # For complex reasoning, evaluation (DeepSeek V3)
+    FLASH = "flash"  # For fast responses (DeepSeek V3)
+
+
+@dataclass
+class RateLimiter:
+    """Simple rate limiter for API calls."""
+    rpm_limit: int = 60
+    request_times: list[float] = field(default_factory=list)
+
+    def _clean_old_requests(self) -> None:
+        """Remove request timestamps older than 1 minute."""
+        import time
+        current_time = time.time()
+        self.request_times = [t for t in self.request_times if current_time - t < 60]
+
+    async def wait_if_needed(self) -> None:
+        """Wait if rate limits would be exceeded."""
+        import time
+        self._clean_old_requests()
+
+        if len(self.request_times) >= self.rpm_limit:
+            oldest_in_window = min(self.request_times)
+            wait_time = 60 - (time.time() - oldest_in_window) + 0.1
+            if wait_time > 0:
+                print(f"Rate limit reached. Waiting {wait_time:.1f}s...")
+                await asyncio.sleep(wait_time)
+                self._clean_old_requests()
+
+    def record_request(self) -> None:
+        """Record that a request was made."""
+        import time
+        self.request_times.append(time.time())
+
+
+class LLMClient:
+    """
+    OpenRouter API client using OpenAI-compatible SDK.
+    Configured for DeepSeek V3 by default.
+
+    Usage:
+        client = LLMClient()
+        response = await client.generate("Your prompt")
+    """
+
+    def __init__(
+        self,
+        api_key: Optional[str] = None,
+        pro_model: Optional[str] = None,
+        flash_model: Optional[str] = None,
+        rpm_limit: int = 60,
+    ):
+        if AsyncOpenAI is None:
+            raise ImportError(
+                "openai package not installed. Run: pip install openai"
+            )
+
+        self.api_key = api_key or os.getenv("OPENROUTER_API_KEY")
+        if not self.api_key:
+            raise ValueError(
+                "OpenRouter API key not found. Set OPENROUTER_API_KEY environment variable "
+                "or pass api_key parameter."
+            )
+
+        base_url = os.getenv("OPENROUTER_BASE_URL", "https://openrouter.ai/api/v1")
+
+        self.client = AsyncOpenAI(
+            api_key=self.api_key,
+            base_url=base_url,
+            timeout=Timeout(120.0, connect=10.0),
+        )
+
+        # DeepSeek V3 as default model
+        self.pro_model_name = pro_model or os.getenv("LLM_PRO_MODEL", "deepseek/deepseek-chat-v3-0324")
+        self.flash_model_name = flash_model or os.getenv("LLM_FLASH_MODEL", "deepseek/deepseek-chat-v3-0324")
+
+        self.rate_limiter = RateLimiter(rpm_limit=rpm_limit)
+        self.total_requests = 0
+
+    def _get_model_name(self, tier: ModelTier) -> str:
+        """Get model name for the specified tier."""
+        return self.pro_model_name if tier == ModelTier.PRO else self.flash_model_name
+
+    async def generate(
+        self,
+        prompt: str,
+        system_instruction: Optional[str] = None,
+        temperature: float = 0.7,
+        max_tokens: int = 500,
+        tier: ModelTier = ModelTier.PRO,
+    ) -> str:
+        """
+        Generate a response from the model.
+
+        Args:
+            prompt: The user prompt.
+            system_instruction: Optional system instruction.
+            temperature: Generation temperature (0.0-1.0).
+            max_tokens: Maximum tokens in response.
+            tier: Model tier to use (PRO or FLASH).
+
+        Returns:
+            Generated text response.
+        """
+        await self.rate_limiter.wait_if_needed()
+
+        messages = []
+        if system_instruction:
+            messages.append({"role": "system", "content": system_instruction})
+        messages.append({"role": "user", "content": prompt})
+
+        try:
+            response = await asyncio.wait_for(
+                self.client.chat.completions.create(
+                    model=self._get_model_name(tier),
+                    messages=messages,
+                    temperature=temperature,
+                    max_tokens=max_tokens,
+                ),
+                timeout=120.0,
+            )
+
+            self.rate_limiter.record_request()
+            self.total_requests += 1
+
+            content = response.choices[0].message.content
+            return content if content else ""
+
+        except Exception:
+            self.rate_limiter.record_request()
+            self.total_requests += 1
+            raise
+
+    async def generate_chat(
+        self,
+        messages: list[dict[str, str]],
+        system_instruction: Optional[str] = None,
+        temperature: float = 0.7,
+        max_tokens: int = 500,
+        tier: ModelTier = ModelTier.PRO,
+    ) -> str:
+        """
+        Generate a response in a chat context.
+
+        Args:
+            messages: List of message dicts with 'role' and 'content'.
+            system_instruction: Optional system instruction.
+            temperature: Generation temperature.
+            max_tokens: Maximum tokens in response.
+            tier: Model tier to use.
+
+        Returns:
+            Generated text response.
+        """
+        await self.rate_limiter.wait_if_needed()
+
+        api_messages = []
+        if system_instruction:
+            api_messages.append({"role": "system", "content": system_instruction})
+
+        for msg in messages:
+            role = msg["role"]
+            if role == "model":
+                role = "assistant"
+            api_messages.append({"role": role, "content": msg["content"]})
+
+        try:
+            response = await asyncio.wait_for(
+                self.client.chat.completions.create(
+                    model=self._get_model_name(tier),
+                    messages=api_messages,
+                    temperature=temperature,
+                    max_tokens=max_tokens,
+                ),
+                timeout=120.0,
+            )
+
+            self.rate_limiter.record_request()
+            self.total_requests += 1
+
+            content = response.choices[0].message.content
+            return content if content else ""
+
+        except Exception:
+            self.rate_limiter.record_request()
+            self.total_requests += 1
+            raise
+
+    def get_stats(self) -> dict:
+        """Get client statistics."""
+        return {
+            "total_requests": self.total_requests,
+            "pro_model": self.pro_model_name,
+            "flash_model": self.flash_model_name,
+        }
+
+
+# Alias for compatibility
+OpenRouterClient = LLMClient
+
+
+class MockLLMClient:
+    """Mock client for testing without API calls."""
+
+    def __init__(self, responses: dict = None):
+        self.responses = responses or {}
+        self.total_requests = 0
+        self.call_log: list[dict] = []
+
+    async def generate(
+        self,
+        prompt: str,
+        system_instruction: Optional[str] = None,
+        temperature: float = 0.7,
+        max_tokens: int = 500,
+        tier: ModelTier = ModelTier.PRO,
+    ) -> str:
+        """Generate a mock response."""
+        self.total_requests += 1
+        self.call_log.append({
+            "prompt": prompt[:100],
+            "tier": tier.value if hasattr(tier, 'value') else str(tier),
+        })
+
+        # Check for predefined responses
+        for key, response in self.responses.items():
+            if key.lower() in prompt.lower():
+                return response
+
+        # Default mock responses based on context
+        if "facilitator" in prompt.lower() or "case" in prompt.lower():
+            return "Here is the data you requested: Revenue breakdown shows..."
+        elif "alex" in prompt.lower() or "challenge" in prompt.lower():
+            return "I disagree with that approach. We need to consider the risks."
+        elif "jordan" in prompt.lower() or "support" in prompt.lower():
+            return "That's a great idea! Building on what you said..."
+        elif "riley" in prompt.lower() or "skeptic" in prompt.lower():
+            return "I'm not sure that would work."
+        else:
+            return "This is a mock response for testing."
+
+    async def generate_chat(
+        self,
+        messages: list[dict[str, str]],
+        system_instruction: Optional[str] = None,
+        temperature: float = 0.7,
+        max_tokens: int = 500,
+        tier: ModelTier = ModelTier.PRO,
+    ) -> str:
+        """Generate a mock chat response."""
+        last_content = messages[-1]["content"] if messages else ""
+        return await self.generate(last_content, system_instruction, temperature, max_tokens, tier)
+
+    def get_stats(self) -> dict:
+        """Get mock client statistics."""
+        return {
+            "total_requests": self.total_requests,
+            "pro_model": "mock-pro",
+            "flash_model": "mock-flash",
+        }
+
+
+def create_client(use_mock: bool = False, **kwargs) -> LLMClient | MockLLMClient:
+    """
+    Factory function to create appropriate client.
+
+    Args:
+        use_mock: If True, return mock client for testing.
+        **kwargs: Additional arguments passed to LLMClient.
+
+    Returns:
+        LLMClient or MockLLMClient instance.
+    """
+    if use_mock:
+        return MockLLMClient()
+    return LLMClient(**kwargs)
