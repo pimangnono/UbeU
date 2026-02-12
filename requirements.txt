@@ -3,14 +3,18 @@ streamlit>=1.30.0
 httpx>=0.25.0
 pydantic>=2.0.0
 python-dotenv>=1.0.0
+openai>=1.0.0
+
+# Backend
+fastapi>=0.109.0
+uvicorn>=0.27.0
 
 # Visualization
 plotly>=5.18.0
 
+# PDF Export (optional)
+reportlab>=4.0.0
+
 # Testing
 pytest>=7.4.0
 pytest-asyncio>=0.23.0
-
-# Optional: For Azure deployments
-# azure-ai-documentintelligence
-# openai
