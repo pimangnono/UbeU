@@ -81,12 +81,11 @@ Agent roles:
 
 ## Academic Context
 
-This platform is part of an NUS Final Year Thesis in Computer Science.
+This platform is part of an NTU Final Year Thesis in Computer Science.
 
 Research Questions:
 1. Can AI-facilitated case interviews produce reliable logical assessments?
 2. Can multi-party group discussions with AI agents produce valid personality estimates?
-3. Do the two modes measure distinct constructs?
 
 ## References
 
