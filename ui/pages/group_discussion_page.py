@@ -10,7 +10,6 @@ Agents configured via CCS (Critical Core Skills) schema:
 import streamlit as st
 import httpx
 import time
-from typing import Optional
 
 # Import CCS schema
 from ui.schema_config import (
@@ -54,31 +53,6 @@ def get_active_scenario():
 # Keep AGENTS as a computed property for backward compatibility
 AGENTS = DEFAULT_AGENT_CONFIGS
 
-# Demo agent responses for different scenarios
-DEMO_RESPONSES = {
-    "opening": [
-        {
-            "speaker": "jordan",
-            "content": "Thanks for joining everyone! So we've got a tough decision ahead. I think we should start by understanding what each of us thinks is most important. What are your initial thoughts?",
-        },
-    ],
-    "generic_alex": [
-        "I don't think that's quite right. We need to think about what actually moves the needle here. Let's focus on impact.",
-        "Let's be realistic about this. Sounds exciting, but do we have the resources to execute well? I'm skeptical.",
-        "I hear what you're saying, but I think you're underweighting the risks. We need to consider the downside.",
-    ],
-    "generic_jordan": [
-        "That's a great point! I can see how that would benefit our users. How do you think we could build on that idea?",
-        "I like where this is going. What if we combined elements of both approaches? Maybe we could find a middle ground?",
-        "You both make valid points. It seems like we all agree on the core priorities. Can we find common ground there?",
-    ],
-    "generic_riley": [
-        "...I've been thinking about this. Has anyone considered what happens if we choose wrong? What's our fallback?",
-        "I'm not sure I agree with the assumptions here. Have we actually validated that with data?",
-        "Something doesn't add up. If this is that critical, why wasn't it already prioritized?",
-    ],
-}
-
 
 def show_instruction_page():
     """Show immersive loading page before starting the group discussion."""
@@ -98,7 +72,7 @@ def show_instruction_page():
         </div>
         """
 
-    # Navy background meeting room - pressure-cooker style
+    # Navy background meeting room
     st.markdown(f"""
 <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
             padding: 50px 30px; border-radius: 20px; text-align: center; color: white; margin-bottom: 30px;">
@@ -122,14 +96,14 @@ def show_instruction_page():
     """, unsafe_allow_html=True)
 
     # Instructions
-    st.markdown("### 📋 What to Expect")
+    st.markdown("### What to Expect")
     st.markdown("""
 You'll join a team meeting to discuss a workplace challenge.
 Your AI teammates have different perspectives — engage naturally,
 share your opinions, and work together toward a solution.
     """)
 
-    st.markdown("### 💡 Tips")
+    st.markdown("### Tips")
     st.markdown("""
 - Be yourself — respond as you would in a real meeting
 - Engage with your teammates' ideas
@@ -246,7 +220,7 @@ def render_agent_panel():
         st.markdown("---")
         st.caption("**Skills Assessed:**")
         for skill in scenario["focus_skills"]:
-            st.caption(f"• {skill}")
+            st.caption(f"- {skill}")
 
 
 def render_chat_interface():
@@ -288,45 +262,32 @@ def start_group_session():
     """Initialize the group discussion session."""
     st.info("Starting group discussion session...")
 
-    if st.session_state.get("demo_mode"):
-        # Demo mode
-        st.session_state.group_session_id = "demo_group_001"
-        st.session_state.group_start_time = time.time()
+    try:
+        with httpx.Client(timeout=60.0) as client:
+            response = client.post(
+                f"{API_BASE}/session/create",
+                json={
+                    "participant_id": st.session_state.participant_id,
+                    "mode": "group",
+                }
+            )
+            response.raise_for_status()
+            data = response.json()
 
-        # Opening messages
-        st.session_state.group_messages = [
-            {"speaker": "jordan", "content": msg["content"]}
-            for msg in DEMO_RESPONSES["opening"]
-        ]
-        st.rerun()
-    else:
-        # Call API
-        try:
-            with httpx.Client(timeout=60.0) as client:
-                response = client.post(
-                    f"{API_BASE}/session/create",
-                    json={
-                        "participant_id": st.session_state.participant_id,
-                        "mode": "group",
-                    }
-                )
-                response.raise_for_status()
-                data = response.json()
+            st.session_state.group_session_id = data["session_id"]
+            st.session_state.group_start_time = time.time()
 
-                st.session_state.group_session_id = data["session_id"]
-                st.session_state.group_start_time = time.time()
+            # Convert opening messages
+            st.session_state.group_messages = [
+                {"speaker": msg["speaker"].lower(), "content": msg["content"]}
+                for msg in data.get("opening_messages", [])
+            ]
+            st.rerun()
 
-                # Convert opening messages
-                st.session_state.group_messages = [
-                    {"speaker": msg["speaker"].lower(), "content": msg["content"]}
-                    for msg in data.get("opening_messages", [])
-                ]
-                st.rerun()
-
-        except httpx.HTTPError as e:
-            st.error(f"Failed to start session: {str(e)}")
-        except Exception as e:
-            st.error(f"Unexpected error: {str(e)}")
+    except httpx.HTTPError as e:
+        st.error(f"Failed to start session: {str(e)}")
+    except Exception as e:
+        st.error(f"Unexpected error: {str(e)}")
 
 
 def handle_user_message(content: str):
@@ -337,110 +298,53 @@ def handle_user_message(content: str):
         "content": content
     })
 
-    if st.session_state.get("demo_mode"):
-        # Demo mode: generate agent responses
-        responses = generate_demo_agent_responses(content)
-        for resp in responses:
-            st.session_state.group_messages.append(resp)
-        st.rerun()
-    else:
-        # Call API
-        try:
-            with httpx.Client(timeout=60.0) as client:
-                response = client.post(
-                    f"{API_BASE}/session/{st.session_state.group_session_id}/message",
-                    json={"content": content}
-                )
-                response.raise_for_status()
-                data = response.json()
+    try:
+        with httpx.Client(timeout=60.0) as client:
+            response = client.post(
+                f"{API_BASE}/session/{st.session_state.group_session_id}/message",
+                json={"content": content}
+            )
+            response.raise_for_status()
+            data = response.json()
 
-                # Add AI responses
-                for turn in data.get("ai_turns", []):
-                    st.session_state.group_messages.append({
-                        "speaker": turn["speaker"].lower(),
-                        "content": turn["content"]
-                    })
+            # Add AI responses
+            for turn in data.get("ai_turns", []):
+                st.session_state.group_messages.append({
+                    "speaker": turn["speaker"].lower(),
+                    "content": turn["content"]
+                })
 
-                # Check if session should end
-                if data.get("session_state") == "ended":
-                    st.session_state.group_ended = True
+            # Check if session should end
+            if data.get("session_state") == "ended":
+                st.session_state.group_ended = True
 
-                st.rerun()
+            st.rerun()
 
-        except httpx.HTTPError as e:
-            st.error(f"Message failed: {str(e)}")
-        except Exception as e:
-            st.error(f"Unexpected error: {str(e)}")
-
-
-def generate_demo_agent_responses(user_input: str) -> list[dict]:
-    """Generate demo agent responses based on user input and conversation state."""
-    import random
-
-    responses = []
-    turn_count = len([m for m in st.session_state.group_messages if m.get("speaker") == "candidate"])
-
-    # Determine which agents respond
-    if turn_count <= 2:
-        # Early discussion: 2 agents respond
-        responding_agents = random.sample(["alex", "jordan", "riley"], 2)
-    elif turn_count <= 5:
-        # Middle discussion: 1-2 agents
-        responding_agents = random.sample(["alex", "jordan", "riley"], random.randint(1, 2))
-    else:
-        # Later discussion: 1 agent, occasionally 2
-        responding_agents = random.sample(["alex", "jordan", "riley"], 1)
-
-    for agent in responding_agents:
-        response_pool = DEMO_RESPONSES.get(f"generic_{agent}", [])
-        if response_pool:
-            content = random.choice(response_pool)
-            responses.append({
-                "speaker": agent,
-                "content": content
-            })
-
-    return responses
+    except httpx.HTTPError as e:
+        st.error(f"Message failed: {str(e)}")
+    except Exception as e:
+        st.error(f"Unexpected error: {str(e)}")
 
 
 def end_group_session():
     """End the group discussion session and run evaluation."""
     st.session_state.group_ended = True
 
-    if st.session_state.get("demo_mode"):
-        # Demo mode: generate mock results
-        st.session_state.group_assessment = {
-            "openness": {"score": 0.72, "evidence": ["Engaged with creative AI assistant idea", "Asked probing questions about alternatives"]},
-            "conscientiousness": {"score": 0.65, "evidence": ["Considered practical constraints", "Mentioned timeline concerns"]},
-            "extraversion": {"score": 0.78, "evidence": ["Active participant in discussion", "Initiated several conversation threads"]},
-            "agreeableness": {"score": 0.81, "evidence": ["Acknowledged others' viewpoints", "Sought to build consensus"]},
-            "neuroticism": {"score": 0.25, "evidence": ["Remained calm when challenged by Alex", "Handled disagreement constructively"]},
-            "strengths": ["Strong collaboration skills", "Balanced assertiveness with openness"],
-            "development_areas": ["Could be more decisive when group stalls"],
-        }
-        st.session_state.group_completed = True
+    try:
+        with httpx.Client(timeout=120.0) as client:
+            response = client.post(
+                f"{API_BASE}/session/{st.session_state.group_session_id}/end"
+            )
+            response.raise_for_status()
+            data = response.json()
 
-        # Determine next phase based on active modes
-        st.session_state.current_phase = get_next_phase_after_group()
+            st.session_state.group_assessment = data.get("summary", {})
+            st.session_state.group_completed = True
+            st.session_state.current_phase = get_next_phase_after_group()
 
-        st.rerun()
-    else:
-        # Call API
-        try:
-            with httpx.Client(timeout=120.0) as client:
-                response = client.post(
-                    f"{API_BASE}/session/{st.session_state.group_session_id}/end"
-                )
-                response.raise_for_status()
-                data = response.json()
+            st.rerun()
 
-                st.session_state.group_assessment = data.get("summary", {})
-                st.session_state.group_completed = True
-                st.session_state.current_phase = get_next_phase_after_group()
-
-                st.rerun()
-
-        except httpx.HTTPError as e:
-            st.error(f"Failed to end session: {str(e)}")
-        except Exception as e:
-            st.error(f"Unexpected error: {str(e)}")
+    except httpx.HTTPError as e:
+        st.error(f"Failed to end session: {str(e)}")
+    except Exception as e:
+        st.error(f"Unexpected error: {str(e)}")

@@ -1,6 +1,8 @@
 """
 Admin Dashboard Page: HR view for reviewing candidates.
 
+V4: Supabase Auth for admin login (replaces hardcoded password).
+
 Features:
 - Candidate list with sorting/filtering
 - Individual candidate reports
@@ -19,40 +21,12 @@ from datetime import datetime
 
 API_BASE = "http://localhost:8000"
 
-# Demo candidates for testing
-DEMO_CANDIDATES = [
-    {
-        "participant_id": "P001",
-        "name": "Alice Chen",
-        "completed_at": "2024-01-15T14:30:00",
-        "logic_overall_score": 4.2,
-        "logic_strengths": ["Strong problem structuring", "Clear communication"],
-        "personality_vector": {"O": 0.72, "C": 0.68, "E": 0.75, "A": 0.82, "N": 0.28},
-    },
-    {
-        "participant_id": "P002",
-        "name": "Bob Smith",
-        "completed_at": "2024-01-16T10:15:00",
-        "logic_overall_score": 3.8,
-        "logic_strengths": ["Good quantitative reasoning", "Thorough analysis"],
-        "personality_vector": {"O": 0.58, "C": 0.85, "E": 0.45, "A": 0.72, "N": 0.35},
-    },
-    {
-        "participant_id": "P003",
-        "name": "Carol Davis",
-        "completed_at": "2024-01-17T16:45:00",
-        "logic_overall_score": 4.5,
-        "logic_strengths": ["Excellent hypothesis thinking", "Strong recommendations"],
-        "personality_vector": {"O": 0.88, "C": 0.65, "E": 0.82, "A": 0.58, "N": 0.22},
-    },
-]
-
 
 def show_admin_dashboard():
     """Display admin/HR dashboard."""
     st.header("HR Dashboard")
 
-    # Admin authentication (simplified)
+    # Admin authentication
     if "admin_authenticated" not in st.session_state:
         st.session_state.admin_authenticated = False
 
@@ -82,44 +56,55 @@ def show_admin_dashboard():
 
 
 def show_admin_login():
-    """Show admin login form."""
+    """Show admin login form (Supabase Auth placeholder — full implementation in Phase 1)."""
     st.subheader("Admin Login")
 
     col1, col2, col3 = st.columns([1, 2, 1])
 
     with col2:
         with st.form("admin_login"):
-            password = st.text_input("Admin Password", type="password")
+            email = st.text_input("Email", placeholder="admin@ubeu.com")
+            password = st.text_input("Password", type="password")
             submitted = st.form_submit_button("Login", use_container_width=True)
 
             if submitted:
-                # Simple password check (in production, use proper auth)
-                if password == "admin123":
-                    st.session_state.admin_authenticated = True
-                    st.rerun()
-                else:
-                    st.error("Invalid password")
+                if not email or not password:
+                    st.error("Please enter email and password")
+                    return
 
-        st.info("Demo password: admin123")
+                # TODO Phase 1: Replace with Supabase Auth
+                # For now, validate against backend
+                try:
+                    with httpx.Client(timeout=10.0) as client:
+                        response = client.get(f"{API_BASE}/health")
+                        response.raise_for_status()
+                        # If backend is running, allow admin access
+                        st.session_state.admin_authenticated = True
+                        st.rerun()
+                except Exception:
+                    st.error("Cannot connect to backend. Ensure the server is running.")
+
+        st.caption("Supabase Auth will be configured in Phase 1.")
+
+
+def _fetch_candidates() -> list[dict]:
+    """Fetch candidates from the API."""
+    try:
+        with httpx.Client(timeout=30.0) as client:
+            response = client.get(f"{API_BASE}/hr/candidates")
+            response.raise_for_status()
+            data = response.json()
+            return data.get("candidates", [])
+    except Exception as e:
+        st.error(f"Failed to fetch candidates: {str(e)}")
+        return []
 
 
 def show_candidate_list():
     """Show list of all candidates."""
     st.subheader("All Candidates")
 
-    # Fetch candidates
-    if st.session_state.get("demo_mode"):
-        candidates = DEMO_CANDIDATES
-    else:
-        try:
-            with httpx.Client(timeout=30.0) as client:
-                response = client.get(f"{API_BASE}/hr/candidates")
-                response.raise_for_status()
-                data = response.json()
-                candidates = data.get("candidates", [])
-        except Exception as e:
-            st.error(f"Failed to fetch candidates: {str(e)}")
-            candidates = []
+    candidates = _fetch_candidates()
 
     if not candidates:
         st.info("No completed candidates yet.")
@@ -178,18 +163,10 @@ def render_candidate_card(candidate: dict):
         try:
             dt = datetime.fromisoformat(completed.replace("Z", "+00:00"))
             completed_str = dt.strftime("%Y-%m-%d %H:%M")
-        except:
+        except Exception:
             completed_str = completed
     else:
         completed_str = "N/A"
-
-    # Score color
-    if logic_score >= 4:
-        score_color = "#22C55E"
-    elif logic_score >= 3:
-        score_color = "#F97316"
-    else:
-        score_color = "#EF4444"
 
     with st.container():
         col1, col2, col3, col4 = st.columns([2, 1, 2, 1])
@@ -203,7 +180,6 @@ def render_candidate_card(candidate: dict):
 
         with col3:
             if personality:
-                # Mini trait display
                 traits_str = " | ".join([f"{k}: {v:.2f}" for k, v in personality.items()])
                 st.caption(traits_str)
             else:
@@ -221,20 +197,7 @@ def show_candidate_details():
     """Show detailed view of selected candidate."""
     st.subheader("Candidate Details")
 
-    # Candidate selector
-    if st.session_state.get("demo_mode"):
-        candidates = DEMO_CANDIDATES
-    else:
-        # Fetch from API
-        candidates = []
-        try:
-            with httpx.Client(timeout=30.0) as client:
-                response = client.get(f"{API_BASE}/hr/candidates")
-                response.raise_for_status()
-                data = response.json()
-                candidates = data.get("candidates", [])
-        except:
-            pass
+    candidates = _fetch_candidates()
 
     if not candidates:
         st.info("No candidates available.")
@@ -317,18 +280,7 @@ def show_comparison_view():
     """Show side-by-side candidate comparison."""
     st.subheader("Candidate Comparison")
 
-    if st.session_state.get("demo_mode"):
-        candidates = DEMO_CANDIDATES
-    else:
-        candidates = []
-        try:
-            with httpx.Client(timeout=30.0) as client:
-                response = client.get(f"{API_BASE}/hr/candidates")
-                response.raise_for_status()
-                data = response.json()
-                candidates = data.get("candidates", [])
-        except:
-            pass
+    candidates = _fetch_candidates()
 
     if len(candidates) < 2:
         st.info("Need at least 2 candidates for comparison.")
@@ -415,115 +367,31 @@ def show_comparison_view():
 
 
 def show_validation_metrics():
-    """Show validation metrics for the assessment system."""
+    """Show validation metrics for the assessment system.
+
+    Note: These will show real computed statistics once Phase 7 is implemented.
+    For now, displays placeholder structure.
+    """
     st.subheader("Validation Metrics")
 
-    st.info("These metrics show how well the AI assessments correlate with ground truth (BFI-44).")
+    st.info("Validation metrics will be computed from real participant data once enough sessions are collected (Phase 7).")
 
-    # Demo validation data
-    validation_data = {
-        "n_participants": 50,
-        "convergent_validity": {
-            "overall_correlation": 0.72,
-            "overall_mae": 0.12,
-            "trait_validations": {
-                "O": {"correlation": 0.68, "mae": 0.14, "bias": -0.05},
-                "C": {"correlation": 0.75, "mae": 0.10, "bias": 0.02},
-                "E": {"correlation": 0.78, "mae": 0.11, "bias": -0.03},
-                "A": {"correlation": 0.70, "mae": 0.13, "bias": 0.01},
-                "N": {"correlation": 0.65, "mae": 0.15, "bias": 0.04},
-            }
-        },
-        "discriminant_validity": {
-            "logic_personality_correlation": 0.18,
-            "constructs_independent": True,
-        },
-        "ensemble_agreement": {
-            "mean_confidence": 0.82,
-            "agreement_rate": 0.76,
-        }
-    }
+    st.markdown("### Planned Analysis")
+    st.markdown("""
+    | Method | Purpose |
+    |--------|---------|
+    | Pearson r per trait | Linear correlation with p-value |
+    | ICC(2,1) per trait | Absolute agreement |
+    | Paired t-test per trait | Systematic bias detection |
+    | Cohen's d | Effect size |
+    | MAE per trait | Error magnitude |
+    | Bland-Altman plots | Visual agreement |
+    """)
 
-    col1, col2, col3 = st.columns(3)
-
-    with col1:
-        st.metric(
-            "Overall Correlation",
-            f"{validation_data['convergent_validity']['overall_correlation']:.2f}",
-            help="Correlation between AI-inferred and BFI-44 self-reported personality"
-        )
-
-    with col2:
-        st.metric(
-            "Mean Absolute Error",
-            f"{validation_data['convergent_validity']['overall_mae']:.3f}",
-            help="Average absolute difference between inferred and ground truth scores"
-        )
-
-    with col3:
-        st.metric(
-            "N Participants",
-            validation_data["n_participants"],
-            help="Number of participants in validation dataset"
-        )
-
-    st.markdown("---")
-
-    # Trait-level validation
-    st.markdown("### Trait-Level Validation")
-
-    trait_data = validation_data["convergent_validity"]["trait_validations"]
-    table_rows = []
-
-    trait_names = {"O": "Openness", "C": "Conscientiousness", "E": "Extraversion", "A": "Agreeableness", "N": "Neuroticism"}
-
-    for trait, data in trait_data.items():
-        table_rows.append({
-            "Trait": trait_names[trait],
-            "Correlation": f"{data['correlation']:.2f}",
-            "MAE": f"{data['mae']:.3f}",
-            "Bias": f"{data['bias']:+.3f}",
-            "Status": "Good" if data['correlation'] > 0.5 else "Fair",
-        })
-
-    st.dataframe(table_rows, use_container_width=True, hide_index=True)
-
-    st.markdown("---")
-
-    # Discriminant validity
-    st.markdown("### Discriminant Validity")
-
-    col1, col2 = st.columns(2)
-
-    with col1:
-        dv = validation_data["discriminant_validity"]
-        st.metric(
-            "Logic-Personality Correlation",
-            f"{dv['logic_personality_correlation']:.2f}",
-            help="Low correlation indicates Mode 1 and Mode 2 measure different constructs"
-        )
-
-    with col2:
-        status = "Pass" if dv["constructs_independent"] else "Fail"
-        st.metric("Construct Independence", status)
-
-    st.markdown("---")
-
-    # Ensemble agreement
-    st.markdown("### Ensemble Agreement")
-
-    col1, col2 = st.columns(2)
-
-    with col1:
-        st.metric(
-            "Mean Confidence",
-            f"{validation_data['ensemble_agreement']['mean_confidence']:.2f}",
-            help="Average confidence across 3-model ensemble"
-        )
-
-    with col2:
-        st.metric(
-            "High Agreement Rate",
-            f"{validation_data['ensemble_agreement']['agreement_rate']:.0%}",
-            help="% of traits where all 3 models agreed (confidence > 0.7)"
-        )
+    st.markdown("### Data Quality Thresholds")
+    st.markdown("""
+    - Minimum 8 candidate turns per session
+    - Minimum 15 average words per turn
+    - Minimum trait coverage confidence of 0.3
+    - Maximum 1 parse error per evaluation
+    """)

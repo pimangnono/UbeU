@@ -141,7 +141,6 @@ def init_session_state():
         "current_phase": "consent",  # consent, bfi44, case, group, results, survey, complete
         "first_mode": None,  # case or group (counterbalanced)
         "condition": None,  # case_first or group_first
-        "demo_mode": False,
         # Active modes configuration
         "active_modes": {"case": False, "group": True},  # Default: group only
         # Scenario selection for group discussion
@@ -241,9 +240,6 @@ def render_sidebar():
                 st.divider()
                 st.caption(f"ID: {st.session_state.participant_id}")
 
-                # Demo mode indicator
-                if st.session_state.get("demo_mode"):
-                    st.caption("⚠️ Demo Mode")
 
 
 def render_progress_tracker():

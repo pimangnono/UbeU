@@ -186,73 +186,28 @@ def show_bfi44_page():
             # Calculate duration
             duration = int(time.time() - st.session_state.bfi44_start_time)
 
-            # Submit to API or process locally
-            if st.session_state.get("demo_mode"):
-                # Demo mode: compute scores locally
-                scores = compute_bfi44_scores_local(responses_dict)
-                st.session_state.bfi44_scores = scores
-                st.session_state.bfi44_completed = True
-                st.session_state.bfi44_duration = duration
-                st.session_state.current_phase = get_next_phase_after_bfi44()
+            # Submit to API
+            try:
+                with httpx.Client(timeout=30.0) as client:
+                    response = client.post(
+                        f"{API_BASE}/participant/{st.session_state.participant_id}/bfi44",
+                        json={
+                            "responses": {str(k): v for k, v in responses_dict.items()},
+                            "duration_seconds": duration,
+                        }
+                    )
+                    response.raise_for_status()
 
-                st.success("Questionnaire completed!")
-                st.rerun()
-            else:
-                # Call API
-                try:
-                    with httpx.Client(timeout=30.0) as client:
-                        response = client.post(
-                            f"{API_BASE}/participant/{st.session_state.participant_id}/bfi44",
-                            json={
-                                "responses": {str(k): v for k, v in responses_dict.items()},
-                                "duration_seconds": duration,
-                            }
-                        )
-                        response.raise_for_status()
+                    st.session_state.bfi44_completed = True
+                    st.session_state.bfi44_duration = duration
+                    st.session_state.current_phase = get_next_phase_after_bfi44()
 
-                        st.session_state.bfi44_completed = True
-                        st.session_state.bfi44_duration = duration
-                        st.session_state.current_phase = get_next_phase_after_bfi44()
+                    st.success("Questionnaire completed!")
+                    st.rerun()
 
-                        st.success("Questionnaire completed!")
-                        st.rerun()
-
-                except httpx.HTTPError as e:
-                    st.error(f"Submission failed: {str(e)}")
-                except Exception as e:
-                    st.error(f"Unexpected error: {str(e)}")
+            except httpx.HTTPError as e:
+                st.error(f"Submission failed: {str(e)}")
+            except Exception as e:
+                st.error(f"Unexpected error: {str(e)}")
 
 
-def compute_bfi44_scores_local(responses: dict[int, int]) -> dict:
-    """Compute BFI-44 scores locally for demo mode."""
-    # Reverse-scored items
-    reverse_items = {2, 6, 8, 9, 12, 18, 21, 23, 24, 27, 31, 34, 35, 37, 41, 43}
-
-    trait_sums = {"O": 0, "C": 0, "E": 0, "A": 0, "N": 0}
-    trait_counts = {"O": 0, "C": 0, "E": 0, "A": 0, "N": 0}
-
-    trait_map = {
-        1: "E", 2: "A", 3: "C", 4: "N", 5: "O",
-        6: "E", 7: "A", 8: "C", 9: "N", 10: "O",
-        11: "E", 12: "A", 13: "C", 14: "N", 15: "O",
-        16: "E", 17: "A", 18: "C", 19: "N", 20: "O",
-        21: "E", 22: "A", 23: "C", 24: "N", 25: "O",
-        26: "E", 27: "A", 28: "C", 29: "N", 30: "O",
-        31: "E", 32: "A", 33: "C", 34: "N", 35: "O",
-        36: "E", 37: "A", 38: "C", 39: "N", 40: "O",
-        41: "O", 42: "A", 43: "C", 44: "O",
-    }
-
-    for item_num, score in responses.items():
-        trait = trait_map[item_num]
-        if item_num in reverse_items:
-            score = 6 - score
-        trait_sums[trait] += score
-        trait_counts[trait] += 1
-
-    scores = {}
-    for trait in ["O", "C", "E", "A", "N"]:
-        avg = trait_sums[trait] / trait_counts[trait]
-        scores[trait] = round((avg - 1) / 4, 3)  # Normalize to 0-1
-
-    return scores
