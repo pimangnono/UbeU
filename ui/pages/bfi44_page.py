@@ -1,5 +1,6 @@
 """
 BFI-44 Page: Full 44-item Big Five Inventory questionnaire.
+Redesigned for better UX with cleaner, more intuitive layout.
 """
 
 import streamlit as st
@@ -9,83 +10,72 @@ import time
 
 API_BASE = "http://localhost:8000"
 
-# Full BFI-44 items
+
+def get_next_phase_after_bfi44():
+    """Determine next phase based on active modes."""
+    active_modes = st.session_state.get("active_modes", {"case": False, "group": True})
+    if active_modes.get("case", False):
+        return "case"
+    elif active_modes.get("group", True):
+        return "group"
+    else:
+        return "results"
+
+
+# Shortened BFI-44 items (removed repetitive prefix)
 BFI44_ITEMS = [
-    (1, "I see myself as someone who is talkative", "E"),
-    (2, "I see myself as someone who tends to find fault with others", "A"),
-    (3, "I see myself as someone who does a thorough job", "C"),
-    (4, "I see myself as someone who is depressed, blue", "N"),
-    (5, "I see myself as someone who is original, comes up with new ideas", "O"),
-    (6, "I see myself as someone who is reserved", "E"),
-    (7, "I see myself as someone who is helpful and unselfish with others", "A"),
-    (8, "I see myself as someone who can be somewhat careless", "C"),
-    (9, "I see myself as someone who is relaxed, handles stress well", "N"),
-    (10, "I see myself as someone who is curious about many different things", "O"),
-    (11, "I see myself as someone who is full of energy", "E"),
-    (12, "I see myself as someone who starts quarrels with others", "A"),
-    (13, "I see myself as someone who is a reliable worker", "C"),
-    (14, "I see myself as someone who can be tense", "N"),
-    (15, "I see myself as someone who is ingenious, a deep thinker", "O"),
-    (16, "I see myself as someone who generates a lot of enthusiasm", "E"),
-    (17, "I see myself as someone who has a forgiving nature", "A"),
-    (18, "I see myself as someone who tends to be disorganized", "C"),
-    (19, "I see myself as someone who worries a lot", "N"),
-    (20, "I see myself as someone who has an active imagination", "O"),
-    (21, "I see myself as someone who tends to be quiet", "E"),
-    (22, "I see myself as someone who is generally trusting", "A"),
-    (23, "I see myself as someone who tends to be lazy", "C"),
-    (24, "I see myself as someone who is emotionally stable, not easily upset", "N"),
-    (25, "I see myself as someone who is inventive", "O"),
-    (26, "I see myself as someone who has an assertive personality", "E"),
-    (27, "I see myself as someone who can be cold and aloof", "A"),
-    (28, "I see myself as someone who perseveres until the task is finished", "C"),
-    (29, "I see myself as someone who can be moody", "N"),
-    (30, "I see myself as someone who values artistic, aesthetic experiences", "O"),
-    (31, "I see myself as someone who is sometimes shy, inhibited", "E"),
-    (32, "I see myself as someone who is considerate and kind to almost everyone", "A"),
-    (33, "I see myself as someone who does things efficiently", "C"),
-    (34, "I see myself as someone who remains calm in tense situations", "N"),
-    (35, "I see myself as someone who prefers work that is routine", "O"),
-    (36, "I see myself as someone who is outgoing, sociable", "E"),
-    (37, "I see myself as someone who is sometimes rude to others", "A"),
-    (38, "I see myself as someone who makes plans and follows through with them", "C"),
-    (39, "I see myself as someone who gets nervous easily", "N"),
-    (40, "I see myself as someone who likes to reflect, play with ideas", "O"),
-    (41, "I see myself as someone who has few artistic interests", "O"),
-    (42, "I see myself as someone who likes to cooperate with others", "A"),
-    (43, "I see myself as someone who is easily distracted", "C"),
-    (44, "I see myself as someone who is sophisticated in art, music, or literature", "O"),
+    (1, "Talkative", "E"),
+    (2, "Tends to find fault with others", "A"),
+    (3, "Does a thorough job", "C"),
+    (4, "Depressed, blue", "N"),
+    (5, "Original, comes up with new ideas", "O"),
+    (6, "Reserved", "E"),
+    (7, "Helpful and unselfish with others", "A"),
+    (8, "Can be somewhat careless", "C"),
+    (9, "Relaxed, handles stress well", "N"),
+    (10, "Curious about many different things", "O"),
+    (11, "Full of energy", "E"),
+    (12, "Starts quarrels with others", "A"),
+    (13, "A reliable worker", "C"),
+    (14, "Can be tense", "N"),
+    (15, "Ingenious, a deep thinker", "O"),
+    (16, "Generates a lot of enthusiasm", "E"),
+    (17, "Has a forgiving nature", "A"),
+    (18, "Tends to be disorganized", "C"),
+    (19, "Worries a lot", "N"),
+    (20, "Has an active imagination", "O"),
+    (21, "Tends to be quiet", "E"),
+    (22, "Generally trusting", "A"),
+    (23, "Tends to be lazy", "C"),
+    (24, "Emotionally stable, not easily upset", "N"),
+    (25, "Inventive", "O"),
+    (26, "Has an assertive personality", "E"),
+    (27, "Can be cold and aloof", "A"),
+    (28, "Perseveres until the task is finished", "C"),
+    (29, "Can be moody", "N"),
+    (30, "Values artistic, aesthetic experiences", "O"),
+    (31, "Sometimes shy, inhibited", "E"),
+    (32, "Considerate and kind to almost everyone", "A"),
+    (33, "Does things efficiently", "C"),
+    (34, "Remains calm in tense situations", "N"),
+    (35, "Prefers work that is routine", "O"),
+    (36, "Outgoing, sociable", "E"),
+    (37, "Sometimes rude to others", "A"),
+    (38, "Makes plans and follows through with them", "C"),
+    (39, "Gets nervous easily", "N"),
+    (40, "Likes to reflect, play with ideas", "O"),
+    (41, "Has few artistic interests", "O"),
+    (42, "Likes to cooperate with others", "A"),
+    (43, "Easily distracted", "C"),
+    (44, "Sophisticated in art, music, or literature", "O"),
 ]
 
-LIKERT_OPTIONS = [
-    "Disagree strongly",
-    "Disagree a little",
-    "Neither agree nor disagree",
-    "Agree a little",
-    "Agree strongly",
-]
-
-# Trait colors for visualization
-TRAIT_COLORS = {
-    "O": "#8B5CF6",  # Purple - Openness
-    "C": "#3B82F6",  # Blue - Conscientiousness
-    "E": "#F97316",  # Orange - Extraversion
-    "A": "#EC4899",  # Pink - Agreeableness
-    "N": "#6366F1",  # Indigo - Neuroticism
-}
-
-TRAIT_NAMES = {
-    "O": "Openness",
-    "C": "Conscientiousness",
-    "E": "Extraversion",
-    "A": "Agreeableness",
-    "N": "Neuroticism",
-}
+LIKERT_LABELS = ["1", "2", "3", "4", "5"]
+LIKERT_HELP = "1 = Disagree strongly, 5 = Agree strongly"
 
 
 def show_bfi44_page():
-    """Display full BFI-44 questionnaire."""
-    st.header("Personality Questionnaire (BFI-44)")
+    """Display full BFI-44 questionnaire with improved UX."""
 
     # Initialize timer if not set
     if "bfi44_start_time" not in st.session_state:
@@ -95,56 +85,76 @@ def show_bfi44_page():
     if "bfi44_responses" not in st.session_state:
         st.session_state.bfi44_responses = {}
 
-    # Progress tracking
-    answered = len([k for k, v in st.session_state.bfi44_responses.items() if v is not None])
-    progress = answered / 44
+    # Header
+    st.markdown("## Personality Questionnaire")
 
-    col1, col2 = st.columns([3, 1])
-    with col1:
-        st.progress(progress, text=f"Progress: {answered}/44 questions answered")
-    with col2:
-        elapsed = int(time.time() - st.session_state.bfi44_start_time)
-        st.metric("Time Elapsed", f"{elapsed // 60}:{elapsed % 60:02d}")
+    # Disclaimer
+    st.warning("**Note:** This questionnaire is for research purposes only. Your responses here will **not** affect your interview assessment results.")
 
-    st.markdown("""
-    **Instructions:** Please rate how much you agree with each statement about yourself.
-    There are no right or wrong answers. Answer honestly based on how you generally see yourself.
-    """)
+    # Instructions
+    st.markdown("**I see myself as someone who is...**")
+    st.caption("Rate each trait from 1 (Disagree strongly) to 5 (Agree strongly)")
 
     st.markdown("---")
 
-    # Display questions in sections
-    sections = [
-        ("Questions 1-11", BFI44_ITEMS[0:11]),
-        ("Questions 12-22", BFI44_ITEMS[11:22]),
-        ("Questions 23-33", BFI44_ITEMS[22:33]),
-        ("Questions 34-44", BFI44_ITEMS[33:44]),
-    ]
+    # Custom CSS for cleaner question cards
+    st.markdown("""
+    <style>
+        .question-card {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-bottom: 8px;
+            border-left: 4px solid #6366f1;
+        }
+        .question-num {
+            font-weight: 600;
+            color: #6366f1;
+            margin-right: 8px;
+        }
+        .question-text {
+            font-size: 1.05rem;
+            color: #1f2937;
+        }
+    </style>
+    """, unsafe_allow_html=True)
 
     with st.form("bfi44_form"):
-        for section_name, items in sections:
-            st.subheader(section_name)
+        # Display questions in a cleaner format
+        for item_num, text, trait in BFI44_ITEMS:
+            key = f"bfi_{item_num}"
 
-            for item_num, text, trait in items:
-                # Create unique key
-                key = f"bfi_{item_num}"
+            # Question with number
+            col_q, col_r = st.columns([3, 2])
 
-                # Get current value from session state
-                current_val = st.session_state.bfi44_responses.get(item_num, None)
-                default_idx = LIKERT_OPTIONS.index(current_val) if current_val in LIKERT_OPTIONS else None
+            with col_q:
+                st.markdown(f"**{item_num}.** {text}")
+
+            with col_r:
+                # Get current value
+                current_val = st.session_state.bfi44_responses.get(item_num)
+                default_idx = current_val - 1 if current_val else None
 
                 response = st.radio(
-                    f"**{item_num}.** {text}",
-                    options=LIKERT_OPTIONS,
+                    f"q{item_num}",
+                    options=[1, 2, 3, 4, 5],
                     horizontal=True,
                     key=key,
                     index=default_idx,
+                    label_visibility="collapsed"
                 )
 
                 if response:
                     st.session_state.bfi44_responses[item_num] = response
 
-            st.markdown("---")
+            # Subtle divider every 11 questions
+            if item_num in [11, 22, 33]:
+                st.markdown("---")
+
+        st.markdown("---")
+
+        # Scale reminder
+        st.caption("**Scale:** 1 = Disagree strongly | 2 = Disagree a little | 3 = Neutral | 4 = Agree a little | 5 = Agree strongly")
 
         # Submit button
         col1, col2, col3 = st.columns([1, 2, 1])
@@ -167,9 +177,7 @@ def show_bfi44_page():
                 if response is None:
                     missing.append(item_num)
                 else:
-                    # Convert Likert to 1-5 score
-                    score = LIKERT_OPTIONS.index(response) + 1
-                    responses_dict[item_num] = score
+                    responses_dict[item_num] = response
 
             if missing:
                 st.error(f"Please answer all questions. Missing: {missing[:5]}{'...' if len(missing) > 5 else ''}")
@@ -185,11 +193,9 @@ def show_bfi44_page():
                 st.session_state.bfi44_scores = scores
                 st.session_state.bfi44_completed = True
                 st.session_state.bfi44_duration = duration
-                st.session_state.current_phase = st.session_state.get("first_mode", "case")
+                st.session_state.current_phase = get_next_phase_after_bfi44()
 
-                # Show results briefly
                 st.success("Questionnaire completed!")
-                display_bfi44_results(scores)
                 st.rerun()
             else:
                 # Call API
@@ -203,11 +209,10 @@ def show_bfi44_page():
                             }
                         )
                         response.raise_for_status()
-                        data = response.json()
 
                         st.session_state.bfi44_completed = True
                         st.session_state.bfi44_duration = duration
-                        st.session_state.current_phase = data.get("next_phase", "case")
+                        st.session_state.current_phase = get_next_phase_after_bfi44()
 
                         st.success("Questionnaire completed!")
                         st.rerun()
@@ -251,16 +256,3 @@ def compute_bfi44_scores_local(responses: dict[int, int]) -> dict:
         scores[trait] = round((avg - 1) / 4, 3)  # Normalize to 0-1
 
     return scores
-
-
-def display_bfi44_results(scores: dict):
-    """Display BFI-44 results briefly."""
-    st.markdown("### Your Personality Profile (Ground Truth)")
-
-    cols = st.columns(5)
-    for i, (trait, score) in enumerate(scores.items()):
-        with cols[i]:
-            st.metric(
-                TRAIT_NAMES[trait],
-                f"{score:.2f}",
-            )

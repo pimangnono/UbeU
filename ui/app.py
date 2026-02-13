@@ -19,14 +19,21 @@ from ui.pages.group_discussion_page import show_group_discussion_page
 from ui.pages.results_page import show_results_page
 from ui.pages.survey_page import show_survey_page, show_completion_page
 from ui.pages.admin_dashboard import show_admin_dashboard
+from ui.schema_config import SCENARIO_TEMPLATES, CCS_HIERARCHY
 
 
 # Page configuration
 st.set_page_config(
     page_title="UbeU V3 - AI Interview Platform",
-    page_icon=":material/psychology:",
+    page_icon="🎯",
     layout="wide",
-    initial_sidebar_state="expanded",
+    initial_sidebar_state="collapsed",
+)
+
+# Hide auto-generated page navigation from sidebar
+st.markdown(
+    "<style>[data-testid='stSidebarNav'] {display:none !important;}</style>",
+    unsafe_allow_html=True,
 )
 
 
@@ -135,6 +142,10 @@ def init_session_state():
         "first_mode": None,  # case or group (counterbalanced)
         "condition": None,  # case_first or group_first
         "demo_mode": False,
+        # Active modes configuration
+        "active_modes": {"case": False, "group": True},  # Default: group only
+        # Scenario selection for group discussion
+        "selected_scenario": "product_team",
     }
 
     for key, default_value in defaults.items():
@@ -145,100 +156,134 @@ def init_session_state():
 def render_sidebar():
     """Render the sidebar with navigation and status."""
     with st.sidebar:
-        st.markdown("### UbeU V3")
-        st.caption("Dual-Mode AI Interview Platform")
+        st.markdown("---")
+
+        # Admin mode toggle at top
+        admin_mode = st.toggle("🔐 Admin Mode", key="admin_toggle")
+        if admin_mode and st.session_state.get("current_phase") != "admin":
+            st.session_state.admin_mode = True
+            st.rerun()
+        elif not admin_mode and st.session_state.get("admin_mode"):
+            st.session_state.admin_mode = False
+            st.session_state.admin_authenticated = False
+            st.rerun()
 
         st.markdown("---")
 
-        # Admin mode toggle
-        if st.session_state.get("admin_mode"):
-            st.success("Admin Mode Active")
-            if st.button("Exit Admin Mode"):
-                st.session_state.admin_mode = False
-                st.session_state.admin_authenticated = False
-                st.rerun()
-        else:
-            if st.button("Admin Dashboard"):
-                st.session_state.admin_mode = True
-                st.rerun()
+        # Mode configuration (only show before study starts)
+        if not st.session_state.get("admin_mode"):
+            if st.session_state.get("current_phase") == "consent":
+                st.markdown("### Active Modes")
 
-        if st.session_state.get("admin_mode"):
-            return
+                case_active = st.toggle(
+                    "Case Study",
+                    value=st.session_state.active_modes.get("case", False),
+                    key="case_mode_toggle",
+                    help="1-on-1 logical assessment"
+                )
+                group_active = st.toggle(
+                    "Group Discussion",
+                    value=st.session_state.active_modes.get("group", True),
+                    key="group_mode_toggle",
+                    help="Personality assessment with AI team"
+                )
 
-        st.markdown("---")
+                # Ensure at least one mode is active
+                if not case_active and not group_active:
+                    st.warning("At least one mode required")
+                    group_active = True
 
-        # Participant info
-        if st.session_state.participant_id:
-            st.markdown("**Participant**")
-            st.info(f"{st.session_state.participant_name}")
-            st.caption(f"ID: {st.session_state.participant_id}")
+                # Update session state if changed
+                if (case_active != st.session_state.active_modes.get("case") or
+                    group_active != st.session_state.active_modes.get("group")):
+                    st.session_state.active_modes = {"case": case_active, "group": group_active}
+                    st.rerun()
 
-            st.markdown("---")
+                # Scenario selection (only if group mode is active)
+                if group_active:
+                    st.markdown("---")
+                    st.markdown("### Scenario")
 
-            # Progress tracker
-            st.markdown("**Progress**")
+                    scenario_options = {
+                        "product_team": "Product Team",
+                        "leadership": "Leadership",
+                        "innovation": "Innovation"
+                    }
+
+                    current_scenario = st.session_state.get("selected_scenario", "product_team")
+                    selected = st.selectbox(
+                        "Discussion Topic",
+                        options=list(scenario_options.keys()),
+                        format_func=lambda x: scenario_options[x],
+                        index=list(scenario_options.keys()).index(current_scenario),
+                        key="scenario_select",
+                        help="Choose the discussion scenario"
+                    )
+
+                    if selected != current_scenario:
+                        st.session_state.selected_scenario = selected
+                        st.rerun()
+
+                    # Show focus skills for selected scenario
+                    scenario = SCENARIO_TEMPLATES.get(selected, {})
+                    if "focus_skills" in scenario:
+                        st.caption("**Focus Skills:**")
+                        for skill in scenario["focus_skills"]:
+                            st.caption(f"• {skill}")
+
+                st.markdown("---")
+
+            st.markdown("### Study Progress")
             render_progress_tracker()
 
-            st.markdown("---")
+            # Participant ID at bottom
+            if st.session_state.participant_id:
+                st.divider()
+                st.caption(f"ID: {st.session_state.participant_id}")
 
-            # Demo mode indicator
-            if st.session_state.get("demo_mode"):
-                st.warning("Demo Mode Active")
-
-        else:
-            st.markdown("### About")
-            st.markdown("""
-            **Dual-Mode Assessment:**
-
-            **Mode 1:** Case Study Interview
-            - 1-on-1 with AI facilitator
-            - Tests logical reasoning
-
-            **Mode 2:** Group Discussion
-            - 1-to-3 with AI team members
-            - Assesses personality traits
-
-            Each mode generates evidence-based reports.
-            """)
+                # Demo mode indicator
+                if st.session_state.get("demo_mode"):
+                    st.caption("⚠️ Demo Mode")
 
 
 def render_progress_tracker():
-    """Render the study progress tracker."""
-    phases = [
-        ("consent", "Consent", st.session_state.consent_given),
-        ("bfi44", "BFI-44", st.session_state.bfi44_completed),
-    ]
+    """Render the study progress tracker based on active modes."""
+    active_modes = st.session_state.get("active_modes", {"case": False, "group": True})
+    case_active = active_modes.get("case", False)
+    group_active = active_modes.get("group", True)
 
-    # Add interview modes in correct order
-    if st.session_state.get("first_mode") == "case":
-        phases.extend([
-            ("case", "Case Study", st.session_state.case_completed),
-            ("group", "Group Discussion", st.session_state.group_completed),
-        ])
-    else:
-        phases.extend([
-            ("group", "Group Discussion", st.session_state.group_completed),
-            ("case", "Case Study", st.session_state.case_completed),
-        ])
+    # Build dynamic steps list
+    steps_display = ["Consent", "Questionnaire"]
+    step_map = {"consent": 0, "bfi44": 1}
 
-    phases.extend([
-        ("survey", "Survey", st.session_state.survey_completed),
-    ])
+    idx = 2
+    if case_active:
+        steps_display.append("Case Study")
+        step_map["case"] = idx
+        idx += 1
+    if group_active:
+        steps_display.append("Group Discussion")
+        step_map["group"] = idx
+        idx += 1
 
-    current = st.session_state.current_phase
+    steps_display.extend(["Survey", "Complete"])
+    step_map["results"] = idx
+    step_map["survey"] = idx
+    step_map["complete"] = idx + 1
 
-    for phase_id, phase_name, completed in phases:
-        if completed:
-            icon = ":material/check_circle:"
-            color = "#22C55E"
-        elif phase_id == current:
-            icon = ":material/radio_button_checked:"
-            color = "#3B82F6"
+    current_phase = st.session_state.get("current_phase", "consent")
+    current_idx = step_map.get(current_phase, 0)
+
+    for i, step_name in enumerate(steps_display):
+        if i < current_idx:
+            # Completed - strikethrough
+            st.markdown(f"~~{step_name}~~")
+        elif i == current_idx:
+            # Current - bold with arrow
+            st.markdown(f"**> {step_name}**")
         else:
-            icon = ":material/radio_button_unchecked:"
-            color = "#9CA3AF"
-
-        st.markdown(f"<span style='color: {color};'>{icon} {phase_name}</span>", unsafe_allow_html=True)
+            # Future - indented
+            st.markdown(f"&nbsp;&nbsp;{step_name}")
 
 
 def route_to_page():

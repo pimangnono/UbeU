@@ -10,6 +10,18 @@ from typing import Optional
 
 API_BASE = "http://localhost:8000"
 
+
+def get_next_phase_after_case():
+    """Determine next phase based on active modes and completion status."""
+    active_modes = st.session_state.get("active_modes", {"case": False, "group": True})
+
+    # If group is active and not yet completed, go to group
+    if active_modes.get("group", True) and not st.session_state.get("group_completed", False):
+        return "group"
+
+    # Otherwise go to results
+    return "results"
+
 # Interview duration in seconds (15 minutes)
 INTERVIEW_DURATION = 15 * 60
 
@@ -84,6 +96,61 @@ improve the situation.""",
 }
 
 
+def show_case_instruction_page():
+    """Show immersive loading page before starting the case study interview."""
+
+    # Navy background interview room - pressure-cooker style
+    st.markdown("""
+<div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            padding: 50px 30px; border-radius: 20px; text-align: center; color: white; margin-bottom: 30px;">
+    <div style="font-size: 0.85rem; opacity: 0.7; margin-bottom: 8px; letter-spacing: 3px; text-transform: uppercase;">
+        Interview Room
+    </div>
+    <div style="font-size: 2.2rem; font-weight: 700; margin-bottom: 30px;">
+        Case Study Interview
+    </div>
+
+    <div style="display: flex; justify-content: center; gap: 100px; margin: 40px 0;">
+        <div style="text-align: center;">
+            <div style="font-size: 48px; margin-bottom: 10px;">🎯</div>
+            <div style="font-weight: 600; font-size: 1.1rem;">Facilitator</div>
+            <div style="font-size: 0.8rem; opacity: 0.7;">Your interviewer</div>
+        </div>
+        <div style="text-align: center;">
+            <div style="font-size: 48px; margin-bottom: 10px;">👤</div>
+            <div style="font-weight: 600; font-size: 1.1rem;">You</div>
+            <div style="font-size: 0.8rem; opacity: 0.7;">Candidate</div>
+        </div>
+    </div>
+</div>
+    """, unsafe_allow_html=True)
+
+    # Instructions
+    st.markdown("### 📋 What to Expect")
+    st.markdown("""
+You'll analyze a business problem with an AI facilitator.
+Ask for data, structure your thinking, and develop recommendations.
+Think of this as a consulting case interview.
+    """)
+
+    st.markdown("### 💡 Tips")
+    st.markdown("""
+- Structure your approach before diving in
+- Ask for specific data to test your hypotheses
+- Think out loud — share your reasoning
+- Be clear and concise in your recommendations
+    """)
+
+    st.markdown("")
+
+    # Start button
+    col1, col2, col3 = st.columns([1, 2, 1])
+    with col2:
+        if st.button("Start Interview", type="primary", use_container_width=True):
+            st.session_state.case_ready_to_start = True
+            st.rerun()
+
+
 def show_case_interview_page():
     """Display case study interview interface."""
     # Initialize session state
@@ -97,6 +164,13 @@ def show_case_interview_page():
         st.session_state.revealed_data = set()
     if "case_ended" not in st.session_state:
         st.session_state.case_ended = False
+    if "case_ready_to_start" not in st.session_state:
+        st.session_state.case_ready_to_start = False
+
+    # Show instructions first if not ready to start
+    if not st.session_state.case_ready_to_start and st.session_state.case_session_id is None:
+        show_case_instruction_page()
+        return
 
     # Start session if not started
     if st.session_state.case_session_id is None and not st.session_state.case_ended:
@@ -365,11 +439,8 @@ def end_case_session():
         }
         st.session_state.case_completed = True
 
-        # Determine next phase
-        if st.session_state.get("first_mode") == "case":
-            st.session_state.current_phase = "group"
-        else:
-            st.session_state.current_phase = "results"
+        # Determine next phase based on active modes
+        st.session_state.current_phase = get_next_phase_after_case()
 
         st.rerun()
     else:
@@ -384,7 +455,7 @@ def end_case_session():
 
                 st.session_state.case_assessment = data.get("summary", {})
                 st.session_state.case_completed = True
-                st.session_state.current_phase = data.get("next_phase", "results")
+                st.session_state.current_phase = get_next_phase_after_case()
 
                 st.rerun()
 

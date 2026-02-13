@@ -4,7 +4,7 @@ Survey Page: Post-study feedback survey.
 Collects:
 - Mode-specific experience ratings
 - Overall recommendations
-- Preferred mode
+- Preferred mode (if both modes active)
 - Open-ended feedback
 """
 
@@ -20,68 +20,90 @@ LIKERT_VALUES = {opt: i + 1 for i, opt in enumerate(LIKERT_OPTIONS)}
 
 
 def show_survey_page():
-    """Display post-study survey."""
+    """Display post-study survey with dynamic content based on active modes."""
     st.header("Study Feedback Survey")
 
-    st.markdown("""
-    Thank you for completing both assessment modes! Your feedback is valuable for improving
-    this AI interview platform. Please take a few minutes to share your experience.
-    """)
+    active_modes = st.session_state.get("active_modes", {"case": False, "group": True})
+    case_active = active_modes.get("case", False)
+    group_active = active_modes.get("group", True)
+
+    # Dynamic intro
+    if case_active and group_active:
+        st.markdown("""
+        Thank you for completing both assessment modes! Your feedback is valuable for improving
+        this AI interview platform. Please take a few minutes to share your experience.
+        """)
+    else:
+        st.markdown("""
+        Thank you for completing the assessment! Your feedback is valuable for improving
+        this AI interview platform. Please take a few minutes to share your experience.
+        """)
 
     st.markdown("---")
 
     with st.form("survey_form"):
-        # Mode 1 (Case Study) feedback
-        st.subheader("Case Study Interview Experience")
+        # Initialize variables for all possible fields
+        case_naturalness = None
+        case_challenge = None
+        case_fairness = None
+        group_naturalness = None
+        group_authenticity = None
+        group_engagement = None
+        preferred_mode = None
 
-        case_naturalness = st.radio(
-            "The conversation with the AI facilitator felt natural",
-            options=LIKERT_OPTIONS,
-            horizontal=True,
-            key="case_naturalness"
-        )
+        # Case Study feedback (only if case mode active)
+        if case_active:
+            st.subheader("Case Study Interview Experience")
 
-        case_challenge = st.radio(
-            "The case study was appropriately challenging",
-            options=LIKERT_OPTIONS,
-            horizontal=True,
-            key="case_challenge"
-        )
+            case_naturalness = st.radio(
+                "The conversation with the AI facilitator felt natural",
+                options=LIKERT_OPTIONS,
+                horizontal=True,
+                key="case_naturalness"
+            )
 
-        case_fairness = st.radio(
-            "I felt the assessment was fair and unbiased",
-            options=LIKERT_OPTIONS,
-            horizontal=True,
-            key="case_fairness"
-        )
+            case_challenge = st.radio(
+                "The case study was appropriately challenging",
+                options=LIKERT_OPTIONS,
+                horizontal=True,
+                key="case_challenge"
+            )
 
-        st.markdown("---")
+            case_fairness = st.radio(
+                "I felt the assessment was fair and unbiased",
+                options=LIKERT_OPTIONS,
+                horizontal=True,
+                key="case_fairness"
+            )
 
-        # Mode 2 (Group Discussion) feedback
-        st.subheader("Group Discussion Experience")
+            st.markdown("---")
 
-        group_naturalness = st.radio(
-            "The AI team members felt like realistic colleagues",
-            options=LIKERT_OPTIONS,
-            horizontal=True,
-            key="group_naturalness"
-        )
+        # Group Discussion feedback (only if group mode active)
+        if group_active:
+            st.subheader("Group Discussion Experience")
 
-        group_authenticity = st.radio(
-            "I could behave naturally during the group discussion",
-            options=LIKERT_OPTIONS,
-            horizontal=True,
-            key="group_authenticity"
-        )
+            group_naturalness = st.radio(
+                "The AI team members felt like realistic colleagues",
+                options=LIKERT_OPTIONS,
+                horizontal=True,
+                key="group_naturalness"
+            )
 
-        group_engagement = st.radio(
-            "The discussion was engaging and kept my attention",
-            options=LIKERT_OPTIONS,
-            horizontal=True,
-            key="group_engagement"
-        )
+            group_authenticity = st.radio(
+                "I could behave naturally during the group discussion",
+                options=LIKERT_OPTIONS,
+                horizontal=True,
+                key="group_authenticity"
+            )
 
-        st.markdown("---")
+            group_engagement = st.radio(
+                "The discussion was engaging and kept my attention",
+                options=LIKERT_OPTIONS,
+                horizontal=True,
+                key="group_engagement"
+            )
+
+            st.markdown("---")
 
         # Overall feedback
         st.subheader("Overall Assessment")
@@ -93,24 +115,25 @@ def show_survey_page():
             key="overall_recommendation"
         )
 
-        preferred_mode = st.radio(
-            "Which assessment mode did you prefer?",
-            options=[
-                "Case Study (1-on-1 with AI facilitator)",
-                "Group Discussion (with AI team members)",
-                "Both equally",
-                "Neither"
-            ],
-            key="preferred_mode"
-        )
+        # Preferred mode question (only if both modes active)
+        if case_active and group_active:
+            preferred_mode = st.radio(
+                "Which assessment mode did you prefer?",
+                options=[
+                    "Case Study (1-on-1 with AI facilitator)",
+                    "Group Discussion (with AI team members)",
+                    "Both equally",
+                    "Neither"
+                ],
+                key="preferred_mode"
+            )
 
-        # Map to backend values
-        preferred_mode_map = {
-            "Case Study (1-on-1 with AI facilitator)": "case",
-            "Group Discussion (with AI team members)": "group",
-            "Both equally": "both",
-            "Neither": "neither",
-        }
+        would_recommend = st.radio(
+            "Would you use this type of AI assessment again?",
+            options=["Yes, definitely", "Maybe", "No"],
+            horizontal=True,
+            key="would_recommend"
+        )
 
         st.markdown("---")
 
@@ -136,29 +159,45 @@ def show_survey_page():
             )
 
         if submitted:
-            # Validate required fields
-            required_fields = [
-                case_naturalness, case_challenge, case_fairness,
-                group_naturalness, group_authenticity, group_engagement,
-                overall_recommendation, preferred_mode
-            ]
+            # Build required fields list dynamically
+            required_fields = [overall_recommendation, would_recommend]
+
+            if case_active:
+                required_fields.extend([case_naturalness, case_challenge, case_fairness])
+            if group_active:
+                required_fields.extend([group_naturalness, group_authenticity, group_engagement])
+            if case_active and group_active:
+                required_fields.append(preferred_mode)
 
             if any(f is None for f in required_fields):
                 st.error("Please answer all required questions.")
                 return
 
-            # Build survey data
+            # Build survey data dynamically
             survey_data = {
-                "case_naturalness": LIKERT_VALUES[case_naturalness],
-                "case_challenge": LIKERT_VALUES[case_challenge],
-                "case_fairness": LIKERT_VALUES[case_fairness],
-                "group_naturalness": LIKERT_VALUES[group_naturalness],
-                "group_authenticity": LIKERT_VALUES[group_authenticity],
-                "group_engagement": LIKERT_VALUES[group_engagement],
                 "overall_recommendation": LIKERT_VALUES[overall_recommendation],
-                "preferred_mode": preferred_mode_map.get(preferred_mode, "both"),
+                "would_recommend": would_recommend,
                 "open_feedback": open_feedback.strip() if open_feedback else None,
             }
+
+            if case_active:
+                survey_data["case_naturalness"] = LIKERT_VALUES[case_naturalness]
+                survey_data["case_challenge"] = LIKERT_VALUES[case_challenge]
+                survey_data["case_fairness"] = LIKERT_VALUES[case_fairness]
+
+            if group_active:
+                survey_data["group_naturalness"] = LIKERT_VALUES[group_naturalness]
+                survey_data["group_authenticity"] = LIKERT_VALUES[group_authenticity]
+                survey_data["group_engagement"] = LIKERT_VALUES[group_engagement]
+
+            if case_active and group_active:
+                preferred_mode_map = {
+                    "Case Study (1-on-1 with AI facilitator)": "case",
+                    "Group Discussion (with AI team members)": "group",
+                    "Both equally": "both",
+                    "Neither": "neither",
+                }
+                survey_data["preferred_mode"] = preferred_mode_map.get(preferred_mode, "both")
 
             if st.session_state.get("demo_mode"):
                 # Demo mode: store locally
@@ -188,8 +227,29 @@ def show_survey_page():
                     st.error(f"Unexpected error: {str(e)}")
 
 
+def get_completion_summary():
+    """Generate completion summary based on active modes."""
+    active_modes = st.session_state.get("active_modes", {"case": False, "group": True})
+    case_active = active_modes.get("case", False)
+    group_active = active_modes.get("group", True)
+
+    steps = ["1. BFI-44 Personality Questionnaire"]
+    step_num = 2
+
+    if case_active:
+        steps.append(f"{step_num}. Case Study Interview with AI Facilitator")
+        step_num += 1
+    if group_active:
+        steps.append(f"{step_num}. Group Discussion with AI Team Members")
+        step_num += 1
+
+    steps.append(f"{step_num}. Feedback Survey")
+
+    return "\n    ".join(steps)
+
+
 def show_completion_page():
-    """Display study completion page."""
+    """Display study completion page with dynamic content."""
     st.header("Study Complete!")
 
     st.markdown("""
@@ -198,15 +258,14 @@ def show_completion_page():
     </div>
     """, unsafe_allow_html=True)
 
+    completion_summary = get_completion_summary()
+
     st.success(f"""
     **Participant ID:** {st.session_state.get('participant_id', 'N/A')}
 
     Your assessment has been completed and recorded. Here's a summary of what you completed:
 
-    1. BFI-44 Personality Questionnaire
-    2. Case Study Interview (Mode 1)
-    3. Group Discussion (Mode 2)
-    4. Feedback Survey
+    {completion_summary}
 
     Thank you for helping with this research!
     """)
@@ -237,7 +296,7 @@ def show_completion_page():
     st.markdown("""
     <div style="text-align: center; color: #666; font-size: 0.9em;">
         <p><strong>Research Contact:</strong> For questions about this study, please contact the research team.</p>
-        <p>NUS School of Computing | Final Year Thesis Project</p>
+        <p>NTU College of Computing | Final Year Thesis Project</p>
         <p style="margin-top: 20px; color: #999;">
             UbeU V3 - Dual-Mode AI Interview Platform
         </p>
