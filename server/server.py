@@ -1,20 +1,26 @@
 """
-FastAPI Backend for V3: Dual-Mode AI Interview Platform.
+FastAPI Backend for V4: AI Interview Platform.
+
+V4 Changes:
+- Supabase-backed storage (replaces JSON files)
+- CORS restricted to allowed origins
+- API-first design (clean JSON responses for React migration)
 
 Endpoints:
-  POST /participant              — create participant, assign condition
-  POST /participant/{pid}/consent — record consent
-  POST /participant/{pid}/bfi44  — submit BFI-44, score, store ground truth
-  POST /session/create           — create CaseEngine or GroupEngine session
-  GET  /session/{sid}/status     — get conversation history + state
-  POST /session/{sid}/message    — submit message, return AI responses
-  POST /session/{sid}/end        — end session, run evaluation
-  POST /participant/{pid}/survey — submit post-study survey
-  GET  /hr/candidates            — list all completed candidates
-  GET  /hr/candidate/{pid}       — get full candidate report
-  GET  /hr/compare               — multi-candidate comparison view
+  POST /participant              -- create participant, assign condition
+  POST /participant/{pid}/consent -- record consent
+  POST /participant/{pid}/bfi44  -- submit BFI-44, score, store ground truth
+  POST /session/create           -- create CaseEngine or GroupEngine session
+  GET  /session/{sid}/status     -- get conversation history + state
+  POST /session/{sid}/message    -- submit message, return AI responses
+  POST /session/{sid}/end        -- end session, run evaluation
+  POST /participant/{pid}/survey -- submit post-study survey
+  GET  /hr/candidates            -- list all completed candidates
+  GET  /hr/candidate/{pid}       -- get full candidate report
+  GET  /hr/compare               -- multi-candidate comparison view
 """
 
+import os
 import sys
 from pathlib import Path
 from datetime import datetime
@@ -58,14 +64,16 @@ from utils.models import SessionState
 # --- App initialization ---
 
 app = FastAPI(
-    title="UbeU V3 — Dual-Mode AI Interview Platform",
-    version="3.0.0",
-    description="Within-subject study: Mode 1 (Case Study) + Mode 2 (Group Discussion)",
+    title="UbeU V4 -- AI Interview Platform",
+    version="4.0.0",
+    description="AI-powered personality assessment via group discussion",
 )
 
+# CORS: Restrict to allowed origins (S3 fix)
+_cors_origins = os.environ.get("CORS_ORIGINS", "http://localhost:8501").split(",")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[origin.strip() for origin in _cors_origins],
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -149,6 +157,9 @@ async def submit_bfi44(pid: str, req: BFI44SubmitRequest):
     record.bfi44_raw = responses
     record.bfi44_scores = scores
     record.bfi44_duration_seconds = req.duration_seconds
+
+    # Save BFI-44 data
+    mgr.update_participant(record)
 
     # Advance to first interview
     next_phase = mgr.advance_phase(pid)
@@ -275,7 +286,7 @@ async def submit_message(sid: str, req: SubmitMessageRequest):
     # Generate AI response(s)
     ai_turns = await engine.generate_ai_response()
 
-    # Persist session
+    # Persist session to Supabase
     s_mgr.persist_session(sid)
 
     return SubmitMessageResponse(
@@ -349,6 +360,12 @@ async def end_session(sid: str):
         }
 
         p_mgr.save_session_output(record.participant_id, "group", session_output.__dict__)
+
+    # Update participant record
+    p_mgr.update_participant(record)
+
+    # Persist final session state
+    s_mgr.persist_session(sid)
 
     # Advance phase
     next_phase = p_mgr.advance_phase(record.participant_id)
@@ -493,7 +510,6 @@ async def compare_candidates(pids: str = ""):
     # Build rankings
     rankings = {}
     if summaries:
-        # Logic ranking
         sorted_by_logic = sorted(
             [s for s in summaries if s.logic_overall_score],
             key=lambda x: x.logic_overall_score,
@@ -501,7 +517,6 @@ async def compare_candidates(pids: str = ""):
         )
         rankings["logic"] = [s.participant_id for s in sorted_by_logic]
 
-        # Trait rankings
         for trait in ["O", "C", "E", "A", "N"]:
             sorted_by_trait = sorted(
                 [s for s in summaries if s.personality_vector],
@@ -527,6 +542,7 @@ async def health_check():
     """Health check endpoint."""
     return {
         "status": "ok",
-        "version": "3.0.0",
+        "version": "4.0.0",
+        "storage": "supabase",
         "modes": ["case_study", "group_discussion"],
     }

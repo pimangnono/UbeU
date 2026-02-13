@@ -199,32 +199,24 @@ def show_survey_page():
                 }
                 survey_data["preferred_mode"] = preferred_mode_map.get(preferred_mode, "both")
 
-            if st.session_state.get("demo_mode"):
-                # Demo mode: store locally
-                st.session_state.survey_completed = True
-                st.session_state.survey_data = survey_data
-                st.session_state.current_phase = "complete"
-                st.success("Survey submitted! Thank you for your participation.")
-                st.rerun()
-            else:
-                # Call API
-                try:
-                    with httpx.Client(timeout=30.0) as client:
-                        response = client.post(
-                            f"{API_BASE}/participant/{st.session_state.participant_id}/survey",
-                            json=survey_data
-                        )
-                        response.raise_for_status()
+            # Submit to API
+            try:
+                with httpx.Client(timeout=30.0) as client:
+                    response = client.post(
+                        f"{API_BASE}/participant/{st.session_state.participant_id}/survey",
+                        json=survey_data
+                    )
+                    response.raise_for_status()
 
-                        st.session_state.survey_completed = True
-                        st.session_state.current_phase = "complete"
-                        st.success("Survey submitted! Thank you for your participation.")
-                        st.rerun()
+                    st.session_state.survey_completed = True
+                    st.session_state.current_phase = "complete"
+                    st.success("Survey submitted! Thank you for your participation.")
+                    st.rerun()
 
-                except httpx.HTTPError as e:
-                    st.error(f"Survey submission failed: {str(e)}")
-                except Exception as e:
-                    st.error(f"Unexpected error: {str(e)}")
+            except httpx.HTTPError as e:
+                st.error(f"Survey submission failed: {str(e)}")
+            except Exception as e:
+                st.error(f"Unexpected error: {str(e)}")
 
 
 def get_completion_summary():

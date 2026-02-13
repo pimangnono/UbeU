@@ -56,16 +56,6 @@ def show_consent_page():
 
     st.markdown("---")
 
-    # Demo mode toggle
-    demo_mode = st.checkbox(
-        "Demo Mode (skip API calls)",
-        help="Enable for testing without backend server"
-    )
-
-    if demo_mode:
-        st.session_state.demo_mode = True
-        st.info("Demo mode enabled. Responses will be simulated locally.")
-
     # Registration form
     with st.form("registration_form"):
         st.markdown("### Your Information")
@@ -139,57 +129,42 @@ def show_consent_page():
                 st.error("Please agree to all consent items to continue.")
                 return
 
-            # Create participant
-            if demo_mode or st.session_state.get("demo_mode"):
-                # Demo mode: generate local ID
-                import uuid
-                pid = f"P{str(uuid.uuid4())[:6].upper()}"
-                st.session_state.participant_id = pid
-                st.session_state.participant_name = name.strip()
-                st.session_state.participant_email = email.strip() if email else None
-                st.session_state.condition = "case_first"  # Default for demo
-                st.session_state.first_mode = "case"
-                st.session_state.consent_given = True
-                st.session_state.current_phase = "bfi44"
-                st.success(f"Registered as participant {pid}")
-                st.rerun()
-            else:
-                # Call API
-                try:
-                    with httpx.Client(timeout=30.0) as client:
-                        # Create participant
-                        response = client.post(
-                            f"{API_BASE}/participant",
-                            json={"name": name.strip(), "email": email.strip() if email else None}
-                        )
-                        response.raise_for_status()
-                        data = response.json()
+            # Call API to create participant
+            try:
+                with httpx.Client(timeout=30.0) as client:
+                    # Create participant
+                    response = client.post(
+                        f"{API_BASE}/participant",
+                        json={"name": name.strip(), "email": email.strip() if email else None}
+                    )
+                    response.raise_for_status()
+                    data = response.json()
 
-                        pid = data["participant_id"]
+                    pid = data["participant_id"]
 
-                        # Record consent
-                        consent_response = client.post(
-                            f"{API_BASE}/participant/{pid}/consent",
-                            json={"consent": True}
-                        )
-                        consent_response.raise_for_status()
+                    # Record consent
+                    consent_response = client.post(
+                        f"{API_BASE}/participant/{pid}/consent",
+                        json={"consent": True}
+                    )
+                    consent_response.raise_for_status()
 
-                        # Store in session
-                        st.session_state.participant_id = pid
-                        st.session_state.participant_name = name.strip()
-                        st.session_state.participant_email = email.strip() if email else None
-                        st.session_state.condition = data.get("condition", "case_first")
-                        st.session_state.first_mode = data.get("first_mode", "case")
-                        st.session_state.consent_given = True
-                        st.session_state.current_phase = "bfi44"
+                    # Store in session
+                    st.session_state.participant_id = pid
+                    st.session_state.participant_name = name.strip()
+                    st.session_state.participant_email = email.strip() if email else None
+                    st.session_state.condition = data.get("condition", "case_first")
+                    st.session_state.first_mode = data.get("first_mode", "case")
+                    st.session_state.consent_given = True
+                    st.session_state.current_phase = "bfi44"
 
-                        st.success(f"Registered as participant {pid}")
-                        st.rerun()
+                    st.success(f"Registered as participant {pid}")
+                    st.rerun()
 
-                except httpx.HTTPError as e:
-                    st.error(f"Registration failed: {str(e)}")
-                except Exception as e:
-                    st.error(f"Unexpected error: {str(e)}")
+            except httpx.HTTPError as e:
+                st.error(f"Registration failed: {str(e)}")
+            except Exception as e:
+                st.error(f"Unexpected error: {str(e)}")
 
     # Footer
     st.markdown("---")
