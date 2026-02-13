@@ -10,26 +10,49 @@ from datetime import datetime
 API_BASE = "http://localhost:8000"
 
 
+def get_study_description():
+    """Generate study description based on active modes."""
+    active_modes = st.session_state.get("active_modes", {"case": False, "group": True})
+    case_active = active_modes.get("case", False)
+    group_active = active_modes.get("group", True)
+
+    time_estimate = 5 + 2  # BFI + Survey base
+    if case_active:
+        time_estimate += 15
+    if group_active:
+        time_estimate += 15
+
+    time_low = time_estimate - 5
+    time_high = time_estimate + 5
+
+    return case_active, group_active, time_low, time_high
+
+
 def show_consent_page():
     """Display registration and consent form."""
     st.header("Participant Registration")
 
-    # Study information
-    st.markdown("""
-    ### About This Study
+    # Study information (dynamic based on active modes)
+    case_active, group_active, time_low, time_high = get_study_description()
 
-    Welcome to the **UbeU V3 Dual-Mode AI Interview Platform**. This system is part of an
-    NUS Final Year Thesis project exploring AI-based candidate assessment methods.
+    st.markdown("### About This Study")
+    st.markdown("You will complete:")
 
-    You will complete:
-    1. **BFI-44 Questionnaire** - Standard personality assessment (~5 min)
-    2. **Two Interview Modes** - Each approximately 15 minutes
-       - **Case Study Interview** - Problem-solving with an AI facilitator
-       - **Group Discussion** - Collaboration with AI team members
-    3. **Brief Survey** - Your feedback on the experience (~2 min)
+    step_num = 1
+    st.markdown(f"{step_num}. **BFI-44 Questionnaire** - Standard personality assessment (~5 min)")
+    step_num += 1
 
-    Total estimated time: **35-45 minutes**
-    """)
+    if case_active:
+        st.markdown(f"{step_num}. **Case Study Interview** - Problem-solving with an AI facilitator (~15 min)")
+        step_num += 1
+
+    if group_active:
+        st.markdown(f"{step_num}. **Group Discussion** - Collaboration with AI team members (~15 min)")
+        step_num += 1
+
+    st.markdown(f"{step_num}. **Brief Survey** - Your feedback on the experience (~2 min)")
+
+    st.markdown(f"**Total estimated time: {time_low}-{time_high} minutes**")
 
     st.markdown("---")
 
@@ -173,6 +196,6 @@ def show_consent_page():
     st.markdown("""
     <div style="text-align: center; color: #666; font-size: 0.85em;">
         <p>Questions or concerns? Contact the research team.</p>
-        <p>NUS School of Computing | Final Year Thesis Project</p>
+        <p>NTU College of Computing | Final Year Thesis Project</p>
     </div>
     """, unsafe_allow_html=True)

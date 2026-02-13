@@ -1,10 +1,10 @@
 """
 Group Discussion Page: Mode 2 - Group discussion with three AI agents.
 
-Agents:
-- Alex: Assertive Challenger (high E, low A)
-- Jordan: Supportive Collaborator (high A, high E)
-- Riley: Quiet Skeptic (low E, moderate A)
+Agents configured via CCS (Critical Core Skills) schema:
+- Alex: Team Lead (high E, low A) - Focus: Decision Making, Influence
+- Jordan: Product Manager (high A, high E) - Focus: Collaboration, Communication
+- Riley: Senior Engineer (low E, moderate A) - Focus: Sense Making, Adaptability
 """
 
 import streamlit as st
@@ -12,75 +12,138 @@ import httpx
 import time
 from typing import Optional
 
+# Import CCS schema
+from ui.schema_config import (
+    CCS_HIERARCHY,
+    DEFAULT_AGENT_CONFIGS,
+    SCENARIO_TEMPLATES,
+    ALL_SKILLS,
+)
+
 
 API_BASE = "http://localhost:8000"
+
+
+def get_next_phase_after_group():
+    """Determine next phase based on active modes and completion status."""
+    active_modes = st.session_state.get("active_modes", {"case": False, "group": True})
+
+    # If case is active and not yet completed, go to case
+    if active_modes.get("case", False) and not st.session_state.get("case_completed", False):
+        return "case"
+
+    # Otherwise go to results
+    return "results"
+
 
 # Discussion duration in seconds (15 minutes)
 DISCUSSION_DURATION = 15 * 60
 
-# Agent profiles
-AGENTS = {
-    "alex": {
-        "name": "Alex",
-        "role": "Assertive Challenger",
-        "avatar": ":material/fitness_center:",
-        "color": "#EF4444",  # Red
-        "description": "Direct communicator, challenges ideas constructively",
-    },
-    "jordan": {
-        "name": "Jordan",
-        "role": "Supportive Collaborator",
-        "avatar": ":material/handshake:",
-        "color": "#22C55E",  # Green
-        "description": "Builds on others' ideas, seeks common ground",
-    },
-    "riley": {
-        "name": "Riley",
-        "role": "Quiet Skeptic",
-        "avatar": ":material/psychology:",
-        "color": "#3B82F6",  # Blue
-        "description": "Thoughtful observer, raises important questions",
-    },
-}
 
-# Demo scenario
-DEMO_SCENARIO = {
-    "title": "Resource Allocation Conflict",
-    "brief": """Your team has been given 3 weeks to deliver a product update. However, you can only
-realistically complete 2 out of 4 proposed features. The features are:
+def get_active_agents():
+    """Get agent configurations (from session state or defaults)."""
+    return st.session_state.get("agent_configs", DEFAULT_AGENT_CONFIGS)
 
-1. **Performance Optimization** - 30% speed improvement for existing users
-2. **Mobile App** - New mobile version requested by enterprise clients
-3. **AI Assistant** - Trendy feature that could attract new users
-4. **Security Upgrade** - Address known vulnerabilities
 
-As a team, you need to reach consensus on which 2 features to prioritize.""",
-}
+def get_active_scenario():
+    """Get active scenario (from session state or default)."""
+    scenario_key = st.session_state.get("selected_scenario", "product_team")
+    return SCENARIO_TEMPLATES.get(scenario_key, SCENARIO_TEMPLATES["product_team"])
+
+
+# Keep AGENTS as a computed property for backward compatibility
+AGENTS = DEFAULT_AGENT_CONFIGS
 
 # Demo agent responses for different scenarios
 DEMO_RESPONSES = {
     "opening": [
         {
             "speaker": "jordan",
-            "content": "Thanks for joining everyone! So we've got a tough decision - we can only build 2 of these 4 features. I think we should start by understanding what each of us thinks is most important. What are your initial thoughts?",
+            "content": "Thanks for joining everyone! So we've got a tough decision ahead. I think we should start by understanding what each of us thinks is most important. What are your initial thoughts?",
         },
     ],
     "generic_alex": [
-        "I don't think that's quite right. We need to think about what actually moves the needle here. Performance optimization affects every single user we have - that's a guaranteed impact.",
-        "Let's be realistic about this. The AI assistant sounds exciting, but do we even have the expertise to build it well in 3 weeks? I'm skeptical.",
-        "I hear what you're saying, but I think you're underweighting the risk of NOT doing the security upgrade. One breach and our reputation is gone.",
+        "I don't think that's quite right. We need to think about what actually moves the needle here. Let's focus on impact.",
+        "Let's be realistic about this. Sounds exciting, but do we have the resources to execute well? I'm skeptical.",
+        "I hear what you're saying, but I think you're underweighting the risks. We need to consider the downside.",
     ],
     "generic_jordan": [
         "That's a great point! I can see how that would benefit our users. How do you think we could build on that idea?",
-        "I like where this is going. What if we combined elements of both approaches? Maybe we could do a scaled-down version of the mobile app alongside the security upgrade?",
-        "You both make valid points. It seems like we all agree that user trust is important - whether through security or performance. Can we find common ground there?",
+        "I like where this is going. What if we combined elements of both approaches? Maybe we could find a middle ground?",
+        "You both make valid points. It seems like we all agree on the core priorities. Can we find common ground there?",
     ],
     "generic_riley": [
         "...I've been thinking about this. Has anyone considered what happens if we choose wrong? What's our fallback?",
-        "I'm not sure I agree with the assumptions here. The enterprise clients want mobile, but have we actually validated that it would affect renewals?",
-        "Something doesn't add up. If security is that critical, why wasn't it already prioritized?",
+        "I'm not sure I agree with the assumptions here. Have we actually validated that with data?",
+        "Something doesn't add up. If this is that critical, why wasn't it already prioritized?",
     ],
 }
+
+
+def show_instruction_page():
+    """Show immersive loading page before starting the group discussion."""
+    agents = get_active_agents()
+    scenario = get_active_scenario()
+
+    # Build agent HTML dynamically
+    agent_html = ""
+    emojis = {"alex": "👔", "jordan": "👩‍💼", "riley": "👨‍💻"}
+    for agent_id, agent in agents.items():
+        emoji = emojis.get(agent_id, "👤")
+        agent_html += f"""
+        <div style="text-align: center;">
+            <div style="font-size: 48px; margin-bottom: 10px;">{emoji}</div>
+            <div style="font-weight: 600; font-size: 1.1rem;">{agent['name']}</div>
+            <div style="font-size: 0.8rem; opacity: 0.7;">{agent['role']}</div>
+        </div>
+        """
+
+    # Navy background meeting room - pressure-cooker style
+    st.markdown(f"""
+<div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            padding: 50px 30px; border-radius: 20px; text-align: center; color: white; margin-bottom: 30px;">
+    <div style="font-size: 0.85rem; opacity: 0.7; margin-bottom: 8px; letter-spacing: 3px; text-transform: uppercase;">
+        Virtual Meeting Room
+    </div>
+    <div style="font-size: 2.2rem; font-weight: 700; margin-bottom: 30px;">
+        Group Discussion
+    </div>
+
+    <div style="display: flex; justify-content: center; gap: 60px; margin: 40px 0;">
+        {agent_html}
+    </div>
+
+    <div style="background: rgba(255,255,255,0.1); padding: 20px 50px; border-radius: 12px;
+                margin-top: 30px; display: inline-block;">
+        <div style="font-size: 28px; margin-bottom: 6px;">👤</div>
+        <div style="font-weight: 600; font-size: 1.1rem;">You</div>
+    </div>
+</div>
+    """, unsafe_allow_html=True)
+
+    # Instructions
+    st.markdown("### 📋 What to Expect")
+    st.markdown("""
+You'll join a team meeting to discuss a workplace challenge.
+Your AI teammates have different perspectives — engage naturally,
+share your opinions, and work together toward a solution.
+    """)
+
+    st.markdown("### 💡 Tips")
+    st.markdown("""
+- Be yourself — respond as you would in a real meeting
+- Engage with your teammates' ideas
+- It's okay to agree, disagree, or ask questions
+    """)
+
+    st.markdown("")
+
+    # Start button
+    col1, col2, col3 = st.columns([1, 2, 1])
+    with col2:
+        if st.button("Enter Meeting Room", type="primary", use_container_width=True):
+            st.session_state.group_ready_to_start = True
+            st.rerun()
 
 
 def show_group_discussion_page():
@@ -94,6 +157,13 @@ def show_group_discussion_page():
         st.session_state.group_start_time = None
     if "group_ended" not in st.session_state:
         st.session_state.group_ended = False
+    if "group_ready_to_start" not in st.session_state:
+        st.session_state.group_ready_to_start = False
+
+    # Show instructions first if not ready to start
+    if not st.session_state.group_ready_to_start and st.session_state.group_session_id is None:
+        show_instruction_page()
+        return
 
     # Start session if not started
     if st.session_state.group_session_id is None and not st.session_state.group_ended:
@@ -117,11 +187,12 @@ def show_group_discussion_page():
 
 def render_header():
     """Render the header with timer and controls."""
+    scenario = get_active_scenario()
     col1, col2, col3 = st.columns([2, 1, 1])
 
     with col1:
         st.header("Group Discussion")
-        st.caption(f"**Scenario:** {DEMO_SCENARIO['title']}")
+        st.caption(f"**Scenario:** {scenario['title']}")
 
     with col2:
         if st.session_state.group_start_time:
@@ -142,6 +213,9 @@ def render_header():
 
 def render_agent_panel():
     """Render the agent profile panel."""
+    agents = get_active_agents()
+    scenario = get_active_scenario()
+
     st.subheader("Team Members")
 
     # Show participant first
@@ -153,7 +227,7 @@ def render_agent_panel():
     """, unsafe_allow_html=True)
 
     # Show AI agents
-    for agent_id, agent in AGENTS.items():
+    for agent_id, agent in agents.items():
         st.markdown(f"""
         <div style="padding: 10px; background-color: {agent['color']}22; border-left: 4px solid {agent['color']}; border-radius: 4px; margin-bottom: 8px;">
             <strong>{agent['name']}</strong><br>
@@ -165,11 +239,19 @@ def render_agent_panel():
 
     # Scenario brief
     st.subheader("Scenario")
-    st.markdown(DEMO_SCENARIO["brief"])
+    st.markdown(scenario["brief"])
+
+    # Show focus skills if available
+    if "focus_skills" in scenario:
+        st.markdown("---")
+        st.caption("**Skills Assessed:**")
+        for skill in scenario["focus_skills"]:
+            st.caption(f"• {skill}")
 
 
 def render_chat_interface():
     """Render the main chat interface."""
+    agents = get_active_agents()
     st.subheader("Discussion")
 
     # Chat container
@@ -182,8 +264,8 @@ def render_chat_interface():
             if speaker == "candidate" or speaker == st.session_state.participant_name.lower():
                 with st.chat_message("user", avatar=":material/person:"):
                     st.markdown(msg["content"])
-            elif speaker in AGENTS:
-                agent = AGENTS[speaker]
+            elif speaker in agents:
+                agent = agents[speaker]
                 with st.chat_message("assistant", avatar=agent["avatar"]):
                     st.markdown(f"**{agent['name']}:** {msg['content']}")
             else:
@@ -225,7 +307,7 @@ def start_group_session():
                     f"{API_BASE}/session/create",
                     json={
                         "participant_id": st.session_state.participant_id,
-                        "mode": "group_discussion",
+                        "mode": "group",
                     }
                 )
                 response.raise_for_status()
@@ -338,11 +420,8 @@ def end_group_session():
         }
         st.session_state.group_completed = True
 
-        # Determine next phase
-        if st.session_state.get("first_mode") == "group":
-            st.session_state.current_phase = "case"
-        else:
-            st.session_state.current_phase = "results"
+        # Determine next phase based on active modes
+        st.session_state.current_phase = get_next_phase_after_group()
 
         st.rerun()
     else:
@@ -357,7 +436,7 @@ def end_group_session():
 
                 st.session_state.group_assessment = data.get("summary", {})
                 st.session_state.group_completed = True
-                st.session_state.current_phase = data.get("next_phase", "results")
+                st.session_state.current_phase = get_next_phase_after_group()
 
                 st.rerun()
 
