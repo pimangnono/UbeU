@@ -109,11 +109,13 @@ class LLMClient:
         self.pro_model_name = pro_model or os.getenv("LLM_PRO_MODEL", "deepseek/deepseek-chat-v3-0324")
         self.flash_model_name = flash_model or os.getenv("LLM_FLASH_MODEL", "deepseek/deepseek-chat-v3-0324")
 
-        # Ensemble models (Phase 3: true multi-model evaluation)
+        # Ensemble models (Phase 3: true multi-model evaluation, 5 providers)
         self.ensemble_models = [
             os.getenv("ENSEMBLE_MODEL_1", "deepseek/deepseek-chat-v3-0324"),
             os.getenv("ENSEMBLE_MODEL_2", "google/gemini-2.5-flash"),
             os.getenv("ENSEMBLE_MODEL_3", "x-ai/grok-4.1-fast"),
+            os.getenv("ENSEMBLE_MODEL_4", "anthropic/claude-haiku-4-5"),
+            os.getenv("ENSEMBLE_MODEL_5", "openai/gpt-4o-mini"),
         ]
 
         self.rate_limiter = RateLimiter(rpm_limit=rpm_limit)

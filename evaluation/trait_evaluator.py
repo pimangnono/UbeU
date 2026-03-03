@@ -18,6 +18,7 @@ from typing import TYPE_CHECKING
 
 logger = logging.getLogger(__name__)
 
+from experiment.behavioral_features import extract_features, BehavioralFeatures
 from utils.models import (
     Turn,
     Evidence,
@@ -41,13 +42,37 @@ Candidate Name: {candidate_name}
 ## Transcript
 {transcript}
 
-## Behavioral Statistics (Pre-Computed)
-- Candidate average words per turn: {avg_words}
+## Behavioral Statistics (Pre-Computed, 22 Features)
+### Volume & Verbosity
+- Average words per turn: {avg_words}
+- Max words in a turn: {max_words}
+- Min words in a turn: {min_words}
+- Word count variance (stdev): {word_variance}
 - Candidate turn count: {turn_count}
-- Times candidate addressed others by name: {name_mentions}
-- Times candidate asked questions: {questions}
-- Times candidate expressed disagreement: {disagreements}
-- Times candidate acknowledged others: {acknowledgments}
+
+### Social Engagement
+- Name mentions (Alex/Jordan/Riley): {name_mentions}
+- Questions asked (ratio): {question_ratio}
+- Exclamation ratio: {exclamation_ratio}
+- Turn initiation ratio: {initiation_ratio}
+- Avg response latency rank: {latency_rank}
+
+### Language Style
+- Hedge count ("maybe", "I think", etc.): {hedges}
+- Certainty count ("definitely", "clearly", etc.): {certainty}
+- First-person pronoun ratio (I/me/my): {first_person}
+- Inclusive pronoun ratio (we/our/us): {inclusive}
+- Unique word ratio (vocabulary diversity): {unique_words}
+- Long sentence ratio (>20 words): {long_sentences}
+
+### Behavioral Signals
+- Disagreement count: {disagreements}
+- Acknowledgment count: {acknowledgments}
+- New idea count: {ideas}
+- Planning phrase count: {planning}
+- Conditional ratio (if/should/would): {conditionals}
+- Emotional word count (negative): {emotional}
+- Positive emotion count: {positive_emotion}
 
 ## Calibration Notes for {trait_name}
 {calibration_notes}
@@ -121,9 +146,17 @@ CALIBRATION_NOTES = {
 - Low E signals: Brief responses, waiting to be addressed, minimal elaboration
 """,
     BigFiveTrait.AGREEABLENESS: """
-- Look for how candidate handles CONFLICT with Alex (the challenger)
-- ABSENCE of pushback is evidence of HIGH Agreeableness
-- Look for: "I see your point", "That's fair", accommodating others' views, seeking compromise
+AGREEABLENESS CALIBRATION (CRITICAL):
+- A group discussion naturally encourages cooperation — DO NOT treat baseline
+  politeness as evidence of high Agreeableness.
+- Focus on DISAGREEMENT BEHAVIOR: How does the candidate handle conflict?
+  Do they push back when challenged, or immediately accommodate?
+- Key signals: disagreement_count ({disagreements}), acknowledgment_count ({acknowledgments})
+- If disagreements < 2 AND acknowledgments > 3: likely high A
+- If disagreements > 3 AND few accommodations: likely low A
+- IMPORTANT: The ratio of disagreements to acknowledgments matters more
+  than absolute counts. A candidate with 0 disagreements in a conflict
+  phase is VERY high A, not just "normal."
 - Low A signals: "I disagree", defending position firmly, not acknowledging others' points
 - High A facets: Trust, Morality, Altruism, Cooperation, Modesty, Sympathy
 """,
@@ -146,6 +179,55 @@ class TraitEvaluator:
 
     def __init__(self, client: "LLMClient"):
         self.client = client
+
+    def _build_prompt_kwargs(
+        self,
+        turns: list[Turn],
+        candidate_name: str,
+        stats: GroupSessionStats,
+        trait: BigFiveTrait,
+    ) -> dict:
+        """Build format kwargs for the evaluation prompt with all 22 features."""
+        transcript = self._format_transcript(turns, candidate_name)
+        features = extract_features(turns, candidate_name)
+
+        return {
+            "trait_name": trait.value.title(),
+            "candidate_name": candidate_name,
+            "transcript": transcript,
+            # Volume & Verbosity
+            "avg_words": f"{features.avg_words_per_turn:.1f}",
+            "max_words": features.max_words_in_turn,
+            "min_words": features.min_words_in_turn,
+            "word_variance": f"{features.word_count_variance:.1f}",
+            "turn_count": stats.candidate_turns,
+            # Social Engagement
+            "name_mentions": features.name_mention_count,
+            "question_ratio": f"{features.question_ratio:.2f}",
+            "exclamation_ratio": f"{features.exclamation_ratio:.2f}",
+            "initiation_ratio": f"{features.turn_initiation_ratio:.2f}",
+            "latency_rank": f"{features.avg_response_latency_rank:.1f}",
+            # Language Style
+            "hedges": features.hedge_count,
+            "certainty": features.certainty_count,
+            "first_person": f"{features.first_person_ratio:.3f}",
+            "inclusive": f"{features.inclusive_pronoun_ratio:.3f}",
+            "unique_words": f"{features.unique_word_ratio:.3f}",
+            "long_sentences": f"{features.long_sentence_ratio:.2f}",
+            # Behavioral Signals
+            "disagreements": features.disagreement_count,
+            "acknowledgments": features.acknowledgment_count,
+            "ideas": features.idea_count,
+            "planning": features.planning_count,
+            "conditionals": f"{features.conditional_ratio:.2f}",
+            "emotional": features.emotional_word_count,
+            "positive_emotion": features.positive_emotion_count,
+            # Calibration
+            "calibration_notes": CALIBRATION_NOTES[trait].format(
+                disagreements=features.disagreement_count,
+                acknowledgments=features.acknowledgment_count,
+            ) if trait == BigFiveTrait.AGREEABLENESS else CALIBRATION_NOTES[trait],
+        }
 
     async def evaluate(
         self,
@@ -201,29 +283,16 @@ class TraitEvaluator:
         trait: BigFiveTrait,
     ) -> TraitScore:
         """Evaluate a single Big Five trait."""
-        # Format transcript
-        transcript = self._format_transcript(turns, candidate_name)
-
-        # Build prompt
-        prompt = TRAIT_EVIDENCE_PROMPT.format(
-            trait_name=trait.value.title(),
-            candidate_name=candidate_name,
-            transcript=transcript,
-            avg_words=f"{stats.candidate_avg_words_per_turn:.1f}",
-            turn_count=stats.candidate_turns,
-            name_mentions=stats.times_addressed_others_by_name,
-            questions=stats.times_asked_questions,
-            disagreements=stats.times_expressed_disagreement,
-            acknowledgments=stats.times_acknowledged_others,
-            calibration_notes=CALIBRATION_NOTES[trait],
-        )
+        # Build prompt with all 22 features
+        kwargs = self._build_prompt_kwargs(turns, candidate_name, stats, trait)
+        prompt = TRAIT_EVIDENCE_PROMPT.format(**kwargs)
 
         # Generate evaluation
         response = await self.client.generate(
             prompt=prompt,
             system_instruction="You are an expert personality psychologist. Be rigorous and cite specific evidence.",
             temperature=0.3,
-            max_tokens=1000,
+            max_tokens=3000,
         )
 
         # Parse response
@@ -251,7 +320,24 @@ class TraitEvaluator:
             for trait in BigFiveTrait
         ])
 
-        trait_scores = {trait: result for trait, result in zip(BigFiveTrait, trait_results)}
+        # Unpack: each result is (TraitScore, per_model_dict)
+        trait_scores = {}
+        all_per_model: dict[str, dict[str, float]] = {}
+        trait_key_map = {
+            BigFiveTrait.OPENNESS: "O",
+            BigFiveTrait.CONSCIENTIOUSNESS: "C",
+            BigFiveTrait.EXTRAVERSION: "E",
+            BigFiveTrait.AGREEABLENESS: "A",
+            BigFiveTrait.NEUROTICISM: "N",
+        }
+
+        for trait, (score, per_model) in zip(BigFiveTrait, trait_results):
+            trait_scores[trait] = score
+            trait_abbrev = trait_key_map[trait]
+            for model_name, model_score in per_model.items():
+                if model_name not in all_per_model:
+                    all_per_model[model_name] = {}
+                all_per_model[model_name][trait_abbrev] = model_score
 
         assessment = PersonalityAssessment(
             openness=trait_scores[BigFiveTrait.OPENNESS],
@@ -260,6 +346,7 @@ class TraitEvaluator:
             agreeableness=trait_scores[BigFiveTrait.AGREEABLENESS],
             neuroticism=trait_scores[BigFiveTrait.NEUROTICISM],
             overall_confidence=sum(ts.confidence for ts in trait_scores.values()) / 5,
+            per_model_scores=all_per_model,
         )
 
         # Generate summary and strengths/areas
@@ -275,26 +362,16 @@ class TraitEvaluator:
         candidate_name: str,
         stats: GroupSessionStats,
         trait: BigFiveTrait,
-    ) -> TraitScore:
+    ) -> tuple[TraitScore, dict[str, float]]:
         """
         Evaluate a single trait using multi-model ensemble.
 
         Sends the same prompt to all ensemble models in parallel.
-        Returns median score with inter-model agreement as confidence.
+        Returns (TraitScore, per_model_scores_dict) where per_model_scores_dict
+        maps model_name -> score for this trait.
         """
-        transcript = self._format_transcript(turns, candidate_name)
-        prompt = TRAIT_EVIDENCE_PROMPT.format(
-            trait_name=trait.value.title(),
-            candidate_name=candidate_name,
-            transcript=transcript,
-            avg_words=f"{stats.candidate_avg_words_per_turn:.1f}",
-            turn_count=stats.candidate_turns,
-            name_mentions=stats.times_addressed_others_by_name,
-            questions=stats.times_asked_questions,
-            disagreements=stats.times_expressed_disagreement,
-            acknowledgments=stats.times_acknowledged_others,
-            calibration_notes=CALIBRATION_NOTES[trait],
-        )
+        kwargs = self._build_prompt_kwargs(turns, candidate_name, stats, trait)
+        prompt = TRAIT_EVIDENCE_PROMPT.format(**kwargs)
 
         system_instruction = "You are an expert personality psychologist. Be rigorous and cite specific evidence."
 
@@ -304,15 +381,17 @@ class TraitEvaluator:
                 prompt=prompt,
                 system_instruction=system_instruction,
                 temperature=0.3,
-                max_tokens=1000,
+                max_tokens=3000,
             )
         except RuntimeError:
             # All models failed — fallback to single model
             logger.error(f"Ensemble failed for {trait.value}, falling back to single model")
-            return await self._evaluate_trait(turns, candidate_name, stats, trait)
+            result = await self._evaluate_trait(turns, candidate_name, stats, trait)
+            return result, {"fallback": result.score}
 
         # Parse each model's response
         parsed_results = []
+        per_model_scores: dict[str, float] = {}
         parse_errors = 0
         for model_name, response in model_responses:
             result = self._parse_trait_response(response, trait)
@@ -321,9 +400,10 @@ class TraitEvaluator:
                 parse_errors += 1
                 logger.warning(f"Parse error for {trait.value} from model {model_name}")
             parsed_results.append((model_name, result))
+            per_model_scores[model_name] = result.score
 
         if not parsed_results:
-            return TraitScore(trait=trait, score=0.5, confidence=0.0)
+            return TraitScore(trait=trait, score=0.5, confidence=0.0), per_model_scores
 
         # Aggregate: median score
         scores = [r.score for _, r in parsed_results]
@@ -344,13 +424,14 @@ class TraitEvaluator:
             all_evidence.extend(result.evidence)
             all_facets.extend(result.facets)
 
-        return TraitScore(
+        trait_score = TraitScore(
             trait=trait,
             score=median_score,
             confidence=confidence,
             evidence=all_evidence[:5],
             facets=all_facets[:6],
         )
+        return trait_score, per_model_scores
 
     def _format_transcript(self, turns: list[Turn], candidate_name: str) -> str:
         """Format transcript for evaluation prompt."""
@@ -396,6 +477,7 @@ class TraitEvaluator:
                     Evidence(
                         quote=e.get("quote", ""),
                         turn_number=e.get("turn_number", 0),
+                        demonstrates=e.get("demonstrates", facet.get("facet_name", "")),
                         signal_direction=e.get("signal_direction", "neutral"),
                         signal_strength=e.get("signal_strength", "moderate"),
                     )

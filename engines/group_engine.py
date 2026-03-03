@@ -21,6 +21,7 @@ from agents.group_agents import create_group_agents
 from agents.moderator import Moderator
 from agents.registry import AgentRegistry
 from agents.trait_selector import TraitElicitationSelector
+from experiment.behavioral_features import extract_features, BehavioralFeatures
 from utils.models import (
     Turn,
     SpeakerRole,
@@ -165,15 +166,29 @@ Mention the key decision the group needs to make."""
         if "?" in content:
             self._questions_asked += 1
 
-        disagreement_phrases = ["i disagree", "i don't think", "that won't work", "no,", "but actually"]
+        disagreement_phrases = [
+            "i disagree", "i don't think", "that won't work", "no,", "but actually",
+            "i'd push back", "not quite", "i'm not sure that", "let's reconsider",
+            "i'd challenge", "that's not", "we shouldn't", "i wouldn't",
+            "the problem with", "however,", "on the contrary", "but i think",
+        ]
         if any(phrase in content_lower for phrase in disagreement_phrases):
             self._disagreements += 1
 
-        acknowledgment_phrases = ["good point", "i agree", "that's right", "exactly", "i like that"]
+        acknowledgment_phrases = [
+            "good point", "i agree", "that's right", "exactly", "i like that",
+            "great idea", "you're right", "fair point", "makes sense",
+            "well said", "i see your point", "that's fair", "absolutely",
+            "building on", "love that",
+        ]
         if any(phrase in content_lower for phrase in acknowledgment_phrases):
             self._acknowledgments += 1
 
-        idea_phrases = ["what if", "we could", "how about", "another option", "alternatively"]
+        idea_phrases = [
+            "what if", "we could", "how about", "another option", "alternatively",
+            "what about", "imagine if", "one idea", "my suggestion", "i propose",
+            "here's a thought", "consider this", "let me suggest", "why don't we",
+        ]
         if any(phrase in content_lower for phrase in idea_phrases):
             self._new_ideas += 1
 
@@ -269,11 +284,14 @@ capture any consensus or remaining disagreements. Keep it brief (2-3 sentences).
         for agent in self.agents.values():
             agent.update_history(self.turns)
 
+    def compute_behavioral_features(self) -> BehavioralFeatures:
+        """Compute all 22 behavioral features using the shared module."""
+        return extract_features(self.turns, candidate_name=self.participant_name)
+
     def compute_session_stats(self) -> GroupSessionStats:
         """Compute behavioral statistics for the session."""
-        candidate_turns = self.get_candidate_turns()
-        candidate_turn_count = len(candidate_turns)
-        avg_words = self._candidate_word_count / candidate_turn_count if candidate_turn_count else 0
+        features = self.compute_behavioral_features()
+        candidate_turn_count = len(self.get_candidate_turns())
 
         phase_engagement = {}
         for phase in self.scenario.phases:
@@ -284,12 +302,12 @@ capture any consensus or remaining disagreements. Keep it brief (2-3 sentences).
             total_turns=len(self.turns),
             candidate_turns=candidate_turn_count,
             candidate_word_count=self._candidate_word_count,
-            candidate_avg_words_per_turn=avg_words,
-            times_addressed_others_by_name=self._name_mentions,
-            times_asked_questions=self._questions_asked,
-            times_expressed_disagreement=self._disagreements,
-            times_acknowledged_others=self._acknowledgments,
-            times_proposed_new_ideas=self._new_ideas,
+            candidate_avg_words_per_turn=features.avg_words_per_turn,
+            times_addressed_others_by_name=features.name_mention_count,
+            times_asked_questions=int(features.question_ratio * candidate_turn_count) if candidate_turn_count else 0,
+            times_expressed_disagreement=features.disagreement_count,
+            times_acknowledged_others=features.acknowledgment_count,
+            times_proposed_new_ideas=features.idea_count,
             phase_engagement=phase_engagement,
         )
 

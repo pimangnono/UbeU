@@ -1,0 +1,191 @@
+{
+  "session_key": "main_passive_avoider_resource_conflict_r1",
+  "condition": "main",
+  "profile_id": "passive_avoider",
+  "profile_name": "Passive Avoider",
+  "scenario_id": "resource_conflict",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.4,
+    "C": 0.4,
+    "E": 0.2,
+    "A": 0.8,
+    "N": 0.7
+  },
+  "inferred_vector": {
+    "O": 0.2,
+    "C": 0.28,
+    "E": 0.18,
+    "A": 0.9,
+    "N": 0.8
+  },
+  "rule_based_vector": {
+    "O": 0.4919,
+    "C": 0.4682,
+    "E": 0.4787,
+    "A": 0.5456,
+    "N": 0.6529
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.2,
+      "C": 0.4,
+      "E": 0.2,
+      "A": 0.85,
+      "N": 0.8
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.2,
+      "C": 0.2,
+      "E": 0.15,
+      "A": 0.9,
+      "N": 0.85
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.2,
+      "C": 0.2,
+      "E": 0.18,
+      "A": 0.95,
+      "N": 0.88
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.25,
+      "C": 0.28,
+      "E": 0.15,
+      "A": 0.82,
+      "N": 0.78
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.2,
+      "C": 0.3,
+      "E": 0.2,
+      "A": 0.9,
+      "N": 0.8
+    }
+  },
+  "overall_confidence": 0.8940000000000001,
+  "features": {
+    "avg_words_per_turn": 26.62,
+    "max_words_in_turn": 41,
+    "min_words_in_turn": 19,
+    "word_count_variance": 7.18,
+    "question_ratio": 0.75,
+    "exclamation_ratio": 0.0,
+    "hedge_count": 9,
+    "certainty_count": 1,
+    "first_person_ratio": 0.0516,
+    "inclusive_pronoun_ratio": 0.0376,
+    "disagreement_count": 0,
+    "acknowledgment_count": 2,
+    "idea_count": 1,
+    "name_mention_count": 4,
+    "conditional_ratio": 0.5,
+    "planning_count": 0,
+    "emotional_word_count": 2,
+    "positive_emotion_count": 0,
+    "turn_initiation_ratio": 0.25,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.5399,
+    "long_sentence_ratio": 0.0
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 213,
+    "candidate_avg_words_per_turn": 26.62,
+    "times_addressed_others_by_name": 4,
+    "times_asked_questions": 6,
+    "times_expressed_disagreement": 0,
+    "times_acknowledged_others": 2,
+    "times_proposed_new_ideas": 1
+  },
+  "assessment_summary": "Reserved participant, preferred listening over speaking; Collaborative and accommodating in conflict situations; Showed some stress signals under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "I really appreciate everyone coming together for this discussion. We've got a challenging but exciting opportunity here\u2014how do we want to prioritize these features to deliver maximum value within our tight timeline? \n\nThat's an interesting point about focusing on the client's must-haves first\u2014building on that, maybe we could map each feature against both business impact and implementation complexity? \n\nHey Riley, you've been quiet so far\u2014what are your thoughts on which features we should prioritize? I'd love to hear your perspective. \n\nI like where this conversation is going. What if we consider pairing the highest-impact feature with the one that's most technically feasible? That way we're balancing strategic value with realistic delivery."
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "Um, I'm not sure... Maybe Riley's idea could work? Whatever you all think is best sounds good to me."
+    },
+    {
+      "turn": 3,
+      "speaker": "Jordan",
+      "content": "I hear you\u2014it can feel overwhelming with so many factors to consider. But I actually think your instinct to defer to Riley shows great team awareness! Building on that collaborative spirit, what if we got creative and explored some hybrid solutions? Maybe we could partially implement two features now and phase in the others later. How does that idea land with you?"
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "Oh, that... that could work, I guess? Though I'm a little worried about stretching ourselves too thin. But if everyone else thinks it's manageable...?"
+    },
+    {
+      "turn": 5,
+      "speaker": "Alex",
+      "content": "That hybrid approach is just kicking the can down the road - we'll end up delivering half-baked features that satisfy nobody. We need to make firm decisions now about what we're committing to deliver fully. Candidate, stop waffling - which two features would you actually stake your reputation on completing properly in three weeks?"
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "I... I don't want to upset anyone. Maybe features A and C? But only if that works for everyone else too. Sorry."
+    },
+    {
+      "turn": 7,
+      "speaker": "Jordan",
+      "content": "I really appreciate you putting forward features A and C\u2014that's a solid suggestion! Building on that, I wonder if we could combine elements of feature B's functionality into feature A to give the client some extra value without overextending ourselves. Alex makes a good point about full commitment, but what if we framed this as delivering two complete features with bonus enhancements? How does that approach feel to you?"
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "Well... um, that sounds like it could work maybe? I just don't want us to overpromise. But if you think we can handle it..."
+    },
+    {
+      "turn": 9,
+      "speaker": "Alex",
+      "content": "This is exactly why we need clear decisions, not maybes. Candidate, you suggested A and C - stand by that choice and explain why those features beat the alternatives. Stop hiding behind group consensus. If you believe in your recommendation, defend it properly."
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "I... I just think A and C seem most important to the client based on their last email. But if others disagree, that's fine too."
+    },
+    {
+      "turn": 11,
+      "speaker": "Jordan",
+      "content": "I love how you're focusing on the client's needs\u2014that email reference is really insightful! Building on that, I wonder if we could use the client's priorities as our north star while still being creative. What if we delivered A and C as full features, but included a prototype demo of B to show our vision for future work? That way we're meeting expectations while showing ambition. How does that balance sound to you?"
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "(takes a deep breath) Okay... I guess features A and C do align best with the client's email. Maybe we could try Jordan's demo idea, but only if we're absolutely sure we won't overcommit? Sorry, I just worry about disappointing them..."
+    },
+    {
+      "turn": 13,
+      "speaker": "Alex",
+      "content": "Jordan's demo idea is a distraction - we don't have time for prototypes when we're already stretched thin. Candidate, you finally showed some backbone picking A and C, now stick with it. The client cares about working features, not half-baked demos. Let's focus on delivering those two features flawlessly instead of watering down our effort."
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "You're right... A and C should be our focus. No demos - just solid work on those two. Sorry for wavering earlier."
+    },
+    {
+      "turn": 15,
+      "speaker": "Jordan",
+      "content": "I really appreciate how you're standing by your decision on features A and C, Candidate! That shows great conviction. Alex makes a good point about focusing on quality, but what if we took it one step further - since we're only doing two features, maybe we could assign Riley to handle client communications full-time? That way we ensure perfect alignment with their priorities while the rest of us focus on execution. How does that balance sound to you both?"
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "Okay... I think Jordan's idea about Riley handling communications is good, but maybe only after we've finished A and C? Just so we don't... um... spread ourselves too thin. Sorry, I don't mean to contradict anyone."
+    },
+    {
+      "turn": 17,
+      "speaker": "Alex",
+      "content": "Jordan's idea about Riley is completely backwards. We need strong client communication from day one, not as an afterthought. Candidate, you're still apologizing too much - either commit to Jordan's full proposal or explain why we shouldn't pull Riley off development right now. This half-measure approach is exactly how projects fail."
+    }
+  ],
+  "timestamp": "2026-03-04T01:20:29.058221"
+}
