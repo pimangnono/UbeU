@@ -280,6 +280,7 @@ class PersonalityAssessment:
     behavioral_summary: str = ""
     strengths: list[str] = field(default_factory=list)
     development_areas: list[str] = field(default_factory=list)
+    per_model_scores: dict[str, dict[str, float]] = field(default_factory=dict)
 
     def to_vector(self) -> PersonalityVector:
         return PersonalityVector(

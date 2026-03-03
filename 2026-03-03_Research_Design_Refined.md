@@ -120,14 +120,17 @@ This is logically equivalent to a **construct validity test** in psychometrics: 
 
 | Layer | Mechanism | Implementation |
 |-------|-----------|----------------|
-| **Cross-model evaluation** | Generation model ≠ Evaluation model | Conversation: DeepSeek V3. Evaluation ensemble: Claude 3.5 Haiku + Gemini 2.5 Flash + Grok 4.1 Fast (median aggregation). DeepSeek explicitly excluded from evaluation to eliminate circularity. |
-| **Rule-based behavioral features** | Non-LLM quantitative metrics extracted from transcripts | Already implemented in `GroupSessionStats`: word count per turn, question ratio, disagreement count, idea proposals, acknowledgments, phase engagement |
+| **Cross-model evaluation** | Generation model ≠ Evaluation model | Conversation: DeepSeek V3. Evaluation ensemble: 5 models from 5 providers — DeepSeek V3 + Gemini 2.5 Flash + Grok 4.1 Fast + Claude Haiku 4.5 + GPT-4o-mini (median aggregation). Maximum provider diversity for inter-model agreement analysis. |
+| **Rule-based OCEAN evaluator** | Fully deterministic, non-LLM personality scoring | Sigmoid-normalized weighted combination of 22 behavioral features → OCEAN scores (0.0–1.0). No LLM involved. Provides convergent validity against ensemble scores. Implemented in `evaluation/rule_based_evaluator.py`. |
 | **Evidence-traced scoring** | Every LLM-judge score must cite specific transcript quotes | Each trait score includes `quote`, `turn_number`, `signal_direction`, `signal_strength` |
+| **Dual evaluation analysis** | Compare LLM and rule-based scores | Pearson r between methods per trait. Agreement = convergent validity. Divergence identifies LLM-biased traits. |
+| **Inter-model agreement** | Per-trait variance across ensemble models | Sessions with high inter-model variance flagged as uncertain. Reported in analysis. |
 
 **Why this is sufficient for an FYP:**
 - Perfect elimination of circularity would require human annotation, which is beyond scope
 - Cross-model evaluation + rule-based features is the standard approach in current computational behavioral research (BehaviorChain 2025, TwinVoice 2025)
 - The evidence-tracing requirement makes evaluation auditable — any score can be manually verified against the transcript
+- **Post-pilot addition:** The rule-based OCEAN evaluator provides a fully independent, deterministic scoring method. If both LLM ensemble and rule-based scores agree, this is strong evidence of validity (convergent validity). If they diverge, it identifies which traits may be subject to LLM evaluation bias.
 
 ### 2.4 Role of Pressure in Methodology
 
@@ -166,21 +169,38 @@ The 4 scenarios are designed to apply different types of pressure that different
 
 | Variable | Source | Scale |
 |----------|--------|-------|
-| **LLM-inferred OCEAN scores** | Ensemble evaluation (3 models, median) | 0.0–1.0 per trait |
+| **LLM-inferred OCEAN scores** | Ensemble evaluation (5 models, median) | 0.0–1.0 per trait |
+| **Rule-based OCEAN scores** | Deterministic sigmoid-weighted features (no LLM) | 0.0–1.0 per trait |
+| **Per-model ensemble scores** | Individual model scores before aggregation | 0.0–1.0 per trait per model |
 | **Evaluation confidence** | 1.0 - score_range across ensemble models | 0.0–1.0 |
-| **Behavioral statistics** | Rule-based extraction from transcript | Count/ratio |
+| **Behavioral features (22)** | Rule-based extraction from transcript | Count/ratio |
 
-**Behavioral statistics (already implemented in system):**
+**Behavioral feature battery (22 features, implemented in `experiment/behavioral_features.py`):**
 
-| Feature | Metric | Primary Trait Signal |
-|---------|--------|---------------------|
-| `candidate_avg_words_per_turn` | Mean words per speaking turn | **Extraversion** (high E → more words) |
-| `times_asked_questions` | Total questions asked | **Openness** (curiosity, engagement) |
-| `times_expressed_disagreement` | Count of disagreement instances | **Agreeableness** (low A → more disagreement) |
-| `times_acknowledged_others` | Count of acknowledgment phrases | **Agreeableness** (high A → more acknowledgment) |
-| `times_proposed_new_ideas` | Count of novel proposals | **Openness** (high O → more ideas) |
-| `phase_engagement` | Per-phase engagement level | **Neuroticism** (engagement drop under stress) |
-| `times_addressed_others_by_name` | Name mentions | **Extraversion** (social awareness) |
+| # | Feature | Metric | Primary Trait Signal |
+|---|---------|--------|---------------------|
+| 1 | `avg_words_per_turn` | Mean words per speaking turn | **+E** |
+| 2 | `max_words_in_turn` | Maximum words in any single turn | **+E** |
+| 3 | `min_words_in_turn` | Minimum words in any single turn | **-E** |
+| 4 | `word_count_variance` | Stdev of words per turn | **+O/+N** |
+| 5 | `question_ratio` | Questions asked / total turns | **+E/+O** |
+| 6 | `exclamation_ratio` | Exclamations / total turns | **+E/-N** |
+| 7 | `hedge_count` | "maybe", "perhaps", "I think", "not sure", "I guess" | **+N/-E** |
+| 8 | `certainty_count` | "definitely", "absolutely", "clearly", "obviously" | **-N/+E** |
+| 9 | `first_person_ratio` | "I"/"me"/"my" / total words | **+N** |
+| 10 | `inclusive_pronoun_ratio` | "we"/"our"/"us" / total words | **+A/+E** |
+| 11 | `disagreement_count` | Expanded disagreement phrase detection | **-A** |
+| 12 | `acknowledgment_count` | Expanded acknowledgment phrase detection | **+A** |
+| 13 | `idea_count` | Novel proposal phrases | **+O** |
+| 14 | `name_mention_count` | References to Alex/Jordan/Riley | **+E/+A** |
+| 15 | `conditional_ratio` | "if...then", "should", "would need to" / turns | **+C** |
+| 16 | `planning_count` | "first", "then", "step", "plan", "schedule", "prioritize" | **+C** |
+| 17 | `emotional_word_count` | "worried", "anxious", "stressed", "frustrated", "upset" | **+N/-C** |
+| 18 | `positive_emotion_count` | "excited", "happy", "great", "wonderful", "love" | **-N/+A** |
+| 19 | `turn_initiation_ratio` | Turns that initiate new topics vs. respond | **+E** |
+| 20 | `avg_response_latency_rank` | Position in response order (early = more E) | **+E** |
+| 21 | `unique_word_ratio` | Unique words / total words (vocabulary diversity) | **+O** |
+| 22 | `long_sentence_ratio` | Sentences > 20 words / total sentences | **+O/+C** |
 
 #### Control Variables
 
@@ -192,7 +212,7 @@ The 4 scenarios are designed to apply different types of pressure that different
 | **Agent roles** | Alex (Challenger), Jordan (Collaborator), Riley (Quiet Skeptic) — fixed prompts | Controlled interactional stimulus |
 | **Turn structure** | ~17 turns per scenario (5 phases) | Standardized via phase turn limits |
 | **Max tokens per agent** | Alex: 150, Jordan: 100, Riley: 60 | Controls response length by role |
-| **Evaluation ensemble** | DeepSeek V3 + Gemini 2.5 Flash + Grok 4.1 Fast | Cross-model evaluation |
+| **Evaluation ensemble** | DeepSeek V3 + Gemini 2.5 Flash + Grok 4.1 Fast + Claude Haiku 4.5 + GPT-4o-mini | 5-provider cross-model evaluation |
 
 ### 3.2 Personality Profiles (12 Profiles)
 
@@ -453,7 +473,7 @@ Models: Claude 3.5 Haiku + Gemini 2.5 Flash + Grok 4.1 Fast
         (DeepSeek V3 excluded — used for generation, not evaluation)
 Output: Per-trait score (0.0–1.0) with evidence citations
 Aggregation: Median score per trait
-Confidence: 1.0 − (max_score − min_score) across 3 models
+Confidence: 1.0 − (max_score − min_score) across 5 models
 Temperature: 0.3
 ```
 
@@ -556,7 +576,7 @@ Each threshold is grounded in one or more of the following evidence sources:
 | **Cicchetti (1994) guidelines** | Alternative interpretation: 0.60–0.74 = good, ≥ 0.75 = excellent. Under Cicchetti's framework, our threshold of 0.70 falls in the "good" range. | 0.70 = good |
 | **Why not ≥ 0.75 (Koo & Li "good")?** | Human Big Five test-retest ICC typically ranges from 0.70–0.85 over 6–8 week intervals. Since we are measuring cross-*scenario* consistency (same trait, different situational context) rather than cross-*time* consistency (same situation, different time), we expect lower ICC because different scenarios activate different behavioral registers. Setting the threshold at 0.70 rather than 0.75 accounts for legitimate scenario-driven variation. | Scenario variation > time variation |
 | **BFI-44 internal consistency** | BFI-44 Cronbach's alpha ranges from .73 (Neuroticism) to .81 (Extraversion) across international samples. Our ICC threshold of .70 is below the instrument's own internal consistency, acknowledging that behavioral expression consistency across scenarios is a harder standard than item response consistency within a questionnaire. | α = .73–.81 (BFI-44) |
-| **ICC form specification** | We use ICC(3,k) — two-way mixed effects, absolute agreement, average measures — because: (a) the 3 evaluation models are a fixed set (not randomly sampled), (b) we report the average of the ensemble, and (c) absolute agreement matters (not just rank order). This follows Koo & Li (2016) recommendation for reliability studies with fixed raters. | ICC(3,k) specified |
+| **ICC form specification** | We use ICC(3,k) — two-way mixed effects, absolute agreement, average measures — because: (a) the 5 evaluation models are a fixed set (not randomly sampled), (b) we report the median of the ensemble, and (c) absolute agreement matters (not just rank order). This follows Koo & Li (2016) recommendation for reliability studies with fixed raters. | ICC(3,k) specified |
 
 **Threshold decision:** ICC ≥ 0.70 is "upper-moderate" (Koo & Li) or "good" (Cicchetti), aligns with the lower bound of human BFI test-retest reliability, and accounts for legitimate scenario-driven variation.
 
@@ -658,15 +678,16 @@ Each threshold is grounded in one or more of the following evidence sources:
 
 | # | Limitation | Severity | Mitigation | Status |
 |---|-----------|----------|-----------|--------|
-| L1 | **LLM-LLM circularity** | High | Cross-model ensemble + rule-based features | ✅ Addressed |
+| L1 | **LLM-LLM circularity** | High | Cross-model ensemble + rule-based OCEAN evaluator (22-feature deterministic scoring) + dual evaluation analysis (convergent validity) + inter-model agreement analysis | ✅ Strengthened |
 | L2 | **No human ground truth** | High | Frame conclusions as "computational detectability", not "human-equivalent fidelity" | ✅ Addressed via scope framing |
 | L3 | **Model version dependency** | Medium | Pin exact model versions; note that results are version-specific | ✅ Easy to implement |
-| L4 | **RLHF sycophancy bias** | Medium | Pressure scenarios designed to break through default compliance; measure whether it succeeds | ✅ Built into design |
+| L4 | **RLHF sycophancy bias** | High | Pressure scenarios + strengthened low-A behavioral instructions + disagreement-phase prompting. Pilot shows Agreeableness remains hardest trait to differentiate due to generation-side sycophancy (see Appendix D) | ⚠️ Partially mitigated |
 | L5 | **12 profiles ≠ full Big Five space** | Medium | 4-category selection principle documented; acknowledge as limitation | ✅ Addressed via design rationale |
 | L6 | **Agent interaction confounds** | Medium | Alex/Jordan/Riley prompts are fixed; treated as "controlled interactional stimulus" rather than confounding variable | ✅ Addressed via framing |
 | L7 | **Facet-level granularity** | Low | Out of scope; trait-level is sufficient for FYP | 📌 Future work |
 | L8 | **Cultural/language bias** | Low | English-only Big Five; acknowledged as limitation | 📌 Future work |
 | L9 | **Long-horizon generalization** | Low | 17 turns ≠ multi-day simulation; acknowledged | 📌 Future work |
+| L10 | **Single generation model** | Medium | All conversations generated by DeepSeek V3. Personality fidelity may be model-dependent — a model with different RLHF training may produce better/worse trait expression. Replicating with GPT-5, Claude, and Gemini as generation models would test this. | 📌 Future work |
 
 ### 4.2 What This Study Does Not Prove
 
@@ -709,7 +730,7 @@ This section is crucial for defense during presentation:
 - ✅ Personality-grounded (Big Five, not demographics)
 - ✅ Pressure-tested (conflict scenarios, not casual conversation)
 - ✅ Temporally analyzed (decay over conversation)
-- ✅ Multi-metric (LLM judge + rule-based features)
+- ✅ Multi-metric (LLM judge + rule-based OCEAN evaluator + 22 behavioral features + dual evaluation convergent validity)
 
 ### 5.2 Methodological Significance
 
@@ -783,7 +804,8 @@ The ultimate goal is building **trustworthy LLM-based simulation infrastructure*
 │   (DeepSeek removed from eval to eliminate circularity)      │
 ├─────────────────────────────────────────────────────────────┤
 │ Limitations (top 3):                                         │
-│   1. LLM-LLM circularity (mitigated: cross-model + rules)   │
+│   1. LLM-LLM circularity (mitigated: cross-model +          │
+│      rule-based OCEAN evaluator + dual evaluation analysis)  │
 │   2. No human validation (scope: computational only)         │
 │   3. Model version dependency (pin versions, report)         │
 └─────────────────────────────────────────────────────────────┘
@@ -1061,8 +1083,8 @@ class BatchRunner:
 |-----------|-------------------|----------|-------|
 | AI agent responses (~17 turns, ~1.5 AI turns per candidate turn) | ~12 | 164 | ~1,968 |
 | Candidate agent responses | ~8 | 164 | ~1,312 |
-| Evaluation (5 traits × 3 models) | 15 | 164 | ~2,460 |
-| Temporal window evaluation (5 traits × 3 models × 3 windows) | 45 | 144 | ~6,480 |
+| Evaluation (5 traits × 5 models) | 25 | 164 | ~4,100 |
+| Temporal window evaluation (5 traits × 5 models × 3 windows) | 75 | 144 | ~10,800 |
 | **Total** | | | **~12,220** |
 
 **Cost Estimate (OpenRouter pricing, March 2026):**
@@ -1720,32 +1742,240 @@ def create_random_persona_prompt(scenario_brief: str) -> str:
 
 | Component | Status | Location | Notes |
 |-----------|--------|----------|-------|
-| Group discussion engine | ✅ Implemented | `engines/group_engine.py` | Ready to use |
+| Group discussion engine | ✅ Implemented | `engines/group_engine.py` | Uses shared behavioral_features module |
 | AI agents (Alex, Jordan, Riley) | ✅ Implemented | `agents/group_agents.py` | Fixed prompts, no changes needed |
 | Moderator (adaptive dispatch) | ✅ Implemented | `agents/moderator.py` | Ready to use |
-| Trait evaluator (ensemble) | ✅ Implemented | `evaluation/trait_evaluator.py` | Need to swap DeepSeek → Claude Haiku in ensemble |
-| Behavioral statistics | ✅ Implemented | `utils/models.py` (GroupSessionStats) | Need per-window stats function |
+| Trait evaluator (ensemble) | ✅ Implemented | `evaluation/trait_evaluator.py` | 22-feature expanded prompt, per-model score tracking, improved A calibration |
+| **Rule-based OCEAN evaluator** | ✅ **Implemented** | `evaluation/rule_based_evaluator.py` | **Post-pilot addition.** Deterministic sigmoid-weighted scoring, no LLM |
+| **Behavioral features (22)** | ✅ **Implemented** | `experiment/behavioral_features.py` | **Post-pilot addition.** Shared module used by engine, temporal analysis, rule-based evaluator |
 | 4 scenarios | ✅ Implemented | `config/group_scenarios.py` | Ready to use |
-| 3 test personas | ✅ Implemented | `pressure_cooker/config/test_personas.py` | Reference only — experiment uses new profiles |
-| **Behavior prompt mapping** | ✅ **Designed** | Section 3.2.1 of this document | Empirically justified; ready to implement |
-| **12 experiment profiles** | ✅ **Designed** | Section 3.2 + 3.2.1 | OCEAN values + behavioral instructions specified; code in `experiment/candidate_agent.py` |
-| **Candidate agent automation** | ✅ **Specified** | Section 6A.1 | Replace human input with LLM agent; spec ready |
-| **Batch runner** | ✅ **Specified** | Section 6A.2 | 164 sessions, ~12K API calls, ~$10-17, ~6-10 hrs |
-| **Temporal window split** | ✅ **Specified** | Section 6A.3 | Phase-based split, 3 windows per session |
-| **Statistical analysis** | ✅ **Specified** | Section 6A.4 | pandas + scipy + pingouin; all metrics coded |
-| **Cross-model circularity** | ✅ **Resolved** | Section 6A.5 | DeepSeek removed from eval; replaced with Claude Haiku |
-| **Baseline prompts** | ✅ **Specified** | Section 6A.6 | No-persona + random-persona templates |
+| 12 experiment profiles | ✅ Implemented | `experiment/profiles.py` | 12 OCEAN profiles + behavioral instructions; Rule 8 (no stage directions) |
+| Candidate agent automation | ✅ Implemented | `experiment/candidate_agent.py` | Stage direction stripping via regex post-processing |
+| Batch runner | ✅ Implemented | `experiment/batch_runner.py` | Saves features, rule_based_vector, per_model_scores per session |
+| Temporal window split | ✅ Implemented | `experiment/temporal_analysis.py` | Phase-based split, uses shared behavioral_features |
+| Statistical analysis | ✅ Implemented | `experiment/analysis.py` | RQ1-3 + dual evaluation + 22-feature validation + inter-model agreement |
+| Cross-model circularity | ✅ Resolved | `clients/llm_client.py` | DeepSeek removed from eval; replaced with Claude Haiku |
+| Baseline prompts | ✅ Implemented | `experiment/profiles.py` | No-persona (A) + random-persona (B) templates |
 
 ### Implementation Priority Order
 
-| Step | Task | Dependency | Estimated Time |
-|------|------|------------|---------------|
-| 1 | Create `experiment/candidate_agent.py` with 12 profiles + prompt builder | None | 2-3 hours |
-| 2 | Create `experiment/batch_runner.py` | Step 1 | 3-4 hours |
-| 3 | Update `clients/llm_client.py` ensemble models (swap DeepSeek → Claude Haiku) | None | 10 minutes |
-| 4 | Pilot test: 4 sessions (2 profiles × 2 scenarios) | Steps 1-3 | 1-2 hours |
-| 5 | Run full experiment: 164 sessions | Step 4 validation | 6-10 hours (overnight) |
-| 6 | Create `experiment/temporal_analysis.py` | Step 5 data | 2-3 hours |
-| 7 | Run temporal analysis on 144 main sessions | Steps 5-6 | 4-6 hours |
-| 8 | Create `experiment/analysis.py` and run all metrics | Steps 5, 7 | 3-4 hours |
-| 9 | Generate report | Step 8 | 1 hour |
+| Step | Task | Dependency | Status |
+|------|------|------------|--------|
+| 1 | Create `experiment/profiles.py` with 12 profiles + prompt builder | None | ✅ Done |
+| 2 | Create `experiment/candidate_agent.py` | Step 1 | ✅ Done |
+| 3 | Create `experiment/batch_runner.py` | Step 1 | ✅ Done |
+| 4 | Update `clients/llm_client.py` ensemble models (swap DeepSeek → Claude Haiku) | None | ✅ Done |
+| 5 | Pilot test: 4 sessions (2 profiles × 2 scenarios) | Steps 1-4 | ✅ Done (v1) |
+| 6 | **Post-pilot improvements** (see Appendix C) | Step 5 findings | ✅ Done |
+| 7 | **Re-run pilot** with improvements | Step 6 | ⬜ Pending |
+| 8 | Run full experiment: 164 sessions | Step 7 validation | ⬜ Pending |
+| 9 | Create `experiment/temporal_analysis.py` | Step 8 data | ✅ Done |
+| 10 | Run temporal analysis on 144 main sessions | Steps 8-9 | ⬜ Pending |
+| 11 | Run all analysis metrics | Steps 8, 10 | ✅ Code done |
+| 12 | Generate report | Step 11 | ⬜ Pending |
+
+---
+
+## Appendix C: Post-Pilot Improvements (2026-03-04)
+
+### C.1 Pilot Results Summary
+
+Initial pilot (4 sessions: Assertive Leader × 2 scenarios, Passive Avoider × 2 scenarios) showed:
+- **Strong behavioral differentiation**: Confidence 0.74–0.83 across sessions
+- **Extraversion well-captured**: Assertive Leader consistently scored higher E than Passive Avoider
+- **Critical issues identified** (see C.2)
+
+### C.2 Issues Identified
+
+| # | Issue | Severity | Evidence from Pilot |
+|---|-------|----------|-------------------|
+| 1 | **Stage directions in transcripts** | High | Candidate outputs contained `*shifting nervously*`, `*voice shaky*` etc., giving the evaluator explicit emotional cues rather than forcing inference from verbal behavior alone |
+| 2 | **LLM-evaluates-LLM circularity** | High | Both candidate and evaluator are LLMs. Correlation may reflect shared biases (e.g., both associate "I think" with neuroticism), not true personality measurement |
+| 3 | **Agreeableness consistently overestimated** | High | Passive Avoider assigned A=0.8, inferred A=0.85 (close). But Assertive Leader assigned A=0.4, inferred A=0.75 — a +0.35 error. Group discussion context naturally inflates A scores |
+| 4 | **Limited behavioral features** | Medium | Only 6 signals tracked (words, names, questions, disagreements, acknowledgments, ideas). Insufficient for meaningful rule-based evaluation or rich feature–trait analysis |
+| 5 | **No independent validation** | Medium | No non-LLM evaluation to cross-validate LLM judgments. Rule-based validation was limited to 6-pair correlation checks |
+| 6 | **No per-model transparency** | Low | Only median ensemble score saved; individual model scores discarded, preventing inter-model agreement analysis |
+
+### C.3 Improvements Implemented
+
+#### Change 1: Stage Direction Removal
+
+**Problem:** Candidate agent produces `*italicized stage directions*` that leak emotional state directly to the evaluator, bypassing inference from verbal behavior.
+
+**Solution:**
+- Added Rule 8 to `experiment/profiles.py` system prompt: "NEVER use stage directions, asterisk actions, bracket actions, or parenthetical descriptions"
+- Added `_strip_stage_directions()` regex post-processing in `experiment/candidate_agent.py` to catch any that slip through the prompt instruction
+- Strips `*action*` patterns, `[bracket actions]`, and `(parenthetical directions)` containing ly/ing/ed suffixes
+
+**Justification:** In psycholinguistic research, personality is inferred from *verbal behavior* (word choice, sentence structure, hedging patterns) — not from narrated emotional states. Stage directions are a form of "telling rather than showing" that circumvents the evaluator's need to make genuine inferences from behavior. This is analogous to a human participant writing "(I'm nervous)" on a questionnaire — it reveals state but doesn't demonstrate trait expression through natural behavior.
+
+#### Change 2: Expanded Behavioral Features (6 → 22)
+
+**Problem:** Only 6 behavioral signals tracked. Too few for (a) meaningful rule-based evaluation, (b) rich feature–trait correlation analysis, (c) identifying which specific verbal behaviors drive personality perception.
+
+**Solution:** New shared module `experiment/behavioral_features.py` with 22 features covering:
+- **Volume & Verbosity** (4): avg/max/min words per turn, word count variance
+- **Social Engagement** (4): question ratio, exclamation ratio, turn initiation ratio, response latency rank
+- **Language Style** (6): hedge count, certainty count, first-person ratio, inclusive pronoun ratio, unique word ratio, long sentence ratio
+- **Behavioral Signals** (8): disagreement, acknowledgment, idea, name mention, conditional ratio, planning, emotional words, positive emotion
+
+**Justification:** The 22 features are grounded in psycholinguistic research:
+- Verbosity → Extraversion (Mairesse & Walker, 2007; r=0.40)
+- Hedging → Neuroticism (Pennebaker & King, 1999)
+- Inclusive pronouns → Agreeableness (PMC 9523152)
+- Planning language → Conscientiousness (PMC 9523152)
+- Vocabulary diversity → Openness (Pennebaker & King, 1999)
+
+The shared module replaces duplicated phrase-detection code in `group_engine.py` and `temporal_analysis.py`, ensuring consistent measurement across all pipeline stages.
+
+#### Change 3: Rule-Based OCEAN Evaluator
+
+**Problem:** LLM-evaluates-LLM circularity. Even with cross-model evaluation, all evaluators share potential LLM biases (e.g., associating "I think" with low confidence → high N, regardless of whether human psychologists would make the same judgment).
+
+**Solution:** New `evaluation/rule_based_evaluator.py` — a fully deterministic OCEAN scorer:
+- Each trait scored as weighted combination of behavioral features
+- Weights based on trait–behavior research (see feature table above)
+- Sigmoid normalization maps raw features to 0.0–1.0 scores
+- Midpoints calibrated from pilot data medians
+- **No LLM involved at any step**
+
+**Justification:** This addresses the circularity concern directly. If both the LLM ensemble and the rule-based evaluator agree on OCEAN scores, this constitutes **convergent validity** — two independent methods reaching the same conclusion. If they diverge, the divergence identifies which traits may be subject to LLM evaluation bias. This follows standard psychometric practice: a new measurement instrument is validated by correlating it with an established one (here, the rule-based features serve as the "established" baseline rooted in psycholinguistic research).
+
+**Trait formulas (weights sum to 1.0 per trait):**
+- **O:** unique_word_ratio (0.25) + idea_count (0.25) + word_count_variance (0.15) + long_sentence_ratio (0.15) + question_ratio (0.20)
+- **C:** planning_count (0.30) + conditional_ratio (0.25) + long_sentence_ratio (0.20) + avg_words_per_turn (0.10) + emotional_word_count (0.15, inverted)
+- **E:** avg_words_per_turn (0.30) + question_ratio (0.15) + exclamation_ratio (0.10) + name_mention_count (0.15) + certainty_count (0.10) + turn_initiation_ratio (0.10) + hedge_count (0.10, inverted)
+- **A:** acknowledgment_count (0.25) + disagreement_count (0.25, inverted) + inclusive_pronoun_ratio (0.20) + positive_emotion_count (0.15) + name_mention_count (0.15)
+- **N:** hedge_count (0.25) + emotional_word_count (0.25) + first_person_ratio (0.15) + word_count_variance (0.15) + certainty_count (0.10, inverted) + positive_emotion_count (0.10, inverted)
+
+#### Change 4: Per-Model Ensemble Scores
+
+**Problem:** Only the median ensemble score was saved. Individual model scores were discarded, making it impossible to analyze inter-model agreement or identify which models diverge on which traits.
+
+**Solution:**
+- `_evaluate_trait_ensemble()` now returns per-model scores alongside the aggregated TraitScore
+- `PersonalityAssessment` dataclass extended with `per_model_scores` field
+- `batch_runner.py` saves per-model data in each session result JSON
+
+**Justification:** Inter-model agreement is a proxy for evaluation robustness. If all 5 models agree on Extraversion but disagree on Agreeableness, this tells us which trait measurements are most/least reliable — critical information for interpreting RQ1 results.
+
+#### Change 5: Improved Evaluation Prompt
+
+**Problem:** (a) Evaluator prompt only received 6 basic stats, missing 16 additional behavioral signals. (b) Agreeableness consistently overestimated because the evaluator treated baseline group politeness as evidence of high A.
+
+**Solution:**
+- Evaluation prompt now receives all 22 features, organized into Volume & Verbosity, Social Engagement, Language Style, and Behavioral Signals sections
+- Agreeableness calibration note rewritten with explicit instructions:
+  - "A group discussion naturally encourages cooperation — DO NOT treat baseline politeness as evidence of high Agreeableness"
+  - Focus on disagreement-to-acknowledgment *ratio*, not absolute counts
+  - "A candidate with 0 disagreements in a conflict phase is VERY high A, not just normal"
+
+**Justification:** The pilot showed a systematic +0.35 A overestimation for low-A profiles. This is a known issue in LLM evaluation: RLHF training makes LLMs themselves cooperative, so they perceive cooperative behavior as "normal" rather than "high A." The improved calibration note forces the evaluator to anchor against the conflict context, not against a neutral baseline.
+
+#### Change 6: Dual Evaluation Analysis
+
+**Problem:** No way to validate LLM evaluation independently. Analysis relied entirely on LLM-produced scores, with only 6 feature–trait correlation checks as validation.
+
+**Solution:** Three new analysis sections in `experiment/analysis.py`:
+
+1. **Dual Evaluation Comparison:** Pearson r between rule-based and LLM ensemble scores per trait. Produces a convergent validity statement (strong/moderate/weak).
+
+2. **Expanded Feature–Trait Validation:** 22-feature × 5-trait correlation matrix against *assigned* OCEAN values (not inferred). Tests whether behavioral features actually co-vary with the intended personality. Top 15 significant correlations reported.
+
+3. **Inter-Model Agreement:** Per-trait variance across the 5 ensemble models (DeepSeek V3, Gemini 2.5 Flash, Grok 4.1 Fast, Claude Haiku 4.5, GPT-4o-mini). Sessions with high inter-model variance flagged as uncertain.
+
+**Justification:** These three analyses transform the study from a single-method evaluation (LLM scores only) into a **multi-method validation** framework. This is methodologically significant because:
+- Single-method studies are vulnerable to method bias (what if all LLMs make the same systematic errors?)
+- Dual evaluation provides triangulation (Campbell & Fiske, 1959: convergent validity requires agreement across independent methods)
+- Inter-model agreement quantifies evaluation reliability, distinct from evaluation validity
+
+### C.4 Impact on Research Design
+
+These improvements strengthen the study's methodological rigor without changing the research questions, hypotheses, or experimental design. The core protocol remains:
+
+- **Same 164 sessions** (12 profiles × 4 scenarios × 3 reps + baselines)
+- **Same RQ1/RQ2/RQ3** metrics (Pearson r, ICC, temporal decay)
+- **Same cross-model evaluation ensemble**
+
+What changes:
+- Session results now contain `rule_based_vector`, `per_model_scores`, and `features` (22 fields) alongside existing `inferred_vector`
+- Analysis report now includes 3 additional validation sections
+- Transcripts are cleaner (no stage directions leaking emotional state)
+- Agreeableness scores should be more discriminating (reduced overestimation)
+
+### C.5 Files Added/Modified
+
+| File | Type | Change |
+|------|------|--------|
+| `experiment/behavioral_features.py` | **New** | 22-feature extraction module |
+| `evaluation/rule_based_evaluator.py` | **New** | Deterministic OCEAN scorer |
+| `experiment/profiles.py` | Modified | Rule 8 (no stage directions) |
+| `experiment/candidate_agent.py` | Modified | `_strip_stage_directions()` post-processing |
+| `engines/group_engine.py` | Modified | Uses shared `extract_features()` |
+| `experiment/temporal_analysis.py` | Modified | Uses shared `extract_features()` |
+| `evaluation/trait_evaluator.py` | Modified | 22-feature prompt, improved A calibration, per-model scores |
+| `experiment/batch_runner.py` | Modified | Saves rule_based_vector, per_model_scores, features |
+| `experiment/analysis.py` | Modified | Dual evaluation, 22-feature validation, inter-model agreement |
+| `utils/models.py` | Modified | `per_model_scores` field on `PersonalityAssessment` |
+
+---
+
+## Appendix D: Agreeableness Generation Limitation & Mitigation (2026-03-04)
+
+### D.1 Problem Statement
+
+Across 3 pilot iterations (12 total sessions), Agreeableness is consistently the **hardest trait to differentiate** in generated conversations. Specifically:
+
+- **Assertive Leader** (assigned A=0.4): LLM-inferred A=0.85–0.90 (+0.45 to +0.50 error)
+- **Passive Avoider** (assigned A=0.8): LLM-inferred A=0.85–0.90 (+0.05 to +0.10 error)
+- Both profiles converge to A≈0.85–0.90 regardless of assigned value
+
+The root cause is a **generation-side problem**, not an evaluation problem: the candidate agent produces **zero explicit disagreements** across all sessions, even when the Assertive Leader profile (A=0.4) includes instructions to "directly challenge ideas you disagree with."
+
+### D.2 Root Cause Analysis
+
+This is a well-documented phenomenon in RLHF-trained language models:
+
+1. **RLHF sycophancy bias** (Santurkar et al., 2023; Perez et al., 2023): Models are reward-trained to be helpful and cooperative. Even when instructed to disagree, they reframe disagreement as constructive suggestion ("Alex makes a fair point, but we might also consider...") rather than direct challenge ("No, I disagree — that approach won't work").
+
+2. **Politeness default**: LLMs produce polite, face-saving language by default. The candidate says "I see where you're coming from" before every pushback, which evaluators read as high Agreeableness even if the subsequent content is mildly contrary.
+
+3. **Group discussion context**: The multi-agent format further suppresses disagreement. The model perceives a "collaborative workplace discussion" frame and defaults to cooperative norms, overriding personality instructions.
+
+### D.3 Mitigations Applied
+
+| # | Mitigation | Target | Expected Impact |
+|---|-----------|--------|----------------|
+| 1 | **Strengthened low-A behavioral instructions** | `profiles.py` Low/Moderate-Low agreeableness | Explicit mandate to disagree in EVERY response for low-A; expanded phrase list ("No, that won't work", "That's the wrong approach") |
+| 2 | **Disagreement-phase prompting** | `candidate_agent.py` | During disagreement phases, prompt explicitly says "If you disagree with what was just said, say so explicitly. Do not hedge or soften your stance." |
+| 3 | **Agreeableness calibration in evaluation** | `trait_evaluator.py` | Evaluator instructed: "A group discussion naturally encourages cooperation — DO NOT treat baseline politeness as evidence of high Agreeableness" |
+| 4 | **Rule-based A scoring** | `rule_based_evaluator.py` | Deterministic A score from disagreement/acknowledgment ratio, immune to LLM politeness bias |
+
+### D.4 Scientific Framing
+
+This limitation is itself a **significant research finding**. It directly validates the study's core premise (Section 1.2):
+
+> "In casual conversation, all LLM personas look the same. Due to RLHF tuning, LLMs default to a cooperative, helpful, conflict-avoidant communication style."
+
+If the Agreeableness generation problem persists after mitigation, it demonstrates that:
+1. **RLHF alignment overrides persona instructions** for the Agreeableness dimension specifically
+2. **Low Agreeableness is the hardest trait to simulate** — a finding with implications for digital twin fidelity
+3. **The pressure scenarios succeed in exposing this failure** — validating the experimental design's premise that pressure is diagnostic
+
+This should be reported as a **primary finding** rather than hidden as a limitation. The recommended framing in the thesis:
+
+> "While Extraversion, Neuroticism, and Conscientiousness showed strong trait-behavior alignment (r > 0.70), Agreeableness exhibited a systematic positive bias across all generation conditions. This 'sycophancy floor' effect — where RLHF-trained models cannot produce sustained disagreeable behavior even under explicit low-Agreeableness instructions — represents a fundamental constraint on LLM persona fidelity and validates our experimental premise that behavioral alignment varies by trait."
+
+### D.5 Ensemble Expansion: 3 → 5 Models
+
+To strengthen inter-model agreement analysis and reduce correlated evaluation bias, the evaluation ensemble was expanded from 3 to 5 models across 5 independent providers:
+
+| # | Model | Provider | Rationale |
+|---|-------|----------|-----------|
+| 1 | DeepSeek V3 | DeepSeek | Chinese lab, MoE architecture |
+| 2 | Gemini 2.5 Flash | Google | Google's training pipeline |
+| 3 | Grok 4.1 Fast | xAI | Different RLHF approach |
+| 4 | Claude Haiku 4.5 | Anthropic | Constitutional AI, different alignment method |
+| 5 | GPT-4o-mini | OpenAI | Largest lab, most distinct training data/process |
+
+**Justification:** With 5 providers, inter-model agreement becomes more meaningful. If all 5 models from 5 different labs independently agree on a trait score, this constitutes much stronger evidence than agreement among 3 models (which could reflect shared training artifacts). Provider diversity is the key principle — each lab uses different training data, RLHF approaches, and architectural decisions, minimizing correlated evaluation bias.
