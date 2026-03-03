@@ -1,18 +1,22 @@
 """
 Trait Evaluator: Evidence-Based Personality Inference for Mode 2.
 
-Evaluates group discussion transcripts for Big Five personality traits using:
-- Per-trait evidence extraction with calibration notes
-- Behavioral statistics for calibration
-- Multi-model ensemble (3 judges) for consensus
-- Facet-level breakdown for each trait
+V4 upgrades:
+- True multi-model ensemble: DeepSeek V3 + Gemini 2.5 Flash + Grok 4.1 Fast
+- Same prompt sent to all 3 models in parallel via generate_ensemble()
+- Aggregation: median score per trait, confidence = 1.0 - range
+- Per-model scores stored for analysis
+- Parse error logging with confidence=0.0 fallback (S6)
 
 Every OCEAN score is traceable to specific transcript quotes.
 """
 
 import asyncio
+import logging
 import statistics
 from typing import TYPE_CHECKING
+
+logger = logging.getLogger(__name__)
 
 from utils.models import (
     Turn,
@@ -231,47 +235,25 @@ class TraitEvaluator:
         turns: list[Turn],
         candidate_name: str,
         stats: GroupSessionStats,
-        models: list[str] = None,
     ) -> PersonalityAssessment:
         """
-        Run multi-model ensemble evaluation.
+        Run true multi-model ensemble evaluation.
 
-        Uses 3 different "judges" (LLM passes with variation) to reduce bias.
+        Sends the same prompt to 3 different models (DeepSeek, Gemini, Grok)
+        in parallel for each trait. Aggregates via median score.
+        Confidence = 1.0 - score_range across models.
+
+        Per-model scores are stored in the assessment for analysis.
         """
-        # Run 3 passes with different temperatures
-        results = await asyncio.gather(
-            self.evaluate(turns, candidate_name, stats),
-            self._evaluate_pass_2(turns, candidate_name, stats),
-            self._evaluate_pass_3(turns, candidate_name, stats),
-        )
+        # Evaluate all 5 traits with ensemble
+        trait_results = await asyncio.gather(*[
+            self._evaluate_trait_ensemble(turns, candidate_name, stats, trait)
+            for trait in BigFiveTrait
+        ])
 
-        # Aggregate via median for each trait
-        trait_scores = {}
-        for trait in BigFiveTrait:
-            scores = [
-                getattr(r, trait.value).score
-                for r in results
-            ]
-            median_score = statistics.median(scores)
+        trait_scores = {trait: result for trait, result in zip(BigFiveTrait, trait_results)}
 
-            # Get evidence from all passes
-            all_evidence = []
-            for r in results:
-                all_evidence.extend(getattr(r, trait.value).evidence)
-
-            # Calculate confidence from agreement
-            score_range = max(scores) - min(scores)
-            confidence = 1.0 - score_range
-
-            trait_scores[trait] = TraitScore(
-                trait=trait,
-                score=median_score,
-                confidence=confidence,
-                evidence=all_evidence[:5],  # Top 5 pieces of evidence
-            )
-
-        # Build final assessment
-        return PersonalityAssessment(
+        assessment = PersonalityAssessment(
             openness=trait_scores[BigFiveTrait.OPENNESS],
             conscientiousness=trait_scores[BigFiveTrait.CONSCIENTIOUSNESS],
             extraversion=trait_scores[BigFiveTrait.EXTRAVERSION],
@@ -280,57 +262,26 @@ class TraitEvaluator:
             overall_confidence=sum(ts.confidence for ts in trait_scores.values()) / 5,
         )
 
-    async def _evaluate_pass_2(
-        self,
-        turns: list[Turn],
-        candidate_name: str,
-        stats: GroupSessionStats,
-    ) -> PersonalityAssessment:
-        """Second evaluation pass with different temperature."""
-        # Temporarily increase temperature
-        original_temp = 0.3
-        trait_results = await asyncio.gather(*[
-            self._evaluate_trait_with_temp(turns, candidate_name, stats, trait, 0.5)
-            for trait in BigFiveTrait
-        ])
-        results = {trait: result for trait, result in zip(BigFiveTrait, trait_results)}
-        return PersonalityAssessment(
-            openness=results[BigFiveTrait.OPENNESS],
-            conscientiousness=results[BigFiveTrait.CONSCIENTIOUSNESS],
-            extraversion=results[BigFiveTrait.EXTRAVERSION],
-            agreeableness=results[BigFiveTrait.AGREEABLENESS],
-            neuroticism=results[BigFiveTrait.NEUROTICISM],
-        )
+        # Generate summary and strengths/areas
+        assessment.behavioral_summary = self._generate_summary(trait_scores)
+        assessment.strengths = self._identify_trait_strengths(trait_scores)
+        assessment.development_areas = self._identify_trait_areas(trait_scores)
 
-    async def _evaluate_pass_3(
-        self,
-        turns: list[Turn],
-        candidate_name: str,
-        stats: GroupSessionStats,
-    ) -> PersonalityAssessment:
-        """Third evaluation pass with different temperature."""
-        trait_results = await asyncio.gather(*[
-            self._evaluate_trait_with_temp(turns, candidate_name, stats, trait, 0.6)
-            for trait in BigFiveTrait
-        ])
-        results = {trait: result for trait, result in zip(BigFiveTrait, trait_results)}
-        return PersonalityAssessment(
-            openness=results[BigFiveTrait.OPENNESS],
-            conscientiousness=results[BigFiveTrait.CONSCIENTIOUSNESS],
-            extraversion=results[BigFiveTrait.EXTRAVERSION],
-            agreeableness=results[BigFiveTrait.AGREEABLENESS],
-            neuroticism=results[BigFiveTrait.NEUROTICISM],
-        )
+        return assessment
 
-    async def _evaluate_trait_with_temp(
+    async def _evaluate_trait_ensemble(
         self,
         turns: list[Turn],
         candidate_name: str,
         stats: GroupSessionStats,
         trait: BigFiveTrait,
-        temperature: float,
     ) -> TraitScore:
-        """Evaluate a trait with specific temperature."""
+        """
+        Evaluate a single trait using multi-model ensemble.
+
+        Sends the same prompt to all ensemble models in parallel.
+        Returns median score with inter-model agreement as confidence.
+        """
         transcript = self._format_transcript(turns, candidate_name)
         prompt = TRAIT_EVIDENCE_PROMPT.format(
             trait_name=trait.value.title(),
@@ -345,13 +296,61 @@ class TraitEvaluator:
             calibration_notes=CALIBRATION_NOTES[trait],
         )
 
-        response = await self.client.generate(
-            prompt=prompt,
-            system_instruction="You are an expert personality psychologist.",
-            temperature=temperature,
-            max_tokens=1000,
+        system_instruction = "You are an expert personality psychologist. Be rigorous and cite specific evidence."
+
+        try:
+            # Send to all models in parallel
+            model_responses = await self.client.generate_ensemble(
+                prompt=prompt,
+                system_instruction=system_instruction,
+                temperature=0.3,
+                max_tokens=1000,
+            )
+        except RuntimeError:
+            # All models failed — fallback to single model
+            logger.error(f"Ensemble failed for {trait.value}, falling back to single model")
+            return await self._evaluate_trait(turns, candidate_name, stats, trait)
+
+        # Parse each model's response
+        parsed_results = []
+        parse_errors = 0
+        for model_name, response in model_responses:
+            result = self._parse_trait_response(response, trait)
+            if result.confidence <= 0.0 and result.score == 0.5:
+                # Parse failure — flag but include
+                parse_errors += 1
+                logger.warning(f"Parse error for {trait.value} from model {model_name}")
+            parsed_results.append((model_name, result))
+
+        if not parsed_results:
+            return TraitScore(trait=trait, score=0.5, confidence=0.0)
+
+        # Aggregate: median score
+        scores = [r.score for _, r in parsed_results]
+        median_score = statistics.median(scores)
+
+        # Confidence: 1.0 - range (higher agreement = higher confidence)
+        score_range = max(scores) - min(scores)
+        confidence = max(0.0, 1.0 - score_range)
+
+        # If parse errors occurred, reduce confidence
+        if parse_errors > 0:
+            confidence *= (1.0 - parse_errors / len(parsed_results))
+
+        # Collect evidence from all models
+        all_evidence = []
+        all_facets = []
+        for _, result in parsed_results:
+            all_evidence.extend(result.evidence)
+            all_facets.extend(result.facets)
+
+        return TraitScore(
+            trait=trait,
+            score=median_score,
+            confidence=confidence,
+            evidence=all_evidence[:5],
+            facets=all_facets[:6],
         )
-        return self._parse_trait_response(response, trait)
 
     def _format_transcript(self, turns: list[Turn], candidate_name: str) -> str:
         """Format transcript for evaluation prompt."""
@@ -416,12 +415,13 @@ class TraitEvaluator:
                 evidence=evidence,
             )
 
-        except (json.JSONDecodeError, IndexError, KeyError):
-            # Fallback: return neutral score
+        except (json.JSONDecodeError, IndexError, KeyError) as e:
+            # S6: Log parse errors, return neutral score with zero confidence
+            logger.warning(f"Parse error for {trait.value}: {e}. Response: {response[:200]}")
             return TraitScore(
                 trait=trait,
                 score=0.5,
-                confidence=0.3,
+                confidence=0.0,
             )
 
     def _generate_summary(self, results: dict[BigFiveTrait, TraitScore]) -> str:

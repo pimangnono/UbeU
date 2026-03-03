@@ -131,6 +131,8 @@ class GroupAgent(BaseAgent):
         self,
         context: str = "",
         phase_style: str = "neutral",
+        elicitation_goal: str | None = None,
+        urgency: str = "normal",
     ) -> str:
         """
         Generate a response for the current discussion turn.
@@ -138,11 +140,31 @@ class GroupAgent(BaseAgent):
         Args:
             context: Additional context about the current situation
             phase_style: "neutral", "agreement", "disagreement", or "consensus"
+            elicitation_goal: Optional hint from Moderator about what trait to probe
+            urgency: "normal", "elevated", or "high" - how directly to probe
         """
         history = self.format_history_for_prompt(max_turns=8)
 
         # Adjust behavior based on phase style
         style_guidance = self._get_style_guidance(phase_style)
+
+        # Build elicitation hint (natural, not scripted)
+        elicitation_section = ""
+        if elicitation_goal:
+            if urgency == "high":
+                elicitation_section = f"""
+## Discussion Goal (Important)
+The group needs more input from the candidate. {elicitation_goal}
+Be more direct in drawing out the candidate's perspective on this."""
+            elif urgency == "elevated":
+                elicitation_section = f"""
+## Discussion Goal
+Try to naturally steer the conversation: {elicitation_goal}"""
+            else:
+                elicitation_section = f"""
+## Discussion Goal (Subtle)
+If it fits naturally: {elicitation_goal}
+Do NOT force this - only incorporate if it flows with the conversation."""
 
         prompt = f"""## Recent Conversation
 {history}
@@ -152,6 +174,7 @@ class GroupAgent(BaseAgent):
 
 ## Phase Style
 {style_guidance}
+{elicitation_section}
 
 ## Your Response
 As {self.name}, respond naturally in character. {self._get_length_guidance()}

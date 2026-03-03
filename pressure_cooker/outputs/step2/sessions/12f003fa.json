@@ -1,0 +1,209 @@
+{
+  "participant_id": "P043",
+  "engine_state": {
+    "session_id": "12f003fa",
+    "scenario_id": "medicore",
+    "participant_name": "Alex",
+    "state": "active",
+    "start_time": 1770774687.3530564,
+    "turn_counter": 15,
+    "warned_time": false,
+    "wrapping_up": false,
+    "turns": [
+      {
+        "turn_number": 0,
+        "speaker": "system",
+        "speaker_name": "Facilitator",
+        "content": "Let's begin. MediCore is a hospital network currently operating at 78% bed occupancy while facing operating costs 15% above the regional average. The challenge is improving efficiency given these conditions.",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "12f003fa"
+        }
+      },
+      {
+        "turn_number": 1,
+        "speaker": "candidate",
+        "speaker_name": "Alex",
+        "content": "what is the cost structure?",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "12f003fa"
+        }
+      },
+      {
+        "turn_number": 2,
+        "speaker": "system",
+        "speaker_name": "Facilitator",
+        "content": "\"Here is the cost breakdown: Labor $280M (60%), Supplies & equipment $95M (20%), Facility & maintenance $48M (10%), Administrative $42M (9%).\"",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "12f003fa"
+        }
+      },
+      {
+        "turn_number": 3,
+        "speaker": "candidate",
+        "speaker_name": "Alex",
+        "content": "what is the cost structure for labor for competitors?",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "12f003fa"
+        }
+      },
+      {
+        "turn_number": 4,
+        "speaker": "system",
+        "speaker_name": "Facilitator",
+        "content": "\"Here is competitor labor cost data: RegionalHealth Partners has labor at 55% of total costs, MetroCare Systems at 58%, Unity Health at 57%.\"",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.2,
+        "metadata": {
+          "session_id": "12f003fa"
+        }
+      },
+      {
+        "turn_number": 5,
+        "speaker": "candidate",
+        "speaker_name": "Alex",
+        "content": "looking at competitor's cost breakdown of labor, our client's cost is reasonable. what do you guys think",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.2,
+        "metadata": {
+          "session_id": "12f003fa"
+        }
+      },
+      {
+        "turn_number": 6,
+        "speaker": "system",
+        "speaker_name": "Facilitator",
+        "content": "\"Let's look at the cost structure across individual hospitals to identify where we might focus our efficiency efforts.\"",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.2,
+        "metadata": {
+          "session_id": "12f003fa"
+        }
+      },
+      {
+        "turn_number": 7,
+        "speaker": "mediator",
+        "speaker_name": "Sam",
+        "content": "\"The competitor data does show our labor costs are higher. Maybe we should dig into what's driving that difference - staffing ratios or overtime perhaps?\"",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.2,
+        "metadata": {
+          "session_id": "12f003fa"
+        }
+      },
+      {
+        "turn_number": 8,
+        "speaker": "candidate",
+        "speaker_name": "Alex",
+        "content": "is there data about driving factor for the labor cost?",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.2,
+        "metadata": {
+          "session_id": "12f003fa"
+        }
+      },
+      {
+        "turn_number": 9,
+        "speaker": "system",
+        "speaker_name": "Facilitator",
+        "content": "\"To summarize, we're seeing higher labor costs compared to competitors. Let's explore potential drivers like staffing ratios and overtime in more detail.\"",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.2,
+        "metadata": {
+          "session_id": "12f003fa"
+        }
+      },
+      {
+        "turn_number": 10,
+        "speaker": "candidate",
+        "speaker_name": "Alex",
+        "content": "what are potential drivers for labor cost?",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.2,
+        "metadata": {
+          "session_id": "12f003fa"
+        }
+      },
+      {
+        "turn_number": 11,
+        "speaker": "system",
+        "speaker_name": "Facilitator",
+        "content": "\"Let's examine the staffing ratios and overtime costs more closely, as these appear to be key drivers of our higher labor costs.\"",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.2,
+        "metadata": {
+          "session_id": "12f003fa"
+        }
+      },
+      {
+        "turn_number": 12,
+        "speaker": "candidate",
+        "speaker_name": "Alex",
+        "content": "what is the current staffing ratios and overtime cost?",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.2,
+        "metadata": {
+          "session_id": "12f003fa"
+        }
+      },
+      {
+        "turn_number": 13,
+        "speaker": "system",
+        "speaker_name": "Facilitator",
+        "content": "\"Here is the staffing and overtime data: nurse-to-patient ratio 1:5.2, administrative staff 20%, overtime costs $18M/year.\"",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.2,
+        "metadata": {
+          "session_id": "12f003fa"
+        }
+      },
+      {
+        "turn_number": 14,
+        "speaker": "provoker",
+        "speaker_name": "Jordan",
+        "content": "That nurse-to-patient ratio seems dangerously high compared to industry benchmarks - how is quality not suffering? And $18M in overtime screams staffing mismanagement to me. \n\nThese numbers confirm my concern that we're bleeding costs through inefficient scheduling and poor workforce planning, not just \"normal\" labor expenses.",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.2,
+        "metadata": {
+          "session_id": "12f003fa"
+        }
+      }
+    ],
+    "tension_history": [
+      0.2,
+      0.2,
+      0.2
+    ],
+    "revealed_categories": [
+      "financials",
+      "staffing",
+      "competitors",
+      "cost_breakdown"
+    ],
+    "human_question_count": 6,
+    "engagement_nudge_sent": false
+  },
+  "case_study_id": "medicore"
+}

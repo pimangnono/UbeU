@@ -343,3 +343,6 @@ class SessionOutput:
 
     # Ground truth (from BFI-44)
     bfi44_ground_truth: Optional[PersonalityVector] = None
+
+    # Quality flags from session monitoring (Phase 4)
+    quality_flags: list[str] = field(default_factory=list)

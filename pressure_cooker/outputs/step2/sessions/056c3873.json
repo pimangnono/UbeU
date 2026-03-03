@@ -1,0 +1,142 @@
+{
+  "participant_id": "P052",
+  "engine_state": {
+    "session_id": "056c3873",
+    "scenario_id": "swiftcart",
+    "participant_name": "Alex",
+    "state": "ended",
+    "start_time": 1770797229.0360718,
+    "turn_counter": 10,
+    "warned_time": true,
+    "wrapping_up": true,
+    "turns": [
+      {
+        "turn_number": 0,
+        "speaker": "system",
+        "speaker_name": "Facilitator",
+        "content": "Let's examine the case of SwiftCart, an e-commerce platform with 2 million active users experiencing a decline in repeat purchase rate from 35% to 22%. Our focus is identifying ways to recover customer retention.",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "056c3873"
+        }
+      },
+      {
+        "turn_number": 1,
+        "speaker": "candidate",
+        "speaker_name": "Alex",
+        "content": "okay so let's all confirm that our task is to recover customer retention",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "056c3873"
+        }
+      },
+      {
+        "turn_number": 2,
+        "speaker": "system",
+        "speaker_name": "Facilitator",
+        "content": "\"That's correct, Alex. Since we have about 3 minutes left, let's start consolidating our key insights and propose concrete recommendations to address the retention decline.\"",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "056c3873"
+        }
+      },
+      {
+        "turn_number": 3,
+        "speaker": "mediator",
+        "speaker_name": "Sam",
+        "content": "\"Exactly, Alex - recovering retention is our core focus. Looking at the data, we see power users drive 52% of revenue, so maybe we should prioritize retaining them first?\"",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "056c3873"
+        }
+      },
+      {
+        "turn_number": 4,
+        "speaker": "provoker",
+        "speaker_name": "Jordan",
+        "content": "Why are we only focusing on power users? The data shows we're bleeding one-time buyers at a 60% churn rate - that's where the real volume opportunity lies. Aren't we ignoring our biggest leak in the bucket?",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "056c3873"
+        }
+      },
+      {
+        "turn_number": 5,
+        "speaker": "candidate",
+        "speaker_name": "Alex",
+        "content": "they have the lowest rate but more revenue comes from regular users and they also have low retention rate. ",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "056c3873"
+        }
+      },
+      {
+        "turn_number": 6,
+        "speaker": "system",
+        "speaker_name": "Facilitator",
+        "content": "\"Let's quickly summarize: we see value in both power users and one-time buyers. Jordan makes a good point about volume, while Sam highlights revenue impact. In our remaining time, can we propose one concrete action addressing each segment?\"",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "056c3873"
+        }
+      },
+      {
+        "turn_number": 7,
+        "speaker": "mediator",
+        "speaker_name": "Sam",
+        "content": "\"That's a fair point, Alex - both segments matter. Maybe we could run targeted win-back campaigns for power users while improving the onboarding experience for one-time buyers to convert more of them?\"",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "056c3873"
+        }
+      },
+      {
+        "turn_number": 8,
+        "speaker": "provoker",
+        "speaker_name": "Jordan",
+        "content": "Why are we splitting efforts when our delivery times are 50% slower than competitors? That's likely the root cause of our poor CSAT scores and high return rates - fix that first before throwing money at campaigns.",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "056c3873"
+        }
+      },
+      {
+        "turn_number": 9,
+        "speaker": "system",
+        "speaker_name": "Facilitator",
+        "content": "\"Time's up - great discussion. Key takeaways: we need targeted retention strategies for both power users and one-time buyers, while also addressing fundamental operational issues like delivery times impacting customer satisfaction.\"",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "056c3873"
+        }
+      }
+    ],
+    "tension_history": [],
+    "revealed_categories": [
+      "user_data"
+    ],
+    "human_question_count": 0,
+    "engagement_nudge_sent": false
+  },
+  "case_study_id": "swiftcart"
+}

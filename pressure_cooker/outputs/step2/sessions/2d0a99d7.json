@@ -1,0 +1,136 @@
+{
+  "participant_id": "P046",
+  "engine_state": {
+    "session_id": "2d0a99d7",
+    "scenario_id": "greenleaf",
+    "participant_name": "Alex",
+    "state": "active",
+    "start_time": 1770776209.0113716,
+    "turn_counter": 9,
+    "warned_time": false,
+    "wrapping_up": false,
+    "turns": [
+      {
+        "turn_number": 0,
+        "speaker": "system",
+        "speaker_name": "Facilitator",
+        "content": "GreenLeaf is a regional organic food brand with $8M revenue exploring national expansion. The key decision is whether to enter through retail or direct-to-consumer channels.",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "2d0a99d7"
+        }
+      },
+      {
+        "turn_number": 1,
+        "speaker": "candidate",
+        "speaker_name": "Alex",
+        "content": "since our customers are comfortable with online stores with can do d2c channel. what do you all think",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "2d0a99d7"
+        }
+      },
+      {
+        "turn_number": 2,
+        "speaker": "provoker",
+        "speaker_name": "Jordan",
+        "content": "Are you sure our existing regional customers represent the national market's preferences? What data shows they'd buy direct in new geographies where we have no brand recognition?",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "2d0a99d7"
+        }
+      },
+      {
+        "turn_number": 3,
+        "speaker": "candidate",
+        "speaker_name": "Alex",
+        "content": "you are right. we have less than 5% national recognition. but our competitor Purely Elizabeth has different product mix from ours so if we focus on marketing we have chance",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "2d0a99d7"
+        }
+      },
+      {
+        "turn_number": 4,
+        "speaker": "provoker",
+        "speaker_name": "Jordan",
+        "content": "You're comparing us to Purely Elizabeth, but they have 10x our marketing budget. How exactly do you propose we compete with that when scaling nationally? \n\nAnd what makes you think marketing alone solves the brand recognition gap? Their product mix difference could actually work against us if consumers prefer their offerings.",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.4,
+        "metadata": {
+          "session_id": "2d0a99d7"
+        }
+      },
+      {
+        "turn_number": 5,
+        "speaker": "candidate",
+        "speaker_name": "Alex",
+        "content": "we have 22% yoy growth for d2c products. and the d2c brand recognition is faster than retail",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.4,
+        "metadata": {
+          "session_id": "2d0a99d7"
+        }
+      },
+      {
+        "turn_number": 6,
+        "speaker": "provoker",
+        "speaker_name": "Jordan",
+        "content": "22% D2C growth sounds promising, but is that coming from existing loyal customers or new acquisitions? And at what customer acquisition cost - can we sustain those economics at national scale? \n\nRetail chains already have foot traffic and shelf space - why wouldn't we leverage that instead of trying to build awareness from scratch?",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.4,
+        "metadata": {
+          "session_id": "2d0a99d7"
+        }
+      },
+      {
+        "turn_number": 7,
+        "speaker": "candidate",
+        "speaker_name": "Alex",
+        "content": "sam, what do you think? should  we focus on retail or d2c",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.4,
+        "metadata": {
+          "session_id": "2d0a99d7"
+        }
+      },
+      {
+        "turn_number": 8,
+        "speaker": "mediator",
+        "speaker_name": "Sam",
+        "content": "That 22% D2C growth is interesting - maybe we could dig deeper into whether those are repeat purchases from loyal customers or new acquisitions? \n\nJordan raises fair concerns about marketing budgets, but Alex makes a good point about D2C's potential for faster brand recognition. Maybe we could explore a hybrid approach? \n\nLet's look at the customer acquisition costs for both channels - that might help us compare the economics more clearly.",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.4,
+        "metadata": {
+          "session_id": "2d0a99d7"
+        }
+      }
+    ],
+    "tension_history": [
+      0.4,
+      0.4
+    ],
+    "revealed_categories": [
+      "competitors",
+      "market_size",
+      "current_operations",
+      "customer_base"
+    ],
+    "human_question_count": 2,
+    "engagement_nudge_sent": false
+  },
+  "case_study_id": "greenleaf"
+}

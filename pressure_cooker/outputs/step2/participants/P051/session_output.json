@@ -1,0 +1,161 @@
+{
+  "metadata": {
+    "session_id": "2d36674a",
+    "profile_id": "human_P051",
+    "scenario_id": "medicore",
+    "timestamp": "2026-02-11 15:58:15.968163",
+    "total_turns": 6,
+    "duration_seconds": 171.79077291488647,
+    "api_calls": 5,
+    "model_used": "deepseek/deepseek-chat-v3-0324"
+  },
+  "profile": {
+    "id": "human_P051",
+    "name": "Alex",
+    "description": "Human participant (no injected personality)",
+    "vector": {
+      "openness": 0.5,
+      "conscientiousness": 0.5,
+      "extraversion": 0.5,
+      "agreeableness": 0.5,
+      "neuroticism": 0.5
+    },
+    "behavioral_tendencies": [],
+    "communication_style": ""
+  },
+  "scenario": {
+    "id": "medicore",
+    "name": "MediCore Case Study",
+    "description": "MediCore (Healthcare / Hospital Network): Our hospital network is running at 78% bed occupancy but operating costs are 15%...",
+    "context": "You are in a consulting case discussion. The company is MediCore, operating in the Healthcare / Hospital Network industry.\n\nProblem: Our hospital network is running at 78% bed occupancy but operating costs are 15% above regional average. How do we improve efficiency?\n\nThe team must analyze the problem and develop a recommendation.",
+    "conflict_point": "The team needs to solve: Our hospital network is running at 78% bed occupancy but operating costs are 15% above regional average. How do we improve efficiency?",
+    "provoker_goal": "You are a skeptical analyst. Challenge assumptions, demand data-backed reasoning, question if proposed solutions are realistic given the constraints. Push the candidate to think deeper about root causes. If the candidate makes claims without evidence, call it out. Be direct but professional.",
+    "mediator_goal": "You are a supportive analyst. Acknowledge good questions, build on ideas, suggest frameworks when appropriate. If the candidate hasn't asked about key data, model analytical behavior by asking about it yourself. Help structure the discussion but don't give away the answer.",
+    "escalation_triggers": [
+      "Candidate makes unfounded assumptions without asking for data",
+      "Analysis ignores key cost drivers or revenue dynamics",
+      "Proposed solution lacks specificity or implementation detail",
+      "Candidate dismisses competitor analysis as irrelevant",
+      "Recommendation doesn't address the core problem statement"
+    ],
+    "resolution_paths": [
+      "Structured framework covering all relevant dimensions",
+      "Data-driven recommendation backed by case data",
+      "Clear implementation roadmap with priorities",
+      "Consideration of risks and competitive dynamics"
+    ],
+    "turn_limit": 30,
+    "min_turns": 15
+  },
+  "conversation": [
+    {
+      "turn_number": 0,
+      "speaker": "system",
+      "speaker_name": "Facilitator",
+      "content": "\"Today we're discussing MediCore, a hospital network operating at 78% bed occupancy with operating costs 15% above regional average. Our goal is to identify efficiency improvements.\"",
+      "intent": "neutral",
+      "emotion": null,
+      "tension_level": 0.3,
+      "metadata": {
+        "session_id": "2d36674a"
+      }
+    },
+    {
+      "turn_number": 1,
+      "speaker": "candidate",
+      "speaker_name": "Alex",
+      "content": "why our labor cost is so high? ",
+      "intent": "neutral",
+      "emotion": null,
+      "tension_level": 0.3,
+      "metadata": {
+        "session_id": "2d36674a"
+      }
+    },
+    {
+      "turn_number": 2,
+      "speaker": "system",
+      "speaker_name": "Facilitator",
+      "content": "\"Alex raises a good point about labor costs. Before we dive deeper, let's hear from others - what other factors might be contributing to the high operating costs?\"",
+      "intent": "cooperative",
+      "emotion": null,
+      "tension_level": 0.3,
+      "metadata": {
+        "session_id": "2d36674a"
+      }
+    },
+    {
+      "turn_number": 3,
+      "speaker": "mediator",
+      "speaker_name": "Sam",
+      "content": "Great question about labor costs, Alex - the data shows we're spending $18M/year on overtime alone. Maybe we should look at the uneven bed occupancy across hospitals too, since Hospital D is at 68% while running a loss.",
+      "intent": "assertive",
+      "emotion": null,
+      "tension_level": 0.3,
+      "metadata": {
+        "session_id": "2d36674a"
+      }
+    },
+    {
+      "turn_number": 4,
+      "speaker": "provoker",
+      "speaker_name": "Jordan",
+      "content": "Why are we only focusing on labor when Hospital D is bleeding money? Its occupancy is 10% below network average while carrying the highest admin overhead - that's a structural inefficiency we can't ignore.",
+      "intent": "neutral",
+      "emotion": null,
+      "tension_level": 0.3,
+      "metadata": {
+        "session_id": "2d36674a"
+      }
+    },
+    {
+      "turn_number": 5,
+      "speaker": "system",
+      "speaker_name": "Facilitator",
+      "content": "\"Let's wrap up - we've identified labor costs (particularly overtime) and uneven bed occupancy, especially at Hospital D, as key inefficiency drivers. Next steps will involve prioritizing these areas for deeper analysis.\"",
+      "intent": "neutral",
+      "emotion": null,
+      "tension_level": 0.3,
+      "metadata": {
+        "session_id": "2d36674a"
+      }
+    }
+  ],
+  "intent_statistics": {
+    "total_turns": 1,
+    "intent_counts": {
+      "assertive": 0,
+      "cooperative": 0,
+      "avoidant": 0,
+      "aggressive": 0,
+      "anxious": 0,
+      "analytical": 0,
+      "creative": 0,
+      "empathetic": 0,
+      "defensive": 0,
+      "neutral": 1
+    },
+    "intent_percentages": {
+      "assertive": 0.0,
+      "cooperative": 0.0,
+      "avoidant": 0.0,
+      "aggressive": 0.0,
+      "anxious": 0.0,
+      "analytical": 0.0,
+      "creative": 0.0,
+      "empathetic": 0.0,
+      "defensive": 0.0,
+      "neutral": 100.0
+    },
+    "dominant_intent": "neutral",
+    "secondary_intent": null
+  },
+  "assessment_mapping": {
+    "collaboration_score": 0.003,
+    "leadership_score": 0.002,
+    "stress_management_score": 0.75,
+    "communication_score": 0.002,
+    "problem_solving_score": 0.0
+  },
+  "validation_results": null
+}

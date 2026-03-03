@@ -1,0 +1,1175 @@
+{
+  "google_gemini-2.5-flash": {
+    "trait_metrics": {
+      "openness": {
+        "n": 144,
+        "pearson_r": 0.729,
+        "p_value": 0.0,
+        "mae": 0.157,
+        "rmse": 0.207,
+        "bias": -0.1
+      },
+      "conscientiousness": {
+        "n": 144,
+        "pearson_r": 0.746,
+        "p_value": 0.0,
+        "mae": 0.124,
+        "rmse": 0.157,
+        "bias": 0.042
+      },
+      "extraversion": {
+        "n": 144,
+        "pearson_r": 0.864,
+        "p_value": 0.0,
+        "mae": 0.085,
+        "rmse": 0.127,
+        "bias": 0.012
+      },
+      "agreeableness": {
+        "n": 144,
+        "pearson_r": 0.777,
+        "p_value": 0.0,
+        "mae": 0.133,
+        "rmse": 0.167,
+        "bias": -0.023
+      },
+      "neuroticism": {
+        "n": 144,
+        "pearson_r": 0.83,
+        "p_value": 0.0,
+        "mae": 0.169,
+        "rmse": 0.201,
+        "bias": -0.119
+      }
+    },
+    "profile_breakdown": {
+      "anxious_perfectionist": {
+        "n_sessions": 12,
+        "mean_accuracy": 0.89,
+        "std_accuracy": 0.04,
+        "min_accuracy": 0.8,
+        "trait_mae": {
+          "openness": 0.1,
+          "conscientiousness": 0.092,
+          "extraversion": 0.108,
+          "agreeableness": 0.142,
+          "neuroticism": 0.108
+        },
+        "trait_bias": {
+          "openness": -0.05,
+          "conscientiousness": -0.092,
+          "extraversion": 0.075,
+          "agreeableness": -0.058,
+          "neuroticism": 0.058
+        }
+      },
+      "assertive_challenger": {
+        "n_sessions": 12,
+        "mean_accuracy": 0.857,
+        "std_accuracy": 0.031,
+        "min_accuracy": 0.8,
+        "trait_mae": {
+          "openness": 0.283,
+          "conscientiousness": 0.208,
+          "extraversion": 0.025,
+          "agreeableness": 0.092,
+          "neuroticism": 0.108
+        },
+        "trait_bias": {
+          "openness": -0.267,
+          "conscientiousness": 0.208,
+          "extraversion": 0.008,
+          "agreeableness": -0.092,
+          "neuroticism": -0.108
+        }
+      },
+      "balanced_leader": {
+        "n_sessions": 12,
+        "mean_accuracy": 0.852,
+        "std_accuracy": 0.038,
+        "min_accuracy": 0.74,
+        "trait_mae": {
+          "openness": 0.183,
+          "conscientiousness": 0.2,
+          "extraversion": 0.092,
+          "agreeableness": 0.1,
+          "neuroticism": 0.167
+        },
+        "trait_bias": {
+          "openness": -0.183,
+          "conscientiousness": 0.133,
+          "extraversion": -0.008,
+          "agreeableness": 0.0,
+          "neuroticism": -0.1
+        }
+      },
+      "cautious_skeptic": {
+        "n_sessions": 12,
+        "mean_accuracy": 0.873,
+        "std_accuracy": 0.037,
+        "min_accuracy": 0.8,
+        "trait_mae": {
+          "openness": 0.117,
+          "conscientiousness": 0.108,
+          "extraversion": 0.042,
+          "agreeableness": 0.15,
+          "neuroticism": 0.217
+        },
+        "trait_bias": {
+          "openness": -0.067,
+          "conscientiousness": 0.075,
+          "extraversion": 0.008,
+          "agreeableness": -0.117,
+          "neuroticism": -0.183
+        }
+      },
+      "creative_maverick": {
+        "n_sessions": 12,
+        "mean_accuracy": 0.827,
+        "std_accuracy": 0.009,
+        "min_accuracy": 0.82,
+        "trait_mae": {
+          "openness": 0.2,
+          "conscientiousness": 0.117,
+          "extraversion": 0.2,
+          "agreeableness": 0.15,
+          "neuroticism": 0.2
+        },
+        "trait_bias": {
+          "openness": -0.2,
+          "conscientiousness": 0.083,
+          "extraversion": 0.0,
+          "agreeableness": 0.15,
+          "neuroticism": -0.1
+        }
+      },
+      "enthusiastic_innovator": {
+        "n_sessions": 12,
+        "mean_accuracy": 0.873,
+        "std_accuracy": 0.025,
+        "min_accuracy": 0.8,
+        "trait_mae": {
+          "openness": 0.033,
+          "conscientiousness": 0.108,
+          "extraversion": 0.042,
+          "agreeableness": 0.167,
+          "neuroticism": 0.283
+        },
+        "trait_bias": {
+          "openness": -0.033,
+          "conscientiousness": -0.058,
+          "extraversion": -0.042,
+          "agreeableness": 0.15,
+          "neuroticism": -0.267
+        }
+      },
+      "harmonious_mediator": {
+        "n_sessions": 12,
+        "mean_accuracy": 0.89,
+        "std_accuracy": 0.024,
+        "min_accuracy": 0.84,
+        "trait_mae": {
+          "openness": 0.058,
+          "conscientiousness": 0.042,
+          "extraversion": 0.142,
+          "agreeableness": 0.1,
+          "neuroticism": 0.208
+        },
+        "trait_bias": {
+          "openness": -0.025,
+          "conscientiousness": 0.025,
+          "extraversion": 0.142,
+          "agreeableness": -0.1,
+          "neuroticism": -0.158
+        }
+      },
+      "meticulous_planner": {
+        "n_sessions": 12,
+        "mean_accuracy": 0.875,
+        "std_accuracy": 0.026,
+        "min_accuracy": 0.82,
+        "trait_mae": {
+          "openness": 0.058,
+          "conscientiousness": 0.033,
+          "extraversion": 0.092,
+          "agreeableness": 0.158,
+          "neuroticism": 0.283
+        },
+        "trait_bias": {
+          "openness": 0.008,
+          "conscientiousness": -0.033,
+          "extraversion": 0.025,
+          "agreeableness": -0.142,
+          "neuroticism": -0.267
+        }
+      },
+      "quiet_analyst": {
+        "n_sessions": 12,
+        "mean_accuracy": 0.855,
+        "std_accuracy": 0.032,
+        "min_accuracy": 0.8,
+        "trait_mae": {
+          "openness": 0.333,
+          "conscientiousness": 0.075,
+          "extraversion": 0.025,
+          "agreeableness": 0.1,
+          "neuroticism": 0.192
+        },
+        "trait_bias": {
+          "openness": -0.333,
+          "conscientiousness": 0.075,
+          "extraversion": -0.025,
+          "agreeableness": -0.05,
+          "neuroticism": -0.192
+        }
+      },
+      "social_butterfly": {
+        "n_sessions": 12,
+        "mean_accuracy": 0.862,
+        "std_accuracy": 0.036,
+        "min_accuracy": 0.8,
+        "trait_mae": {
+          "openness": 0.2,
+          "conscientiousness": 0.108,
+          "extraversion": 0.067,
+          "agreeableness": 0.125,
+          "neuroticism": 0.192
+        },
+        "trait_bias": {
+          "openness": 0.2,
+          "conscientiousness": 0.108,
+          "extraversion": -0.067,
+          "agreeableness": 0.025,
+          "neuroticism": -0.125
+        }
+      },
+      "stoic_pragmatist": {
+        "n_sessions": 12,
+        "mean_accuracy": 0.892,
+        "std_accuracy": 0.044,
+        "min_accuracy": 0.78,
+        "trait_mae": {
+          "openness": 0.083,
+          "conscientiousness": 0.192,
+          "extraversion": 0.108,
+          "agreeableness": 0.117,
+          "neuroticism": 0.042
+        },
+        "trait_bias": {
+          "openness": -0.017,
+          "conscientiousness": 0.158,
+          "extraversion": -0.025,
+          "agreeableness": -0.05,
+          "neuroticism": 0.042
+        }
+      },
+      "stressed_reactor": {
+        "n_sessions": 12,
+        "mean_accuracy": 0.852,
+        "std_accuracy": 0.033,
+        "min_accuracy": 0.8,
+        "trait_mae": {
+          "openness": 0.233,
+          "conscientiousness": 0.208,
+          "extraversion": 0.075,
+          "agreeableness": 0.192,
+          "neuroticism": 0.033
+        },
+        "trait_bias": {
+          "openness": -0.233,
+          "conscientiousness": -0.175,
+          "extraversion": 0.058,
+          "agreeableness": 0.008,
+          "neuroticism": -0.033
+        }
+      }
+    },
+    "scenario_breakdown": {
+      "credit_dispute": {
+        "n_sessions": 36,
+        "mean_accuracy": 0.871,
+        "std_accuracy": 0.034
+      },
+      "deadline_pressure": {
+        "n_sessions": 36,
+        "mean_accuracy": 0.858,
+        "std_accuracy": 0.038
+      },
+      "process_change": {
+        "n_sessions": 36,
+        "mean_accuracy": 0.869,
+        "std_accuracy": 0.041
+      },
+      "resource_conflict": {
+        "n_sessions": 36,
+        "mean_accuracy": 0.867,
+        "std_accuracy": 0.035
+      }
+    },
+    "weak_spots": {
+      "worst_profiles": [
+        [
+          "creative_maverick",
+          0.827
+        ],
+        [
+          "balanced_leader",
+          0.852
+        ],
+        [
+          "stressed_reactor",
+          0.852
+        ]
+      ],
+      "weakest_traits": [
+        [
+          "openness",
+          0.729
+        ],
+        [
+          "conscientiousness",
+          0.746
+        ]
+      ],
+      "high_error_profile_traits": {
+        "assertive_challenger": {
+          "trait": "openness",
+          "mae": 0.283
+        },
+        "balanced_leader": {
+          "trait": "conscientiousness",
+          "mae": 0.2
+        },
+        "cautious_skeptic": {
+          "trait": "neuroticism",
+          "mae": 0.217
+        },
+        "creative_maverick": {
+          "trait": "openness",
+          "mae": 0.2
+        },
+        "enthusiastic_innovator": {
+          "trait": "neuroticism",
+          "mae": 0.283
+        },
+        "harmonious_mediator": {
+          "trait": "neuroticism",
+          "mae": 0.208
+        },
+        "meticulous_planner": {
+          "trait": "neuroticism",
+          "mae": 0.283
+        },
+        "quiet_analyst": {
+          "trait": "openness",
+          "mae": 0.333
+        },
+        "social_butterfly": {
+          "trait": "openness",
+          "mae": 0.2
+        },
+        "stoic_pragmatist": {
+          "trait": "conscientiousness",
+          "mae": 0.192
+        },
+        "stressed_reactor": {
+          "trait": "openness",
+          "mae": 0.233
+        }
+      }
+    }
+  },
+  "x-ai_grok-4.1-fast": {
+    "trait_metrics": {
+      "openness": {
+        "n": 144,
+        "pearson_r": 0.753,
+        "p_value": 0.0,
+        "mae": 0.18,
+        "rmse": 0.236,
+        "bias": -0.111
+      },
+      "conscientiousness": {
+        "n": 144,
+        "pearson_r": 0.758,
+        "p_value": 0.0,
+        "mae": 0.142,
+        "rmse": 0.175,
+        "bias": 0.061
+      },
+      "extraversion": {
+        "n": 144,
+        "pearson_r": 0.869,
+        "p_value": 0.0,
+        "mae": 0.126,
+        "rmse": 0.172,
+        "bias": 0.118
+      },
+      "agreeableness": {
+        "n": 144,
+        "pearson_r": 0.786,
+        "p_value": 0.0,
+        "mae": 0.195,
+        "rmse": 0.223,
+        "bias": 0.057
+      },
+      "neuroticism": {
+        "n": 144,
+        "pearson_r": 0.896,
+        "p_value": 0.0,
+        "mae": 0.207,
+        "rmse": 0.236,
+        "bias": -0.184
+      }
+    },
+    "profile_breakdown": {
+      "anxious_perfectionist": {
+        "n_sessions": 12,
+        "mean_accuracy": 0.85,
+        "std_accuracy": 0.025,
+        "min_accuracy": 0.81,
+        "trait_mae": {
+          "openness": 0.158,
+          "conscientiousness": 0.008,
+          "extraversion": 0.296,
+          "agreeableness": 0.179,
+          "neuroticism": 0.108
+        },
+        "trait_bias": {
+          "openness": -0.108,
+          "conscientiousness": -0.008,
+          "extraversion": 0.296,
+          "agreeableness": 0.129,
+          "neuroticism": 0.108
+        }
+      },
+      "assertive_challenger": {
+        "n_sessions": 12,
+        "mean_accuracy": 0.832,
+        "std_accuracy": 0.019,
+        "min_accuracy": 0.81,
+        "trait_mae": {
+          "openness": 0.321,
+          "conscientiousness": 0.196,
+          "extraversion": 0.071,
+          "agreeableness": 0.079,
+          "neuroticism": 0.171
+        },
+        "trait_bias": {
+          "openness": -0.296,
+          "conscientiousness": 0.146,
+          "extraversion": 0.071,
+          "agreeableness": -0.079,
+          "neuroticism": -0.171
+        }
+      },
+      "balanced_leader": {
+        "n_sessions": 12,
+        "mean_accuracy": 0.778,
+        "std_accuracy": 0.021,
+        "min_accuracy": 0.74,
+        "trait_mae": {
+          "openness": 0.312,
+          "conscientiousness": 0.2,
+          "extraversion": 0.133,
+          "agreeableness": 0.263,
+          "neuroticism": 0.2
+        },
+        "trait_bias": {
+          "openness": -0.304,
+          "conscientiousness": 0.2,
+          "extraversion": 0.1,
+          "agreeableness": 0.179,
+          "neuroticism": -0.2
+        }
+      },
+      "cautious_skeptic": {
+        "n_sessions": 12,
+        "mean_accuracy": 0.835,
+        "std_accuracy": 0.02,
+        "min_accuracy": 0.8,
+        "trait_mae": {
+          "openness": 0.1,
+          "conscientiousness": 0.142,
+          "extraversion": 0.025,
+          "agreeableness": 0.183,
+          "neuroticism": 0.375
+        },
+        "trait_bias": {
+          "openness": -0.1,
+          "conscientiousness": -0.042,
+          "extraversion": 0.008,
+          "agreeableness": -0.183,
+          "neuroticism": -0.375
+        }
+      },
+      "creative_maverick": {
+        "n_sessions": 12,
+        "mean_accuracy": 0.809,
+        "std_accuracy": 0.01,
+        "min_accuracy": 0.8,
+        "trait_mae": {
+          "openness": 0.0,
+          "conscientiousness": 0.083,
+          "extraversion": 0.2,
+          "agreeableness": 0.371,
+          "neuroticism": 0.3
+        },
+        "trait_bias": {
+          "openness": 0.0,
+          "conscientiousness": -0.067,
+          "extraversion": 0.2,
+          "agreeableness": 0.371,
+          "neuroticism": -0.3
+        }
+      },
+      "enthusiastic_innovator": {
+        "n_sessions": 12,
+        "mean_accuracy": 0.845,
+        "std_accuracy": 0.017,
+        "min_accuracy": 0.82,
+        "trait_mae": {
+          "openness": 0.0,
+          "conscientiousness": 0.167,
+          "extraversion": 0.008,
+          "agreeableness": 0.3,
+          "neuroticism": 0.3
+        },
+        "trait_bias": {
+          "openness": 0.0,
+          "conscientiousness": 0.017,
+          "extraversion": -0.0,
+          "agreeableness": 0.3,
+          "neuroticism": -0.3
+        }
+      },
+      "harmonious_mediator": {
+        "n_sessions": 12,
+        "mean_accuracy": 0.824,
+        "std_accuracy": 0.032,
+        "min_accuracy": 0.77,
+        "trait_mae": {
+          "openness": 0.137,
+          "conscientiousness": 0.129,
+          "extraversion": 0.287,
+          "agreeableness": 0.025,
+          "neuroticism": 0.3
+        },
+        "trait_bias": {
+          "openness": -0.021,
+          "conscientiousness": 0.096,
+          "extraversion": 0.287,
+          "agreeableness": 0.025,
+          "neuroticism": -0.3
+        }
+      },
+      "meticulous_planner": {
+        "n_sessions": 12,
+        "mean_accuracy": 0.848,
+        "std_accuracy": 0.025,
+        "min_accuracy": 0.8,
+        "trait_mae": {
+          "openness": 0.083,
+          "conscientiousness": 0.0,
+          "extraversion": 0.15,
+          "agreeableness": 0.225,
+          "neuroticism": 0.3
+        },
+        "trait_bias": {
+          "openness": -0.083,
+          "conscientiousness": 0.0,
+          "extraversion": 0.15,
+          "agreeableness": -0.125,
+          "neuroticism": -0.3
+        }
+      },
+      "quiet_analyst": {
+        "n_sessions": 12,
+        "mean_accuracy": 0.813,
+        "std_accuracy": 0.014,
+        "min_accuracy": 0.79,
+        "trait_mae": {
+          "openness": 0.433,
+          "conscientiousness": 0.096,
+          "extraversion": 0.008,
+          "agreeableness": 0.196,
+          "neuroticism": 0.2
+        },
+        "trait_bias": {
+          "openness": -0.433,
+          "conscientiousness": 0.096,
+          "extraversion": 0.008,
+          "agreeableness": -0.021,
+          "neuroticism": -0.2
+        }
+      },
+      "social_butterfly": {
+        "n_sessions": 12,
+        "mean_accuracy": 0.813,
+        "std_accuracy": 0.027,
+        "min_accuracy": 0.778,
+        "trait_mae": {
+          "openness": 0.321,
+          "conscientiousness": 0.272,
+          "extraversion": 0.002,
+          "agreeableness": 0.141,
+          "neuroticism": 0.198
+        },
+        "trait_bias": {
+          "openness": 0.304,
+          "conscientiousness": 0.256,
+          "extraversion": 0.002,
+          "agreeableness": 0.141,
+          "neuroticism": -0.198
+        }
+      },
+      "stoic_pragmatist": {
+        "n_sessions": 12,
+        "mean_accuracy": 0.893,
+        "std_accuracy": 0.019,
+        "min_accuracy": 0.86,
+        "trait_mae": {
+          "openness": 0.075,
+          "conscientiousness": 0.2,
+          "extraversion": 0.1,
+          "agreeableness": 0.158,
+          "neuroticism": 0.0
+        },
+        "trait_bias": {
+          "openness": -0.075,
+          "conscientiousness": 0.2,
+          "extraversion": 0.067,
+          "agreeableness": -0.125,
+          "neuroticism": 0.0
+        }
+      },
+      "stressed_reactor": {
+        "n_sessions": 12,
+        "mean_accuracy": 0.817,
+        "std_accuracy": 0.024,
+        "min_accuracy": 0.78,
+        "trait_mae": {
+          "openness": 0.221,
+          "conscientiousness": 0.213,
+          "extraversion": 0.229,
+          "agreeableness": 0.221,
+          "neuroticism": 0.033
+        },
+        "trait_bias": {
+          "openness": -0.221,
+          "conscientiousness": -0.163,
+          "extraversion": 0.229,
+          "agreeableness": 0.071,
+          "neuroticism": 0.033
+        }
+      }
+    },
+    "scenario_breakdown": {
+      "credit_dispute": {
+        "n_sessions": 36,
+        "mean_accuracy": 0.826,
+        "std_accuracy": 0.034
+      },
+      "deadline_pressure": {
+        "n_sessions": 36,
+        "mean_accuracy": 0.836,
+        "std_accuracy": 0.033
+      },
+      "process_change": {
+        "n_sessions": 36,
+        "mean_accuracy": 0.831,
+        "std_accuracy": 0.04
+      },
+      "resource_conflict": {
+        "n_sessions": 36,
+        "mean_accuracy": 0.827,
+        "std_accuracy": 0.031
+      }
+    },
+    "weak_spots": {
+      "worst_profiles": [
+        [
+          "balanced_leader",
+          0.778
+        ],
+        [
+          "creative_maverick",
+          0.809
+        ],
+        [
+          "quiet_analyst",
+          0.813
+        ]
+      ],
+      "weakest_traits": [
+        [
+          "openness",
+          0.753
+        ],
+        [
+          "conscientiousness",
+          0.758
+        ]
+      ],
+      "high_error_profile_traits": {
+        "anxious_perfectionist": {
+          "trait": "extraversion",
+          "mae": 0.296
+        },
+        "assertive_challenger": {
+          "trait": "openness",
+          "mae": 0.321
+        },
+        "balanced_leader": {
+          "trait": "openness",
+          "mae": 0.312
+        },
+        "cautious_skeptic": {
+          "trait": "neuroticism",
+          "mae": 0.375
+        },
+        "creative_maverick": {
+          "trait": "agreeableness",
+          "mae": 0.371
+        },
+        "enthusiastic_innovator": {
+          "trait": "agreeableness",
+          "mae": 0.3
+        },
+        "harmonious_mediator": {
+          "trait": "neuroticism",
+          "mae": 0.3
+        },
+        "meticulous_planner": {
+          "trait": "neuroticism",
+          "mae": 0.3
+        },
+        "quiet_analyst": {
+          "trait": "openness",
+          "mae": 0.433
+        },
+        "social_butterfly": {
+          "trait": "openness",
+          "mae": 0.321
+        },
+        "stoic_pragmatist": {
+          "trait": "conscientiousness",
+          "mae": 0.2
+        },
+        "stressed_reactor": {
+          "trait": "extraversion",
+          "mae": 0.229
+        }
+      }
+    }
+  },
+  "deepseek_deepseek-chat-v3-0324": {
+    "trait_metrics": {
+      "openness": {
+        "n": 144,
+        "pearson_r": 0.739,
+        "p_value": 0.0,
+        "mae": 0.123,
+        "rmse": 0.169,
+        "bias": -0.009
+      },
+      "conscientiousness": {
+        "n": 144,
+        "pearson_r": 0.666,
+        "p_value": 0.0,
+        "mae": 0.132,
+        "rmse": 0.167,
+        "bias": 0.075
+      },
+      "extraversion": {
+        "n": 144,
+        "pearson_r": 0.835,
+        "p_value": 0.0,
+        "mae": 0.092,
+        "rmse": 0.137,
+        "bias": 0.031
+      },
+      "agreeableness": {
+        "n": 144,
+        "pearson_r": 0.745,
+        "p_value": 0.0,
+        "mae": 0.111,
+        "rmse": 0.151,
+        "bias": 0.029
+      },
+      "neuroticism": {
+        "n": 144,
+        "pearson_r": 0.756,
+        "p_value": 0.0,
+        "mae": 0.148,
+        "rmse": 0.179,
+        "bias": -0.085
+      }
+    },
+    "profile_breakdown": {
+      "anxious_perfectionist": {
+        "n_sessions": 12,
+        "mean_accuracy": 0.913,
+        "std_accuracy": 0.057,
+        "min_accuracy": 0.8,
+        "trait_mae": {
+          "openness": 0.092,
+          "conscientiousness": 0.1,
+          "extraversion": 0.075,
+          "agreeableness": 0.092,
+          "neuroticism": 0.075
+        },
+        "trait_bias": {
+          "openness": -0.025,
+          "conscientiousness": -0.1,
+          "extraversion": 0.075,
+          "agreeableness": -0.008,
+          "neuroticism": -0.058
+        }
+      },
+      "assertive_challenger": {
+        "n_sessions": 12,
+        "mean_accuracy": 0.867,
+        "std_accuracy": 0.022,
+        "min_accuracy": 0.84,
+        "trait_mae": {
+          "openness": 0.242,
+          "conscientiousness": 0.192,
+          "extraversion": 0.083,
+          "agreeableness": 0.05,
+          "neuroticism": 0.1
+        },
+        "trait_bias": {
+          "openness": -0.158,
+          "conscientiousness": 0.192,
+          "extraversion": -0.017,
+          "agreeableness": 0.017,
+          "neuroticism": -0.05
+        }
+      },
+      "balanced_leader": {
+        "n_sessions": 12,
+        "mean_accuracy": 0.888,
+        "std_accuracy": 0.036,
+        "min_accuracy": 0.82,
+        "trait_mae": {
+          "openness": 0.075,
+          "conscientiousness": 0.183,
+          "extraversion": 0.108,
+          "agreeableness": 0.117,
+          "neuroticism": 0.075
+        },
+        "trait_bias": {
+          "openness": -0.058,
+          "conscientiousness": 0.117,
+          "extraversion": -0.058,
+          "agreeableness": 0.05,
+          "neuroticism": -0.008
+        }
+      },
+      "cautious_skeptic": {
+        "n_sessions": 12,
+        "mean_accuracy": 0.878,
+        "std_accuracy": 0.041,
+        "min_accuracy": 0.82,
+        "trait_mae": {
+          "openness": 0.033,
+          "conscientiousness": 0.142,
+          "extraversion": 0.083,
+          "agreeableness": 0.1,
+          "neuroticism": 0.25
+        },
+        "trait_bias": {
+          "openness": 0.017,
+          "conscientiousness": 0.125,
+          "extraversion": 0.083,
+          "agreeableness": -0.017,
+          "neuroticism": -0.25
+        }
+      },
+      "creative_maverick": {
+        "n_sessions": 12,
+        "mean_accuracy": 0.855,
+        "std_accuracy": 0.034,
+        "min_accuracy": 0.8,
+        "trait_mae": {
+          "openness": 0.033,
+          "conscientiousness": 0.092,
+          "extraversion": 0.175,
+          "agreeableness": 0.233,
+          "neuroticism": 0.192
+        },
+        "trait_bias": {
+          "openness": -0.033,
+          "conscientiousness": 0.092,
+          "extraversion": 0.142,
+          "agreeableness": 0.233,
+          "neuroticism": -0.175
+        }
+      },
+      "enthusiastic_innovator": {
+        "n_sessions": 12,
+        "mean_accuracy": 0.879,
+        "std_accuracy": 0.041,
+        "min_accuracy": 0.8,
+        "trait_mae": {
+          "openness": 0.067,
+          "conscientiousness": 0.1,
+          "extraversion": 0.083,
+          "agreeableness": 0.171,
+          "neuroticism": 0.183
+        },
+        "trait_bias": {
+          "openness": -0.067,
+          "conscientiousness": 0.05,
+          "extraversion": -0.067,
+          "agreeableness": 0.138,
+          "neuroticism": -0.15
+        }
+      },
+      "harmonious_mediator": {
+        "n_sessions": 12,
+        "mean_accuracy": 0.875,
+        "std_accuracy": 0.018,
+        "min_accuracy": 0.86,
+        "trait_mae": {
+          "openness": 0.075,
+          "conscientiousness": 0.15,
+          "extraversion": 0.125,
+          "agreeableness": 0.117,
+          "neuroticism": 0.158
+        },
+        "trait_bias": {
+          "openness": 0.025,
+          "conscientiousness": 0.15,
+          "extraversion": 0.125,
+          "agreeableness": -0.117,
+          "neuroticism": -0.108
+        }
+      },
+      "meticulous_planner": {
+        "n_sessions": 12,
+        "mean_accuracy": 0.907,
+        "std_accuracy": 0.035,
+        "min_accuracy": 0.82,
+        "trait_mae": {
+          "openness": 0.117,
+          "conscientiousness": 0.033,
+          "extraversion": 0.033,
+          "agreeableness": 0.083,
+          "neuroticism": 0.2
+        },
+        "trait_bias": {
+          "openness": 0.117,
+          "conscientiousness": -0.033,
+          "extraversion": 0.017,
+          "agreeableness": -0.067,
+          "neuroticism": -0.183
+        }
+      },
+      "quiet_analyst": {
+        "n_sessions": 12,
+        "mean_accuracy": 0.872,
+        "std_accuracy": 0.04,
+        "min_accuracy": 0.82,
+        "trait_mae": {
+          "openness": 0.183,
+          "conscientiousness": 0.117,
+          "extraversion": 0.092,
+          "agreeableness": 0.067,
+          "neuroticism": 0.183
+        },
+        "trait_bias": {
+          "openness": -0.183,
+          "conscientiousness": -0.033,
+          "extraversion": 0.092,
+          "agreeableness": -0.067,
+          "neuroticism": -0.083
+        }
+      },
+      "social_butterfly": {
+        "n_sessions": 12,
+        "mean_accuracy": 0.855,
+        "std_accuracy": 0.032,
+        "min_accuracy": 0.8,
+        "trait_mae": {
+          "openness": 0.25,
+          "conscientiousness": 0.183,
+          "extraversion": 0.067,
+          "agreeableness": 0.108,
+          "neuroticism": 0.117
+        },
+        "trait_bias": {
+          "openness": 0.25,
+          "conscientiousness": 0.183,
+          "extraversion": -0.067,
+          "agreeableness": 0.008,
+          "neuroticism": -0.05
+        }
+      },
+      "stoic_pragmatist": {
+        "n_sessions": 12,
+        "mean_accuracy": 0.863,
+        "std_accuracy": 0.051,
+        "min_accuracy": 0.78,
+        "trait_mae": {
+          "openness": 0.158,
+          "conscientiousness": 0.2,
+          "extraversion": 0.083,
+          "agreeableness": 0.075,
+          "neuroticism": 0.167
+        },
+        "trait_bias": {
+          "openness": 0.158,
+          "conscientiousness": 0.1,
+          "extraversion": -0.017,
+          "agreeableness": 0.058,
+          "neuroticism": 0.167
+        }
+      },
+      "stressed_reactor": {
+        "n_sessions": 12,
+        "mean_accuracy": 0.893,
+        "std_accuracy": 0.03,
+        "min_accuracy": 0.84,
+        "trait_mae": {
+          "openness": 0.15,
+          "conscientiousness": 0.092,
+          "extraversion": 0.1,
+          "agreeableness": 0.117,
+          "neuroticism": 0.075
+        },
+        "trait_bias": {
+          "openness": -0.15,
+          "conscientiousness": 0.058,
+          "extraversion": 0.067,
+          "agreeableness": 0.117,
+          "neuroticism": -0.075
+        }
+      }
+    },
+    "scenario_breakdown": {
+      "credit_dispute": {
+        "n_sessions": 36,
+        "mean_accuracy": 0.877,
+        "std_accuracy": 0.042
+      },
+      "deadline_pressure": {
+        "n_sessions": 36,
+        "mean_accuracy": 0.872,
+        "std_accuracy": 0.04
+      },
+      "process_change": {
+        "n_sessions": 36,
+        "mean_accuracy": 0.889,
+        "std_accuracy": 0.043
+      },
+      "resource_conflict": {
+        "n_sessions": 36,
+        "mean_accuracy": 0.878,
+        "std_accuracy": 0.04
+      }
+    },
+    "weak_spots": {
+      "worst_profiles": [
+        [
+          "creative_maverick",
+          0.855
+        ],
+        [
+          "social_butterfly",
+          0.855
+        ],
+        [
+          "stoic_pragmatist",
+          0.863
+        ]
+      ],
+      "weakest_traits": [
+        [
+          "conscientiousness",
+          0.666
+        ],
+        [
+          "openness",
+          0.739
+        ]
+      ],
+      "high_error_profile_traits": {
+        "assertive_challenger": {
+          "trait": "openness",
+          "mae": 0.242
+        },
+        "balanced_leader": {
+          "trait": "conscientiousness",
+          "mae": 0.183
+        },
+        "cautious_skeptic": {
+          "trait": "neuroticism",
+          "mae": 0.25
+        },
+        "creative_maverick": {
+          "trait": "agreeableness",
+          "mae": 0.233
+        },
+        "enthusiastic_innovator": {
+          "trait": "neuroticism",
+          "mae": 0.183
+        },
+        "harmonious_mediator": {
+          "trait": "neuroticism",
+          "mae": 0.158
+        },
+        "meticulous_planner": {
+          "trait": "neuroticism",
+          "mae": 0.2
+        },
+        "quiet_analyst": {
+          "trait": "openness",
+          "mae": 0.183
+        },
+        "social_butterfly": {
+          "trait": "openness",
+          "mae": 0.25
+        },
+        "stoic_pragmatist": {
+          "trait": "conscientiousness",
+          "mae": 0.2
+        }
+      }
+    }
+  },
+  "inter_judge_agreement": {
+    "n_judges": 3,
+    "judges": [
+      "google_gemini-2.5-flash",
+      "x-ai_grok-4.1-fast",
+      "deepseek_deepseek-chat-v3-0324"
+    ],
+    "n_common_sessions": 144,
+    "per_trait": {
+      "openness": {
+        "mean_pairwise_r": 0.841,
+        "mean_pairwise_mad": 0.128
+      },
+      "conscientiousness": {
+        "mean_pairwise_r": 0.71,
+        "mean_pairwise_mad": 0.116
+      },
+      "extraversion": {
+        "mean_pairwise_r": 0.826,
+        "mean_pairwise_mad": 0.115
+      },
+      "agreeableness": {
+        "mean_pairwise_r": 0.824,
+        "mean_pairwise_mad": 0.138
+      },
+      "neuroticism": {
+        "mean_pairwise_r": 0.823,
+        "mean_pairwise_mad": 0.124
+      }
+    },
+    "overall_mean_pairwise_r": 0.805,
+    "overall_mean_pairwise_mad": 0.124
+  }
+}

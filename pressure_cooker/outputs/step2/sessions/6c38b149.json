@@ -1,0 +1,32 @@
+{
+  "participant_id": "P045",
+  "engine_state": {
+    "session_id": "6c38b149",
+    "scenario_id": "techflow",
+    "participant_name": "Alex",
+    "state": "active",
+    "start_time": 1770775741.7393832,
+    "turn_counter": 1,
+    "warned_time": false,
+    "wrapping_up": false,
+    "turns": [
+      {
+        "turn_number": 0,
+        "speaker": "system",
+        "speaker_name": "Facilitator",
+        "content": "TechFlow is a B2B SaaS company with $12M ARR currently facing declining margins. The team needs to identify ways to improve profitability by 5 percentage points.",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "6c38b149"
+        }
+      }
+    ],
+    "tension_history": [],
+    "revealed_categories": [],
+    "human_question_count": 0,
+    "engagement_nudge_sent": false
+  },
+  "case_study_id": "techflow"
+}
