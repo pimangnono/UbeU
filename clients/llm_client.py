@@ -1,12 +1,18 @@
 """
-LLM Client for V3 Platform.
+LLM Client for V4 Platform.
 Implements OpenRouter API integration using OpenAI-compatible SDK.
-Default model: DeepSeek V3 (deepseek/deepseek-chat-v3-0324)
 
-Based on pressure_cooker implementation.
+V4 additions:
+- Multi-model support for ensemble evaluation (DeepSeek, Gemini, Grok)
+- generate_with_model() for explicit model selection
+- Exponential backoff retry (max 3 attempts)
+- Graceful degradation: if one model fails, continue with remaining
+
+Default agent model: DeepSeek V3 (deepseek/deepseek-chat-v3-0324)
 """
 
 import asyncio
+import logging
 import os
 from dataclasses import dataclass, field
 from enum import Enum
@@ -21,6 +27,8 @@ except ImportError:
     AsyncOpenAI = None
 
 load_dotenv()
+
+logger = logging.getLogger(__name__)
 
 
 class ModelTier(str, Enum):
@@ -101,8 +109,16 @@ class LLMClient:
         self.pro_model_name = pro_model or os.getenv("LLM_PRO_MODEL", "deepseek/deepseek-chat-v3-0324")
         self.flash_model_name = flash_model or os.getenv("LLM_FLASH_MODEL", "deepseek/deepseek-chat-v3-0324")
 
+        # Ensemble models (Phase 3: true multi-model evaluation)
+        self.ensemble_models = [
+            os.getenv("ENSEMBLE_MODEL_1", "deepseek/deepseek-chat-v3-0324"),
+            os.getenv("ENSEMBLE_MODEL_2", "google/gemini-2.5-flash"),
+            os.getenv("ENSEMBLE_MODEL_3", "x-ai/grok-4.1-fast"),
+        ]
+
         self.rate_limiter = RateLimiter(rpm_limit=rpm_limit)
         self.total_requests = 0
+        self.retry_attempts = 3
 
     def _get_model_name(self, tier: ModelTier) -> str:
         """Get model name for the specified tier."""
@@ -213,12 +229,120 @@ class LLMClient:
             self.total_requests += 1
             raise
 
+    async def generate_with_model(
+        self,
+        model: str,
+        prompt: str,
+        system_instruction: Optional[str] = None,
+        temperature: float = 0.3,
+        max_tokens: int = 1000,
+    ) -> str:
+        """
+        Generate a response using a specific model name (for ensemble evaluation).
+
+        Includes exponential backoff retry (max 3 attempts).
+
+        Args:
+            model: Full model identifier (e.g. "deepseek/deepseek-chat-v3-0324")
+            prompt: The user prompt
+            system_instruction: Optional system instruction
+            temperature: Generation temperature
+            max_tokens: Maximum tokens in response
+
+        Returns:
+            Generated text response
+        """
+        messages = []
+        if system_instruction:
+            messages.append({"role": "system", "content": system_instruction})
+        messages.append({"role": "user", "content": prompt})
+
+        last_error = None
+        for attempt in range(self.retry_attempts):
+            try:
+                await self.rate_limiter.wait_if_needed()
+
+                response = await asyncio.wait_for(
+                    self.client.chat.completions.create(
+                        model=model,
+                        messages=messages,
+                        temperature=temperature,
+                        max_tokens=max_tokens,
+                    ),
+                    timeout=120.0,
+                )
+
+                self.rate_limiter.record_request()
+                self.total_requests += 1
+
+                content = response.choices[0].message.content
+                return content if content else ""
+
+            except Exception as e:
+                last_error = e
+                self.rate_limiter.record_request()
+                self.total_requests += 1
+
+                if attempt < self.retry_attempts - 1:
+                    wait_time = 2 ** attempt  # 1s, 2s, 4s
+                    logger.warning(f"Model {model} attempt {attempt + 1} failed: {e}. Retrying in {wait_time}s...")
+                    await asyncio.sleep(wait_time)
+                else:
+                    logger.error(f"Model {model} failed after {self.retry_attempts} attempts: {e}")
+
+        raise last_error
+
+    async def generate_ensemble(
+        self,
+        prompt: str,
+        system_instruction: Optional[str] = None,
+        temperature: float = 0.3,
+        max_tokens: int = 1000,
+    ) -> list[tuple[str, str]]:
+        """
+        Send the same prompt to all ensemble models in parallel.
+
+        Returns:
+            List of (model_name, response) tuples for successful models.
+            If a model fails, it is excluded from results.
+        """
+        async def _call_model(model: str) -> tuple[str, Optional[str]]:
+            try:
+                response = await self.generate_with_model(
+                    model=model,
+                    prompt=prompt,
+                    system_instruction=system_instruction,
+                    temperature=temperature,
+                    max_tokens=max_tokens,
+                )
+                return (model, response)
+            except Exception as e:
+                logger.error(f"Ensemble model {model} failed: {e}")
+                return (model, None)
+
+        results = await asyncio.gather(*[
+            _call_model(model) for model in self.ensemble_models
+        ])
+
+        # Filter out failures
+        successful = [(model, resp) for model, resp in results if resp is not None]
+
+        if not successful:
+            raise RuntimeError("All ensemble models failed")
+
+        if len(successful) < len(self.ensemble_models):
+            failed = [model for model, resp in results if resp is None]
+            logger.warning(f"Ensemble degraded: {len(successful)}/{len(self.ensemble_models)} models succeeded. Failed: {failed}")
+
+        return successful
+
     def get_stats(self) -> dict:
         """Get client statistics."""
         return {
             "total_requests": self.total_requests,
             "pro_model": self.pro_model_name,
             "flash_model": self.flash_model_name,
+            "ensemble_models": self.ensemble_models,
         }
 
 
@@ -233,6 +357,8 @@ class MockLLMClient:
         self.responses = responses or {}
         self.total_requests = 0
         self.call_log: list[dict] = []
+        self.ensemble_models = ["mock-model-1", "mock-model-2", "mock-model-3"]
+        self.retry_attempts = 3
 
     async def generate(
         self,
@@ -278,12 +404,35 @@ class MockLLMClient:
         last_content = messages[-1]["content"] if messages else ""
         return await self.generate(last_content, system_instruction, temperature, max_tokens, tier)
 
+    async def generate_with_model(
+        self,
+        model: str,
+        prompt: str,
+        system_instruction: Optional[str] = None,
+        temperature: float = 0.3,
+        max_tokens: int = 1000,
+    ) -> str:
+        """Mock generate_with_model."""
+        return await self.generate(prompt, system_instruction, temperature, max_tokens)
+
+    async def generate_ensemble(
+        self,
+        prompt: str,
+        system_instruction: Optional[str] = None,
+        temperature: float = 0.3,
+        max_tokens: int = 1000,
+    ) -> list[tuple[str, str]]:
+        """Mock ensemble generation."""
+        response = await self.generate(prompt, system_instruction, temperature, max_tokens)
+        return [(model, response) for model in self.ensemble_models]
+
     def get_stats(self) -> dict:
         """Get mock client statistics."""
         return {
             "total_requests": self.total_requests,
             "pro_model": "mock-pro",
             "flash_model": "mock-flash",
+            "ensemble_models": self.ensemble_models,
         }
 
 

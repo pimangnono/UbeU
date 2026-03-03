@@ -1,37 +1,26 @@
 """
 Group Engine: Mode 2 - 1-to-Many Group Discussion for Personality Assessment.
 
-Implements an AI-simulated Leaderless Group Discussion (LGD), a well-established
-Assessment Center method for observing interpersonal behavior.
+V4: Thin wrapper around A2A Moderator. Session lifecycle, timer, and stats
+remain here. AI turn generation delegated to Moderator agent.
 
 Key Features:
-- 3 AI agents with fixed, known personality profiles (Alex, Jordan, Riley)
-- Phase-based discussion flow (DialogLab-inspired snippets)
-- Trait-elicitation-driven speaker selection
-- Real-time behavioral signal tracking
-
-What Mode 2 Assesses:
-- Openness (engagement with novel ideas)
-- Conscientiousness (organization, follow-through)
-- Extraversion (initiation, elaboration)
-- Agreeableness (conflict handling, accommodation)
-- Neuroticism (stress response, composure)
-
-What Mode 2 Does NOT Assess:
-- Logical reasoning (delegated to Mode 1)
-- Quantitative ability (delegated to Mode 1)
+- 3 AI agents with fixed personality profiles (Alex, Jordan, Riley)
+- A2A Moderator orchestrates turn-taking and trait coverage
+- Phase-based discussion flow
+- Per-turn Supabase persistence (crash recovery)
 """
 
 import time
+import logging
 from datetime import datetime
 from typing import Optional, TYPE_CHECKING
 
 from engines.base_engine import BaseEngine
-from agents.group_agents import create_group_agents, GroupAgent
-from agents.trait_selector import (
-    TraitElicitationSelector,
-    analyze_turn_for_traits,
-)
+from agents.group_agents import create_group_agents
+from agents.moderator import Moderator
+from agents.registry import AgentRegistry
+from agents.trait_selector import TraitElicitationSelector
 from utils.models import (
     Turn,
     SpeakerRole,
@@ -47,12 +36,14 @@ from utils.models import (
 if TYPE_CHECKING:
     from clients.llm_client import LLMClient
 
+logger = logging.getLogger(__name__)
+
 
 class GroupEngine(BaseEngine):
     """
     Engine for 1-to-many group discussions (Mode 2).
 
-    The candidate interacts with three AI agents:
+    The candidate interacts with three AI agents orchestrated by the Moderator:
     - Alex: Assertive Challenger (High E, Low A)
     - Jordan: Supportive Collaborator (High A, High E)
     - Riley: Quiet Skeptic (Low E, Low O)
@@ -77,8 +68,16 @@ class GroupEngine(BaseEngine):
         self.agents = create_group_agents(client, scenario.brief)
         self.agent_names = ["Alex", "Jordan", "Riley"]
 
-        # Trait elicitation selector
-        self.trait_selector = TraitElicitationSelector()
+        # A2A infrastructure
+        self.trait_selector = TraitElicitationSelector(client=client)
+        self.registry = AgentRegistry()
+        self.moderator = Moderator(
+            agents=self.agents,
+            trait_selector=self.trait_selector,
+            registry=self.registry,
+            scenario_brief=scenario.brief,
+            client=client,
+        )
 
         # Phase tracking
         self.current_phase_index = 0
@@ -111,16 +110,10 @@ class GroupEngine(BaseEngine):
         return self.scenario.phases[-1]
 
     async def generate_opening(self) -> list[Turn]:
-        """
-        Generate the group discussion introduction.
-
-        Jordan (supportive) typically opens by introducing the scenario
-        and inviting everyone to share their thoughts.
-        """
+        """Generate the group discussion introduction (Jordan opens)."""
         self.start_session()
         opening_turns = []
 
-        # Jordan introduces the scenario
         jordan = self.agents["Jordan"]
         context = f"""This is the start of a group discussion. Introduce the scenario to the group:
 
@@ -134,18 +127,12 @@ Mention the key decision the group needs to make."""
         self.turns.append(turn)
         opening_turns.append(turn)
 
-        # Update all agents with the opening
         self._sync_agent_histories()
-
         self.mark_active()
         return opening_turns
 
     async def submit_candidate_turn(self, content: str) -> None:
-        """
-        Record the candidate's response.
-
-        Also extracts behavioral signals for real-time trait coverage tracking.
-        """
+        """Record the candidate's response and extract behavioral signals."""
         turn = self._create_turn(
             SpeakerRole.CANDIDATE,
             self.participant_name,
@@ -156,15 +143,13 @@ Mention the key decision the group needs to make."""
         # Track behavioral statistics
         self._analyze_candidate_turn(content)
 
-        # Extract trait signals and update coverage
-        signals = analyze_turn_for_traits(content)
-        for trait, confidence in signals:
-            self.trait_selector.update_coverage(trait, confidence)
+        # Update quality metrics
+        self.moderator.record_candidate_turn(content)
 
-        # Update all agents with the new turn
+        # Extract trait signals via LLM (keyword fallback) and update coverage
+        await self.moderator.analyze_candidate_traits(content)
+
         self._sync_agent_histories()
-
-        # Check phase progression
         self._check_phase_progression()
 
     def _analyze_candidate_turn(self, content: str):
@@ -173,26 +158,21 @@ Mention the key decision the group needs to make."""
         word_count = len(content.split())
         self._candidate_word_count += word_count
 
-        # Track name mentions
         for name in ["alex", "jordan", "riley"]:
             if name in content_lower:
                 self._name_mentions += 1
 
-        # Track questions
         if "?" in content:
             self._questions_asked += 1
 
-        # Track disagreement
         disagreement_phrases = ["i disagree", "i don't think", "that won't work", "no,", "but actually"]
         if any(phrase in content_lower for phrase in disagreement_phrases):
             self._disagreements += 1
 
-        # Track acknowledgments
         acknowledgment_phrases = ["good point", "i agree", "that's right", "exactly", "i like that"]
         if any(phrase in content_lower for phrase in acknowledgment_phrases):
             self._acknowledgments += 1
 
-        # Track new ideas
         idea_phrases = ["what if", "we could", "how about", "another option", "alternatively"]
         if any(phrase in content_lower for phrase in idea_phrases):
             self._new_ideas += 1
@@ -200,7 +180,6 @@ Mention the key decision the group needs to make."""
     def _check_phase_progression(self):
         """Check if we should advance to the next phase."""
         self.turns_in_current_phase += 1
-
         current_config = self.current_phase_config
         if self.turns_in_current_phase >= current_config.turns:
             if self.current_phase_index < len(self.scenario.phases) - 1:
@@ -209,24 +188,23 @@ Mention the key decision the group needs to make."""
 
     async def generate_ai_response(self) -> list[Turn]:
         """
-        Generate AI agent response(s).
+        Generate AI agent response(s) via A2A Moderator dispatch.
 
-        The trait elicitation selector chooses which agent speaks based on
-        which personality traits have been insufficiently observed.
+        Moderator selects speaker based on trait coverage, dispatches task,
+        agent generates independently.
         """
         ai_turns = []
 
-        # Check for time warnings
+        # Time warnings
         if self.should_warn_time:
             minutes_left = int(self.remaining_seconds / 60)
-            # Jordan delivers time warning (more natural)
             warning = f"Just a heads up, we have about {minutes_left} minutes left. We should start wrapping up our discussion."
             turn = self._create_turn(SpeakerRole.JORDAN, "Jordan", warning)
             self.turns.append(turn)
             ai_turns.append(turn)
             self.mark_warned()
 
-        # Check for wrap-up
+        # Wrap-up
         if self.should_wrap_up:
             closing = await self._generate_closing_turn()
             self.turns.append(closing)
@@ -234,110 +212,49 @@ Mention the key decision the group needs to make."""
             self.mark_wrapping_up()
             return ai_turns
 
-        # Check if time expired
+        # Time expired
         if self.is_time_expired:
             self.end_session()
             return ai_turns
 
-        # Get candidate's last turn for context
-        candidate_turns = self.get_candidate_turns()
-        last_content = candidate_turns[-1].content if candidate_turns else ""
-
-        # Select next speaker based on trait coverage needs
-        next_speaker = self.trait_selector.select_next_speaker(
-            self.current_phase,
-            last_content,
+        # Delegate to Moderator (A2A dispatch)
+        phase_config = self.current_phase_config
+        speaker_name, response_text, latency = await self.moderator.dispatch_turn(
+            turns=self.turns,
+            current_phase=self.current_phase,
+            phase_style=phase_config.style,
+            phase_goal=phase_config.goal,
         )
 
-        # Track LLM latency
-        start_time = time.time()
-
-        # Generate response from selected agent
-        agent = self.agents[next_speaker]
-        phase_style = self.current_phase_config.style
-
-        # Build context for the agent
-        context = self._build_agent_context(next_speaker, last_content)
-        response = await agent.generate_response(context, phase_style)
-
-        # Compensate for latency
-        latency = time.time() - start_time
+        # Compensate for LLM latency
         self.add_llm_wait_time(latency)
 
-        # Create turn with appropriate role
-        role = SpeakerRole[next_speaker.upper()]
-        turn = self._create_turn(role, next_speaker, response)
+        # Create turn
+        role = SpeakerRole[speaker_name.upper()]
+        turn = self._create_turn(role, speaker_name, response_text)
         self.turns.append(turn)
         ai_turns.append(turn)
-
-        # Update all agents
         self._sync_agent_histories()
 
-        # Sometimes add a second response (especially from Riley if they haven't spoken)
-        if self._should_add_second_response(next_speaker):
-            second_turn = await self._generate_second_response(next_speaker)
-            if second_turn:
+        # Check for second response (Moderator decides)
+        second_speaker = self.moderator.should_add_second_response(
+            speaker_name, self.turns, phase_config.style,
+        )
+        if second_speaker:
+            # Sync history before second agent generates
+            self._sync_agent_histories()
+            second_response, second_latency = await self.moderator.dispatch_second_turn(
+                second_speaker, self.turns,
+            )
+            if second_response:
+                self.add_llm_wait_time(second_latency)
+                second_role = SpeakerRole[second_speaker.upper()]
+                second_turn = self._create_turn(second_role, second_speaker, second_response)
                 self.turns.append(second_turn)
                 ai_turns.append(second_turn)
                 self._sync_agent_histories()
 
         return ai_turns
-
-    def _build_agent_context(self, speaker: str, last_candidate_content: str) -> str:
-        """Build context for the AI agent response."""
-        phase_config = self.current_phase_config
-        context_parts = []
-
-        if last_candidate_content:
-            context_parts.append(f"The candidate just said: \"{last_candidate_content}\"")
-
-        if phase_config.goal:
-            context_parts.append(f"Current goal: {phase_config.goal}")
-
-        # Add phase-specific triggers
-        if phase_config.trigger and self.current_phase.value == "conflict":
-            context_parts.append(f"Trigger: {phase_config.trigger}")
-
-        return "\n".join(context_parts) if context_parts else ""
-
-    def _should_add_second_response(self, first_speaker: str) -> bool:
-        """Decide if we should add a second AI response."""
-        # Don't chain too many AI responses
-        recent_ai_turns = sum(
-            1 for t in self.turns[-5:]
-            if t.speaker_role != SpeakerRole.CANDIDATE
-        )
-        if recent_ai_turns >= 2:
-            return False
-
-        # If first speaker was Alex (challenging), Jordan might support candidate
-        if first_speaker == "Alex" and self.current_phase_config.style == "disagreement":
-            return True
-
-        # If Riley hasn't spoken much, include them
-        riley_turns = sum(1 for t in self.turns if t.speaker_name == "Riley")
-        total_ai_turns = sum(1 for t in self.turns if t.speaker_role != SpeakerRole.CANDIDATE)
-        if total_ai_turns > 6 and riley_turns < 2:
-            return True
-
-        return False
-
-    async def _generate_second_response(self, first_speaker: str) -> Optional[Turn]:
-        """Generate a second AI response."""
-        # Pick a different speaker
-        if first_speaker == "Alex":
-            second_speaker = "Jordan"
-        elif first_speaker == "Jordan":
-            second_speaker = "Riley"
-        else:
-            second_speaker = "Jordan"
-
-        agent = self.agents[second_speaker]
-        context = "Add a brief comment or reaction to the ongoing discussion."
-        response = await agent.generate_response(context, "neutral")
-
-        role = SpeakerRole[second_speaker.upper()]
-        return self._create_turn(role, second_speaker, response)
 
     async def _generate_closing_turn(self) -> Turn:
         """Generate a closing turn from Jordan."""
@@ -358,11 +275,9 @@ capture any consensus or remaining disagreements. Keep it brief (2-3 sentences).
         candidate_turn_count = len(candidate_turns)
         avg_words = self._candidate_word_count / candidate_turn_count if candidate_turn_count else 0
 
-        # Calculate phase engagement
         phase_engagement = {}
         for phase in self.scenario.phases:
-            # Simple heuristic: check candidate activity in each phase
-            phase_engagement[phase.name] = "medium"  # Default
+            phase_engagement[phase.name] = "medium"
 
         return GroupSessionStats(
             total_duration_seconds=int(self.elapsed_seconds),
@@ -380,7 +295,7 @@ capture any consensus or remaining disagreements. Keep it brief (2-3 sentences).
 
     def to_session_output(self) -> SessionOutput:
         """Convert session to output format."""
-        return SessionOutput(
+        output = SessionOutput(
             session_id=self.session_id,
             participant_id=self.participant_id,
             participant_name=self.participant_name,
@@ -391,6 +306,9 @@ capture any consensus or remaining disagreements. Keep it brief (2-3 sentences).
             turns=self.turns,
             group_stats=self.compute_session_stats(),
         )
+        # Attach quality flags from moderator
+        output.quality_flags = self.moderator.get_quality_flags()
+        return output
 
     def get_trait_coverage(self) -> dict[str, float]:
         """Get current trait coverage from the selector."""

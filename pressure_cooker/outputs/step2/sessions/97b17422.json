@@ -1,0 +1,134 @@
+{
+  "participant_id": "P053",
+  "engine_state": {
+    "session_id": "97b17422",
+    "scenario_id": "techflow",
+    "participant_name": "Alex",
+    "state": "ended",
+    "start_time": 1770797789.0807672,
+    "turn_counter": 9,
+    "warned_time": true,
+    "wrapping_up": true,
+    "turns": [
+      {
+        "turn_number": 0,
+        "speaker": "system",
+        "speaker_name": "Facilitator",
+        "content": "\"Let me set up our case. TechFlow is a B2B SaaS company with $12M in ARR facing declining margins. Our goal is to improve profitability by 5 percentage points.\"",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "97b17422"
+        }
+      },
+      {
+        "turn_number": 1,
+        "speaker": "candidate",
+        "speaker_name": "Alex",
+        "content": "our major revenue comes from subscription and is increasing. but margin is decreasing so let's focus on cost ",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "97b17422"
+        }
+      },
+      {
+        "turn_number": 2,
+        "speaker": "system",
+        "speaker_name": "Facilitator",
+        "content": "\"Alex makes a good point about cost focus. With our remaining time, let's quickly brainstorm 2-3 highest impact cost levers we could pull.\"",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "97b17422"
+        }
+      },
+      {
+        "turn_number": 3,
+        "speaker": "mediator",
+        "speaker_name": "Sam",
+        "content": "Great cost focus, Alex. Based on the case data, SMB support costs seem disproportionately high - maybe we should start by analyzing that segment's profitability?",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "97b17422"
+        }
+      },
+      {
+        "turn_number": 4,
+        "speaker": "provoker",
+        "speaker_name": "Jordan",
+        "content": "We're bleeding cash on SMBs with negative margins - why are we even discussing support costs when we should be exiting this segment entirely? The data shows SMB LTV:CAC is below 3x and dragging down overall profitability.",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "97b17422"
+        }
+      },
+      {
+        "turn_number": 5,
+        "speaker": "candidate",
+        "speaker_name": "Alex",
+        "content": "yes Jordan you are correct. we have high costs for customer supports for smb. what did you find sam?",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "97b17422"
+        }
+      },
+      {
+        "turn_number": 6,
+        "speaker": "system",
+        "speaker_name": "Facilitator",
+        "content": "\"Let's summarize: SMB segment appears unprofitable with high support costs. Time's limited - should we recommend exiting SMBs to hit our 5% margin target?\"",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "97b17422"
+        }
+      },
+      {
+        "turn_number": 7,
+        "speaker": "mediator",
+        "speaker_name": "Sam",
+        "content": "I hear both perspectives - Jordan's right about the concerning LTV:CAC ratio, but Alex raises valid points about support costs. Maybe we could quantify the margin impact of exiting SMBs versus optimizing their support costs first?",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.4,
+        "metadata": {
+          "session_id": "97b17422"
+        }
+      },
+      {
+        "turn_number": 8,
+        "speaker": "system",
+        "speaker_name": "Facilitator",
+        "content": "\"Time's up - great discussion everyone. Key takeaways: SMB segment is unprofitable with high support costs and poor LTV:CAC, presenting a clear opportunity to improve margins through either segment exit or support optimization.\"",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.4,
+        "metadata": {
+          "session_id": "97b17422"
+        }
+      }
+    ],
+    "tension_history": [
+      0.4
+    ],
+    "revealed_categories": [
+      "customer_segments",
+      "revenue",
+      "costs"
+    ],
+    "human_question_count": 1,
+    "engagement_nudge_sent": false
+  },
+  "case_study_id": "techflow"
+}

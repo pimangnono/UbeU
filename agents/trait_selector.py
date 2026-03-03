@@ -1,18 +1,30 @@
 """
 Trait Elicitation Selector: Strategic speaker selection for Mode 2.
 
+V4: LLM-based trait analysis with keyword fallback.
+
 Selects the next AI speaker based on which personality traits have been
 insufficiently observed so far. This maximizes trait coverage during the
 limited discussion time.
 
-Inspired by DialogLab's speaker selection in multi-party settings and
-the competency-driven routing from Step 2.
+Key additions in Phase 4:
+- analyze_turn_with_llm(): LLM-based trait signal extraction (DeepSeek)
+- Elicitation strategies per trait (agent + approach description)
+- get_elicitation_goal(): Returns a natural-language hint for the agent
+- Keyword-based analyze_turn_for_traits() retained as fallback
 """
 
-from typing import Optional
+import json
+import logging
+from typing import Optional, TYPE_CHECKING
 from dataclasses import dataclass, field
 
 from utils.models import BigFiveTrait, DiscussionPhase
+
+if TYPE_CHECKING:
+    from clients.llm_client import LLMClient
+
+logger = logging.getLogger(__name__)
 
 
 @dataclass
@@ -34,6 +46,26 @@ class TraitCoverage:
             BigFiveTrait.NEUROTICISM: self.neuroticism,
         }
         return min(scores, key=scores.get)
+
+    def get_gaps(self, threshold: float = 0.4) -> list[BigFiveTrait]:
+        """Get traits below the observation threshold, sorted weakest first."""
+        scores = {
+            BigFiveTrait.OPENNESS: self.openness,
+            BigFiveTrait.CONSCIENTIOUSNESS: self.conscientiousness,
+            BigFiveTrait.EXTRAVERSION: self.extraversion,
+            BigFiveTrait.AGREEABLENESS: self.agreeableness,
+            BigFiveTrait.NEUROTICISM: self.neuroticism,
+        }
+        gaps = [(t, s) for t, s in scores.items() if s < threshold]
+        gaps.sort(key=lambda x: x[1])
+        return [t for t, _ in gaps]
+
+    def mean_coverage(self) -> float:
+        """Average coverage across all five traits."""
+        return (
+            self.openness + self.conscientiousness + self.extraversion
+            + self.agreeableness + self.neuroticism
+        ) / 5.0
 
     def update(self, trait: BigFiveTrait, confidence: float):
         """Update observation confidence for a trait."""
@@ -70,22 +102,67 @@ PHASE_DEFAULTS = {
     DiscussionPhase.CLOSING: "Jordan",       # Wrap up warmly
 }
 
+# Elicitation strategies: trait → (primary_agent, strategy description for agent prompt)
+ELICITATION_STRATEGIES = {
+    BigFiveTrait.OPENNESS: {
+        "primary": "Jordan",
+        "secondary": "Riley",
+        "strategy": "Propose an unconventional or creative solution and invite the candidate to react.",
+    },
+    BigFiveTrait.CONSCIENTIOUSNESS: {
+        "primary": "Riley",
+        "secondary": "Jordan",
+        "strategy": "Ask about planning details, timelines, or how they would organize the next steps.",
+    },
+    BigFiveTrait.EXTRAVERSION: {
+        "primary": "Alex",
+        "secondary": "Riley",
+        "strategy": "Create a brief pause or ask the candidate directly for their opinion to see if they take initiative.",
+    },
+    BigFiveTrait.AGREEABLENESS: {
+        "primary": "Jordan",
+        "secondary": "Alex",
+        "strategy": "Present a mild disagreement or tension point and observe if the candidate mediates or takes sides.",
+    },
+    BigFiveTrait.NEUROTICISM: {
+        "primary": "Alex",
+        "secondary": "Riley",
+        "strategy": "Apply mild pressure by pointing out a risk or tight constraint to see how the candidate handles stress.",
+    },
+}
+
+# LLM prompt for real-time trait analysis
+_TRAIT_ANALYSIS_PROMPT = """Analyze this candidate response from a group discussion for Big Five (OCEAN) personality trait signals.
+
+Candidate said: "{content}"
+
+For each trait where you detect a signal, provide a confidence score (0.0 to 1.0).
+Only include traits where there is a clear signal. A score near 0.5 means ambiguous.
+High score (>0.6) = strong presence of trait. Low score (<0.4) = low presence of trait.
+
+Respond ONLY with valid JSON, no explanation:
+{{"openness": 0.0, "conscientiousness": 0.0, "extraversion": 0.0, "agreeableness": 0.0, "neuroticism": 0.0}}
+
+Set a trait to null if no signal detected."""
+
 
 class TraitElicitationSelector:
     """
     Selects the next AI speaker based on trait coverage needs.
 
-    Strategy:
-    1. Find the least-observed trait
-    2. Select the agent that best elicits that trait
-    3. Avoid same speaker twice in a row
-    4. Fall back to phase-appropriate default if needed
+    V4 Strategy:
+    1. LLM analyzes candidate turns for trait signals (keyword fallback)
+    2. Find the least-observed trait(s)
+    3. Select the agent + elicitation strategy for that trait
+    4. Avoid same speaker twice in a row
+    5. Fall back to phase-appropriate default if needed
     """
 
-    def __init__(self):
+    def __init__(self, client: "LLMClient | None" = None):
         self.coverage = TraitCoverage()
         self.last_speaker: Optional[str] = None
         self.speaker_history: list[str] = []
+        self.client = client  # Optional LLM client for smart analysis
 
     def select_next_speaker(
         self,
@@ -124,6 +201,27 @@ class TraitElicitationSelector:
         self.last_speaker = preferred
         self.speaker_history.append(preferred)
         return preferred
+
+    def get_elicitation_goal(self, speaker_name: str) -> Optional[str]:
+        """
+        Get a natural-language elicitation goal for the selected speaker.
+
+        Returns a hint the agent should incorporate naturally, or None
+        if no specific trait needs probing.
+        """
+        gaps = self.coverage.get_gaps(threshold=0.4)
+        if not gaps:
+            return None
+
+        # Find a gap trait where this speaker is the primary or secondary agent
+        for trait in gaps:
+            strategy = ELICITATION_STRATEGIES[trait]
+            if speaker_name in (strategy["primary"], strategy["secondary"]):
+                return strategy["strategy"]
+
+        # If no direct match, return strategy for the weakest trait anyway
+        weakest = gaps[0]
+        return ELICITATION_STRATEGIES[weakest]["strategy"]
 
     def _get_alternate_for_trait(self, trait: BigFiveTrait) -> str:
         """Get an alternate agent that can also elicit the trait."""
@@ -167,12 +265,65 @@ class TraitElicitationSelector:
         self.speaker_history = []
 
 
+async def analyze_turn_with_llm(
+    client: "LLMClient",
+    turn_content: str,
+) -> list[tuple[BigFiveTrait, float]]:
+    """
+    LLM-based trait analysis of a candidate turn.
+
+    Sends the candidate's message to DeepSeek for OCEAN scoring.
+    Falls back to keyword analysis if LLM call fails.
+
+    Returns list of (trait, confidence) tuples.
+    """
+    try:
+        prompt = _TRAIT_ANALYSIS_PROMPT.format(content=turn_content[:500])
+        response = await client.generate(
+            prompt=prompt,
+            system_instruction="You are a personality psychology expert. Respond only with JSON.",
+            temperature=0.1,
+            max_tokens=120,
+        )
+
+        # Parse JSON response
+        cleaned = response.strip()
+        if cleaned.startswith("```"):
+            cleaned = cleaned.split("\n", 1)[-1].rsplit("```", 1)[0].strip()
+
+        scores = json.loads(cleaned)
+        signals = []
+        trait_map = {
+            "openness": BigFiveTrait.OPENNESS,
+            "conscientiousness": BigFiveTrait.CONSCIENTIOUSNESS,
+            "extraversion": BigFiveTrait.EXTRAVERSION,
+            "agreeableness": BigFiveTrait.AGREEABLENESS,
+            "neuroticism": BigFiveTrait.NEUROTICISM,
+        }
+
+        for key, trait in trait_map.items():
+            value = scores.get(key)
+            if value is not None and isinstance(value, (int, float)):
+                score = max(0.0, min(1.0, float(value)))
+                signals.append((trait, score))
+
+        if signals:
+            logger.debug(f"LLM trait analysis: {len(signals)} signals detected")
+            return signals
+
+    except Exception as e:
+        logger.warning(f"LLM trait analysis failed, falling back to keywords: {e}")
+
+    # Fallback to keyword-based analysis
+    return analyze_turn_for_traits(turn_content)
+
+
 def analyze_turn_for_traits(turn_content: str) -> list[tuple[BigFiveTrait, float]]:
     """
     Quick rule-based analysis of a turn for trait signals.
 
     Returns list of (trait, confidence) tuples for observed signals.
-    This is a fast heuristic - deep analysis is done post-session.
+    This is a fast heuristic used as fallback when LLM analysis fails.
     """
     signals = []
     content_lower = turn_content.lower()

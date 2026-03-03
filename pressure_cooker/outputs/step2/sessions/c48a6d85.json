@@ -1,0 +1,32 @@
+{
+  "participant_id": "P042",
+  "engine_state": {
+    "session_id": "c48a6d85",
+    "scenario_id": "greenleaf",
+    "participant_name": "Alex",
+    "state": "active",
+    "start_time": 1770774575.5822904,
+    "turn_counter": 1,
+    "warned_time": false,
+    "wrapping_up": false,
+    "turns": [
+      {
+        "turn_number": 0,
+        "speaker": "system",
+        "speaker_name": "Facilitator",
+        "content": "GreenLeaf is a regional organic food brand with $8M revenue considering national expansion. The key decision is whether to enter through retail or direct-to-consumer channels.  \n\n[Stops speaking]",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "c48a6d85"
+        }
+      }
+    ],
+    "tension_history": [],
+    "revealed_categories": [],
+    "human_question_count": 0,
+    "engagement_nudge_sent": false
+  },
+  "case_study_id": "greenleaf"
+}

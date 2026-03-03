@@ -1,0 +1,377 @@
+{
+  "metadata": {
+    "session_id": "97b17422",
+    "profile_id": "human_P053",
+    "scenario_id": "techflow",
+    "timestamp": "2026-02-11 16:19:24.504454",
+    "total_turns": 9,
+    "duration_seconds": 175.4236719608307,
+    "api_calls": 8,
+    "model_used": "deepseek/deepseek-chat-v3-0324"
+  },
+  "profile": {
+    "id": "human_P053",
+    "name": "Alex",
+    "description": "Human participant (no injected personality)",
+    "vector": {
+      "openness": 0.5,
+      "conscientiousness": 0.5,
+      "extraversion": 0.5,
+      "agreeableness": 0.5,
+      "neuroticism": 0.5
+    },
+    "behavioral_tendencies": [],
+    "communication_style": ""
+  },
+  "scenario": {
+    "id": "techflow",
+    "name": "TechFlow Case Study",
+    "description": "TechFlow (B2B SaaS): We're a B2B SaaS company with $12M ARR but margins are declining. How can we imp...",
+    "context": "You are in a consulting case discussion. The company is TechFlow, operating in the B2B SaaS industry.\n\nProblem: We're a B2B SaaS company with $12M ARR but margins are declining. How can we improve profitability by 5 percentage points?\n\nThe team must analyze the problem and develop a recommendation.",
+    "conflict_point": "The team needs to solve: We're a B2B SaaS company with $12M ARR but margins are declining. How can we improve profitability by 5 percentage points?",
+    "provoker_goal": "You are a skeptical analyst. Challenge assumptions, demand data-backed reasoning, question if proposed solutions are realistic given the constraints. Push the candidate to think deeper about root causes. If the candidate makes claims without evidence, call it out. Be direct but professional.",
+    "mediator_goal": "You are a supportive analyst. Acknowledge good questions, build on ideas, suggest frameworks when appropriate. If the candidate hasn't asked about key data, model analytical behavior by asking about it yourself. Help structure the discussion but don't give away the answer.",
+    "escalation_triggers": [
+      "Candidate makes unfounded assumptions without asking for data",
+      "Analysis ignores key cost drivers or revenue dynamics",
+      "Proposed solution lacks specificity or implementation detail",
+      "Candidate dismisses competitor analysis as irrelevant",
+      "Recommendation doesn't address the core problem statement"
+    ],
+    "resolution_paths": [
+      "Structured framework covering all relevant dimensions",
+      "Data-driven recommendation backed by case data",
+      "Clear implementation roadmap with priorities",
+      "Consideration of risks and competitive dynamics"
+    ],
+    "turn_limit": 30,
+    "min_turns": 15
+  },
+  "conversation": [
+    {
+      "turn_number": 0,
+      "speaker": "system",
+      "speaker_name": "Facilitator",
+      "content": "\"Let me set up our case. TechFlow is a B2B SaaS company with $12M in ARR facing declining margins. Our goal is to improve profitability by 5 percentage points.\"",
+      "intent": "neutral",
+      "emotion": null,
+      "tension_level": 0.3,
+      "metadata": {
+        "session_id": "97b17422"
+      }
+    },
+    {
+      "turn_number": 1,
+      "speaker": "candidate",
+      "speaker_name": "Alex",
+      "content": "our major revenue comes from subscription and is increasing. but margin is decreasing so let's focus on cost ",
+      "intent": "neutral",
+      "emotion": null,
+      "tension_level": 0.3,
+      "metadata": {
+        "session_id": "97b17422"
+      }
+    },
+    {
+      "turn_number": 2,
+      "speaker": "system",
+      "speaker_name": "Facilitator",
+      "content": "\"Alex makes a good point about cost focus. With our remaining time, let's quickly brainstorm 2-3 highest impact cost levers we could pull.\"",
+      "intent": "cooperative",
+      "emotion": null,
+      "tension_level": 0.3,
+      "metadata": {
+        "session_id": "97b17422"
+      }
+    },
+    {
+      "turn_number": 3,
+      "speaker": "mediator",
+      "speaker_name": "Sam",
+      "content": "Great cost focus, Alex. Based on the case data, SMB support costs seem disproportionately high - maybe we should start by analyzing that segment's profitability?",
+      "intent": "assertive",
+      "emotion": null,
+      "tension_level": 0.3,
+      "metadata": {
+        "session_id": "97b17422"
+      }
+    },
+    {
+      "turn_number": 4,
+      "speaker": "provoker",
+      "speaker_name": "Jordan",
+      "content": "We're bleeding cash on SMBs with negative margins - why are we even discussing support costs when we should be exiting this segment entirely? The data shows SMB LTV:CAC is below 3x and dragging down overall profitability.",
+      "intent": "assertive",
+      "emotion": null,
+      "tension_level": 0.3,
+      "metadata": {
+        "session_id": "97b17422"
+      }
+    },
+    {
+      "turn_number": 5,
+      "speaker": "candidate",
+      "speaker_name": "Alex",
+      "content": "yes Jordan you are correct. we have high costs for customer supports for smb. what did you find sam?",
+      "intent": "neutral",
+      "emotion": null,
+      "tension_level": 0.3,
+      "metadata": {
+        "session_id": "97b17422"
+      }
+    },
+    {
+      "turn_number": 6,
+      "speaker": "system",
+      "speaker_name": "Facilitator",
+      "content": "\"Let's summarize: SMB segment appears unprofitable with high support costs. Time's limited - should we recommend exiting SMBs to hit our 5% margin target?\"",
+      "intent": "neutral",
+      "emotion": null,
+      "tension_level": 0.3,
+      "metadata": {
+        "session_id": "97b17422"
+      }
+    },
+    {
+      "turn_number": 7,
+      "speaker": "mediator",
+      "speaker_name": "Sam",
+      "content": "I hear both perspectives - Jordan's right about the concerning LTV:CAC ratio, but Alex raises valid points about support costs. Maybe we could quantify the margin impact of exiting SMBs versus optimizing their support costs first?",
+      "intent": "avoidant",
+      "emotion": null,
+      "tension_level": 0.4,
+      "metadata": {
+        "session_id": "97b17422"
+      }
+    },
+    {
+      "turn_number": 8,
+      "speaker": "system",
+      "speaker_name": "Facilitator",
+      "content": "\"Time's up - great discussion everyone. Key takeaways: SMB segment is unprofitable with high support costs and poor LTV:CAC, presenting a clear opportunity to improve margins through either segment exit or support optimization.\"",
+      "intent": "neutral",
+      "emotion": null,
+      "tension_level": 0.4,
+      "metadata": {
+        "session_id": "97b17422"
+      }
+    }
+  ],
+  "intent_statistics": {
+    "total_turns": 2,
+    "intent_counts": {
+      "assertive": 0,
+      "cooperative": 0,
+      "avoidant": 0,
+      "aggressive": 0,
+      "anxious": 0,
+      "analytical": 0,
+      "creative": 0,
+      "empathetic": 0,
+      "defensive": 0,
+      "neutral": 2
+    },
+    "intent_percentages": {
+      "assertive": 0.0,
+      "cooperative": 0.0,
+      "avoidant": 0.0,
+      "aggressive": 0.0,
+      "anxious": 0.0,
+      "analytical": 0.0,
+      "creative": 0.0,
+      "empathetic": 0.0,
+      "defensive": 0.0,
+      "neutral": 100.0
+    },
+    "dominant_intent": "neutral",
+    "secondary_intent": null
+  },
+  "assessment_mapping": {
+    "collaboration_score": 0.003,
+    "leadership_score": 0.002,
+    "stress_management_score": 0.8,
+    "communication_score": 0.002,
+    "problem_solving_score": 0.0
+  },
+  "validation_results": null,
+  "personality_inference": {
+    "candidate_name": "Alex",
+    "total_turns_analyzed": 2,
+    "models_succeeded": 3,
+    "average_ocean": {
+      "openness": 0.481,
+      "conscientiousness": 0.519,
+      "extraversion": 0.517,
+      "agreeableness": 0.543,
+      "neuroticism": 0.5
+    },
+    "average_confidence": {
+      "openness": 0.061,
+      "conscientiousness": 0.061,
+      "extraversion": 0.183,
+      "agreeableness": 0.133,
+      "neuroticism": 0.0
+    },
+    "std_dev": {
+      "openness": 0.027,
+      "conscientiousness": 0.027,
+      "extraversion": 0.076,
+      "agreeableness": 0.031,
+      "neuroticism": 0.0
+    },
+    "model_results": [
+      {
+        "model": "deepseek/deepseek-chat-v3-0324",
+        "ocean_scores": {
+          "openness": 0.5,
+          "conscientiousness": 0.558,
+          "extraversion": 0.617,
+          "agreeableness": 0.56,
+          "neuroticism": 0.5
+        },
+        "ocean_confidence": {
+          "openness": 0.0,
+          "conscientiousness": 0.183,
+          "extraversion": 0.367,
+          "agreeableness": 0.2,
+          "neuroticism": 0.0
+        },
+        "evidence_count": 4,
+        "evidence": [
+          {
+            "trait": "conscientiousness",
+            "facet": "Order",
+            "quote": "our major revenue comes from subscription and is increasing. but margin is decreasing so let's focus on cost",
+            "turn_number": 1,
+            "signal_strength": 0.7,
+            "reasoning": "Shows systematic thinking by identifying the problem (decreasing margins) and proposing a structured approach (focus on cost)"
+          },
+          {
+            "trait": "extraversion",
+            "facet": "Assertiveness",
+            "quote": "our major revenue comes from subscription and is increasing. but margin is decreasing so let's focus on cost",
+            "turn_number": 1,
+            "signal_strength": 0.8,
+            "reasoning": "Takes charge of the conversation by clearly stating the issue and proposing a direction"
+          },
+          {
+            "trait": "extraversion",
+            "facet": "Gregariousness",
+            "quote": "yes Jordan you are correct. we have high costs for customer supports for smb. what did you find sam?",
+            "turn_number": 5,
+            "signal_strength": 0.6,
+            "reasoning": "Engages with multiple group members, showing comfort with group interaction"
+          },
+          {
+            "trait": "agreeableness",
+            "facet": "Compliance",
+            "quote": "yes Jordan you are correct. we have high costs for customer supports for smb. what did you find sam?",
+            "turn_number": 5,
+            "signal_strength": 0.6,
+            "reasoning": "Shows willingness to yield to others' points (Jordan's) while still engaging constructively (asking Sam for input)"
+          }
+        ],
+        "success": true,
+        "error": null
+      },
+      {
+        "model": "anthropic/claude-3.5-haiku",
+        "ocean_scores": {
+          "openness": 0.442,
+          "conscientiousness": 0.5,
+          "extraversion": 0.433,
+          "agreeableness": 0.57,
+          "neuroticism": 0.5
+        },
+        "ocean_confidence": {
+          "openness": 0.183,
+          "conscientiousness": 0.0,
+          "extraversion": 0.183,
+          "agreeableness": 0.2,
+          "neuroticism": 0.0
+        },
+        "evidence_count": 3,
+        "evidence": [
+          {
+            "trait": "openness",
+            "facet": "Practicality",
+            "quote": "our major revenue comes from subscription and is increasing. but margin is decreasing so let's focus on cost",
+            "turn_number": 1,
+            "signal_strength": 0.7,
+            "reasoning": "Demonstrates concrete, pragmatic thinking by directly addressing financial metrics and proposing a practical solution"
+          },
+          {
+            "trait": "extraversion",
+            "facet": "Brevity",
+            "quote": "yes Jordan you are correct. we have high costs for customer supports for smb. what did you find sam?",
+            "turn_number": 5,
+            "signal_strength": 0.8,
+            "reasoning": "Uses very concise language, asking direct questions without elaboration"
+          },
+          {
+            "trait": "agreeableness",
+            "facet": "Compliance",
+            "quote": "yes Jordan you are correct",
+            "turn_number": 5,
+            "signal_strength": 0.7,
+            "reasoning": "Quickly agrees with Jordan's perspective, indicating a tendency to yield and avoid conflict"
+          }
+        ],
+        "success": true,
+        "error": null
+      },
+      {
+        "model": "google/gemini-2.0-flash-001",
+        "ocean_scores": {
+          "openness": 0.5,
+          "conscientiousness": 0.5,
+          "extraversion": 0.5,
+          "agreeableness": 0.5,
+          "neuroticism": 0.5
+        },
+        "ocean_confidence": {
+          "openness": 0.0,
+          "conscientiousness": 0.0,
+          "extraversion": 0.0,
+          "agreeableness": 0.0,
+          "neuroticism": 0.0
+        },
+        "evidence_count": 0,
+        "evidence": [],
+        "success": true,
+        "error": null
+      }
+    ],
+    "all_evidence": [
+      {
+        "trait": "conscientiousness",
+        "facet": "Order",
+        "quote": "our major revenue comes from subscription and is increasing. but margin is decreasing so let's focus on cost",
+        "turn_number": 1,
+        "signal_strength": 0.7,
+        "reasoning": "Shows systematic thinking by identifying the problem (decreasing margins) and proposing a structured approach (focus on cost)",
+        "model": "deepseek/deepseek-chat-v3-0324"
+      },
+      {
+        "trait": "agreeableness",
+        "facet": "Compliance",
+        "quote": "yes Jordan you are correct",
+        "turn_number": 5,
+        "signal_strength": 0.7,
+        "reasoning": "Quickly agrees with Jordan's perspective, indicating a tendency to yield and avoid conflict",
+        "model": "anthropic/claude-3.5-haiku"
+      },
+      {
+        "trait": "extraversion",
+        "facet": "Gregariousness",
+        "quote": "yes Jordan you are correct. we have high costs for customer supports for smb. what did you find sam?",
+        "turn_number": 5,
+        "signal_strength": 0.6,
+        "reasoning": "Engages with multiple group members, showing comfort with group interaction",
+        "model": "deepseek/deepseek-chat-v3-0324"
+      }
+    ],
+    "strengths": [],
+    "weaknesses": []
+  }
+}

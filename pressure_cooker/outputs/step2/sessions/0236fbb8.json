@@ -1,0 +1,332 @@
+{
+  "participant_id": "P036",
+  "engine_state": {
+    "session_id": "0236fbb8",
+    "scenario_id": "swiftcart",
+    "participant_name": "Jin",
+    "state": "wrapping_up",
+    "start_time": 1770363433.9289649,
+    "turn_counter": 25,
+    "warned_time": true,
+    "wrapping_up": true,
+    "turns": [
+      {
+        "turn_number": 0,
+        "speaker": "system",
+        "speaker_name": "Facilitator",
+        "content": "SwiftCart is an e-commerce platform with 2 million active users. The key problem is that repeat purchase rates have declined from 35% to 22%, and we need to recover customer retention.",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "0236fbb8"
+        }
+      },
+      {
+        "turn_number": 1,
+        "speaker": "candidate",
+        "speaker_name": "Jin",
+        "content": "Hi, can I ask why the retention rate has declined?",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "0236fbb8"
+        }
+      },
+      {
+        "turn_number": 2,
+        "speaker": "system",
+        "speaker_name": "Facilitator",
+        "content": "\"Jin raises a good question about the root causes. Let's first explore what might be driving this retention decline before jumping to solutions.\"",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "0236fbb8"
+        }
+      },
+      {
+        "turn_number": 3,
+        "speaker": "candidate",
+        "speaker_name": "Jin",
+        "content": "Jordan what do you think?",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.3,
+        "metadata": {
+          "session_id": "0236fbb8"
+        }
+      },
+      {
+        "turn_number": 4,
+        "speaker": "provoker",
+        "speaker_name": "Jordan",
+        "content": "That's exactly what I'm concerned about - we're treating symptoms instead of diagnosing the disease. Before we speculate, shouldn't we demand actual customer data on why they stopped buying? Blindly guessing could waste precious time and resources.",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.2,
+        "metadata": {
+          "session_id": "0236fbb8"
+        }
+      },
+      {
+        "turn_number": 5,
+        "speaker": "candidate",
+        "speaker_name": "Jin",
+        "content": "Sam how about you?",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.2,
+        "metadata": {
+          "session_id": "0236fbb8"
+        }
+      },
+      {
+        "turn_number": 6,
+        "speaker": "mediator",
+        "speaker_name": "Sam",
+        "content": "\"That's a fair point about needing data, Jordan - maybe we could start by looking at customer surveys or exit feedback from the drop period? Jin, what data sources do you think would be most helpful here?\"",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.4,
+        "metadata": {
+          "session_id": "0236fbb8"
+        }
+      },
+      {
+        "turn_number": 7,
+        "speaker": "candidate",
+        "speaker_name": "Jin",
+        "content": "Yes I agree. could you give us data on the root cause and about the customers?",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.4,
+        "metadata": {
+          "session_id": "0236fbb8"
+        }
+      },
+      {
+        "turn_number": 8,
+        "speaker": "system",
+        "speaker_name": "Facilitator",
+        "content": "\"To address Jin's request, here is the user and behavior data:  \n- Active users: 2M monthly  \n- Registered users: 5.2M total  \n- Power users: 180K, 52% of revenue, 78% retention  \n- Regular users: 420K, 31% of revenue, 45% retention  \n- One-time buyers: 1.4M, 17% of revenue, 8% retention  \n- Key drop-offs: 60% of one-time buyers never return, biggest churn at days 14-30, 35% app uninstall rate",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.4,
+        "metadata": {
+          "session_id": "0236fbb8"
+        }
+      },
+      {
+        "turn_number": 9,
+        "speaker": "candidate",
+        "speaker_name": "Jin",
+        "content": "I see how one-time buyers' retention is much lower than other segments... Hmm... how could we address this?",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.4,
+        "metadata": {
+          "session_id": "0236fbb8"
+        }
+      },
+      {
+        "turn_number": 10,
+        "speaker": "provoker",
+        "speaker_name": "Jordan",
+        "content": "\"Jin, you're missing the critical point - why are we even focusing on one-time buyers when power users drive over half our revenue? Shouldn't we protect our high-value customers first before chasing low-margin segments?\"  \n\n*Wait for response, then:*  \n\n\"And Sam, surveys won't cut it - we need hard behavioral data. What specific actions preceded the drop in retention? Cart abandonment? Failed deliveries? Without that, we're just guessing.\"",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.4,
+        "metadata": {
+          "session_id": "0236fbb8"
+        }
+      },
+      {
+        "turn_number": 11,
+        "speaker": "candidate",
+        "speaker_name": "Jin",
+        "content": "Okay. could you provide us the key value of this platform that makes power users stay? and also the expected reason why they leave?",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.4,
+        "metadata": {
+          "session_id": "0236fbb8"
+        }
+      },
+      {
+        "turn_number": 12,
+        "speaker": "system",
+        "speaker_name": "Facilitator",
+        "content": "\"Let's pause to examine the data Jin requested. Here are the key platform values and churn reasons for power users:  \n\n- Power user retention drivers: fast checkout (78% use saved payment), personalized recommendations (62% click-through), exclusive early access (45% utilization)  \n- Top churn reasons: delayed deliveries (28%), lack of new product variety (22%), competitor price matching (19%)\"  \n\n*After sharing, turn back to the team:*  \n\n\"Jordan, you raised concerns about prioritization - how does this data inform your view on focusing on power users versus one-time buyers?\"",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.4,
+        "metadata": {
+          "session_id": "0236fbb8"
+        }
+      },
+      {
+        "turn_number": 13,
+        "speaker": "candidate",
+        "speaker_name": "Jin",
+        "content": "ya what do you think?",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.4,
+        "metadata": {
+          "session_id": "0236fbb8"
+        }
+      },
+      {
+        "turn_number": 14,
+        "speaker": "provoker",
+        "speaker_name": "Jordan",
+        "content": "\"You're still avoiding the core issue, Jin. With power users citing delivery delays as their top churn reason, why aren't we prioritizing fixing our logistics first? That's a concrete operational problem we can solve, not some vague retention campaign.\"  \n\n\"And Sam, how can we trust survey data when behavioral data clearly shows uninstalls spike at days 14-30? That screams post-purchase experience failure, not marketing issues.\"",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.4,
+        "metadata": {
+          "session_id": "0236fbb8"
+        }
+      },
+      {
+        "turn_number": 15,
+        "speaker": "candidate",
+        "speaker_name": "Jin",
+        "content": "Sam?",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.4,
+        "metadata": {
+          "session_id": "0236fbb8"
+        }
+      },
+      {
+        "turn_number": 16,
+        "speaker": "system",
+        "speaker_name": "Facilitator",
+        "content": "\"Given our time constraint, let's focus on identifying one concrete action we can take\u2014should we prioritize improving logistics for power users or implement retention campaigns for one-time buyers? Sam, what's your recommendation?\"",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.4,
+        "metadata": {
+          "session_id": "0236fbb8"
+        }
+      },
+      {
+        "turn_number": 17,
+        "speaker": "mediator",
+        "speaker_name": "Sam",
+        "content": "\"That\u2019s a fair point from Jordan\u2014logistics is clearly a pain point for power users. Jin, maybe we can explore quick wins like delivery guarantees for them while also testing low-cost retention tactics for one-time buyers? What do you think?\"",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.6,
+        "metadata": {
+          "session_id": "0236fbb8"
+        }
+      },
+      {
+        "turn_number": 18,
+        "speaker": "candidate",
+        "speaker_name": "Jin",
+        "content": "Yes",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.6,
+        "metadata": {
+          "session_id": "0236fbb8"
+        }
+      },
+      {
+        "turn_number": 19,
+        "speaker": "mediator",
+        "speaker_name": "Sam",
+        "content": "\"Great\u2014so we\u2019re aligned on addressing logistics for power users first. Jin, maybe we can also brainstorm small experiments for one-time buyers, like post-purchase discounts? That way we tackle both without overextending resources.\"",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.6,
+        "metadata": {
+          "session_id": "0236fbb8"
+        }
+      },
+      {
+        "turn_number": 20,
+        "speaker": "candidate",
+        "speaker_name": "Jin",
+        "content": "what is the revenue stream?",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.6,
+        "metadata": {
+          "session_id": "0236fbb8"
+        }
+      },
+      {
+        "turn_number": 21,
+        "speaker": "system",
+        "speaker_name": "Facilitator",
+        "content": "\"Here is the revenue distribution by user type:  \n- Power users (5+ orders/year): 52% of revenue  \n- Regular users (2-4 orders/year): 31% of revenue  \n- One-time buyers: 17% of revenue\"  \n\n\"Jordan, given power users drive over half our revenue, how should we weigh their logistics needs against broader retention efforts?\"",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.2,
+        "metadata": {
+          "session_id": "0236fbb8"
+        }
+      },
+      {
+        "turn_number": 22,
+        "speaker": "candidate",
+        "speaker_name": "Jin",
+        "content": "what is the product mix for the power users?",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.2,
+        "metadata": {
+          "session_id": "0236fbb8"
+        }
+      },
+      {
+        "turn_number": 23,
+        "speaker": "system",
+        "speaker_name": "Facilitator",
+        "content": "\"Let's wrap up with one key action: prioritize logistics fixes for power users given their revenue impact, while testing small retention pilots for other segments. Any final objections to this approach?\"",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.2,
+        "metadata": {
+          "session_id": "0236fbb8"
+        }
+      },
+      {
+        "turn_number": 24,
+        "speaker": "system",
+        "speaker_name": "Facilitator",
+        "content": "Here is the product mix for power users: Electronics (40% of purchases), Fashion (25%), Home & Living (20%), Beauty & Personal Care (15%).",
+        "intent": null,
+        "emotion": null,
+        "tension_level": 0.2,
+        "metadata": {
+          "session_id": "0236fbb8"
+        }
+      }
+    ],
+    "tension_history": [
+      0.2,
+      0.4,
+      0.4,
+      0.4,
+      0.4,
+      0.6,
+      0.2
+    ],
+    "revealed_categories": [
+      "user_data",
+      "product_mix",
+      "platform_tech"
+    ],
+    "human_question_count": 10,
+    "engagement_nudge_sent": false
+  },
+  "case_study_id": "swiftcart"
+}
