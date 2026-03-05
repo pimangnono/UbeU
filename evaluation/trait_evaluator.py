@@ -1,11 +1,12 @@
 """
 Trait Evaluator: Evidence-Based Personality Inference for Mode 2.
 
-V4 upgrades:
-- True multi-model ensemble: DeepSeek V3 + Gemini 2.5 Flash + Grok 4.1 Fast
-- Same prompt sent to all 3 models in parallel via generate_ensemble()
-- Aggregation: median score per trait, confidence = 1.0 - range
-- Per-model scores stored for analysis
+V5.1 upgrades:
+- Dual-order evaluation: Order A (transcript→features) and Order B (features→transcript)
+  to control for LLM-as-judge presentation-order bias.
+- Per-model median across both orders, then median across models.
+- Judge diagnostics: order_effect, model_range, uncertain flag per trait.
+- True multi-model ensemble: 5 models in parallel via generate_ensemble()
 - Parse error logging with confidence=0.0 fallback (S6)
 
 Every OCEAN score is traceable to specific transcript quotes.
@@ -14,7 +15,7 @@ Every OCEAN score is traceable to specific transcript quotes.
 import asyncio
 import logging
 import statistics
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 
 logger = logging.getLogger(__name__)
 
@@ -33,16 +34,21 @@ if TYPE_CHECKING:
     from clients.llm_client import LLMClient
 
 
-# Trait evidence extraction prompt
-TRAIT_EVIDENCE_PROMPT = """Analyze this group discussion transcript and extract evidence for the Big Five personality trait: **{trait_name}**
+# =============================================================================
+# Prompt template sections (split for dual-order evaluation)
+# =============================================================================
+
+PROMPT_HEADER = """Analyze this group discussion transcript and extract evidence for the Big Five personality trait: **{trait_name}**
 
 ## Candidate Information
 Candidate Name: {candidate_name}
+"""
 
-## Transcript
+PROMPT_TRANSCRIPT = """## Transcript
 {transcript}
+"""
 
-## Behavioral Statistics (Pre-Computed, 22 Features)
+PROMPT_FEATURES = """## Behavioral Statistics (Pre-Computed, 30 Features)
 ### Volume & Verbosity
 - Average words per turn: {avg_words}
 - Max words in a turn: {max_words}
@@ -74,7 +80,24 @@ Candidate Name: {candidate_name}
 - Emotional word count (negative): {emotional}
 - Positive emotion count: {positive_emotion}
 
-## Calibration Notes for {trait_name}
+### Conscientiousness Signals
+- Structure marker count (numbered lists, ordering): {structure_markers}
+- Reference-back count (citing earlier points): {reference_backs}
+- Action item count (assignments, deadlines): {action_items}
+
+### Openness Signals
+- Hypothetical count (speculative scenarios): {hypotheticals}
+
+### Neuroticism Signals
+- Apology count: {apologies}
+- Self-doubt count: {self_doubts}
+- Reassurance-seeking count: {reassurance_seeking}
+
+### Agreeableness Signals
+- Negation count (no, not, won't, etc.): {negations}
+"""
+
+PROMPT_TAIL = """## Calibration Notes for {trait_name}
 {calibration_notes}
 
 ## Instructions
@@ -120,6 +143,28 @@ Candidate Name: {candidate_name}
 }}
 
 IMPORTANT: Only quote the CANDIDATE's words, not the AI agents (Alex, Jordan, Riley)."""
+
+
+def build_trait_prompt(kwargs: dict, order: str = "A") -> str:
+    """
+    Build the full trait evaluation prompt with configurable section order.
+
+    Args:
+        kwargs: Format kwargs from _build_prompt_kwargs().
+        order: "A" = transcript then features, "B" = features then transcript.
+
+    Returns:
+        Fully formatted prompt string.
+    """
+    header = PROMPT_HEADER.format(**kwargs)
+    transcript = PROMPT_TRANSCRIPT.format(**kwargs)
+    features = PROMPT_FEATURES.format(**kwargs)
+    tail = PROMPT_TAIL.format(**kwargs)
+
+    if order == "A":
+        return header + transcript + features + tail
+    else:
+        return header + features + transcript + tail
 
 
 # Calibration notes for each trait
@@ -187,7 +232,7 @@ class TraitEvaluator:
         stats: GroupSessionStats,
         trait: BigFiveTrait,
     ) -> dict:
-        """Build format kwargs for the evaluation prompt with all 22 features."""
+        """Build format kwargs for the evaluation prompt with all 30 features."""
         transcript = self._format_transcript(turns, candidate_name)
         features = extract_features(turns, candidate_name)
 
@@ -222,6 +267,18 @@ class TraitEvaluator:
             "conditionals": f"{features.conditional_ratio:.2f}",
             "emotional": features.emotional_word_count,
             "positive_emotion": features.positive_emotion_count,
+            # New: Conscientiousness Signals
+            "structure_markers": features.structure_marker_count,
+            "reference_backs": features.reference_back_count,
+            "action_items": features.action_item_count,
+            # New: Openness Signals
+            "hypotheticals": features.hypothetical_count,
+            # New: Neuroticism Signals
+            "apologies": features.apology_count,
+            "self_doubts": features.self_doubt_count,
+            "reassurance_seeking": features.reassurance_seeking_count,
+            # New: Agreeableness Signals
+            "negations": features.negation_count,
             # Calibration
             "calibration_notes": CALIBRATION_NOTES[trait].format(
                 disagreements=features.disagreement_count,
@@ -282,12 +339,10 @@ class TraitEvaluator:
         stats: GroupSessionStats,
         trait: BigFiveTrait,
     ) -> TraitScore:
-        """Evaluate a single Big Five trait."""
-        # Build prompt with all 22 features
+        """Evaluate a single Big Five trait (single model, order A only)."""
         kwargs = self._build_prompt_kwargs(turns, candidate_name, stats, trait)
-        prompt = TRAIT_EVIDENCE_PROMPT.format(**kwargs)
+        prompt = build_trait_prompt(kwargs, order="A")
 
-        # Generate evaluation
         response = await self.client.generate(
             prompt=prompt,
             system_instruction="You are an expert personality psychologist. Be rigorous and cite specific evidence.",
@@ -295,7 +350,6 @@ class TraitEvaluator:
             max_tokens=3000,
         )
 
-        # Parse response
         result = self._parse_trait_response(response, trait)
         return result
 
@@ -304,25 +358,32 @@ class TraitEvaluator:
         turns: list[Turn],
         candidate_name: str,
         stats: GroupSessionStats,
+        models: Optional[list[str]] = None,
     ) -> PersonalityAssessment:
         """
-        Run true multi-model ensemble evaluation.
+        Run dual-order multi-model ensemble evaluation (V5.1).
 
-        Sends the same prompt to 3 different models (DeepSeek, Gemini, Grok)
-        in parallel for each trait. Aggregates via median score.
-        Confidence = 1.0 - score_range across models.
+        For each trait, sends two prompts (order A: transcript→features,
+        order B: features→transcript) to all ensemble models in parallel.
+        Per model: median(score_A, score_B). Final: median across models.
 
-        Per-model scores are stored in the assessment for analysis.
+        Stores per_model_scores, per_model_order_scores, and judge_diagnostics
+        in the assessment for downstream analysis.
         """
-        # Evaluate all 5 traits with ensemble
+        # Evaluate all 5 traits with dual-order ensemble
         trait_results = await asyncio.gather(*[
-            self._evaluate_trait_ensemble(turns, candidate_name, stats, trait)
+            self._evaluate_trait_ensemble(turns, candidate_name, stats, trait, models=models)
             for trait in BigFiveTrait
         ])
 
-        # Unpack: each result is (TraitScore, per_model_dict)
+        # Unpack: each result is (TraitScore, per_model_scores, per_model_order_scores, diagnostics)
         trait_scores = {}
         all_per_model: dict[str, dict[str, float]] = {}
+        all_per_model_order: dict[str, dict[str, dict[str, float]]] = {}
+        all_diagnostics: dict[str, dict] = {}
+        uncertain_traits: list[str] = []
+        uncertain_reasons: dict[str, list[str]] = {}
+
         trait_key_map = {
             BigFiveTrait.OPENNESS: "O",
             BigFiveTrait.CONSCIENTIOUSNESS: "C",
@@ -331,13 +392,38 @@ class TraitEvaluator:
             BigFiveTrait.NEUROTICISM: "N",
         }
 
-        for trait, (score, per_model) in zip(BigFiveTrait, trait_results):
+        for trait, (score, per_model, per_model_order, diag) in zip(BigFiveTrait, trait_results):
             trait_scores[trait] = score
             trait_abbrev = trait_key_map[trait]
+
+            # Aggregate per-model scores (median across orders)
             for model_name, model_score in per_model.items():
-                if model_name not in all_per_model:
-                    all_per_model[model_name] = {}
-                all_per_model[model_name][trait_abbrev] = model_score
+                all_per_model.setdefault(model_name, {})[trait_abbrev] = model_score
+
+            # Aggregate per-model order scores {model: {trait: {A: x, B: y}}}
+            for model_name, order_scores in per_model_order.items():
+                all_per_model_order.setdefault(model_name, {})[trait_abbrev] = order_scores
+
+            # Per-trait diagnostics
+            all_diagnostics[trait_abbrev] = diag
+
+            # Track uncertain traits
+            if diag.get("uncertain", False):
+                uncertain_traits.append(trait_abbrev)
+                reasons = []
+                if diag["order_effect"] > 0.12:
+                    reasons.append(f"order_effect>{diag['order_effect']:.2f}")
+                if diag["model_range"] > 0.30:
+                    reasons.append(f"model_range>{diag['model_range']:.2f}")
+                if diag["parse_errors"] >= 2:
+                    reasons.append(f"parse_errors={diag['parse_errors']}")
+                uncertain_reasons[trait_abbrev] = reasons
+
+        judge_diagnostics = {
+            "per_trait": all_diagnostics,
+            "uncertain_traits": uncertain_traits,
+            "uncertain_reasons": uncertain_reasons,
+        }
 
         assessment = PersonalityAssessment(
             openness=trait_scores[BigFiveTrait.OPENNESS],
@@ -347,6 +433,8 @@ class TraitEvaluator:
             neuroticism=trait_scores[BigFiveTrait.NEUROTICISM],
             overall_confidence=sum(ts.confidence for ts in trait_scores.values()) / 5,
             per_model_scores=all_per_model,
+            per_model_order_scores=all_per_model_order,
+            judge_diagnostics=judge_diagnostics,
         )
 
         # Generate summary and strengths/areas
@@ -362,76 +450,138 @@ class TraitEvaluator:
         candidate_name: str,
         stats: GroupSessionStats,
         trait: BigFiveTrait,
-    ) -> tuple[TraitScore, dict[str, float]]:
+        models: Optional[list[str]] = None,
+    ) -> tuple[TraitScore, dict[str, float], dict[str, dict[str, float]], dict]:
         """
-        Evaluate a single trait using multi-model ensemble.
+        Evaluate a single trait using dual-order multi-model ensemble (V5.1).
 
-        Sends the same prompt to all ensemble models in parallel.
-        Returns (TraitScore, per_model_scores_dict) where per_model_scores_dict
-        maps model_name -> score for this trait.
+        For each trait, sends two prompts (order A and B) to all ensemble models.
+        Per model: median(score_A, score_B). Final: median across models.
+
+        Returns:
+            (TraitScore, per_model_scores, per_model_order_scores, diagnostics)
+            - per_model_scores: {model_name: median_score}
+            - per_model_order_scores: {model_name: {"A": score_a, "B": score_b}}
+            - diagnostics: {order_effect, model_range, parse_errors, uncertain}
         """
         kwargs = self._build_prompt_kwargs(turns, candidate_name, stats, trait)
-        prompt = TRAIT_EVIDENCE_PROMPT.format(**kwargs)
+        prompt_a = build_trait_prompt(kwargs, order="A")
+        prompt_b = build_trait_prompt(kwargs, order="B")
 
         system_instruction = "You are an expert personality psychologist. Be rigorous and cite specific evidence."
 
         try:
-            # Send to all models in parallel
-            model_responses = await self.client.generate_ensemble(
-                prompt=prompt,
-                system_instruction=system_instruction,
-                temperature=0.3,
-                max_tokens=3000,
+            # Send both orders to all models in parallel
+            resp_a, resp_b = await asyncio.gather(
+                self.client.generate_ensemble(
+                    prompt=prompt_a,
+                    system_instruction=system_instruction,
+                    temperature=0.3,
+                    max_tokens=3000,
+                    models=models,
+                ),
+                self.client.generate_ensemble(
+                    prompt=prompt_b,
+                    system_instruction=system_instruction,
+                    temperature=0.3,
+                    max_tokens=3000,
+                    models=models,
+                ),
             )
         except RuntimeError:
-            # All models failed — fallback to single model
             logger.error(f"Ensemble failed for {trait.value}, falling back to single model")
             result = await self._evaluate_trait(turns, candidate_name, stats, trait)
-            return result, {"fallback": result.score}
+            return (
+                result,
+                {"fallback": result.score},
+                {"fallback": {"A": result.score, "B": result.score}},
+                {"order_effect": 0.0, "model_range": 0.0, "parse_errors": 0, "uncertain": False},
+            )
 
-        # Parse each model's response
-        parsed_results = []
-        per_model_scores: dict[str, float] = {}
+        # Parse responses and align by model name
+        scores_by_model: dict[str, dict[str, float]] = {}
         parse_errors = 0
-        for model_name, response in model_responses:
-            result = self._parse_trait_response(response, trait)
-            if result.confidence <= 0.0 and result.score == 0.5:
-                # Parse failure — flag but include
-                parse_errors += 1
-                logger.warning(f"Parse error for {trait.value} from model {model_name}")
-            parsed_results.append((model_name, result))
-            per_model_scores[model_name] = result.score
-
-        if not parsed_results:
-            return TraitScore(trait=trait, score=0.5, confidence=0.0), per_model_scores
-
-        # Aggregate: median score
-        scores = [r.score for _, r in parsed_results]
-        median_score = statistics.median(scores)
-
-        # Confidence: 1.0 - range (higher agreement = higher confidence)
-        score_range = max(scores) - min(scores)
-        confidence = max(0.0, 1.0 - score_range)
-
-        # If parse errors occurred, reduce confidence
-        if parse_errors > 0:
-            confidence *= (1.0 - parse_errors / len(parsed_results))
-
-        # Collect evidence from all models
         all_evidence = []
         all_facets = []
-        for _, result in parsed_results:
+
+        for model_name, response in resp_a:
+            result = self._parse_trait_response(response, trait)
+            if result.confidence <= 0.0 and result.score == 0.5:
+                parse_errors += 1
+                logger.warning(f"Parse error for {trait.value} order A from {model_name}")
+            scores_by_model.setdefault(model_name, {})["A"] = result.score
             all_evidence.extend(result.evidence)
             all_facets.extend(result.facets)
 
+        for model_name, response in resp_b:
+            result = self._parse_trait_response(response, trait)
+            if result.confidence <= 0.0 and result.score == 0.5:
+                parse_errors += 1
+                logger.warning(f"Parse error for {trait.value} order B from {model_name}")
+            scores_by_model.setdefault(model_name, {})["B"] = result.score
+            all_evidence.extend(result.evidence)
+            all_facets.extend(result.facets)
+
+        # Per-model: median across both orders
+        model_scores = []
+        order_deltas = []
+        per_model_scores: dict[str, float] = {}
+        per_model_order_scores: dict[str, dict[str, float]] = {}
+
+        for model_name, d in scores_by_model.items():
+            per_model_order_scores[model_name] = d
+            if "A" in d and "B" in d:
+                s = statistics.median([d["A"], d["B"]])
+                model_scores.append(s)
+                order_deltas.append(abs(d["A"] - d["B"]))
+                per_model_scores[model_name] = s
+            elif "A" in d:
+                model_scores.append(d["A"])
+                per_model_scores[model_name] = d["A"]
+            elif "B" in d:
+                model_scores.append(d["B"])
+                per_model_scores[model_name] = d["B"]
+
+        if not model_scores:
+            empty_diag = {
+                "order_effect": 0.0,
+                "model_range": 1.0,
+                "parse_errors": parse_errors,
+                "uncertain": True,
+                "confidence": 0.0,
+            }
+            return TraitScore(trait=trait, score=0.5, confidence=0.0), {}, {}, empty_diag
+
+        # Final trait score: median across models
+        trait_score_value = statistics.median(model_scores)
+
+        # Diagnostics
+        order_effect = statistics.median(order_deltas) if order_deltas else 0.0
+        model_range = max(model_scores) - min(model_scores) if len(model_scores) > 1 else 0.0
+        uncertain = order_effect > 0.12 or model_range > 0.30 or parse_errors >= 2
+
+        # Confidence: 1.0 - model_range, penalized by parse errors
+        confidence = max(0.0, 1.0 - model_range)
+        if parse_errors > 0:
+            total_responses = len(resp_a) + len(resp_b)
+            confidence *= (1.0 - parse_errors / max(total_responses, 1))
+
+        diagnostics = {
+            "order_effect": round(order_effect, 4),
+            "model_range": round(model_range, 4),
+            "parse_errors": parse_errors,
+            "uncertain": uncertain,
+            "confidence": round(confidence, 4),
+        }
+
         trait_score = TraitScore(
             trait=trait,
-            score=median_score,
+            score=trait_score_value,
             confidence=confidence,
             evidence=all_evidence[:5],
             facets=all_facets[:6],
         )
-        return trait_score, per_model_scores
+        return trait_score, per_model_scores, per_model_order_scores, diagnostics
 
     def _format_transcript(self, turns: list[Turn], candidate_name: str) -> str:
         """Format transcript for evaluation prompt."""
@@ -497,7 +647,7 @@ class TraitEvaluator:
                 evidence=evidence,
             )
 
-        except (json.JSONDecodeError, IndexError, KeyError) as e:
+        except (json.JSONDecodeError, IndexError, KeyError, AttributeError, TypeError) as e:
             # S6: Log parse errors, return neutral score with zero confidence
             logger.warning(f"Parse error for {trait.value}: {e}. Response: {response[:200]}")
             return TraitScore(
@@ -564,9 +714,68 @@ async def evaluate_group_session(
     candidate_name: str,
     stats: GroupSessionStats,
     use_ensemble: bool = True,
+    escalate: bool = False,
 ) -> PersonalityAssessment:
     """Convenience function to evaluate a group discussion session."""
     evaluator = TraitEvaluator(client)
     if use_ensemble:
-        return await evaluator.evaluate_ensemble(turns, candidate_name, stats)
+        assessment = await evaluator.evaluate_ensemble(turns, candidate_name, stats)
+
+        if not escalate:
+            return assessment
+
+        from experiment.bcfc_config import DEFAULT_CONFIG
+
+        # Determine whether escalation is needed
+        diag = assessment.judge_diagnostics or {}
+        per_trait = diag.get("per_trait", {})
+        uncertain_traits = diag.get("uncertain_traits", [])
+        usage_before = client.get_usage() if hasattr(client, "get_usage") else None
+
+        need_escalation = False
+        if DEFAULT_CONFIG.escalation_uncertain_only and uncertain_traits:
+            need_escalation = True
+
+        # Confidence/model range triggers
+        for trait_abbrev, tdiag in per_trait.items():
+            if tdiag.get("model_range", 0) > DEFAULT_CONFIG.escalation_model_range_threshold:
+                need_escalation = True
+            if tdiag.get("confidence", 1.0) < DEFAULT_CONFIG.escalation_confidence_threshold:
+                need_escalation = True
+
+        if need_escalation and getattr(client, "ensemble_models_extra", None):
+            models = client.ensemble_models + client.ensemble_models_extra
+            escalated = await evaluator.evaluate_ensemble(
+                turns, candidate_name, stats, models=models
+            )
+            extra_prompt = extra_completion = extra_total = None
+            if usage_before and hasattr(client, "get_usage"):
+                usage_after = client.get_usage()
+                extra_prompt = usage_after.get("prompt_tokens", 0) - usage_before.get("prompt_tokens", 0)
+                extra_completion = usage_after.get("completion_tokens", 0) - usage_before.get("completion_tokens", 0)
+                extra_total = usage_after.get("total_tokens", 0) - usage_before.get("total_tokens", 0)
+            diag["escalation"] = {
+                "triggered": True,
+                "models": models,
+                "overall_confidence": escalated.overall_confidence,
+                "inferred_vector": escalated.to_vector().to_dict(),
+                "per_model_scores": escalated.per_model_scores,
+                "per_model_order_scores": escalated.per_model_order_scores,
+                "extra_prompt_tokens": extra_prompt,
+                "extra_completion_tokens": extra_completion,
+                "extra_total_tokens": extra_total,
+            }
+            assessment.judge_diagnostics = diag
+        else:
+            diag["escalation"] = {
+                "triggered": False,
+                "models": getattr(client, "ensemble_models_extra", []),
+                "extra_prompt_tokens": 0,
+                "extra_completion_tokens": 0,
+                "extra_total_tokens": 0,
+            }
+            assessment.judge_diagnostics = diag
+
+        return assessment
+
     return await evaluator.evaluate(turns, candidate_name, stats)

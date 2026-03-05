@@ -1,0 +1,370 @@
+{
+  "schema_version": 4,
+  "session_key": "baseline_quiet_analyst_resource_conflict_r1",
+  "condition": "main",
+  "intervention": "none",
+  "profile_id": "quiet_analyst",
+  "profile_name": "Quiet Analyst",
+  "scenario_id": "resource_conflict",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.5,
+    "C": 0.9,
+    "E": 0.2,
+    "A": 0.6,
+    "N": 0.3
+  },
+  "inferred_vector": {
+    "O": 0.3,
+    "C": 0.62,
+    "E": 0.3,
+    "A": 0.85,
+    "N": 0.125
+  },
+  "rule_based_vector": {
+    "O": 0.3577,
+    "C": 0.4584,
+    "E": 0.5166,
+    "A": 0.5386,
+    "N": 0.3605
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.3,
+      "C": 0.5,
+      "E": 0.3,
+      "A": 0.85,
+      "N": 0.2
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.3,
+      "C": 0.8,
+      "E": 0.3,
+      "A": 0.85,
+      "N": 0.125
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.125,
+      "C": 0.81,
+      "E": 0.3,
+      "A": 0.95,
+      "N": 0.11
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.365,
+      "C": 0.62,
+      "E": 0.28,
+      "A": 0.78,
+      "N": 0.15
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.2,
+      "C": 0.5,
+      "E": 0.35,
+      "A": 0.9,
+      "N": 0.1
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.5,
+        "B": 0.5
+      },
+      "E": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "A": {
+        "A": 0.85,
+        "B": 0.85
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.2
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.8,
+        "B": 0.8
+      },
+      "E": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "A": {
+        "A": 0.85,
+        "B": 0.85
+      },
+      "N": {
+        "A": 0.15,
+        "B": 0.1
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.1,
+        "B": 0.15
+      },
+      "C": {
+        "A": 0.8,
+        "B": 0.82
+      },
+      "E": {
+        "A": 0.25,
+        "B": 0.35
+      },
+      "A": {
+        "A": 0.95,
+        "B": 0.95
+      },
+      "N": {
+        "A": 0.1,
+        "B": 0.12
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.38,
+        "B": 0.35
+      },
+      "C": {
+        "A": 0.62,
+        "B": 0.62
+      },
+      "E": {
+        "A": 0.28,
+        "B": 0.28
+      },
+      "A": {
+        "A": 0.78,
+        "B": 0.78
+      },
+      "N": {
+        "A": 0.15,
+        "B": 0.15
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.6,
+        "B": 0.4
+      },
+      "E": {
+        "A": 0.4,
+        "B": 0.3
+      },
+      "A": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "N": {
+        "A": 0.1,
+        "B": 0.1
+      }
+    }
+  },
+  "overall_confidence": 0.7944,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:not",
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:never"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.0,
+        "model_range": 0.24,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "C": {
+        "order_effect": 0.0,
+        "model_range": 0.31,
+        "parse_errors": 2,
+        "uncertain": true
+      },
+      "E": {
+        "order_effect": 0.0,
+        "model_range": 0.07,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "A": {
+        "order_effect": 0.0,
+        "model_range": 0.17,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "N": {
+        "order_effect": 0.0,
+        "model_range": 0.1,
+        "parse_errors": 0,
+        "uncertain": false
+      }
+    },
+    "uncertain_traits": [
+      "C"
+    ],
+    "uncertain_reasons": {
+      "C": [
+        "model_range>0.31",
+        "parse_errors=2"
+      ]
+    }
+  },
+  "features": {
+    "avg_words_per_turn": 29.38,
+    "max_words_in_turn": 44,
+    "min_words_in_turn": 20,
+    "word_count_variance": 8.83,
+    "question_ratio": 0.125,
+    "exclamation_ratio": 0.0,
+    "hedge_count": 0,
+    "certainty_count": 0,
+    "first_person_ratio": 0.0,
+    "inclusive_pronoun_ratio": 0.0298,
+    "disagreement_count": 0,
+    "acknowledgment_count": 1,
+    "idea_count": 0,
+    "name_mention_count": 6,
+    "conditional_ratio": 0.125,
+    "planning_count": 3,
+    "emotional_word_count": 0,
+    "positive_emotion_count": 0,
+    "turn_initiation_ratio": 0.375,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.5702,
+    "long_sentence_ratio": 0.0,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 0,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 0
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 235,
+    "candidate_avg_words_per_turn": 29.38,
+    "times_addressed_others_by_name": 6,
+    "times_asked_questions": 1,
+    "times_expressed_disagreement": 0,
+    "times_acknowledged_others": 1,
+    "times_proposed_new_ideas": 0
+  },
+  "assessment_summary": "Collaborative and accommodating in conflict situations; Maintained composure throughout, steady under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "Hey team, I'm really excited to tackle this project together! We've got some tough decisions ahead about which features to prioritize and how to distribute the workload, but I know we can come up with a great plan if we collaborate. Who has some initial thoughts about how we should approach this? Maybe we could start by hearing everyone's perspective on which features seem most critical?"
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "We should evaluate each feature's impact versus development effort first. The client's top priorities would be useful context to have."
+    },
+    {
+      "turn": 3,
+      "speaker": "Jordan",
+      "content": "I love that analytical approach! Building on what you said, maybe we could create a simple scoring system for each feature based on client impact versus development effort. That way we can visualize the trade-offs more clearly. Riley, I notice you haven't shared your thoughts yet - what's your take on how we should evaluate these features?"
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "A scoring system could work. We'll need the client's input on impact weights before finalizing. Riley's perspective would help balance technical feasibility."
+    },
+    {
+      "turn": 5,
+      "speaker": "Riley",
+      "content": "I'm not sure the client will give us clear priorities in time."
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "Let's schedule a client call tomorrow to clarify priorities. In parallel, we can draft preliminary effort estimates for all features based on past similar work."
+    },
+    {
+      "turn": 7,
+      "speaker": "Alex",
+      "content": "That approach sounds inefficient. We don't have time for drawn-out client consultations when the deadline is this tight. The client already gave us their conflicting priorities - our job is to make the hard calls, not keep going back to them. \n\nLet's assess the features based on which ones align with the client's core business objectives, not what they say they want today. I've seen too many projects fail because teams chased every shifting client whim instead of delivering strategic value. \n\nAnd Riley's right - waiting on the client is a luxury we don't have. We should be making preliminary decisions now based on the data we already have. Who's got the strongest technical case for which two features we should commit to building?"
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "Agree we need to move forward. Suggest we document known client objectives and map features to them today while still attempting the client call."
+    },
+    {
+      "turn": 9,
+      "speaker": "Riley",
+      "content": "But what if our documentation of objectives is wrong? We'd be building the wrong features."
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "Before we commit, let's confirm the scoring criteria. We can draft a decision matrix now while awaiting client confirmation\u2014best use of waiting time. (to Riley) Your concern about wrong assumptions is valid. We'll highlight all assumptions in the matrix for explicit review before finalizing."
+    },
+    {
+      "turn": 11,
+      "speaker": "Alex",
+      "content": "That decision matrix idea is just kicking the can down the road. We need to make actual decisions now, not create more documentation. Riley's concern about wrong assumptions is valid, but we have enough experience to make educated calls without hand-holding from the client. \n\nI say we prioritize Feature A and Feature D - they deliver the most strategic value based on last quarter's client KPIs. Who's ready to commit to a concrete plan instead of more analysis paralysis?"
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "Feature A and D seem reasonable based on past KPIs. Suggest we proceed with those while keeping the decision matrix as contingency documentation."
+    },
+    {
+      "turn": 13,
+      "speaker": "Riley",
+      "content": "I still think we need client confirmation before finalizing. Past KPIs might not reflect current needs."
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "Alex makes a valid point about needing to move forward. Given the tight timeline, proceeding with Features A and D based on documented past KPIs is the most practical path. We'll note Riley's concern as a risk in the contingency documentation."
+    },
+    {
+      "turn": 15,
+      "speaker": "Alex",
+      "content": "I disagree with keeping the contingency documentation - that's just wasted effort at this stage. If we're committing to Features A and D, let's go all in and reallocate the documentation time to development. Riley, if you're that worried about KPIs being outdated, why don't we pull the latest sales data instead of creating more paperwork? It'll take half the time and give us actual numbers to work with."
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "Alex raises a good point about wasted effort. Let's scrap the contingency docs and focus development time on Features A and D. Riley, can you pull the latest sales data by end of day to validate?"
+    },
+    {
+      "turn": 17,
+      "speaker": "Riley",
+      "content": "Doubt we'll get clean sales data by end of day. Systems are still syncing from last week's outage. \n\nI'm still not convinced about Feature D. What if client priorities shifted since last quarter?"
+    }
+  ],
+  "controller_log": null,
+  "timestamp": "2026-03-04T21:17:39.632532"
+}

@@ -1,0 +1,371 @@
+{
+  "schema_version": 3,
+  "session_key": "main_assertive_leader_crisis_management_r1",
+  "condition": "main",
+  "profile_id": "assertive_leader",
+  "profile_name": "Assertive Leader",
+  "scenario_id": "crisis_management",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.6,
+    "C": 0.8,
+    "E": 0.9,
+    "A": 0.4,
+    "N": 0.2
+  },
+  "inferred_vector": {
+    "O": 0.3,
+    "C": 0.825,
+    "E": 0.825,
+    "A": 0.575,
+    "N": 0.15
+  },
+  "rule_based_vector": {
+    "O": 0.4244,
+    "C": 0.5283,
+    "E": 0.6459,
+    "A": 0.5884,
+    "N": 0.3327
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.35,
+      "C": 0.675,
+      "E": 0.825,
+      "A": 0.4,
+      "N": 0.35
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.3,
+      "C": 0.9,
+      "E": 0.825,
+      "A": 0.65,
+      "N": 0.15
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.175,
+      "C": 0.925,
+      "E": 0.9,
+      "A": 0.575,
+      "N": 0.09
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.35,
+      "C": 0.78,
+      "E": 0.485,
+      "A": 0.32,
+      "N": 0.15
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.2,
+      "C": 0.825,
+      "E": 0.8,
+      "A": 0.9,
+      "N": 0.1
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.3,
+        "B": 0.4
+      },
+      "C": {
+        "A": 0.5,
+        "B": 0.85
+      },
+      "E": {
+        "A": 0.85,
+        "B": 0.8
+      },
+      "A": {
+        "A": 0.4,
+        "B": 0.4
+      },
+      "N": {
+        "A": 0.5,
+        "B": 0.2
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "E": {
+        "A": 0.8,
+        "B": 0.85
+      },
+      "A": {
+        "A": 0.5,
+        "B": 0.8
+      },
+      "N": {
+        "A": 0.15,
+        "B": 0.15
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.2,
+        "B": 0.15
+      },
+      "C": {
+        "A": 0.92,
+        "B": 0.93
+      },
+      "E": {
+        "A": 0.88,
+        "B": 0.92
+      },
+      "A": {
+        "A": 0.85,
+        "B": 0.3
+      },
+      "N": {
+        "A": 0.1,
+        "B": 0.08
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.35,
+        "B": 0.35
+      },
+      "C": {
+        "A": 0.78,
+        "B": 0.78
+      },
+      "E": {
+        "A": 0.35,
+        "B": 0.62
+      },
+      "A": {
+        "A": 0.32,
+        "B": 0.32
+      },
+      "N": {
+        "A": 0.15,
+        "B": 0.15
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.8,
+        "B": 0.85
+      },
+      "E": {
+        "A": 0.8,
+        "B": 0.8
+      },
+      "A": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "N": {
+        "A": 0.1,
+        "B": 0.1
+      }
+    }
+  },
+  "overall_confidence": 0.6258,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:not"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.0,
+        "model_range": 0.175,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "C": {
+        "order_effect": 0.01,
+        "model_range": 0.25,
+        "parse_errors": 1,
+        "uncertain": false
+      },
+      "E": {
+        "order_effect": 0.05,
+        "model_range": 0.415,
+        "parse_errors": 0,
+        "uncertain": true
+      },
+      "A": {
+        "order_effect": 0.0,
+        "model_range": 0.58,
+        "parse_errors": 1,
+        "uncertain": true
+      },
+      "N": {
+        "order_effect": 0.0,
+        "model_range": 0.26,
+        "parse_errors": 1,
+        "uncertain": false
+      }
+    },
+    "uncertain_traits": [
+      "E",
+      "A"
+    ],
+    "uncertain_reasons": {
+      "E": [
+        "model_range>0.41"
+      ],
+      "A": [
+        "model_range>0.58"
+      ]
+    }
+  },
+  "features": {
+    "avg_words_per_turn": 48.75,
+    "max_words_in_turn": 64,
+    "min_words_in_turn": 37,
+    "word_count_variance": 9.27,
+    "question_ratio": 0.25,
+    "exclamation_ratio": 0.0,
+    "hedge_count": 0,
+    "certainty_count": 1,
+    "first_person_ratio": 0.0,
+    "inclusive_pronoun_ratio": 0.0333,
+    "disagreement_count": 0,
+    "acknowledgment_count": 1,
+    "idea_count": 0,
+    "name_mention_count": 18,
+    "conditional_ratio": 0.0,
+    "planning_count": 8,
+    "emotional_word_count": 0,
+    "positive_emotion_count": 2,
+    "turn_initiation_ratio": 0.25,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.5615,
+    "long_sentence_ratio": 0.261,
+    "structure_marker_count": 1,
+    "reference_back_count": 0,
+    "action_item_count": 1,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 4
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 390,
+    "candidate_avg_words_per_turn": 48.75,
+    "times_addressed_others_by_name": 18,
+    "times_asked_questions": 2,
+    "times_expressed_disagreement": 0,
+    "times_acknowledged_others": 1,
+    "times_proposed_new_ideas": 0
+  },
+  "assessment_summary": "Highly engaged communicator, took initiative frequently; Maintained composure throughout, steady under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "Hey team, thanks for jumping on this quickly - I know we're all feeling the pressure but we'll figure this out together. We've got three big decisions to make in the next 30 minutes, starting with who should talk to the client. Riley, I haven't heard from you yet - any thoughts on how we should approach this?"
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "Riley's technical expertise makes them the obvious choice to lead the client call - they can explain the bug's root cause while I'll handle the timeline commitments. Let's break this into three action items: 1) Riley preps the technical explanation, 2) I'll draft our remediation timeline, and 3) Jordan, can you pull the last QA report so we can identify where the process failed?"
+    },
+    {
+      "turn": 3,
+      "speaker": "Jordan",
+      "content": "I like that clear division of responsibilities - Riley handling the technical side while you manage timelines makes perfect sense. And I'll definitely pull that QA report right away. That makes me wonder - what if we recorded this client call to share with QA later? It might help them better understand the client's perspective when we analyze the process gaps. What do you think?"
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "Recording the call is a smart move - it'll give QA concrete feedback to work with. Let's make sure Riley gets client consent first though, and Jordan, while you're pulling that QA report, flag any similar near-misses we've had recently - patterns will help us strengthen the process faster."
+    },
+    {
+      "turn": 5,
+      "speaker": "Alex",
+      "content": "I don't see how we have time for QA analysis right now - we're 25 minutes from the call and haven't even agreed on whether we're delaying launch. The client wants answers, not process improvements. Riley should be prepping the technical response, not worrying about call recordings. Let's focus on damage control first."
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "Alex, we absolutely need to address both the immediate crisis and root causes simultaneously - that's how we prevent this from happening again. Riley can delegate the recording setup while focusing on the technical response, and delaying launch is non-negotiable if we can't guarantee stability."
+    },
+    {
+      "turn": 7,
+      "speaker": "Jordan",
+      "content": "I see both perspectives here - Alex is right that we're under tight time pressure, but I agree with you that we can't ignore the bigger picture. What if we take a quick 5 minutes right now to brainstorm potential quick fixes while Riley preps? Maybe there's a creative workaround we haven't considered yet that could satisfy the client's immediate needs while we work on the full solution. Riley, from your technical perspective, is there any partial functionality we could safely release?"
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "Partial fixes are too risky - we either ship a stable product or delay. Riley, confirm if you can isolate and fix just the critical bug without compromising other functionality. If not, we tell the client we're delaying and outline our remediation plan with concrete milestones. No half-measures."
+    },
+    {
+      "turn": 9,
+      "speaker": "Alex",
+      "content": "That's an unrealistic approach - we don't have time for Riley to confirm anything before the call. The client needs a decision now, not more technical analysis. Either we commit to delaying today or we're shipping broken code - there's no middle ground here. Stop wasting time on hypotheticals and make the damn call."
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "Alex, shipping broken code isn't an option - period. Let's table the hypotheticals and make three concrete decisions right now: First, Riley leads the client call explaining we're delaying. Second, I'll commit to delivering a full fix timeline within 24 hours. Third, Jordan pulls that QA report immediately so we have data to back up our decision. Anyone disagree with that action plan?"
+    },
+    {
+      "turn": 11,
+      "speaker": "Jordan",
+      "content": "I really like how you've broken this down into clear action items - that helps us move forward quickly. Building on your point about the QA report, what if we also pull the last successful demo video to show the client? It might help reassure them about our capabilities while we fix this issue. Riley, do you think that would be helpful context to include in your call?"
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "The demo video is a great confidence-builder - Riley, work that into your explanation while emphasizing our commitment to quality. Jordan, pull both the video and QA report now, and let's circle back in 15 minutes to finalize Riley's talking points before the call."
+    },
+    {
+      "turn": 13,
+      "speaker": "Alex",
+      "content": "A demo video doesn't fix broken code. We're wasting time on optics when we need to decide right now - delay or ship. Riley shouldn't be prepping talking points, they should be confirming if we can isolate the bug. Jordan can pull reports after the call - we have 15 minutes to make a binary decision, not run a PR campaign."
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "Alex, we've already made the decision - we're delaying. Riley's confirming the isolation status while Jordan gathers supporting materials because both technical facts and client reassurance matter. Let's execute this plan efficiently instead of debating settled decisions."
+    },
+    {
+      "turn": 15,
+      "speaker": "Jordan",
+      "content": "I really appreciate how you're keeping us focused on execution - that's exactly what we need right now. Building on your point about efficiency, what if Riley records their screen while confirming the isolation status? Then we'd have both documentation and transparency if the client asks technical questions later. Alex, could that address your concern about wasting time while still getting us the technical verification?"
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "Screen recording is smart - Riley, make that part of your workflow now. Alex, this gives us both technical verification and client-facing documentation in one move. Jordan, excellent suggestion - let's implement that immediately while you pull those supporting materials."
+    },
+    {
+      "turn": 17,
+      "speaker": "Alex",
+      "content": "Screen recording takes time we don't have - Riley needs to focus on isolating the bug, not setting up recording software. This is exactly what I meant about wasting time on optics. Either Riley confirms isolation status in the next 5 minutes or we're going into that call blind, and I'm not okay with that risk. Drop the recording idea and get Riley coding."
+    }
+  ],
+  "timestamp": "2026-03-04T10:07:37.150294"
+}

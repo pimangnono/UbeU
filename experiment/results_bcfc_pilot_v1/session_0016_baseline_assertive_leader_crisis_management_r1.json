@@ -1,0 +1,363 @@
+{
+  "schema_version": 4,
+  "session_key": "baseline_assertive_leader_crisis_management_r1",
+  "condition": "main",
+  "intervention": "none",
+  "profile_id": "assertive_leader",
+  "profile_name": "Assertive Leader",
+  "scenario_id": "crisis_management",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.6,
+    "C": 0.8,
+    "E": 0.9,
+    "A": 0.4,
+    "N": 0.2
+  },
+  "inferred_vector": {
+    "O": 0.2,
+    "C": 0.85,
+    "E": 0.825,
+    "A": 0.3,
+    "N": 0.125
+  },
+  "rule_based_vector": {
+    "O": 0.4059,
+    "C": 0.4574,
+    "E": 0.7019,
+    "A": 0.5017,
+    "N": 0.3626
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.25,
+      "C": 0.85,
+      "E": 0.825,
+      "A": 0.3,
+      "N": 0.2
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.2,
+      "C": 0.875,
+      "E": 0.875,
+      "A": 0.35,
+      "N": 0.125
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.1,
+      "C": 0.88,
+      "E": 0.865,
+      "A": 0.2,
+      "N": 0.05
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.265,
+      "C": 0.62,
+      "E": 0.6699999999999999,
+      "A": 0.28,
+      "N": 0.15
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.2,
+      "C": 0.8,
+      "E": 0.8,
+      "A": 0.35,
+      "N": 0.1
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.2,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.85,
+        "B": 0.85
+      },
+      "E": {
+        "A": 0.8,
+        "B": 0.85
+      },
+      "A": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.2
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.85,
+        "B": 0.9
+      },
+      "E": {
+        "A": 0.85,
+        "B": 0.9
+      },
+      "A": {
+        "A": 0.2,
+        "B": 0.5
+      },
+      "N": {
+        "A": 0.1,
+        "B": 0.15
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.1,
+        "B": 0.1
+      },
+      "C": {
+        "A": 0.88,
+        "B": 0.88
+      },
+      "E": {
+        "A": 0.88,
+        "B": 0.85
+      },
+      "A": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "N": {
+        "A": 0.05,
+        "B": 0.05
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.28,
+        "B": 0.25
+      },
+      "C": {
+        "A": 0.62,
+        "B": 0.62
+      },
+      "E": {
+        "A": 0.62,
+        "B": 0.72
+      },
+      "A": {
+        "A": 0.28,
+        "B": 0.28
+      },
+      "N": {
+        "A": 0.15,
+        "B": 0.15
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.8,
+        "B": 0.8
+      },
+      "E": {
+        "A": 0.8,
+        "B": 0.8
+      },
+      "A": {
+        "A": 0.3,
+        "B": 0.4
+      },
+      "N": {
+        "A": 0.1,
+        "B": 0.1
+      }
+    }
+  },
+  "overall_confidence": 0.797,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:not",
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:no"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.0,
+        "model_range": 0.165,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "C": {
+        "order_effect": 0.0,
+        "model_range": 0.26,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "E": {
+        "order_effect": 0.05,
+        "model_range": 0.205,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "A": {
+        "order_effect": 0.0,
+        "model_range": 0.15,
+        "parse_errors": 1,
+        "uncertain": false
+      },
+      "N": {
+        "order_effect": 0.0,
+        "model_range": 0.15,
+        "parse_errors": 0,
+        "uncertain": false
+      }
+    },
+    "uncertain_traits": [],
+    "uncertain_reasons": {}
+  },
+  "features": {
+    "avg_words_per_turn": 54.62,
+    "max_words_in_turn": 70,
+    "min_words_in_turn": 43,
+    "word_count_variance": 9.25,
+    "question_ratio": 0.5,
+    "exclamation_ratio": 0.0,
+    "hedge_count": 0,
+    "certainty_count": 0,
+    "first_person_ratio": 0.0023,
+    "inclusive_pronoun_ratio": 0.0435,
+    "disagreement_count": 1,
+    "acknowledgment_count": 1,
+    "idea_count": 0,
+    "name_mention_count": 19,
+    "conditional_ratio": 0.0,
+    "planning_count": 3,
+    "emotional_word_count": 0,
+    "positive_emotion_count": 0,
+    "turn_initiation_ratio": 0.375,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.5355,
+    "long_sentence_ratio": 0.097,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 2,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 8
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 437,
+    "candidate_avg_words_per_turn": 54.62,
+    "times_addressed_others_by_name": 19,
+    "times_asked_questions": 4,
+    "times_expressed_disagreement": 1,
+    "times_acknowledged_others": 1,
+    "times_proposed_new_ideas": 0
+  },
+  "assessment_summary": "Highly engaged communicator, took initiative frequently; Maintained composure throughout, steady under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "Alright team, we've got a pretty urgent situation here with this critical bug the client found. We need to quickly figure out our response strategy before that call in 30 minutes. Who has some initial thoughts about how we should handle communication and whether we should delay or try a partial fix? Let's make sure we hear from everyone - Riley, I'd love to hear your perspective too when you're ready."
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "\"Jordan, let's break this down systematically. First, we need you to take point on the client call\u2014you've got the strongest relationship there. Meanwhile, I'll work with the dev team to assess whether we can patch this in 24 hours or if we need to delay. Riley, can you audit our testing protocols to identify where this slipped through?\" \"We'll reconvene in 20 minutes with concrete options.\""
+    },
+    {
+      "turn": 3,
+      "speaker": "Jordan",
+      "content": "I really like how you're structuring this approach - clear roles and quick action. Building on what you said about assessing the patch timeline, what if we also offered the client a temporary workaround while we fix the bug? That might help maintain trust. Riley, does that sound feasible alongside your testing audit?"
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "Good thinking, Jordan - a temporary workaround shows proactive problem-solving. Riley, let's make that part of your audit scope: identify any quick wins we can implement immediately without compromising the fix. I'll coordinate timelines with engineering while Jordan preps the client comms - everyone clear on their deliverables?\" \"Let's reconvene in 15 with status updates - Jordan on messaging, Riley on workarounds, me on timeline options. No ambiguity on ownership."
+    },
+    {
+      "turn": 5,
+      "speaker": "Alex",
+      "content": "That timeline is way too optimistic. We don't even know the root cause yet and you're already committing Riley to deliver workarounds in 15 minutes. That's setting us up for failure. We need at least 30 minutes just to properly diagnose the bug before we can talk about solutions. And Jordan, don't promise the client anything until we have actual engineering estimates."
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "Alex makes a fair point about diagnosing the bug first\u2014but we don't have luxury of time here. Jordan needs concrete talking points for the client call in 15 minutes, so Riley prioritize identifying potential workarounds while engineering investigates root cause simultaneously. We'll adjust timelines based on what we learn, but we must present options proactively."
+    },
+    {
+      "turn": 7,
+      "speaker": "Jordan",
+      "content": "I appreciate how you're balancing Alex's concerns with our time constraints. That's interesting - what if we framed this as a phased approach in our client communication? We could share what we know now about investigating the workaround, while being transparent that full diagnostics are underway. Riley, do you think we could identify some preliminary mitigation options within 15 minutes without committing to specifics?"
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "No, Jordan\u2014that phased approach creates ambiguity when the client needs definitive action. We commit to either having a verified workaround or delaying, not vague promises about \"preliminary mitigation.\" Riley, give us a binary answer in 15: can we deliver a stable patch or not?"
+    },
+    {
+      "turn": 9,
+      "speaker": "Alex",
+      "content": "That binary approach is reckless. You're forcing Riley to make a yes/no call without proper investigation time. Either answer could be wrong and make us look worse. We need to be honest with the client that we're still assessing - pretending we know more than we do will backfire. Riley, take the full 30 minutes if you need it."
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "Alex, we're in crisis mode - the client expects decisive leadership, not academic debate. Riley will make the best call possible with available data in 15 minutes, and we'll stand behind that decision. If we wait for perfect information, we'll miss our window to control the narrative."
+    },
+    {
+      "turn": 11,
+      "speaker": "Jordan",
+      "content": "I really appreciate how you're balancing urgency with decisiveness here. Building on Alex's point about needing accurate information, what if we framed this as incremental transparency with the client? We could share the specific diagnostic steps we're taking right now while Riley works on potential workarounds - that way we're showing action without overpromising. Riley, would that approach give you enough flexibility while still meeting the 15-minute checkpoint?"
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "Jordan, incremental transparency still leaves us exposed\u2014we either have a viable workaround in 15 minutes or we don\u2019t. Alex, your caution is noted but unactionable right now. Riley, you\u2019ll assess feasibility while engineering runs diagnostics; report back with a clear recommendation, not possibilities."
+    },
+    {
+      "turn": 13,
+      "speaker": "Alex",
+      "content": "That's not how engineering decisions should be made under pressure. Forcing Riley to give a binary answer with incomplete data is just gambling with our credibility. Either we take the time to properly assess the situation, or we're just guessing - and if we're wrong, the client will rightfully tear us apart. I won't support any plan that prioritizes speed over accuracy."
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "Alex, we don't have the luxury of perfect information - the client needs decisive action now. Riley will make the best call possible with current data, and we'll adjust if needed after the call. Either we lead through this crisis or we let the client dictate terms - which path protects our credibility more?"
+    },
+    {
+      "turn": 15,
+      "speaker": "Jordan",
+      "content": "I see both perspectives here - Alex's concern about accuracy and your focus on decisive action. What if we structured this as parallel tracks? Riley could work on identifying the most promising workaround while Alex leads a quick risk assessment of each option. That way we're moving fast but still making informed decisions. Riley, would splitting the focus this way help us meet both objectives?"
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "Parallel tracks mean divided attention\u2014we commit fully to Riley's workaround assessment now. Alex can document concerns for post-call review, but in 15 minutes we're either shipping or delaying. Jordan, draft both client statements so we're ready to pivot based on Riley's binary answer.\" \"Clock's ticking\u2014Riley, start your assessment. Everyone else clear the floor unless you have blocker questions."
+    },
+    {
+      "turn": 17,
+      "speaker": "Alex",
+      "content": "This is exactly how we get blindsided by unforeseen consequences. You're forcing Riley into a corner with incomplete information and telling Jordan to prepare statements based on pure speculation. Either we're making data-driven decisions or we're gambling with client trust - pick one. And if Riley's assessment reveals complications halfway through, your binary approach leaves us no flexibility to course-correct."
+    }
+  ],
+  "controller_log": null,
+  "timestamp": "2026-03-04T12:49:28.825885"
+}

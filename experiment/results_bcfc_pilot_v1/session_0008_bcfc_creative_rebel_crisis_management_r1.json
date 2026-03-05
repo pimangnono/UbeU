@@ -1,0 +1,753 @@
+{
+  "schema_version": 4,
+  "session_key": "bcfc_creative_rebel_crisis_management_r1",
+  "condition": "main",
+  "intervention": "bcfc",
+  "profile_id": "creative_rebel",
+  "profile_name": "Creative Rebel",
+  "scenario_id": "crisis_management",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.9,
+    "C": 0.3,
+    "E": 0.7,
+    "A": 0.3,
+    "N": 0.4
+  },
+  "inferred_vector": {
+    "O": 0.275,
+    "C": 0.3,
+    "E": 0.825,
+    "A": 0.15,
+    "N": 0.2
+  },
+  "rule_based_vector": {
+    "O": 0.5077,
+    "C": 0.4108,
+    "E": 0.7473,
+    "A": 0.5169,
+    "N": 0.4039
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.3,
+      "C": 0.3,
+      "E": 0.7,
+      "A": 0.2,
+      "N": 0.2
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.3,
+      "C": 0.3,
+      "E": 0.9,
+      "A": 0.05,
+      "N": 0.525
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.275,
+      "C": 0.3,
+      "E": 0.95,
+      "A": 0.11,
+      "N": 0.175
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.265,
+      "C": 0.265,
+      "E": 0.72,
+      "A": 0.15,
+      "N": 0.435
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.2,
+      "C": 0.25,
+      "E": 0.825,
+      "A": 0.15000000000000002,
+      "N": 0.1
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "E": {
+        "A": 0.9,
+        "B": 0.5
+      },
+      "A": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.2
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "E": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "A": {
+        "A": 0.05,
+        "B": 0.05
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.85
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.25,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "E": {
+        "A": 0.95,
+        "B": 0.95
+      },
+      "A": {
+        "A": 0.12,
+        "B": 0.1
+      },
+      "N": {
+        "A": 0.15,
+        "B": 0.2
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.28,
+        "B": 0.25
+      },
+      "C": {
+        "A": 0.28,
+        "B": 0.25
+      },
+      "E": {
+        "A": 0.72,
+        "B": 0.72
+      },
+      "A": {
+        "A": 0.15,
+        "B": 0.15
+      },
+      "N": {
+        "A": 0.72,
+        "B": 0.15
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.3,
+        "B": 0.2
+      },
+      "E": {
+        "A": 0.8,
+        "B": 0.85
+      },
+      "A": {
+        "A": 0.2,
+        "B": 0.1
+      },
+      "N": {
+        "A": 0.1,
+        "B": 0.1
+      }
+    }
+  },
+  "overall_confidence": 0.79,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:not",
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:no"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.0,
+        "model_range": 0.1,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "C": {
+        "order_effect": 0.0,
+        "model_range": 0.05,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "E": {
+        "order_effect": 0.0,
+        "model_range": 0.25,
+        "parse_errors": 1,
+        "uncertain": false
+      },
+      "A": {
+        "order_effect": 0.0,
+        "model_range": 0.15,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "N": {
+        "order_effect": 0.05,
+        "model_range": 0.425,
+        "parse_errors": 0,
+        "uncertain": true
+      }
+    },
+    "uncertain_traits": [
+      "N"
+    ],
+    "uncertain_reasons": {
+      "N": [
+        "model_range>0.42"
+      ]
+    }
+  },
+  "features": {
+    "avg_words_per_turn": 54.0,
+    "max_words_in_turn": 68,
+    "min_words_in_turn": 40,
+    "word_count_variance": 9.21,
+    "question_ratio": 0.875,
+    "exclamation_ratio": 0.125,
+    "hedge_count": 1,
+    "certainty_count": 0,
+    "first_person_ratio": 0.0116,
+    "inclusive_pronoun_ratio": 0.0255,
+    "disagreement_count": 0,
+    "acknowledgment_count": 1,
+    "idea_count": 1,
+    "name_mention_count": 11,
+    "conditional_ratio": 0.125,
+    "planning_count": 2,
+    "emotional_word_count": 1,
+    "positive_emotion_count": 0,
+    "turn_initiation_ratio": 0.5,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.5579,
+    "long_sentence_ratio": 0.321,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 0,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 5
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 432,
+    "candidate_avg_words_per_turn": 54.0,
+    "times_addressed_others_by_name": 11,
+    "times_asked_questions": 7,
+    "times_expressed_disagreement": 0,
+    "times_acknowledged_others": 1,
+    "times_proposed_new_ideas": 1
+  },
+  "assessment_summary": "Highly engaged communicator, took initiative frequently; Assertive in defending positions, comfortable with disagreement; Maintained composure throughout, steady under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "Okay team, we've got a hot situation here - the client found a critical bug and they're pretty upset. We need to move fast but stay calm. Let's tackle this together - who should handle the client communication first, and then we can figure out our technical response. Riley, I notice you haven't spoken yet - any initial thoughts you'd like to share?"
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "\"Hold on Jordan, why are we wasting time asking Riley when we all know I'm the only one who truly understands this client's temperament? I'll handle the call - and while you're all debating niceties, I've already identified three workarounds we could implement immediately.\" \"The real question is why our QA process failed so spectacularly - that's where we need radical solutions, not this timid damage control approach.\""
+    },
+    {
+      "turn": 3,
+      "speaker": "Alex",
+      "content": "That's a dangerously arrogant approach. You don't own this client relationship exclusively, and rushing out untested workarounds could make the situation worse. The QA failure is important, but right now we have 28 minutes to prevent an escalation - not to launch into a blame session. Let's focus on containing the damage first."
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "\"This isn't arrogance, Alex\u2014it's competence. Of course I don't the client, but I'm the only one who's successfully talked them down from two previous escalations. Your 'damage control' mentality is why we're in this mess\u2014we need bold action, not timid apologies. Let's implement workaround B immediately while I handle the call, and you can keep fretting about process failures after the client stops breathing down our necks.\""
+    },
+    {
+      "turn": 5,
+      "speaker": "Riley",
+      "content": "Workaround B wasn't fully tested last time. What if it fails during the call?"
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "Riley, that's exactly the risk-averse thinking that got us here! Workaround B has an 87% success rate in staging\u2014better than doing nothing while the client screams at us. If you're so worried about failure, why don't you monitor the logs in real-time instead of questioning the only person who's actually solved problems for this client before?"
+    },
+    {
+      "turn": 7,
+      "speaker": "Alex",
+      "content": "87% success rate means 13% failure rate, which is completely unacceptable when dealing with an already escalated client. You're gambling with our reputation here. And telling Riley to monitor logs is passing the buck - if this blows up during the call, it's your responsibility since you're pushing this untested solution. We need something more reliable, not just your usual cowboy coding approach."
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "Alex, your obsession with perfection is why we're always behind schedule\u2014those 'untested solutions' you sneer at have saved this client relationship three times already. Riley, pull up the monitoring dashboard right now while I implement Workaround B, or would you rather explain to the client why we wasted 20 minutes debating instead of acting?"
+    },
+    {
+      "turn": 9,
+      "speaker": "Riley",
+      "content": "Monitoring doesn't fix the 13% failure chance. That's still too high for a critical client."
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "Then what's your brilliant alternative, Riley? Sit here paralyzed until the client pulls the contract? I'll take an 87% chance of success over 100% certainty of failure any day\u2014at least I'm willing to take responsibility for the outcome instead of hiding behind risk assessments."
+    },
+    {
+      "turn": 11,
+      "speaker": "Alex",
+      "content": "An 87% success rate with a critical client is just gambling with company money. Your track record doesn't matter when the stakes are this high - we need a tested solution, not cowboy coding. If you're so confident in this approach, put your performance review on the line for it. Otherwise, let's stop pretending luck is a strategy and find a real fix."
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "Performance review? Seriously Alex? While you're busy covering your ass, I'm the one keeping clients from walking. Fine - let's hear your 'tested solution' that magically appears in the next 15 minutes. But when the client demands answers and we're sitting here empty-handed, remember who actually tried to solve the problem."
+    },
+    {
+      "turn": 13,
+      "speaker": "Riley",
+      "content": "We don't have time for personal attacks. Just tell us exactly what needs monitoring during the call."
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "Monitoring the transaction logs and API response times - that's where Workaround B fails when it fails. But Riley, if you're so focused on monitoring instead of solutions, maybe you should lead the client call while I actually fix the problem? Or are we just going to watch the ship sink together?"
+    },
+    {
+      "turn": 15,
+      "speaker": "Alex",
+      "content": "An 87% success rate is still a 13% failure rate when we're dealing with an escalated client - those aren't gambling odds I'm willing to take. If you're so confident in this cowboy coding approach, then own the client call completely - including explaining why we're rolling out a solution that fails one out of every eight times. Monitoring dashboards won't save us when the client's CEO is breathing down our necks about another failed delivery."
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "Fine, Alex wants perfection? Let's see how perfect silence sounds when the client hangs up on us mid-call. Riley, either help me implement this now or start drafting your apology email - because your risk-averse paralysis just guaranteed 100% failure."
+    },
+    {
+      "turn": 17,
+      "speaker": "Riley",
+      "content": "This isn't about perfection. It's about unacceptable risk."
+    }
+  ],
+  "controller_log": {
+    "session_key": "bcfc_creative_rebel_crisis_management_r1",
+    "deviation_reports": [
+      {
+        "turn_number": 2,
+        "deviations": [
+          {
+            "feature": "idea_count",
+            "actual": 1,
+            "target_min": 1.05,
+            "target_max": 1.96,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "hypothetical_count",
+            "actual": 0,
+            "target_min": 0.85,
+            "target_max": 1.58,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "word_count_variance",
+            "actual": 0.5,
+            "target_min": 27.63,
+            "target_max": 51.3,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "long_sentence_ratio",
+            "actual": 0.33,
+            "target_min": 0.36,
+            "target_max": 0.67,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "emotional_word_count",
+            "actual": 0,
+            "target_min": 0.4,
+            "target_max": 0.87,
+            "trait": "C",
+            "direction": "below"
+          },
+          {
+            "feature": "avg_words_per_turn",
+            "actual": 67.5,
+            "target_min": 30.89,
+            "target_max": 57.36,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "exclamation_ratio",
+            "actual": 0.0,
+            "target_min": 0.2,
+            "target_max": 0.38,
+            "trait": "E",
+            "direction": "below"
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 3,
+            "target_min": 0.84,
+            "target_max": 1.56,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "certainty_count",
+            "actual": 0,
+            "target_min": 0.56,
+            "target_max": 1.04,
+            "trait": "E",
+            "direction": "below"
+          },
+          {
+            "feature": "turn_initiation_ratio",
+            "actual": 0.5,
+            "target_min": 0.26,
+            "target_max": 0.48,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "hedge_count",
+            "actual": 0,
+            "target_min": 0.28,
+            "target_max": 0.75,
+            "trait": "N",
+            "direction": "below"
+          },
+          {
+            "feature": "disagreement_count",
+            "actual": 0,
+            "target_min": 0.61,
+            "target_max": 1.13,
+            "trait": "A",
+            "direction": "below"
+          },
+          {
+            "feature": "negation_count",
+            "actual": 4,
+            "target_min": 1.52,
+            "target_max": 2.83,
+            "trait": "A",
+            "direction": "above"
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your idea count is below target; your hypothetical count is below target; your word count variance is below target; your long sentence ratio is below target; Propose an alternative approach or ask a speculative question.. C: your emotional word count is below target; Include a concrete action item with an owner or reference a prior commitment.. E: your avg words per turn is above target; your exclamation ratio is below target; your name mention count is above target; your certainty count is below target; your turn initiation ratio is above target; Keep it brief and let others lead.. N: your hedge count is below target; Express a concern or qualify your statement with uncertainty.. A: your disagreement count is below target; your negation count is above target; Validate someone's contribution or find common ground.. ]",
+        "severity": 0.481
+      },
+      {
+        "turn_number": 4,
+        "deviations": [
+          {
+            "feature": "unique_word_ratio",
+            "actual": 0.65,
+            "target_min": 0.69,
+            "target_max": 1.0,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "idea_count",
+            "actual": 1,
+            "target_min": 1.05,
+            "target_max": 1.96,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "hypothetical_count",
+            "actual": 0,
+            "target_min": 0.85,
+            "target_max": 1.58,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "word_count_variance",
+            "actual": 6.3,
+            "target_min": 27.63,
+            "target_max": 51.3,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "question_ratio",
+            "actual": 0.75,
+            "target_min": 0.36,
+            "target_max": 0.67,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "planning_count",
+            "actual": 1,
+            "target_min": 0.0,
+            "target_max": 0.31,
+            "trait": "C",
+            "direction": "above"
+          },
+          {
+            "feature": "emotional_word_count",
+            "actual": 1,
+            "target_min": 0.4,
+            "target_max": 0.87,
+            "trait": "C",
+            "direction": "above"
+          },
+          {
+            "feature": "avg_words_per_turn",
+            "actual": 61.25,
+            "target_min": 30.89,
+            "target_max": 57.36,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 6,
+            "target_min": 0.84,
+            "target_max": 1.56,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "certainty_count",
+            "actual": 0,
+            "target_min": 0.56,
+            "target_max": 1.04,
+            "trait": "E",
+            "direction": "below"
+          },
+          {
+            "feature": "turn_initiation_ratio",
+            "actual": 0.75,
+            "target_min": 0.26,
+            "target_max": 0.48,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "hedge_count",
+            "actual": 0,
+            "target_min": 0.28,
+            "target_max": 0.75,
+            "trait": "N",
+            "direction": "below"
+          },
+          {
+            "feature": "acknowledgment_count",
+            "actual": 1,
+            "target_min": 0.0,
+            "target_max": 0.44,
+            "trait": "A",
+            "direction": "above"
+          },
+          {
+            "feature": "disagreement_count",
+            "actual": 0,
+            "target_min": 0.61,
+            "target_max": 1.13,
+            "trait": "A",
+            "direction": "below"
+          },
+          {
+            "feature": "negation_count",
+            "actual": 5,
+            "target_min": 1.52,
+            "target_max": 2.83,
+            "trait": "A",
+            "direction": "above"
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your unique word ratio is below target; your idea count is below target; your hypothetical count is below target; your word count variance is below target; Propose an alternative approach or ask a speculative question.. E: your question ratio is above target; your avg words per turn is above target; your name mention count is above target; your certainty count is below target; your turn initiation ratio is above target; Keep it brief and let others lead.. C: your planning count is above target; your emotional word count is above target; Be more spontaneous and avoid over-organizing.. N: your hedge count is below target; Express a concern or qualify your statement with uncertainty.. A: your acknowledgment count is above target; your disagreement count is below target; your negation count is above target; Identify a flaw in the current proposal and push back.. ]",
+        "severity": 0.556
+      },
+      {
+        "turn_number": 6,
+        "deviations": [
+          {
+            "feature": "idea_count",
+            "actual": 0,
+            "target_min": 1.05,
+            "target_max": 1.96,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "hypothetical_count",
+            "actual": 0,
+            "target_min": 0.85,
+            "target_max": 1.58,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "word_count_variance",
+            "actual": 4.55,
+            "target_min": 27.63,
+            "target_max": 51.3,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "long_sentence_ratio",
+            "actual": 0.31,
+            "target_min": 0.36,
+            "target_max": 0.67,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "question_ratio",
+            "actual": 1.0,
+            "target_min": 0.36,
+            "target_max": 0.67,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "planning_count",
+            "actual": 2,
+            "target_min": 0.0,
+            "target_max": 0.31,
+            "trait": "C",
+            "direction": "above"
+          },
+          {
+            "feature": "emotional_word_count",
+            "actual": 1,
+            "target_min": 0.4,
+            "target_max": 0.87,
+            "trait": "C",
+            "direction": "above"
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 5,
+            "target_min": 0.84,
+            "target_max": 1.56,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "certainty_count",
+            "actual": 0,
+            "target_min": 0.56,
+            "target_max": 1.04,
+            "trait": "E",
+            "direction": "below"
+          },
+          {
+            "feature": "turn_initiation_ratio",
+            "actual": 0.5,
+            "target_min": 0.26,
+            "target_max": 0.48,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "hedge_count",
+            "actual": 0,
+            "target_min": 0.28,
+            "target_max": 0.75,
+            "trait": "N",
+            "direction": "below"
+          },
+          {
+            "feature": "acknowledgment_count",
+            "actual": 1,
+            "target_min": 0.0,
+            "target_max": 0.44,
+            "trait": "A",
+            "direction": "above"
+          },
+          {
+            "feature": "disagreement_count",
+            "actual": 0,
+            "target_min": 0.61,
+            "target_max": 1.13,
+            "trait": "A",
+            "direction": "below"
+          },
+          {
+            "feature": "negation_count",
+            "actual": 1,
+            "target_min": 1.52,
+            "target_max": 2.83,
+            "trait": "A",
+            "direction": "below"
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your idea count is below target; your hypothetical count is below target; your word count variance is below target; your long sentence ratio is below target; Propose an alternative approach or ask a speculative question.. E: your question ratio is above target; your name mention count is above target; your certainty count is below target; your turn initiation ratio is above target; Keep it brief and let others lead.. C: your planning count is above target; your emotional word count is above target; Be more spontaneous and avoid over-organizing.. N: your hedge count is below target; Express a concern or qualify your statement with uncertainty.. A: your acknowledgment count is above target; your disagreement count is below target; your negation count is below target; Validate someone's contribution or find common ground.. ]",
+        "severity": 0.519
+      }
+    ],
+    "constraint_violations": [
+      {
+        "turn_number": 2,
+        "constraint": "Never agree with a proposal without first identifying at least one weakness, concern, or area that needs improvement.",
+        "violation_type": "agreed_without_concern",
+        "original_text": "Arrogant? No Alex, decisive. While you're worrying about containment, I'm already drafting the script to turn this into an innovation showcase - the client cares about solutions, not apologies. And let's be honest, your 'damage control' mindset is exactly why we're in this mess.",
+        "retry_count": 1,
+        "final_text": "\"This isn't arrogance, Alex\u2014it's competence. Of course I don't the client, but I'm the only one who's successfully talked them down from two previous escalations. Your 'damage control' mentality is why we're in this mess\u2014we need bold action, not timid apologies. Let's implement workaround B immediately while I handle the call, and you can keep fretting about process failures after the client stops breathing down our necks.\""
+      },
+      {
+        "turn_number": 8,
+        "constraint": "Do not impose numbered lists, deadlines, or structured processes unless directly asked to do so.",
+        "violation_type": "imposed_unsolicited_structure",
+        "original_text": "\"Alex, your paralysis by analysis is why we miss every deadline\u2014meanwhile, I just deployed Workaround B while you were talking. Riley, the logs are spiking at transaction ID 4421, so either help me throttle it or start drafting your resignation speech for when the client leaves us.\"",
+        "retry_count": 1,
+        "final_text": "Fine, Alex wants perfection? Let's see how perfect silence sounds when the client hangs up on us mid-call. Riley, either help me implement this now or start drafting your apology email - because your risk-averse paralysis just guaranteed 100% failure."
+      }
+    ],
+    "total_nudges": 3,
+    "total_regenerations": 2,
+    "total_candidate_turns": 8,
+    "nudge_rate": 0.375,
+    "regeneration_rate": 0.25
+  },
+  "timestamp": "2026-03-04T12:18:17.435346"
+}

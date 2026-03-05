@@ -1,0 +1,361 @@
+{
+  "schema_version": 3,
+  "session_key": "main_passive_avoider_resource_conflict_r1",
+  "condition": "main",
+  "profile_id": "passive_avoider",
+  "profile_name": "Passive Avoider",
+  "scenario_id": "resource_conflict",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.4,
+    "C": 0.4,
+    "E": 0.2,
+    "A": 0.8,
+    "N": 0.7
+  },
+  "inferred_vector": {
+    "O": 0.3,
+    "C": 0.3,
+    "E": 0.2,
+    "A": 0.875,
+    "N": 0.775
+  },
+  "rule_based_vector": {
+    "O": 0.4594,
+    "C": 0.5658,
+    "E": 0.5267,
+    "A": 0.5393,
+    "N": 0.4505
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.3,
+      "C": 0.4,
+      "E": 0.2,
+      "A": 0.85,
+      "N": 0.775
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.3,
+      "C": 0.3,
+      "E": 0.2,
+      "A": 0.875,
+      "N": 0.8
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.2,
+      "C": 0.275,
+      "E": 0.225,
+      "A": 0.95,
+      "N": 0.85
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.33499999999999996,
+      "C": 0.365,
+      "E": 0.2,
+      "A": 0.82,
+      "N": 0.72
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.2,
+      "C": 0.3,
+      "E": 0.25,
+      "A": 0.9,
+      "N": 0.7
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.4,
+        "B": 0.4
+      },
+      "E": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "A": {
+        "A": 0.85,
+        "B": 0.85
+      },
+      "N": {
+        "A": 0.8,
+        "B": 0.75
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "E": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "A": {
+        "A": 0.85,
+        "B": 0.9
+      },
+      "N": {
+        "A": 0.75,
+        "B": 0.85
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.3,
+        "B": 0.25
+      },
+      "E": {
+        "A": 0.2,
+        "B": 0.25
+      },
+      "A": {
+        "A": 0.95,
+        "B": 0.95
+      },
+      "N": {
+        "A": 0.82,
+        "B": 0.88
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.35,
+        "B": 0.32
+      },
+      "C": {
+        "A": 0.38,
+        "B": 0.35
+      },
+      "E": {
+        "A": 0.18,
+        "B": 0.22
+      },
+      "A": {
+        "A": 0.82,
+        "B": 0.82
+      },
+      "N": {
+        "A": 0.72,
+        "B": 0.72
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "E": {
+        "A": 0.2,
+        "B": 0.3
+      },
+      "A": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "N": {
+        "A": 0.7,
+        "B": 0.7
+      }
+    }
+  },
+  "overall_confidence": 0.882,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:not"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.0,
+        "model_range": 0.135,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "C": {
+        "order_effect": 0.0,
+        "model_range": 0.125,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "E": {
+        "order_effect": 0.04,
+        "model_range": 0.05,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "A": {
+        "order_effect": 0.0,
+        "model_range": 0.13,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "N": {
+        "order_effect": 0.05,
+        "model_range": 0.15,
+        "parse_errors": 0,
+        "uncertain": false
+      }
+    },
+    "uncertain_traits": [],
+    "uncertain_reasons": {}
+  },
+  "features": {
+    "avg_words_per_turn": 29.75,
+    "max_words_in_turn": 39,
+    "min_words_in_turn": 23,
+    "word_count_variance": 4.92,
+    "question_ratio": 0.625,
+    "exclamation_ratio": 0.0,
+    "hedge_count": 5,
+    "certainty_count": 0,
+    "first_person_ratio": 0.0252,
+    "inclusive_pronoun_ratio": 0.0462,
+    "disagreement_count": 0,
+    "acknowledgment_count": 1,
+    "idea_count": 2,
+    "name_mention_count": 7,
+    "conditional_ratio": 0.5,
+    "planning_count": 4,
+    "emotional_word_count": 0,
+    "positive_emotion_count": 0,
+    "turn_initiation_ratio": 0.25,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.5798,
+    "long_sentence_ratio": 0.038,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 0,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 4
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 238,
+    "candidate_avg_words_per_turn": 29.75,
+    "times_addressed_others_by_name": 7,
+    "times_asked_questions": 5,
+    "times_expressed_disagreement": 0,
+    "times_acknowledged_others": 1,
+    "times_proposed_new_ideas": 2
+  },
+  "assessment_summary": "Reserved participant, preferred listening over speaking; Collaborative and accommodating in conflict situations; Showed some stress signals under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "Hey team, great to see everyone here! We've got an exciting but challenging project ahead of us - we need to decide which two features to prioritize out of the four proposed, while being mindful about overtime and the client's priorities. I'm really looking forward to hearing everyone's thoughts on how we can tackle this together most effectively. Riley, I'd love to hear your perspective first since you've been quiet so far - what do you think we should consider when making these decisions?"
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "Maybe we could look at which features align best with the client's main goals? I'm sure Riley has good ideas about that too."
+    },
+    {
+      "turn": 3,
+      "speaker": "Jordan",
+      "content": "That's a great point about aligning with the client's goals! I completely agree we should start there. Riley, since you've worked closely with this client before, could you share which of their priorities might help us decide between these features? \n\nBuilding on what you both said, maybe we could create a quick scoring system based on how well each feature matches the client's top three objectives. That way we're making data-driven decisions together. \n\nAnd hey, I love that we're thinking collaboratively already - this team energy is exactly what we need for tight deadlines!"
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "That scoring system sounds practical. I'd just worry about making sure we don't overlook any hidden client priorities while focusing on the main objectives. Riley probably knows best about that though."
+    },
+    {
+      "turn": 5,
+      "speaker": "Riley",
+      "content": "Not sure we can score what we don't know about the client's hidden priorities."
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "You're right - maybe we should ask the client directly if there's anything else we should consider? I don't want us to miss anything important."
+    },
+    {
+      "turn": 7,
+      "speaker": "Alex",
+      "content": "I don't think running to the client every time we hit a snag is the right move here. We were hired as the experts to make these judgment calls, not punt decisions back to them. \n\nRiley's point about hidden priorities is valid, but we already have enough intel to make an informed choice. Let's score the features based on the three objectives we know are critical - if we wait for perfect information, we'll blow past our deadline. \n\nAnd candidate, you're being too tentative - we need to own this decision. Which two features would you cut right now if you had to choose?"
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "Oh, um... I guess if I had to pick, maybe features B and D? But only if Riley thinks that aligns with what we know about the client. I just worry we might regret cutting the wrong ones later."
+    },
+    {
+      "turn": 9,
+      "speaker": "Jordan",
+      "content": "I really appreciate how you're considering both the client alignment and Riley's expertise here! Building on your thought about features B and D, I wonder if we could combine that with Alex's scoring system approach - maybe we could quickly map those two features against the client's top objectives to validate the choice? Riley, what's your take on how B and D stack up against what we know of their priorities?"
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "That sounds like a good compromise. I just hope we're not rushing the decision too much - maybe we could check with Riley first before finalizing anything?"
+    },
+    {
+      "turn": 11,
+      "speaker": "Alex",
+      "content": "We don't have time for endless validation loops. Riley already gave input - we need to move forward. Features B and D are clearly the weakest based on impact versus development time. \n\nCandidate, stop second-guessing every decision. Either you're making the call or you're not - which is it? We've got two weeks left and you're still asking permission to breathe. \n\nJordan, your scoring system idea was solid. Let's implement it now on B and D to confirm, then lock this in today. No more delays."
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "I-I just want us to make the best choice possible. If everyone agrees B and D are the right cuts, then... okay. The scoring system should help confirm that. Sorry for slowing things down."
+    },
+    {
+      "turn": 13,
+      "speaker": "Jordan",
+      "content": "Hey team, let's take a breath here. I see both sides - Alex is right that we need to move forward, but I also understand why the candidate wants to be thorough. Maybe we could do a quick 15-minute scoring session together right now to build confidence in the decision? That way we're moving fast but still validating our choices as a team. Riley, would that process feel sufficient to you?"
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "Okay, scoring B and D now sounds reasonable...as long as we all agree? I just don't want us to regret rushing later. Jordan's 15-minute plan seems fair."
+    },
+    {
+      "turn": 15,
+      "speaker": "Alex",
+      "content": "15 minutes is still wasting time we don't have. The scoring system already exists - we just need to apply it. Candidate, you're still trying to delay the inevitable. Either you trust your own judgment or you don't. \n\nJordan, your system is solid but we don't need another meeting to run it. Riley and I can score these features in 5 minutes right now while the candidate decides if they actually want to lead or just keep seeking approval. \n\nLet's cut the hand-holding and make a decision. Features B and D are clearly the weakest - the data shows it."
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "I...I do trust the data, Alex. It's just hard when the stakes are so high. But if you and Riley are confident in the scoring, then I'll support cutting B and D."
+    },
+    {
+      "turn": 17,
+      "speaker": "Jordan",
+      "content": "I really appreciate you coming around to support the decision, candidate - that shows great team spirit. Alex, while I agree we need to move quickly, I think taking just a few extra minutes to walk through the scoring together could help us all feel more aligned. Riley, would you be comfortable sharing your scoring rationale with us briefly so we can all understand the data behind this choice?"
+    }
+  ],
+  "timestamp": "2026-03-04T10:10:56.617997"
+}

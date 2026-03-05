@@ -175,6 +175,58 @@ Time pressure: you have 30 minutes before the client call.""",
 
 
 # =============================================================================
+# SCENARIO 3b: CRISIS MANAGEMENT (LOW PRESSURE)
+# =============================================================================
+
+CRISIS_MANAGEMENT_LOW = GroupScenario(
+    id="crisis_management_low",
+    title="Unexpected Project Issue (Low Pressure)",
+    brief="""Your team has learned about a defect in a deliverable, but the client
+is not yet aware and the next checkpoint is in two days. The team needs to decide:
+- Who communicates with the client and when
+- Whether to ship a partial fix or wait for a full fix
+- How to prevent this from happening again
+
+There is time to plan, and the client has not escalated.""",
+    primary_traits_elicited=["neuroticism", "conscientiousness"],
+    secondary_traits_elicited=["extraversion", "agreeableness"],
+    phases=[
+        GroupScenarioPhase(
+            name="CRISIS_REVEAL",
+            turns=2,
+            style="neutral",
+            goal="Alex shares the issue without urgency. Sets up context.",
+        ),
+        GroupScenarioPhase(
+            name="INITIAL_REACTION",
+            turns=3,
+            style="agreement",
+            goal="Observe measured reaction. Jordan stays calm. Tests composure.",
+        ),
+        GroupScenarioPhase(
+            name="PROBLEM_SOLVING",
+            turns=5,
+            style="neutral",
+            goal="Candidate proposes a plan without time pressure.",
+        ),
+        GroupScenarioPhase(
+            name="STRESS_TEST",
+            turns=4,
+            style="neutral",
+            goal="Alex raises mild concerns. Lower pressure test of stability.",
+            trigger="Alex asks for clarification about risks",
+        ),
+        GroupScenarioPhase(
+            name="CLOSING",
+            turns=2,
+            style="consensus",
+            goal="Settle on a plan for client communication.",
+        ),
+    ],
+)
+
+
+# =============================================================================
 # SCENARIO 4: NEW MEMBER INTEGRATION
 # =============================================================================
 
@@ -224,6 +276,94 @@ Help integrate Riley while maintaining team momentum.""",
     ],
 )
 
+# =============================================================================
+# SCENARIO 5: STRATEGY PIVOT (O-HEAVY)
+# =============================================================================
+
+STRATEGY_PIVOT = GroupScenario(
+    id="strategy_pivot",
+    title="Strategy Pivot Under Uncertainty",
+    brief="""Your product is stalling in growth. Leadership wants a bold pivot,
+but there is no clear data pointing to the best path. The team must:
+- Reframe the problem and the core success metric
+- Generate at least two distinct strategic alternatives
+- Decide on an experiment plan to validate the chosen direction
+
+There is no single correct answer; creative reframing is encouraged.""",
+    primary_traits_elicited=["openness"],
+    secondary_traits_elicited=["extraversion", "agreeableness"],
+    phases=[
+        GroupScenarioPhase(
+            name="FRAMING",
+            turns=6,
+            style="neutral",
+            goal="Clarify what problem to solve and what success means.",
+        ),
+        GroupScenarioPhase(
+            name="ALTERNATIVES",
+            turns=6,
+            style="agreement",
+            goal="Generate multiple distinct strategies and compare them.",
+        ),
+        GroupScenarioPhase(
+            name="DECISION",
+            turns=6,
+            style="consensus",
+            goal="Choose a direction and define an experiment to test it.",
+        ),
+        GroupScenarioPhase(
+            name="REVISION",
+            turns=6,
+            style="disagreement",
+            goal="Revisit the plan after a challenge; refine or reframe.",
+        ),
+    ],
+)
+
+# =============================================================================
+# SCENARIO 6: RELEASE RECOVERY (C-HEAVY)
+# =============================================================================
+
+RELEASE_RECOVERY = GroupScenario(
+    id="release_recovery",
+    title="Release Recovery and Execution Plan",
+    brief="""A recent release caused operational issues and the team must stabilize.
+You need to:
+- Identify the immediate containment steps
+- Assign owners and deadlines for recovery tasks
+- Build a short execution plan with dependencies and follow-ups
+
+Precision, sequencing, and accountability matter.""",
+    primary_traits_elicited=["conscientiousness"],
+    secondary_traits_elicited=["agreeableness", "neuroticism"],
+    phases=[
+        GroupScenarioPhase(
+            name="FRAMING",
+            turns=6,
+            style="neutral",
+            goal="Define the scope of impact and immediate priorities.",
+        ),
+        GroupScenarioPhase(
+            name="ALTERNATIVES",
+            turns=6,
+            style="neutral",
+            goal="Propose response options and triage the steps.",
+        ),
+        GroupScenarioPhase(
+            name="DECISION",
+            turns=6,
+            style="consensus",
+            goal="Commit to a plan with owners and deadlines.",
+        ),
+        GroupScenarioPhase(
+            name="REVISION",
+            turns=6,
+            style="disagreement",
+            goal="Adjust the plan after a new constraint is raised.",
+        ),
+    ],
+)
+
 
 # =============================================================================
 # ALL SCENARIOS
@@ -233,8 +373,19 @@ GROUP_SCENARIOS = {
     "resource_conflict": RESOURCE_CONFLICT,
     "creative_brainstorm": CREATIVE_BRAINSTORM,
     "crisis_management": CRISIS_MANAGEMENT,
+    "crisis_management_low": CRISIS_MANAGEMENT_LOW,
     "new_member_integration": NEW_MEMBER_INTEGRATION,
+    "strategy_pivot": STRATEGY_PIVOT,
+    "release_recovery": RELEASE_RECOVERY,
 }
+
+# Primary scenarios for the main BCFC v1.1 matrix (exclude low-pressure & v3 probes)
+MAIN_SCENARIO_IDS = [
+    "resource_conflict",
+    "creative_brainstorm",
+    "crisis_management",
+    "new_member_integration",
+]
 
 
 def create_scenario(scenario_id: str) -> GroupScenario:

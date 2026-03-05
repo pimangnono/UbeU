@@ -1,0 +1,373 @@
+{
+  "schema_version": 4,
+  "session_key": "baseline_assertive_leader_crisis_management_r1",
+  "condition": "main",
+  "intervention": "none",
+  "profile_id": "assertive_leader",
+  "profile_name": "Assertive Leader",
+  "scenario_id": "crisis_management",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.6,
+    "C": 0.8,
+    "E": 0.9,
+    "A": 0.4,
+    "N": 0.2
+  },
+  "inferred_vector": {
+    "O": 0.3,
+    "C": 0.825,
+    "E": 0.775,
+    "A": 0.365,
+    "N": 0.125
+  },
+  "rule_based_vector": {
+    "O": 0.4693,
+    "C": 0.5168,
+    "E": 0.7027,
+    "A": 0.5936,
+    "N": 0.3334
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.3,
+      "C": 0.825,
+      "E": 0.775,
+      "A": 0.3,
+      "N": 0.2
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.35,
+      "C": 0.9,
+      "E": 0.85,
+      "A": 0.5,
+      "N": 0.125
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.175,
+      "C": 0.91,
+      "E": 0.865,
+      "A": 0.3,
+      "N": 0.1
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.35,
+      "C": 0.6699999999999999,
+      "E": 0.52,
+      "A": 0.365,
+      "N": 0.18
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.2,
+      "C": 0.8,
+      "E": 0.75,
+      "A": 0.9,
+      "N": 0.1
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.85,
+        "B": 0.8
+      },
+      "E": {
+        "A": 0.75,
+        "B": 0.8
+      },
+      "A": {
+        "A": 0.35,
+        "B": 0.25
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.2
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.4,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "E": {
+        "A": 0.85,
+        "B": 0.85
+      },
+      "A": {
+        "A": 0.5,
+        "B": 0.5
+      },
+      "N": {
+        "A": 0.15,
+        "B": 0.1
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.15,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.9,
+        "B": 0.92
+      },
+      "E": {
+        "A": 0.85,
+        "B": 0.88
+      },
+      "A": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "N": {
+        "A": 0.12,
+        "B": 0.08
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.35,
+        "B": 0.35
+      },
+      "C": {
+        "A": 0.62,
+        "B": 0.72
+      },
+      "E": {
+        "A": 0.32,
+        "B": 0.72
+      },
+      "A": {
+        "A": 0.38,
+        "B": 0.35
+      },
+      "N": {
+        "A": 0.18,
+        "B": 0.18
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.8,
+        "B": 0.8
+      },
+      "E": {
+        "A": 0.7,
+        "B": 0.8
+      },
+      "A": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "N": {
+        "A": 0.1,
+        "B": 0.1
+      }
+    }
+  },
+  "overall_confidence": 0.7,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:not"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.0,
+        "model_range": 0.175,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "C": {
+        "order_effect": 0.02,
+        "model_range": 0.24,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "E": {
+        "order_effect": 0.05,
+        "model_range": 0.345,
+        "parse_errors": 0,
+        "uncertain": true
+      },
+      "A": {
+        "order_effect": 0.0,
+        "model_range": 0.6,
+        "parse_errors": 1,
+        "uncertain": true
+      },
+      "N": {
+        "order_effect": 0.0,
+        "model_range": 0.1,
+        "parse_errors": 0,
+        "uncertain": false
+      }
+    },
+    "uncertain_traits": [
+      "E",
+      "A"
+    ],
+    "uncertain_reasons": {
+      "E": [
+        "model_range>0.34"
+      ],
+      "A": [
+        "model_range>0.60"
+      ]
+    }
+  },
+  "features": {
+    "avg_words_per_turn": 58.62,
+    "max_words_in_turn": 96,
+    "min_words_in_turn": 38,
+    "word_count_variance": 19.49,
+    "question_ratio": 0.25,
+    "exclamation_ratio": 0.0,
+    "hedge_count": 0,
+    "certainty_count": 3,
+    "first_person_ratio": 0.0021,
+    "inclusive_pronoun_ratio": 0.0341,
+    "disagreement_count": 0,
+    "acknowledgment_count": 2,
+    "idea_count": 0,
+    "name_mention_count": 17,
+    "conditional_ratio": 0.25,
+    "planning_count": 3,
+    "emotional_word_count": 0,
+    "positive_emotion_count": 1,
+    "turn_initiation_ratio": 0.25,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.5757,
+    "long_sentence_ratio": 0.321,
+    "structure_marker_count": 1,
+    "reference_back_count": 0,
+    "action_item_count": 0,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 3
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 469,
+    "candidate_avg_words_per_turn": 58.62,
+    "times_addressed_others_by_name": 17,
+    "times_asked_questions": 2,
+    "times_expressed_disagreement": 0,
+    "times_acknowledged_others": 2,
+    "times_proposed_new_ideas": 0
+  },
+  "assessment_summary": "Highly engaged communicator, took initiative frequently; Maintained composure throughout, steady under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "Hey everyone, thanks for jumping on this quickly. I know this is stressful, but we've got a great team here to figure it out. \n\nI really like the idea of having our most experienced person handle the client communication - maybe Riley since they've worked closely with this client before? \n\nBuilding on that, what if we also prepare a clear timeline for either a full fix or partial solution before the call? That way we can show the client we're taking this seriously. \n\nRiley, you've been quiet - what are your thoughts on how we should approach the client?"
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "Jordan makes excellent points - Riley's definitely the right choice for client communications given their existing relationship. Let's structure this systematically: First, Riley should lead the client call while Jordan and I prepare backup technical details. Second, we need to analyze whether we can implement a hotfix within 24 hours or if we need to delay launch - I'll pull the engineering leads into a separate huddle right after this to assess. Riley, how comfortable are you presenting both options to the client?"
+    },
+    {
+      "turn": 3,
+      "speaker": "Jordan",
+      "content": "I love how you're structuring this systematically - that's really helpful. Building on your point about the hotfix timeline, what if we also prepare a temporary workaround we could implement immediately while the full fix is being developed? Riley, do you think the client would be open to that kind of phased approach? \n\nAnd I completely agree Riley should lead the call - your relationship with them will help maintain trust. Maybe we could roleplay the tough questions quickly before the call to make sure we're all aligned?"
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "We absolutely need that temporary workaround\u2014great call, Jordan. Riley, let\u2019s bullet-point the key trade-offs: immediate partial fix buys goodwill but may require follow-up work, while delaying gives us a cleaner solution but risks client patience. And yes, roleplaying the tough questions is smart\u2014Jordan, can you rapid-fire the top three concerns the client might raise? I\u2019ll document the answers so Riley has talking points ready. We should allocate 15 minutes for the roleplay, 10 minutes for engineering to confirm timelines, and keep 5 minutes buffer before the call. Who\u2019s grabbing the virtual whiteboard to map this out?"
+    },
+    {
+      "turn": 5,
+      "speaker": "Alex",
+      "content": "That temporary workaround idea is a band-aid solution at best. We need to be honest with ourselves - if we ship a partial fix now, we're just setting up for more failures down the line. The client will see right through that. \n\nJordan, your optimism is admirable but we're dealing with a critical bug here, not some minor glitch. Riley shouldn't have to shoulder all the client communication alone either - this is a team failure that requires team ownership. \n\nAnd let's not waste time roleplaying when we could be fixing the actual problem. Engineering needs every minute we can give them. Who's going to tell the client the hard truth that we need to delay?"
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "Alex makes fair points about integrity, but temporary fixes are standard practice when timelines are tight\u2014they buy us breathing room while maintaining client confidence. Let's not confuse urgency with panic: dedicating 15 minutes to prepare Riley properly will prevent miscommunication that could cost us hours later. Engineering can work in parallel\u2014I'll personally coordinate their efforts while Jordan handles the roleplay prep."
+    },
+    {
+      "turn": 7,
+      "speaker": "Riley",
+      "content": "Not sure temporary fixes are worth the risk. Might make things worse long-term. \n\nHow do we know the client will accept a partial solution? Their tolerance seems low already."
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "Alex, temporary fixes aren't about cutting corners\u2014they're strategic stopgaps while we develop robust solutions. The client's tolerance is precisely why we need Riley presenting options rather than ultimatums. Let's focus on what we can control: Riley's prep time is non-negotiable, and engineering will confirm feasibility within the hour\u2014I'll personally verify their estimates before the call."
+    },
+    {
+      "turn": 9,
+      "speaker": "Alex",
+      "content": "Strategic stopgaps? That's corporate-speak for rushing out half-baked solutions. You're ignoring Riley's valid concern that this client already has low tolerance - presenting them with a temporary fix now is just inviting more anger later. \n\nAnd let's be real - verifying engineering estimates \"within the hour\" is too slow when we've got 30 minutes until the call. Either we know now what we can deliver or we don't. \n\nIf we're going to roleplay anything, it should be how to deliver bad news professionally because that's likely what this client needs to hear."
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "Alex, we're wasting time debating philosophy when we need action. Temporary fixes work when managed properly\u2014I've seen it dozens of times. Riley will present both options, but we're not going into that call empty-handed. Engineering will give us preliminary numbers in 15 minutes\u2014that's non-negotiable."
+    },
+    {
+      "turn": 11,
+      "speaker": "Riley",
+      "content": "15 minutes might not be enough for engineering to give reliable estimates. What if they're wrong?"
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "Then we'll clearly communicate those estimates as preliminary and commit to firm timelines by end of day. Riley, I'll have Jordan prep you with exact phrasing to manage expectations - we'll emphasize our rigorous validation process while showing immediate action."
+    },
+    {
+      "turn": 13,
+      "speaker": "Alex",
+      "content": "That's wishful thinking at best. Preliminary estimates with no validation are exactly what got us into this mess in the first place. Either engineering can commit to real numbers now or we need to stop pretending we can deliver anything today. \n\nAnd Riley shouldn't have to sugarcoat unverified estimates - that just makes us look incompetent when they inevitably change. Let's stop scrambling for quick fixes and tell the client the hard truth."
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "Alex, we're circling the same arguments while the clock's ticking. Here's the path forward: Riley presents both options with clear risk assessments, engineering gives their best preliminary estimates in 15 minutes, and we document all assumptions transparently. That's how professionals handle urgent situations\u2014not by abandoning all planning to deliver bad news poorly."
+    },
+    {
+      "turn": 15,
+      "speaker": "Riley",
+      "content": "Clear risk assessments take time we don't have. How do we ensure they're accurate under this pressure?"
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "We'll use Jordan's risk assessment framework\u2014it's battle-tested for rapid evaluations. Riley, focus on the top three risk factors per option, and I'll personally cross-check them with engineering's input before the call. That gives us both speed and credibility."
+    },
+    {
+      "turn": 17,
+      "speaker": "Alex",
+      "content": "Jordan's framework hasn't been stress-tested under these conditions before - you're gambling with the client's trust by using an unproven method here. And cross-checking with engineering in 15 minutes? That's optimistic to the point of being reckless when we're dealing with critical systems. \n\nIf we can't deliver accurate risk assessments, we shouldn't pretend we can. The client will see right through this rushed approach - we need to be honest about our current limitations, not dress up guesses as professional evaluations."
+    }
+  ],
+  "controller_log": null,
+  "timestamp": "2026-03-04T13:18:43.535585"
+}

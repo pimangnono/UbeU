@@ -1,0 +1,377 @@
+{
+  "schema_version": 4,
+  "session_key": "baseline_creative_rebel_resource_conflict_r1",
+  "condition": "main",
+  "intervention": "none",
+  "profile_id": "creative_rebel",
+  "profile_name": "Creative Rebel",
+  "scenario_id": "resource_conflict",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.9,
+    "C": 0.3,
+    "E": 0.7,
+    "A": 0.3,
+    "N": 0.4
+  },
+  "inferred_vector": {
+    "O": 0.8,
+    "C": 0.4,
+    "E": 0.85,
+    "A": 0.18,
+    "N": 0.2
+  },
+  "rule_based_vector": {
+    "O": 0.4987,
+    "C": 0.5119,
+    "E": 0.7882,
+    "A": 0.5326,
+    "N": 0.4011
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.8,
+      "C": 0.4,
+      "E": 0.85,
+      "A": 0.25,
+      "N": 0.2
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.875,
+      "C": 0.75,
+      "E": 0.9,
+      "A": 0.07500000000000001,
+      "N": 0.2
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.835,
+      "C": 0.275,
+      "E": 0.92,
+      "A": 0.12,
+      "N": 0.225
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.72,
+      "C": 0.30000000000000004,
+      "E": 0.72,
+      "A": 0.18,
+      "N": 0.265
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.2,
+      "C": 0.4,
+      "E": 0.8,
+      "A": 0.55,
+      "N": 0.2
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.8,
+        "B": 0.8
+      },
+      "C": {
+        "A": 0.4,
+        "B": 0.4
+      },
+      "E": {
+        "A": 0.85,
+        "B": 0.85
+      },
+      "A": {
+        "A": 0.3,
+        "B": 0.2
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.2
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.85,
+        "B": 0.9
+      },
+      "C": {
+        "A": 0.8,
+        "B": 0.7
+      },
+      "E": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "A": {
+        "A": 0.1,
+        "B": 0.05
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.2
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.82,
+        "B": 0.85
+      },
+      "C": {
+        "A": 0.25,
+        "B": 0.3
+      },
+      "E": {
+        "A": 0.92,
+        "B": 0.92
+      },
+      "A": {
+        "A": 0.12,
+        "B": 0.12
+      },
+      "N": {
+        "A": 0.25,
+        "B": 0.2
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.72,
+        "B": 0.72
+      },
+      "C": {
+        "A": 0.32,
+        "B": 0.28
+      },
+      "E": {
+        "A": 0.72,
+        "B": 0.72
+      },
+      "A": {
+        "A": 0.18,
+        "B": 0.18
+      },
+      "N": {
+        "A": 0.28,
+        "B": 0.25
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.4,
+        "B": 0.4
+      },
+      "E": {
+        "A": 0.8,
+        "B": 0.8
+      },
+      "A": {
+        "A": 0.2,
+        "B": 0.9
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.2
+      }
+    }
+  },
+  "overall_confidence": 0.622,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:not"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.0,
+        "model_range": 0.675,
+        "parse_errors": 0,
+        "uncertain": true
+      },
+      "C": {
+        "order_effect": 0.04,
+        "model_range": 0.475,
+        "parse_errors": 0,
+        "uncertain": true
+      },
+      "E": {
+        "order_effect": 0.0,
+        "model_range": 0.2,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "A": {
+        "order_effect": 0.05,
+        "model_range": 0.475,
+        "parse_errors": 0,
+        "uncertain": true
+      },
+      "N": {
+        "order_effect": 0.0,
+        "model_range": 0.065,
+        "parse_errors": 0,
+        "uncertain": false
+      }
+    },
+    "uncertain_traits": [
+      "O",
+      "C",
+      "A"
+    ],
+    "uncertain_reasons": {
+      "O": [
+        "model_range>0.68"
+      ],
+      "C": [
+        "model_range>0.47"
+      ],
+      "A": [
+        "model_range>0.47"
+      ]
+    }
+  },
+  "features": {
+    "avg_words_per_turn": 52.88,
+    "max_words_in_turn": 69,
+    "min_words_in_turn": 41,
+    "word_count_variance": 10.35,
+    "question_ratio": 0.75,
+    "exclamation_ratio": 0.75,
+    "hedge_count": 0,
+    "certainty_count": 0,
+    "first_person_ratio": 0.0071,
+    "inclusive_pronoun_ratio": 0.026,
+    "disagreement_count": 0,
+    "acknowledgment_count": 3,
+    "idea_count": 0,
+    "name_mention_count": 13,
+    "conditional_ratio": 0.25,
+    "planning_count": 3,
+    "emotional_word_count": 0,
+    "positive_emotion_count": 0,
+    "turn_initiation_ratio": 0.375,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.6028,
+    "long_sentence_ratio": 0.375,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 1,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 2,
+    "negation_count": 10
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 423,
+    "candidate_avg_words_per_turn": 52.88,
+    "times_addressed_others_by_name": 13,
+    "times_asked_questions": 6,
+    "times_expressed_disagreement": 0,
+    "times_acknowledged_others": 3,
+    "times_proposed_new_ideas": 0
+  },
+  "assessment_summary": "Highly engaged communicator, took initiative frequently; Assertive in defending positions, comfortable with disagreement; Maintained composure throughout, steady under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "Hey team, I'm really excited to tackle this challenge together! We've got some tough decisions ahead about which features to prioritize and how to distribute the workload, but I know we can come up with a great solution. Let's start by sharing our thoughts on which two features would deliver the most value to the client while working within our constraints. Riley, I'd love to hear your perspective on this first!"
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "Hold on Jordan, why are we jumping straight to feature selection when we haven't even questioned the client's priorities yet? I've seen their wishlist and half those features are just shiny objects that won't move the needle. Let's tear apart their assumptions first - I bet we can find a completely different angle that delivers more impact with less work. Riley, don't you think we're being too obedient here?"
+    },
+    {
+      "turn": 3,
+      "speaker": "Alex",
+      "content": "I completely disagree with questioning the client's priorities at this stage. We've got exactly three weeks - we don't have time to reinvent their entire requirements list. That approach might work for long-term projects, but with this deadline we need to execute, not debate fundamentals. Riley's right to focus on delivering within constraints."
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "Alex, that's exactly why we SHOULD question everything now - three weeks is too short to waste on the wrong priorities! And Riley hasn't even spoken yet, so how can you claim they're \"right\"? Let's hear some actual reasoning instead of this blind execution mindset."
+    },
+    {
+      "turn": 5,
+      "speaker": "Riley",
+      "content": "But questioning everything might take too much time. We have to deliver something."
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "Riley, that's the kind of thinking that gets us stuck building pointless features on deadline! Let's at least spend 30 minutes brainstorming alternatives - I've already got three radical ideas that could cut our workload in half while doubling client impact. Why settle when we can innovate?"
+    },
+    {
+      "turn": 7,
+      "speaker": "Alex",
+      "content": "That's a naive approach, Candidate. Radical ideas require radical testing, and we don't have time for that luxury. Riley's being pragmatic - we need to deliver concrete value within the constraints we've been given, not chase hypothetical efficiencies. Let's hear which specific features you'd actually cut right now to make your \"innovative\" approach work."
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "Alex, you're missing the point - radical doesn't mean untested, it means smarter! I'd cut features 1 and 3 immediately because they're just vanity metrics, and pivot feature 4 into a lightweight version that achieves 80% of the value with 20% of the work. Riley, help me out here - you know the client better than anyone, isn't their real problem actually X instead of what they're asking for?"
+    },
+    {
+      "turn": 9,
+      "speaker": "Riley",
+      "content": "But what if the client insists on features 1 and 3? They've pushed for them before."
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "Then let's PROVE to them why those features are wastes of time - Riley, you've got the data showing their past vanity metrics never converted, right? We should be consulting the client, not caving to their uninformed demands like some yes-men."
+    },
+    {
+      "turn": 11,
+      "speaker": "Alex",
+      "content": "We tried that data-driven approach last quarter, remember? The client ignored our conversion metrics and insisted on flashy features anyway. Riley, didn't they specifically say they wanted \"wow factor\" over measurable impact this time? We need to pick our battles here - let's deliver what they'll actually approve, not what we think is best."
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "Oh please, that \"wow factor\" nonsense is exactly why their last campaign flopped! Riley, pull up those engagement metrics from Q2 - I'll bet my bonus the data shows their precious wow features had zero retention. Alex is just making excuses for lazy thinking."
+    },
+    {
+      "turn": 13,
+      "speaker": "Riley",
+      "content": "But what if the client ignores the data again? We can't afford to gamble on this timeline."
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "Then let's stop treating the client like toddlers who can't handle the truth! Riley, you're the account lead - show some backbone and tell them their \"wow factor\" is actually a \"wow failure\" backed by cold hard numbers. Either we do this right or we're just wasting everyone's time polishing turds!"
+    },
+    {
+      "turn": 15,
+      "speaker": "Alex",
+      "content": "This isn't about backbone - it's about understanding client psychology. You're proposing we burn political capital on a tight timeline when we know they've ignored data before. Riley, remember what happened when we pushed back on their holiday campaign? They froze approvals for two weeks out of spite. We need to pick features that balance their ego with actual impact, not gamble our deadline on changing their mindset."
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "You're both missing the real leverage point - Riley, when you showed them the A/B test results last month, didn't the VP privately admit we were right? Let's go straight to her with the raw numbers and bypass this \"wow factor\" nonsense entirely. Alex's fear of client pushback is exactly why they keep walking all over us!"
+    },
+    {
+      "turn": 17,
+      "speaker": "Riley",
+      "content": "The VP approved the final specs last week though. Going over her head now could delay approvals further."
+    }
+  ],
+  "controller_log": null,
+  "timestamp": "2026-03-04T20:57:25.251464"
+}

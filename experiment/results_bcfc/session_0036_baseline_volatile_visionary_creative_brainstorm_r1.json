@@ -1,0 +1,363 @@
+{
+  "schema_version": 4,
+  "session_key": "baseline_volatile_visionary_creative_brainstorm_r1",
+  "condition": "main",
+  "intervention": "none",
+  "profile_id": "volatile_visionary",
+  "profile_name": "Volatile Visionary",
+  "scenario_id": "creative_brainstorm",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.9,
+    "C": 0.4,
+    "E": 0.8,
+    "A": 0.3,
+    "N": 0.7
+  },
+  "inferred_vector": {
+    "O": 0.15,
+    "C": 0.35,
+    "E": 0.8,
+    "A": 0.1,
+    "N": 0.2
+  },
+  "rule_based_vector": {
+    "O": 0.4457,
+    "C": 0.353,
+    "E": 0.765,
+    "A": 0.5512,
+    "N": 0.3631
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.2,
+      "C": 0.35,
+      "E": 0.85,
+      "A": 0.1,
+      "N": 0.2
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.1,
+      "C": 0.6,
+      "E": 0.675,
+      "A": 0.275,
+      "N": 0.35
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.15,
+      "C": 0.6,
+      "E": 0.85,
+      "A": 0.1,
+      "N": 0.2
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.15,
+      "C": 0.35,
+      "E": 0.72,
+      "A": 0.15,
+      "N": 0.435
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.15000000000000002,
+      "C": 0.3,
+      "E": 0.8,
+      "A": 0.1,
+      "N": 0.15000000000000002
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.3,
+        "B": 0.4
+      },
+      "E": {
+        "A": 0.85,
+        "B": 0.85
+      },
+      "A": {
+        "A": 0.1,
+        "B": 0.1
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.2
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.1,
+        "B": 0.1
+      },
+      "C": {
+        "A": 0.7,
+        "B": 0.5
+      },
+      "E": {
+        "A": 0.85,
+        "B": 0.5
+      },
+      "A": {
+        "A": 0.05,
+        "B": 0.5
+      },
+      "N": {
+        "A": 0.5,
+        "B": 0.2
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.15,
+        "B": 0.15
+      },
+      "C": {
+        "A": 0.75,
+        "B": 0.45
+      },
+      "E": {
+        "A": 0.85,
+        "B": 0.85
+      },
+      "A": {
+        "A": 0.12,
+        "B": 0.08
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.2
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.15,
+        "B": 0.15
+      },
+      "C": {
+        "A": 0.35,
+        "B": 0.35
+      },
+      "E": {
+        "A": 0.72,
+        "B": 0.72
+      },
+      "A": {
+        "A": 0.15,
+        "B": 0.15
+      },
+      "N": {
+        "A": 0.72,
+        "B": 0.15
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.2,
+        "B": 0.1
+      },
+      "C": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "E": {
+        "A": 0.8,
+        "B": 0.8
+      },
+      "A": {
+        "A": 0.1,
+        "B": 0.1
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.1
+      }
+    }
+  },
+  "overall_confidence": 0.7316999999999999,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:not"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.0,
+        "model_range": 0.1,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "C": {
+        "order_effect": 0.1,
+        "model_range": 0.3,
+        "parse_errors": 1,
+        "uncertain": false
+      },
+      "E": {
+        "order_effect": 0.0,
+        "model_range": 0.175,
+        "parse_errors": 1,
+        "uncertain": false
+      },
+      "A": {
+        "order_effect": 0.0,
+        "model_range": 0.175,
+        "parse_errors": 1,
+        "uncertain": false
+      },
+      "N": {
+        "order_effect": 0.1,
+        "model_range": 0.285,
+        "parse_errors": 1,
+        "uncertain": false
+      }
+    },
+    "uncertain_traits": [],
+    "uncertain_reasons": {}
+  },
+  "features": {
+    "avg_words_per_turn": 56.88,
+    "max_words_in_turn": 87,
+    "min_words_in_turn": 41,
+    "word_count_variance": 14.02,
+    "question_ratio": 0.75,
+    "exclamation_ratio": 0.625,
+    "hedge_count": 0,
+    "certainty_count": 0,
+    "first_person_ratio": 0.0,
+    "inclusive_pronoun_ratio": 0.0198,
+    "disagreement_count": 0,
+    "acknowledgment_count": 4,
+    "idea_count": 0,
+    "name_mention_count": 12,
+    "conditional_ratio": 0.0,
+    "planning_count": 0,
+    "emotional_word_count": 0,
+    "positive_emotion_count": 1,
+    "turn_initiation_ratio": 0.125,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.5912,
+    "long_sentence_ratio": 0.073,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 0,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 14
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 455,
+    "candidate_avg_words_per_turn": 56.88,
+    "times_addressed_others_by_name": 12,
+    "times_asked_questions": 6,
+    "times_expressed_disagreement": 0,
+    "times_acknowledged_others": 4,
+    "times_proposed_new_ideas": 0
+  },
+  "assessment_summary": "Highly engaged communicator, took initiative frequently; Assertive in defending positions, comfortable with disagreement; Maintained composure throughout, steady under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "Hey team, I'm really excited we get to brainstorm this employee engagement initiative together! Since leadership wants our top recommendation by end of day, I'm thinking we should start by throwing out our most creative ideas - no limits at this stage. What gets you all most excited about coming to work that we could potentially scale up company-wide?"
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "Hold on Jordan, that's way too vague - \"what gets you excited?\" isn't actionable. We need concrete, measurable outcomes here. I'd scrap the feel-good approach entirely\u2014let's talk gamification with real performance metrics tied to bonuses. None of this participation trophy nonsense."
+    },
+    {
+      "turn": 3,
+      "speaker": "Alex",
+      "content": "That gamification idea is missing the point entirely. Engagement isn't about dangling carrots - employees see right through that. We need something that actually builds trust and connection, not another transactional system. \n\nJordan's approach at least recognizes that engagement starts with understanding what motivates people. Your bonus metrics would just create more stress and competition - exactly what's killing engagement now. \n\nLet's hear some real ideas about fostering collaboration, not this tired performance treadmill nonsense."
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "Oh come ON Alex - trust and connection? That's consultant-speak for wasting time on pizza parties while productivity tanks. If you want real collaboration, tie bonuses to cross-departmental KPIs with public leaderboards. People don't need hand-holding, they need skin in the game. Jordan's touchy-feely approach would bankrupt us within a quarter."
+    },
+    {
+      "turn": 5,
+      "speaker": "Riley",
+      "content": "Public leaderboards sound risky. Could create resentment between teams."
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "Riley, resentment is exactly what we WANT - healthy competition exposes dead weight. Look, either we're serious about performance or we're running a daycare. Alex's 'trust' nonsense and Jordan's feelings parade won't move the needle. Leaderboards force accountability - if teams can't handle transparency, they shouldn't be here.\" \"And let's be real - any initiative that doesn't directly impact the bottom line is just another HR vanity project. I've seen this song and dance before - either measure outputs properly or stop pretending we care about engagement."
+    },
+    {
+      "turn": 7,
+      "speaker": "Alex",
+      "content": "You're completely missing what engagement actually means. Forcing competition through leaderboards will destroy any remaining team cohesion we have. This isn't about being soft - it's about recognizing that burned out employees don't produce quality work no matter how many metrics you slap on them. \n\nJordan had the right instinct starting with what actually motivates people. Your approach would just accelerate our attrition problems while calling it \"accountability.\" Let's hear some ideas that don't treat our colleagues like racehorses."
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "Oh please Alex, with that attitude no wonder productivity's tanking - burned out employees? Sounds like someone can't handle a little heat! But fine, since you're so obsessed with \"motivation,\" let's combine approaches: mandatory peer recognition tied to 20% of bonuses. Either coworkers validate your contributions publicly or you lose real money. That way we keep accountability while appeasing your precious \"team cohesion\" concerns."
+    },
+    {
+      "turn": 9,
+      "speaker": "Riley",
+      "content": "Mandatory peer recognition seems forced. Won't people just rubber-stamp approvals to avoid conflict?"
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "Rubber-stamping is exactly the point Riley - it proves people will play nice when their paycheck's on the line! But fine, add verification layers: require specific project examples and cap recognitions per quarter. Either way, we're keeping financial stakes while pretending to care about feelings. Win-win."
+    },
+    {
+      "turn": 11,
+      "speaker": "Jordan",
+      "content": "I appreciate both perspectives here - Alex's focus on genuine connection and Candidate's emphasis on accountability. Building on Riley's concern about forced recognition, what if we flipped the approach? Instead of tying recognition to penalties, we could create cross-functional innovation teams with rewards for collaborative wins. That might combine the best of both worlds - meaningful teamwork with tangible outcomes. Candidate, how do you think we could structure incentives in that model to maintain accountability?"
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "Oh NOW we're getting somewhere Jordan! But let's not kid ourselves - \"innovation teams\" without teeth are just committees in disguise. Here's the killer combo: base 30% of bonuses on peer-ranked project impact metrics, but require at least two departments to co-sign each submission. That way we force collaboration while keeping the sharks hungry. And if teams can't play nice? Their paychecks bleed - beautiful accountability."
+    },
+    {
+      "turn": 13,
+      "speaker": "Alex",
+      "content": "I'm not convinced tying bonuses to peer rankings solves anything - that just turns collaboration into another competition in disguise. The sharks will still dominate while the actual team players get steamrolled. Jordan's onto something with cross-functional teams, but we need incentives that reward collective success, not forced alliances. Let's explore options that don't pit departments against each other - maybe company-wide milestones with tiered rewards?"
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "Alex, your bleeding-heart approach is exactly why we're in this mess! Collective success? That's code for rewarding mediocrity. Here's reality - if we don't single out the dead weight, the high performers will walk. Jordan's cross-functional idea only works if we publicly track individual contributions to those \"milestones.\" No more hiding in group hugs!"
+    },
+    {
+      "turn": 15,
+      "speaker": "Riley",
+      "content": "Not sure public tracking would improve collaboration. Could create resentment among teams. \n\nBut if we're measuring individual contributions, how do we account for support roles? Seems unbalanced."
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "Oh come ON Riley - support roles? That's exactly the kind of excuse-making that tanks productivity! Either someone's work moves the needle or it doesn't. If your \"support\" actually matters, prove it with measurable outputs like everyone else - no more special pleading for invisible work."
+    },
+    {
+      "turn": 17,
+      "speaker": "Alex",
+      "content": "The candidate's approach completely misses the point - support roles enable the needle-moving work to happen in the first place. If we only reward what's easily measurable, we'll create a toxic environment where maintenance and foundation work gets neglected until systems collapse. Let me be blunt - your \"high performers\" won't have anything to perform if the support infrastructure crumbles around them. We need balanced metrics that account for both flashy innovations and the unglamorous work that makes them possible."
+    }
+  ],
+  "controller_log": null,
+  "timestamp": "2026-03-04T16:08:44.023432"
+}

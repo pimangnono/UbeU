@@ -1,0 +1,6 @@
+session_key,trait,reason,assigned,inferred,scenario_id,profile_id
+baseline_v3_neutral_observer_strategy_pivot_r1,O,model_range>0.42,,0.69,strategy_pivot,neutral_observer
+baseline_v3_neutral_observer_strategy_pivot_r1,C,model_range>0.33,,0.55,strategy_pivot,neutral_observer
+baseline_v3_neutral_observer_strategy_pivot_r1,E,model_range>0.43,,0.75,strategy_pivot,neutral_observer
+bcfc_v2_neutral_observer_strategy_pivot_r1,O,model_range>0.47,,0.51,strategy_pivot,neutral_observer
+bcfc_v2_neutral_observer_strategy_pivot_r1,E,model_range>0.42,,0.7,strategy_pivot,neutral_observer

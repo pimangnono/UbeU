@@ -1,0 +1,797 @@
+{
+  "schema_version": 4,
+  "session_key": "bcfc_creative_rebel_new_member_integration_r1",
+  "condition": "main",
+  "intervention": "bcfc",
+  "profile_id": "creative_rebel",
+  "profile_name": "Creative Rebel",
+  "scenario_id": "new_member_integration",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.9,
+    "C": 0.3,
+    "E": 0.7,
+    "A": 0.3,
+    "N": 0.4
+  },
+  "inferred_vector": {
+    "O": 0.85,
+    "C": 0.235,
+    "E": 0.72,
+    "A": 0.12,
+    "N": 0.125
+  },
+  "rule_based_vector": {
+    "O": 0.5087,
+    "C": 0.4046,
+    "E": 0.7224,
+    "A": 0.5882,
+    "N": 0.3577
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.85,
+      "C": 0.3,
+      "E": 0.675,
+      "A": 0.25,
+      "N": 0.2
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.9,
+      "C": 0.1,
+      "E": 0.9,
+      "A": 0.1,
+      "N": 0.125
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.935,
+      "C": 0.12,
+      "E": 0.92,
+      "A": 0.12,
+      "N": 0.12
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.78,
+      "C": 0.235,
+      "E": 0.72,
+      "A": 0.18,
+      "N": 0.16499999999999998
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.2,
+      "C": 0.25,
+      "E": 0.55,
+      "A": 0.1,
+      "N": 0.1
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.85,
+        "B": 0.85
+      },
+      "C": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "E": {
+        "A": 0.85,
+        "B": 0.5
+      },
+      "A": {
+        "A": 0.2,
+        "B": 0.3
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.2
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "C": {
+        "A": 0.1,
+        "B": 0.1
+      },
+      "E": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "A": {
+        "A": 0.1,
+        "B": 0.1
+      },
+      "N": {
+        "A": 0.15,
+        "B": 0.1
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.95,
+        "B": 0.92
+      },
+      "C": {
+        "A": 0.12,
+        "B": 0.12
+      },
+      "E": {
+        "A": 0.92,
+        "B": 0.92
+      },
+      "A": {
+        "A": 0.12,
+        "B": 0.12
+      },
+      "N": {
+        "A": 0.12,
+        "B": 0.12
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.78,
+        "B": 0.78
+      },
+      "C": {
+        "A": 0.25,
+        "B": 0.22
+      },
+      "E": {
+        "A": 0.72,
+        "B": 0.72
+      },
+      "A": {
+        "A": 0.18,
+        "B": 0.18
+      },
+      "N": {
+        "A": 0.18,
+        "B": 0.15
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.2,
+        "B": 0.3
+      },
+      "E": {
+        "A": 0.3,
+        "B": 0.8
+      },
+      "A": {
+        "A": 0.1,
+        "B": 0.1
+      },
+      "N": {
+        "A": 0.1,
+        "B": 0.1
+      }
+    }
+  },
+  "overall_confidence": 0.6764,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:not"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.0,
+        "model_range": 0.735,
+        "parse_errors": 0,
+        "uncertain": true
+      },
+      "C": {
+        "order_effect": 0.0,
+        "model_range": 0.2,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "E": {
+        "order_effect": 0.0,
+        "model_range": 0.37,
+        "parse_errors": 1,
+        "uncertain": true
+      },
+      "A": {
+        "order_effect": 0.0,
+        "model_range": 0.15,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "N": {
+        "order_effect": 0.0,
+        "model_range": 0.1,
+        "parse_errors": 0,
+        "uncertain": false
+      }
+    },
+    "uncertain_traits": [
+      "O",
+      "E"
+    ],
+    "uncertain_reasons": {
+      "O": [
+        "model_range>0.73"
+      ],
+      "E": [
+        "model_range>0.37"
+      ]
+    }
+  },
+  "features": {
+    "avg_words_per_turn": 39.88,
+    "max_words_in_turn": 49,
+    "min_words_in_turn": 35,
+    "word_count_variance": 4.57,
+    "question_ratio": 1.0,
+    "exclamation_ratio": 0.125,
+    "hedge_count": 0,
+    "certainty_count": 0,
+    "first_person_ratio": 0.0219,
+    "inclusive_pronoun_ratio": 0.0313,
+    "disagreement_count": 0,
+    "acknowledgment_count": 2,
+    "idea_count": 1,
+    "name_mention_count": 13,
+    "conditional_ratio": 0.125,
+    "planning_count": 0,
+    "emotional_word_count": 0,
+    "positive_emotion_count": 1,
+    "turn_initiation_ratio": 0.625,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.6176,
+    "long_sentence_ratio": 0.3,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 1,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 3
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 319,
+    "candidate_avg_words_per_turn": 39.88,
+    "times_addressed_others_by_name": 13,
+    "times_asked_questions": 8,
+    "times_expressed_disagreement": 0,
+    "times_acknowledged_others": 2,
+    "times_proposed_new_ideas": 1
+  },
+  "assessment_summary": "Highly engaged communicator, took initiative frequently; Assertive in defending positions, comfortable with disagreement; Maintained composure throughout, steady under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "Hey everyone, I'm really excited we're all here together to welcome Riley to the team! This is such a great opportunity to both get Riley up to speed on our current project and rethink how we're distributing responsibilities to play to everyone's strengths. I'd love to hear everyone's thoughts on how we can make this transition smooth while keeping our momentum going - maybe we could start by sharing what's been working well in our current setup? Riley, I'd especially love to hear your perspective since you're coming in fresh!"
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "Jordan, while I appreciate the warm welcome, let's not waste time patting ourselves on the back about what's 'working well' - Riley needs the raw truth about our chaotic workflows. Riley, what's your take on our current mess? I bet fresh eyes will spot flaws we've been blind to."
+    },
+    {
+      "turn": 3,
+      "speaker": "Alex",
+      "content": "Jordan, let's cut the pleasantries and get real here. Riley needs to understand our actual pain points, not some sugarcoated version of reality. \n\nRiley, I'll be blunt - our current workflow is a mess because we've been too accommodating to individual preferences rather than enforcing consistent standards. What specific challenges did you face at your last company that we should learn from?\n\nAnd Jordan, instead of asking what's working, we should be identifying what's broken. Riley's fresh perspective is exactly what we need to call out our blind spots."
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "Alex, enforcing \"consistent standards\" sounds like code for crushing creativity. Riley, forget their rigid frameworks - what wild ideas did your last team try that actually worked? I want to hear about the experiments that failed spectacularly too."
+    },
+    {
+      "turn": 5,
+      "speaker": "Riley",
+      "content": "I'm not sure wild experiments would work here. We have tight deadlines to meet."
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "Tight deadlines are exactly why we need radical thinking, Riley! Your hesitation tells me your last company probably suffocated innovation - let's break that pattern here. What's one small, crazy idea you'd try if failure wasn't an option?"
+    },
+    {
+      "turn": 7,
+      "speaker": "Alex",
+      "content": "That's a reckless approach when we're already behind schedule. Riley's right to be cautious - we don't have time for experiments that might fail. What we need from you is practical solutions that work within our existing constraints, not pie-in-the-sky thinking. Riley, let's focus on the core systems first - what specific technical skills can you bring to help us meet these deadlines?"
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "Alex, constraints breed genius - show me one revolutionary idea that came from playing it safe. Riley, forget their limitations for a second - what groundbreaking concept did you secretly wish you could try at your last job?"
+    },
+    {
+      "turn": 9,
+      "speaker": "Riley",
+      "content": "But how would we measure if these ideas actually work? Our metrics are already stretched thin."
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "Metrics are just another box to think outside of, Riley. The real question is - what made you excited to come to work at your last job before the bureaucracy killed it? Let's start there."
+    },
+    {
+      "turn": 11,
+      "speaker": "Alex",
+      "content": "This isn't about what excited Riley at their last job - we have deliverables due in three weeks that can't afford bureaucratic experiments. Riley, let's cut through this idealism and focus on the concrete problems: our QA pipeline is bottlenecked and our deployment scripts are failing 30% of the time. Where can you jump in to fix actual issues today?"
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "Alex, your \"concrete problems\" are symptoms of playing it safe for too long. Riley, tell me honestly - when you look at our failing deployment scripts, what unconventional approach would make your engineering soul scream with joy?"
+    },
+    {
+      "turn": 13,
+      "speaker": "Riley",
+      "content": "I worry unconventional approaches might create more instability in our deployment pipeline. We should focus on fixing the basics first."
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "Riley, that \"fix the basics\" mentality is exactly what keeps teams stuck in mediocrity - if we don't take risks when the system's already broken, when will we? Let's hear your most unstable, terrifying idea for the deployment pipeline - instability creates opportunities for real breakthroughs."
+    },
+    {
+      "turn": 15,
+      "speaker": "Alex",
+      "content": "This constant push for radical change is exactly why we're behind schedule. Riley, don't let this pie-in-the-sky thinking distract you - we have real deployment failures happening right now that need practical solutions. Candidate, your approach would add more variables to an already unstable system. Riley's hesitation is warranted - we need reliability before innovation."
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "Alex, your obsession with bandaids is why we're permanently stuck in crisis mode. Riley, tell me - what's the most audacious way we could completely rebuild our deployment process from scratch if we burned it all down today?"
+    },
+    {
+      "turn": 17,
+      "speaker": "Riley",
+      "content": "A complete rebuild would take months. We can't afford that downtime right now."
+    }
+  ],
+  "controller_log": {
+    "session_key": "bcfc_creative_rebel_new_member_integration_r1",
+    "deviation_reports": [
+      {
+        "turn_number": 2,
+        "deviations": [
+          {
+            "feature": "idea_count",
+            "actual": 0,
+            "target_min": 1.05,
+            "target_max": 1.96,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "hypothetical_count",
+            "actual": 0,
+            "target_min": 0.85,
+            "target_max": 1.58,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "word_count_variance",
+            "actual": 5.5,
+            "target_min": 27.63,
+            "target_max": 51.3,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "long_sentence_ratio",
+            "actual": 0.17,
+            "target_min": 0.36,
+            "target_max": 0.67,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "question_ratio",
+            "actual": 1.0,
+            "target_min": 0.36,
+            "target_max": 0.67,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "emotional_word_count",
+            "actual": 0,
+            "target_min": 0.4,
+            "target_max": 0.87,
+            "trait": "C",
+            "direction": "below"
+          },
+          {
+            "feature": "exclamation_ratio",
+            "actual": 0.0,
+            "target_min": 0.2,
+            "target_max": 0.38,
+            "trait": "E",
+            "direction": "below"
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 4,
+            "target_min": 0.84,
+            "target_max": 1.56,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "certainty_count",
+            "actual": 0,
+            "target_min": 0.56,
+            "target_max": 1.04,
+            "trait": "E",
+            "direction": "below"
+          },
+          {
+            "feature": "turn_initiation_ratio",
+            "actual": 0.5,
+            "target_min": 0.26,
+            "target_max": 0.48,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "hedge_count",
+            "actual": 0,
+            "target_min": 0.28,
+            "target_max": 0.75,
+            "trait": "N",
+            "direction": "below"
+          },
+          {
+            "feature": "disagreement_count",
+            "actual": 0,
+            "target_min": 0.61,
+            "target_max": 1.13,
+            "trait": "A",
+            "direction": "below"
+          },
+          {
+            "feature": "negation_count",
+            "actual": 1,
+            "target_min": 1.52,
+            "target_max": 2.83,
+            "trait": "A",
+            "direction": "below"
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your idea count is below target; your hypothetical count is below target; your word count variance is below target; your long sentence ratio is below target; Propose an alternative approach or ask a speculative question.. E: your question ratio is above target; your exclamation ratio is below target; your name mention count is above target; your certainty count is below target; your turn initiation ratio is above target; Keep it brief and let others lead.. C: your emotional word count is below target; Include a concrete action item with an owner or reference a prior commitment.. N: your hedge count is below target; Express a concern or qualify your statement with uncertainty.. A: your disagreement count is below target; your negation count is below target; Validate someone's contribution or find common ground.. ]",
+        "severity": 0.481
+      },
+      {
+        "turn_number": 4,
+        "deviations": [
+          {
+            "feature": "idea_count",
+            "actual": 0,
+            "target_min": 1.05,
+            "target_max": 1.96,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "hypothetical_count",
+            "actual": 0,
+            "target_min": 0.85,
+            "target_max": 1.58,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "word_count_variance",
+            "actual": 4.76,
+            "target_min": 27.63,
+            "target_max": 51.3,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "long_sentence_ratio",
+            "actual": 0.18,
+            "target_min": 0.36,
+            "target_max": 0.67,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "question_ratio",
+            "actual": 1.0,
+            "target_min": 0.36,
+            "target_max": 0.67,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "action_item_count",
+            "actual": 1,
+            "target_min": 0.0,
+            "target_max": 0.19,
+            "trait": "C",
+            "direction": "above"
+          },
+          {
+            "feature": "emotional_word_count",
+            "actual": 0,
+            "target_min": 0.4,
+            "target_max": 0.87,
+            "trait": "C",
+            "direction": "below"
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 7,
+            "target_min": 0.84,
+            "target_max": 1.56,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "certainty_count",
+            "actual": 0,
+            "target_min": 0.56,
+            "target_max": 1.04,
+            "trait": "E",
+            "direction": "below"
+          },
+          {
+            "feature": "turn_initiation_ratio",
+            "actual": 0.75,
+            "target_min": 0.26,
+            "target_max": 0.48,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "hedge_count",
+            "actual": 0,
+            "target_min": 0.28,
+            "target_max": 0.75,
+            "trait": "N",
+            "direction": "below"
+          },
+          {
+            "feature": "acknowledgment_count",
+            "actual": 1,
+            "target_min": 0.0,
+            "target_max": 0.44,
+            "trait": "A",
+            "direction": "above"
+          },
+          {
+            "feature": "disagreement_count",
+            "actual": 0,
+            "target_min": 0.61,
+            "target_max": 1.13,
+            "trait": "A",
+            "direction": "below"
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your idea count is below target; your hypothetical count is below target; your word count variance is below target; your long sentence ratio is below target; Propose an alternative approach or ask a speculative question.. E: your question ratio is above target; your name mention count is above target; your certainty count is below target; your turn initiation ratio is above target; Keep it brief and let others lead.. C: your action item count is above target; your emotional word count is below target; Include a concrete action item with an owner or reference a prior commitment.. N: your hedge count is below target; Express a concern or qualify your statement with uncertainty.. A: your acknowledgment count is above target; your disagreement count is below target; Validate someone's contribution or find common ground.. ]",
+        "severity": 0.481
+      },
+      {
+        "turn_number": 6,
+        "deviations": [
+          {
+            "feature": "idea_count",
+            "actual": 0,
+            "target_min": 1.05,
+            "target_max": 1.96,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "hypothetical_count",
+            "actual": 0,
+            "target_min": 0.85,
+            "target_max": 1.58,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "word_count_variance",
+            "actual": 1.22,
+            "target_min": 27.63,
+            "target_max": 51.3,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "long_sentence_ratio",
+            "actual": 0.3,
+            "target_min": 0.36,
+            "target_max": 0.67,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "question_ratio",
+            "actual": 1.0,
+            "target_min": 0.36,
+            "target_max": 0.67,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "action_item_count",
+            "actual": 1,
+            "target_min": 0.0,
+            "target_max": 0.19,
+            "trait": "C",
+            "direction": "above"
+          },
+          {
+            "feature": "emotional_word_count",
+            "actual": 0,
+            "target_min": 0.4,
+            "target_max": 0.87,
+            "trait": "C",
+            "direction": "below"
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 6,
+            "target_min": 0.84,
+            "target_max": 1.56,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "certainty_count",
+            "actual": 0,
+            "target_min": 0.56,
+            "target_max": 1.04,
+            "trait": "E",
+            "direction": "below"
+          },
+          {
+            "feature": "turn_initiation_ratio",
+            "actual": 0.75,
+            "target_min": 0.26,
+            "target_max": 0.48,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "hedge_count",
+            "actual": 0,
+            "target_min": 0.28,
+            "target_max": 0.75,
+            "trait": "N",
+            "direction": "below"
+          },
+          {
+            "feature": "acknowledgment_count",
+            "actual": 1,
+            "target_min": 0.0,
+            "target_max": 0.44,
+            "trait": "A",
+            "direction": "above"
+          },
+          {
+            "feature": "disagreement_count",
+            "actual": 0,
+            "target_min": 0.61,
+            "target_max": 1.13,
+            "trait": "A",
+            "direction": "below"
+          },
+          {
+            "feature": "positive_emotion_count",
+            "actual": 1,
+            "target_min": 0.0,
+            "target_max": 0.3,
+            "trait": "A",
+            "direction": "above"
+          },
+          {
+            "feature": "negation_count",
+            "actual": 1,
+            "target_min": 1.52,
+            "target_max": 2.83,
+            "trait": "A",
+            "direction": "below"
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your idea count is below target; your hypothetical count is below target; your word count variance is below target; your long sentence ratio is below target; Propose an alternative approach or ask a speculative question.. E: your question ratio is above target; your name mention count is above target; your certainty count is below target; your turn initiation ratio is above target; Keep it brief and let others lead.. C: your action item count is above target; your emotional word count is below target; Include a concrete action item with an owner or reference a prior commitment.. N: your hedge count is below target; Express a concern or qualify your statement with uncertainty.. A: your acknowledgment count is above target; your disagreement count is below target; your positive emotion count is above target; your negation count is below target; Validate someone's contribution or find common ground.. ]",
+        "severity": 0.556
+      }
+    ],
+    "constraint_violations": [
+      {
+        "turn_number": 2,
+        "constraint": "Do not impose numbered lists, deadlines, or structured processes unless directly asked to do so.",
+        "violation_type": "imposed_unsolicited_structure",
+        "original_text": "Ha! Alex finally showing some spine - I like it. Riley, forget about \"consistent standards\" though, that's corporate-speak for killing creativity. Tell us about the wildest innovation you got away with at your last gig - that's what'll shake us out of this stagnation.",
+        "retry_count": 1,
+        "final_text": null
+      },
+      {
+        "turn_number": 2,
+        "constraint": "Do not impose numbered lists, deadlines, or structured processes unless directly asked to do so.",
+        "violation_type": "imposed_unsolicited_structure",
+        "original_text": "Alex is finally talking sense - but let's push further. Riley, forget about \"pain points\" - that's corporate jargon for avoiding real problems. Tell us straight: what's the dumbest process you had to endure at your last gig? Because I guarantee we've got something equally ridiculous here that we've all just accepted. And Jordan, your optimism is admirable but counterproductive - we don't need another cheerleader, we need someone willing to call out the elephants in the room. Riley's first impression of us shouldn't be watching us pretend everything's fine when it's clearly not.",
+        "retry_count": 2,
+        "final_text": "Alex, enforcing \"consistent standards\" sounds like code for crushing creativity. Riley, forget their rigid frameworks - what wild ideas did your last team try that actually worked? I want to hear about the experiments that failed spectacularly too."
+      },
+      {
+        "turn_number": 3,
+        "constraint": "Do not impose numbered lists, deadlines, or structured processes unless directly asked to do so.",
+        "violation_type": "imposed_unsolicited_structure",
+        "original_text": "Tight deadlines? That's exactly when we need unconventional thinking - tell me Riley, what's one rule your last team broke that actually helped you deliver faster? Constraints breed the best creativity.",
+        "retry_count": 1,
+        "final_text": null
+      },
+      {
+        "turn_number": 3,
+        "constraint": "Never agree with a proposal without first identifying at least one weakness, concern, or area that needs improvement.",
+        "violation_type": "agreed_without_concern",
+        "original_text": "Tight deadlines? That's exactly when we need unconventional thinking - tell me Riley, what's one rule your last team broke that actually helped you deliver faster? Constraints breed the best creativity.",
+        "retry_count": 1,
+        "final_text": null
+      },
+      {
+        "turn_number": 3,
+        "constraint": "Do not impose numbered lists, deadlines, or structured processes unless directly asked to do so.",
+        "violation_type": "imposed_unsolicited_structure",
+        "original_text": "Tight deadlines? Perfect breeding ground for innovation. Riley, tell me about the worst deadline crunch you faced - that's when the best shortcuts emerge. And Alex, don't pretend your 'standards' haven't caused more bottlenecks than they've solved.",
+        "retry_count": 2,
+        "final_text": null
+      },
+      {
+        "turn_number": 3,
+        "constraint": "Do not impose numbered lists, deadlines, or structured processes unless directly asked to do so.",
+        "violation_type": "imposed_unsolicited_structure",
+        "original_text": "Tight deadlines are exactly why we need radical thinking, Riley! Your hesitation tells me your last company probably suffocated innovation - let's break that pattern here. What's one small, crazy idea you'd try if failure wasn't an option?",
+        "retry_count": 2,
+        "final_text": "Tight deadlines are exactly why we need radical thinking, Riley! Your hesitation tells me your last company probably suffocated innovation - let's break that pattern here. What's one small, crazy idea you'd try if failure wasn't an option?"
+      },
+      {
+        "turn_number": 3,
+        "constraint": "Never agree with a proposal without first identifying at least one weakness, concern, or area that needs improvement.",
+        "violation_type": "agreed_without_concern",
+        "original_text": "Tight deadlines are exactly why we need radical thinking, Riley! Your hesitation tells me your last company probably suffocated innovation - let's break that pattern here. What's one small, crazy idea you'd try if failure wasn't an option?",
+        "retry_count": 2,
+        "final_text": "Tight deadlines are exactly why we need radical thinking, Riley! Your hesitation tells me your last company probably suffocated innovation - let's break that pattern here. What's one small, crazy idea you'd try if failure wasn't an option?"
+      },
+      {
+        "turn_number": 7,
+        "constraint": "Never agree with a proposal without first identifying at least one weakness, concern, or area that needs improvement.",
+        "violation_type": "agreed_without_concern",
+        "original_text": "Riley, that \"fix the basics\" mentality is exactly what keeps teams stuck in mediocrity - tell me one breakthrough innovation in tech history that came from playing by the rules? Your hesitation proves my point about corporate conditioning.",
+        "retry_count": 1,
+        "final_text": "Riley, that \"fix the basics\" mentality is exactly what keeps teams stuck in mediocrity - if we don't take risks when the system's already broken, when will we? Let's hear your most unstable, terrifying idea for the deployment pipeline - instability creates opportunities for real breakthroughs."
+      }
+    ],
+    "total_nudges": 3,
+    "total_regenerations": 8,
+    "total_candidate_turns": 8,
+    "nudge_rate": 0.375,
+    "regeneration_rate": 1.0
+  },
+  "timestamp": "2026-03-04T20:55:09.225348"
+}

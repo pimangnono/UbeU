@@ -1,0 +1,373 @@
+{
+  "schema_version": 4,
+  "session_key": "baseline_creative_rebel_crisis_management_r1",
+  "condition": "main",
+  "intervention": "none",
+  "profile_id": "creative_rebel",
+  "profile_name": "Creative Rebel",
+  "scenario_id": "crisis_management",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.9,
+    "C": 0.3,
+    "E": 0.7,
+    "A": 0.3,
+    "N": 0.4
+  },
+  "inferred_vector": {
+    "O": 0.525,
+    "C": 0.435,
+    "E": 0.825,
+    "A": 0.15000000000000002,
+    "N": 0.2
+  },
+  "rule_based_vector": {
+    "O": 0.4555,
+    "C": 0.5441,
+    "E": 0.6553,
+    "A": 0.5728,
+    "N": 0.3595
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.525,
+      "C": 0.35,
+      "E": 0.825,
+      "A": 0.2,
+      "N": 0.2
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.825,
+      "C": 0.525,
+      "E": 0.85,
+      "A": 0.05,
+      "N": 0.35
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.75,
+      "C": 0.5,
+      "E": 0.85,
+      "A": 0.15,
+      "N": 0.135
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.515,
+      "C": 0.435,
+      "E": 0.6699999999999999,
+      "A": 0.16499999999999998,
+      "N": 0.44999999999999996
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.2,
+      "C": 0.3,
+      "E": 0.55,
+      "A": 0.15000000000000002,
+      "N": 0.15000000000000002
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.75,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.4,
+        "B": 0.3
+      },
+      "E": {
+        "A": 0.85,
+        "B": 0.8
+      },
+      "A": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.2
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.8,
+        "B": 0.85
+      },
+      "C": {
+        "A": 0.75,
+        "B": 0.3
+      },
+      "E": {
+        "A": 0.85,
+        "B": 0.85
+      },
+      "A": {
+        "A": 0.05,
+        "B": 0.05
+      },
+      "N": {
+        "A": 0.5,
+        "B": 0.2
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.8,
+        "B": 0.7
+      },
+      "C": {
+        "A": 0.5,
+        "B": 0.5
+      },
+      "E": {
+        "A": 0.85,
+        "B": 0.85
+      },
+      "A": {
+        "A": 0.15,
+        "B": 0.15
+      },
+      "N": {
+        "A": 0.12,
+        "B": 0.15
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.68,
+        "B": 0.35
+      },
+      "C": {
+        "A": 0.62,
+        "B": 0.25
+      },
+      "E": {
+        "A": 0.62,
+        "B": 0.72
+      },
+      "A": {
+        "A": 0.18,
+        "B": 0.15
+      },
+      "N": {
+        "A": 0.72,
+        "B": 0.18
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "E": {
+        "A": 0.3,
+        "B": 0.8
+      },
+      "A": {
+        "A": 0.2,
+        "B": 0.1
+      },
+      "N": {
+        "A": 0.1,
+        "B": 0.2
+      }
+    }
+  },
+  "overall_confidence": 0.6633000000000001,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:not"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.1,
+        "model_range": 0.625,
+        "parse_errors": 0,
+        "uncertain": true
+      },
+      "C": {
+        "order_effect": 0.1,
+        "model_range": 0.225,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "E": {
+        "order_effect": 0.05,
+        "model_range": 0.3,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "A": {
+        "order_effect": 0.0,
+        "model_range": 0.15,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "N": {
+        "order_effect": 0.1,
+        "model_range": 0.315,
+        "parse_errors": 1,
+        "uncertain": true
+      }
+    },
+    "uncertain_traits": [
+      "O",
+      "N"
+    ],
+    "uncertain_reasons": {
+      "O": [
+        "model_range>0.62"
+      ],
+      "N": [
+        "model_range>0.32"
+      ]
+    }
+  },
+  "features": {
+    "avg_words_per_turn": 50.0,
+    "max_words_in_turn": 65,
+    "min_words_in_turn": 42,
+    "word_count_variance": 7.62,
+    "question_ratio": 0.25,
+    "exclamation_ratio": 0.375,
+    "hedge_count": 0,
+    "certainty_count": 0,
+    "first_person_ratio": 0.0025,
+    "inclusive_pronoun_ratio": 0.04,
+    "disagreement_count": 0,
+    "acknowledgment_count": 4,
+    "idea_count": 0,
+    "name_mention_count": 8,
+    "conditional_ratio": 0.5,
+    "planning_count": 3,
+    "emotional_word_count": 0,
+    "positive_emotion_count": 0,
+    "turn_initiation_ratio": 0.125,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.575,
+    "long_sentence_ratio": 0.478,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 0,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 9
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 400,
+    "candidate_avg_words_per_turn": 50.0,
+    "times_addressed_others_by_name": 8,
+    "times_asked_questions": 2,
+    "times_expressed_disagreement": 0,
+    "times_acknowledged_others": 4,
+    "times_proposed_new_ideas": 0
+  },
+  "assessment_summary": "Highly engaged communicator, took initiative frequently; Assertive in defending positions, comfortable with disagreement; Maintained composure throughout, steady under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "Alright team, thanks for gathering quickly on this - I know we're all feeling the pressure but let's tackle this together. We've got three big decisions to make before that client call in 30 minutes, and I'm confident we can figure this out collaboratively. Who wants to start brainstorming our approach? Maybe we could begin with who should lead the client communication?"
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "Collaborative? That's how we got into this mess - too much hand-holding and not enough critical thinking. Jordan, you're too close to the client to be objective - we need someone who'll tell them hard truths, not just apologize. And while we're at it, let's stop pretending this is just about communication - we need to completely rethink our QA process from the ground up."
+    },
+    {
+      "turn": 3,
+      "speaker": "Riley",
+      "content": "I'm not sure blaming collaboration helps us right now. What's your plan for the client call?"
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "Riley, you're missing the point - the \"plan\" shouldn't be damage control, it should be radical transparency. Tell them we're scrapping their current version and rebuilding with proper testing protocols, even if it delays launch by a week. Anything less is just kicking the can down the road."
+    },
+    {
+      "turn": 5,
+      "speaker": "Alex",
+      "content": "That's a reckless approach that'll cost us the client entirely. You want to scrap their entire version after they already found critical bugs? That proves we can't be trusted with a rebuild. \n\nRiley's right - we need containment first. Jordan should lead the call precisely because they have the relationship to soften the blow while we work on a real fix. \n\nAnd let's be clear - this happened because we skipped proper QA checkpoints, not because of \"too much collaboration.\" Your solution would just compound the failure."
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "Alex, you're still thinking like a hostage to client demands - that's exactly why we keep ending up in these messes! If we lose them by actually fixing the problem, good riddance - better than keeping clients who tolerate our half-baked work. And Jordan's \"relationship\" is precisely what got us into this cycle of cutting corners to please them."
+    },
+    {
+      "turn": 7,
+      "speaker": "Riley",
+      "content": "Losing the client now would hurt our quarterly numbers. Are you prepared to explain that to leadership?"
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "Quarterly numbers? That's exactly the short-term thinking that created this disaster! Leadership should be thanking me for saving them from future lawsuits when this buggy garbage crashes in production. Either we fix it properly now or we deserve whatever fallout comes next."
+    },
+    {
+      "turn": 9,
+      "speaker": "Alex",
+      "content": "You're being completely unrealistic. Leadership won't thank you when we lose 20% of our revenue because you decided to play hero. And lawsuits? That's pure fearmongering - we've never had a client sue over bugs. \n\nThe real issue here is your refusal to balance urgency with pragmatism. We can fix this properly without tanking the client relationship or our numbers. Jordan should handle the call while we work on a hotfix - that's the only sane path forward."
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "Alex, you're still missing the bigger picture - we're not talking about \"bugs,\" we're talking about fundamental system failures that prove our entire development approach is broken. If leadership cares more about next quarter's numbers than long-term credibility, then they're part of the problem too."
+    },
+    {
+      "turn": 11,
+      "speaker": "Riley",
+      "content": "But how do we know a full rebuild won't have the same issues? We need proof this approach would actually work."
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "Riley, that's exactly why we need to implement automated testing frameworks alongside the rebuild - not just slap new code on the same rotten foundation. If we're not willing to fundamentally change how we work, then we might as well start drafting the apology letter for the next catastrophic failure right now."
+    },
+    {
+      "turn": 13,
+      "speaker": "Alex",
+      "content": "Automated testing frameworks take months to implement properly - you're proposing a complete overhaul when we have a client screaming down our necks in 20 minutes. That's not a solution, that's deflection. \n\nRight now we need to contain the damage with the client while working on an immediate hotfix. We can discuss process improvements after we've stopped the bleeding. \n\nAnd let's be honest - if you couldn't catch these bugs with manual QA, what makes you think your automated tests would be any better? You're just trading one flawed system for another."
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "Alex, you're still stuck in panic mode - automated testing doesn't have to be perfect tomorrow, it just has to start today. And your \"hotfix\" mentality is exactly why we'll be having this same conversation again next quarter when the next critical failure hits."
+    },
+    {
+      "turn": 15,
+      "speaker": "Riley",
+      "content": "Automated testing sounds good in theory, but who's going to build it? Our dev team is already stretched thin."
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "Riley, that's the beauty of it - we don't need the full team! Let's pull two engineers off feature work immediately and have them prototype a test harness while the rest handle the hotfix. If we wait for \"perfect staffing,\" we'll never break this cycle."
+    },
+    {
+      "turn": 17,
+      "speaker": "Alex",
+      "content": "That's nonsense - pulling engineers off critical feature work right now is exactly how we miss more deadlines and piss off more clients. You're creating two fires instead of putting out one. \n\nAnd prototypes? We don't have time for academic exercises when the client's breathing down our necks. Either commit real resources or drop the testing fantasy until after we stabilize this situation. \n\nJordan should take the client call while the rest of us work the hotfix - that's the only priority that matters today."
+    }
+  ],
+  "controller_log": null,
+  "timestamp": "2026-03-04T19:26:49.670937"
+}

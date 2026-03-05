@@ -1,0 +1,369 @@
+{
+  "schema_version": 4,
+  "session_key": "baseline_b_baseline_assertive_leader_new_member_integration_r1",
+  "condition": "baseline_b",
+  "intervention": "none",
+  "profile_id": "assertive_leader",
+  "profile_name": "Assertive Leader",
+  "scenario_id": "new_member_integration",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.2,
+    "C": 0.9,
+    "E": 0.8,
+    "A": 0.6,
+    "N": 0.4
+  },
+  "inferred_vector": {
+    "O": 0.3,
+    "C": 0.825,
+    "E": 0.625,
+    "A": 0.8,
+    "N": 0.16499999999999998
+  },
+  "rule_based_vector": {
+    "O": 0.4924,
+    "C": 0.5066,
+    "E": 0.7295,
+    "A": 0.6277,
+    "N": 0.3504
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.3,
+      "C": 0.825,
+      "E": 0.35,
+      "A": 0.85,
+      "N": 0.2
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.3,
+      "C": 0.9,
+      "E": 0.625,
+      "A": 0.625,
+      "N": 0.175
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.15,
+      "C": 0.91,
+      "E": 0.8400000000000001,
+      "A": 0.8,
+      "N": 0.12
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.30000000000000004,
+      "C": 0.72,
+      "E": 0.28,
+      "A": 0.6699999999999999,
+      "N": 0.16499999999999998
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.2,
+      "C": 0.8,
+      "E": 0.7,
+      "A": 0.9,
+      "N": 0.1
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.8,
+        "B": 0.85
+      },
+      "E": {
+        "A": 0.3,
+        "B": 0.4
+      },
+      "A": {
+        "A": 0.85,
+        "B": 0.85
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.2
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "E": {
+        "A": 0.75,
+        "B": 0.5
+      },
+      "A": {
+        "A": 0.75,
+        "B": 0.5
+      },
+      "N": {
+        "A": 0.15,
+        "B": 0.2
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.15,
+        "B": 0.15
+      },
+      "C": {
+        "A": 0.9,
+        "B": 0.92
+      },
+      "E": {
+        "A": 0.8,
+        "B": 0.88
+      },
+      "A": {
+        "A": 0.8,
+        "B": 0.8
+      },
+      "N": {
+        "A": 0.12,
+        "B": 0.12
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.32,
+        "B": 0.28
+      },
+      "C": {
+        "A": 0.72,
+        "B": 0.72
+      },
+      "E": {
+        "A": 0.28,
+        "B": 0.28
+      },
+      "A": {
+        "A": 0.62,
+        "B": 0.72
+      },
+      "N": {
+        "A": 0.18,
+        "B": 0.15
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.8,
+        "B": 0.8
+      },
+      "E": {
+        "A": 0.6,
+        "B": 0.8
+      },
+      "A": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "N": {
+        "A": 0.1,
+        "B": 0.1
+      }
+    }
+  },
+  "overall_confidence": 0.7217,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:not"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.0,
+        "model_range": 0.15,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "C": {
+        "order_effect": 0.0,
+        "model_range": 0.19,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "E": {
+        "order_effect": 0.1,
+        "model_range": 0.56,
+        "parse_errors": 1,
+        "uncertain": true
+      },
+      "A": {
+        "order_effect": 0.0,
+        "model_range": 0.275,
+        "parse_errors": 1,
+        "uncertain": false
+      },
+      "N": {
+        "order_effect": 0.0,
+        "model_range": 0.1,
+        "parse_errors": 0,
+        "uncertain": false
+      }
+    },
+    "uncertain_traits": [
+      "E"
+    ],
+    "uncertain_reasons": {
+      "E": [
+        "model_range>0.56"
+      ]
+    }
+  },
+  "features": {
+    "avg_words_per_turn": 50.38,
+    "max_words_in_turn": 62,
+    "min_words_in_turn": 39,
+    "word_count_variance": 8.82,
+    "question_ratio": 0.75,
+    "exclamation_ratio": 0.0,
+    "hedge_count": 1,
+    "certainty_count": 1,
+    "first_person_ratio": 0.0099,
+    "inclusive_pronoun_ratio": 0.0347,
+    "disagreement_count": 0,
+    "acknowledgment_count": 2,
+    "idea_count": 0,
+    "name_mention_count": 20,
+    "conditional_ratio": 0.0,
+    "planning_count": 8,
+    "emotional_word_count": 0,
+    "positive_emotion_count": 2,
+    "turn_initiation_ratio": 0.5,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.6228,
+    "long_sentence_ratio": 0.333,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 1,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 2
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 403,
+    "candidate_avg_words_per_turn": 50.38,
+    "times_addressed_others_by_name": 20,
+    "times_asked_questions": 6,
+    "times_expressed_disagreement": 0,
+    "times_acknowledged_others": 2,
+    "times_proposed_new_ideas": 0
+  },
+  "assessment_summary": "Collaborative and accommodating in conflict situations; Maintained composure throughout, steady under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "Welcome everyone! I'm really excited to have Riley join our team - I've heard great things about your technical skills. Let's start by sharing where we're at with the project and then we can figure out how to best integrate Riley's strengths while keeping our momentum going. \n\nRiley, I'd love to hear what approaches have worked well for you in past projects - that might give us some good ideas about how to redistribute responsibilities. And team, what parts of your current workload do you think could benefit from Riley's fresh perspective? \n\nI really like the idea of pairing Riley with different team members for knowledge transfer - that way we all get to learn from each other's work styles. What do you all think about that approach?"
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "I completely agree with Jordan's structured approach - let's break this down systematically. Riley, while we're eager to hear about your past successes, first let me outline our current project phases so you understand exactly where we're at. Jordan, could we create a quick responsibility matrix showing current owners before we discuss redistributing tasks? That'll help us visualize opportunities clearly."
+    },
+    {
+      "turn": 3,
+      "speaker": "Jordan",
+      "content": "That's a great suggestion about the responsibility matrix! Riley, I think visualizing our current workflow will really help us identify where your technical expertise could shine. \n\nBuilding on that idea, what if we also schedule some informal pair programming sessions? That way you can get hands-on with our codebase while we learn from your different approaches. \n\nRiley, I'm curious - in your previous role, did you find any particular onboarding methods especially helpful that we might incorporate here?"
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "Jordan, let's formalize those pair programming sessions by assigning specific modules and scheduling them on our shared calendar - maybe two 90-minute blocks per week? Riley, while we're excited to hear your onboarding preferences, I'd recommend we first review our existing documentation standards so you can see how we currently structure knowledge transfer."
+    },
+    {
+      "turn": 5,
+      "speaker": "Alex",
+      "content": "I appreciate the structure, but we're moving too slowly. Our sprint deadline is in three weeks and we can't afford to spend multiple sessions just reviewing documentation standards. Riley needs to be contributing meaningful work by next week, not observing how we structure knowledge transfer. Let's get Riley paired with someone on actual tasks today - the documentation can be reviewed async."
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "Alex raises a valid point about our tight timeline - let's compromise by having Riley shadow active development tomorrow while simultaneously reviewing key documentation tonight. Jordan, can you identify the highest-priority tasks where Riley could add immediate value? We'll maintain structure while accelerating integration."
+    },
+    {
+      "turn": 7,
+      "speaker": "Jordan",
+      "content": "I love how we're finding that balance between thorough onboarding and maintaining momentum! Alex, I hear your urgency, and candidate, that's a smart compromise approach. \n\nRiley, what if we try something a little different - you could take ownership of one small but critical component right away? That way you're contributing while learning, and we could rotate who pairs with you each day to expose you to different parts of the system. \n\nCandidate, how do you feel about identifying one of those high-priority tasks that could become Riley's first ownership area? I'm thinking maybe something like the authentication module that touches several parts of the system."
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "That's an excellent suggestion, Jordan. The authentication module would be perfect since it's well-documented but still complex enough to showcase Riley's skills. Let's assign Jordan to pair with Riley on Monday, Alex on Wednesday, and I'll take Friday - that way we get full coverage while keeping our sprint commitments. Riley, does that timeline and rotation sound manageable to you?"
+    },
+    {
+      "turn": 9,
+      "speaker": "Alex",
+      "content": "I don't see how we can commit to three full pairing sessions next week when we're already behind on the frontend deliverables. The authentication module makes sense, but Riley should be able to handle it with just one pairing session, not three. We're treating this like a training exercise when we need results. Jordan, you pair with Riley Monday and that should be enough - Riley's experienced, right? They don't need hand-holding all week."
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "Alex, let's meet in the middle - we'll keep Monday's full session with Jordan, then schedule two shorter 30-minute check-ins Wednesday and Friday instead of full pairing. That maintains oversight while respecting our deadlines. Riley, does that adjustment work for your onboarding needs?"
+    },
+    {
+      "turn": 11,
+      "speaker": "Jordan",
+      "content": "I really like this middle ground approach we're finding - it shows we value both thorough onboarding and our deadlines. Building on that, what if we get creative and record Monday's pairing session? Then Riley could reference it during the week, and we'd use the shorter check-ins just for specific questions. \n\nRiley, how does that sound to you? And candidate, do you think that would help us balance Alex's concerns about time while still providing good support?"
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "Recording Monday's session is a brilliant efficiency play - let's set that up and share it in our team drive. Riley, this way you'll have the full context available when tackling the authentication module independently between our shorter check-ins. Jordan, can you handle the tech setup while I update the onboarding checklist to include these recorded sessions as a new standard practice?"
+    },
+    {
+      "turn": 13,
+      "speaker": "Alex",
+      "content": "Recording sessions sounds like extra overhead we don't have time for right now. We're already stretched thin setting up these check-ins - now we're talking about editing and organizing recordings? Riley's a senior engineer, not an intern. Either they can handle the task with Monday's pairing and quick check-ins or we've hired the wrong person. Let's stop adding process and just let them work."
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "Alex, that's an unnecessarily harsh take - we're not questioning Riley's capabilities. The recording adds minimal overhead for long-term efficiency gains, and I won't compromise proper onboarding standards just because we're busy. Let's implement Jordan's suggestion and move forward."
+    },
+    {
+      "turn": 15,
+      "speaker": "Riley",
+      "content": "I'm not sure recording sessions will actually save time. Seems like extra work for everyone.\n\nBut if Jordan handles the setup, I guess it's worth trying once."
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "Recording sessions creates more long-term efficiency than overhead - we're investing 30 minutes now to save hours later when Riley or future team members reference it. Let's proceed with Jordan's plan exactly as proposed and evaluate after implementation rather than debating hypotheticals."
+    },
+    {
+      "turn": 17,
+      "speaker": "Alex",
+      "content": "That's exactly the kind of hypothetical efficiency claim I'm tired of hearing - we've tried recording sessions before and no one ever used them. Riley just said they're not convinced either, but you're bulldozing ahead anyway. Either Riley needs this handholding or they don't, make up your mind."
+    }
+  ],
+  "controller_log": null,
+  "timestamp": "2026-03-04T16:51:58.751616"
+}

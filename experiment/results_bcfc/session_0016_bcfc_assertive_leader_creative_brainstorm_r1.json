@@ -1,0 +1,809 @@
+{
+  "schema_version": 4,
+  "session_key": "bcfc_assertive_leader_creative_brainstorm_r1",
+  "condition": "main",
+  "intervention": "bcfc",
+  "profile_id": "assertive_leader",
+  "profile_name": "Assertive Leader",
+  "scenario_id": "creative_brainstorm",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.6,
+    "C": 0.8,
+    "E": 0.9,
+    "A": 0.4,
+    "N": 0.2
+  },
+  "inferred_vector": {
+    "O": 0.4,
+    "C": 0.825,
+    "E": 0.825,
+    "A": 0.9,
+    "N": 0.15
+  },
+  "rule_based_vector": {
+    "O": 0.4854,
+    "C": 0.5125,
+    "E": 0.724,
+    "A": 0.7129,
+    "N": 0.3226
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.4,
+      "C": 0.825,
+      "E": 0.825,
+      "A": 0.85,
+      "N": 0.2
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.675,
+      "C": 0.875,
+      "E": 0.85,
+      "A": 0.9,
+      "N": 0.15
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.4,
+      "C": 0.88,
+      "E": 0.9,
+      "A": 0.95,
+      "N": 0.11
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.415,
+      "C": 0.78,
+      "E": 0.72,
+      "A": 0.8,
+      "N": 0.15
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.25,
+      "C": 0.8,
+      "E": 0.8,
+      "A": 0.9,
+      "N": 0.1
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.4,
+        "B": 0.4
+      },
+      "C": {
+        "A": 0.8,
+        "B": 0.85
+      },
+      "E": {
+        "A": 0.85,
+        "B": 0.8
+      },
+      "A": {
+        "A": 0.85,
+        "B": 0.85
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.2
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.65,
+        "B": 0.7
+      },
+      "C": {
+        "A": 0.85,
+        "B": 0.9
+      },
+      "E": {
+        "A": 0.85,
+        "B": 0.85
+      },
+      "A": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "N": {
+        "A": 0.15,
+        "B": 0.15
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.35,
+        "B": 0.45
+      },
+      "C": {
+        "A": 0.88,
+        "B": 0.88
+      },
+      "E": {
+        "A": 0.88,
+        "B": 0.92
+      },
+      "A": {
+        "A": 0.95,
+        "B": 0.95
+      },
+      "N": {
+        "A": 0.12,
+        "B": 0.1
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.48,
+        "B": 0.35
+      },
+      "C": {
+        "A": 0.78,
+        "B": 0.78
+      },
+      "E": {
+        "A": 0.72,
+        "B": 0.72
+      },
+      "A": {
+        "A": 0.82,
+        "B": 0.78
+      },
+      "N": {
+        "A": 0.15,
+        "B": 0.15
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.3,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.8,
+        "B": 0.8
+      },
+      "E": {
+        "A": 0.8,
+        "B": 0.8
+      },
+      "A": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "N": {
+        "A": 0.1,
+        "B": 0.1
+      }
+    }
+  },
+  "overall_confidence": 0.8089999999999999,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:not"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.1,
+        "model_range": 0.425,
+        "parse_errors": 0,
+        "uncertain": true
+      },
+      "C": {
+        "order_effect": 0.0,
+        "model_range": 0.1,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "E": {
+        "order_effect": 0.0,
+        "model_range": 0.18,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "A": {
+        "order_effect": 0.0,
+        "model_range": 0.15,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "N": {
+        "order_effect": 0.0,
+        "model_range": 0.1,
+        "parse_errors": 0,
+        "uncertain": false
+      }
+    },
+    "uncertain_traits": [
+      "O"
+    ],
+    "uncertain_reasons": {
+      "O": [
+        "model_range>0.42"
+      ]
+    }
+  },
+  "features": {
+    "avg_words_per_turn": 53.0,
+    "max_words_in_turn": 77,
+    "min_words_in_turn": 43,
+    "word_count_variance": 10.62,
+    "question_ratio": 0.625,
+    "exclamation_ratio": 0.0,
+    "hedge_count": 0,
+    "certainty_count": 1,
+    "first_person_ratio": 0.0071,
+    "inclusive_pronoun_ratio": 0.033,
+    "disagreement_count": 0,
+    "acknowledgment_count": 3,
+    "idea_count": 1,
+    "name_mention_count": 19,
+    "conditional_ratio": 0.0,
+    "planning_count": 10,
+    "emotional_word_count": 0,
+    "positive_emotion_count": 5,
+    "turn_initiation_ratio": 0.375,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.5637,
+    "long_sentence_ratio": 0.24,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 1,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 0
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 424,
+    "candidate_avg_words_per_turn": 53.0,
+    "times_addressed_others_by_name": 19,
+    "times_asked_questions": 5,
+    "times_expressed_disagreement": 0,
+    "times_acknowledged_others": 3,
+    "times_proposed_new_ideas": 1
+  },
+  "assessment_summary": "Highly engaged communicator, took initiative frequently; Collaborative and accommodating in conflict situations; Maintained composure throughout, steady under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "Hey team, I'm really excited about this opportunity to boost employee engagement! We've got a clean slate to brainstorm some creative ideas - the key will be finding something that truly resonates with our colleagues while delivering measurable impact. What initial thoughts does everyone have about what might make the biggest difference in our workplace culture?"
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "Jordan, you're absolutely right - this is a fantastic opportunity to make lasting cultural impact. Let's start by listing out all potential ideas without filtering yet - I'm thinking everything from mentorship programs to wellness initiatives to innovation challenges. Who wants to kick us off with their first brainstorm?"
+    },
+    {
+      "turn": 3,
+      "speaker": "Jordan",
+      "content": "I love that brainstorming approach - getting all ideas out there without filtering is such a great way to spark creativity. Those three areas you mentioned are excellent starting points - mentorship, wellness and innovation challenges could each make a big impact. Riley, I notice you've been listening thoughtfully - would you like to share what engagement ideas excite you most?"
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "Great momentum here - Riley, I'd love to hear your thoughts while we capture all these ideas. Let's set a hard stop at 2:30pm to review our brainstorm list and start narrowing down options - that gives us 45 minutes for unfiltered ideation before we need to shift gears."
+    },
+    {
+      "turn": 5,
+      "speaker": "Alex",
+      "content": "That timeline seems arbitrary - we should focus on quality over quantity here. I don't see the point in generating dozens of half-baked ideas when we could be developing three or four truly impactful ones. Jordan, your enthusiasm is great but we need concrete solutions, not just brainstorming for the sake of it. Riley, what specific engagement pain points are you seeing that we should address first?"
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "Alex makes a fair point about quality - let's capture Riley's pain points first, then we'll structure our brainstorm into three focused rounds: wellness, mentorship, and innovation. Jordan, would you take notes while Riley shares their observations? We'll allocate 15 minutes per category starting at 1:45."
+    },
+    {
+      "turn": 7,
+      "speaker": "Riley",
+      "content": "I'm not convinced structured brainstorming will solve our actual engagement issues. What metrics will we use to measure success?"
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "Riley raises an excellent question about metrics - let's build that into our evaluation framework right now. Jordan, while you're taking notes, could you start a separate column for potential KPIs next to each idea? We'll revisit measurement criteria at 2:15 when we prioritize options."
+    },
+    {
+      "turn": 9,
+      "speaker": "Alex",
+      "content": "I disagree with putting KPIs on every idea at this stage - that's putting the cart before the horse. We need bold, creative thinking first, then we can figure out how to measure it. Jordan, stop taking notes for a minute - let's hear some actual ideas before we bureaucratize this process. Riley's skepticism is valid but we're moving too slowly."
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "Alex, I hear your frustration about pace - let's strike a balance. Jordan, capture just the boldest ideas for the next 10 minutes without KPIs, then we'll rapid-fire assess feasibility. Riley, what's one unconventional engagement idea you'd love to see tried, measurement aside?"
+    },
+    {
+      "turn": 11,
+      "speaker": "Riley",
+      "content": "Unconventional ideas sound risky. What if they backfire on morale?"
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "Jordan, let's capture Riley's backfire concern as a risk column in your notes - that's valuable foresight. Alex, since you champion bold thinking, take ownership of brainstorming three specific safeguards by 2:05 while Riley and I workshop one high-reward unconventional idea. Remember our commitment to reassess KPIs at 2:15 - this risk discussion actually strengthens our eventual measurement framework. Riley, what if we pilot your most cautious idea alongside one wildcard concept in a controlled department test?"
+    },
+    {
+      "turn": 13,
+      "speaker": "Alex",
+      "content": "This approach is getting too fragmented - we're splitting into too many parallel tracks. Riley's concerns about risk are valid, but we're wasting time on hypothetical safeguards before we even have concrete ideas to protect. Let's focus on generating one truly disruptive engagement concept first, then we can pressure-test it properly. This piecemeal brainstorming is exactly what I warned against earlier."
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "Alex, you're right about needing focus - let's consolidate. Jordan, pause the risk column for now and dedicate the next 10 minutes solely to capturing disruptive concepts from everyone. Riley, I want your most cautious idea on the board by 1:55, then we'll pressure-test it against Alex's boldest suggestion at our scheduled 2:15 evaluation. That maintains momentum while honoring our timeline commitments."
+    },
+    {
+      "turn": 15,
+      "speaker": "Riley",
+      "content": "But what about the maintenance costs for disruptive concepts? Pilot tests often uncover hidden expenses."
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "Jordan, let\u2019s add a \"Cost Considerations\" column to track Riley\u2019s point\u2014but let\u2019s push forward aggressively with idea generation first. Alex, give us your top disruptive concept now, and Riley, follow immediately with your pragmatic alternative\u2014we\u2019ll compare them side-by-side at 2:15 with all dimensions accounted for. That\u2019s the most efficient path to a recommendation."
+    },
+    {
+      "turn": 17,
+      "speaker": "Alex",
+      "content": "Fine, here's my disruptive concept - mandatory job swapping where executives spend a week doing frontline work and vice versa. But Riley's going to hate it, so let's hear their \"safe\" idea first before we waste time debating. And candidate, you keep adding columns to Jordan's notes instead of letting us actually generate ideas - we're burning through our time."
+    }
+  ],
+  "controller_log": {
+    "session_key": "bcfc_assertive_leader_creative_brainstorm_r1",
+    "deviation_reports": [
+      {
+        "turn_number": 2,
+        "deviations": [
+          {
+            "feature": "unique_word_ratio",
+            "actual": 0.83,
+            "target_min": 0.44,
+            "target_max": 0.82,
+            "trait": "O",
+            "direction": "above"
+          },
+          {
+            "feature": "idea_count",
+            "actual": 0,
+            "target_min": 0.43,
+            "target_max": 0.9,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "hypothetical_count",
+            "actual": 0,
+            "target_min": 0.28,
+            "target_max": 0.75,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "word_count_variance",
+            "actual": 0.0,
+            "target_min": 11.95,
+            "target_max": 22.19,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "long_sentence_ratio",
+            "actual": 0.4,
+            "target_min": 0.15,
+            "target_max": 0.28,
+            "trait": "O",
+            "direction": "above"
+          },
+          {
+            "feature": "question_ratio",
+            "actual": 0.5,
+            "target_min": 0.59,
+            "target_max": 1.0,
+            "trait": "E",
+            "direction": "below"
+          },
+          {
+            "feature": "planning_count",
+            "actual": 2,
+            "target_min": 0.79,
+            "target_max": 1.46,
+            "trait": "C",
+            "direction": "above"
+          },
+          {
+            "feature": "structure_marker_count",
+            "actual": 0,
+            "target_min": 0.79,
+            "target_max": 1.46,
+            "trait": "C",
+            "direction": "below"
+          },
+          {
+            "feature": "conditional_ratio",
+            "actual": 0.0,
+            "target_min": 0.27,
+            "target_max": 0.5,
+            "trait": "C",
+            "direction": "below"
+          },
+          {
+            "feature": "reference_back_count",
+            "actual": 0,
+            "target_min": 0.63,
+            "target_max": 1.16,
+            "trait": "C",
+            "direction": "below"
+          },
+          {
+            "feature": "action_item_count",
+            "actual": 0,
+            "target_min": 0.47,
+            "target_max": 0.94,
+            "trait": "C",
+            "direction": "below"
+          },
+          {
+            "feature": "exclamation_ratio",
+            "actual": 0.0,
+            "target_min": 0.36,
+            "target_max": 0.67,
+            "trait": "E",
+            "direction": "below"
+          },
+          {
+            "feature": "acknowledgment_count",
+            "actual": 1,
+            "target_min": 0.23,
+            "target_max": 0.7,
+            "trait": "A",
+            "direction": "above"
+          },
+          {
+            "feature": "disagreement_count",
+            "actual": 0,
+            "target_min": 0.43,
+            "target_max": 0.9,
+            "trait": "A",
+            "direction": "below"
+          },
+          {
+            "feature": "positive_emotion_count",
+            "actual": 3,
+            "target_min": 0.0,
+            "target_max": 0.45,
+            "trait": "A",
+            "direction": "above"
+          },
+          {
+            "feature": "negation_count",
+            "actual": 0,
+            "target_min": 1.16,
+            "target_max": 2.15,
+            "trait": "A",
+            "direction": "below"
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your unique word ratio is above target; your idea count is below target; your hypothetical count is below target; your word count variance is below target; your long sentence ratio is above target; Propose an alternative approach or ask a speculative question.. E: your question ratio is below target; your exclamation ratio is below target; Address someone by name and elaborate more.. C: your planning count is above target; your structure marker count is below target; your conditional ratio is below target; your reference back count is below target; your action item count is below target; Include a concrete action item with an owner or reference a prior commitment.. A: your acknowledgment count is above target; your disagreement count is below target; your positive emotion count is above target; your negation count is below target; Validate someone's contribution or find common ground.. ]",
+        "severity": 0.593
+      },
+      {
+        "turn_number": 4,
+        "deviations": [
+          {
+            "feature": "idea_count",
+            "actual": 0,
+            "target_min": 0.43,
+            "target_max": 0.9,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "hypothetical_count",
+            "actual": 0,
+            "target_min": 0.28,
+            "target_max": 0.75,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "word_count_variance",
+            "actual": 1.79,
+            "target_min": 11.95,
+            "target_max": 22.19,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "planning_count",
+            "actual": 5,
+            "target_min": 0.79,
+            "target_max": 1.46,
+            "trait": "C",
+            "direction": "above"
+          },
+          {
+            "feature": "structure_marker_count",
+            "actual": 0,
+            "target_min": 0.79,
+            "target_max": 1.46,
+            "trait": "C",
+            "direction": "below"
+          },
+          {
+            "feature": "conditional_ratio",
+            "actual": 0.0,
+            "target_min": 0.27,
+            "target_max": 0.5,
+            "trait": "C",
+            "direction": "below"
+          },
+          {
+            "feature": "reference_back_count",
+            "actual": 0,
+            "target_min": 0.63,
+            "target_max": 1.16,
+            "trait": "C",
+            "direction": "below"
+          },
+          {
+            "feature": "action_item_count",
+            "actual": 0,
+            "target_min": 0.47,
+            "target_max": 0.94,
+            "trait": "C",
+            "direction": "below"
+          },
+          {
+            "feature": "exclamation_ratio",
+            "actual": 0.0,
+            "target_min": 0.36,
+            "target_max": 0.67,
+            "trait": "E",
+            "direction": "below"
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 7,
+            "target_min": 1.4,
+            "target_max": 2.6,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "turn_initiation_ratio",
+            "actual": 0.25,
+            "target_min": 0.45,
+            "target_max": 0.83,
+            "trait": "E",
+            "direction": "below"
+          },
+          {
+            "feature": "acknowledgment_count",
+            "actual": 2,
+            "target_min": 0.23,
+            "target_max": 0.7,
+            "trait": "A",
+            "direction": "above"
+          },
+          {
+            "feature": "disagreement_count",
+            "actual": 0,
+            "target_min": 0.43,
+            "target_max": 0.9,
+            "trait": "A",
+            "direction": "below"
+          },
+          {
+            "feature": "positive_emotion_count",
+            "actual": 4,
+            "target_min": 0.0,
+            "target_max": 0.45,
+            "trait": "A",
+            "direction": "above"
+          },
+          {
+            "feature": "negation_count",
+            "actual": 0,
+            "target_min": 1.16,
+            "target_max": 2.15,
+            "trait": "A",
+            "direction": "below"
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your idea count is below target; your hypothetical count is below target; your word count variance is below target; Propose an alternative approach or ask a speculative question.. C: your planning count is above target; your structure marker count is below target; your conditional ratio is below target; your reference back count is below target; your action item count is below target; Include a concrete action item with an owner or reference a prior commitment.. E: your exclamation ratio is below target; your name mention count is above target; your turn initiation ratio is below target; Address someone by name and elaborate more.. A: your acknowledgment count is above target; your disagreement count is below target; your positive emotion count is above target; your negation count is below target; Validate someone's contribution or find common ground.. ]",
+        "severity": 0.556
+      },
+      {
+        "turn_number": 6,
+        "deviations": [
+          {
+            "feature": "idea_count",
+            "actual": 1,
+            "target_min": 0.43,
+            "target_max": 0.9,
+            "trait": "O",
+            "direction": "above"
+          },
+          {
+            "feature": "hypothetical_count",
+            "actual": 0,
+            "target_min": 0.28,
+            "target_max": 0.75,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "planning_count",
+            "actual": 5,
+            "target_min": 0.79,
+            "target_max": 1.46,
+            "trait": "C",
+            "direction": "above"
+          },
+          {
+            "feature": "structure_marker_count",
+            "actual": 0,
+            "target_min": 0.79,
+            "target_max": 1.46,
+            "trait": "C",
+            "direction": "below"
+          },
+          {
+            "feature": "conditional_ratio",
+            "actual": 0.0,
+            "target_min": 0.27,
+            "target_max": 0.5,
+            "trait": "C",
+            "direction": "below"
+          },
+          {
+            "feature": "reference_back_count",
+            "actual": 0,
+            "target_min": 0.63,
+            "target_max": 1.16,
+            "trait": "C",
+            "direction": "below"
+          },
+          {
+            "feature": "action_item_count",
+            "actual": 1,
+            "target_min": 0.47,
+            "target_max": 0.94,
+            "trait": "C",
+            "direction": "above"
+          },
+          {
+            "feature": "exclamation_ratio",
+            "actual": 0.0,
+            "target_min": 0.36,
+            "target_max": 0.67,
+            "trait": "E",
+            "direction": "below"
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 11,
+            "target_min": 1.4,
+            "target_max": 2.6,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "certainty_count",
+            "actual": 0,
+            "target_min": 0.93,
+            "target_max": 1.73,
+            "trait": "E",
+            "direction": "below"
+          },
+          {
+            "feature": "acknowledgment_count",
+            "actual": 1,
+            "target_min": 0.23,
+            "target_max": 0.7,
+            "trait": "A",
+            "direction": "above"
+          },
+          {
+            "feature": "disagreement_count",
+            "actual": 0,
+            "target_min": 0.43,
+            "target_max": 0.9,
+            "trait": "A",
+            "direction": "below"
+          },
+          {
+            "feature": "positive_emotion_count",
+            "actual": 2,
+            "target_min": 0.0,
+            "target_max": 0.45,
+            "trait": "A",
+            "direction": "above"
+          },
+          {
+            "feature": "negation_count",
+            "actual": 0,
+            "target_min": 1.16,
+            "target_max": 2.15,
+            "trait": "A",
+            "direction": "below"
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your idea count is above target; your hypothetical count is below target; Propose an alternative approach or ask a speculative question.. C: your planning count is above target; your structure marker count is below target; your conditional ratio is below target; your reference back count is below target; your action item count is above target; Include a concrete action item with an owner or reference a prior commitment.. E: your exclamation ratio is below target; your name mention count is above target; your certainty count is below target; Address someone by name and elaborate more.. A: your acknowledgment count is above target; your disagreement count is below target; your positive emotion count is above target; your negation count is below target; Validate someone's contribution or find common ground.. ]",
+        "severity": 0.519
+      }
+    ],
+    "constraint_violations": [
+      {
+        "turn_number": 2,
+        "constraint": "In responses longer than one sentence, include at least one concrete organizational element: a deadline, an owner, a next step, or a reference to a prior commitment.",
+        "violation_type": "no_organizational_element",
+        "original_text": "While we wait for Riley's thoughts, let me add two more possibilities to the mix - what about implementing a peer recognition platform with monthly awards voted by colleagues, or creating cross-functional volunteer teams where employees can contribute to passion projects outside their daily roles? Both could drive meaningful connections across departments.",
+        "retry_count": 1,
+        "final_text": "Great momentum here - Riley, I'd love to hear your thoughts while we capture all these ideas. Let's set a hard stop at 2:30pm to review our brainstorm list and start narrowing down options - that gives us 45 minutes for unfiltered ideation before we need to shift gears."
+      },
+      {
+        "turn_number": 3,
+        "constraint": "In responses longer than one sentence, include at least one concrete organizational element: a deadline, an owner, a next step, or a reference to a prior commitment.",
+        "violation_type": "no_organizational_element",
+        "original_text": "Alex makes a fair point about quality - let's refine our approach. Riley, could you share the top engagement pain points you're seeing while we simultaneously capture creative solutions? That way we're addressing real needs while keeping the energy high. Jordan, what metrics would help us evaluate which ideas have the most concrete impact potential?",
+        "retry_count": 1,
+        "final_text": "Alex makes a fair point about quality - let's capture Riley's pain points first, then we'll structure our brainstorm into three focused rounds: wellness, mentorship, and innovation. Jordan, would you take notes while Riley shares their observations? We'll allocate 15 minutes per category starting at 1:45."
+      },
+      {
+        "turn_number": 4,
+        "constraint": "In responses longer than one sentence, include at least one concrete organizational element: a deadline, an owner, a next step, or a reference to a prior commitment.",
+        "violation_type": "no_organizational_element",
+        "original_text": "Excellent question Riley - let's define success metrics upfront. Jordan, could you note these three potential KPIs while we brainstorm: participation rates, pulse survey improvements, and retention impact? That way we're building measurable outcomes into every idea from the start.",
+        "retry_count": 1,
+        "final_text": null
+      },
+      {
+        "turn_number": 4,
+        "constraint": "In responses longer than one sentence, include at least one concrete organizational element: a deadline, an owner, a next step, or a reference to a prior commitment.",
+        "violation_type": "no_organizational_element",
+        "original_text": "Riley raises a crucial question about metrics - let's tackle that head-on while keeping momentum. Jordan, while you're taking notes, add a column for potential KPIs next to each idea. Alex, since you value concrete solutions, would you lead the discussion on measurement frameworks during our narrowing phase at 2:30?",
+        "retry_count": 2,
+        "final_text": "Riley raises an excellent question about metrics - let's build that into our evaluation framework right now. Jordan, while you're taking notes, could you start a separate column for potential KPIs next to each idea? We'll revisit measurement criteria at 2:15 when we prioritize options."
+      },
+      {
+        "turn_number": 6,
+        "constraint": "In responses longer than one sentence, include at least one concrete organizational element: a deadline, an owner, a next step, or a reference to a prior commitment.",
+        "violation_type": "no_organizational_element",
+        "original_text": "Alex raises a good point about moving faster, but let's not sacrifice quality. Jordan, switch to bullet-point format for those bold ideas - and Riley, could you play devil's advocate on the riskiest one? I'll track timing and ensure we leave 20 minutes for feasibility analysis. We're at 1:50 - Jordan, read back the three most promising wellness concepts so far while Riley considers potential pitfalls. Alex, I want your gut reaction on which has legs. Riley, you mentioned unconventional ideas feeling risky - what specific safeguard would make you comfortable testing one? Let's get concrete.",
+        "retry_count": 1,
+        "final_text": "Jordan, let's capture Riley's backfire concern as a risk column in your notes - that's valuable foresight. Alex, since you champion bold thinking, take ownership of brainstorming three specific safeguards by 2:05 while Riley and I workshop one high-reward unconventional idea. Remember our commitment to reassess KPIs at 2:15 - this risk discussion actually strengthens our eventual measurement framework. Riley, what if we pilot your most cautious idea alongside one wildcard concept in a controlled department test?"
+      },
+      {
+        "turn_number": 7,
+        "constraint": "In responses longer than one sentence, include at least one concrete organizational element: a deadline, an owner, a next step, or a reference to a prior commitment.",
+        "violation_type": "no_organizational_element",
+        "original_text": "Alex, you're absolutely right about maintaining focus - let's consolidate our efforts. Riley, I'd challenge you to share your most conservative engagement idea while Alex proposes his most disruptive one - we'll pressure-test both against each other at 2:05 sharp. Jordan, maintain one master list but highlight these two contrasting approaches as our primary evaluation candidates.",
+        "retry_count": 1,
+        "final_text": "Alex, you're right about needing focus - let's consolidate. Jordan, pause the risk column for now and dedicate the next 10 minutes solely to capturing disruptive concepts from everyone. Riley, I want your most cautious idea on the board by 1:55, then we'll pressure-test it against Alex's boldest suggestion at our scheduled 2:15 evaluation. That maintains momentum while honoring our timeline commitments."
+      }
+    ],
+    "total_nudges": 3,
+    "total_regenerations": 6,
+    "total_candidate_turns": 8,
+    "nudge_rate": 0.375,
+    "regeneration_rate": 0.75
+  },
+  "timestamp": "2026-03-04T15:05:57.358075"
+}

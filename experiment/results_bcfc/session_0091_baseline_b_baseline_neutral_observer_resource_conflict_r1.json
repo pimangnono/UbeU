@@ -1,0 +1,382 @@
+{
+  "schema_version": 4,
+  "session_key": "baseline_b_baseline_neutral_observer_resource_conflict_r1",
+  "condition": "baseline_b",
+  "intervention": "none",
+  "profile_id": "neutral_observer",
+  "profile_name": "Neutral Observer",
+  "scenario_id": "resource_conflict",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.5,
+    "C": 0.5,
+    "E": 0.5,
+    "A": 0.5,
+    "N": 0.5
+  },
+  "inferred_vector": {
+    "O": 0.35,
+    "C": 0.6000000000000001,
+    "E": 0.65,
+    "A": 0.85,
+    "N": 0.2
+  },
+  "rule_based_vector": {
+    "O": 0.5983,
+    "C": 0.4706,
+    "E": 0.5481,
+    "A": 0.5295,
+    "N": 0.4745
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.35,
+      "C": 0.6,
+      "E": 0.42500000000000004,
+      "A": 0.85,
+      "N": 0.5
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.7,
+      "C": 0.775,
+      "E": 0.65,
+      "A": 0.675,
+      "N": 0.2
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.325,
+      "C": 0.6000000000000001,
+      "E": 0.74,
+      "A": 0.92,
+      "N": 0.15
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.5,
+      "C": 0.65,
+      "E": 0.38,
+      "A": 0.72,
+      "N": 0.25
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.2,
+      "C": 0.4,
+      "E": 0.7,
+      "A": 0.9,
+      "N": 0.1
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.3,
+        "B": 0.4
+      },
+      "C": {
+        "A": 0.6,
+        "B": 0.6
+      },
+      "E": {
+        "A": 0.4,
+        "B": 0.45
+      },
+      "A": {
+        "A": 0.85,
+        "B": 0.85
+      },
+      "N": {
+        "A": 0.5,
+        "B": 0.5
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.7,
+        "B": 0.7
+      },
+      "C": {
+        "A": 0.8,
+        "B": 0.75
+      },
+      "E": {
+        "A": 0.65,
+        "B": 0.65
+      },
+      "A": {
+        "A": 0.85,
+        "B": 0.5
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.2
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.2,
+        "B": 0.45
+      },
+      "C": {
+        "A": 0.55,
+        "B": 0.65
+      },
+      "E": {
+        "A": 0.7,
+        "B": 0.78
+      },
+      "A": {
+        "A": 0.92,
+        "B": 0.92
+      },
+      "N": {
+        "A": 0.15,
+        "B": 0.15
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.58,
+        "B": 0.42
+      },
+      "C": {
+        "A": 0.68,
+        "B": 0.62
+      },
+      "E": {
+        "A": 0.38,
+        "B": 0.38
+      },
+      "A": {
+        "A": 0.72,
+        "B": 0.72
+      },
+      "N": {
+        "A": 0.25,
+        "B": 0.25
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.4,
+        "B": 0.4
+      },
+      "E": {
+        "A": 0.7,
+        "B": 0.7
+      },
+      "A": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "N": {
+        "A": 0.1,
+        "B": 0.1
+      }
+    }
+  },
+  "overall_confidence": 0.5849,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:not"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.1,
+        "model_range": 0.5,
+        "parse_errors": 0,
+        "uncertain": true
+      },
+      "C": {
+        "order_effect": 0.05,
+        "model_range": 0.375,
+        "parse_errors": 0,
+        "uncertain": true
+      },
+      "E": {
+        "order_effect": 0.0,
+        "model_range": 0.36,
+        "parse_errors": 0,
+        "uncertain": true
+      },
+      "A": {
+        "order_effect": 0.0,
+        "model_range": 0.245,
+        "parse_errors": 1,
+        "uncertain": false
+      },
+      "N": {
+        "order_effect": 0.0,
+        "model_range": 0.4,
+        "parse_errors": 2,
+        "uncertain": true
+      }
+    },
+    "uncertain_traits": [
+      "O",
+      "C",
+      "E",
+      "N"
+    ],
+    "uncertain_reasons": {
+      "O": [
+        "model_range>0.50"
+      ],
+      "C": [
+        "model_range>0.38"
+      ],
+      "E": [
+        "model_range>0.36"
+      ],
+      "N": [
+        "model_range>0.40",
+        "parse_errors=2"
+      ]
+    }
+  },
+  "features": {
+    "avg_words_per_turn": 40.62,
+    "max_words_in_turn": 81,
+    "min_words_in_turn": 26,
+    "word_count_variance": 16.58,
+    "question_ratio": 0.375,
+    "exclamation_ratio": 0.0,
+    "hedge_count": 6,
+    "certainty_count": 0,
+    "first_person_ratio": 0.0062,
+    "inclusive_pronoun_ratio": 0.0492,
+    "disagreement_count": 0,
+    "acknowledgment_count": 2,
+    "idea_count": 5,
+    "name_mention_count": 7,
+    "conditional_ratio": 0.25,
+    "planning_count": 2,
+    "emotional_word_count": 0,
+    "positive_emotion_count": 0,
+    "turn_initiation_ratio": 0.375,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.5908,
+    "long_sentence_ratio": 0.238,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 0,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 9
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 325,
+    "candidate_avg_words_per_turn": 40.62,
+    "times_addressed_others_by_name": 7,
+    "times_asked_questions": 3,
+    "times_expressed_disagreement": 0,
+    "times_acknowledged_others": 2,
+    "times_proposed_new_ideas": 5
+  },
+  "assessment_summary": "Collaborative and accommodating in conflict situations; Maintained composure throughout, steady under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "Hey team, I'm really excited to tackle this project together! We've got some tough decisions ahead about which features to prioritize and how to distribute the workload, but I know we can figure this out collaboratively. Let's start by hearing everyone's thoughts on which two features would deliver the most value to the client."
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "I think starting with the client's business goals would help us evaluate the features objectively. Maybe we could list each feature's potential impact against their key metrics?"
+    },
+    {
+      "turn": 3,
+      "speaker": "Riley",
+      "content": "Not sure metrics alone tell the whole story. What about implementation risks?\n\nIf we pick the wrong features, overtime work won't fix it. Should be careful here."
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "That's a fair point about risks. Maybe we could score each feature on both business impact and technical feasibility? That way we're considering value and execution challenges together."
+    },
+    {
+      "turn": 5,
+      "speaker": "Alex",
+      "content": "Scoring features sounds like unnecessary bureaucracy when we're on a tight deadline. I think we should just pick the two features that align most clearly with the client's revenue goals - that's what they care about most. Technical feasibility shouldn't even factor in - if it's important, we'll make it work through the overtime. Who's with me on prioritizing pure business impact?"
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "I see where Alex is coming from with the revenue focus, but Riley raised good concerns about feasibility. Maybe we could compromise by prioritizing one high-impact feature with clear technical execution, and one revenue driver that we'd commit extra resources to?"
+    },
+    {
+      "turn": 7,
+      "speaker": "Riley",
+      "content": "But who would do the overtime work? That seems risky if we don't know who can commit to it."
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "We should probably identify who's available for overtime before finalizing feature choices. That way we're not committing to something we can't deliver, even if it's high-value."
+    },
+    {
+      "turn": 9,
+      "speaker": "Alex",
+      "content": "That's putting the cart before the horse. We need to decide what's most important first, then figure out who can make it happen. If we start limiting ourselves based on who's available, we'll end up building the wrong things. Let's be clear - someone will have to step up for overtime no matter what we choose, so let's pick the highest value features first."
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "Alex makes a compelling case about not compromising on value, though Riley's concerns about capacity shouldn't be dismissed entirely. Perhaps we could quickly assess both - list the top two revenue features while also checking if anyone sees immediate red flags in execution."
+    },
+    {
+      "turn": 11,
+      "speaker": "Riley",
+      "content": "Not convinced we can just ignore capacity concerns. What if the top revenue features require skills our overtime volunteer doesn't have?"
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "That's a valid technical consideration. Maybe we could briefly discuss each team member's availability and expertise before finalizing features, just to ensure we're not setting ourselves up for failure. We could do this quickly without derailing the value discussion."
+    },
+    {
+      "turn": 13,
+      "speaker": "Alex",
+      "content": "This approach wastes too much time debating hypotheticals. The reality is we have three weeks and someone will need to work overtime regardless of which features we pick. Let's make the tough calls now - choose the highest revenue features first, then assign the overtime to whoever is most capable of delivering them. Dancing around capacity constraints first just means we'll compromise on business value unnecessarily."
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "Alex's approach is too risky - we can't ignore capacity constraints entirely. If we pick features first without considering who can actually build them, we might commit to something impossible to deliver. Let's at least identify available skillsets before finalizing."
+    },
+    {
+      "turn": 15,
+      "speaker": "Riley",
+      "content": "What if we identify skillsets and still can't match them to the top features? Then we've wasted time on both steps."
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "Alex makes a fair point about not compromising value, but Riley's right that we can't ignore execution realities either. Let's list the top two revenue features first, but immediately cross-check them against our team's availability\u2014if either feature has no capable owner, we'll know right away and can adjust. The alternative of committing blindly to features first could leave us stuck with unimplementable choices, which serves neither revenue nor feasibility. Better to spend five minutes validating assumptions now than waste days later."
+    },
+    {
+      "turn": 17,
+      "speaker": "Alex",
+      "content": "Riley's concerns about capacity are valid, but we're spinning our wheels here. Here's the hard truth - no matter which features we pick, someone will have to work overtime to deliver them. We shouldn't dilute the project's value by prioritizing comfort over results. Let's make the tough call on features first based on revenue impact, then figure out how to make it happen - that's what leadership looks like."
+    }
+  ],
+  "controller_log": null,
+  "timestamp": "2026-03-04T18:57:07.657723"
+}

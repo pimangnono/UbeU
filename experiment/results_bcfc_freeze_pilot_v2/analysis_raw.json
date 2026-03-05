@@ -1,0 +1,1456 @@
+{
+  "rq1": {
+    "per_trait": {
+      "O": {
+        "pearson_r": 0.3105,
+        "p_value": 0.549178,
+        "mae": 0.2833,
+        "n": 6,
+        "q_value": 0.549178,
+        "fdr_significant": false
+      },
+      "C": {
+        "pearson_r": 0.6166,
+        "p_value": 0.192331,
+        "mae": 0.1808,
+        "n": 6,
+        "q_value": 0.240414,
+        "fdr_significant": false
+      },
+      "E": {
+        "pearson_r": 0.9368,
+        "p_value": 0.005861,
+        "mae": 0.0875,
+        "n": 6,
+        "q_value": 0.029305,
+        "fdr_significant": true
+      },
+      "A": {
+        "pearson_r": 0.9022,
+        "p_value": 0.01387,
+        "mae": 0.2008,
+        "n": 6,
+        "q_value": 0.031443,
+        "fdr_significant": true
+      },
+      "N": {
+        "pearson_r": 0.8857,
+        "p_value": 0.018866,
+        "mae": 0.2117,
+        "n": 6,
+        "q_value": 0.031443,
+        "fdr_significant": true
+      }
+    },
+    "overall": {
+      "mean_r": 0.7304,
+      "mean_mae": 0.1928,
+      "n_main": 6,
+      "n_baseline_a": 0,
+      "n_baseline_b": 0
+    }
+  },
+  "rq2": {
+    "per_trait": {
+      "O": {
+        "error": "insufficient multi-rep data",
+        "mean_within_profile_sd": 0.0236
+      },
+      "C": {
+        "error": "insufficient multi-rep data",
+        "mean_within_profile_sd": 0.0483
+      },
+      "E": {
+        "error": "insufficient multi-rep data",
+        "mean_within_profile_sd": 0.0059
+      },
+      "A": {
+        "error": "insufficient multi-rep data",
+        "mean_within_profile_sd": 0.013
+      },
+      "N": {
+        "error": "insufficient multi-rep data",
+        "mean_within_profile_sd": 0.0542
+      }
+    },
+    "per_profile": {
+      "anxious_perfectionist": {
+        "O": {
+          "mean": 0.275,
+          "sd": 0.0354,
+          "n": 2
+        },
+        "C": {
+          "mean": 0.5925,
+          "sd": 0.0247,
+          "n": 2
+        },
+        "E": {
+          "mean": 0.3,
+          "sd": 0.0,
+          "n": 2
+        },
+        "A": {
+          "mean": 0.85,
+          "sd": 0.0,
+          "n": 2
+        },
+        "N": {
+          "mean": 0.665,
+          "sd": 0.0212,
+          "n": 2
+        }
+      },
+      "creative_rebel": {
+        "O": {
+          "mean": 0.325,
+          "sd": 0.0354,
+          "n": 2
+        },
+        "C": {
+          "mean": 0.275,
+          "sd": 0.1061,
+          "n": 2
+        },
+        "E": {
+          "mean": 0.8625,
+          "sd": 0.0177,
+          "n": 2
+        },
+        "A": {
+          "mean": 0.135,
+          "sd": 0.0212,
+          "n": 2
+        },
+        "N": {
+          "mean": 0.3,
+          "sd": 0.1414,
+          "n": 2
+        }
+      },
+      "neutral_observer": {
+        "O": {
+          "mean": 0.35,
+          "sd": 0.0,
+          "n": 2
+        },
+        "C": {
+          "mean": 0.66,
+          "sd": 0.0141,
+          "n": 2
+        },
+        "E": {
+          "mean": 0.4,
+          "sd": 0.0,
+          "n": 2
+        },
+        "A": {
+          "mean": 0.7875,
+          "sd": 0.0177,
+          "n": 2
+        },
+        "N": {
+          "mean": 0.2,
+          "sd": 0.0,
+          "n": 2
+        }
+      }
+    }
+  },
+  "rq3": {
+    "error": "temporal analysis not run yet"
+  },
+  "rq3_phase_controlled": {},
+  "judge_bias": {
+    "per_trait": {
+      "O": {
+        "median_order_effect": 0.05,
+        "median_model_range": 0.2875,
+        "total_parse_errors": 0,
+        "uncertain_count": 3,
+        "uncertain_rate": 0.5,
+        "n": 6
+      },
+      "C": {
+        "median_order_effect": 0.07,
+        "median_model_range": 0.275,
+        "total_parse_errors": 2,
+        "uncertain_count": 2,
+        "uncertain_rate": 0.3333,
+        "n": 6
+      },
+      "E": {
+        "median_order_effect": 0.0,
+        "median_model_range": 0.2475,
+        "total_parse_errors": 0,
+        "uncertain_count": 2,
+        "uncertain_rate": 0.3333,
+        "n": 6
+      },
+      "A": {
+        "median_order_effect": 0.0,
+        "median_model_range": 0.14,
+        "total_parse_errors": 0,
+        "uncertain_count": 0,
+        "uncertain_rate": 0.0,
+        "n": 6
+      },
+      "N": {
+        "median_order_effect": 0.0,
+        "median_model_range": 0.1725,
+        "total_parse_errors": 1,
+        "uncertain_count": 1,
+        "uncertain_rate": 0.1667,
+        "n": 6
+      }
+    },
+    "total_sessions": 6,
+    "uncertain_traits": [
+      "O",
+      "C",
+      "E",
+      "N"
+    ]
+  },
+  "rule_based": {
+    "Words per turn -> Extraversion": {
+      "pearson_r": 0.9064,
+      "p_value": 0.012742,
+      "expected_direction": "positive",
+      "correct_direction": "True",
+      "n": 6
+    },
+    "Disagreements -> -Agreeableness": {
+      "pearson_r": -0.8636,
+      "p_value": 0.026636,
+      "expected_direction": "negative",
+      "correct_direction": "True",
+      "n": 6
+    },
+    "Acknowledgments -> Agreeableness": {
+      "pearson_r": 0.0284,
+      "p_value": 0.957423,
+      "expected_direction": "positive",
+      "correct_direction": "True",
+      "n": 6
+    },
+    "New ideas -> Openness": {
+      "pearson_r": 0.0598,
+      "p_value": 0.910465,
+      "expected_direction": "positive",
+      "correct_direction": "True",
+      "n": 6
+    },
+    "Questions asked -> Extraversion": {
+      "pearson_r": 0.0436,
+      "p_value": 0.934637,
+      "expected_direction": "positive",
+      "correct_direction": "True",
+      "n": 6
+    },
+    "Name mentions -> Extraversion": {
+      "pearson_r": 0.0399,
+      "p_value": 0.940173,
+      "expected_direction": "positive",
+      "correct_direction": "True",
+      "n": 6
+    }
+  },
+  "dual_evaluation": {
+    "O": {
+      "llm_vs_rule_based_r": 0.0635,
+      "llm_vs_rule_based_p": 0.904817,
+      "llm_vs_assigned_r": 0.3105,
+      "rule_based_vs_assigned_r": 0.4282,
+      "n": 6
+    },
+    "C": {
+      "llm_vs_rule_based_r": 0.8954,
+      "llm_vs_rule_based_p": 0.015841,
+      "llm_vs_assigned_r": 0.6166,
+      "rule_based_vs_assigned_r": 0.3339,
+      "n": 6
+    },
+    "E": {
+      "llm_vs_rule_based_r": 0.8524,
+      "llm_vs_rule_based_p": 0.031055,
+      "llm_vs_assigned_r": 0.9368,
+      "rule_based_vs_assigned_r": 0.6282,
+      "n": 6
+    },
+    "A": {
+      "llm_vs_rule_based_r": 0.8948,
+      "llm_vs_rule_based_p": 0.016025,
+      "llm_vs_assigned_r": 0.9022,
+      "rule_based_vs_assigned_r": 0.7938,
+      "n": 6
+    },
+    "N": {
+      "llm_vs_rule_based_r": 0.8947,
+      "llm_vs_rule_based_p": 0.016035,
+      "llm_vs_assigned_r": 0.8857,
+      "rule_based_vs_assigned_r": 0.9501,
+      "n": 6
+    }
+  },
+  "feature_trait_validation": {
+    "Certainty -> E": {
+      "pearson_r": 0.0,
+      "p_value": 1.0,
+      "expected_direction": "positive",
+      "correct_direction": false,
+      "n": 6
+    },
+    "Inclusive pronouns -> A": {
+      "pearson_r": -0.3577,
+      "p_value": 0.48631,
+      "expected_direction": "positive",
+      "correct_direction": false,
+      "n": 6
+    },
+    "Action items -> C": {
+      "pearson_r": 0.5976,
+      "p_value": 0.210295,
+      "expected_direction": "positive",
+      "correct_direction": "True",
+      "n": 6
+    },
+    "Negations -> -A": {
+      "pearson_r": -0.7452,
+      "p_value": 0.089137,
+      "expected_direction": "negative",
+      "correct_direction": "True",
+      "n": 6
+    },
+    "Disagreements -> -A": {
+      "pearson_r": -0.7385,
+      "p_value": 0.093599,
+      "expected_direction": "negative",
+      "correct_direction": "True",
+      "n": 6
+    },
+    "Reference back -> C": {
+      "pearson_r": NaN,
+      "p_value": NaN,
+      "expected_direction": "positive",
+      "correct_direction": false,
+      "n": 6
+    },
+    "Ideas -> O": {
+      "pearson_r": 0.0,
+      "p_value": 1.0,
+      "expected_direction": "positive",
+      "correct_direction": false,
+      "n": 6
+    },
+    "Question ratio -> E": {
+      "pearson_r": -0.2922,
+      "p_value": 0.574107,
+      "expected_direction": "positive",
+      "correct_direction": false,
+      "n": 6
+    },
+    "First-person -> N": {
+      "pearson_r": 0.92,
+      "p_value": 0.009353,
+      "expected_direction": "positive",
+      "correct_direction": "True",
+      "n": 6
+    },
+    "Word variance -> O": {
+      "pearson_r": 0.8973,
+      "p_value": 0.015291,
+      "expected_direction": "positive",
+      "correct_direction": "True",
+      "n": 6
+    },
+    "Planning -> C": {
+      "pearson_r": -0.2554,
+      "p_value": 0.62517,
+      "expected_direction": "positive",
+      "correct_direction": false,
+      "n": 6
+    },
+    "Hypotheticals -> O": {
+      "pearson_r": NaN,
+      "p_value": NaN,
+      "expected_direction": "positive",
+      "correct_direction": false,
+      "n": 6
+    },
+    "Positive emotion -> A": {
+      "pearson_r": NaN,
+      "p_value": NaN,
+      "expected_direction": "positive",
+      "correct_direction": false,
+      "n": 6
+    },
+    "Turn initiation -> E": {
+      "pearson_r": -0.5898,
+      "p_value": 0.217917,
+      "expected_direction": "positive",
+      "correct_direction": false,
+      "n": 6
+    },
+    "Apologies -> N": {
+      "pearson_r": NaN,
+      "p_value": NaN,
+      "expected_direction": "positive",
+      "correct_direction": false,
+      "n": 6
+    },
+    "Reassurance seeking -> N": {
+      "pearson_r": NaN,
+      "p_value": NaN,
+      "expected_direction": "positive",
+      "correct_direction": false,
+      "n": 6
+    },
+    "Hedges -> N": {
+      "pearson_r": 0.9342,
+      "p_value": 0.006359,
+      "expected_direction": "positive",
+      "correct_direction": "True",
+      "n": 6
+    },
+    "Exclamation ratio -> E": {
+      "pearson_r": 0.8018,
+      "p_value": 0.055041,
+      "expected_direction": "positive",
+      "correct_direction": "True",
+      "n": 6
+    },
+    "Conditionals -> C": {
+      "pearson_r": 0.5787,
+      "p_value": 0.228864,
+      "expected_direction": "positive",
+      "correct_direction": "True",
+      "n": 6
+    },
+    "Long sentences -> C": {
+      "pearson_r": -0.8225,
+      "p_value": 0.04448,
+      "expected_direction": "positive",
+      "correct_direction": false,
+      "n": 6
+    },
+    "Unique words -> O": {
+      "pearson_r": -0.4353,
+      "p_value": 0.388243,
+      "expected_direction": "positive",
+      "correct_direction": false,
+      "n": 6
+    },
+    "Structure markers -> C": {
+      "pearson_r": NaN,
+      "p_value": NaN,
+      "expected_direction": "positive",
+      "correct_direction": false,
+      "n": 6
+    },
+    "Name mentions -> E": {
+      "pearson_r": -0.0,
+      "p_value": 1.0,
+      "expected_direction": "positive",
+      "correct_direction": false,
+      "n": 6
+    },
+    "Max words -> E": {
+      "pearson_r": 0.8285,
+      "p_value": 0.041616,
+      "expected_direction": "positive",
+      "correct_direction": "True",
+      "n": 6
+    },
+    "Emotional words -> N": {
+      "pearson_r": 0.6172,
+      "p_value": 0.191744,
+      "expected_direction": "positive",
+      "correct_direction": "True",
+      "n": 6
+    },
+    "Avg words -> E": {
+      "pearson_r": 0.9066,
+      "p_value": 0.012665,
+      "expected_direction": "positive",
+      "correct_direction": "True",
+      "n": 6
+    },
+    "Self-doubt -> N": {
+      "pearson_r": NaN,
+      "p_value": NaN,
+      "expected_direction": "positive",
+      "correct_direction": false,
+      "n": 6
+    },
+    "Acknowledgments -> A": {
+      "pearson_r": 0.25,
+      "p_value": 0.632812,
+      "expected_direction": "positive",
+      "correct_direction": "True",
+      "n": 6
+    },
+    "_correlation_matrix": {
+      "avg_words_per_turn": {
+        "O": {
+          "r": 0.9171,
+          "p": 0.010026
+        },
+        "C": {
+          "r": -0.8554,
+          "p": 0.029834
+        },
+        "E": {
+          "r": 0.9066,
+          "p": 0.012665
+        },
+        "A": {
+          "r": -0.9066,
+          "p": 0.012665
+        },
+        "N": {
+          "r": -0.7963,
+          "p": 0.058008
+        }
+      },
+      "max_words_in_turn": {
+        "O": {
+          "r": 0.907,
+          "p": 0.012574
+        },
+        "C": {
+          "r": -0.7418,
+          "p": 0.091367
+        },
+        "E": {
+          "r": 0.8285,
+          "p": 0.041616
+        },
+        "A": {
+          "r": -0.8285,
+          "p": 0.041616
+        },
+        "N": {
+          "r": -0.6586,
+          "p": 0.154894
+        }
+      },
+      "min_words_in_turn": {
+        "O": {
+          "r": 0.8945,
+          "p": 0.016113
+        },
+        "C": {
+          "r": -0.8392,
+          "p": 0.036706
+        },
+        "E": {
+          "r": 0.8875,
+          "p": 0.018282
+        },
+        "A": {
+          "r": -0.8875,
+          "p": 0.018282
+        },
+        "N": {
+          "r": -0.7827,
+          "p": 0.065713
+        }
+      },
+      "word_count_variance": {
+        "O": {
+          "r": 0.8973,
+          "p": 0.015291
+        },
+        "C": {
+          "r": -0.6436,
+          "p": 0.16794
+        },
+        "E": {
+          "r": 0.7604,
+          "p": 0.079213
+        },
+        "A": {
+          "r": -0.7604,
+          "p": 0.079213
+        },
+        "N": {
+          "r": -0.5398,
+          "p": 0.268916
+        }
+      },
+      "question_ratio": {
+        "O": {
+          "r": 0.0276,
+          "p": 0.958588
+        },
+        "C": {
+          "r": 0.4624,
+          "p": 0.35588
+        },
+        "E": {
+          "r": -0.2922,
+          "p": 0.574107
+        },
+        "A": {
+          "r": 0.2922,
+          "p": 0.574107
+        },
+        "N": {
+          "r": 0.5799,
+          "p": 0.227643
+        }
+      },
+      "exclamation_ratio": {
+        "O": {
+          "r": 0.9091,
+          "p": 0.012009
+        },
+        "C": {
+          "r": -0.6999,
+          "p": 0.121612
+        },
+        "E": {
+          "r": 0.8018,
+          "p": 0.055041
+        },
+        "A": {
+          "r": -0.8018,
+          "p": 0.055041
+        },
+        "N": {
+          "r": -0.6061,
+          "p": 0.202186
+        }
+      },
+      "hedge_count": {
+        "O": {
+          "r": -0.7785,
+          "p": 0.068179
+        },
+        "C": {
+          "r": 0.9349,
+          "p": 0.006228
+        },
+        "E": {
+          "r": -0.9062,
+          "p": 0.012775
+        },
+        "A": {
+          "r": 0.9062,
+          "p": 0.012775
+        },
+        "N": {
+          "r": 0.9342,
+          "p": 0.006359
+        }
+      },
+      "certainty_count": {
+        "O": {
+          "r": 0.0,
+          "p": 1.0
+        },
+        "C": {
+          "r": 0.0,
+          "p": 1.0
+        },
+        "E": {
+          "r": 0.0,
+          "p": 1.0
+        },
+        "A": {
+          "r": 0.0,
+          "p": 1.0
+        },
+        "N": {
+          "r": 0.0,
+          "p": 1.0
+        }
+      },
+      "first_person_ratio": {
+        "O": {
+          "r": -0.4858,
+          "p": 0.328616
+        },
+        "C": {
+          "r": 0.8558,
+          "p": 0.029696
+        },
+        "E": {
+          "r": -0.7439,
+          "p": 0.090007
+        },
+        "A": {
+          "r": 0.7439,
+          "p": 0.090007
+        },
+        "N": {
+          "r": 0.92,
+          "p": 0.009353
+        }
+      },
+      "inclusive_pronoun_ratio": {
+        "O": {
+          "r": 0.0732,
+          "p": 0.890441
+        },
+        "C": {
+          "r": -0.5042,
+          "p": 0.307812
+        },
+        "E": {
+          "r": 0.3577,
+          "p": 0.48631
+        },
+        "A": {
+          "r": -0.3577,
+          "p": 0.48631
+        },
+        "N": {
+          "r": -0.6029,
+          "p": 0.205268
+        }
+      },
+      "disagreement_count": {
+        "O": {
+          "r": 0.8374,
+          "p": 0.037493
+        },
+        "C": {
+          "r": -0.6447,
+          "p": 0.166967
+        },
+        "E": {
+          "r": 0.7385,
+          "p": 0.093599
+        },
+        "A": {
+          "r": -0.7385,
+          "p": 0.093599
+        },
+        "N": {
+          "r": -0.5583,
+          "p": 0.249571
+        }
+      },
+      "acknowledgment_count": {
+        "O": {
+          "r": -0.0945,
+          "p": 0.858685
+        },
+        "C": {
+          "r": 0.3273,
+          "p": 0.526545
+        },
+        "E": {
+          "r": -0.25,
+          "p": 0.632812
+        },
+        "A": {
+          "r": 0.25,
+          "p": 0.632812
+        },
+        "N": {
+          "r": 0.378,
+          "p": 0.460051
+        }
+      },
+      "idea_count": {
+        "O": {
+          "r": 0.0,
+          "p": 1.0
+        },
+        "C": {
+          "r": 0.25,
+          "p": 0.632812
+        },
+        "E": {
+          "r": -0.1637,
+          "p": 0.756697
+        },
+        "A": {
+          "r": 0.1637,
+          "p": 0.756697
+        },
+        "N": {
+          "r": 0.3093,
+          "p": 0.550852
+        }
+      },
+      "name_mention_count": {
+        "O": {
+          "r": 0.0265,
+          "p": 0.96025
+        },
+        "C": {
+          "r": 0.0153,
+          "p": 0.977047
+        },
+        "E": {
+          "r": -0.0,
+          "p": 1.0
+        },
+        "A": {
+          "r": 0.0,
+          "p": 1.0
+        },
+        "N": {
+          "r": 0.0265,
+          "p": 0.96025
+        }
+      },
+      "conditional_ratio": {
+        "O": {
+          "r": -0.8441,
+          "p": 0.034582
+        },
+        "C": {
+          "r": 0.5787,
+          "p": 0.228864
+        },
+        "E": {
+          "r": -0.6979,
+          "p": 0.123139
+        },
+        "A": {
+          "r": 0.6979,
+          "p": 0.123139
+        },
+        "N": {
+          "r": 0.4748,
+          "p": 0.34134
+        }
+      },
+      "planning_count": {
+        "O": {
+          "r": 0.034,
+          "p": 0.948969
+        },
+        "C": {
+          "r": -0.2554,
+          "p": 0.62517
+        },
+        "E": {
+          "r": 0.1801,
+          "p": 0.732785
+        },
+        "A": {
+          "r": -0.1801,
+          "p": 0.732785
+        },
+        "N": {
+          "r": -0.3063,
+          "p": 0.554912
+        }
+      },
+      "emotional_word_count": {
+        "O": {
+          "r": -0.1543,
+          "p": 0.770382
+        },
+        "C": {
+          "r": 0.5345,
+          "p": 0.274577
+        },
+        "E": {
+          "r": -0.4082,
+          "p": 0.421648
+        },
+        "A": {
+          "r": 0.4082,
+          "p": 0.421648
+        },
+        "N": {
+          "r": 0.6172,
+          "p": 0.191744
+        }
+      },
+      "positive_emotion_count": {
+        "O": {
+          "r": NaN,
+          "p": NaN
+        },
+        "C": {
+          "r": NaN,
+          "p": NaN
+        },
+        "E": {
+          "r": NaN,
+          "p": NaN
+        },
+        "A": {
+          "r": NaN,
+          "p": NaN
+        },
+        "N": {
+          "r": NaN,
+          "p": NaN
+        }
+      },
+      "turn_initiation_ratio": {
+        "O": {
+          "r": -0.3901,
+          "p": 0.444539
+        },
+        "C": {
+          "r": 0.6757,
+          "p": 0.140732
+        },
+        "E": {
+          "r": -0.5898,
+          "p": 0.217917
+        },
+        "A": {
+          "r": 0.5898,
+          "p": 0.217917
+        },
+        "N": {
+          "r": 0.7245,
+          "p": 0.103422
+        }
+      },
+      "avg_response_latency_rank": {
+        "O": {
+          "r": NaN,
+          "p": NaN
+        },
+        "C": {
+          "r": NaN,
+          "p": NaN
+        },
+        "E": {
+          "r": NaN,
+          "p": NaN
+        },
+        "A": {
+          "r": NaN,
+          "p": NaN
+        },
+        "N": {
+          "r": NaN,
+          "p": NaN
+        }
+      },
+      "unique_word_ratio": {
+        "O": {
+          "r": -0.4353,
+          "p": 0.388243
+        },
+        "C": {
+          "r": 0.4042,
+          "p": 0.426717
+        },
+        "E": {
+          "r": -0.4292,
+          "p": 0.395787
+        },
+        "A": {
+          "r": 0.4292,
+          "p": 0.395787
+        },
+        "N": {
+          "r": 0.3757,
+          "p": 0.462982
+        }
+      },
+      "long_sentence_ratio": {
+        "O": {
+          "r": 0.5253,
+          "p": 0.28455
+        },
+        "C": {
+          "r": -0.8225,
+          "p": 0.04448
+        },
+        "E": {
+          "r": 0.737,
+          "p": 0.094681
+        },
+        "A": {
+          "r": -0.737,
+          "p": 0.094681
+        },
+        "N": {
+          "r": -0.8675,
+          "p": 0.025187
+        }
+      },
+      "structure_marker_count": {
+        "O": {
+          "r": NaN,
+          "p": NaN
+        },
+        "C": {
+          "r": NaN,
+          "p": NaN
+        },
+        "E": {
+          "r": NaN,
+          "p": NaN
+        },
+        "A": {
+          "r": NaN,
+          "p": NaN
+        },
+        "N": {
+          "r": NaN,
+          "p": NaN
+        }
+      },
+      "reference_back_count": {
+        "O": {
+          "r": NaN,
+          "p": NaN
+        },
+        "C": {
+          "r": NaN,
+          "p": NaN
+        },
+        "E": {
+          "r": NaN,
+          "p": NaN
+        },
+        "A": {
+          "r": NaN,
+          "p": NaN
+        },
+        "N": {
+          "r": NaN,
+          "p": NaN
+        }
+      },
+      "action_item_count": {
+        "O": {
+          "r": -0.414,
+          "p": 0.41443
+        },
+        "C": {
+          "r": 0.5976,
+          "p": 0.210295
+        },
+        "E": {
+          "r": -0.5477,
+          "p": 0.260575
+        },
+        "A": {
+          "r": 0.5477,
+          "p": 0.260575
+        },
+        "N": {
+          "r": 0.6211,
+          "p": 0.188187
+        }
+      },
+      "hypothetical_count": {
+        "O": {
+          "r": NaN,
+          "p": NaN
+        },
+        "C": {
+          "r": NaN,
+          "p": NaN
+        },
+        "E": {
+          "r": NaN,
+          "p": NaN
+        },
+        "A": {
+          "r": NaN,
+          "p": NaN
+        },
+        "N": {
+          "r": NaN,
+          "p": NaN
+        }
+      },
+      "apology_count": {
+        "O": {
+          "r": NaN,
+          "p": NaN
+        },
+        "C": {
+          "r": NaN,
+          "p": NaN
+        },
+        "E": {
+          "r": NaN,
+          "p": NaN
+        },
+        "A": {
+          "r": NaN,
+          "p": NaN
+        },
+        "N": {
+          "r": NaN,
+          "p": NaN
+        }
+      },
+      "self_doubt_count": {
+        "O": {
+          "r": NaN,
+          "p": NaN
+        },
+        "C": {
+          "r": NaN,
+          "p": NaN
+        },
+        "E": {
+          "r": NaN,
+          "p": NaN
+        },
+        "A": {
+          "r": NaN,
+          "p": NaN
+        },
+        "N": {
+          "r": NaN,
+          "p": NaN
+        }
+      },
+      "reassurance_seeking_count": {
+        "O": {
+          "r": NaN,
+          "p": NaN
+        },
+        "C": {
+          "r": NaN,
+          "p": NaN
+        },
+        "E": {
+          "r": NaN,
+          "p": NaN
+        },
+        "A": {
+          "r": NaN,
+          "p": NaN
+        },
+        "N": {
+          "r": NaN,
+          "p": NaN
+        }
+      },
+      "negation_count": {
+        "O": {
+          "r": 0.8215,
+          "p": 0.044966
+        },
+        "C": {
+          "r": -0.664,
+          "p": 0.150391
+        },
+        "E": {
+          "r": 0.7452,
+          "p": 0.089137
+        },
+        "A": {
+          "r": -0.7452,
+          "p": 0.089137
+        },
+        "N": {
+          "r": -0.5868,
+          "p": 0.220865
+        }
+      }
+    }
+  },
+  "inter_model_agreement": {
+    "per_trait": {
+      "O": {
+        "mean_variance": 0.0191,
+        "mean_stdev": 0.1384,
+        "max_variance": 0.0606,
+        "n": 6
+      },
+      "C": {
+        "mean_variance": 0.0128,
+        "mean_stdev": 0.1132,
+        "max_variance": 0.0391,
+        "n": 6
+      },
+      "E": {
+        "mean_variance": 0.0097,
+        "mean_stdev": 0.0983,
+        "max_variance": 0.0194,
+        "n": 6
+      },
+      "A": {
+        "mean_variance": 0.004,
+        "mean_stdev": 0.063,
+        "max_variance": 0.0095,
+        "n": 6
+      },
+      "N": {
+        "mean_variance": 0.0112,
+        "mean_stdev": 0.1057,
+        "max_variance": 0.0482,
+        "n": 6
+      }
+    },
+    "uncertain_sessions": [
+      {
+        "session_key": "baseline_creative_rebel_crisis_management_r1",
+        "max_variance": 0.0482,
+        "trait_variances": {
+          "O": 0.0206,
+          "C": 0.0391,
+          "E": 0.0159,
+          "A": 0.0025,
+          "N": 0.0482
+        }
+      },
+      {
+        "session_key": "bcfc_creative_rebel_crisis_management_r1",
+        "max_variance": 0.0606,
+        "trait_variances": {
+          "O": 0.0606,
+          "C": 0.0011,
+          "E": 0.0054,
+          "A": 0.0014,
+          "N": 0.0017
+        }
+      }
+    ]
+  },
+  "positivity_bias": {
+    "per_trait": {
+      "O": {
+        "llm_mean_bias": -0.2833,
+        "llm_t_stat": -3.0533,
+        "llm_t_p_value": 0.028318,
+        "llm_significant": true,
+        "n": 6,
+        "rb_mean_bias": -0.1355,
+        "rb_t_stat": -1.5202,
+        "rb_t_p_value": 0.188943,
+        "rb_significant": false,
+        "llm_specific_bias": -0.1478
+      },
+      "C": {
+        "llm_mean_bias": -0.0575,
+        "llm_t_stat": -0.6514,
+        "llm_t_p_value": 0.543564,
+        "llm_significant": false,
+        "n": 6,
+        "rb_mean_bias": -0.0691,
+        "rb_t_stat": -0.6573,
+        "rb_t_p_value": 0.540014,
+        "rb_significant": false,
+        "llm_specific_bias": 0.0116
+      },
+      "E": {
+        "llm_mean_bias": 0.0208,
+        "llm_t_stat": 0.4297,
+        "llm_t_p_value": 0.685305,
+        "llm_significant": false,
+        "n": 6,
+        "rb_mean_bias": 0.1158,
+        "rb_t_stat": 1.9957,
+        "rb_t_p_value": 0.102495,
+        "rb_significant": false,
+        "llm_specific_bias": -0.0949
+      },
+      "A": {
+        "llm_mean_bias": 0.0908,
+        "llm_t_stat": 1.0704,
+        "llm_t_p_value": 0.333354,
+        "llm_significant": false,
+        "n": 6,
+        "rb_mean_bias": 0.0347,
+        "rb_t_stat": 0.5906,
+        "rb_t_p_value": 0.580445,
+        "rb_significant": false,
+        "llm_specific_bias": 0.0561
+      },
+      "N": {
+        "llm_mean_bias": -0.2117,
+        "llm_t_stat": -4.6529,
+        "llm_t_p_value": 0.005567,
+        "llm_significant": true,
+        "n": 6,
+        "rb_mean_bias": -0.183,
+        "rb_t_stat": -2.4204,
+        "rb_t_p_value": 0.060091,
+        "rb_significant": false,
+        "llm_specific_bias": -0.0287
+      }
+    },
+    "summary": "Significantly biased traits: Openness (-0.283), Neuroticism (-0.212)"
+  },
+  "bcfc_paired": {
+    "n_pairs": 3,
+    "n_baseline": 3,
+    "n_bcfc": 3,
+    "rq1_overall": {
+      "baseline_mean_mae": 0.188,
+      "bcfc_mean_mae": 0.1977,
+      "mae_reduction": -0.0097,
+      "paired_t_stat": -0.6511,
+      "paired_t_p": 0.581813,
+      "cohens_d": -0.3759,
+      "n_pairs": 3,
+      "significant": false
+    },
+    "rq2_per_trait": {
+      "O": {
+        "baseline_r": 0.189,
+        "bcfc_r": 0.6547,
+        "r_improvement": 0.4657,
+        "baseline_mae": 0.3,
+        "bcfc_mae": 0.2667,
+        "mae_reduction": 0.0333,
+        "paired_t_stat": 2.0,
+        "paired_t_p": 0.183503,
+        "n": 3,
+        "significant": false
+      },
+      "C": {
+        "baseline_r": 0.6698,
+        "bcfc_r": 0.6169,
+        "r_improvement": -0.053,
+        "baseline_mae": 0.1633,
+        "bcfc_mae": 0.1983,
+        "mae_reduction": -0.035,
+        "paired_t_stat": -4.0415,
+        "paired_t_p": 0.05612,
+        "n": 3,
+        "significant": false
+      },
+      "E": {
+        "baseline_r": 0.9387,
+        "bcfc_r": 0.9359,
+        "r_improvement": -0.0028,
+        "baseline_mae": 0.0833,
+        "bcfc_mae": 0.0917,
+        "mae_reduction": -0.0083,
+        "paired_t_stat": -1.0,
+        "paired_t_p": 0.42265,
+        "n": 3,
+        "significant": false
+      },
+      "A": {
+        "baseline_r": 0.895,
+        "bcfc_r": 0.9107,
+        "r_improvement": 0.0156,
+        "baseline_mae": 0.21,
+        "bcfc_mae": 0.1917,
+        "mae_reduction": 0.0183,
+        "paired_t_stat": 1.9757,
+        "paired_t_p": 0.186857,
+        "n": 3,
+        "significant": false
+      },
+      "N": {
+        "baseline_r": 0.7963,
+        "bcfc_r": 0.982,
+        "r_improvement": 0.1857,
+        "baseline_mae": 0.1833,
+        "bcfc_mae": 0.24,
+        "mae_reduction": -0.0567,
+        "paired_t_stat": -0.785,
+        "paired_t_p": 0.514682,
+        "n": 3,
+        "significant": false
+      }
+    },
+    "rq4_variance": {
+      "O": {
+        "error": "insufficient profile data"
+      },
+      "C": {
+        "error": "insufficient profile data"
+      },
+      "E": {
+        "error": "insufficient profile data"
+      },
+      "A": {
+        "error": "insufficient profile data"
+      },
+      "N": {
+        "error": "insufficient profile data"
+      }
+    }
+  },
+  "bcfc_ablation": {
+    "total_sessions": 3,
+    "total_nudges": 9,
+    "total_regenerations": 0,
+    "total_candidate_turns": 24,
+    "mean_nudge_rate": 0.375,
+    "mean_regen_rate": 0.0,
+    "trait_nudge_counts": {
+      "O": 34,
+      "C": 32,
+      "E": 38,
+      "A": 23,
+      "N": 22
+    },
+    "trait_violation_counts": {
+      "O": 0,
+      "C": 0,
+      "E": 0,
+      "A": 0,
+      "N": 0
+    },
+    "violation_type_counts": {},
+    "most_corrected_traits": [
+      [
+        "E",
+        38
+      ],
+      [
+        "O",
+        34
+      ],
+      [
+        "C",
+        32
+      ]
+    ]
+  },
+  "bcfc_cost": {
+    "n_bcfc_sessions": 3,
+    "nudge_rate": {
+      "mean": 0.375,
+      "median": 0.375,
+      "max": 0.375
+    },
+    "regeneration_rate": {
+      "mean": 0.0,
+      "median": 0.0,
+      "max": 0.0
+    },
+    "mean_session_cost_usd": 0.0,
+    "median_session_cost_usd": 0.0,
+    "estimated_cost_overhead_pct": 0.0,
+    "within_budget": "True"
+  },
+  "bon_ablation": {
+    "n_pools": 24,
+    "contract_distance": {
+      "full_score": 0.6313,
+      "first": 0.7047,
+      "random_expected": 0.7009,
+      "contract_only": 0.628,
+      "relevance_only": 0.7056
+    },
+    "adequacy_penalty": {
+      "full_score": 0.0,
+      "first": 0.0375,
+      "random_expected": 0.0187,
+      "contract_only": 0.0,
+      "relevance_only": 0.0292
+    }
+  },
+  "bon_random": {
+    "error": "no bon_random sessions"
+  },
+  "trajectory": {
+    "baseline_avg_appropriateness": 0.6775,
+    "bcfc_avg_appropriateness": 0.73,
+    "baseline_avg_coherence": 0.8696,
+    "bcfc_avg_coherence": 0.8763
+  },
+  "pressure": {
+    "error": "insufficient pressure data"
+  }
+}

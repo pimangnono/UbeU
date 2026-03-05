@@ -1,0 +1,375 @@
+{
+  "schema_version": 3,
+  "session_key": "main_withdrawn_critic_crisis_management_r1",
+  "condition": "main",
+  "profile_id": "withdrawn_critic",
+  "profile_name": "Withdrawn Critic",
+  "scenario_id": "crisis_management",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.3,
+    "C": 0.4,
+    "E": 0.2,
+    "A": 0.2,
+    "N": 0.8
+  },
+  "inferred_vector": {
+    "O": 0.15000000000000002,
+    "C": 0.6699999999999999,
+    "E": 0.25,
+    "A": 0.2,
+    "N": 0.72
+  },
+  "rule_based_vector": {
+    "O": 0.4116,
+    "C": 0.4344,
+    "E": 0.538,
+    "A": 0.5029,
+    "N": 0.3657
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.25,
+      "C": 0.6000000000000001,
+      "E": 0.25,
+      "A": 0.2,
+      "N": 0.2
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.1,
+      "C": 0.8,
+      "E": 0.75,
+      "A": 0.275,
+      "N": 0.8
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.11,
+      "C": 0.7,
+      "E": 0.725,
+      "A": 0.135,
+      "N": 0.82
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.185,
+      "C": 0.6699999999999999,
+      "E": 0.25,
+      "A": 0.16499999999999998,
+      "N": 0.72
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.15000000000000002,
+      "C": 0.35,
+      "E": 0.25,
+      "A": 0.2,
+      "N": 0.15000000000000002
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.2,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.8,
+        "B": 0.4
+      },
+      "E": {
+        "A": 0.2,
+        "B": 0.3
+      },
+      "A": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.2
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.1,
+        "B": 0.1
+      },
+      "C": {
+        "A": 0.8,
+        "B": 0.8
+      },
+      "E": {
+        "A": 0.75,
+        "B": 0.75
+      },
+      "A": {
+        "A": 0.5,
+        "B": 0.05
+      },
+      "N": {
+        "A": 0.75,
+        "B": 0.85
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.12,
+        "B": 0.1
+      },
+      "C": {
+        "A": 0.75,
+        "B": 0.65
+      },
+      "E": {
+        "A": 0.75,
+        "B": 0.7
+      },
+      "A": {
+        "A": 0.15,
+        "B": 0.12
+      },
+      "N": {
+        "A": 0.82,
+        "B": 0.82
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.22,
+        "B": 0.15
+      },
+      "C": {
+        "A": 0.72,
+        "B": 0.62
+      },
+      "E": {
+        "A": 0.22,
+        "B": 0.28
+      },
+      "A": {
+        "A": 0.18,
+        "B": 0.15
+      },
+      "N": {
+        "A": 0.72,
+        "B": 0.72
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.1,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.3,
+        "B": 0.4
+      },
+      "E": {
+        "A": 0.2,
+        "B": 0.3
+      },
+      "A": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.1
+      }
+    }
+  },
+  "overall_confidence": 0.6008,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:not"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.07,
+        "model_range": 0.15,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "C": {
+        "order_effect": 0.1,
+        "model_range": 0.45,
+        "parse_errors": 0,
+        "uncertain": true
+      },
+      "E": {
+        "order_effect": 0.06,
+        "model_range": 0.5,
+        "parse_errors": 0,
+        "uncertain": true
+      },
+      "A": {
+        "order_effect": 0.03,
+        "model_range": 0.14,
+        "parse_errors": 1,
+        "uncertain": false
+      },
+      "N": {
+        "order_effect": 0.0,
+        "model_range": 0.67,
+        "parse_errors": 0,
+        "uncertain": true
+      }
+    },
+    "uncertain_traits": [
+      "C",
+      "E",
+      "N"
+    ],
+    "uncertain_reasons": {
+      "C": [
+        "model_range>0.45"
+      ],
+      "E": [
+        "model_range>0.50"
+      ],
+      "N": [
+        "model_range>0.67"
+      ]
+    }
+  },
+  "features": {
+    "avg_words_per_turn": 42.12,
+    "max_words_in_turn": 66,
+    "min_words_in_turn": 30,
+    "word_count_variance": 11.43,
+    "question_ratio": 0.375,
+    "exclamation_ratio": 0.0,
+    "hedge_count": 0,
+    "certainty_count": 0,
+    "first_person_ratio": 0.0,
+    "inclusive_pronoun_ratio": 0.0267,
+    "disagreement_count": 0,
+    "acknowledgment_count": 2,
+    "idea_count": 1,
+    "name_mention_count": 3,
+    "conditional_ratio": 0.0,
+    "planning_count": 1,
+    "emotional_word_count": 0,
+    "positive_emotion_count": 0,
+    "turn_initiation_ratio": 0.125,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.549,
+    "long_sentence_ratio": 0.0,
+    "structure_marker_count": 0,
+    "reference_back_count": 2,
+    "action_item_count": 1,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 4
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 337,
+    "candidate_avg_words_per_turn": 42.12,
+    "times_addressed_others_by_name": 3,
+    "times_asked_questions": 3,
+    "times_expressed_disagreement": 0,
+    "times_acknowledged_others": 2,
+    "times_proposed_new_ideas": 1
+  },
+  "assessment_summary": "Reserved participant, preferred listening over speaking; Assertive in defending positions, comfortable with disagreement; Showed some stress signals under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "I like how we're tackling this challenge together. Building on what Riley just said about transparency with the client, I think we should have our most senior technical lead handle the communication - they can explain the issue clearly while showing we're taking it seriously. That's an interesting point about a partial fix - what if we could ship a temporary solution while working on the complete fix in parallel?"
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "A senior lead might not understand the bug's root cause well enough. Partial fixes often create more problems than they solve - we've seen that before with the Thompson project."
+    },
+    {
+      "turn": 3,
+      "speaker": "Jordan",
+      "content": "You make a great point about the Thompson project - we definitely don't want to repeat those mistakes. Building on that, what if we had the developer who knows the codebase best join the senior lead on the client call? That way we get both technical depth and leadership presence. Riley, you've been quiet - what do you think about this hybrid approach?"
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "Two people on the call will just confuse the client. And what if the developer says something that contradicts the senior lead? That happened last quarter with the Martinez account."
+    },
+    {
+      "turn": 5,
+      "speaker": "Alex",
+      "content": "Two people on the call is a recipe for disaster, we saw that exact scenario blow up with Martinez. The senior lead should handle it alone - they can prep with the developer beforehand if they need technical details. And let's be clear, a partial fix isn't an option here - either we delay launch or we find the real root cause."
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "A partial fix is just slapping duct tape on the problem. Remember how that backfired with Thompson? Either we delay and fix it properly or we're just lying to ourselves. And putting the developer on the call? That's how you get conflicting technical explanations\u2014exactly like Martinez. One voice, one message. Anything else is amateur hour. We already know the right answer here\u2014stop trying to cut corners."
+    },
+    {
+      "turn": 7,
+      "speaker": "Jordan",
+      "content": "I appreciate the passion here - you're absolutely right that we need to avoid repeating past mistakes like Thompson and Martinez. Building on your point about one clear voice, maybe we could have the senior lead prep extensively with both the developer AND the client success manager beforehand? That way we get all perspectives aligned before the call. Riley, you've worked closely with the client - how do you think they'd respond to that approach?"
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "A prep meeting is just another layer of bureaucracy. We already know what happened with Martinez\u2014too many cooks spoiled the broth. The senior lead handles it alone or we're setting ourselves up for failure. And delay the damn launch\u2014partial fixes are what got us into this mess to begin with."
+    },
+    {
+      "turn": 9,
+      "speaker": "Alex",
+      "content": "I completely disagree with delaying the launch - that's just kicking the can down the road. We need to put pressure on the team to find the root cause NOW, not give them an easy out with a delay. And while I agree the senior lead should handle the call alone, they better come prepared with rock-solid technical details or we'll look incompetent. Half-assing either solution is unacceptable."
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "Alex is wrong - pressure won't magically fix the bug. We tried that approach last year and shipped garbage code. Delay is the only professional option here. The senior lead better demand full technical specs before that call or we're doomed to repeat history."
+    },
+    {
+      "turn": 11,
+      "speaker": "Jordan",
+      "content": "I hear both Alex's urgency and your caution about rushing fixes\u2014you're both right that we've seen this go badly before. Building on your point about technical specs, what if we had the senior lead shadow the developer debugging live before the call? That way we get both real-time understanding and a single voice. Riley, you've worked on similar issues\u2014how could we structure that prep efficiently?"
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "Another shadowing session? That's exactly what wasted three days during the Thompson crisis. The senior lead either understands the bug now or they shouldn't be on the call at all. And Riley's silence speaks volumes\u2014we're circling the drain here. Either delay properly or admit we're incompetent."
+    },
+    {
+      "turn": 13,
+      "speaker": "Alex",
+      "content": "Delay isn't admitting incompetence - it's the only professional move when we don't have a real fix. But you're dead wrong about shadowing being useless. The Thompson crisis failed because they shadowed AFTER the call, not before. Senior lead needs to see the debug logs live right now or they'll get torn apart by the client's technical team. Riley's probably silent because we're wasting time debating when we should be debugging."
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "Delay is the only professional option\u2014anything else is repeating Thompson's mistakes. And if the senior lead needs live debugging to understand the issue, they're not senior enough for this call. We're out of time\u2014either delay or admit defeat."
+    },
+    {
+      "turn": 15,
+      "speaker": "Jordan",
+      "content": "I'm hearing strong consensus around delaying, and I agree we shouldn't rush a partial fix. But let's think outside the box for a second - what if we propose delaying just the problematic module while keeping other deliverables on track? That shows progress while being honest about the bug. Candidate, how could we frame that to the client to maintain trust? Riley, would that approach align with what you know about their priorities?"
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "Splitting deliverables is how we ended up with the Thompson disaster. Either we delay everything properly or we're just lying differently. And stop fishing for Riley's approval\u2014their silence proves this approach is flawed."
+    },
+    {
+      "turn": 17,
+      "speaker": "Alex",
+      "content": "You're fixating on Thompson like it's the only case study that matters. The reality is we've had successful partial launches before - the Henderson project comes to mind. And Riley's silence could just as easily mean they're reviewing logs right now instead of wasting time in this debate. Either way, we need action, not paralysis by analysis."
+    }
+  ],
+  "timestamp": "2026-03-04T10:03:53.029376"
+}

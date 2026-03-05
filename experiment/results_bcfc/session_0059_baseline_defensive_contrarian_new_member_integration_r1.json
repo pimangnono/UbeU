@@ -1,0 +1,369 @@
+{
+  "schema_version": 4,
+  "session_key": "baseline_defensive_contrarian_new_member_integration_r1",
+  "condition": "main",
+  "intervention": "none",
+  "profile_id": "defensive_contrarian",
+  "profile_name": "Defensive Contrarian",
+  "scenario_id": "new_member_integration",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.3,
+    "C": 0.5,
+    "E": 0.6,
+    "A": 0.2,
+    "N": 0.8
+  },
+  "inferred_vector": {
+    "O": 0.2,
+    "C": 0.8,
+    "E": 0.3,
+    "A": 0.2,
+    "N": 0.72
+  },
+  "rule_based_vector": {
+    "O": 0.4604,
+    "C": 0.6323,
+    "E": 0.7046,
+    "A": 0.4439,
+    "N": 0.3635
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.25,
+      "C": 0.75,
+      "E": 0.3,
+      "A": 0.2,
+      "N": 0.775
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.2,
+      "C": 0.8,
+      "E": 0.3,
+      "A": 0.1,
+      "N": 0.625
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.125,
+      "C": 0.8,
+      "E": 0.75,
+      "A": 0.14,
+      "N": 0.74
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.28,
+      "C": 0.72,
+      "E": 0.28,
+      "A": 0.2,
+      "N": 0.72
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.2,
+      "C": 0.8,
+      "E": 0.2,
+      "A": 0.2,
+      "N": 0.7
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.3,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.85,
+        "B": 0.65
+      },
+      "E": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "A": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "N": {
+        "A": 0.8,
+        "B": 0.75
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.8,
+        "B": 0.8
+      },
+      "E": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "A": {
+        "A": 0.1,
+        "B": 0.1
+      },
+      "N": {
+        "A": 0.75,
+        "B": 0.5
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.15,
+        "B": 0.1
+      },
+      "C": {
+        "A": 0.8,
+        "B": 0.8
+      },
+      "E": {
+        "A": 0.7,
+        "B": 0.8
+      },
+      "A": {
+        "A": 0.18,
+        "B": 0.1
+      },
+      "N": {
+        "A": 0.7,
+        "B": 0.78
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.28,
+        "B": 0.28
+      },
+      "C": {
+        "A": 0.72,
+        "B": 0.72
+      },
+      "E": {
+        "A": 0.28,
+        "B": 0.28
+      },
+      "A": {
+        "A": 0.22,
+        "B": 0.18
+      },
+      "N": {
+        "A": 0.72,
+        "B": 0.72
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.8,
+        "B": 0.8
+      },
+      "E": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "A": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "N": {
+        "A": 0.7,
+        "B": 0.7
+      }
+    }
+  },
+  "overall_confidence": 0.776,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:not"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.0,
+        "model_range": 0.155,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "C": {
+        "order_effect": 0.0,
+        "model_range": 0.08,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "E": {
+        "order_effect": 0.0,
+        "model_range": 0.55,
+        "parse_errors": 0,
+        "uncertain": true
+      },
+      "A": {
+        "order_effect": 0.0,
+        "model_range": 0.1,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "N": {
+        "order_effect": 0.05,
+        "model_range": 0.15,
+        "parse_errors": 1,
+        "uncertain": false
+      }
+    },
+    "uncertain_traits": [
+      "E"
+    ],
+    "uncertain_reasons": {
+      "E": [
+        "model_range>0.55"
+      ]
+    }
+  },
+  "features": {
+    "avg_words_per_turn": 49.0,
+    "max_words_in_turn": 62,
+    "min_words_in_turn": 37,
+    "word_count_variance": 7.83,
+    "question_ratio": 0.75,
+    "exclamation_ratio": 0.125,
+    "hedge_count": 1,
+    "certainty_count": 1,
+    "first_person_ratio": 0.0077,
+    "inclusive_pronoun_ratio": 0.0306,
+    "disagreement_count": 1,
+    "acknowledgment_count": 0,
+    "idea_count": 1,
+    "name_mention_count": 9,
+    "conditional_ratio": 0.375,
+    "planning_count": 6,
+    "emotional_word_count": 0,
+    "positive_emotion_count": 0,
+    "turn_initiation_ratio": 0.25,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.5944,
+    "long_sentence_ratio": 0.097,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 4,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 10
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 392,
+    "candidate_avg_words_per_turn": 49.0,
+    "times_addressed_others_by_name": 9,
+    "times_asked_questions": 6,
+    "times_expressed_disagreement": 1,
+    "times_acknowledged_others": 0,
+    "times_proposed_new_ideas": 1
+  },
+  "assessment_summary": "Assertive in defending positions, comfortable with disagreement; Showed some stress signals under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "Hey everyone, glad we're all here together! We've got Riley joining our team with some awesome technical skills, and I'm excited to see how we can best bring them up to speed and redistribute tasks. Let's focus on how we can blend Riley's strengths and work style into our current project while keeping things moving forward smoothly."
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "Wait, why are we rushing to redistribute tasks already? Riley just got here - shouldn't we spend time understanding their actual capabilities first? I've seen too many teams make assumptions about new hires that backfire later. Let's see some concrete examples of Riley's past work before we start shifting responsibilities around."
+    },
+    {
+      "turn": 3,
+      "speaker": "Jordan",
+      "content": "That's a really good point about not making assumptions too quickly. Riley, I'd love to hear more about some projects you've worked on that you're particularly proud of - maybe something that showcases how you like to approach technical challenges? Building on what you said, maybe we could start by having Riley shadow different team members for a week before making any task redistribution decisions. What do you think, Riley? Would that approach work for you?"
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "Shadowing sounds fine, but let's be honest - a week won't tell us much. Riley's past projects are what really matter here. Why don't we ask for specific metrics or deliverables from their last role? I'm just saying... we shouldn't get too comfortable with this shadowing idea until we see hard evidence of what they can actually do."
+    },
+    {
+      "turn": 5,
+      "speaker": "Alex",
+      "content": "I don't get why we're obsessing over Riley's past metrics - that's not how our team operates. We care about how people perform here, not what some numbers say they did at another company. Let's just get Riley working on small tasks immediately instead of this shadowing nonsense - we'll see their real value in action. Candidate, you seem hung up on credentials - do you actually have a better way to assess skills quickly?"
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "Small tasks? That's even worse than shadowing! How can we assign work when we don't even know Riley's actual competencies? I'm not \"hung up on credentials\" - I just think it's reckless to throw someone into work without proper vetting. Maybe if you'd seen as many new hires crash and burn as I have, you'd understand why I'm insisting on proof first."
+    },
+    {
+      "turn": 7,
+      "speaker": "Jordan",
+      "content": "I hear both perspectives here - Alex makes a good point about seeing Riley in action with our team dynamics, and Candidate raises valid concerns about proper vetting. What if we tried something different? Riley, how would you feel about doing a short, low-stakes demo for us - maybe solving one small piece of our current project while explaining your thought process? That way we'd see both your technical approach and how you collaborate in real time. Riley, does that sound like something you'd be comfortable with?"
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "A demo? Fine, but let's make sure it's something substantial enough to actually test skills - none of those \"Hello World\" exercises. And Jordan, are we really prepared to handle it if Riley completely bombs this? Because I've seen that happen too, and then we're stuck cleaning up the mess."
+    },
+    {
+      "turn": 9,
+      "speaker": "Alex",
+      "content": "That's exactly why I said we should assign real work - demos are just theater. If Riley bombs, we deal with it like professionals - that's what code reviews are for. Candidate, you're acting like we've never onboarded anyone before - what's your actual concern here? That Riley can't handle real work or that we can't handle evaluating it properly?"
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "Both concerns, obviously - but mostly that we're rushing this evaluation process. If you're so confident about tossing Riley into \"real work,\" then why don't you stake your own deliverables on their performance? Let's see how comfortable you are when your deadlines are on the line."
+    },
+    {
+      "turn": 11,
+      "speaker": "Jordan",
+      "content": "I can sense the tension rising here, and I appreciate both perspectives. Candidate, you're right that we shouldn't rush evaluation, and Alex makes a good point about real work being the best test. Riley, how would you feel about pairing with different team members on small but meaningful tasks this week? That way we'd get both hands-on experience and natural observation of your skills in action."
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "Pairing could work... if we define clear success metrics beforehand. But let's be real - pairing just shifts the burden onto whoever gets stuck working with Riley. Who's going to volunteer their own productivity as collateral here?"
+    },
+    {
+      "turn": 13,
+      "speaker": "Alex",
+      "content": "Candidate, you're treating this like some kind of hostage situation where someone has to sacrifice their productivity. That's nonsense - pairing is how we actually get work done around here. I'll volunteer to pair with Riley first since clearly no one else wants to step up. If you're so worried about metrics, let's track velocity changes week-over-week instead of this theoretical \"success metric\" nonsense you're proposing."
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "Alex, you're missing the point entirely - pairing isn't the issue, it's your reckless optimism. We've all seen \"volunteers\" like you before - when the pairing fails, suddenly it's \"the process\" that's to blame, not your poor judgment. Let's see those velocity metrics in writing before we commit."
+    },
+    {
+      "turn": 15,
+      "speaker": "Jordan",
+      "content": "I appreciate both of your passion here - Alex bringing that can-do energy and Candidate keeping us grounded with realistic concerns. Building on what you've both said, what if we structured the pairing sessions as mini-sprints with Riley? We could define clear objectives up front like Candidate suggested, but keep them small enough that Alex's velocity metrics would show meaningful data quickly. Riley, how does that approach sound to you? Would shorter, focused pairing sprints align with your preferred work style?"
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "Alex's \"can-do energy\" is just recklessness dressed up as enthusiasm. Mini-sprints won't fix the core issue - we're still gambling with deliverables to accommodate an unproven resource. Show me one successful project where this approach worked without creating technical debt."
+    },
+    {
+      "turn": 17,
+      "speaker": "Alex",
+      "content": "You keep calling this reckless but haven't offered a single concrete alternative that doesn't involve wasting weeks on artificial tests. I've onboarded three engineers this way last year and all hit full productivity faster than our historical averages. Your obsession with technical debt shows you don't understand our review process - any subpar code gets caught immediately. Either propose something better or stop blocking progress with hypothetical concerns."
+    }
+  ],
+  "controller_log": null,
+  "timestamp": "2026-03-04T17:16:03.648411"
+}

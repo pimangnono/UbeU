@@ -214,11 +214,11 @@ The 4 scenarios are designed to apply different types of pressure that different
 | **Max tokens per agent** | Alex: 150, Jordan: 100, Riley: 60 | Controls response length by role |
 | **Evaluation ensemble** | DeepSeek V3 + Gemini 2.5 Flash + Grok 4.1 Fast + Claude Haiku 4.5 + GPT-4o-mini | 5-provider cross-model evaluation |
 
-### 3.2 Personality Profiles (12 Profiles)
+### 3.2 Personality Profiles (13 Profiles)
 
 **Selection Principle:** Profiles are selected to cover 4 categories of Big Five trait space:
 1. **Extreme contrast profiles** (4): Maximally distinct on 2+ traits
-2. **Socially challenging profiles** (3): Combinations that create interpersonal friction
+2. **Socially challenging profiles** (4): Combinations that create interpersonal friction (including Withdrawn Critic for multi-low-trait stress test)
 3. **Balanced/moderate profiles** (3): Mid-range traits that test discrimination sensitivity
 4. **Domain-relevant profiles** (2): Profiles typical in workplace assessment contexts
 
@@ -231,17 +231,20 @@ The 4 scenarios are designed to apply different types of pressure that different
 | 5 | **Defensive Contrarian** | 0.3 | 0.5 | 0.6 | 0.2 | 0.8 | Socially Challenging | Low A + High N: combative under pressure |
 | 6 | **Passive Avoider** | 0.4 | 0.4 | 0.2 | 0.8 | 0.7 | Socially Challenging | Low E + High A + High N: withdraws from conflict |
 | 7 | **Volatile Visionary** | 0.9 | 0.4 | 0.8 | 0.3 | 0.7 | Socially Challenging | High O + High E + Low A + High N: passionate but unstable |
-| 8 | **Steady Mediator** | 0.6 | 0.7 | 0.6 | 0.9 | 0.2 | Balanced | High A + Low N: calm, accommodating, stable |
-| 9 | **Neutral Observer** | 0.5 | 0.5 | 0.5 | 0.5 | 0.5 | Balanced | All traits at midpoint — tests discrimination at center |
-| 10 | **Warm Supporter** | 0.6 | 0.6 | 0.7 | 0.8 | 0.3 | Balanced | Moderately high on most — tests detection of subtle differences |
-| 11 | **Diligent Team Player** | 0.5 | 0.8 | 0.6 | 0.7 | 0.3 | Domain-Relevant | Common "good employee" profile — tests if LLM can differentiate from baseline |
-| 12 | **Independent Strategist** | 0.7 | 0.7 | 0.5 | 0.4 | 0.4 | Domain-Relevant | Common "strategic thinker" profile — low A is the differentiator |
+| 8 | **Withdrawn Critic** | 0.3 | 0.4 | 0.2 | 0.2 | 0.8 | Socially Challenging | Low O + Low E + Low A + High N: 4 simultaneous low traits stress-test (Critique 9) |
+| 9 | **Steady Mediator** | 0.6 | 0.7 | 0.6 | 0.9 | 0.2 | Balanced | High A + Low N: calm, accommodating, stable |
+| 10 | **Neutral Observer** | 0.5 | 0.5 | 0.5 | 0.5 | 0.5 | Balanced | All traits at midpoint — tests discrimination at center |
+| 11 | **Warm Supporter** | 0.6 | 0.6 | 0.7 | 0.8 | 0.3 | Balanced | Moderately high on most — tests detection of subtle differences |
+| 12 | **Diligent Team Player** | 0.5 | 0.8 | 0.6 | 0.7 | 0.3 | Domain-Relevant | Common "good employee" profile — tests if LLM can differentiate from baseline |
+| 13 | **Independent Strategist** | 0.7 | 0.7 | 0.5 | 0.4 | 0.4 | Domain-Relevant | Common "strategic thinker" profile — low A is the differentiator |
 
-**Why 12 profiles (not 32 or 5):**
+**Why 13 profiles (not 32 or 5):**
 - 2^5 = 32 full factorial is computationally excessive for an FYP
 - 5 profiles would not cover enough of the trait space
-- 12 profiles × 4 scenarios × 3 repetitions = 144 sessions is substantial but feasible
+- 13 profiles × 4 scenarios × 3 repetitions = 156 main sessions is substantial but feasible
 - The 4-category selection principle ensures coverage of extremes, challenges, moderates, and domain-relevant combinations
+- The 13th profile (Withdrawn Critic) was added to address profile space positivity bias: it tests 4 simultaneous low traits, stress-testing the system's ability to produce multiple negative trait expressions at once
+- Note: Even with 13 profiles, coverage of the 5-dimensional OCEAN space (0.0-1.0)^5 remains sparse. Full coverage at 5 levels per trait would require 5^5 = 3,125 profiles.
 
 ### 3.2.1 Behavior Prompt Design: Scientific Justification
 
@@ -448,10 +451,10 @@ Phase 5: CLOSING (2 turns)         → Wrap-up
 
 | Condition | Description | Sessions | Purpose |
 |-----------|-------------|----------|---------|
-| **Main Experiment** | 12 profiles × 4 scenarios × 3 reps | **144** | Core data |
+| **Main Experiment** | 13 profiles × 4 scenarios × 3 reps | **156** | Core data |
 | **Baseline A: No-Persona** | No personality description in prompt; only scenario context | 4 scenarios × 3 reps = **12** | Tests whether trait assignment changes behavior at all vs. default LLM |
-| **Baseline B: Random-Persona** | OCEAN values randomly shuffled from the 12 profiles (assigned label ≠ actual values) | 4 scenarios × 2 reps = **8** | Tests whether the *specific* trait values matter, or any personality description produces the same effect |
-| **Total** | | **164 sessions** | |
+| **Baseline B: Random-Persona** | OCEAN values randomly shuffled from the 13 profiles (assigned label ≠ actual values) | 4 scenarios × 2 reps = **8** | Tests whether the *specific* trait values matter, or any personality description produces the same effect |
+| **Total** | | **176 sessions** | |
 
 **What each baseline answers:**
 
@@ -681,8 +684,8 @@ Each threshold is grounded in one or more of the following evidence sources:
 | L1 | **LLM-LLM circularity** | High | Cross-model ensemble + rule-based OCEAN evaluator (22-feature deterministic scoring) + dual evaluation analysis (convergent validity) + inter-model agreement analysis | ✅ Strengthened |
 | L2 | **No human ground truth** | High | Frame conclusions as "computational detectability", not "human-equivalent fidelity" | ✅ Addressed via scope framing |
 | L3 | **Model version dependency** | Medium | Pin exact model versions; note that results are version-specific | ✅ Easy to implement |
-| L4 | **RLHF sycophancy bias** | High | Pressure scenarios + strengthened low-A behavioral instructions + disagreement-phase prompting. Pilot shows Agreeableness remains hardest trait to differentiate due to generation-side sycophancy (see Appendix D) | ⚠️ Partially mitigated |
-| L5 | **12 profiles ≠ full Big Five space** | Medium | 4-category selection principle documented; acknowledge as limitation | ✅ Addressed via design rationale |
+| L4 | **RLHF sycophancy bias** | High | Pressure scenarios + strengthened low-A behavioral instructions + disagreement-phase prompting. Pilot shows Agreeableness remains hardest trait to differentiate due to generation-side sycophancy (see Appendix D). Neuroticism is the second-most affected trait: LLMs resist generating anxious, self-doubting behavior even when explicitly instructed. New N-specific features (apology_count, self_doubt_count, reassurance_seeking_count) address the detection side; the generation-side constraint remains an inherent RLHF limitation (see Appendix E). | ⚠️ Partially mitigated |
+| L5 | **13 profiles ≠ full Big Five space** | Medium | 4-category selection principle documented; 13th profile (Withdrawn Critic) added to test multi-low-trait combinations; acknowledge sparse coverage as limitation | ✅ Addressed via design rationale |
 | L6 | **Agent interaction confounds** | Medium | Alex/Jordan/Riley prompts are fixed; treated as "controlled interactional stimulus" rather than confounding variable | ✅ Addressed via framing |
 | L7 | **Facet-level granularity** | Low | Out of scope; trait-level is sufficient for FYP | 📌 Future work |
 | L8 | **Cultural/language bias** | Low | English-only Big Five; acknowledged as limitation | 📌 Future work |
@@ -1747,7 +1750,7 @@ def create_random_persona_prompt(scenario_brief: str) -> str:
 | Moderator (adaptive dispatch) | ✅ Implemented | `agents/moderator.py` | Ready to use |
 | Trait evaluator (ensemble) | ✅ Implemented | `evaluation/trait_evaluator.py` | 22-feature expanded prompt, per-model score tracking, improved A calibration |
 | **Rule-based OCEAN evaluator** | ✅ **Implemented** | `evaluation/rule_based_evaluator.py` | **Post-pilot addition.** Deterministic sigmoid-weighted scoring, no LLM |
-| **Behavioral features (22)** | ✅ **Implemented** | `experiment/behavioral_features.py` | **Post-pilot addition.** Shared module used by engine, temporal analysis, rule-based evaluator |
+| **Behavioral features (30)** | ✅ **Implemented** | `experiment/behavioral_features.py` | **Post-pilot addition.** Shared module used by engine, temporal analysis, rule-based evaluator. Expanded from 22 to 30 features (Critiques 2 & 3). |
 | 4 scenarios | ✅ Implemented | `config/group_scenarios.py` | Ready to use |
 | 12 experiment profiles | ✅ Implemented | `experiment/profiles.py` | 12 OCEAN profiles + behavioral instructions; Rule 8 (no stage directions) |
 | Candidate agent automation | ✅ Implemented | `experiment/candidate_agent.py` | Stage direction stripping via regex post-processing |
@@ -1979,3 +1982,67 @@ To strengthen inter-model agreement analysis and reduce correlated evaluation bi
 | 5 | GPT-4o-mini | OpenAI | Largest lab, most distinct training data/process |
 
 **Justification:** With 5 providers, inter-model agreement becomes more meaningful. If all 5 models from 5 different labs independently agree on a trait score, this constitutes much stronger evidence than agreement among 3 models (which could reflect shared training artifacts). Provider diversity is the key principle — each lab uses different training data, RLHF approaches, and architectural decisions, minimizing correlated evaluation bias.
+
+---
+
+## Appendix E: Additional Methodological Notes (2026-03-04 — Critique Responses)
+
+### E.1 Neuroticism Elicitation Limitation (Critique 7)
+
+Like Agreeableness (Appendix D), Neuroticism is constrained by RLHF training on the generation side. LLMs are trained to be calm, helpful, and confident — directly opposing high-N behavioral expression. Even when instructed to show anxiety, self-doubt, and defensive responses, models tend to produce at most mild hedging rather than genuine emotional reactivity.
+
+**Mitigation:** Three new detection features were added (apology_count, self_doubt_count, reassurance_seeking_count) to capture whatever neuroticism signals the generation model does produce. This addresses the *measurement* gap but not the *generation* gap.
+
+**Implication:** N generation fidelity should be reported alongside A as a second RLHF-constrained trait. If high-N profiles show weak neuroticism expression, this confirms that RLHF alignment overrides persona instructions for both "negative" traits (low A and high N).
+
+### E.2 Meta-Cognitive Prompt Structure (Critique 8)
+
+The system prompt displays trait labels and numeric scores directly:
+```
+**Extraversion** (High, 0.9):
+You are highly extraverted...
+```
+
+This design choice has trade-offs:
+- **Pro:** Labels provide the LLM with additional semantic context that may improve behavioral fidelity. The model can reason about what "high extraversion" means beyond the specific behavioral description.
+- **Con:** Labels may cause "trait optimization" — the model optimizes for matching the label (meta-cognitive behavior) rather than naturally expressing the behavior. This could inflate detection accuracy artificially.
+
+**Design rationale:** Rule 2 in the prompt already prohibits mentioning trait names in output. The labels serve as alignment anchors, not as output templates. A future experiment could add **Baseline C: same behavioral instructions, no trait labels** to isolate the meta-cognitive effect.
+
+### E.3 Cross-Trait Interaction Design (Critique 4)
+
+Certain trait combinations produce contradictory behavioral instructions when traits are specified independently. Four targeted interaction paragraphs were added to `build_system_prompt()` for the most problematic combinations:
+
+1. **High C + High N** (e.g., Anxious Perfectionist): Anxiety manifests as over-preparation, not disorganization.
+2. **High E + Low A** (e.g., Assertive Leader): Social dominance serves self-interest, not consensus.
+3. **High O + Low C** (e.g., Creative Rebel): Creativity is spontaneous and associative, not systematic.
+4. **Low E + High A** (e.g., Passive Avoider): Quiet contributions are supportive, not leading.
+
+**Limitation:** Full trait interaction modeling would require (5 choose 2) × 5 × 5 = 250 interaction definitions. The 4 targeted interactions address the most likely contradictions but leave many combinations unmodeled. Profiles with no matching interaction rules rely on the LLM to resolve any implicit tensions between trait instructions.
+
+### E.4 RQ3 Phase-Content Confound (Critique 6)
+
+The temporal decay analysis (RQ3) compares personality fidelity across three windows:
+- **Early** (introduction/exploration, turns 1-7)
+- **Peak** (conflict/defense, turns 8-12)
+- **Late** (resolution/closing, turns 13-17)
+
+**Confound:** These windows differ in both *time* and *conversational content*. A change in personality expression from Early to Late may reflect:
+1. **Temporal decay** — the persona instruction fades as conversation progresses
+2. **Content effects** — different discussion phases naturally elicit different behaviors (e.g., conflict phases increase disagreement for all participants)
+3. **Both** — some combination of temporal and content effects
+
+True temporal decay analysis would require repeating the same phase type at different time points (e.g., an introduction phase at turn 1 and again at turn 15), which would make the conversation unrealistic.
+
+**Recommended interpretation:** RQ3 results should be framed as "phase-specific fidelity" rather than "temporal decay." The analysis report includes this caveat explicitly. If cross-scenario comparisons show that the same phase type produces similar fidelity regardless of position, this provides indirect evidence for content effects over temporal decay.
+
+### E.5 Evaluator Positivity Bias (Critique 10)
+
+LLM evaluators trained with RLHF may systematically inflate scores for "positive" traits (A, C, E) and deflate scores for "negative" traits (N). A `positivity_bias_analysis()` function was added to the analysis pipeline that:
+
+1. Computes per-trait signed error (inferred - assigned) across all main sessions
+2. Tests whether the signed error differs significantly from zero (one-sample t-test)
+3. Compares LLM bias against rule-based evaluator bias to isolate LLM-specific effects
+4. Reports a "bias profile" table in the analysis report
+
+This analysis separates the *evaluation* bias question from the *generation* bias question (Appendix D). Even with decontaminated instructions (Critique 1), the evaluator may still systematically misperceive traits due to its own RLHF training.

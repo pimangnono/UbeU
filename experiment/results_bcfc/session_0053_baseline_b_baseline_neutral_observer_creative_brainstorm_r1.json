@@ -1,0 +1,377 @@
+{
+  "schema_version": 4,
+  "session_key": "baseline_b_baseline_neutral_observer_creative_brainstorm_r1",
+  "condition": "baseline_b",
+  "intervention": "none",
+  "profile_id": "neutral_observer",
+  "profile_name": "Neutral Observer",
+  "scenario_id": "creative_brainstorm",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.5,
+    "C": 0.5,
+    "E": 0.5,
+    "A": 0.5,
+    "N": 0.5
+  },
+  "inferred_vector": {
+    "O": 0.5,
+    "C": 0.6,
+    "E": 0.4,
+    "A": 0.85,
+    "N": 0.18
+  },
+  "rule_based_vector": {
+    "O": 0.5517,
+    "C": 0.5658,
+    "E": 0.3939,
+    "A": 0.5009,
+    "N": 0.4637
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.45,
+      "C": 0.6,
+      "E": 0.4,
+      "A": 0.85,
+      "N": 0.35
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.725,
+      "C": 0.775,
+      "E": 0.65,
+      "A": 0.7,
+      "N": 0.2
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.5,
+      "C": 0.55,
+      "E": 0.47500000000000003,
+      "A": 0.94,
+      "N": 0.175
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.58,
+      "C": 0.63,
+      "E": 0.32,
+      "A": 0.78,
+      "N": 0.18
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.3,
+      "C": 0.4,
+      "E": 0.35,
+      "A": 0.9,
+      "N": 0.1
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.4,
+        "B": 0.5
+      },
+      "C": {
+        "A": 0.6,
+        "B": 0.6
+      },
+      "E": {
+        "A": 0.4,
+        "B": 0.4
+      },
+      "A": {
+        "A": 0.85,
+        "B": 0.85
+      },
+      "N": {
+        "A": 0.5,
+        "B": 0.2
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.7,
+        "B": 0.75
+      },
+      "C": {
+        "A": 0.8,
+        "B": 0.75
+      },
+      "E": {
+        "A": 0.65,
+        "B": 0.65
+      },
+      "A": {
+        "A": 0.5,
+        "B": 0.9
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.2
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.55,
+        "B": 0.45
+      },
+      "C": {
+        "A": 0.5,
+        "B": 0.6
+      },
+      "E": {
+        "A": 0.4,
+        "B": 0.55
+      },
+      "A": {
+        "A": 0.93,
+        "B": 0.95
+      },
+      "N": {
+        "A": 0.15,
+        "B": 0.2
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.58,
+        "B": 0.58
+      },
+      "C": {
+        "A": 0.68,
+        "B": 0.58
+      },
+      "E": {
+        "A": 0.32,
+        "B": 0.32
+      },
+      "A": {
+        "A": 0.78,
+        "B": 0.78
+      },
+      "N": {
+        "A": 0.18,
+        "B": 0.18
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.4,
+        "B": 0.4
+      },
+      "E": {
+        "A": 0.4,
+        "B": 0.3
+      },
+      "A": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "N": {
+        "A": 0.1,
+        "B": 0.1
+      }
+    }
+  },
+  "overall_confidence": 0.6458,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:not"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.05,
+        "model_range": 0.425,
+        "parse_errors": 0,
+        "uncertain": true
+      },
+      "C": {
+        "order_effect": 0.05,
+        "model_range": 0.375,
+        "parse_errors": 0,
+        "uncertain": true
+      },
+      "E": {
+        "order_effect": 0.0,
+        "model_range": 0.33,
+        "parse_errors": 0,
+        "uncertain": true
+      },
+      "A": {
+        "order_effect": 0.0,
+        "model_range": 0.24,
+        "parse_errors": 1,
+        "uncertain": false
+      },
+      "N": {
+        "order_effect": 0.0,
+        "model_range": 0.25,
+        "parse_errors": 1,
+        "uncertain": false
+      }
+    },
+    "uncertain_traits": [
+      "O",
+      "C",
+      "E"
+    ],
+    "uncertain_reasons": {
+      "O": [
+        "model_range>0.42"
+      ],
+      "C": [
+        "model_range>0.38"
+      ],
+      "E": [
+        "model_range>0.33"
+      ]
+    }
+  },
+  "features": {
+    "avg_words_per_turn": 38.38,
+    "max_words_in_turn": 53,
+    "min_words_in_turn": 31,
+    "word_count_variance": 7.11,
+    "question_ratio": 0.25,
+    "exclamation_ratio": 0.0,
+    "hedge_count": 7,
+    "certainty_count": 0,
+    "first_person_ratio": 0.0033,
+    "inclusive_pronoun_ratio": 0.0293,
+    "disagreement_count": 0,
+    "acknowledgment_count": 2,
+    "idea_count": 7,
+    "name_mention_count": 0,
+    "conditional_ratio": 0.5,
+    "planning_count": 4,
+    "emotional_word_count": 0,
+    "positive_emotion_count": 0,
+    "turn_initiation_ratio": 0.125,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.5896,
+    "long_sentence_ratio": 0.091,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 0,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 1
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 307,
+    "candidate_avg_words_per_turn": 38.38,
+    "times_addressed_others_by_name": 0,
+    "times_asked_questions": 2,
+    "times_expressed_disagreement": 0,
+    "times_acknowledged_others": 2,
+    "times_proposed_new_ideas": 7
+  },
+  "assessment_summary": "Collaborative and accommodating in conflict situations; Maintained composure throughout, steady under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "Hey team, I'm really excited about this opportunity to boost employee engagement! We've got a clean slate to brainstorm some creative ideas today - what if we start by sharing our wildest concepts first before narrowing down? The key decision will be choosing one standout initiative that delivers real impact we can justify to leadership. Riley, I'd love to hear your thoughts to kick us off!"
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "That sounds like a good approach\u2014starting broad makes sense. For wild ideas, what about implementing a peer recognition program where employees award each other small experiential rewards? Something like \"take a colleague to lunch on the company\" could foster connections without huge costs. But we should weigh how measurable the impact would be."
+    },
+    {
+      "turn": 3,
+      "speaker": "Riley",
+      "content": "I'm not sure peer recognition would move the needle enough. How would we track the ROI?"
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "A fair point about tracking impact. Maybe we could tie it to existing performance metrics\u2014see if departments with higher peer recognition show productivity lifts over time. Though I wonder if leadership would want something more immediately visible."
+    },
+    {
+      "turn": 5,
+      "speaker": "Alex",
+      "content": "That peer recognition idea sounds nice in theory, but let's be real - it's just another fluffy HR program that won't actually change anything. Employees will see right through it as more corporate lip service. We need something with teeth - like a results-based bonus system where engagement scores directly impact leadership compensation. That would get their attention fast."
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "A results-based bonus could work\u2014if we can show clear metrics tying engagement to performance. But we'd need pilot data first. Maybe test both approaches in different departments? The peer program would be lower risk to implement initially."
+    },
+    {
+      "turn": 7,
+      "speaker": "Riley",
+      "content": "Pilot programs sound risky without clear metrics. How would we measure success before scaling?"
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "For measurement, we could start with quarterly engagement surveys in pilot departments - comparing baseline to post-implementation scores. That would give us some data points before committing to scaling either approach."
+    },
+    {
+      "turn": 9,
+      "speaker": "Alex",
+      "content": "Quarterly surveys? That's just more bureaucracy that won't actually fix anything. We already know engagement scores are lagging indicators - by the time we get the data, it's too late to course correct. If we're going to pilot something, let's pick departments where we can implement real-time feedback mechanisms tied to tangible rewards. Otherwise we're just wasting time collecting data that won't drive action."
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "Real-time feedback could be valuable, but we'd need to define what \"tangible rewards\" would look like in practice. Maybe we could combine approaches - use real-time feedback mechanisms while still collecting quarterly data to spot longer-term trends. That way we'd have both immediate and sustained metrics."
+    },
+    {
+      "turn": 11,
+      "speaker": "Riley",
+      "content": "But how would we implement real-time feedback without overwhelming managers? That sounds like extra work."
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "We could automate parts of the feedback process through simple pulse surveys or recognition platforms. That might balance real-time insights with manager workload concerns, though we'd need to test adoption rates."
+    },
+    {
+      "turn": 13,
+      "speaker": "Alex",
+      "content": "Automation sounds like another way to avoid real accountability. Pulse surveys just give us more data points to ignore. If we're serious about engagement, we need to tie it directly to compensation - make leaders feel the pain when scores dip. Otherwise we're just creating busywork for employees to ignore. Let's stop pretending engagement is some abstract metric and start treating it like the business-critical KPI it is."
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "Compensation ties could drive accountability, but we'd need buy-in from leadership first. Maybe we could propose a phased approach - start with measurable pilots, then scale the most effective elements with compensation links if the data supports it."
+    },
+    {
+      "turn": 15,
+      "speaker": "Riley",
+      "content": "Tying compensation seems drastic. What if the pilot data doesn't support it?"
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "If leadership isn't ready for compensation ties yet, we could test other accountability measures first - maybe tying engagement metrics to departmental budgets or promotion criteria. That might be a middle ground worth exploring."
+    },
+    {
+      "turn": 17,
+      "speaker": "Alex",
+      "content": "Tying engagement to budgets is just another way to avoid real consequences. Either we make leaders feel the pain directly in their paychecks or we're just playing engagement theater. I've seen these half-measures fail before - departments will just shift numbers around to hit targets without actually fixing anything. If we're not willing to put compensation on the line, let's stop pretending this initiative matters."
+    }
+  ],
+  "controller_log": null,
+  "timestamp": "2026-03-04T16:59:48.465283"
+}

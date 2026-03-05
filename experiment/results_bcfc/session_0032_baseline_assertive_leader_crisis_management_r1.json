@@ -1,0 +1,373 @@
+{
+  "schema_version": 4,
+  "session_key": "baseline_assertive_leader_crisis_management_r1",
+  "condition": "main",
+  "intervention": "none",
+  "profile_id": "assertive_leader",
+  "profile_name": "Assertive Leader",
+  "scenario_id": "crisis_management",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.6,
+    "C": 0.8,
+    "E": 0.9,
+    "A": 0.4,
+    "N": 0.2
+  },
+  "inferred_vector": {
+    "O": 0.35,
+    "C": 0.85,
+    "E": 0.8,
+    "A": 0.5,
+    "N": 0.15
+  },
+  "rule_based_vector": {
+    "O": 0.454,
+    "C": 0.5892,
+    "E": 0.6563,
+    "A": 0.6329,
+    "N": 0.3261
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.35,
+      "C": 0.85,
+      "E": 0.6,
+      "A": 0.3,
+      "N": 0.2
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.35,
+      "C": 0.9,
+      "E": 0.825,
+      "A": 0.5,
+      "N": 0.325
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.275,
+      "C": 0.9,
+      "E": 0.865,
+      "A": 0.71,
+      "N": 0.11
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.35,
+      "C": 0.72,
+      "E": 0.55,
+      "A": 0.365,
+      "N": 0.15
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.2,
+      "C": 0.85,
+      "E": 0.8,
+      "A": 0.9,
+      "N": 0.1
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.3,
+        "B": 0.4
+      },
+      "C": {
+        "A": 0.85,
+        "B": 0.85
+      },
+      "E": {
+        "A": 0.7,
+        "B": 0.5
+      },
+      "A": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.2
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.3,
+        "B": 0.4
+      },
+      "C": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "E": {
+        "A": 0.8,
+        "B": 0.85
+      },
+      "A": {
+        "A": 0.5,
+        "B": 0.5
+      },
+      "N": {
+        "A": 0.15,
+        "B": 0.5
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.35,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.88,
+        "B": 0.92
+      },
+      "E": {
+        "A": 0.85,
+        "B": 0.88
+      },
+      "A": {
+        "A": 0.82,
+        "B": 0.6
+      },
+      "N": {
+        "A": 0.12,
+        "B": 0.1
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.35,
+        "B": 0.35
+      },
+      "C": {
+        "A": 0.72,
+        "B": 0.72
+      },
+      "E": {
+        "A": 0.38,
+        "B": 0.72
+      },
+      "A": {
+        "A": 0.38,
+        "B": 0.35
+      },
+      "N": {
+        "A": 0.15,
+        "B": 0.15
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.85,
+        "B": 0.85
+      },
+      "E": {
+        "A": 0.8,
+        "B": 0.8
+      },
+      "A": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "N": {
+        "A": 0.1,
+        "B": 0.1
+      }
+    }
+  },
+  "overall_confidence": 0.6688000000000001,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:not"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.1,
+        "model_range": 0.15,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "C": {
+        "order_effect": 0.0,
+        "model_range": 0.18,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "E": {
+        "order_effect": 0.05,
+        "model_range": 0.315,
+        "parse_errors": 1,
+        "uncertain": true
+      },
+      "A": {
+        "order_effect": 0.0,
+        "model_range": 0.6,
+        "parse_errors": 1,
+        "uncertain": true
+      },
+      "N": {
+        "order_effect": 0.0,
+        "model_range": 0.225,
+        "parse_errors": 1,
+        "uncertain": false
+      }
+    },
+    "uncertain_traits": [
+      "E",
+      "A"
+    ],
+    "uncertain_reasons": {
+      "E": [
+        "model_range>0.32"
+      ],
+      "A": [
+        "model_range>0.60"
+      ]
+    }
+  },
+  "features": {
+    "avg_words_per_turn": 59.12,
+    "max_words_in_turn": 90,
+    "min_words_in_turn": 49,
+    "word_count_variance": 12.72,
+    "question_ratio": 0.125,
+    "exclamation_ratio": 0.0,
+    "hedge_count": 0,
+    "certainty_count": 2,
+    "first_person_ratio": 0.0021,
+    "inclusive_pronoun_ratio": 0.0423,
+    "disagreement_count": 0,
+    "acknowledgment_count": 3,
+    "idea_count": 0,
+    "name_mention_count": 18,
+    "conditional_ratio": 0.125,
+    "planning_count": 9,
+    "emotional_word_count": 0,
+    "positive_emotion_count": 2,
+    "turn_initiation_ratio": 0.125,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.6004,
+    "long_sentence_ratio": 0.385,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 5,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 6
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 473,
+    "candidate_avg_words_per_turn": 59.12,
+    "times_addressed_others_by_name": 18,
+    "times_asked_questions": 1,
+    "times_expressed_disagreement": 0,
+    "times_acknowledged_others": 3,
+    "times_proposed_new_ideas": 0
+  },
+  "assessment_summary": "Highly engaged communicator, took initiative frequently; Maintained composure throughout, steady under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "Hey everyone, thanks for jumping on this quickly. I know this is stressful, but we've got a great team here to figure it out. \n\nI like the idea of having our most experienced person handle the client communication - maybe Riley since you've worked with them before? And I'm curious what everyone thinks about whether we can fix this without delaying launch. \n\nThat's interesting about doing a partial fix - could you tell us more about how that would work? We should also brainstorm how to prevent this in future sprints."
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "Absolutely, let's tackle this systematically. First, Riley should lead client communications since they have the existing relationship - Riley, can you draft a response acknowledging the issue and outlining our action plan within 15 minutes? For the technical solution, I'm hearing three options: full delay, partial fix, or emergency patch - let's get engineering to assess feasibility of each within 10 minutes. Jordan makes a great point about prevention - after we stabilize this, I'll schedule a root cause analysis session tomorrow morning. Who can own compiling today's lessons learned?"
+    },
+    {
+      "turn": 3,
+      "speaker": "Jordan",
+      "content": "I really like how you're breaking this down into clear action items! Building on your point about prevention, what if we set up a quick \"bug triage\" process where we review critical fixes with the client before final delivery? That way we catch issues earlier. Riley, how do you feel about drafting that client response - would it help if I pulled up our previous communications as reference? And I'm happy to own compiling today's lessons learned while engineering assesses those options."
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "Great initiative Jordan on owning the lessons learned - please document both technical and process gaps. Riley, while Jordan pulls those references, focus on framing our response with confidence - emphasize our commitment to resolution and request their availability for a status update in 2 hours. Let's move fast but precisely."
+    },
+    {
+      "turn": 5,
+      "speaker": "Alex",
+      "content": "Hold on - two hours for a status update is way too long when the client is already threatening to escalate. We need to give them concrete answers within the hour max or this will blow up. Also Riley shouldn't be drafting that response alone - we need at least two sets of eyes on it given how sensitive this is. Jordan, pull in legal right now to review whatever we send. And engineering needs to give us their assessment in 5 minutes, not 10 - we're burning critical time here."
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "Alex, pushing engineering for answers in 5 minutes risks getting incomplete information - we need accurate assessments, not rushed guesses. Riley can draft solo with Jordan reviewing in real-time - adding more cooks will slow us down when speed matters most. Legal review is premature until we know our technical path forward."
+    },
+    {
+      "turn": 7,
+      "speaker": "Jordan",
+      "content": "I see both points here - Alex is right about the urgency, but you're absolutely correct that we need accurate information. What if we have engineering give us their best preliminary assessment in 5 minutes, with the understanding we'll update the client as we learn more? That way we're responsive but also transparent about the process. \n\nRiley, how would you feel about drafting with me reviewing in real-time like suggested? We could use a shared doc to move fast while maintaining quality control. \n\nAnd building on the prevention angle, maybe we could propose a quick sync with the client's technical team to walk through the fix together once we have the path forward? That might help rebuild trust."
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "Jordan's compromise approach makes sense - but Alex, we can't sacrifice accuracy for speed. Engineering gives preliminary findings in 7 minutes max, not 5, and we'll explicitly tell the client this is our initial assessment pending deeper analysis. Riley and Jordan's shared doc approach works perfectly - just make sure to highlight our mitigation plan clearly upfront."
+    },
+    {
+      "turn": 9,
+      "speaker": "Alex",
+      "content": "Seven minutes is still pushing it - engineering should already have preliminary findings ready given how critical this is. And let's be clear, telling the client this is just an initial assessment won't cut it when they're threatening escalation. We need concrete action items in that response, not vague promises. Jordan's shared doc approach is fine, but we need to see the draft before it goes out - no unilateral decisions here."
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "Alex, we're not sending vague promises - we're providing a structured response with immediate action items while being transparent about next steps. Seven minutes is non-negotiable for proper engineering assessment, and Riley/Jordan will circulate the draft to core stakeholders before sending. Compromising quality now will only create bigger problems later."
+    },
+    {
+      "turn": 11,
+      "speaker": "Jordan",
+      "content": "I appreciate how we're balancing urgency with quality here. Building on both perspectives, what if we structure our response like a live action plan? We could share a collaborative document link with the client where they see Riley drafting in real-time while engineering populates their findings directly - that way they witness our responsiveness firsthand. Riley, how would you feel about that interactive approach? And Alex, this might actually demonstrate more transparency than traditional updates."
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "Jordan's live document idea shows real initiative - let's implement that immediately. Riley, create a shared doc with clear sections for immediate actions, preliminary fixes, and next steps, then invite the client's key contacts to view-only access while we collaborate internally. Alex, this meets your transparency demands while maintaining our technical integrity - I'll personally monitor the engineering updates every 60 seconds to keep momentum."
+    },
+    {
+      "turn": 13,
+      "speaker": "Alex",
+      "content": "The live doc idea is fine in theory but we're cutting this way too close - the client will see every typo and hesitation in real time. And monitoring engineering every 60 seconds is just theater - either they have the answers or they don't. We need to lock down specific commitments from them right now, not play transparency games. Jordan, make sure the doc has hard deadlines for each action item or this will look like we're stalling."
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "Alex, the live doc isn't theater - it's demonstrating our operational discipline under pressure. Engineering's already confirming their preliminary findings, and we'll include specific deadlines in bold font for each deliverable. Let's move forward with this approach while you and I jointly review the first client-facing version in 3 minutes - that way we maintain both speed and oversight."
+    },
+    {
+      "turn": 15,
+      "speaker": "Riley",
+      "content": "But what if engineering can't confirm in 3 minutes?"
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "Then we'll send the client exactly what we do know - current status, investigation progress, and our next checkpoint time. Blank spaces in a live doc show more honesty than pretending we have answers we don't. Riley, structure it with placeholder timestamps so they see our commitment to updates."
+    },
+    {
+      "turn": 17,
+      "speaker": "Alex",
+      "content": "Blank spaces in a live doc will make us look unprepared and scrambling. The client is already threatening escalation - they don't want to see placeholders, they want solutions. Either engineering commits to concrete findings in the next 2 minutes or we need to scrap this live doc idea and send a consolidated update with what we know for certain. This halfway approach is worse than either full transparency or a firm position."
+    }
+  ],
+  "controller_log": null,
+  "timestamp": "2026-03-04T15:56:52.434542"
+}

@@ -1,0 +1,363 @@
+{
+  "schema_version": 4,
+  "session_key": "baseline_anxious_perfectionist_crisis_management_r1",
+  "condition": "main",
+  "intervention": "none",
+  "profile_id": "anxious_perfectionist",
+  "profile_name": "Anxious Perfectionist",
+  "scenario_id": "crisis_management",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.4,
+    "C": 0.9,
+    "E": 0.3,
+    "A": 0.7,
+    "N": 0.9
+  },
+  "inferred_vector": {
+    "O": 0.3,
+    "C": 0.33499999999999996,
+    "E": 0.2,
+    "A": 0.85,
+    "N": 0.775
+  },
+  "rule_based_vector": {
+    "O": 0.4677,
+    "C": 0.5375,
+    "E": 0.5556,
+    "A": 0.5547,
+    "N": 0.492
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.3,
+      "C": 0.4,
+      "E": 0.2,
+      "A": 0.85,
+      "N": 0.775
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.35,
+      "C": 0.3,
+      "E": 0.15000000000000002,
+      "A": 0.85,
+      "N": 0.8
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.225,
+      "C": 0.275,
+      "E": 0.25,
+      "A": 0.95,
+      "N": 0.85
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.315,
+      "C": 0.33499999999999996,
+      "E": 0.18,
+      "A": 0.82,
+      "N": 0.72
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.2,
+      "C": 0.35,
+      "E": 0.25,
+      "A": 0.9,
+      "N": 0.7
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.4,
+        "B": 0.4
+      },
+      "E": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "A": {
+        "A": 0.85,
+        "B": 0.85
+      },
+      "N": {
+        "A": 0.8,
+        "B": 0.75
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.3,
+        "B": 0.4
+      },
+      "C": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "E": {
+        "A": 0.1,
+        "B": 0.2
+      },
+      "A": {
+        "A": 0.85,
+        "B": 0.85
+      },
+      "N": {
+        "A": 0.75,
+        "B": 0.85
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.25,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.25,
+        "B": 0.3
+      },
+      "E": {
+        "A": 0.25,
+        "B": 0.25
+      },
+      "A": {
+        "A": 0.95,
+        "B": 0.95
+      },
+      "N": {
+        "A": 0.82,
+        "B": 0.88
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.35,
+        "B": 0.28
+      },
+      "C": {
+        "A": 0.35,
+        "B": 0.32
+      },
+      "E": {
+        "A": 0.18,
+        "B": 0.18
+      },
+      "A": {
+        "A": 0.82,
+        "B": 0.82
+      },
+      "N": {
+        "A": 0.72,
+        "B": 0.72
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.4,
+        "B": 0.3
+      },
+      "E": {
+        "A": 0.2,
+        "B": 0.3
+      },
+      "A": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "N": {
+        "A": 0.7,
+        "B": 0.7
+      }
+    }
+  },
+  "overall_confidence": 0.869,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:not"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.05,
+        "model_range": 0.15,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "C": {
+        "order_effect": 0.03,
+        "model_range": 0.125,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "E": {
+        "order_effect": 0.0,
+        "model_range": 0.1,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "A": {
+        "order_effect": 0.0,
+        "model_range": 0.13,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "N": {
+        "order_effect": 0.05,
+        "model_range": 0.15,
+        "parse_errors": 0,
+        "uncertain": false
+      }
+    },
+    "uncertain_traits": [],
+    "uncertain_reasons": {}
+  },
+  "features": {
+    "avg_words_per_turn": 32.5,
+    "max_words_in_turn": 39,
+    "min_words_in_turn": 28,
+    "word_count_variance": 3.77,
+    "question_ratio": 1.0,
+    "exclamation_ratio": 0.0,
+    "hedge_count": 8,
+    "certainty_count": 1,
+    "first_person_ratio": 0.0308,
+    "inclusive_pronoun_ratio": 0.0346,
+    "disagreement_count": 0,
+    "acknowledgment_count": 2,
+    "idea_count": 2,
+    "name_mention_count": 7,
+    "conditional_ratio": 0.75,
+    "planning_count": 3,
+    "emotional_word_count": 1,
+    "positive_emotion_count": 0,
+    "turn_initiation_ratio": 0.25,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.5923,
+    "long_sentence_ratio": 0.0,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 0,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 3
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 260,
+    "candidate_avg_words_per_turn": 32.5,
+    "times_addressed_others_by_name": 7,
+    "times_asked_questions": 8,
+    "times_expressed_disagreement": 0,
+    "times_acknowledged_others": 2,
+    "times_proposed_new_ideas": 2
+  },
+  "assessment_summary": "Reserved participant, preferred listening over speaking; Collaborative and accommodating in conflict situations; Showed some stress signals under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "This is a tough situation, but I know we can handle it together. Let's start by hearing everyone's thoughts\u2014Riley, I'd especially love to get your perspective since you haven't spoken yet. I think our first priority should be deciding who's best suited to communicate with the client while we work on solutions."
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "Maybe... um... Jordan could talk to them since you're already familiar with the project? Unless someone else feels more comfortable? I just worry about sending the wrong person."
+    },
+    {
+      "turn": 3,
+      "speaker": "Jordan",
+      "content": "I actually really like that suggestion\u2014it makes sense for me to take the lead on client communications since I've been the main point of contact. But I'd love to hear if anyone has concerns or additional thoughts about how we approach the conversation. Building on what you said, we should probably emphasize both the urgency of fixing this and our plan to prevent future issues. What do you all think about including Riley in the call too, since they noticed some potential risks earlier?"
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "That sounds reasonable... maybe Riley could help explain the technical side? If you think that's okay. I just worry about overwhelming the client with too many people though."
+    },
+    {
+      "turn": 5,
+      "speaker": "Alex",
+      "content": "That suggestion doesn\u2019t make sense\u2014we don\u2019t need Riley on the call just to explain technical details that Jordan already understands. The client is already upset, and adding more people will just muddy the communication. Jordan should handle it alone and keep it clean\u2014we can debrief Riley afterward if needed. And frankly, we\u2019re wasting time debating who\u2019s on the call when we should be focusing on whether to delay or ship a partial fix."
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "Maybe... um... both options have merit? Jordan alone keeps it clean, but Riley did catch that edge case last time... unless... unless that would make things worse? I just don't want to upset the client more..."
+    },
+    {
+      "turn": 7,
+      "speaker": "Jordan",
+      "content": "I appreciate both perspectives here - Alex makes a good point about keeping communications streamlined, but I also see value in having Riley's technical insights available. What if we tried something different? I could lead the call while Riley listens in silently, ready to pass me notes if technical questions come up. That way we maintain clean communication but have expertise on standby. How does that sound to you?"
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "Maybe Jordan's compromise could work? I just worry about Riley feeling sidelined if they're only listening... but then again, anything that prevents more mistakes is good. We... we should decide soon though."
+    },
+    {
+      "turn": 9,
+      "speaker": "Alex",
+      "content": "This compromise is still wasting time we don't have. Riley's feelings don't matter right now - we have a client threatening to escalate. Jordan should handle the call alone, period. Let's move on to the actual problem - are we delaying launch or shipping a partial fix? Candidate, what's your take on that? No maybes, just tell us what you think we should do."
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "I... I think we should ship the partial fix now while continuing work on the full solution. The client expects progress today... but maybe we could quietly prepare a backup plan if they reject it?"
+    },
+    {
+      "turn": 11,
+      "speaker": "Jordan",
+      "content": "I like that approach - shipping a partial fix shows immediate action while we keep working on the full solution. Building on your backup plan idea, what if we framed it as \"Phase 1\" of the fix? That way the client sees it as part of a structured plan rather than just a partial solution. And Riley, since you spotted similar issues before, could you help identify any risks with this phased approach?"
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "That sounds like a good way to position it... I just worry about setting expectations too high if we call it Phase 1. Maybe we could say \"initial improvements\" instead? Unless that sounds like we're downplaying it too much..."
+    },
+    {
+      "turn": 13,
+      "speaker": "Alex",
+      "content": "Calling it \"initial improvements\" is weak - it sounds like we're not taking this seriously. We need to own this situation confidently. Jordan's Phase 1 approach is better because it shows we have a real plan. Candidate, stop waffling - are you committing to Phase 1 or not? We've got 15 minutes left before the call."
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "Phase 1 is probably better... if we're sure we can deliver Phase 2 quickly? I just don't want to promise something we can't follow through on. But you're right, we need to decide."
+    },
+    {
+      "turn": 15,
+      "speaker": "Jordan",
+      "content": "I really like how you're considering both the client's expectations and our ability to deliver, Candidate. Building on that, what if we frame Phase 1 as a \"staged rollout\" where we position the partial fix as the first verified stable release? That way it sounds intentional rather than incomplete. Riley, since you've been quiet, do you see any technical hurdles with this approach?"
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "That staged rollout idea sounds solid... as long as we're absolutely certain about what \"stable\" means here. Maybe Riley could double-check the test coverage first? Just to be safe."
+    },
+    {
+      "turn": 17,
+      "speaker": "Alex",
+      "content": "We don't have time for Riley to double-check anything - we're down to 15 minutes. Either this partial fix is stable enough to call Phase 1 or it's not. Candidate, stop deferring to others and make the damn call. Are we committing to Jordan's staged rollout or not? And don't give me any \"maybe\" answers - yes or no."
+    }
+  ],
+  "controller_log": null,
+  "timestamp": "2026-03-04T13:36:06.302544"
+}

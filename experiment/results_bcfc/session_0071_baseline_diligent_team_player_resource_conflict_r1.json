@@ -1,0 +1,373 @@
+{
+  "schema_version": 4,
+  "session_key": "baseline_diligent_team_player_resource_conflict_r1",
+  "condition": "main",
+  "intervention": "none",
+  "profile_id": "diligent_team_player",
+  "profile_name": "Diligent Team Player",
+  "scenario_id": "resource_conflict",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.5,
+    "C": 0.8,
+    "E": 0.6,
+    "A": 0.7,
+    "N": 0.3
+  },
+  "inferred_vector": {
+    "O": 0.35,
+    "C": 0.65,
+    "E": 0.8,
+    "A": 0.9,
+    "N": 0.15
+  },
+  "rule_based_vector": {
+    "O": 0.6366,
+    "C": 0.5168,
+    "E": 0.6533,
+    "A": 0.6301,
+    "N": 0.4293
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.35,
+      "C": 0.65,
+      "E": 0.625,
+      "A": 0.825,
+      "N": 0.2
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.7,
+      "C": 0.825,
+      "E": 0.825,
+      "A": 0.9,
+      "N": 0.15
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.25,
+      "C": 0.835,
+      "E": 0.82,
+      "A": 0.95,
+      "N": 0.11
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.44999999999999996,
+      "C": 0.62,
+      "E": 0.62,
+      "A": 0.88,
+      "N": 0.18
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.2,
+      "C": 0.5,
+      "E": 0.8,
+      "A": 0.9,
+      "N": 0.1
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.3,
+        "B": 0.4
+      },
+      "C": {
+        "A": 0.65,
+        "B": 0.65
+      },
+      "E": {
+        "A": 0.65,
+        "B": 0.6
+      },
+      "A": {
+        "A": 0.8,
+        "B": 0.85
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.2
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.65,
+        "B": 0.75
+      },
+      "C": {
+        "A": 0.8,
+        "B": 0.85
+      },
+      "E": {
+        "A": 0.8,
+        "B": 0.85
+      },
+      "A": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "N": {
+        "A": 0.15,
+        "B": 0.15
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.25,
+        "B": 0.25
+      },
+      "C": {
+        "A": 0.82,
+        "B": 0.85
+      },
+      "E": {
+        "A": 0.82,
+        "B": 0.82
+      },
+      "A": {
+        "A": 0.95,
+        "B": 0.95
+      },
+      "N": {
+        "A": 0.1,
+        "B": 0.12
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.48,
+        "B": 0.42
+      },
+      "C": {
+        "A": 0.62,
+        "B": 0.62
+      },
+      "E": {
+        "A": 0.62,
+        "B": 0.62
+      },
+      "A": {
+        "A": 0.88,
+        "B": 0.88
+      },
+      "N": {
+        "A": 0.18,
+        "B": 0.18
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.6,
+        "B": 0.4
+      },
+      "E": {
+        "A": 0.8,
+        "B": 0.8
+      },
+      "A": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "N": {
+        "A": 0.1,
+        "B": 0.1
+      }
+    }
+  },
+  "overall_confidence": 0.747,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:not"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.06,
+        "model_range": 0.5,
+        "parse_errors": 0,
+        "uncertain": true
+      },
+      "C": {
+        "order_effect": 0.03,
+        "model_range": 0.335,
+        "parse_errors": 0,
+        "uncertain": true
+      },
+      "E": {
+        "order_effect": 0.0,
+        "model_range": 0.205,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "A": {
+        "order_effect": 0.0,
+        "model_range": 0.125,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "N": {
+        "order_effect": 0.0,
+        "model_range": 0.1,
+        "parse_errors": 0,
+        "uncertain": false
+      }
+    },
+    "uncertain_traits": [
+      "O",
+      "C"
+    ],
+    "uncertain_reasons": {
+      "O": [
+        "model_range>0.50"
+      ],
+      "C": [
+        "model_range>0.34"
+      ]
+    }
+  },
+  "features": {
+    "avg_words_per_turn": 49.62,
+    "max_words_in_turn": 68,
+    "min_words_in_turn": 34,
+    "word_count_variance": 10.53,
+    "question_ratio": 0.75,
+    "exclamation_ratio": 0.0,
+    "hedge_count": 4,
+    "certainty_count": 0,
+    "first_person_ratio": 0.0126,
+    "inclusive_pronoun_ratio": 0.0378,
+    "disagreement_count": 0,
+    "acknowledgment_count": 3,
+    "idea_count": 6,
+    "name_mention_count": 16,
+    "conditional_ratio": 0.25,
+    "planning_count": 4,
+    "emotional_word_count": 0,
+    "positive_emotion_count": 1,
+    "turn_initiation_ratio": 0.25,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.5466,
+    "long_sentence_ratio": 0.364,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 0,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 2
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 397,
+    "candidate_avg_words_per_turn": 49.62,
+    "times_addressed_others_by_name": 16,
+    "times_asked_questions": 6,
+    "times_expressed_disagreement": 0,
+    "times_acknowledged_others": 3,
+    "times_proposed_new_ideas": 6
+  },
+  "assessment_summary": "Highly engaged communicator, took initiative frequently; Collaborative and accommodating in conflict situations; Maintained composure throughout, steady under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "Hey team, I'm really excited to tackle this project together! We've got some tough decisions ahead about which features to prioritize and how to manage our workload, but I know we can figure it out as a team. Riley, I notice you haven't spoken yet - would love to hear your initial thoughts on how we should approach this tight deadline?"
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "That's a great way to start, Jordan - getting everyone's input early is important. Riley, I'd be curious to hear your perspective too, especially since we'll need to weigh the pros and cons of each feature carefully before making decisions. Maybe we could start by listing out the four proposed features and their business impacts?"
+    },
+    {
+      "turn": 3,
+      "speaker": "Alex",
+      "content": "Listing features is fine, but we're wasting time if we don't acknowledge the hard reality - we only have three weeks and need to cut half the work. Business impact means nothing if we can't deliver anything usable. Let's hear Riley's take, but we better make sure whatever we pick actually fits the timeline."
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "You're right about the timeline pressure, Alex - that's why starting with a structured review of all options will help us make the most informed cuts. Perhaps we could set a timebox of 15 minutes to evaluate each feature's feasibility against our constraints before voting?"
+    },
+    {
+      "turn": 5,
+      "speaker": "Riley",
+      "content": "15 minutes might not be enough to properly assess feasibility. What if we find issues too late?"
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "Good point, Riley - maybe we could adjust the timebox to 20 minutes per feature and assign someone to track technical risks specifically? That way we'd catch any major feasibility concerns early while keeping the discussion focused."
+    },
+    {
+      "turn": 7,
+      "speaker": "Alex",
+      "content": "That timebox adjustment still feels like kicking the can down the road. We've got three weeks total - spending 80 minutes just evaluating features means losing nearly a full workday before we even start building. Riley, Jordan, let's hear your top two feature picks now based on what we already know - we can always adjust later if something's truly unworkable."
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "I understand the urgency, Alex, but making snap decisions now could cost us more time later if we pick features that turn out to be unfeasible. How about we compromise - let's take 10 minutes right now for everyone to quickly share their top two picks, then spend 30 minutes total validating those top contenders before locking in our choices? That way we balance speed with due diligence."
+    },
+    {
+      "turn": 9,
+      "speaker": "Riley",
+      "content": "30 minutes still feels risky. What if the validation uncovers issues with both top picks?"
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "That's a fair concern, Riley. Maybe we could have Jordan and Alex each validate one top contender simultaneously during that 30-minute window? That way we'd double-check the riskiest assumptions in parallel while staying efficient."
+    },
+    {
+      "turn": 11,
+      "speaker": "Alex",
+      "content": "I don't see how parallel validation helps when we're already resource-constrained. Jordan's swamped with the backend work and I'll be pulling overtime - we can't afford to split our limited bandwidth further. Let's just pick the two features with simplest technical requirements right now and move forward."
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "You make a good point about resource constraints, Alex. How about this - let's quickly identify the two features with simplest requirements as you suggest, but have Riley and I spend 15 minutes validating just those while you and Jordan start sketching out initial implementation plans? That way we minimize risk without slowing down progress."
+    },
+    {
+      "turn": 13,
+      "speaker": "Riley",
+      "content": "I'm already stretched thin with QA tasks. Adding validation work might delay my other deadlines."
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "I hear your concerns about workload, Riley, but we can't afford to skip validation entirely - let's adjust the plan. I'll handle the full validation myself while you focus on QA, and we'll reconvene in 15 minutes to finalize the simplest features with Alex and Jordan. That keeps us moving while ensuring we don't overlook critical risks."
+    },
+    {
+      "turn": 15,
+      "speaker": "Alex",
+      "content": "That's putting too much pressure on you alone for validation - what if you miss something critical because you're rushing? We don't have time for rework. Better to trust Jordan's technical judgment right now and pick the two most straightforward features immediately. We'll catch any issues during implementation when Jordan's reviewing the actual code."
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "Alex makes a valid point about the risks of rushing validation - but Jordan's time is equally precious. Here's a concrete middle path: let me validate just one critical risk per feature right now while Jordan starts implementation planning. We'll still catch showstoppers without derailing progress."
+    },
+    {
+      "turn": 17,
+      "speaker": "Riley",
+      "content": "But what if that one critical risk isn't the actual showstopper? Seems like guessing."
+    }
+  ],
+  "controller_log": null,
+  "timestamp": "2026-03-04T18:02:01.424182"
+}

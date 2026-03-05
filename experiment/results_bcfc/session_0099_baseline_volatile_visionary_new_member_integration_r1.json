@@ -1,0 +1,369 @@
+{
+  "schema_version": 4,
+  "session_key": "baseline_volatile_visionary_new_member_integration_r1",
+  "condition": "main",
+  "intervention": "none",
+  "profile_id": "volatile_visionary",
+  "profile_name": "Volatile Visionary",
+  "scenario_id": "new_member_integration",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.9,
+    "C": 0.4,
+    "E": 0.8,
+    "A": 0.3,
+    "N": 0.7
+  },
+  "inferred_vector": {
+    "O": 0.2,
+    "C": 0.3,
+    "E": 0.825,
+    "A": 0.1,
+    "N": 0.15000000000000002
+  },
+  "rule_based_vector": {
+    "O": 0.4365,
+    "C": 0.5958,
+    "E": 0.608,
+    "A": 0.5204,
+    "N": 0.357
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.2,
+      "C": 0.3,
+      "E": 0.825,
+      "A": 0.2,
+      "N": 0.15000000000000002
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.2,
+      "C": 0.3,
+      "E": 0.875,
+      "A": 0.07500000000000001,
+      "N": 0.15000000000000002
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.15,
+      "C": 0.44999999999999996,
+      "E": 0.85,
+      "A": 0.07500000000000001,
+      "N": 0.05
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.2,
+      "C": 0.265,
+      "E": 0.72,
+      "A": 0.15,
+      "N": 0.16499999999999998
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.1,
+      "C": 0.2,
+      "E": 0.2,
+      "A": 0.1,
+      "N": 0.1
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "E": {
+        "A": 0.8,
+        "B": 0.85
+      },
+      "A": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.1
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "E": {
+        "A": 0.9,
+        "B": 0.85
+      },
+      "A": {
+        "A": 0.1,
+        "B": 0.05
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.1
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.15,
+        "B": 0.15
+      },
+      "C": {
+        "A": 0.3,
+        "B": 0.6
+      },
+      "E": {
+        "A": 0.85,
+        "B": 0.85
+      },
+      "A": {
+        "A": 0.1,
+        "B": 0.05
+      },
+      "N": {
+        "A": 0.05,
+        "B": 0.05
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.25,
+        "B": 0.15
+      },
+      "C": {
+        "A": 0.28,
+        "B": 0.25
+      },
+      "E": {
+        "A": 0.72,
+        "B": 0.72
+      },
+      "A": {
+        "A": 0.15,
+        "B": 0.15
+      },
+      "N": {
+        "A": 0.18,
+        "B": 0.15
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.1,
+        "B": 0.1
+      },
+      "C": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "E": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "A": {
+        "A": 0.1,
+        "B": 0.1
+      },
+      "N": {
+        "A": 0.1,
+        "B": 0.1
+      }
+    }
+  },
+  "overall_confidence": 0.7469999999999999,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:not"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.0,
+        "model_range": 0.1,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "C": {
+        "order_effect": 0.0,
+        "model_range": 0.25,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "E": {
+        "order_effect": 0.0,
+        "model_range": 0.675,
+        "parse_errors": 0,
+        "uncertain": true
+      },
+      "A": {
+        "order_effect": 0.0,
+        "model_range": 0.125,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "N": {
+        "order_effect": 0.03,
+        "model_range": 0.115,
+        "parse_errors": 0,
+        "uncertain": false
+      }
+    },
+    "uncertain_traits": [
+      "E"
+    ],
+    "uncertain_reasons": {
+      "E": [
+        "model_range>0.68"
+      ]
+    }
+  },
+  "features": {
+    "avg_words_per_turn": 47.38,
+    "max_words_in_turn": 56,
+    "min_words_in_turn": 39,
+    "word_count_variance": 6.3,
+    "question_ratio": 0.25,
+    "exclamation_ratio": 0.0,
+    "hedge_count": 0,
+    "certainty_count": 0,
+    "first_person_ratio": 0.0026,
+    "inclusive_pronoun_ratio": 0.0264,
+    "disagreement_count": 0,
+    "acknowledgment_count": 3,
+    "idea_count": 0,
+    "name_mention_count": 11,
+    "conditional_ratio": 0.5,
+    "planning_count": 6,
+    "emotional_word_count": 0,
+    "positive_emotion_count": 0,
+    "turn_initiation_ratio": 0.125,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.6464,
+    "long_sentence_ratio": 0.261,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 0,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 12
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 379,
+    "candidate_avg_words_per_turn": 47.38,
+    "times_addressed_others_by_name": 11,
+    "times_asked_questions": 2,
+    "times_expressed_disagreement": 0,
+    "times_acknowledged_others": 3,
+    "times_proposed_new_ideas": 0
+  },
+  "assessment_summary": "Highly engaged communicator, took initiative frequently; Assertive in defending positions, comfortable with disagreement; Maintained composure throughout, steady under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "It's great to have Riley joining our team! I think we should start by sharing where we're at with the project and hearing about Riley's strengths. Maybe we could go around and each share one key responsibility we're currently handling, then see where Riley's skills could complement or take over some tasks. \n\nThat's an interesting point about Riley's technical skills - I wonder if we could have Riley shadow different team members this week to get familiar with our workflows? Building on that idea, maybe we could pair Riley with someone who has a similar technical focus first. \n\nRiley, what kind of work style do you prefer? Understanding your preferences could help us redistribute tasks in a way that plays to everyone's strengths while maintaining our project momentum."
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "Jordan's approach is far too passive - shadowing wastes Riley's technical expertise when we need immediate contributions. Riley, tell us straight out: what systems are you most confident overhauling right now? We should throw you into the deep end where your skills can make real impact this week, not waste time with hand-holding."
+    },
+    {
+      "turn": 3,
+      "speaker": "Jordan",
+      "content": "I see the value in wanting to leverage Riley's expertise quickly! Maybe we could blend both approaches - have Riley jump into a high-impact task while also scheduling short check-ins with different team members. That way we get immediate contributions while still building those important team connections. \n\nRiley, what do you think would help you feel most effective - diving right into technical work, or having some structured onboarding first? And candidate, I'm curious how you'd balance quick impact with long-term team integration?"
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "Blending approaches just waters down both strategies - Riley's either ready to contribute or they're not. Those \"short check-ins\" will inevitably turn into endless status meetings that slow everything down. Riley, if you're as technically strong as your reputation suggests, you should be pushing code to production by Friday, not wasting time on coffee chats."
+    },
+    {
+      "turn": 5,
+      "speaker": "Alex",
+      "content": "That's an overly simplistic way to look at team integration. Pushing code by Friday sounds great in theory, but our production environment has complex dependencies that even senior team members still struggle with. Riley needs to understand our architecture before making changes, or we'll just create more problems than we solve. \n\nAlso, dismissing all check-ins as \"coffee chats\" shows you don't understand how critical cross-team coordination is on this project. Riley's technical skills are worthless if they're working in isolation on the wrong priorities."
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "Alex, you're missing the point - if Riley's truly senior, they should be able to parse our architecture documentation independently while simultaneously delivering value. This \"everyone must hold hands\" mentality is exactly why our velocity has been slipping. Riley, prove me wrong - show us you can do both."
+    },
+    {
+      "turn": 7,
+      "speaker": "Riley",
+      "content": "But what if the documentation isn't complete? I've seen that cause issues before."
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "Then that's our first failure point - why haven't we prioritized updating documentation if it's blocking new contributors? Riley, call out exactly what's missing and we'll fix it immediately while you start coding against the parts that are documented. No excuses."
+    },
+    {
+      "turn": 9,
+      "speaker": "Alex",
+      "content": "That's exactly the kind of cowboy coding mentality that got us into this mess. You can't just brute-force documentation fixes while Riley codes blindly - that's how critical systems break. Our documentation gaps are in the most complex integration points, precisely where we can't afford mistakes. Riley needs structured knowledge transfer first, period."
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "You're both missing the bigger picture - if our docs are that bad, Riley should be fixing them while working, not sitting idle. That's how real engineers operate - solve problems as they emerge, not wait for perfect conditions that'll never come."
+    },
+    {
+      "turn": 11,
+      "speaker": "Riley",
+      "content": "But our last production outage happened because someone worked with incomplete docs. Isn't that too risky?"
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "Then we've identified Riley's first critical contribution - rewriting docs alongside coding so nobody else hits that wall. Either Riley's capable of that level of parallel problem-solving or we've overestimated their seniority. The real risk is stagnation, not action."
+    },
+    {
+      "turn": 13,
+      "speaker": "Alex",
+      "content": "This approach guarantees technical debt and half-baked solutions. You're suggesting Riley simultaneously learns our systems, writes code, and reworks documentation - that's three full-time jobs with zero ramp-up time. Either we do this properly with structured onboarding, or we're setting Riley up to fail spectacularly. Seniority isn't about working miracles, it's about knowing when to slow down to go fast."
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "Alex, you're confusing caution with competence - real senior engineers thrive under pressure and deliver multiple workstreams simultaneously. If Riley can't handle documentation gaps while shipping code, they're not the caliber we need. Either push through the discomfort or admit this role's beyond them."
+    },
+    {
+      "turn": 15,
+      "speaker": "Riley",
+      "content": "Doubt we can fix docs and code simultaneously without mistakes. Seen that lead to rework before.\n\nHow do we measure what's good enough if we're cutting corners?"
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "Riley, that's exactly the defeatist attitude that creates bottlenecks - good enough is when the system keeps moving forward while improving incrementally. If you're waiting for perfection before acting, you'll never ship anything worth documenting in the first place. Either push through the messy middle or watch from the sidelines while real engineers get things done."
+    },
+    {
+      "turn": 17,
+      "speaker": "Alex",
+      "content": "This isn't about defeatism, it's about basic engineering discipline. You're advocating for reckless velocity over sustainable quality, and we've got the production incidents to prove why that doesn't work. Real senior engineers know when to say \"we need proper foundations before building\" - not just plow ahead creating more problems than they solve. Riley's caution shows better judgment than your \"move fast and break things\" approach that already broke our systems last quarter."
+    }
+  ],
+  "controller_log": null,
+  "timestamp": "2026-03-04T19:17:59.032563"
+}

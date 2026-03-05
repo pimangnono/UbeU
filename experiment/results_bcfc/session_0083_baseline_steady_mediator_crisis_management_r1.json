@@ -1,0 +1,373 @@
+{
+  "schema_version": 4,
+  "session_key": "baseline_steady_mediator_crisis_management_r1",
+  "condition": "main",
+  "intervention": "none",
+  "profile_id": "steady_mediator",
+  "profile_name": "Steady Mediator",
+  "scenario_id": "crisis_management",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.6,
+    "C": 0.7,
+    "E": 0.6,
+    "A": 0.9,
+    "N": 0.2
+  },
+  "inferred_vector": {
+    "O": 0.4,
+    "C": 0.725,
+    "E": 0.75,
+    "A": 0.875,
+    "N": 0.15
+  },
+  "rule_based_vector": {
+    "O": 0.5803,
+    "C": 0.5438,
+    "E": 0.7209,
+    "A": 0.6392,
+    "N": 0.4112
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.4,
+      "C": 0.725,
+      "E": 0.7,
+      "A": 0.675,
+      "N": 0.2
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.65,
+      "C": 0.85,
+      "E": 0.8,
+      "A": 0.875,
+      "N": 0.15
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.32499999999999996,
+      "C": 0.835,
+      "E": 0.85,
+      "A": 0.94,
+      "N": 0.12
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.58,
+      "C": 0.62,
+      "E": 0.5,
+      "A": 0.78,
+      "N": 0.15
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.25,
+      "C": 0.7,
+      "E": 0.75,
+      "A": 0.9,
+      "N": 0.15000000000000002
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.4,
+        "B": 0.4
+      },
+      "C": {
+        "A": 0.7,
+        "B": 0.75
+      },
+      "E": {
+        "A": 0.7,
+        "B": 0.7
+      },
+      "A": {
+        "A": 0.5,
+        "B": 0.85
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.2
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.65,
+        "B": 0.65
+      },
+      "C": {
+        "A": 0.85,
+        "B": 0.85
+      },
+      "E": {
+        "A": 0.8,
+        "B": 0.8
+      },
+      "A": {
+        "A": 0.85,
+        "B": 0.9
+      },
+      "N": {
+        "A": 0.15,
+        "B": 0.15
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.3,
+        "B": 0.35
+      },
+      "C": {
+        "A": 0.82,
+        "B": 0.85
+      },
+      "E": {
+        "A": 0.85,
+        "B": 0.85
+      },
+      "A": {
+        "A": 0.93,
+        "B": 0.95
+      },
+      "N": {
+        "A": 0.12,
+        "B": 0.12
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.58,
+        "B": 0.58
+      },
+      "C": {
+        "A": 0.62,
+        "B": 0.62
+      },
+      "E": {
+        "A": 0.38,
+        "B": 0.62
+      },
+      "A": {
+        "A": 0.78,
+        "B": 0.78
+      },
+      "N": {
+        "A": 0.15,
+        "B": 0.15
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.2,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.7,
+        "B": 0.7
+      },
+      "E": {
+        "A": 0.7,
+        "B": 0.8
+      },
+      "A": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "N": {
+        "A": 0.1,
+        "B": 0.2
+      }
+    }
+  },
+  "overall_confidence": 0.7203,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:not"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.0,
+        "model_range": 0.4,
+        "parse_errors": 0,
+        "uncertain": true
+      },
+      "C": {
+        "order_effect": 0.0,
+        "model_range": 0.23,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "E": {
+        "order_effect": 0.0,
+        "model_range": 0.35,
+        "parse_errors": 0,
+        "uncertain": true
+      },
+      "A": {
+        "order_effect": 0.02,
+        "model_range": 0.265,
+        "parse_errors": 1,
+        "uncertain": false
+      },
+      "N": {
+        "order_effect": 0.0,
+        "model_range": 0.08,
+        "parse_errors": 0,
+        "uncertain": false
+      }
+    },
+    "uncertain_traits": [
+      "O",
+      "E"
+    ],
+    "uncertain_reasons": {
+      "O": [
+        "model_range>0.40"
+      ],
+      "E": [
+        "model_range>0.35"
+      ]
+    }
+  },
+  "features": {
+    "avg_words_per_turn": 60.62,
+    "max_words_in_turn": 96,
+    "min_words_in_turn": 36,
+    "word_count_variance": 16.29,
+    "question_ratio": 0.625,
+    "exclamation_ratio": 0.0,
+    "hedge_count": 3,
+    "certainty_count": 1,
+    "first_person_ratio": 0.0144,
+    "inclusive_pronoun_ratio": 0.0227,
+    "disagreement_count": 0,
+    "acknowledgment_count": 4,
+    "idea_count": 3,
+    "name_mention_count": 14,
+    "conditional_ratio": 0.125,
+    "planning_count": 6,
+    "emotional_word_count": 0,
+    "positive_emotion_count": 1,
+    "turn_initiation_ratio": 0.5,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.5155,
+    "long_sentence_ratio": 0.407,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 2,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 1
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 485,
+    "candidate_avg_words_per_turn": 60.62,
+    "times_addressed_others_by_name": 14,
+    "times_asked_questions": 5,
+    "times_expressed_disagreement": 0,
+    "times_acknowledged_others": 4,
+    "times_proposed_new_ideas": 3
+  },
+  "assessment_summary": "Highly engaged communicator, took initiative frequently; Collaborative and accommodating in conflict situations; Maintained composure throughout, steady under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "I really appreciate everyone gathering so quickly for this urgent discussion. Let's start by acknowledging we're all under pressure, but if we work together we can turn this around. \n\nThat's a great point about needing clear client communication - maybe we could designate someone who's been the main point of contact before? And I'd love to hear Riley's thoughts since they haven't spoken yet. \n\nBuilding on what was said about prevention, maybe we could implement more automated testing for critical paths? What if we also did a quick root cause analysis after fixing this?"
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "I completely agree that staying calm and collaborative is key here. Since we're tight on time, maybe we could tackle these three points in order: client communication first, then the launch decision, then prevention for the future. Jordan, you've worked closely with this client before - would you be comfortable taking point on the call while the rest of us prep talking points?"
+    },
+    {
+      "turn": 3,
+      "speaker": "Jordan",
+      "content": "I really appreciate you recognizing my relationship with the client - that's a great observation. I'd be happy to take point on the call if we can have Riley and Alex help prep those talking points together. Building on your structured approach, what if we framed the conversation as \"We've identified the issue and here are three immediate actions we're taking\" - that way we show urgency while keeping it solution-focused?"
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "That collaborative approach makes sense to me. Jordan, since you're comfortable leading the client call, perhaps Riley and Alex could draft bullet points of the immediate fix options while we discuss launch timing? That way we're working in parallel efficiently. For the launch decision, I'm leaning toward shipping the partial fix with clear caveats - it shows responsiveness while buying time for a complete solution. But I'd like to hear others' perspectives on the risks. On prevention, automated testing is a great start - maybe we could also implement a peer review checklist for critical deliverables?"
+    },
+    {
+      "turn": 5,
+      "speaker": "Alex",
+      "content": "Shipping a partial fix is a terrible idea - we'll just end up with two broken versions in production. The client is already threatening escalation, and half-measures will make us look incompetent. We need to delay and deliver one complete fix, even if it takes an extra day. \n\nJordan shouldn't be the only one on the client call either - I've handled their escalations before and know exactly how volatile they can get. We need both of us on that call to show serious commitment. \n\nAs for prevention, checklists are useless if people rush through them. We need mandatory sign-offs from senior engineers on critical paths - no exceptions."
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "I understand your concerns Alex, though I respectfully disagree on delaying completely - a staged fix might actually demonstrate more responsiveness if we're transparent about timelines. Having both you and Jordan on the call makes sense given the escalation risk. For prevention, why not combine your ideas? Mandatory senior reviews plus documented checklists would create multiple safeguards while maintaining accountability."
+    },
+    {
+      "turn": 7,
+      "speaker": "Riley",
+      "content": "But who handles the client if Jordan and Alex disagree during the call?"
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "Alex raises a valid point about showing unified commitment to the client. How about this: Jordan leads the call with Alex supporting as technical backup, while Riley and I prepare documentation for both the partial fix and full timeline options? That way we're demonstrating responsiveness while maintaining technical credibility. On prevention, mandatory senior sign-offs plus automated testing would address both human and system safeguards."
+    },
+    {
+      "turn": 9,
+      "speaker": "Alex",
+      "content": "The partial fix approach still sounds like technical debt we'll regret later. If we're going to show unified commitment, then we need unified technical positions too - not presenting the client with confusing options. And let's be real, automated testing won't catch everything - we need to overhaul our QA process completely, not just slap on more bandaids. \n\nYou're missing the real urgency here - we've got 20 minutes before the call and still no concrete action plan. Either we delay properly or we don't, but this waffling isn't helping."
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "Alex, I hear your urgency and agree we need decisive action - but a partial fix with clear limitations may actually show more responsiveness than complete silence while we scramble for perfection. Let's prep both options now and make the final call at the 5-minute mark based on progress. For QA, let's commit today to scheduling that overhaul discussion immediately after the client call."
+    },
+    {
+      "turn": 11,
+      "speaker": "Riley",
+      "content": "I'm not sure the client will accept partial fixes. Could backfire.  \n\nHow many engineers would the delay actually impact? Might be safer.  \n\n(Silence while making notes of risks)"
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "Let's list out the specific risks of both approaches side by side - that might help us weigh them objectively. For the partial fix, we'd need to document exactly what works versus what's still pending, and for the delay, we should quantify the engineering hours impacted. Riley, could you help capture those details while we discuss?"
+    },
+    {
+      "turn": 13,
+      "speaker": "Alex",
+      "content": "We don't have time for academic risk assessments - the clock is ticking and the client wants answers now. Listing pros and cons is what got us into this mess with rushed deliverables in the first place. Riley, stop taking notes and start making decisions - either we commit to delaying properly or we're setting ourselves up for another failure with this partial fix nonsense."
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "Let's focus on immediate next steps - Jordan and Alex will lead the call presenting the delay option with a firm timeline, while Riley and I prepare backup documentation for partial fixes if absolutely needed. We'll regroup right after to schedule that QA overhaul discussion properly."
+    },
+    {
+      "turn": 15,
+      "speaker": "Riley",
+      "content": "20 minutes isn't enough to prep proper backup docs.  \n\nWhat if the client asks for the partial fix details during the call?"
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "Then let's prioritize just the key limitations of the partial fix - bullet points only - so we're prepared if asked. We can flesh out full documentation after the call when we have more breathing room."
+    },
+    {
+      "turn": 17,
+      "speaker": "Alex",
+      "content": "This half-baked approach is exactly why we keep getting burned. If we mention partial fixes without full documentation, the client will latch onto that option and we'll be stuck delivering garbage. Either we go all-in on the delay with a solid timeline or we shut up about partial fixes entirely - no middle ground that sets false expectations."
+    }
+  ],
+  "controller_log": null,
+  "timestamp": "2026-03-04T18:31:24.645205"
+}

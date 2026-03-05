@@ -1,0 +1,369 @@
+{
+  "schema_version": 4,
+  "session_key": "baseline_steady_mediator_new_member_integration_r1",
+  "condition": "main",
+  "intervention": "none",
+  "profile_id": "steady_mediator",
+  "profile_name": "Steady Mediator",
+  "scenario_id": "new_member_integration",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.6,
+    "C": 0.7,
+    "E": 0.6,
+    "A": 0.9,
+    "N": 0.2
+  },
+  "inferred_vector": {
+    "O": 0.4,
+    "C": 0.725,
+    "E": 0.75,
+    "A": 0.9,
+    "N": 0.15
+  },
+  "rule_based_vector": {
+    "O": 0.6271,
+    "C": 0.5138,
+    "E": 0.6148,
+    "A": 0.6228,
+    "N": 0.4069
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.4,
+      "C": 0.725,
+      "E": 0.6499999999999999,
+      "A": 0.85,
+      "N": 0.2
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.725,
+      "C": 0.8,
+      "E": 0.775,
+      "A": 0.9,
+      "N": 0.15
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.225,
+      "C": 0.82,
+      "E": 0.82,
+      "A": 0.925,
+      "N": 0.12
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.53,
+      "C": 0.62,
+      "E": 0.6,
+      "A": 0.78,
+      "N": 0.15
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.25,
+      "C": 0.6499999999999999,
+      "E": 0.75,
+      "A": 0.9,
+      "N": 0.1
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.3,
+        "B": 0.5
+      },
+      "C": {
+        "A": 0.75,
+        "B": 0.7
+      },
+      "E": {
+        "A": 0.6,
+        "B": 0.7
+      },
+      "A": {
+        "A": 0.85,
+        "B": 0.85
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.2
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.7,
+        "B": 0.75
+      },
+      "C": {
+        "A": 0.8,
+        "B": 0.8
+      },
+      "E": {
+        "A": 0.75,
+        "B": 0.8
+      },
+      "A": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "N": {
+        "A": 0.15,
+        "B": 0.15
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.2,
+        "B": 0.25
+      },
+      "C": {
+        "A": 0.82,
+        "B": 0.82
+      },
+      "E": {
+        "A": 0.82,
+        "B": 0.82
+      },
+      "A": {
+        "A": 0.93,
+        "B": 0.92
+      },
+      "N": {
+        "A": 0.12,
+        "B": 0.12
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.58,
+        "B": 0.48
+      },
+      "C": {
+        "A": 0.62,
+        "B": 0.62
+      },
+      "E": {
+        "A": 0.58,
+        "B": 0.62
+      },
+      "A": {
+        "A": 0.78,
+        "B": 0.78
+      },
+      "N": {
+        "A": 0.15,
+        "B": 0.15
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.2,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.7,
+        "B": 0.6
+      },
+      "E": {
+        "A": 0.7,
+        "B": 0.8
+      },
+      "A": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "N": {
+        "A": 0.1,
+        "B": 0.1
+      }
+    }
+  },
+  "overall_confidence": 0.757,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:not"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.1,
+        "model_range": 0.5,
+        "parse_errors": 1,
+        "uncertain": true
+      },
+      "C": {
+        "order_effect": 0.0,
+        "model_range": 0.2,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "E": {
+        "order_effect": 0.05,
+        "model_range": 0.22,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "A": {
+        "order_effect": 0.0,
+        "model_range": 0.145,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "N": {
+        "order_effect": 0.0,
+        "model_range": 0.1,
+        "parse_errors": 0,
+        "uncertain": false
+      }
+    },
+    "uncertain_traits": [
+      "O"
+    ],
+    "uncertain_reasons": {
+      "O": [
+        "model_range>0.50"
+      ]
+    }
+  },
+  "features": {
+    "avg_words_per_turn": 43.62,
+    "max_words_in_turn": 57,
+    "min_words_in_turn": 35,
+    "word_count_variance": 7.0,
+    "question_ratio": 0.625,
+    "exclamation_ratio": 0.0,
+    "hedge_count": 3,
+    "certainty_count": 0,
+    "first_person_ratio": 0.0172,
+    "inclusive_pronoun_ratio": 0.043,
+    "disagreement_count": 0,
+    "acknowledgment_count": 2,
+    "idea_count": 5,
+    "name_mention_count": 12,
+    "conditional_ratio": 0.125,
+    "planning_count": 4,
+    "emotional_word_count": 0,
+    "positive_emotion_count": 1,
+    "turn_initiation_ratio": 0.125,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.6275,
+    "long_sentence_ratio": 0.391,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 2,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 0
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 349,
+    "candidate_avg_words_per_turn": 43.62,
+    "times_addressed_others_by_name": 12,
+    "times_asked_questions": 5,
+    "times_expressed_disagreement": 0,
+    "times_acknowledged_others": 2,
+    "times_proposed_new_ideas": 5
+  },
+  "assessment_summary": "Highly engaged communicator, took initiative frequently; Collaborative and accommodating in conflict situations; Maintained composure throughout, steady under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "I'm really excited we have Riley joining our team \u2013 fresh perspectives always spark such great ideas! I think we should start by asking Riley what parts of the project they're most excited to contribute to, then see how that aligns with our current workflow. That way we can play to everyone's strengths while making sure Riley feels included right from the start. What does everyone think \u2013 maybe we could do a quick roundtable to hear each team member's current bandwidth and preferences?"
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "That sounds like a thoughtful approach, Jordan. Riley, I'd love to hear what aspects of the project interest you most\u2014we can then map that against our current priorities to find the best fit. Maybe we could also share our typical workflows so you can see where your strengths might complement ours?"
+    },
+    {
+      "turn": 3,
+      "speaker": "Alex",
+      "content": "That's a nice sentiment, but we don't have time for a full workflow deep dive right now. The Q2 deliverables are due in three weeks and we're already behind. Riley, we need you hitting the ground running on the API refactoring - that's our biggest bottleneck. You can learn our workflows while you work."
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "I understand the urgency, Alex. Maybe we could compromise - Riley could start with the API refactoring while we schedule shorter, focused sessions to align workflows? That way we maintain momentum while still ensuring smooth integration."
+    },
+    {
+      "turn": 5,
+      "speaker": "Riley",
+      "content": "I'm not sure short sessions will be enough to understand your workflows properly."
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "You're right to want thorough understanding, Riley. How about we pair you with Alex on the API work initially? That way you'll get hands-on workflow exposure while tackling the priority task, and we can expand to other areas once you're comfortable."
+    },
+    {
+      "turn": 7,
+      "speaker": "Alex",
+      "content": "That pairing idea won't work\u2014Alex is already stretched too thin mentoring two other junior devs. Riley, you're experienced enough to dive straight into the API work independently. We'll give you the spec docs and you can ask questions as needed. This isn't a training exercise\u2014we need production-ready code by week's end."
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "I hear both perspectives here - the need for immediate deliverables and Riley's valid concerns about onboarding. Perhaps we could assign Riley a dedicated point person for quick questions rather than full pairing, while still prioritizing the API work? That way we balance support with productivity."
+    },
+    {
+      "turn": 9,
+      "speaker": "Riley",
+      "content": "But who has time to be a dedicated point person right now? Everyone's overloaded."
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "That's a fair point. Let me volunteer to be Riley's point person\u2014I can block off two 30-minute check-ins daily while Riley gets up to speed. We'll keep them focused just on critical path questions to minimize disruption to everyone's workload."
+    },
+    {
+      "turn": 11,
+      "speaker": "Alex",
+      "content": "Two 30-minute check-ins daily is still too much overhead when we're in crunch time. Riley, you've built APIs before - just read our existing documentation and submit pull requests like everyone else. We'll review asynchronously. If you hit major blockers, ping the team channel but try to solve it yourself first. That's how we operate here."
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "I appreciate everyone's commitment to both quality and deadlines. How about we start Riley with one daily 15-minute sync for the first three days, then transition to async communication unless urgent issues arise? This gives just enough runway while respecting our tight timeline."
+    },
+    {
+      "turn": 13,
+      "speaker": "Riley",
+      "content": "15 minutes might not be enough if I hit unexpected system quirks. The docs don't cover everything."
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "Alex makes a valid point about crunch time, but Riley's concerns about undocumented system quirks could create bigger delays if unaddressed. Let's compromise\u2014Riley gets one 15-minute sync per day plus the ability to ping me for urgent blockers, and I'll document any new quirks we uncover to help future onboarding. That balances immediate needs with sustainable process."
+    },
+    {
+      "turn": 15,
+      "speaker": "Alex",
+      "content": "I don't see how adding daily syncs helps when we're already behind schedule. Riley, you're a senior engineer - figure out the system quirks like the rest of us did. Every minute spent in meetings is a minute not coding. If the candidate wants to document quirks, fine, but do it after hours - our deadline doesn't move for onboarding niceties."
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "Alex, I have to disagree - ignoring onboarding needs now will cost us more time later when unexpected issues surface in production. Let's protect one short daily sync to prevent bigger delays down the line."
+    },
+    {
+      "turn": 17,
+      "speaker": "Riley",
+      "content": "The daily syncs still feel like overhead we can't afford right now. Why not just let me dig into the code first and see what questions actually come up?"
+    }
+  ],
+  "controller_log": null,
+  "timestamp": "2026-03-04T17:10:41.555418"
+}

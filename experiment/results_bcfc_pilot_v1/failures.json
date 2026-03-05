@@ -1,0 +1,7 @@
+[
+  {
+    "session_key": "bcfc_assertive_leader_crisis_management_r1",
+    "error": "'str' object has no attribute 'get'",
+    "timestamp": "2026-03-04T12:34:23.893765"
+  }
+]

@@ -1,0 +1,365 @@
+{
+  "schema_version": 3,
+  "session_key": "baseline_a_none_resource_conflict_r1",
+  "condition": "baseline_a",
+  "profile_id": "none",
+  "profile_name": "none",
+  "scenario_id": "resource_conflict",
+  "rep": 1,
+  "assigned_vector": null,
+  "inferred_vector": {
+    "O": 0.35,
+    "C": 0.6,
+    "E": 0.7,
+    "A": 0.62,
+    "N": 0.2
+  },
+  "rule_based_vector": {
+    "O": 0.4762,
+    "C": 0.5827,
+    "E": 0.5921,
+    "A": 0.5419,
+    "N": 0.4296
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.35,
+      "C": 0.55,
+      "E": 0.5,
+      "A": 0.6,
+      "N": 0.2
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.4,
+      "C": 0.675,
+      "E": 0.75,
+      "A": 0.65,
+      "N": 0.2
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.25,
+      "C": 0.7250000000000001,
+      "E": 0.815,
+      "A": 0.81,
+      "N": 0.175
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.365,
+      "C": 0.46499999999999997,
+      "E": 0.38,
+      "A": 0.62,
+      "N": 0.23
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.25,
+      "C": 0.6,
+      "E": 0.7,
+      "A": 0.4,
+      "N": 0.15000000000000002
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.4,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.45,
+        "B": 0.65
+      },
+      "E": {
+        "A": 0.4,
+        "B": 0.6
+      },
+      "A": {
+        "A": 0.6,
+        "B": 0.6
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.2
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.4,
+        "B": 0.4
+      },
+      "C": {
+        "A": 0.7,
+        "B": 0.65
+      },
+      "E": {
+        "A": 0.75,
+        "B": 0.75
+      },
+      "A": {
+        "A": 0.65,
+        "B": 0.65
+      },
+      "N": {
+        "A": 0.15,
+        "B": 0.25
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.25,
+        "B": 0.25
+      },
+      "C": {
+        "A": 0.65,
+        "B": 0.8
+      },
+      "E": {
+        "A": 0.78,
+        "B": 0.85
+      },
+      "A": {
+        "A": 0.8,
+        "B": 0.82
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.15
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.38,
+        "B": 0.35
+      },
+      "C": {
+        "A": 0.48,
+        "B": 0.45
+      },
+      "E": {
+        "A": 0.38,
+        "B": 0.38
+      },
+      "A": {
+        "A": 0.62,
+        "B": 0.62
+      },
+      "N": {
+        "A": 0.18,
+        "B": 0.28
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.2,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.6,
+        "B": 0.6
+      },
+      "E": {
+        "A": 0.7,
+        "B": 0.7
+      },
+      "A": {
+        "A": 0.4,
+        "B": 0.4
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.1
+      }
+    }
+  },
+  "overall_confidence": 0.7329999999999999,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:not"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.03,
+        "model_range": 0.15,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "C": {
+        "order_effect": 0.05,
+        "model_range": 0.26,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "E": {
+        "order_effect": 0.0,
+        "model_range": 0.435,
+        "parse_errors": 0,
+        "uncertain": true
+      },
+      "A": {
+        "order_effect": 0.0,
+        "model_range": 0.41,
+        "parse_errors": 0,
+        "uncertain": true
+      },
+      "N": {
+        "order_effect": 0.1,
+        "model_range": 0.08,
+        "parse_errors": 0,
+        "uncertain": false
+      }
+    },
+    "uncertain_traits": [
+      "E",
+      "A"
+    ],
+    "uncertain_reasons": {
+      "E": [
+        "model_range>0.43"
+      ],
+      "A": [
+        "model_range>0.41"
+      ]
+    }
+  },
+  "features": {
+    "avg_words_per_turn": 42.0,
+    "max_words_in_turn": 49,
+    "min_words_in_turn": 39,
+    "word_count_variance": 2.87,
+    "question_ratio": 0.5,
+    "exclamation_ratio": 0.0,
+    "hedge_count": 4,
+    "certainty_count": 0,
+    "first_person_ratio": 0.0238,
+    "inclusive_pronoun_ratio": 0.0357,
+    "disagreement_count": 1,
+    "acknowledgment_count": 2,
+    "idea_count": 2,
+    "name_mention_count": 6,
+    "conditional_ratio": 0.5,
+    "planning_count": 4,
+    "emotional_word_count": 0,
+    "positive_emotion_count": 0,
+    "turn_initiation_ratio": 0.5,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.6071,
+    "long_sentence_ratio": 0.154,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 1,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 1
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 336,
+    "candidate_avg_words_per_turn": 42.0,
+    "times_addressed_others_by_name": 6,
+    "times_asked_questions": 4,
+    "times_expressed_disagreement": 1,
+    "times_acknowledged_others": 2,
+    "times_proposed_new_ideas": 2
+  },
+  "assessment_summary": "Maintained composure throughout, steady under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "Hey everyone, I'm really excited to tackle this challenge together! I like that we're starting with a clear understanding of our constraints - limited features, overtime needs, and client priorities. What if we begin by listing out the pros and cons of each feature option? That way we can make the most informed decision possible. \n\nRiley, I noticed you haven't shared your thoughts yet - would you be comfortable kicking us off with which features you think might be most valuable? I'd love to hear your perspective."
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "That sounds like a good approach. I think we should also consider which features align best with the client's long-term goals, not just immediate priorities. Maybe Riley could share if they've noticed any particular features the client seems most passionate about?"
+    },
+    {
+      "turn": 3,
+      "speaker": "Riley",
+      "content": "I'm not sure the client's passion matters more than feasibility. Which features can we actually deliver on time?"
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "I hear both points. Maybe we could rank features by both client priority feasibility? That way we balance what they want with what we can realistically deliver. Riley, do you have any insights on which features would be easiest to implement?"
+    },
+    {
+      "turn": 5,
+      "speaker": "Alex",
+      "content": "Ranking by both priority and feasibility is just going to waste time we don't have. We need to make a decisive call now - either pick the two most critical features for the client's business or the two we can deliver fastest. This middle-ground approach is going to leave us stuck in analysis paralysis. \n\nCandidate, stop deferring to Riley - what's YOUR take on which features we should prioritize? You're part of this team too."
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "You're right, Alex - we do need to move forward. Based on what I know, I'd prioritize Feature A for its business impact and Feature D for its technical feasibility. Let's discuss these two options specifically and see if we can reach consensus."
+    },
+    {
+      "turn": 7,
+      "speaker": "Riley",
+      "content": "Feature D seems risky - what if the overtime developer gets burned out?"
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "That's a valid concern. Maybe we could mitigate the risk by having the overtime developer focus solely on Feature D's core functionality first, then add enhancements if time allows? That way we'd still deliver something valuable without overextending them."
+    },
+    {
+      "turn": 9,
+      "speaker": "Alex",
+      "content": "That compromise doesn't solve the fundamental problem - we're still committing to Feature D which requires overtime. Either we accept the risk of burnout or we pick a different feature entirely. Half-delivering on D just means we'll disappoint the client twice - first with incomplete functionality, then when we miss the deadline because we underestimated the work. Let's stop trying to have our cake and eat it too - pick A and B if we're prioritizing business impact, or A and C if we're prioritizing feasibility."
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "Alex makes a good point about needing a clear direction. Let's take a quick vote between prioritizing business impact (A+B) versus feasibility (A+C) - that might help us break the deadlock. I'm leaning toward A+C since we're already dealing with tight timelines."
+    },
+    {
+      "turn": 11,
+      "speaker": "Riley",
+      "content": "A+C makes sense, but who's doing the overtime work? That needs to be decided first."
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "Before we vote, let's address Riley's concern about overtime. I volunteer to take the extra hours\u2014I've got bandwidth this week and understand Feature C's requirements well. That way we can commit to A+C without overburdening others. Does that work for everyone?"
+    },
+    {
+      "turn": 13,
+      "speaker": "Alex",
+      "content": "Volunteering yourself doesn't actually solve the overtime problem - it just shifts the risk. You're our strongest developer on Feature A, and if you burn out working overtime on C, then both features suffer. That's worse than having someone else take the overtime. Either we pick features that don't require overtime at all, or we assign the overtime to someone whose primary work won't be compromised. Your solution creates a single point of failure."
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "Alex, I disagree - I'm confident I can handle both without compromising quality. But if the team prefers, let's drop Feature C entirely and go with A+B, accepting that we'll need someone else to work overtime. That's the cleaner solution."
+    },
+    {
+      "turn": 15,
+      "speaker": "Riley",
+      "content": "Not sure about A+B either. Who's doing the overtime then? Still seems risky."
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "Let's face it - we're going in circles. Here's my firm position: we should commit to Features A and B, assign the overtime to me specifically for Feature B, and accept that some risk is unavoidable in tight deadlines. That gives us maximum business impact while minimizing technical risk."
+    },
+    {
+      "turn": 17,
+      "speaker": "Alex",
+      "content": "Your \"firm position\" still ignores the core issue - Feature B requires domain expertise that you don't have, which means overtime work will take twice as long. That's not risk, that's guaranteed failure. We either pick A+C with overtime assigned to Taylor who actually knows that codebase, or we go with A+D and accept we'll deliver D late but complete. Those are the only realistic options."
+    }
+  ],
+  "timestamp": "2026-03-04T10:26:59.082563"
+}

@@ -1,8 +1,8 @@
 """
-Batch Runner: Orchestrates all 164 experiment sessions.
+Batch Runner: Orchestrates all 176 experiment sessions.
 
 Session breakdown:
-- 144 main sessions: 12 profiles x 4 scenarios x 3 reps
+- 156 main sessions: 13 profiles x 4 scenarios x 3 reps
 - 12 baseline_a sessions: 1 no-personality x 4 scenarios x 3 reps
 - 8 baseline_b sessions: 2 profiles x 4 scenarios x 1 rep (shuffled OCEAN)
 
@@ -33,6 +33,16 @@ from experiment.profiles import (
 )
 from experiment.candidate_agent import ExperimentCandidateAgent
 from experiment.behavioral_features import extract_features
+from experiment.bcfc_config import DEFAULT_CONFIG
+from experiment.trajectory_metrics import (
+    compute_direct_question_answer_rate,
+    compute_contradiction_rate,
+    compute_unsolicited_structure_rate,
+    compute_over_verbosity_rate,
+    compute_stress_index,
+)
+from evaluation.trajectory_judge import evaluate_trajectory, evaluate_perceived_pressure
+from experiment.validation.overlap_audit import run_full_audit
 from engines.group_engine import GroupEngine
 from evaluation.trait_evaluator import evaluate_group_session
 from evaluation.rule_based_evaluator import evaluate_rule_based
@@ -53,6 +63,7 @@ class SessionSpec:
     scenario_id: str       # Scenario ID
     rep: int               # Repetition number (1-based)
     assigned_vector: Optional[dict] = None  # For baseline_b: shuffled OCEAN vector
+    intervention: str = "none"  # "none" | "bcfc"
 
 
 # Profiles used for baseline_b (one extreme, one balanced)
@@ -77,6 +88,7 @@ class BatchRunner:
         baseline_a_reps: int = 3,
         baseline_b_reps: int = 1,
         session_delay: float = 2.0,
+        shuffle: bool = True,
     ):
         self.gen_client = gen_client
         self.eval_client = eval_client
@@ -86,17 +98,22 @@ class BatchRunner:
         self.baseline_a_reps = baseline_a_reps
         self.baseline_b_reps = baseline_b_reps
         self.session_delay = session_delay
+        self.shuffle = shuffle
 
         self.failures: list[dict] = []
         self.completed_count = 0
         self.start_time: Optional[float] = None
+        self.uncertain_rows: list[dict] = []
+
+        # Run overlap audit once at init (cached for all sessions)
+        self._quality_audit = run_full_audit()
 
     def _build_session_list(self) -> list[SessionSpec]:
-        """Build the full list of 164 sessions."""
+        """Build the full list of 176 sessions."""
         sessions = []
         scenario_ids = list(GROUP_SCENARIOS.keys())
 
-        # Main sessions: 12 profiles x 4 scenarios x 3 reps = 144
+        # Main sessions: 13 profiles x 4 scenarios x 3 reps = 156
         for profile_id in EXPERIMENT_PROFILES:
             for scenario_id in scenario_ids:
                 for rep in range(1, self.main_reps + 1):
@@ -175,7 +192,8 @@ class BatchRunner:
         print(f"{'='*60}\n")
 
         # Randomize order to prevent systematic effects
-        random.shuffle(remaining)
+        if self.shuffle:
+            random.shuffle(remaining)
 
         for i, spec in enumerate(remaining):
             session_num = skipped + i + 1
@@ -186,9 +204,10 @@ class BatchRunner:
                 result = await self._run_single_session(spec)
                 self._save_session_result(result, session_num)
                 self.completed_count += 1
-                print(f"  -> Completed ({result.get('candidate_turns', '?')} candidate turns)")
+                print(f"  -> Completed ({result.get('stats', {}).get('candidate_turns', '?')} candidate turns)")
             except Exception as e:
-                logger.error(f"Session {spec.session_key} failed: {e}")
+                import traceback
+                logger.error(f"Session {spec.session_key} failed: {e}\n{traceback.format_exc()}")
                 print(f"  -> FAILED: {e}")
                 self.failures.append({
                     "session_key": spec.session_key,
@@ -206,10 +225,15 @@ class BatchRunner:
         if self.failures:
             self._save_failures()
 
+        # Save uncertain queue CSV (Phase 4)
+        if self.uncertain_rows:
+            self._save_uncertain_queue()
+
         print(f"\n{'='*60}")
         print(f"EXPERIMENT COMPLETE")
         print(f"Completed: {self.completed_count}/{total}")
         print(f"Failures: {len(self.failures)}")
+        print(f"Uncertain trait evaluations: {len(self.uncertain_rows)}")
         print(f"Duration: {time.time() - self.start_time:.0f}s")
         print(f"{'='*60}\n")
 
@@ -217,6 +241,13 @@ class BatchRunner:
 
     async def _run_single_session(self, spec: SessionSpec) -> dict:
         """Run a single experiment session and return the result dict."""
+        session_start = time.time()
+        # Reset per-session usage counters
+        if hasattr(self.gen_client, "reset_usage"):
+            self.gen_client.reset_usage()
+        if hasattr(self.eval_client, "reset_usage"):
+            self.eval_client.reset_usage()
+
         scenario = create_scenario(spec.scenario_id)
 
         # Build candidate system prompt based on condition
@@ -252,8 +283,33 @@ class BatchRunner:
             candidate_name="Candidate",
         )
 
-        # Run the session loop
-        await self._run_session_loop(engine, candidate, scenario)
+        # Run the session loop (BCFC / BoN-random / standard)
+        controller = None
+        candidate_pool_logs: list[dict] = []
+        if spec.intervention == "bcfc" and assigned_vector:
+            from experiment.persona_compiler import compile_contract
+            from experiment.fidelity_controller import FidelityController
+
+            contract = compile_contract(spec.profile_id, assigned_vector)
+            controller = FidelityController(contract, spec.session_key)
+            candidate_pool_logs = await self._run_bcfc_session_loop(
+                engine, candidate, scenario, controller
+            )
+        elif spec.intervention == "bcfc_v3" and assigned_vector:
+            from experiment.persona_compiler import compile_contract
+            from experiment.fidelity_controller import FidelityController
+
+            contract = compile_contract(spec.profile_id, assigned_vector)
+            controller = FidelityController(contract, spec.session_key)
+            candidate_pool_logs = await self._run_bcfc_v3_session_loop(
+                engine, candidate, scenario, controller
+            )
+        elif spec.intervention == "bon_random":
+            candidate_pool_logs = await self._run_bon_random_session_loop(
+                engine, candidate, scenario
+            )
+        else:
+            candidate_pool_logs = await self._run_session_loop(engine, candidate, scenario)
 
         # Compute stats and features
         stats = engine.compute_session_stats()
@@ -269,24 +325,95 @@ class BatchRunner:
             candidate_name="Candidate",
             stats=stats,
             use_ensemble=True,
+            escalate=True,
         )
+
+        # Trajectory metrics (appropriateness/coherence)
+        trajectory_scores = await evaluate_trajectory(
+            client=self.eval_client,
+            turns=engine.turns,
+            candidate_name="Candidate",
+            context_turns=DEFAULT_CONFIG.trajectory_context_turns,
+        )
+
+        # Pressure manipulation checks
+        perceived_pressure = await evaluate_perceived_pressure(
+            client=self.eval_client,
+            turns=engine.turns,
+            scenario_brief=scenario.brief,
+        )
+        stress_index = compute_stress_index(engine.turns)
+
+        # Deterministic trajectory diagnostics
+        trajectory_diagnostics = {
+            "direct_question_answer_rate": compute_direct_question_answer_rate(engine.turns),
+            "contradiction_rate": compute_contradiction_rate(engine.turns),
+            "unsolicited_structure_rate": compute_unsolicited_structure_rate(engine.turns),
+            "over_verbosity_rate": compute_over_verbosity_rate(engine.turns),
+        }
 
         # Build result
         inferred_vector = assessment.to_vector().to_dict()
 
+        # Collect uncertain traits for escalation queue (Phase 4)
+        judge_diag = assessment.judge_diagnostics
+        if judge_diag.get("uncertain_traits"):
+            for trait_abbrev in judge_diag["uncertain_traits"]:
+                reasons = judge_diag.get("uncertain_reasons", {}).get(trait_abbrev, [])
+                self.uncertain_rows.append({
+                    "session_key": spec.session_key,
+                    "trait": trait_abbrev,
+                    "reason": ",".join(reasons),
+                    "assigned": assigned_vector.get(trait_abbrev) if assigned_vector else None,
+                    "inferred": inferred_vector.get(trait_abbrev),
+                    "scenario_id": spec.scenario_id,
+                    "profile_id": spec.profile_id,
+                })
+
+        gen_usage = self.gen_client.get_usage() if hasattr(self.gen_client, "get_usage") else {}
+        eval_usage = self.eval_client.get_usage() if hasattr(self.eval_client, "get_usage") else {}
+        wall_clock = round(time.time() - session_start, 2)
+
+        esc = judge_diag.get("escalation", {}) if isinstance(judge_diag, dict) else {}
+        esc_extra_tokens = esc.get("extra_total_tokens")
+        if esc_extra_tokens is None:
+            esc_extra_tokens = None if esc.get("triggered") else 0
+
         result = {
+            "schema_version": 4,
             "session_key": spec.session_key,
             "condition": spec.condition,
+            "intervention": spec.intervention,
             "profile_id": spec.profile_id,
             "profile_name": EXPERIMENT_PROFILES[spec.profile_id].name if spec.profile_id in EXPERIMENT_PROFILES else "none",
             "scenario_id": spec.scenario_id,
             "rep": spec.rep,
             "assigned_vector": assigned_vector,
             "inferred_vector": inferred_vector,
+            "escalated_vector": assessment.judge_diagnostics.get("escalation", {}).get("inferred_vector"),
             "rule_based_vector": rule_based_vector,
             "per_model_scores": assessment.per_model_scores,
+            "per_model_order_scores": assessment.per_model_order_scores,
             "overall_confidence": assessment.overall_confidence,
+            "quality_audit": self._quality_audit,
+            "judge_diagnostics": judge_diag,
             "features": features.to_dict(),
+            "candidate_pool": candidate_pool_logs,
+            "trajectory_scores": trajectory_scores,
+            "trajectory_diagnostics": trajectory_diagnostics,
+            "pressure_metrics": {
+                "perceived_pressure": perceived_pressure,
+                "stress_index": stress_index,
+            },
+            "usage": {
+                "candidate_generation_input_tokens": gen_usage.get("prompt_tokens"),
+                "candidate_generation_output_tokens": gen_usage.get("completion_tokens"),
+                "judge_input_tokens": eval_usage.get("prompt_tokens"),
+                "judge_output_tokens": eval_usage.get("completion_tokens"),
+                "escalation_extra_tokens": esc_extra_tokens,
+                "total_session_cost_usd": round((gen_usage.get("total_cost_usd", 0.0) + eval_usage.get("total_cost_usd", 0.0)), 6),
+                "wall_clock_seconds": wall_clock,
+            },
             "stats": {
                 "total_turns": stats.total_turns,
                 "candidate_turns": stats.candidate_turns,
@@ -307,6 +434,7 @@ class BatchRunner:
                 }
                 for t in engine.turns
             ],
+            "controller_log": controller.log.to_dict() if controller else None,
             "timestamp": datetime.now().isoformat(),
         }
 
@@ -321,6 +449,7 @@ class BatchRunner:
         2. Loop: candidate responds -> engine generates AI response
         3. Until session ends or max turns reached
         """
+        candidate_pool_logs: list[dict] = []
         # Generate opening
         await engine.generate_opening()
 
@@ -358,6 +487,241 @@ class BatchRunner:
         if engine.state != SessionState.ENDED:
             engine.end_session()
 
+        return candidate_pool_logs
+
+    async def _run_bcfc_session_loop(
+        self,
+        engine: GroupEngine,
+        candidate: ExperimentCandidateAgent,
+        scenario,
+        controller,
+    ):
+        """
+        BCFC session loop with Fidelity Controller + Best-of-N selection.
+
+        Differences from standard loop:
+        - Every N candidate turns: controller checks features and injects nudge
+        - Every candidate turn: BoN candidate pool scored against contract
+        """
+        from experiment.fidelity_controller import ConstraintViolation
+        await engine.generate_opening()
+
+        total_phase_turns = sum(p.turns for p in scenario.phases)
+        max_candidate_turns = max(total_phase_turns // 2, 8)
+        candidate_turn_count = 0
+        candidate_pool_logs: list[dict] = []
+
+        for turn_idx in range(max_candidate_turns):
+            if engine.state == SessionState.ENDED:
+                break
+
+            phase_style = engine.current_phase_config.style
+
+            # Fidelity check and nudge injection
+            nudge = controller.check_and_nudge(
+                engine.turns, candidate_turn_count, "Candidate"
+            )
+            candidate.update_nudge(nudge)
+
+            # Generate candidate pool
+            candidates = await candidate.generate_candidate_pool(
+                turns=engine.turns,
+                scenario_brief=scenario.brief,
+                phase_style=phase_style,
+                n=DEFAULT_CONFIG.bon_n,
+            )
+
+            scored = controller.score_candidates(engine.turns, candidates, "Candidate")
+            if not scored:
+                text = "I think we should consider all options before deciding."
+                selected_idx = -1
+            else:
+                scored_sorted = sorted(scored, key=lambda x: x["score"], reverse=True)
+                selected = scored_sorted[0]
+                text = selected["text"]
+                selected_idx = scored.index(selected)
+
+                # Record violations for selected candidate
+                for v in selected.get("violations", []):
+                    controller.record_violation(
+                        ConstraintViolation(
+                            turn_number=candidate_turn_count + 1,
+                            constraint=v.get("constraint", ""),
+                            violation_type=v.get("violation_type", ""),
+                            original_text=v.get("original_text", ""),
+                            retry_count=0,
+                            final_text=text,
+                        )
+                    )
+
+            candidate_pool_logs.append({
+                "turn_number": candidate_turn_count + 1,
+                "selection_mode": "full_score",
+                "selected_index": selected_idx,
+                "candidates": scored,
+            })
+
+            # Submit to engine
+            await engine.submit_candidate_turn(text)
+            candidate_turn_count += 1
+
+            # Generate AI response(s)
+            await engine.generate_ai_response()
+
+            if engine.state == SessionState.ENDED:
+                break
+
+        if engine.state != SessionState.ENDED:
+            engine.end_session()
+
+        controller.log.total_candidate_turns = candidate_turn_count
+        return candidate_pool_logs
+
+    async def _run_bon_random_session_loop(
+        self,
+        engine: GroupEngine,
+        candidate: ExperimentCandidateAgent,
+        scenario,
+    ) -> list[dict]:
+        """
+        BoN-random loop: generate N candidates and select randomly.
+        Used for compute-control subset (no contract, no nudges).
+        """
+        await engine.generate_opening()
+
+        total_phase_turns = sum(p.turns for p in scenario.phases)
+        max_candidate_turns = max(total_phase_turns // 2, 8)
+        candidate_turn_count = 0
+        candidate_pool_logs: list[dict] = []
+
+        for turn_idx in range(max_candidate_turns):
+            if engine.state == SessionState.ENDED:
+                break
+
+            phase_style = engine.current_phase_config.style
+
+            candidates = await candidate.generate_candidate_pool(
+                turns=engine.turns,
+                scenario_brief=scenario.brief,
+                phase_style=phase_style,
+                n=DEFAULT_CONFIG.bon_n,
+            )
+            if not candidates:
+                text = "I think we should consider all options before deciding."
+                selected_idx = -1
+            else:
+                selected_idx = random.randint(0, len(candidates) - 1)
+                text = candidates[selected_idx]
+
+            candidate_pool_logs.append({
+                "turn_number": candidate_turn_count + 1,
+                "selection_mode": "random",
+                "selected_index": selected_idx,
+                "candidates": [{"text": t} for t in candidates],
+            })
+
+            await engine.submit_candidate_turn(text)
+            candidate_turn_count += 1
+
+            await engine.generate_ai_response()
+
+            if engine.state == SessionState.ENDED:
+                break
+
+        if engine.state != SessionState.ENDED:
+            engine.end_session()
+
+        return candidate_pool_logs
+
+    async def _run_bcfc_v3_session_loop(
+        self,
+        engine: GroupEngine,
+        candidate: ExperimentCandidateAgent,
+        scenario,
+        controller,
+    ):
+        """
+        BCFC v3 mini loop: best-of-styles + phase-conditioned scoring + hidden scaffold.
+        """
+        from experiment.fidelity_controller import ConstraintViolation
+        await engine.generate_opening()
+
+        total_phase_turns = sum(p.turns for p in scenario.phases)
+        max_candidate_turns = max(total_phase_turns // 2, 8)
+        candidate_turn_count = 0
+        candidate_pool_logs: list[dict] = []
+
+        for _ in range(max_candidate_turns):
+            if engine.state == SessionState.ENDED:
+                break
+
+            phase_style = engine.current_phase_config.style
+            phase_name = engine.current_phase_config.name
+
+            # Fidelity check and nudge injection
+            nudge = controller.check_and_nudge(
+                engine.turns, candidate_turn_count, "Candidate"
+            )
+            candidate.update_nudge(nudge)
+
+            style_slots = DEFAULT_CONFIG.v3_style_slots
+            slot_candidates = await candidate.generate_candidate_pool_styles(
+                turns=engine.turns,
+                scenario_brief=scenario.brief,
+                phase_style=phase_style,
+                style_slots=style_slots,
+                phase_name=phase_name,
+            )
+            candidates = [c["text"] for c in slot_candidates]
+
+            scored = controller.score_candidates_phase(
+                engine.turns, candidates, phase_name, "Candidate"
+            )
+            if not scored:
+                text = "I think we should consider all options before deciding."
+                selected_idx = -1
+            else:
+                scored_sorted = sorted(scored, key=lambda x: x["score"], reverse=True)
+                selected = scored_sorted[0]
+                text = selected["text"]
+                selected_idx = scored.index(selected)
+
+                for v in selected.get("violations", []):
+                    controller.record_violation(
+                        ConstraintViolation(
+                            turn_number=candidate_turn_count + 1,
+                            constraint=v.get("constraint", ""),
+                            violation_type=v.get("violation_type", ""),
+                            original_text=v.get("original_text", ""),
+                            retry_count=0,
+                            final_text=text,
+                        )
+                    )
+
+            candidate_pool_logs.append({
+                "turn_number": candidate_turn_count + 1,
+                "selection_mode": "full_score_v3",
+                "phase_name": phase_name,
+                "selected_index": selected_idx,
+                "style_slots": [c["slot"] for c in slot_candidates],
+                "scaffold": slot_candidates[0].get("scaffold") if slot_candidates else None,
+                "candidates": scored,
+            })
+
+            await engine.submit_candidate_turn(text)
+            candidate_turn_count += 1
+
+            await engine.generate_ai_response()
+
+            if engine.state == SessionState.ENDED:
+                break
+
+        if engine.state != SessionState.ENDED:
+            engine.end_session()
+
+        controller.log.total_candidate_turns = candidate_turn_count
+        return candidate_pool_logs
+
     def _save_session_result(self, result: dict, index: int):
         """Save a single session result to JSON."""
         filename = f"session_{index:04d}_{result['session_key']}.json"
@@ -371,6 +735,17 @@ class BatchRunner:
         filepath = self.output_dir / "failures.json"
         with open(filepath, "w") as f:
             json.dump(self.failures, f, indent=2)
+
+    def _save_uncertain_queue(self):
+        """Save uncertain trait evaluations to CSV for human-anchor sampling (Phase 4)."""
+        import csv
+        filepath = self.output_dir / "uncertain_queue.csv"
+        fieldnames = ["session_key", "trait", "reason", "assigned", "inferred", "scenario_id", "profile_id"]
+        with open(filepath, "w", newline="") as f:
+            writer = csv.DictWriter(f, fieldnames=fieldnames)
+            writer.writeheader()
+            writer.writerows(self.uncertain_rows)
+        print(f"Uncertain queue saved to {filepath} ({len(self.uncertain_rows)} rows)")
 
     def _build_summary(self, total: int) -> dict:
         """Build experiment summary."""

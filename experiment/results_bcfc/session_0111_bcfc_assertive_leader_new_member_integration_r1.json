@@ -1,0 +1,787 @@
+{
+  "schema_version": 4,
+  "session_key": "bcfc_assertive_leader_new_member_integration_r1",
+  "condition": "main",
+  "intervention": "bcfc",
+  "profile_id": "assertive_leader",
+  "profile_name": "Assertive Leader",
+  "scenario_id": "new_member_integration",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.6,
+    "C": 0.8,
+    "E": 0.9,
+    "A": 0.4,
+    "N": 0.2
+  },
+  "inferred_vector": {
+    "O": 0.35,
+    "C": 0.85,
+    "E": 0.825,
+    "A": 0.85,
+    "N": 0.15
+  },
+  "rule_based_vector": {
+    "O": 0.509,
+    "C": 0.6094,
+    "E": 0.7724,
+    "A": 0.5541,
+    "N": 0.3707
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.35,
+      "C": 0.825,
+      "E": 0.825,
+      "A": 0.85,
+      "N": 0.2
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.35,
+      "C": 0.85,
+      "E": 0.825,
+      "A": 0.85,
+      "N": 0.15
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.225,
+      "C": 0.92,
+      "E": 0.91,
+      "A": 0.95,
+      "N": 0.11
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.385,
+      "C": 0.78,
+      "E": 0.72,
+      "A": 0.78,
+      "N": 0.15
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.2,
+      "C": 0.85,
+      "E": 0.8,
+      "A": 0.9,
+      "N": 0.1
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.4,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.8,
+        "B": 0.85
+      },
+      "E": {
+        "A": 0.85,
+        "B": 0.8
+      },
+      "A": {
+        "A": 0.85,
+        "B": 0.85
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.2
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.4,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.85,
+        "B": 0.85
+      },
+      "E": {
+        "A": 0.8,
+        "B": 0.85
+      },
+      "A": {
+        "A": 0.85,
+        "B": 0.85
+      },
+      "N": {
+        "A": 0.15,
+        "B": 0.15
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.25,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.92,
+        "B": 0.92
+      },
+      "E": {
+        "A": 0.9,
+        "B": 0.92
+      },
+      "A": {
+        "A": 0.95,
+        "B": 0.95
+      },
+      "N": {
+        "A": 0.12,
+        "B": 0.1
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.42,
+        "B": 0.35
+      },
+      "C": {
+        "A": 0.78,
+        "B": 0.78
+      },
+      "E": {
+        "A": 0.72,
+        "B": 0.72
+      },
+      "A": {
+        "A": 0.78,
+        "B": 0.78
+      },
+      "N": {
+        "A": 0.15,
+        "B": 0.15
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.85,
+        "B": 0.85
+      },
+      "E": {
+        "A": 0.8,
+        "B": 0.8
+      },
+      "A": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "N": {
+        "A": 0.1,
+        "B": 0.1
+      }
+    }
+  },
+  "overall_confidence": 0.843,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:not"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.07,
+        "model_range": 0.185,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "C": {
+        "order_effect": 0.0,
+        "model_range": 0.14,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "E": {
+        "order_effect": 0.02,
+        "model_range": 0.19,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "A": {
+        "order_effect": 0.0,
+        "model_range": 0.17,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "N": {
+        "order_effect": 0.0,
+        "model_range": 0.1,
+        "parse_errors": 0,
+        "uncertain": false
+      }
+    },
+    "uncertain_traits": [],
+    "uncertain_reasons": {}
+  },
+  "features": {
+    "avg_words_per_turn": 63.5,
+    "max_words_in_turn": 81,
+    "min_words_in_turn": 45,
+    "word_count_variance": 10.76,
+    "question_ratio": 0.75,
+    "exclamation_ratio": 0.125,
+    "hedge_count": 1,
+    "certainty_count": 0,
+    "first_person_ratio": 0.002,
+    "inclusive_pronoun_ratio": 0.0276,
+    "disagreement_count": 0,
+    "acknowledgment_count": 0,
+    "idea_count": 1,
+    "name_mention_count": 13,
+    "conditional_ratio": 0.125,
+    "planning_count": 11,
+    "emotional_word_count": 0,
+    "positive_emotion_count": 1,
+    "turn_initiation_ratio": 0.625,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.5197,
+    "long_sentence_ratio": 0.393,
+    "structure_marker_count": 1,
+    "reference_back_count": 0,
+    "action_item_count": 4,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 1
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 508,
+    "candidate_avg_words_per_turn": 63.5,
+    "times_addressed_others_by_name": 13,
+    "times_asked_questions": 6,
+    "times_expressed_disagreement": 0,
+    "times_acknowledged_others": 0,
+    "times_proposed_new_ideas": 1
+  },
+  "assessment_summary": "Highly engaged communicator, took initiative frequently; Collaborative and accommodating in conflict situations; Maintained composure throughout, steady under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "Hey team, I'm really excited we have Riley joining us today! This is such a great opportunity to bring fresh perspectives into our project while we figure out how to best redistribute tasks. Let's start by sharing where we're at with the current workflow and hear Riley's thoughts too - I'm especially curious about how we can leverage their technical expertise while making sure everyone feels comfortable with their new responsibilities. Riley, we'd love to hear what approaches worked well at your previous company too!"
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "Excellent point, Jordan! Riley, let me break down our current workflow into three clear buckets so you can see where we might best plug in your strengths. First we've got the backend architecture overhaul that's wrapping up this week, then there's the new API integration phase kicking off next Monday, and finally the performance optimization work that's been bottlenecked - that last one could really benefit from your technical expertise based on what I've heard about your background."
+    },
+    {
+      "turn": 3,
+      "speaker": "Jordan",
+      "content": "That breakdown is super helpful! Riley, I love how they're already identifying areas where your skills could shine. The performance optimization work in particular sounds like a great match - I remember you mentioning some innovative approaches you used at your last company. What if we paired you with Sam initially on that piece? Sam's deep knowledge of our current system combined with your fresh perspective could be really powerful. How does that sound to you both?"
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "Pairing Riley with Sam is a smart move - Sam knows all the historical context while Riley can spot optimization opportunities we've grown blind to. Riley, would you be comfortable taking lead on the performance optimization while Sam handles knowledge transfer? We should set up daily syncs for the first two weeks to ensure smooth collaboration."
+    },
+    {
+      "turn": 5,
+      "speaker": "Alex",
+      "content": "That's putting way too much pressure on Riley too fast. You're tossing them straight into leading a critical piece when they don't even know our codebase yet. Daily syncs won't cut it - we need Riley shadowing Sam full-time for at least a week before handing over any ownership. And let's be real, our performance deadlines are brutal - can we really afford rookie mistakes right now?"
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "Alex raises valid concerns about onboarding pace - let's adjust the approach. Riley, how about you and Sam co-lead the optimization work for the first sprint? You'll jointly own decisions while getting familiar with our systems, then transition to full ownership. Sam, can you block off mornings next week for pairing sessions? That gives Riley structured learning time while keeping momentum."
+    },
+    {
+      "turn": 7,
+      "speaker": "Riley",
+      "content": "I'm not sure joint ownership will work with our tight deadlines. What if we disagree on optimization approaches?"
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "Let's make decision rights crystal clear - Sam will have final say on system compatibility issues while Riley leads optimization strategy after reviewing our benchmarks together by Wednesday. That balances expertise with fresh perspective. Riley, does that address your concern while keeping us on schedule?"
+    },
+    {
+      "turn": 9,
+      "speaker": "Alex",
+      "content": "Splitting decision authority like that creates more confusion than it solves. If Sam gets veto power over compatibility issues, Riley won't truly own the optimization strategy - they'll just be guessing what Sam might approve. We either trust Riley to lead this or we don't. And frankly, if we don't trust them yet, we shouldn't be handing off optimization work at all until they've shadowed longer. Our benchmarks are meaningless if Riley doesn't understand WHY we made those past performance choices."
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "Alex makes a strong point about true ownership - let's refine the approach. Riley, would you prefer a week of intensive shadowing with Sam before taking full ownership, or would you rather we postpone optimization work entirely until you're fully ramped up? Sam, either way we'll need your mornings blocked for knowledge transfer - which timeline works better for your current workload?"
+    },
+    {
+      "turn": 11,
+      "speaker": "Riley",
+      "content": "The shadowing week sounds safer, but what if we miss the optimization window in our release cycle?"
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "Here's how we'll handle it - Sam will dedicate mornings next week to shadowing while we push optimization work to the following sprint. That gives Riley proper ramp time without compromising quality, and we'll use the extra week to document our benchmark rationales thoroughly. Riley, does this adjusted timeline work for you while keeping us on track for the release after next?"
+    },
+    {
+      "turn": 13,
+      "speaker": "Alex",
+      "content": "Pushing optimization back a whole sprint isn't realistic - we've got client commitments tied to this release that can't move. Riley either needs to step up faster or we need to admit they're not ready to lead this work yet. Shadowing for a week is fine, but delaying deliverables isn't an option - our competitors are already ahead on these benchmarks. Either find a way to ramp up within the current timeline or reassign this work to someone who can execute now."
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "Alex, pushing Riley into ownership before they're ready risks worse delays from rework - we either invest proper ramp time now or pay later. Riley and Sam will complete shadowing by next Friday, then Riley takes optimization lead with Sam available for consult - that meets both timeline and quality requirements. Riley, confirm you can commit to this accelerated but structured transition plan."
+    },
+    {
+      "turn": 15,
+      "speaker": "Riley",
+      "content": "That's a tight timeline for shadowing. What if we hit unexpected compatibility issues during handoff?"
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "Alex raises a valid point about client commitments - we can't compromise those. Here's the solution: Riley, you'll shadow Sam intensely Monday through Wednesday morning, then take the lead Wednesday afternoon with Sam reviewing all optimization commits same-day. That gives you immediate hands-on experience while meeting our deadlines. Sam, can you clear your Wednesday afternoon for this review cadence? Riley, this means you'll need to prep by studying our benchmark documentation this weekend - are you comfortable with that accelerated pace?"
+    },
+    {
+      "turn": 17,
+      "speaker": "Alex",
+      "content": "This compressed timeline is setting Riley up to fail. Expecting someone to absorb our entire optimization approach in three days while also prepping on weekends is unrealistic. Either we commit to proper knowledge transfer or we reassign the work - half measures will just create more technical debt when rushed decisions get pushed through. And Sam can't realistically provide quality same-day reviews while handling their own workload - we've seen how that plays out before with rushed PR reviews."
+    }
+  ],
+  "controller_log": {
+    "session_key": "bcfc_assertive_leader_new_member_integration_r1",
+    "deviation_reports": [
+      {
+        "turn_number": 2,
+        "deviations": [
+          {
+            "feature": "idea_count",
+            "actual": 0,
+            "target_min": 0.43,
+            "target_max": 0.9,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "hypothetical_count",
+            "actual": 0,
+            "target_min": 0.28,
+            "target_max": 0.75,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "word_count_variance",
+            "actual": 11.0,
+            "target_min": 11.95,
+            "target_max": 22.19,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "long_sentence_ratio",
+            "actual": 0.5,
+            "target_min": 0.15,
+            "target_max": 0.28,
+            "trait": "O",
+            "direction": "above"
+          },
+          {
+            "feature": "question_ratio",
+            "actual": 0.5,
+            "target_min": 0.59,
+            "target_max": 1.0,
+            "trait": "E",
+            "direction": "below"
+          },
+          {
+            "feature": "planning_count",
+            "actual": 3,
+            "target_min": 0.79,
+            "target_max": 1.46,
+            "trait": "C",
+            "direction": "above"
+          },
+          {
+            "feature": "reference_back_count",
+            "actual": 0,
+            "target_min": 0.63,
+            "target_max": 1.16,
+            "trait": "C",
+            "direction": "below"
+          },
+          {
+            "feature": "action_item_count",
+            "actual": 0,
+            "target_min": 0.47,
+            "target_max": 0.94,
+            "trait": "C",
+            "direction": "below"
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 3,
+            "target_min": 1.4,
+            "target_max": 2.6,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "certainty_count",
+            "actual": 0,
+            "target_min": 0.93,
+            "target_max": 1.73,
+            "trait": "E",
+            "direction": "below"
+          },
+          {
+            "feature": "hedge_count",
+            "actual": 1,
+            "target_min": 0.0,
+            "target_max": 0.29,
+            "trait": "N",
+            "direction": "above"
+          },
+          {
+            "feature": "acknowledgment_count",
+            "actual": 0,
+            "target_min": 0.23,
+            "target_max": 0.7,
+            "trait": "A",
+            "direction": "below"
+          },
+          {
+            "feature": "disagreement_count",
+            "actual": 0,
+            "target_min": 0.43,
+            "target_max": 0.9,
+            "trait": "A",
+            "direction": "below"
+          },
+          {
+            "feature": "positive_emotion_count",
+            "actual": 1,
+            "target_min": 0.0,
+            "target_max": 0.45,
+            "trait": "A",
+            "direction": "above"
+          },
+          {
+            "feature": "negation_count",
+            "actual": 0,
+            "target_min": 1.16,
+            "target_max": 2.15,
+            "trait": "A",
+            "direction": "below"
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your idea count is below target; your hypothetical count is below target; your word count variance is below target; your long sentence ratio is above target; Propose an alternative approach or ask a speculative question.. E: your question ratio is below target; your name mention count is above target; your certainty count is below target; Address someone by name and elaborate more.. C: your planning count is above target; your reference back count is below target; your action item count is below target; Include a concrete action item with an owner or reference a prior commitment.. N: your hedge count is above target; Project calm confidence without hedging.. A: your acknowledgment count is below target; your disagreement count is below target; your positive emotion count is above target; your negation count is below target; Validate someone's contribution or find common ground.. ]",
+        "severity": 0.556
+      },
+      {
+        "turn_number": 4,
+        "deviations": [
+          {
+            "feature": "idea_count",
+            "actual": 1,
+            "target_min": 0.43,
+            "target_max": 0.9,
+            "trait": "O",
+            "direction": "above"
+          },
+          {
+            "feature": "hypothetical_count",
+            "actual": 0,
+            "target_min": 0.28,
+            "target_max": 0.75,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "word_count_variance",
+            "actual": 11.9,
+            "target_min": 11.95,
+            "target_max": 22.19,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "long_sentence_ratio",
+            "actual": 0.29,
+            "target_min": 0.15,
+            "target_max": 0.28,
+            "trait": "O",
+            "direction": "above"
+          },
+          {
+            "feature": "planning_count",
+            "actual": 7,
+            "target_min": 0.79,
+            "target_max": 1.46,
+            "trait": "C",
+            "direction": "above"
+          },
+          {
+            "feature": "conditional_ratio",
+            "actual": 0.25,
+            "target_min": 0.27,
+            "target_max": 0.5,
+            "trait": "C",
+            "direction": "below"
+          },
+          {
+            "feature": "reference_back_count",
+            "actual": 0,
+            "target_min": 0.63,
+            "target_max": 1.16,
+            "trait": "C",
+            "direction": "below"
+          },
+          {
+            "feature": "action_item_count",
+            "actual": 1,
+            "target_min": 0.47,
+            "target_max": 0.94,
+            "trait": "C",
+            "direction": "above"
+          },
+          {
+            "feature": "exclamation_ratio",
+            "actual": 0.25,
+            "target_min": 0.36,
+            "target_max": 0.67,
+            "trait": "E",
+            "direction": "below"
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 6,
+            "target_min": 1.4,
+            "target_max": 2.6,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "certainty_count",
+            "actual": 0,
+            "target_min": 0.93,
+            "target_max": 1.73,
+            "trait": "E",
+            "direction": "below"
+          },
+          {
+            "feature": "hedge_count",
+            "actual": 1,
+            "target_min": 0.0,
+            "target_max": 0.29,
+            "trait": "N",
+            "direction": "above"
+          },
+          {
+            "feature": "acknowledgment_count",
+            "actual": 0,
+            "target_min": 0.23,
+            "target_max": 0.7,
+            "trait": "A",
+            "direction": "below"
+          },
+          {
+            "feature": "disagreement_count",
+            "actual": 0,
+            "target_min": 0.43,
+            "target_max": 0.9,
+            "trait": "A",
+            "direction": "below"
+          },
+          {
+            "feature": "positive_emotion_count",
+            "actual": 1,
+            "target_min": 0.0,
+            "target_max": 0.45,
+            "trait": "A",
+            "direction": "above"
+          },
+          {
+            "feature": "negation_count",
+            "actual": 0,
+            "target_min": 1.16,
+            "target_max": 2.15,
+            "trait": "A",
+            "direction": "below"
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your idea count is above target; your hypothetical count is below target; your word count variance is below target; your long sentence ratio is above target; Propose an alternative approach or ask a speculative question.. C: your planning count is above target; your conditional ratio is below target; your reference back count is below target; your action item count is above target; Include a concrete action item with an owner or reference a prior commitment.. E: your exclamation ratio is below target; your name mention count is above target; your certainty count is below target; Address someone by name and elaborate more.. N: your hedge count is above target; Project calm confidence without hedging.. A: your acknowledgment count is below target; your disagreement count is below target; your positive emotion count is above target; your negation count is below target; Validate someone's contribution or find common ground.. ]",
+        "severity": 0.593
+      },
+      {
+        "turn_number": 6,
+        "deviations": [
+          {
+            "feature": "idea_count",
+            "actual": 1,
+            "target_min": 0.43,
+            "target_max": 0.9,
+            "trait": "O",
+            "direction": "above"
+          },
+          {
+            "feature": "hypothetical_count",
+            "actual": 0,
+            "target_min": 0.28,
+            "target_max": 0.75,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "word_count_variance",
+            "actual": 7.23,
+            "target_min": 11.95,
+            "target_max": 22.19,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "long_sentence_ratio",
+            "actual": 0.29,
+            "target_min": 0.15,
+            "target_max": 0.28,
+            "trait": "O",
+            "direction": "above"
+          },
+          {
+            "feature": "planning_count",
+            "actual": 5,
+            "target_min": 0.79,
+            "target_max": 1.46,
+            "trait": "C",
+            "direction": "above"
+          },
+          {
+            "feature": "structure_marker_count",
+            "actual": 0,
+            "target_min": 0.79,
+            "target_max": 1.46,
+            "trait": "C",
+            "direction": "below"
+          },
+          {
+            "feature": "conditional_ratio",
+            "actual": 0.0,
+            "target_min": 0.27,
+            "target_max": 0.5,
+            "trait": "C",
+            "direction": "below"
+          },
+          {
+            "feature": "reference_back_count",
+            "actual": 0,
+            "target_min": 0.63,
+            "target_max": 1.16,
+            "trait": "C",
+            "direction": "below"
+          },
+          {
+            "feature": "action_item_count",
+            "actual": 2,
+            "target_min": 0.47,
+            "target_max": 0.94,
+            "trait": "C",
+            "direction": "above"
+          },
+          {
+            "feature": "exclamation_ratio",
+            "actual": 0.0,
+            "target_min": 0.36,
+            "target_max": 0.67,
+            "trait": "E",
+            "direction": "below"
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 6,
+            "target_min": 1.4,
+            "target_max": 2.6,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "certainty_count",
+            "actual": 0,
+            "target_min": 0.93,
+            "target_max": 1.73,
+            "trait": "E",
+            "direction": "below"
+          },
+          {
+            "feature": "turn_initiation_ratio",
+            "actual": 1.0,
+            "target_min": 0.45,
+            "target_max": 0.83,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "acknowledgment_count",
+            "actual": 0,
+            "target_min": 0.23,
+            "target_max": 0.7,
+            "trait": "A",
+            "direction": "below"
+          },
+          {
+            "feature": "disagreement_count",
+            "actual": 0,
+            "target_min": 0.43,
+            "target_max": 0.9,
+            "trait": "A",
+            "direction": "below"
+          },
+          {
+            "feature": "negation_count",
+            "actual": 0,
+            "target_min": 1.16,
+            "target_max": 2.15,
+            "trait": "A",
+            "direction": "below"
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your idea count is above target; your hypothetical count is below target; your word count variance is below target; your long sentence ratio is above target; Propose an alternative approach or ask a speculative question.. C: your planning count is above target; your structure marker count is below target; your conditional ratio is below target; your reference back count is below target; your action item count is above target; Include a concrete action item with an owner or reference a prior commitment.. E: your exclamation ratio is below target; your name mention count is above target; your certainty count is below target; your turn initiation ratio is above target; Address someone by name and elaborate more.. A: your acknowledgment count is below target; your disagreement count is below target; your negation count is below target; Validate someone's contribution or find common ground.. ]",
+        "severity": 0.593
+      }
+    ],
+    "constraint_violations": [
+      {
+        "turn_number": 4,
+        "constraint": "In responses longer than one sentence, include at least one concrete organizational element: a deadline, an owner, a next step, or a reference to a prior commitment.",
+        "violation_type": "no_organizational_element",
+        "original_text": "Let's solve that concern head-on, Riley. You and Sam will establish decision protocols upfront - maybe you handle algorithm optimizations while Sam oversees system compatibility, with weekly checkpoints to resolve any conflicts. Sam, can you draft those guidelines by Friday so we have clear lanes before sprint start?",
+        "retry_count": 1,
+        "final_text": "Let's make decision rights crystal clear - Sam will have final say on system compatibility issues while Riley leads optimization strategy after reviewing our benchmarks together by Wednesday. That balances expertise with fresh perspective. Riley, does that address your concern while keeping us on schedule?"
+      },
+      {
+        "turn_number": 7,
+        "constraint": "In responses longer than one sentence, include at least one concrete organizational element: a deadline, an owner, a next step, or a reference to a prior commitment.",
+        "violation_type": "no_organizational_element",
+        "original_text": "Alex, that's an unrealistic ultimatum - we either set Riley up for success or we fail together. Pushing someone into leadership without proper ramp time guarantees mistakes that'll cost us more than a sprint delay. Riley clearly has the skills, so let's adjust the release scope rather than compromise quality - I'll take that proposal to stakeholders myself.",
+        "retry_count": 1,
+        "final_text": "Alex, pushing Riley into ownership before they're ready risks worse delays from rework - we either invest proper ramp time now or pay later. Riley and Sam will complete shadowing by next Friday, then Riley takes optimization lead with Sam available for consult - that meets both timeline and quality requirements. Riley, confirm you can commit to this accelerated but structured transition plan."
+      }
+    ],
+    "total_nudges": 3,
+    "total_regenerations": 2,
+    "total_candidate_turns": 8,
+    "nudge_rate": 0.375,
+    "regeneration_rate": 0.25
+  },
+  "timestamp": "2026-03-04T19:55:05.291406"
+}

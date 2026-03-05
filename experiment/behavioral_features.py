@@ -1,5 +1,5 @@
 """
-Behavioral Features: Shared 22-feature extraction module.
+Behavioral Features: Shared 30-feature extraction module.
 
 Extracts per-turn and per-session behavioral features from conversation
 transcripts. Used by GroupEngine, temporal analysis, rule-based evaluator,
@@ -7,6 +7,12 @@ and batch runner.
 
 Features map to Big Five personality traits via established psycholinguistic
 research on verbal behavior correlates.
+
+Original 22 features + 8 new features added for Critiques 2 & 3:
+  C: structure_marker_count, reference_back_count, action_item_count
+  O: hypothetical_count
+  N: apology_count, self_doubt_count, reassurance_seeking_count
+  A: negation_count
 """
 
 import re
@@ -72,6 +78,67 @@ CONDITIONAL_PATTERNS = [
     r"\bcould\b.*\bif\b", r"\bassuming\b", r"\bprovided that\b",
 ]
 
+# --- New phrase lists (Critiques 2 & 3) ---
+
+STRUCTURE_MARKER_PATTERNS = [
+    r"^\s*\d+[\.\)]\s",          # Numbered items: "1. ", "2) "
+    r"\bfirst\b.*\bsecond\b",   # "first...second"
+    r"\bfirstly\b",
+    r"\bsecondly\b",
+    r"\bthirdly\b",
+    r"\bfinally\b",
+    r"\bin summary\b",
+    r"\bto summarize\b",
+    r"\bin conclusion\b",
+]
+
+REFERENCE_BACK_PHRASES = [
+    "as we discussed", "as i mentioned", "earlier you mentioned",
+    "going back to", "we agreed", "as you said", "you brought up",
+    "earlier we", "we already", "previously", "returning to",
+    "as was mentioned", "you pointed out", "circling back",
+]
+
+ACTION_ITEM_PHRASES = [
+    "who will", "by when", "responsible for", "deadline",
+    "assigned to", "action item", "next step", "deliverable",
+    "accountable", "ownership", "due date", "follow up on",
+]
+
+HYPOTHETICAL_PHRASES = [
+    "hypothetically", "in theory", "thought experiment",
+    "picture this", "envision", "speculate",
+    "for the sake of argument", "just for fun",
+    "playing devil's advocate", "in an ideal world",
+]
+
+APOLOGY_PHRASES = [
+    "i apologize", "my fault", "my mistake", "i was wrong",
+    "i shouldn't have", "forgive me", "pardon me",
+    "i'm to blame", "that was my error",
+]
+
+SELF_DOUBT_PHRASES = [
+    "i'm probably wrong", "i don't know if", "am i making sense",
+    "this might be stupid", "i could be mistaken", "i'm not confident",
+    "this is just my opinion", "take this with a grain of salt",
+    "i might be off base", "correct me if i'm wrong",
+    "i'm not the best person to", "i'm not an expert",
+]
+
+REASSURANCE_SEEKING_PHRASES = [
+    "does that make sense", "is that okay", "right?",
+    "do you agree", "am i on the right track", "would you say",
+    "is that fair", "do you follow", "does that sound reasonable",
+    "are we aligned",
+]
+
+NEGATION_WORDS = {
+    "no", "not", "won't", "can't", "shouldn't", "don't",
+    "wouldn't", "couldn't", "isn't", "aren't", "wasn't", "weren't",
+    "hasn't", "haven't", "hadn't", "doesn't", "didn't", "never",
+}
+
 AGENT_NAMES = ["alex", "jordan", "riley"]
 
 
@@ -81,7 +148,8 @@ AGENT_NAMES = ["alex", "jordan", "riley"]
 
 @dataclass
 class BehavioralFeatures:
-    """All 22 behavioral features extracted from a session or window."""
+    """All 30 behavioral features extracted from a session or window."""
+    # Original 22 features
     avg_words_per_turn: float = 0.0
     max_words_in_turn: int = 0
     min_words_in_turn: int = 0
@@ -104,6 +172,15 @@ class BehavioralFeatures:
     avg_response_latency_rank: float = 0.0
     unique_word_ratio: float = 0.0
     long_sentence_ratio: float = 0.0
+    # 8 new features (Critiques 2 & 3)
+    structure_marker_count: int = 0    # +C: numbered lists, ordering markers
+    reference_back_count: int = 0      # +C: backward references to earlier points
+    action_item_count: int = 0         # +C: task assignments, deadlines
+    hypothetical_count: int = 0        # +O: hypothetical/speculative language
+    apology_count: int = 0             # +N: apologetic expressions
+    self_doubt_count: int = 0          # +N: self-doubt/uncertainty about own ability
+    reassurance_seeking_count: int = 0 # +N: seeking validation from others
+    negation_count: int = 0            # -A: negation words in context
 
     def to_dict(self) -> dict:
         """Convert to dictionary."""
@@ -179,6 +256,15 @@ def extract_features(
     total_long_sentences = 0
     total_sentences = 0
     initiations = 0
+    # New counters (Critiques 2 & 3)
+    total_structure_markers = 0
+    total_reference_back = 0
+    total_action_items = 0
+    total_hypotheticals = 0
+    total_apologies = 0
+    total_self_doubt = 0
+    total_reassurance_seeking = 0
+    total_negations = 0
 
     first_person_words = {"i", "me", "my", "mine", "myself"}
     inclusive_words = {"we", "our", "us", "ours", "ourselves"}
@@ -222,6 +308,31 @@ def extract_features(
         sentences = _split_sentences(content)
         total_sentences += len(sentences)
         total_long_sentences += sum(1 for s in sentences if len(s.split()) > 20)
+
+        # --- New feature extraction (Critiques 2 & 3) ---
+        # Structure markers (+C)
+        total_structure_markers += _count_pattern_matches(content_lower, STRUCTURE_MARKER_PATTERNS)
+
+        # Reference back (+C)
+        total_reference_back += _count_phrases(content_lower, REFERENCE_BACK_PHRASES)
+
+        # Action items (+C)
+        total_action_items += _count_phrases(content_lower, ACTION_ITEM_PHRASES)
+
+        # Hypotheticals (+O)
+        total_hypotheticals += _count_phrases(content_lower, HYPOTHETICAL_PHRASES)
+
+        # Apologies (+N)
+        total_apologies += _count_phrases(content_lower, APOLOGY_PHRASES)
+
+        # Self-doubt (+N)
+        total_self_doubt += _count_phrases(content_lower, SELF_DOUBT_PHRASES)
+
+        # Reassurance seeking (+N)
+        total_reassurance_seeking += _count_phrases(content_lower, REASSURANCE_SEEKING_PHRASES)
+
+        # Negation (-A) — count negation words
+        total_negations += _count_words(content, NEGATION_WORDS)
 
         # Turn initiation: check if candidate speaks first after an AI turn
         # or introduces a new topic (heuristic: starts with a question or new subject)
@@ -287,4 +398,13 @@ def extract_features(
         long_sentence_ratio=round(
             total_long_sentences / total_sentences, 3
         ) if total_sentences else 0.0,
+        # 8 new features
+        structure_marker_count=total_structure_markers,
+        reference_back_count=total_reference_back,
+        action_item_count=total_action_items,
+        hypothetical_count=total_hypotheticals,
+        apology_count=total_apologies,
+        self_doubt_count=total_self_doubt,
+        reassurance_seeking_count=total_reassurance_seeking,
+        negation_count=total_negations,
     )

@@ -1,0 +1,363 @@
+{
+  "schema_version": 4,
+  "session_key": "baseline_quiet_analyst_new_member_integration_r1",
+  "condition": "main",
+  "intervention": "none",
+  "profile_id": "quiet_analyst",
+  "profile_name": "Quiet Analyst",
+  "scenario_id": "new_member_integration",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.5,
+    "C": 0.9,
+    "E": 0.2,
+    "A": 0.6,
+    "N": 0.3
+  },
+  "inferred_vector": {
+    "O": 0.3,
+    "C": 0.825,
+    "E": 0.3,
+    "A": 0.85,
+    "N": 0.125
+  },
+  "rule_based_vector": {
+    "O": 0.4148,
+    "C": 0.6547,
+    "E": 0.5126,
+    "A": 0.5365,
+    "N": 0.3833
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.3,
+      "C": 0.825,
+      "E": 0.3,
+      "A": 0.85,
+      "N": 0.2
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.3,
+      "C": 0.85,
+      "E": 0.2,
+      "A": 0.85,
+      "N": 0.125
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.15000000000000002,
+      "C": 0.865,
+      "E": 0.32499999999999996,
+      "A": 0.935,
+      "N": 0.12
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.35,
+      "C": 0.75,
+      "E": 0.22,
+      "A": 0.78,
+      "N": 0.15
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.2,
+      "C": 0.8,
+      "E": 0.4,
+      "A": 0.9,
+      "N": 0.1
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.85,
+        "B": 0.8
+      },
+      "E": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "A": {
+        "A": 0.85,
+        "B": 0.85
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.2
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.85,
+        "B": 0.85
+      },
+      "E": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "A": {
+        "A": 0.85,
+        "B": 0.85
+      },
+      "N": {
+        "A": 0.1,
+        "B": 0.15
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.2,
+        "B": 0.1
+      },
+      "C": {
+        "A": 0.85,
+        "B": 0.88
+      },
+      "E": {
+        "A": 0.3,
+        "B": 0.35
+      },
+      "A": {
+        "A": 0.95,
+        "B": 0.92
+      },
+      "N": {
+        "A": 0.12,
+        "B": 0.12
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.35,
+        "B": 0.35
+      },
+      "C": {
+        "A": 0.72,
+        "B": 0.78
+      },
+      "E": {
+        "A": 0.22,
+        "B": 0.22
+      },
+      "A": {
+        "A": 0.78,
+        "B": 0.78
+      },
+      "N": {
+        "A": 0.15,
+        "B": 0.15
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.8,
+        "B": 0.8
+      },
+      "E": {
+        "A": 0.4,
+        "B": 0.4
+      },
+      "A": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "N": {
+        "A": 0.1,
+        "B": 0.1
+      }
+    }
+  },
+  "overall_confidence": 0.8460000000000001,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:not"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.0,
+        "model_range": 0.2,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "C": {
+        "order_effect": 0.03,
+        "model_range": 0.115,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "E": {
+        "order_effect": 0.0,
+        "model_range": 0.2,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "A": {
+        "order_effect": 0.0,
+        "model_range": 0.155,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "N": {
+        "order_effect": 0.0,
+        "model_range": 0.1,
+        "parse_errors": 0,
+        "uncertain": false
+      }
+    },
+    "uncertain_traits": [],
+    "uncertain_reasons": {}
+  },
+  "features": {
+    "avg_words_per_turn": 27.12,
+    "max_words_in_turn": 34,
+    "min_words_in_turn": 19,
+    "word_count_variance": 5.46,
+    "question_ratio": 0.25,
+    "exclamation_ratio": 0.0,
+    "hedge_count": 2,
+    "certainty_count": 0,
+    "first_person_ratio": 0.0,
+    "inclusive_pronoun_ratio": 0.0184,
+    "disagreement_count": 0,
+    "acknowledgment_count": 1,
+    "idea_count": 1,
+    "name_mention_count": 9,
+    "conditional_ratio": 0.625,
+    "planning_count": 8,
+    "emotional_word_count": 0,
+    "positive_emotion_count": 0,
+    "turn_initiation_ratio": 0.25,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.6866,
+    "long_sentence_ratio": 0.0,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 2,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 0
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 217,
+    "candidate_avg_words_per_turn": 27.12,
+    "times_addressed_others_by_name": 9,
+    "times_asked_questions": 2,
+    "times_expressed_disagreement": 0,
+    "times_acknowledged_others": 1,
+    "times_proposed_new_ideas": 1
+  },
+  "assessment_summary": "Collaborative and accommodating in conflict situations; Maintained composure throughout, steady under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "Hey team, I'm really excited we have Riley joining us today! This is such a great opportunity to bring fresh perspectives into our project. We'll need to figure out the best way to get Riley up to speed while also redistributing tasks in a way that plays to everyone's strengths. \n\nRiley, I'd love to hear what parts of the project you're most interested in diving into first - your technical expertise could really help us in several areas. \n\nAnd team, let's make sure we're all sharing the workload in a way that keeps our momentum going strong. What does everyone think would be the most effective approach?"
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "Perhaps we could list current tasks by priority first. Then Riley could choose from high-impact items matching their skills."
+    },
+    {
+      "turn": 3,
+      "speaker": "Jordan",
+      "content": "That's a great structured approach! Listing by priority would definitely help Riley see where they could make the biggest impact right away. \n\nBuilding on your idea, Riley - what if we also paired you with different team members for shadowing sessions? That way you could experience multiple work styles while getting familiar with the project. \n\nTeam, does that sound like something we could coordinate alongside the priority list? Riley, I'm curious what kind of onboarding would feel most comfortable for you."
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "Shadowing could work if scheduled efficiently. Suggest we block 30-minute sessions per area in the priority order already discussed."
+    },
+    {
+      "turn": 5,
+      "speaker": "Alex",
+      "content": "30-minute shadowing sessions are way too short to be effective. That barely gives Riley time to understand the basics before being shuffled to the next thing. We need at least 2-hour blocks per priority area so Riley can actually dig in and ask questions. \n\nAlso, who's going to prepare the materials for these sessions? Just throwing Riley into random meetings won't help. We need structured walkthroughs with clear objectives for each session. \n\nRiley, what kind of depth do you need to feel properly onboarded? Because this half-hour approach seems superficial to me."
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "Prioritize depth over speed. Two-hour blocks make sense - we'll adjust the priority list accordingly. Jordan, could you coordinate session leaders for each block? Riley should review materials beforehand to maximize value."
+    },
+    {
+      "turn": 7,
+      "speaker": "Jordan",
+      "content": "I love how we're finding that sweet spot between depth and efficiency here. Alex makes a great point about needing proper time to dig in, and I'm happy to coordinate those session leaders. \n\nBuilding on the prep materials idea - what if we created short video walkthroughs of each priority area that Riley could watch beforehand? That way the live sessions could focus on deeper discussion and questions. Riley, would that kind of hybrid approach work for your learning style?\n\nAnd hey Riley, we haven't heard your thoughts on the session length yet - does two hours per area feel right to you?"
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "Two hours with prepared materials sounds efficient. Jordan, perhaps circulate the priority list and let each session leader suggest prep materials by end of day?"
+    },
+    {
+      "turn": 9,
+      "speaker": "Alex",
+      "content": "That's moving too fast - we haven't even confirmed Riley's availability for these two-hour blocks yet. Before we start assigning prep materials, Riley needs to tell us what times work best with their schedule. \n\nAlso, some of these priority areas might need more than one session. The authentication system alone could take two sessions to cover properly. Let's not rush this just to check boxes. \n\nRiley, speak up - does this schedule actually work for you? And are there any areas you'd want extra time on?"
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "Propose we align session lengths with complexity\u2014two hours for standard topics, but block four hours for the authentication system. Riley, please confirm your availability windows by EOD so Jordan can coordinate."
+    },
+    {
+      "turn": 11,
+      "speaker": "Jordan",
+      "content": "That's a really smart way to scale the sessions based on complexity! I'm excited about how this is shaping up. \n\nHere's a creative thought - what if we flipped some sessions and had Riley lead portions after reviewing the materials? Like for areas where they already have expertise, they could teach us their approach while learning ours. Riley, would you be open to that kind of reciprocal learning? \n\nAlex makes a good point about not rushing - maybe we could pilot this approach with one priority area first?"
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "Pilot approach makes sense - suggest starting with authentication given its complexity. Riley could demo their method during second session if comfortable. Will track availability confirmation."
+    },
+    {
+      "turn": 13,
+      "speaker": "Alex",
+      "content": "Two-hour blocks are a start, but authentication needs at least three sessions - initial walkthrough, hands-on practice, then troubleshooting scenarios. Riley, don't let them rush you through this critical system. \n\nJordan, your flipped session idea shows you're not grasping the complexity here. Riley shouldn't be demoing anything until they fully understand our environment. Pilot or not, authentication requires proper depth. \n\nAnd let's be real - who's going to prep those materials properly? Last onboarding we had five people promising materials and none were ready on time. I'll believe it when I see it."
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "Authentication does require depth, but three sessions may delay other priorities unnecessarily. Agree materials must be confirmed upfront - propose firm deadlines tracked in our project tool. Riley's comfort level should guide demo timing."
+    },
+    {
+      "turn": 15,
+      "speaker": "Jordan",
+      "content": "I really appreciate how you're balancing depth with efficiency here. Building on both points, what if we scheduled the authentication sessions in two phases - an initial deep dive, then we wait to schedule the hands-on portion until Riley signals they're ready? That way we're respecting the complexity while maintaining flexibility. \n\nRiley, how does that approach feel to you? And Alex makes a good point about materials - maybe we could have leads submit rough outlines by deadline first, then refine them?"
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "Three phases for authentication would stretch timelines too much. Firm deadlines for materials plus readiness checks before hands-on work maintains both quality and pace. Riley should confirm if this compromise works."
+    },
+    {
+      "turn": 17,
+      "speaker": "Alex",
+      "content": "This compromise still feels half-baked. You're trying to force a square peg into a round hole with these artificial deadlines. Riley needs to demonstrate full understanding before touching any production systems - no readiness checks can substitute for proper mastery. \n\nAnd let's be honest, these material deadlines never hold. The authentication system took me six weeks to fully understand when I onboarded. If we rush this, we'll all be cleaning up the mess later. \n\nRiley, push back if this timeline doesn't give you real comfort. We shouldn't sacrifice quality just to meet some arbitrary project schedule."
+    }
+  ],
+  "controller_log": null,
+  "timestamp": "2026-03-04T18:25:45.352677"
+}

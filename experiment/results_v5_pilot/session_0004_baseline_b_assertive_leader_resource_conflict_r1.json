@@ -1,0 +1,361 @@
+{
+  "schema_version": 3,
+  "session_key": "baseline_b_assertive_leader_resource_conflict_r1",
+  "condition": "baseline_b",
+  "profile_id": "assertive_leader",
+  "profile_name": "Assertive Leader",
+  "scenario_id": "resource_conflict",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.6,
+    "C": 0.8,
+    "E": 0.2,
+    "A": 0.4,
+    "N": 0.9
+  },
+  "inferred_vector": {
+    "O": 0.25,
+    "C": 0.72,
+    "E": 0.375,
+    "A": 0.725,
+    "N": 0.675
+  },
+  "rule_based_vector": {
+    "O": 0.4688,
+    "C": 0.5635,
+    "E": 0.5712,
+    "A": 0.5969,
+    "N": 0.4735
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.3,
+      "C": 0.65,
+      "E": 0.4,
+      "A": 0.7,
+      "N": 0.675
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.25,
+      "C": 0.8,
+      "E": 0.3,
+      "A": 0.725,
+      "N": 0.75
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.2,
+      "C": 0.8,
+      "E": 0.375,
+      "A": 0.89,
+      "N": 0.75
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.30000000000000004,
+      "C": 0.72,
+      "E": 0.28,
+      "A": 0.6699999999999999,
+      "N": 0.65
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.2,
+      "C": 0.6499999999999999,
+      "E": 0.4,
+      "A": 0.9,
+      "N": 0.6
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.65,
+        "B": 0.65
+      },
+      "E": {
+        "A": 0.5,
+        "B": 0.3
+      },
+      "A": {
+        "A": 0.8,
+        "B": 0.6
+      },
+      "N": {
+        "A": 0.65,
+        "B": 0.7
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.2,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.8,
+        "B": 0.8
+      },
+      "E": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "A": {
+        "A": 0.7,
+        "B": 0.75
+      },
+      "N": {
+        "A": 0.75,
+        "B": 0.75
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.82,
+        "B": 0.78
+      },
+      "E": {
+        "A": 0.4,
+        "B": 0.35
+      },
+      "A": {
+        "A": 0.9,
+        "B": 0.88
+      },
+      "N": {
+        "A": 0.75,
+        "B": 0.75
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.32,
+        "B": 0.28
+      },
+      "C": {
+        "A": 0.72,
+        "B": 0.72
+      },
+      "E": {
+        "A": 0.28,
+        "B": 0.28
+      },
+      "A": {
+        "A": 0.62,
+        "B": 0.72
+      },
+      "N": {
+        "A": 0.62,
+        "B": 0.68
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.6,
+        "B": 0.7
+      },
+      "E": {
+        "A": 0.4,
+        "B": 0.4
+      },
+      "A": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "N": {
+        "A": 0.6,
+        "B": 0.6
+      }
+    }
+  },
+  "overall_confidence": 0.8324,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:not"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.0,
+        "model_range": 0.1,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "C": {
+        "order_effect": 0.0,
+        "model_range": 0.15,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "E": {
+        "order_effect": 0.0,
+        "model_range": 0.12,
+        "parse_errors": 1,
+        "uncertain": false
+      },
+      "A": {
+        "order_effect": 0.05,
+        "model_range": 0.23,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "N": {
+        "order_effect": 0.0,
+        "model_range": 0.15,
+        "parse_errors": 0,
+        "uncertain": false
+      }
+    },
+    "uncertain_traits": [],
+    "uncertain_reasons": {}
+  },
+  "features": {
+    "avg_words_per_turn": 31.25,
+    "max_words_in_turn": 40,
+    "min_words_in_turn": 26,
+    "word_count_variance": 5.4,
+    "question_ratio": 0.75,
+    "exclamation_ratio": 0.0,
+    "hedge_count": 4,
+    "certainty_count": 0,
+    "first_person_ratio": 0.008,
+    "inclusive_pronoun_ratio": 0.048,
+    "disagreement_count": 0,
+    "acknowledgment_count": 3,
+    "idea_count": 2,
+    "name_mention_count": 6,
+    "conditional_ratio": 0.5,
+    "planning_count": 6,
+    "emotional_word_count": 2,
+    "positive_emotion_count": 0,
+    "turn_initiation_ratio": 0.5,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.58,
+    "long_sentence_ratio": 0.042,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 1,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 2
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 250,
+    "candidate_avg_words_per_turn": 31.25,
+    "times_addressed_others_by_name": 6,
+    "times_asked_questions": 6,
+    "times_expressed_disagreement": 0,
+    "times_acknowledged_others": 3,
+    "times_proposed_new_ideas": 2
+  },
+  "assessment_summary": "Collaborative and accommodating in conflict situations; Showed some stress signals under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "Hey team, I'm really excited to tackle this project together! We've got some tough decisions ahead about which features to prioritize and how to allocate our resources. Let's start by hearing everyone's thoughts - maybe we can begin by discussing which two features would deliver the most value to the client? Riley, I'd love to hear your perspective on this too!"
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "Looking at the client's requirements document again... I think Features A and C align most closely with their KPIs. But we should double-check the development estimates - Jordan, do we have those broken down by hour?"
+    },
+    {
+      "turn": 3,
+      "speaker": "Jordan",
+      "content": "I really like how you're aligning the features with the client's KPIs - that's such a smart approach! Building on that, I wonder if we could get creative - maybe we prototype Feature A fully while delivering Feature C as a minimal viable version? That way we hit both priorities without overextending. The estimates should be here in our shared folder - let me pull them up real quick. Riley, what do you think about this hybrid approach?"
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "That hybrid approach... it feels risky. What if we can't complete both to standard? Maybe just Features A and B instead? Less moving parts to track."
+    },
+    {
+      "turn": 5,
+      "speaker": "Riley",
+      "content": "Not sure splitting our focus is wise. What if Feature C fails halfway? Then we've wasted time on both."
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "I'm worried about the timeline - if we miss deadlines on both, the client will be unhappy. Maybe we should stick with the original two-feature plan?"
+    },
+    {
+      "turn": 7,
+      "speaker": "Alex",
+      "content": "This hybrid approach is spreading us too thin. We either commit fully to Features A and C or we don't do them at all - half measures will guarantee failure. The client's KPIs clearly prioritize A and C over B, so let's stop wasting time debating weaker options. Riley's right - doubling our risk points isn't smart when we're already under tight deadlines."
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "You're right - we should focus completely on A and C then. But let's confirm the overtime allocation first... Jordan, can you verify the estimates again before we commit?"
+    },
+    {
+      "turn": 9,
+      "speaker": "Riley",
+      "content": "I still think Features A and B are safer. Less chance of missing deadlines. \n\nBut if we commit to A and C... who's taking the overtime?"
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "Let's review the estimates thoroughly first - I'm concerned about quality slipping if we rush both. Maybe Riley could take overtime since they're more experienced with Feature C?"
+    },
+    {
+      "turn": 11,
+      "speaker": "Alex",
+      "content": "This hybrid approach is a disaster waiting to happen. We either fully commit to Features A and C or we don't do them at all - half measures will guarantee failure. The client's KPIs clearly prioritize A and C over B, so let's stop wasting time debating weaker options. Riley's right - doubling our risk points isn't smart when we're already under tight deadlines. \n\nCandidate, you're being too cautious - either we go all in on A and C with Riley taking overtime, or we admit defeat now. Which is it?"
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "You're right about committing fully\u2014but only if we triple-check these estimates first. Riley should take overtime, but let me verify the numbers one more time. What if the client changes priorities mid-project? We should document all these assumptions before proceeding."
+    },
+    {
+      "turn": 13,
+      "speaker": "Riley",
+      "content": "I'll do overtime if we must, but who handles client changes? That's my bigger concern."
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "We need written confirmation from the client that A and C are their absolute priorities before proceeding. And Riley - let's document exactly what constitutes a \"change\" versus normal iteration so we're protected. I'll draft the email now."
+    },
+    {
+      "turn": 15,
+      "speaker": "Alex",
+      "content": "Hold on - drafting emails now is just kicking the can down the road. We've already wasted enough time debating this. The client's priorities are clear from their last three briefings. Riley, you're the obvious choice for overtime since you own Feature C. Let's make the call now and adjust if needed, not stall with paperwork. Either we commit or we don't - which is it?"
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "The numbers only work if Riley takes overtime *voice tightens* But if either document isn't signed by 5pm, we revert to Features A and B. That's non-negotiable."
+    },
+    {
+      "turn": 17,
+      "speaker": "Riley",
+      "content": "I'm not convinced the numbers work even with overtime. What's the backup plan if we miss the deadline?"
+    }
+  ],
+  "timestamp": "2026-03-04T10:14:09.950628"
+}

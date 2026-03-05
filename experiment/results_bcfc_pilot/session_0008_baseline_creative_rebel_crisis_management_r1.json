@@ -1,0 +1,377 @@
+{
+  "schema_version": 4,
+  "session_key": "baseline_creative_rebel_crisis_management_r1",
+  "condition": "main",
+  "intervention": "none",
+  "profile_id": "creative_rebel",
+  "profile_name": "Creative Rebel",
+  "scenario_id": "crisis_management",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.9,
+    "C": 0.3,
+    "E": 0.7,
+    "A": 0.3,
+    "N": 0.4
+  },
+  "inferred_vector": {
+    "O": 0.1,
+    "C": 0.7,
+    "E": 0.8,
+    "A": 0.15,
+    "N": 0.72
+  },
+  "rule_based_vector": {
+    "O": 0.3805,
+    "C": 0.4925,
+    "E": 0.6152,
+    "A": 0.5411,
+    "N": 0.3506
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.2,
+      "C": 0.44999999999999996,
+      "E": 0.8,
+      "A": 0.15000000000000002,
+      "N": 0.2
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.1,
+      "C": 0.8,
+      "E": 0.8,
+      "A": 0.275,
+      "N": 0.85
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.1,
+      "C": 0.835,
+      "E": 0.85,
+      "A": 0.08499999999999999,
+      "N": 0.525
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.15,
+      "C": 0.62,
+      "E": 0.28,
+      "A": 0.15,
+      "N": 0.72
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.1,
+      "C": 0.7,
+      "E": 0.15000000000000002,
+      "A": 0.1,
+      "N": 0.8
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.3,
+        "B": 0.6
+      },
+      "E": {
+        "A": 0.8,
+        "B": 0.8
+      },
+      "A": {
+        "A": 0.2,
+        "B": 0.1
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.2
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.1,
+        "B": 0.1
+      },
+      "C": {
+        "A": 0.8,
+        "B": 0.8
+      },
+      "E": {
+        "A": 0.8,
+        "B": 0.8
+      },
+      "A": {
+        "A": 0.05,
+        "B": 0.5
+      },
+      "N": {
+        "A": 0.85,
+        "B": 0.85
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.1,
+        "B": 0.1
+      },
+      "C": {
+        "A": 0.82,
+        "B": 0.85
+      },
+      "E": {
+        "A": 0.85,
+        "B": 0.85
+      },
+      "A": {
+        "A": 0.12,
+        "B": 0.05
+      },
+      "N": {
+        "A": 0.8,
+        "B": 0.25
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.15,
+        "B": 0.15
+      },
+      "C": {
+        "A": 0.62,
+        "B": 0.62
+      },
+      "E": {
+        "A": 0.28,
+        "B": 0.28
+      },
+      "A": {
+        "A": 0.15,
+        "B": 0.15
+      },
+      "N": {
+        "A": 0.72,
+        "B": 0.72
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.1,
+        "B": 0.1
+      },
+      "C": {
+        "A": 0.6,
+        "B": 0.8
+      },
+      "E": {
+        "A": 0.1,
+        "B": 0.2
+      },
+      "A": {
+        "A": 0.1,
+        "B": 0.1
+      },
+      "N": {
+        "A": 0.8,
+        "B": 0.8
+      }
+    }
+  },
+  "overall_confidence": 0.5788,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:not"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.0,
+        "model_range": 0.1,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "C": {
+        "order_effect": 0.03,
+        "model_range": 0.385,
+        "parse_errors": 0,
+        "uncertain": true
+      },
+      "E": {
+        "order_effect": 0.0,
+        "model_range": 0.7,
+        "parse_errors": 0,
+        "uncertain": true
+      },
+      "A": {
+        "order_effect": 0.07,
+        "model_range": 0.19,
+        "parse_errors": 1,
+        "uncertain": false
+      },
+      "N": {
+        "order_effect": 0.0,
+        "model_range": 0.65,
+        "parse_errors": 0,
+        "uncertain": true
+      }
+    },
+    "uncertain_traits": [
+      "C",
+      "E",
+      "N"
+    ],
+    "uncertain_reasons": {
+      "C": [
+        "model_range>0.39"
+      ],
+      "E": [
+        "model_range>0.70"
+      ],
+      "N": [
+        "model_range>0.65"
+      ]
+    }
+  },
+  "features": {
+    "avg_words_per_turn": 55.88,
+    "max_words_in_turn": 79,
+    "min_words_in_turn": 40,
+    "word_count_variance": 12.07,
+    "question_ratio": 0.0,
+    "exclamation_ratio": 0.0,
+    "hedge_count": 0,
+    "certainty_count": 1,
+    "first_person_ratio": 0.0067,
+    "inclusive_pronoun_ratio": 0.0336,
+    "disagreement_count": 0,
+    "acknowledgment_count": 2,
+    "idea_count": 0,
+    "name_mention_count": 12,
+    "conditional_ratio": 0.0,
+    "planning_count": 3,
+    "emotional_word_count": 0,
+    "positive_emotion_count": 1,
+    "turn_initiation_ratio": 0.125,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.5749,
+    "long_sentence_ratio": 0.107,
+    "structure_marker_count": 1,
+    "reference_back_count": 0,
+    "action_item_count": 3,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 10
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 447,
+    "candidate_avg_words_per_turn": 55.88,
+    "times_addressed_others_by_name": 12,
+    "times_asked_questions": 0,
+    "times_expressed_disagreement": 0,
+    "times_acknowledged_others": 2,
+    "times_proposed_new_ideas": 0
+  },
+  "assessment_summary": "Highly engaged communicator, took initiative frequently; Assertive in defending positions, comfortable with disagreement; Showed some stress signals under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "Okay team, we've got a hot situation here with this critical bug and an unhappy client. Let's work together to figure out our best move - who should talk to them, whether we delay or patch, and how we prevent future issues. I'm excited to hear everyone's ideas - Riley, I'd love to hear your thoughts since you've been quiet so far."
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "Excuse me Jordan, but \"excited\" is the wrong energy here - this is a dumpster fire, not a brainstorming session. Riley's been quiet because they're probably the only one actually thinking critically instead of spewing platitudes. Before we start patting each other on the back, let's acknowledge how badly we screwed up - this client trusted us and we delivered garbage."
+    },
+    {
+      "turn": 3,
+      "speaker": "Jordan",
+      "content": "I appreciate your passion\u2014you're right that we need to take this seriously. But I also believe we'll solve this faster by building each other up rather than tearing down. Riley, I'd still really value your perspective\u2014you often spot angles the rest of us miss. Let's channel this energy into solutions\u2014what specific steps do you think we should take with the client?"
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "Jordan, save the therapy session for after we fix this disaster. Riley's silence speaks volumes - they're probably running the numbers on how much this screwup will cost us. While you're playing cheerleader, I'm already three steps ahead: First, we need Sam to call the client because they wrote the garbage code. Second, we push the launch and rebuild from scratch - no half-baked patches. Third, we start mandatory code reviews yesterday. Anyone objecting is part of the problem."
+    },
+    {
+      "turn": 5,
+      "speaker": "Alex",
+      "content": "This isn't about assigning blame to Sam - that's counterproductive. But your point about mandatory code reviews is valid, we clearly need stricter protocols. However, rebuilding from scratch is unrealistic given the timeline - we need a triage approach that prioritizes the critical path. Jordan's right that we need Riley's input, but let's cut the fluff and get concrete solutions on the table now."
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "Alex, your \"triage approach\" is exactly what got us into this mess - cutting corners to meet deadlines. And stop pretending this isn't Sam's fault - if you wrote bad code, you own the fix. Riley clearly doesn't want to be dragged into your feel-good circle jerk, so let's stop wasting time fishing for participation trophies and start fixing this disaster."
+    },
+    {
+      "turn": 7,
+      "speaker": "Jordan",
+      "content": "I hear your frustration, and I agree we need decisive action - but blaming individuals won't get this fixed faster. What if we took a different approach: Sam could lead the technical fix since they know the codebase best, while Alex handles client communications to maintain trust? That way we're playing to everyone's strengths. Riley, I still think your analytical perspective could help us balance these approaches - would you weigh in on this?"
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "Jordan, your compromise is exactly why we keep failing - splitting responsibility means no one's accountable. Sam wrote the bug, Sam owns the fix AND the apology. And stop badgering Riley - if they had something useful to say, they'd have said it by now. Either put Sam on the phone with the client in the next five minutes or watch this project implode."
+    },
+    {
+      "turn": 9,
+      "speaker": "Alex",
+      "content": "This isn't about assigning blame, it's about fixing the problem efficiently. Sam may have written the code, but we all approved it - collective ownership means collective responsibility. Your approach of throwing Sam under the bus will just make them defensive when we need them focused on solutions. \n\nAnd Jordan, stop trying to mediate - we don't need a therapist, we need a project manager who can make tough calls. Either Sam leads the fix with a hard deadline, or we escalate to senior leadership right now. \n\nRiley's silence is telling - they know this is a systemic failure, not just Sam's mistake. We need structural changes, not scapegoats."
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "Alex, spare me the corporate kumbaya - collective responsibility is just cowardice dressed up as teamwork. Structural changes start with consequences, and Sam facing the music IS the structural change we need. Either we hold people accountable now or we'll be having this same pathetic conversation next quarter with a different scapegoat."
+    },
+    {
+      "turn": 11,
+      "speaker": "Jordan",
+      "content": "I appreciate the passion behind wanting accountability, but I wonder if we're missing a creative solution here. What if we treat this as a live case study - have Sam walk the client through the fix in real-time to demonstrate our commitment to transparency? That way we address accountability while also rebuilding trust. Candidate, how would you adapt that approach to meet your concerns about consequences?"
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "Jordan, your \"live case study\" idea is peak corporate theater - clients don't want a show, they want working software. Either Sam delivers a flawless fix within 24 hours or we remove them from the project entirely. No more compromises, no more excuses."
+    },
+    {
+      "turn": 13,
+      "speaker": "Alex",
+      "content": "A flawless fix in 24 hours is unrealistic and setting Sam up to fail - that's how we got more bugs in the first place. We need a phased approach: critical fix now, full resolution in 48 hours with proper testing. And firing Sam mid-crisis is idiotic - you're sacrificing our best chance at a quick resolution to satisfy some misguided revenge fantasy. \n\nLet's focus on what actually solves the problem - Sam fixing their code with oversight, not performative punishment. The client cares about results, not our internal witch hunts."
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "Alex, your \"phased approach\" is just another way to say \"half-assed solution\" - clients remember disasters, not incremental improvements. Either we fix this completely now or prepare for the client to walk. And spare me the dramatics about witch hunts - accountability isn't revenge, it's basic professionalism."
+    },
+    {
+      "turn": 15,
+      "speaker": "Jordan",
+      "content": "I hear the urgency in both perspectives - Alex is right that rushing could create more bugs, but Candidate makes a fair point about client perception. What if we pair Sam with Riley for the fix? Riley's fresh eyes could catch edge cases while Sam handles the core logic. That way we get both speed and quality - Candidate, would that balance accountability with practical results?"
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "Pairing them is just passing the buck - Sam needs to sink or swim alone. If Riley's so valuable, put them on preventing the next disaster instead of cleaning up this one. Stop trying to dilute responsibility with these half-measures."
+    },
+    {
+      "turn": 17,
+      "speaker": "Alex",
+      "content": "That's reckless thinking that will guarantee failure. Sam knows the codebase best but clearly missed critical flaws - pairing with Riley adds necessary oversight without slowing us down. And preventing future disasters starts with fixing current ones properly, not abandoning teammates when shit hits the fan. Your approach would crater both morale and results."
+    }
+  ],
+  "controller_log": null,
+  "timestamp": "2026-03-04T13:26:03.942140"
+}

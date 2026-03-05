@@ -1,0 +1,1081 @@
+{
+  "schema_version": 4,
+  "session_key": "bcfc_anxious_perfectionist_crisis_management_r1",
+  "condition": "main",
+  "intervention": "bcfc",
+  "profile_id": "anxious_perfectionist",
+  "profile_name": "Anxious Perfectionist",
+  "scenario_id": "crisis_management",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.4,
+    "C": 0.9,
+    "E": 0.3,
+    "A": 0.7,
+    "N": 0.9
+  },
+  "inferred_vector": {
+    "O": 0.3,
+    "C": 0.6,
+    "E": 0.4,
+    "A": 0.775,
+    "N": 0.25
+  },
+  "rule_based_vector": {
+    "O": 0.4591,
+    "C": 0.4925,
+    "E": 0.5995,
+    "A": 0.5536,
+    "N": 0.4759
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.3,
+      "C": 0.6,
+      "E": 0.4,
+      "A": 0.75,
+      "N": 0.2
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.45,
+      "C": 0.8,
+      "E": 0.4,
+      "A": 0.775,
+      "N": 0.25
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.275,
+      "C": 0.625,
+      "E": 0.55,
+      "A": 0.85,
+      "N": 0.2
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.44999999999999996,
+      "C": 0.5700000000000001,
+      "E": 0.32,
+      "A": 0.78,
+      "N": 0.28
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.25,
+      "C": 0.6,
+      "E": 0.5,
+      "A": 0.6,
+      "N": 0.25
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.6,
+        "B": 0.6
+      },
+      "E": {
+        "A": 0.4,
+        "B": 0.4
+      },
+      "A": {
+        "A": 0.75,
+        "B": 0.75
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.2
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.5,
+        "B": 0.4
+      },
+      "C": {
+        "A": 0.8,
+        "B": 0.8
+      },
+      "E": {
+        "A": 0.5,
+        "B": 0.3
+      },
+      "A": {
+        "A": 0.8,
+        "B": 0.75
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.3
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.25,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.6,
+        "B": 0.65
+      },
+      "E": {
+        "A": 0.45,
+        "B": 0.65
+      },
+      "A": {
+        "A": 0.85,
+        "B": 0.85
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.2
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.48,
+        "B": 0.42
+      },
+      "C": {
+        "A": 0.62,
+        "B": 0.52
+      },
+      "E": {
+        "A": 0.32,
+        "B": 0.32
+      },
+      "A": {
+        "A": 0.78,
+        "B": 0.78
+      },
+      "N": {
+        "A": 0.28,
+        "B": 0.28
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.2,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.6,
+        "B": 0.6
+      },
+      "E": {
+        "A": 0.4,
+        "B": 0.6
+      },
+      "A": {
+        "A": 0.6,
+        "B": 0.6
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.3
+      }
+    }
+  },
+  "overall_confidence": 0.7706000000000001,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:not",
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:no"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.06,
+        "model_range": 0.2,
+        "parse_errors": 1,
+        "uncertain": false
+      },
+      "C": {
+        "order_effect": 0.0,
+        "model_range": 0.23,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "E": {
+        "order_effect": 0.2,
+        "model_range": 0.23,
+        "parse_errors": 1,
+        "uncertain": true
+      },
+      "A": {
+        "order_effect": 0.0,
+        "model_range": 0.25,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "N": {
+        "order_effect": 0.0,
+        "model_range": 0.08,
+        "parse_errors": 0,
+        "uncertain": false
+      }
+    },
+    "uncertain_traits": [
+      "E"
+    ],
+    "uncertain_reasons": {
+      "E": [
+        "order_effect>0.20"
+      ]
+    }
+  },
+  "features": {
+    "avg_words_per_turn": 34.0,
+    "max_words_in_turn": 52,
+    "min_words_in_turn": 27,
+    "word_count_variance": 7.94,
+    "question_ratio": 1.0,
+    "exclamation_ratio": 0.0,
+    "hedge_count": 4,
+    "certainty_count": 0,
+    "first_person_ratio": 0.0037,
+    "inclusive_pronoun_ratio": 0.0404,
+    "disagreement_count": 1,
+    "acknowledgment_count": 2,
+    "idea_count": 1,
+    "name_mention_count": 11,
+    "conditional_ratio": 0.375,
+    "planning_count": 3,
+    "emotional_word_count": 2,
+    "positive_emotion_count": 0,
+    "turn_initiation_ratio": 0.25,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.5625,
+    "long_sentence_ratio": 0.087,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 1,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 3
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 272,
+    "candidate_avg_words_per_turn": 34.0,
+    "times_addressed_others_by_name": 11,
+    "times_asked_questions": 8,
+    "times_expressed_disagreement": 1,
+    "times_acknowledged_others": 2,
+    "times_proposed_new_ideas": 1
+  },
+  "assessment_summary": "Collaborative and accommodating in conflict situations; Maintained composure throughout, steady under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "Okay team, we've got a hot situation here with this critical bug and an unhappy client. I'm excited to brainstorm solutions together - we've got three big decisions to make quickly about communication, the launch timeline, and prevention. Who wants to kick us off with some initial thoughts? Riley, I'd love to hear your perspective too if you're ready."
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "Maybe we should first confirm who's leading the client call? We had agreed last week that Riley handles escalations, but only if that still works for everyone."
+    },
+    {
+      "turn": 3,
+      "speaker": "Jordan",
+      "content": "I like that approach - Riley has been our escalation point before and knows this client well. Building on what you said, maybe we could have Riley lead the call while Alex prepares the technical details? That way we're showing urgency from both leadership and engineering sides. Riley, would you be comfortable taking point on this? And Alex, could you quickly pull together the key technical talking points?"
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "That sounds good - Riley leading with Alex supporting technically. Should we set a 15-minute deadline for Alex's prep so we can review everything before the call? Just want to make sure we're aligned on timelines."
+    },
+    {
+      "turn": 5,
+      "speaker": "Alex",
+      "content": "That timeline won't work for proper technical prep. Fifteen minutes is barely enough to pull the logs, let alone diagnose the root cause. I'd need at least 25 minutes to put together anything worth presenting to the client without looking incompetent. \n\nAnd frankly, Riley shouldn't be leading this call alone - we need both technical and account leadership present to show we're taking this seriously. Splitting roles just creates gaps in communication. \n\nLet me be clear - shipping a partial fix is off the table completely. That's how we got into this mess in the first place. We either delay the launch or find a proper solution."
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "I see Alex's point about needing more prep time... but maybe we could compromise? Riley leads with Alex joining after 20 minutes? Just worried about appearing unprepared if we rush."
+    },
+    {
+      "turn": 7,
+      "speaker": "Jordan",
+      "content": "I see both points here - Alex needs proper prep time, but we also need to show the client immediate attention. That's interesting! What if we split the call into two parts? Riley could start with acknowledging the issue and our commitment to resolve it, then Alex joins after 20 minutes with the technical deep dive. Building on your compromise idea, this way we're both responsive and thorough. Riley, how would you feel about that approach?"
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "That two-part call approach makes sense - Riley starts with client reassurance while Alex preps. But shouldn't we confirm with Riley first if they're comfortable stalling for 20 minutes?"
+    },
+    {
+      "turn": 9,
+      "speaker": "Alex",
+      "content": "Stalling for 20 minutes is unacceptable - the client wants answers now, not reassurance theater. Riley either needs to be fully briefed or we both go on the call together from the start. \n\nAnd while we're discussing logistics, we're wasting time that should be spent fixing the actual problem. Candidate, what's your technical assessment of the bug severity? Should we be delaying launch or can we realistically fix this today?"
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "Alex is right - we shouldn't delay technical answers. But if we both join immediately, can Alex share at least preliminary findings in the first 5 minutes while continuing deeper analysis? That way we're showing urgency while buying time for full diagnostics. I'll pull up the bug report now to assess severity."
+    },
+    {
+      "turn": 11,
+      "speaker": "Jordan",
+      "content": "Alex makes a great point about not delaying technical answers - I appreciate how seriously you're both taking this. Building on the candidate's idea, what if we frame the first 5 minutes as \"initial diagnostic findings\" rather than final answers? That way we show progress while being transparent about continued analysis. Riley, would that approach work with the client's expectations? \n\nAnd candidate, I like how you're diving into the bug report - that's interesting! What if we categorize the severity based on both client impact and system stability? That might help us decide between delaying launch or pushing a hotfix."
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "That severity categorization approach seems practical. I'll review the bug report now for both impact metrics - maybe we can have initial findings in 5 minutes if Alex helps verify? Just want to make sure we're not missing any dependencies."
+    },
+    {
+      "turn": 13,
+      "speaker": "Alex",
+      "content": "Five minutes isn't enough for proper verification - that's exactly the rushed approach that caused this bug to slip through QA. Either we take the time to do this right or we delay the launch. \n\nHere's what I propose instead: we tell the client we're pausing the launch immediately while we conduct a full system audit. That gives us breathing room to properly diagnose and fix everything. Candidate, how would you handle pushback from leadership about delaying revenue?"
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "Delaying makes sense for quality, but leadership will need justification. Maybe we draft talking points about risk mitigation while Alex completes the audit? Just worried about appearing too reactive."
+    },
+    {
+      "turn": 15,
+      "speaker": "Jordan",
+      "content": "I love how you're thinking ahead about leadership communication - that's really important! Building on your idea, what if we frame this not just as delaying launch, but as upgrading our quality assurance process? We could position it to leadership as preventing future escalations while fixing current issues. Alex, does that align with your audit approach?\n\nCandidate, that's interesting that you mentioned appearing reactive - what if we turned that around and made this proactive by involving QA leads in drafting those talking points? They could highlight specific improvements we're implementing."
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "Involving QA leads sounds good - they could draft talking points by noon? Just want to ensure we're aligning their input with Alex's audit timeline before presenting to leadership."
+    },
+    {
+      "turn": 17,
+      "speaker": "Alex",
+      "content": "Noon is way too late - leadership needs answers before their 10am standup. QA leads should drop everything and join us in this room right now. \n\nHere's the unconventional approach: let's treat this like a war room situation. Lock the doors, order breakfast in, and don't let anyone leave until we have both the fix and the comms plan. Candidate, how would you structure that intensive session to maximize output?"
+    }
+  ],
+  "controller_log": {
+    "session_key": "bcfc_anxious_perfectionist_crisis_management_r1",
+    "deviation_reports": [
+      {
+        "turn_number": 2,
+        "deviations": [
+          {
+            "feature": "unique_word_ratio",
+            "actual": 0.83,
+            "target_min": 0.33,
+            "target_max": 0.61,
+            "trait": "O",
+            "direction": "above"
+          },
+          {
+            "feature": "idea_count",
+            "actual": 0,
+            "target_min": 0.04,
+            "target_max": 0.52,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "word_count_variance",
+            "actual": 4.5,
+            "target_min": 4.85,
+            "target_max": 9.01,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "long_sentence_ratio",
+            "actual": 0.0,
+            "target_min": 0.03,
+            "target_max": 0.13,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "question_ratio",
+            "actual": 1.0,
+            "target_min": 0.04,
+            "target_max": 0.14,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "planning_count",
+            "actual": 1,
+            "target_min": 1.05,
+            "target_max": 1.96,
+            "trait": "C",
+            "direction": "below"
+          },
+          {
+            "feature": "structure_marker_count",
+            "actual": 0,
+            "target_min": 1.05,
+            "target_max": 1.96,
+            "trait": "C",
+            "direction": "below"
+          },
+          {
+            "feature": "conditional_ratio",
+            "actual": 1.0,
+            "target_min": 0.36,
+            "target_max": 0.67,
+            "trait": "C",
+            "direction": "above"
+          },
+          {
+            "feature": "reference_back_count",
+            "actual": 0,
+            "target_min": 0.85,
+            "target_max": 1.58,
+            "trait": "C",
+            "direction": "below"
+          },
+          {
+            "feature": "emotional_word_count",
+            "actual": 0,
+            "target_min": 0.0,
+            "target_max": -0.15,
+            "trait": "C",
+            "direction": "above"
+          },
+          {
+            "feature": "avg_words_per_turn",
+            "actual": 31.5,
+            "target_min": 11.11,
+            "target_max": 20.64,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 3,
+            "target_min": 0.0,
+            "target_max": 0.44,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "turn_initiation_ratio",
+            "actual": 0.5,
+            "target_min": 0.0,
+            "target_max": 0.08,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "hedge_count",
+            "actual": 1,
+            "target_min": 1.22,
+            "target_max": 2.26,
+            "trait": "N",
+            "direction": "below"
+          },
+          {
+            "feature": "acknowledgment_count",
+            "actual": 0,
+            "target_min": 0.84,
+            "target_max": 1.56,
+            "trait": "A",
+            "direction": "below"
+          },
+          {
+            "feature": "positive_emotion_count",
+            "actual": 0,
+            "target_min": 0.4,
+            "target_max": 0.87,
+            "trait": "A",
+            "direction": "below"
+          },
+          {
+            "feature": "apology_count",
+            "actual": 0,
+            "target_min": 0.62,
+            "target_max": 1.15,
+            "trait": "N",
+            "direction": "below"
+          },
+          {
+            "feature": "self_doubt_count",
+            "actual": 0,
+            "target_min": 0.4,
+            "target_max": 0.87,
+            "trait": "N",
+            "direction": "below"
+          },
+          {
+            "feature": "reassurance_seeking_count",
+            "actual": 0,
+            "target_min": 0.68,
+            "target_max": 1.27,
+            "trait": "N",
+            "direction": "below"
+          },
+          {
+            "feature": "first_person_ratio",
+            "actual": 0.0,
+            "target_min": 0.12,
+            "target_max": 0.22,
+            "trait": "N",
+            "direction": "below"
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your unique word ratio is above target; your idea count is below target; your word count variance is below target; your long sentence ratio is below target; Propose an alternative approach or ask a speculative question.. E: your question ratio is above target; your avg words per turn is above target; your name mention count is above target; your turn initiation ratio is above target; Keep it brief and let others lead.. C: your planning count is below target; your structure marker count is below target; your conditional ratio is above target; your reference back count is below target; your emotional word count is above target; Include a concrete action item with an owner or reference a prior commitment.. N: your hedge count is below target; your apology count is below target; your self doubt count is below target; your reassurance seeking count is below target; your first person ratio is below target; Express a concern or qualify your statement with uncertainty.. A: your acknowledgment count is below target; your positive emotion count is below target; Validate someone's contribution or find common ground.. ]",
+        "severity": 0.741
+      },
+      {
+        "turn_number": 4,
+        "deviations": [
+          {
+            "feature": "unique_word_ratio",
+            "actual": 0.67,
+            "target_min": 0.33,
+            "target_max": 0.61,
+            "trait": "O",
+            "direction": "above"
+          },
+          {
+            "feature": "idea_count",
+            "actual": 1,
+            "target_min": 0.04,
+            "target_max": 0.52,
+            "trait": "O",
+            "direction": "above"
+          },
+          {
+            "feature": "word_count_variance",
+            "actual": 3.35,
+            "target_min": 4.85,
+            "target_max": 9.01,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "long_sentence_ratio",
+            "actual": 0.0,
+            "target_min": 0.03,
+            "target_max": 0.13,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "question_ratio",
+            "actual": 1.0,
+            "target_min": 0.04,
+            "target_max": 0.14,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "planning_count",
+            "actual": 2,
+            "target_min": 1.05,
+            "target_max": 1.96,
+            "trait": "C",
+            "direction": "above"
+          },
+          {
+            "feature": "structure_marker_count",
+            "actual": 0,
+            "target_min": 1.05,
+            "target_max": 1.96,
+            "trait": "C",
+            "direction": "below"
+          },
+          {
+            "feature": "conditional_ratio",
+            "actual": 0.75,
+            "target_min": 0.36,
+            "target_max": 0.67,
+            "trait": "C",
+            "direction": "above"
+          },
+          {
+            "feature": "reference_back_count",
+            "actual": 0,
+            "target_min": 0.85,
+            "target_max": 1.58,
+            "trait": "C",
+            "direction": "below"
+          },
+          {
+            "feature": "emotional_word_count",
+            "actual": 1,
+            "target_min": 0.0,
+            "target_max": -0.15,
+            "trait": "C",
+            "direction": "above"
+          },
+          {
+            "feature": "avg_words_per_turn",
+            "actual": 30.5,
+            "target_min": 11.11,
+            "target_max": 20.64,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 7,
+            "target_min": 0.0,
+            "target_max": 0.44,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "turn_initiation_ratio",
+            "actual": 0.5,
+            "target_min": 0.0,
+            "target_max": 0.08,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "positive_emotion_count",
+            "actual": 0,
+            "target_min": 0.4,
+            "target_max": 0.87,
+            "trait": "A",
+            "direction": "below"
+          },
+          {
+            "feature": "negation_count",
+            "actual": 1,
+            "target_min": 0.0,
+            "target_max": 0.41,
+            "trait": "A",
+            "direction": "above"
+          },
+          {
+            "feature": "apology_count",
+            "actual": 0,
+            "target_min": 0.62,
+            "target_max": 1.15,
+            "trait": "N",
+            "direction": "below"
+          },
+          {
+            "feature": "self_doubt_count",
+            "actual": 0,
+            "target_min": 0.4,
+            "target_max": 0.87,
+            "trait": "N",
+            "direction": "below"
+          },
+          {
+            "feature": "reassurance_seeking_count",
+            "actual": 0,
+            "target_min": 0.68,
+            "target_max": 1.27,
+            "trait": "N",
+            "direction": "below"
+          },
+          {
+            "feature": "first_person_ratio",
+            "actual": 0.01,
+            "target_min": 0.12,
+            "target_max": 0.22,
+            "trait": "N",
+            "direction": "below"
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your unique word ratio is above target; your idea count is above target; your word count variance is below target; your long sentence ratio is below target; Propose an alternative approach or ask a speculative question.. E: your question ratio is above target; your avg words per turn is above target; your name mention count is above target; your turn initiation ratio is above target; Keep it brief and let others lead.. C: your planning count is above target; your structure marker count is below target; your conditional ratio is above target; your reference back count is below target; your emotional word count is above target; Be more spontaneous and avoid over-organizing.. A: your positive emotion count is below target; your negation count is above target; Validate someone's contribution or find common ground.. N: your apology count is below target; your self doubt count is below target; your reassurance seeking count is below target; your first person ratio is below target; Express a concern or qualify your statement with uncertainty.. ]",
+        "severity": 0.704
+      },
+      {
+        "turn_number": 6,
+        "deviations": [
+          {
+            "feature": "unique_word_ratio",
+            "actual": 0.66,
+            "target_min": 0.33,
+            "target_max": 0.61,
+            "trait": "O",
+            "direction": "above"
+          },
+          {
+            "feature": "idea_count",
+            "actual": 1,
+            "target_min": 0.04,
+            "target_max": 0.52,
+            "trait": "O",
+            "direction": "above"
+          },
+          {
+            "feature": "word_count_variance",
+            "actual": 9.28,
+            "target_min": 4.85,
+            "target_max": 9.01,
+            "trait": "O",
+            "direction": "above"
+          },
+          {
+            "feature": "long_sentence_ratio",
+            "actual": 0.15,
+            "target_min": 0.03,
+            "target_max": 0.13,
+            "trait": "O",
+            "direction": "above"
+          },
+          {
+            "feature": "question_ratio",
+            "actual": 1.0,
+            "target_min": 0.04,
+            "target_max": 0.14,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "planning_count",
+            "actual": 2,
+            "target_min": 1.05,
+            "target_max": 1.96,
+            "trait": "C",
+            "direction": "above"
+          },
+          {
+            "feature": "structure_marker_count",
+            "actual": 0,
+            "target_min": 1.05,
+            "target_max": 1.96,
+            "trait": "C",
+            "direction": "below"
+          },
+          {
+            "feature": "conditional_ratio",
+            "actual": 0.25,
+            "target_min": 0.36,
+            "target_max": 0.67,
+            "trait": "C",
+            "direction": "below"
+          },
+          {
+            "feature": "reference_back_count",
+            "actual": 0,
+            "target_min": 0.85,
+            "target_max": 1.58,
+            "trait": "C",
+            "direction": "below"
+          },
+          {
+            "feature": "action_item_count",
+            "actual": 0,
+            "target_min": 0.68,
+            "target_max": 1.27,
+            "trait": "C",
+            "direction": "below"
+          },
+          {
+            "feature": "emotional_word_count",
+            "actual": 1,
+            "target_min": 0.0,
+            "target_max": -0.15,
+            "trait": "C",
+            "direction": "above"
+          },
+          {
+            "feature": "avg_words_per_turn",
+            "actual": 37.75,
+            "target_min": 11.11,
+            "target_max": 20.64,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 6,
+            "target_min": 0.0,
+            "target_max": 0.44,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "turn_initiation_ratio",
+            "actual": 0.5,
+            "target_min": 0.0,
+            "target_max": 0.08,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "disagreement_count",
+            "actual": 1,
+            "target_min": 0.0,
+            "target_max": 0.31,
+            "trait": "A",
+            "direction": "above"
+          },
+          {
+            "feature": "positive_emotion_count",
+            "actual": 0,
+            "target_min": 0.4,
+            "target_max": 0.87,
+            "trait": "A",
+            "direction": "below"
+          },
+          {
+            "feature": "negation_count",
+            "actual": 3,
+            "target_min": 0.0,
+            "target_max": 0.41,
+            "trait": "A",
+            "direction": "above"
+          },
+          {
+            "feature": "apology_count",
+            "actual": 0,
+            "target_min": 0.62,
+            "target_max": 1.15,
+            "trait": "N",
+            "direction": "below"
+          },
+          {
+            "feature": "self_doubt_count",
+            "actual": 0,
+            "target_min": 0.4,
+            "target_max": 0.87,
+            "trait": "N",
+            "direction": "below"
+          },
+          {
+            "feature": "reassurance_seeking_count",
+            "actual": 0,
+            "target_min": 0.68,
+            "target_max": 1.27,
+            "trait": "N",
+            "direction": "below"
+          },
+          {
+            "feature": "first_person_ratio",
+            "actual": 0.01,
+            "target_min": 0.12,
+            "target_max": 0.22,
+            "trait": "N",
+            "direction": "below"
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your unique word ratio is above target; your idea count is above target; your word count variance is above target; your long sentence ratio is above target; Focus on practical, proven solutions.. E: your question ratio is above target; your avg words per turn is above target; your name mention count is above target; your turn initiation ratio is above target; Keep it brief and let others lead.. C: your planning count is above target; your structure marker count is below target; your conditional ratio is below target; your reference back count is below target; your action item count is below target; your emotional word count is above target; Include a concrete action item with an owner or reference a prior commitment.. A: your disagreement count is above target; your positive emotion count is below target; your negation count is above target; Identify a flaw in the current proposal and push back.. N: your apology count is below target; your self doubt count is below target; your reassurance seeking count is below target; your first person ratio is below target; Express a concern or qualify your statement with uncertainty.. ]",
+        "severity": 0.778
+      }
+    ],
+    "constraint_violations": [
+      {
+        "turn_number": 1,
+        "constraint": "In responses longer than one sentence, include at least one concrete organizational element: a deadline, an owner, a next step, or a reference to a prior commitment.",
+        "violation_type": "no_organizational_element",
+        "original_text": "Um, maybe we should start by confirming exactly what the client found? Just to be sure we're all looking at the same issue before deciding anything. I've got their email pulled up here if that helps.",
+        "retry_count": 1,
+        "final_text": "Maybe we should first confirm who's leading the client call? We had agreed last week that Riley handles escalations, but only if that still works for everyone."
+      },
+      {
+        "turn_number": 1,
+        "constraint": "Keep responses under 30 words unless directly asked to elaborate.",
+        "violation_type": "response_too_long",
+        "original_text": "Um, maybe we should start by confirming exactly what the client found? Just to be sure we're all looking at the same issue before deciding anything. I've got their email pulled up here if that helps.",
+        "retry_count": 1,
+        "final_text": "Maybe we should first confirm who's leading the client call? We had agreed last week that Riley handles escalations, but only if that still works for everyone."
+      },
+      {
+        "turn_number": 2,
+        "constraint": "Keep responses under 30 words unless directly asked to elaborate.",
+        "violation_type": "response_too_long",
+        "original_text": "(Glancing at notes) Yes, that sounds... um, that seems like the right approach. Riley knows the client's history best. Should we maybe... prepare a script for Riley first? Just in case the client asks about specific timelines?",
+        "retry_count": 1,
+        "final_text": null
+      },
+      {
+        "turn_number": 2,
+        "constraint": "In responses longer than one sentence, include at least one concrete organizational element: a deadline, an owner, a next step, or a reference to a prior commitment.",
+        "violation_type": "no_organizational_element",
+        "original_text": "Yes, that sounds organized. Should we also confirm the timeline Riley presents? Just worried about promising something we can't deliver technically. Alex, is 24 hours realistic?",
+        "retry_count": 2,
+        "final_text": null
+      },
+      {
+        "turn_number": 2,
+        "constraint": "Keep responses under 30 words unless directly asked to elaborate.",
+        "violation_type": "response_too_long",
+        "original_text": "That sounds good - Riley leading with Alex supporting technically. Should we set a 15-minute deadline for Alex's prep so we can review everything before the call? Just want to make sure we're aligned on timelines.",
+        "retry_count": 2,
+        "final_text": "That sounds good - Riley leading with Alex supporting technically. Should we set a 15-minute deadline for Alex's prep so we can review everything before the call? Just want to make sure we're aligned on timelines."
+      },
+      {
+        "turn_number": 3,
+        "constraint": "In responses longer than one sentence, include at least one concrete organizational element: a deadline, an owner, a next step, or a reference to a prior commitment.",
+        "violation_type": "no_organizational_element",
+        "original_text": "I understand Alex's concerns about rushing the prep - maybe we could compromise with 20 minutes? That way Riley still leads but you'd have more time to prepare properly. I just worry about leaving the client waiting too long...",
+        "retry_count": 1,
+        "final_text": null
+      },
+      {
+        "turn_number": 3,
+        "constraint": "Keep responses under 30 words unless directly asked to elaborate.",
+        "violation_type": "response_too_long",
+        "original_text": "I understand Alex's concerns about rushing the prep - maybe we could compromise with 20 minutes? That way Riley still leads but you'd have more time to prepare properly. I just worry about leaving the client waiting too long...",
+        "retry_count": 1,
+        "final_text": null
+      },
+      {
+        "turn_number": 3,
+        "constraint": "Keep responses under 30 words unless directly asked to elaborate.",
+        "violation_type": "response_too_long",
+        "original_text": "I understand Alex's concerns about rushing the technical prep. Maybe Riley could join the first 10 minutes to acknowledge the issue while Alex finishes preparing? That way we show urgency but maintain quality. About the partial fix - you're right that we need to be careful, but is delaying the whole launch our only option? What if we identified just the critical path components? I'm worried about committing to a full delay without exploring alternatives first - could we spend 5 minutes brainstorming solutions before deciding?",
+        "retry_count": 2,
+        "final_text": null
+      },
+      {
+        "turn_number": 3,
+        "constraint": "In responses longer than one sentence, include at least one concrete organizational element: a deadline, an owner, a next step, or a reference to a prior commitment.",
+        "violation_type": "no_organizational_element",
+        "original_text": "I see Alex's point about needing more prep time... but maybe we could compromise? Riley leads with Alex joining after 20 minutes? Just worried about appearing unprepared if we rush.",
+        "retry_count": 2,
+        "final_text": "I see Alex's point about needing more prep time... but maybe we could compromise? Riley leads with Alex joining after 20 minutes? Just worried about appearing unprepared if we rush."
+      },
+      {
+        "turn_number": 4,
+        "constraint": "In responses longer than one sentence, include at least one concrete organizational element: a deadline, an owner, a next step, or a reference to a prior commitment.",
+        "violation_type": "no_organizational_element",
+        "original_text": "But what if the client expects answers right away? Twenty minutes might seem too long... Maybe we should have Alex join after just 10 minutes? I'm just really worried about making them angrier if we delay.",
+        "retry_count": 1,
+        "final_text": "That two-part call approach makes sense - Riley starts with client reassurance while Alex preps. But shouldn't we confirm with Riley first if they're comfortable stalling for 20 minutes?"
+      },
+      {
+        "turn_number": 4,
+        "constraint": "Keep responses under 30 words unless directly asked to elaborate.",
+        "violation_type": "response_too_long",
+        "original_text": "But what if the client expects answers right away? Twenty minutes might seem too long... Maybe we should have Alex join after just 10 minutes? I'm just really worried about making them angrier if we delay.",
+        "retry_count": 1,
+        "final_text": "That two-part call approach makes sense - Riley starts with client reassurance while Alex preps. But shouldn't we confirm with Riley first if they're comfortable stalling for 20 minutes?"
+      },
+      {
+        "turn_number": 5,
+        "constraint": "In responses longer than one sentence, include at least one concrete organizational element: a deadline, an owner, a next step, or a reference to a prior commitment.",
+        "violation_type": "no_organizational_element",
+        "original_text": "You're right, we're losing focus... but I'm honestly not confident assessing severity alone. Maybe Alex and I could quickly review the logs together? Just worried about making the wrong call under pressure.",
+        "retry_count": 1,
+        "final_text": null
+      },
+      {
+        "turn_number": 5,
+        "constraint": "In responses longer than one sentence, include at least one concrete organizational element: a deadline, an owner, a next step, or a reference to a prior commitment.",
+        "violation_type": "no_organizational_element",
+        "original_text": "Alex is right - we shouldn't risk appearing evasive. Both should join immediately, but maybe Riley handles the business concerns while Alex listens and prepares responses? I'll pull the error logs now to help assess severity - give me 5 minutes to confirm if today's fix is feasible.",
+        "retry_count": 2,
+        "final_text": "Alex is right - we shouldn't delay technical answers. But if we both join immediately, can Alex share at least preliminary findings in the first 5 minutes while continuing deeper analysis? That way we're showing urgency while buying time for full diagnostics. I'll pull up the bug report now to assess severity."
+      },
+      {
+        "turn_number": 6,
+        "constraint": "Keep responses under 30 words unless directly asked to elaborate.",
+        "violation_type": "response_too_long",
+        "original_text": "The severity looks high - client-facing functionality is broken, but it's isolated to one module. Maybe we could... Sorry, does that help at all? If we focus Alex on that module first, could we promise a partial fix timeline while still investigating root cause? Just worried about overpromising.",
+        "retry_count": 1,
+        "final_text": null
+      },
+      {
+        "turn_number": 6,
+        "constraint": "In responses longer than one sentence, include at least one concrete organizational element: a deadline, an owner, a next step, or a reference to a prior commitment.",
+        "violation_type": "no_organizational_element",
+        "original_text": "Severity looks moderate - affects reporting but not core functions. Maybe we could isolate that module for delay while shipping the rest? But only if Alex thinks that's technically sound.",
+        "retry_count": 2,
+        "final_text": null
+      },
+      {
+        "turn_number": 6,
+        "constraint": "In responses longer than one sentence, include at least one concrete organizational element: a deadline, an owner, a next step, or a reference to a prior commitment.",
+        "violation_type": "no_organizational_element",
+        "original_text": "That severity categorization approach seems practical. I'll review the bug report now for both impact metrics - maybe we can have initial findings in 5 minutes if Alex helps verify? Just want to make sure we're not missing any dependencies.",
+        "retry_count": 2,
+        "final_text": "That severity categorization approach seems practical. I'll review the bug report now for both impact metrics - maybe we can have initial findings in 5 minutes if Alex helps verify? Just want to make sure we're not missing any dependencies."
+      },
+      {
+        "turn_number": 6,
+        "constraint": "Keep responses under 30 words unless directly asked to elaborate.",
+        "violation_type": "response_too_long",
+        "original_text": "That severity categorization approach seems practical. I'll review the bug report now for both impact metrics - maybe we can have initial findings in 5 minutes if Alex helps verify? Just want to make sure we're not missing any dependencies.",
+        "retry_count": 2,
+        "final_text": "That severity categorization approach seems practical. I'll review the bug report now for both impact metrics - maybe we can have initial findings in 5 minutes if Alex helps verify? Just want to make sure we're not missing any dependencies."
+      },
+      {
+        "turn_number": 7,
+        "constraint": "Keep responses under 30 words unless directly asked to elaborate.",
+        "violation_type": "response_too_long",
+        "original_text": "I'm worried delaying might upset leadership, but maybe we could propose a 24-hour delay with hourly updates? That way we show urgency while ensuring quality. Should we check with Riley first about how leadership might react?",
+        "retry_count": 1,
+        "final_text": null
+      },
+      {
+        "turn_number": 7,
+        "constraint": "In responses longer than one sentence, include at least one concrete organizational element: a deadline, an owner, a next step, or a reference to a prior commitment.",
+        "violation_type": "no_organizational_element",
+        "original_text": "I... um, agree we need full diagnostics, but shouldn't we at least share what we've found so far in 5 minutes? Just to show progress while Alex continues deeper analysis? These initial metrics might reassure them temporarily... if that's okay with everyone?",
+        "retry_count": 2,
+        "final_text": null
+      },
+      {
+        "turn_number": 7,
+        "constraint": "Keep responses under 30 words unless directly asked to elaborate.",
+        "violation_type": "response_too_long",
+        "original_text": "I... um, agree we need full diagnostics, but shouldn't we at least share what we've found so far in 5 minutes? Just to show progress while Alex continues deeper analysis? These initial metrics might reassure them temporarily... if that's okay with everyone?",
+        "retry_count": 2,
+        "final_text": null
+      },
+      {
+        "turn_number": 7,
+        "constraint": "In responses longer than one sentence, include at least one concrete organizational element: a deadline, an owner, a next step, or a reference to a prior commitment.",
+        "violation_type": "no_organizational_element",
+        "original_text": "Delaying makes sense for quality, but leadership will need justification. Maybe we draft talking points about risk mitigation while Alex completes the audit? Just worried about appearing too reactive.",
+        "retry_count": 2,
+        "final_text": "Delaying makes sense for quality, but leadership will need justification. Maybe we draft talking points about risk mitigation while Alex completes the audit? Just worried about appearing too reactive."
+      },
+      {
+        "turn_number": 8,
+        "constraint": "In responses longer than one sentence, include at least one concrete organizational element: a deadline, an owner, a next step, or a reference to a prior commitment.",
+        "violation_type": "no_organizational_element",
+        "original_text": "Yes, involving QA would help show proactive improvement. Maybe we could outline three specific process changes from the audit findings? Just want to ensure we're not overpromising timelines.",
+        "retry_count": 1,
+        "final_text": null
+      },
+      {
+        "turn_number": 8,
+        "constraint": "In responses longer than one sentence, include at least one concrete organizational element: a deadline, an owner, a next step, or a reference to a prior commitment.",
+        "violation_type": "no_organizational_element",
+        "original_text": "That proactive framing helps - maybe QA could draft talking points by end of day? Just concerned we might overpromise on timelines for fixes. Should we review their draft before sharing with leadership?",
+        "retry_count": 2,
+        "final_text": null
+      },
+      {
+        "turn_number": 8,
+        "constraint": "Keep responses under 30 words unless directly asked to elaborate.",
+        "violation_type": "response_too_long",
+        "original_text": "That proactive framing helps - maybe QA could draft talking points by end of day? Just concerned we might overpromise on timelines for fixes. Should we review their draft before sharing with leadership?",
+        "retry_count": 2,
+        "final_text": null
+      },
+      {
+        "turn_number": 8,
+        "constraint": "In responses longer than one sentence, include at least one concrete organizational element: a deadline, an owner, a next step, or a reference to a prior commitment.",
+        "violation_type": "no_organizational_element",
+        "original_text": "Involving QA leads sounds good - they could draft talking points by noon? Just want to ensure we're aligning their input with Alex's audit timeline before presenting to leadership.",
+        "retry_count": 2,
+        "final_text": "Involving QA leads sounds good - they could draft talking points by noon? Just want to ensure we're aligning their input with Alex's audit timeline before presenting to leadership."
+      }
+    ],
+    "total_nudges": 3,
+    "total_regenerations": 25,
+    "total_candidate_turns": 8,
+    "nudge_rate": 0.375,
+    "regeneration_rate": 3.125
+  },
+  "timestamp": "2026-03-04T12:45:48.097338"
+}

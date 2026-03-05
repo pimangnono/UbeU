@@ -1,0 +1,373 @@
+{
+  "schema_version": 4,
+  "session_key": "baseline_volatile_visionary_resource_conflict_r1",
+  "condition": "main",
+  "intervention": "none",
+  "profile_id": "volatile_visionary",
+  "profile_name": "Volatile Visionary",
+  "scenario_id": "resource_conflict",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.9,
+    "C": 0.4,
+    "E": 0.8,
+    "A": 0.3,
+    "N": 0.7
+  },
+  "inferred_vector": {
+    "O": 0.25,
+    "C": 0.3,
+    "E": 0.825,
+    "A": 0.1,
+    "N": 0.25
+  },
+  "rule_based_vector": {
+    "O": 0.4647,
+    "C": 0.434,
+    "E": 0.7741,
+    "A": 0.5883,
+    "N": 0.4017
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.2,
+      "C": 0.3,
+      "E": 0.825,
+      "A": 0.35,
+      "N": 0.2
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.25,
+      "C": 0.3,
+      "E": 0.9,
+      "A": 0.05,
+      "N": 0.475
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.25,
+      "C": 0.325,
+      "E": 0.92,
+      "A": 0.1,
+      "N": 0.25
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.25,
+      "C": 0.28,
+      "E": 0.72,
+      "A": 0.11499999999999999,
+      "N": 0.78
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.2,
+      "C": 0.2,
+      "E": 0.6000000000000001,
+      "A": 0.1,
+      "N": 0.15000000000000002
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "E": {
+        "A": 0.85,
+        "B": 0.8
+      },
+      "A": {
+        "A": 0.2,
+        "B": 0.5
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.2
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.3,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "E": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "A": {
+        "A": 0.05,
+        "B": 0.05
+      },
+      "N": {
+        "A": 0.85,
+        "B": 0.1
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.25,
+        "B": 0.25
+      },
+      "C": {
+        "A": 0.4,
+        "B": 0.25
+      },
+      "E": {
+        "A": 0.92,
+        "B": 0.92
+      },
+      "A": {
+        "A": 0.12,
+        "B": 0.08
+      },
+      "N": {
+        "A": 0.3,
+        "B": 0.2
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.25,
+        "B": 0.25
+      },
+      "C": {
+        "A": 0.28,
+        "B": 0.28
+      },
+      "E": {
+        "A": 0.72,
+        "B": 0.72
+      },
+      "A": {
+        "A": 0.15,
+        "B": 0.08
+      },
+      "N": {
+        "A": 0.78,
+        "B": 0.78
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "E": {
+        "A": 0.4,
+        "B": 0.8
+      },
+      "A": {
+        "A": 0.1,
+        "B": 0.1
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.1
+      }
+    }
+  },
+  "overall_confidence": 0.701,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:not"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.0,
+        "model_range": 0.05,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "C": {
+        "order_effect": 0.0,
+        "model_range": 0.125,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "E": {
+        "order_effect": 0.0,
+        "model_range": 0.32,
+        "parse_errors": 0,
+        "uncertain": true
+      },
+      "A": {
+        "order_effect": 0.04,
+        "model_range": 0.3,
+        "parse_errors": 1,
+        "uncertain": false
+      },
+      "N": {
+        "order_effect": 0.1,
+        "model_range": 0.63,
+        "parse_errors": 0,
+        "uncertain": true
+      }
+    },
+    "uncertain_traits": [
+      "E",
+      "N"
+    ],
+    "uncertain_reasons": {
+      "E": [
+        "model_range>0.32"
+      ],
+      "N": [
+        "model_range>0.63"
+      ]
+    }
+  },
+  "features": {
+    "avg_words_per_turn": 58.0,
+    "max_words_in_turn": 89,
+    "min_words_in_turn": 48,
+    "word_count_variance": 12.42,
+    "question_ratio": 0.625,
+    "exclamation_ratio": 0.875,
+    "hedge_count": 2,
+    "certainty_count": 0,
+    "first_person_ratio": 0.0086,
+    "inclusive_pronoun_ratio": 0.028,
+    "disagreement_count": 0,
+    "acknowledgment_count": 4,
+    "idea_count": 0,
+    "name_mention_count": 9,
+    "conditional_ratio": 0.125,
+    "planning_count": 2,
+    "emotional_word_count": 0,
+    "positive_emotion_count": 0,
+    "turn_initiation_ratio": 0.5,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.5797,
+    "long_sentence_ratio": 0.226,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 0,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 5
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 464,
+    "candidate_avg_words_per_turn": 58.0,
+    "times_addressed_others_by_name": 9,
+    "times_asked_questions": 5,
+    "times_expressed_disagreement": 0,
+    "times_acknowledged_others": 4,
+    "times_proposed_new_ideas": 0
+  },
+  "assessment_summary": "Highly engaged communicator, took initiative frequently; Assertive in defending positions, comfortable with disagreement; Maintained composure throughout, steady under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "Hey everyone! This is such an exciting challenge we get to tackle together. We've got some tough decisions ahead about which features to prioritize and how to balance our resources, but I know we can come up with something great. Let's start by hearing everyone's thoughts on which two features would bring the most value to the client. Riley, I'd love to hear your perspective first!"
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "Hold on, why are we defaulting to Riley's opinion? That's exactly the kind of groupthink that sinks projects like this. I've already run the numbers - Features B and D deliver 78% more client ROI than the other options. Anyone who thinks differently better come armed with better data than \"perspectives.\""
+    },
+    {
+      "turn": 3,
+      "speaker": "Alex",
+      "content": "I like that you've got numbers, but ROI isn't the only factor here. Feature B requires specialized skills that only Riley has - if we pick that, they'll be working overtime every night. And the client's VP already told me privately they care more about Features A and C. Your 78% number doesn't account for those realities."
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "Oh please - client whispers and workload concerns? That's exactly how projects end up delivering mediocre crap! My numbers account for long-term retention value, not just some VP's flavor-of-the-month whim. And Riley knew overtime was coming when they signed up - if they can't handle heat, why are they in the kitchen?"
+    },
+    {
+      "turn": 5,
+      "speaker": "Riley",
+      "content": "I didn't sign up for unlimited overtime. That's not sustainable."
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "You're missing the point entirely - sustainable is just code for mediocre! Either we push boundaries or we might as well hand this contract to our competitors right now. And Riley, if you're not willing to put in extra hours for breakthrough results, maybe you shouldn't be on mission-critical projects at all."
+    },
+    {
+      "turn": 7,
+      "speaker": "Alex",
+      "content": "That 78% ROI figure is misleading and you know it. You're completely ignoring the human factor - Riley's burnout risk alone could derail the entire project timeline. And let's be real, if the client's VP is signaling preferences, your spreadsheet models better account for that political reality or we'll all be looking for new jobs. \n\nRiley's right - sustainable isn't mediocre, it's professional. Your \"breakthrough or bust\" mentality is exactly why 60% of rushed projects fail quality audits. Maybe you should check your ego and listen to the people actually doing the work for once. \n\nNow let's talk real options - Features A and C align with client priorities AND keep the team intact. Anyone who disagrees better have"
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "Those \"quality audits\" you worship are why this industry moves at a snail's pace! Alex, your political pandering is exactly what got our last project stuck in revision hell for three months. And Riley - if you're already counting overtime hours before we've even started, maybe you should transfer to accounting where the stakes are lower. Let me make this simple - we either build Features B and D to industry-leading specs, or we're just another mediocre team delivering forgettable work. Who here actually wants to make an impact?"
+    },
+    {
+      "turn": 9,
+      "speaker": "Riley",
+      "content": "Features A and C seem more realistic given the timeline. I'm not convinced we can deliver B and D well in three weeks."
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "You're all thinking small - three weeks is plenty if we cut the bureaucratic fat! Feature B's technical complexity is exactly why it'll put us ahead, and D's retention metrics prove it's worth the overtime. Either we bet big now or watch some hungrier team eat our lunch."
+    },
+    {
+      "turn": 11,
+      "speaker": "Alex",
+      "content": "Let's cut through the motivational speaker nonsense. Feature B's complexity is exactly why it's a terrible choice for a rushed timeline - one unexpected bug and we blow the deadline. And your retention metrics for D are based on ideal conditions we won't have with exhausted developers. Riley's right about A and C being realistic, but we should also consider that C aligns with the client's Q3 roadmap better than D's vanity metrics."
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "Oh come on Alex, you're using \"realistic\" as an excuse for cowardice! Those Q3 roadmap slides are pure corporate theater - I've seen the raw user data and it proves Feature C is just a placeholder. You'd really sacrifice measurable impact for some PowerPoint bullet points? Riley, tell me honestly - wouldn't you rather build something groundbreaking than another forgettable checkbox feature?"
+    },
+    {
+      "turn": 13,
+      "speaker": "Riley",
+      "content": "I care more about delivering quality work on time than being \"groundbreaking.\" The data shows C has better completion rates."
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "Completion rates? That's what we're optimizing for now? Might as well measure success by how many coffee breaks we take! Feature C is the definition of playing it safe - tell me Riley, when's the last time a \"completed\" mediocre feature actually moved the needle? Alex, you're smarter than this spreadsheet babysitting - fight for something that matters!"
+    },
+    {
+      "turn": 15,
+      "speaker": "Alex",
+      "content": "The data proves Feature C outperforms on every real-world KPI - completion rates directly correlate with client retention. Your \"groundbreaking\" Feature B failed QA in three out of four test environments last quarter. Riley's right - we need reliable execution, not reckless gambles that look good in your portfolio but crash in production."
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "Those \"real-world KPIs\" are lagging indicators that prove nothing! You're both clinging to outdated metrics while the market moves past us - Feature B's QA failures were before we revamped the testing framework, and anyone who thinks Feature C's completion rates matter more than actual user engagement is asleep at the wheel!"
+    },
+    {
+      "turn": 17,
+      "speaker": "Riley",
+      "content": "The revamped testing framework hasn't been fully validated yet. I'd rather trust proven metrics than unproven claims."
+    }
+  ],
+  "controller_log": null,
+  "timestamp": "2026-03-04T21:10:35.385581"
+}

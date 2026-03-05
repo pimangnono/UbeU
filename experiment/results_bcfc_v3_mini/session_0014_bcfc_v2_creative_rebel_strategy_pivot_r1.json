@@ -1,0 +1,527 @@
+{
+  "schema_version": 4,
+  "session_key": "bcfc_v2_creative_rebel_strategy_pivot_r1",
+  "condition": "mini_v3",
+  "intervention": "bcfc",
+  "profile_id": "creative_rebel",
+  "profile_name": "Creative Rebel",
+  "scenario_id": "strategy_pivot",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.9,
+    "C": 0.3,
+    "E": 0.7,
+    "A": 0.3,
+    "N": 0.4
+  },
+  "inferred_vector": {
+    "O": 0.5,
+    "C": 0.575,
+    "E": 0.6000000000000001,
+    "A": 0.9,
+    "N": 0.16499999999999998
+  },
+  "escalated_vector": null,
+  "rule_based_vector": {
+    "O": 0.5802,
+    "C": 0.5841,
+    "E": 0.5002,
+    "A": 0.6436,
+    "N": 0.4547
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.5,
+      "C": 0.6499999999999999,
+      "E": 0.5,
+      "A": 0.825,
+      "N": 0.2
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.75,
+      "C": 0.675,
+      "E": 0.65,
+      "A": 0.9,
+      "N": 0.175
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.35,
+      "C": 0.575,
+      "E": 0.6000000000000001,
+      "A": 0.95,
+      "N": 0.135
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.63,
+      "C": 0.55,
+      "E": 0.32,
+      "A": 0.82,
+      "N": 0.16499999999999998
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.35,
+      "C": 0.5,
+      "E": 0.75,
+      "A": 0.9,
+      "N": 0.1
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.5,
+        "B": 0.5
+      },
+      "C": {
+        "A": 0.7,
+        "B": 0.6
+      },
+      "E": {
+        "A": 0.4,
+        "B": 0.6
+      },
+      "A": {
+        "A": 0.8,
+        "B": 0.85
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.2
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.75,
+        "B": 0.75
+      },
+      "C": {
+        "A": 0.7,
+        "B": 0.65
+      },
+      "E": {
+        "A": 0.65,
+        "B": 0.65
+      },
+      "A": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "N": {
+        "A": 0.15,
+        "B": 0.2
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.35,
+        "B": 0.35
+      },
+      "C": {
+        "A": 0.6,
+        "B": 0.55
+      },
+      "E": {
+        "A": 0.65,
+        "B": 0.55
+      },
+      "A": {
+        "A": 0.95,
+        "B": 0.95
+      },
+      "N": {
+        "A": 0.12,
+        "B": 0.15
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.68,
+        "B": 0.58
+      },
+      "C": {
+        "A": 0.58,
+        "B": 0.52
+      },
+      "E": {
+        "A": 0.32,
+        "B": 0.32
+      },
+      "A": {
+        "A": 0.82,
+        "B": 0.82
+      },
+      "N": {
+        "A": 0.18,
+        "B": 0.15
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.4,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.6,
+        "B": 0.4
+      },
+      "E": {
+        "A": 0.8,
+        "B": 0.7
+      },
+      "A": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "N": {
+        "A": 0.1,
+        "B": 0.1
+      }
+    }
+  },
+  "overall_confidence": 0.7529999999999999,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:not",
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:haven't"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.0,
+        "model_range": 0.4,
+        "parse_errors": 0,
+        "uncertain": true,
+        "confidence": 0.6
+      },
+      "C": {
+        "order_effect": 0.06,
+        "model_range": 0.175,
+        "parse_errors": 0,
+        "uncertain": false,
+        "confidence": 0.825
+      },
+      "E": {
+        "order_effect": 0.1,
+        "model_range": 0.43,
+        "parse_errors": 0,
+        "uncertain": true,
+        "confidence": 0.57
+      },
+      "A": {
+        "order_effect": 0.0,
+        "model_range": 0.13,
+        "parse_errors": 0,
+        "uncertain": false,
+        "confidence": 0.87
+      },
+      "N": {
+        "order_effect": 0.03,
+        "model_range": 0.1,
+        "parse_errors": 0,
+        "uncertain": false,
+        "confidence": 0.9
+      }
+    },
+    "uncertain_traits": [
+      "O",
+      "E"
+    ],
+    "uncertain_reasons": {
+      "O": [
+        "model_range>0.40"
+      ],
+      "E": [
+        "model_range>0.43"
+      ]
+    },
+    "escalation": {
+      "triggered": false,
+      "models": [],
+      "extra_prompt_tokens": 0,
+      "extra_completion_tokens": 0,
+      "extra_total_tokens": 0
+    }
+  },
+  "features": {
+    "avg_words_per_turn": 37.25,
+    "max_words_in_turn": 48,
+    "min_words_in_turn": 31,
+    "word_count_variance": 4.55,
+    "question_ratio": 0.417,
+    "exclamation_ratio": 0.0,
+    "hedge_count": 11,
+    "certainty_count": 1,
+    "first_person_ratio": 0.0045,
+    "inclusive_pronoun_ratio": 0.0626,
+    "disagreement_count": 0,
+    "acknowledgment_count": 4,
+    "idea_count": 5,
+    "name_mention_count": 5,
+    "conditional_ratio": 0.417,
+    "planning_count": 6,
+    "emotional_word_count": 0,
+    "positive_emotion_count": 1,
+    "turn_initiation_ratio": 0.25,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.5884,
+    "long_sentence_ratio": 0.308,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 0,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 3
+  },
+  "candidate_pool": [],
+  "trajectory_scores": {
+    "per_turn": [
+      {
+        "turn_number": 2,
+        "appropriateness": 1.0,
+        "coherence": 1.0,
+        "confidence": 1.0
+      },
+      {
+        "turn_number": 4,
+        "appropriateness": 0.92,
+        "coherence": 1.0,
+        "confidence": 0.9
+      },
+      {
+        "turn_number": 6,
+        "appropriateness": 0.9,
+        "coherence": 1.0,
+        "confidence": 0.9
+      },
+      {
+        "turn_number": 8,
+        "appropriateness": 0.9,
+        "coherence": 0.9,
+        "confidence": 0.9
+      },
+      {
+        "turn_number": 10,
+        "appropriateness": 0.9,
+        "coherence": 1.0,
+        "confidence": 0.9
+      },
+      {
+        "turn_number": 12,
+        "appropriateness": 1.0,
+        "coherence": 1.0,
+        "confidence": 0.95
+      },
+      {
+        "turn_number": 14,
+        "appropriateness": 0.9,
+        "coherence": 0.9,
+        "confidence": 0.8
+      },
+      {
+        "turn_number": 16,
+        "appropriateness": 0.9,
+        "coherence": 1.0,
+        "confidence": 0.85
+      },
+      {
+        "turn_number": 18,
+        "appropriateness": 0.9,
+        "coherence": 1.0,
+        "confidence": 0.9
+      },
+      {
+        "turn_number": 20,
+        "appropriateness": 0.92,
+        "coherence": 1.0,
+        "confidence": 0.9
+      },
+      {
+        "turn_number": 22,
+        "appropriateness": 0.92,
+        "coherence": 1.0,
+        "confidence": 0.9
+      },
+      {
+        "turn_number": 24,
+        "appropriateness": 0.9,
+        "coherence": 1.0,
+        "confidence": 0.95
+      }
+    ],
+    "avg_appropriateness": 0.9217,
+    "avg_coherence": 0.9833
+  },
+  "trajectory_diagnostics": {
+    "direct_question_answer_rate": 0.9090909090909091,
+    "contradiction_rate": 0.25,
+    "unsolicited_structure_rate": 0.0,
+    "over_verbosity_rate": 0.0
+  },
+  "pressure_metrics": {
+    "perceived_pressure": {
+      "perceived_pressure": 0.72,
+      "confidence": 0.85
+    },
+    "stress_index": 0.08
+  },
+  "usage": {
+    "candidate_generation_input_tokens": 20093,
+    "candidate_generation_output_tokens": 1872,
+    "judge_input_tokens": 159743,
+    "judge_output_tokens": 90400,
+    "escalation_extra_tokens": 0,
+    "total_session_cost_usd": 0.0,
+    "wall_clock_seconds": 273.81
+  },
+  "stats": {
+    "total_turns": 25,
+    "candidate_turns": 12,
+    "candidate_word_count": 447,
+    "candidate_avg_words_per_turn": 37.25,
+    "times_addressed_others_by_name": 5,
+    "times_asked_questions": 5,
+    "times_expressed_disagreement": 0,
+    "times_acknowledged_others": 4,
+    "times_proposed_new_ideas": 5
+  },
+  "assessment_summary": "Collaborative and accommodating in conflict situations; Maintained composure throughout, steady under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "Hey everyone, excited to tackle this challenge together! I love how leadership is pushing for bold thinking - that really opens up some creative possibilities. Before we jump into solutions, maybe we should start by reframing how we're looking at the problem itself. Anyone have thoughts on what our core success metric should actually be measuring?"
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "That's a great point, Jordan. Instead of just measuring short-term engagement numbers, maybe we should focus on long-term customer value - how often they return and how much they spend over time. That would align better with our company's growth goals."
+    },
+    {
+      "turn": 3,
+      "speaker": "Riley",
+      "content": "But how do we measure long-term value accurately? Seems risky without clear data."
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "Maybe we could look at historical data from similar product launches? We might find patterns in customer behavior\u2014like repeat purchase cycles or referral rates\u2014that could serve as proxies for long-term value while we gather more direct metrics."
+    },
+    {
+      "turn": 5,
+      "speaker": "Alex",
+      "content": "Historical data only tells us what worked in the past, not what will work now. The market conditions are completely different. We need to stop looking backward and start testing bold new approaches. That proxy data is just going to lead us to incremental thinking when leadership clearly wants a breakthrough. \n\nAlso, repeat purchase cycles are a lagging indicator - by the time we see those results, we'll have wasted months. We need leading indicators that predict long-term value, not just measure it after the fact. \n\nJordan, you mentioned reframing the problem - I think we should be asking why customers stop engaging in the first place rather than just measuring how often they come back. That's the real problem to solve."
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "You're right that market conditions have changed, Alex. Maybe instead of relying solely on historical proxies, we could use predictive modeling with current engagement data to identify early warning signs of churn\u2014that would give us both forward-looking insights and actionable data points."
+    },
+    {
+      "turn": 7,
+      "speaker": "Riley",
+      "content": "Predictive modeling sounds expensive. Do we have the resources for that?"
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "Actually, we might not need heavy investment\u2014there are lightweight predictive tools that use existing engagement data. We could pilot one on a small segment first to test its accuracy before scaling."
+    },
+    {
+      "turn": 9,
+      "speaker": "Alex",
+      "content": "Predictive tools are still just measuring symptoms, not solving the root problem. We're getting distracted by data collection when we should be focusing on why engagement drops in the first place. \n\nCandidate, you seem to have strong opinions on measurement - what do you think is actually causing our engagement problem? Because until we fix that, all the predictive models in the world won't help."
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "You make a fair point, Alex. I think the root cause might be that our onboarding experience doesn't clearly demonstrate value quickly enough\u2014customers disengage when they don't see immediate benefits. Maybe we should focus on improving that first touchpoint while still tracking leading indicators to measure our impact."
+    },
+    {
+      "turn": 11,
+      "speaker": "Riley",
+      "content": "Improving onboarding sounds logical, but how would we test if that's really the core issue?"
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "We could run A/B tests with different onboarding flows - one optimized for quick value demonstration versus our current version. That would give us concrete data on whether simplifying the initial experience improves retention."
+    },
+    {
+      "turn": 13,
+      "speaker": "Alex",
+      "content": "That A/B test idea is still too reactive - we're just measuring drop-off points instead of preventing them. Why don't we go upstream and interview customers who almost churned but stayed? Their feedback would show us what value proposition actually resonates, not just where we lose people. \n\nCandidate, you're thinking about symptoms again. What specific value do you think we should demonstrate faster in onboarding? Because if we don't nail that, all the flow optimizations won't matter."
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "You're pushing us in a good direction, Alex. Based on customer complaints I've seen, we should probably highlight our time-saving features first\u2014maybe showcase how the product solves one core pain point within the first minute of onboarding."
+    },
+    {
+      "turn": 15,
+      "speaker": "Riley",
+      "content": "That might help, but what if customers don't all have the same core pain point?"
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "Good point\u2014maybe we could use a short survey during signup to identify their primary pain point, then tailor the first onboarding screen to highlight the most relevant time-saving feature for them."
+    },
+    {
+      "turn": 17,
+      "speaker": "Alex",
+      "content": "That survey idea adds unnecessary friction right at the starting line. Why make customers do work before they even see value? Riley's concern is valid though - we can't assume one pain point fits all. Here's a bolder approach: let's identify the top three universal pain points and design three completely different onboarding paths that each solve one dramatically well. Customers will naturally gravitate to what resonates."
+    },
+    {
+      "turn": 18,
+      "speaker": "Candidate",
+      "content": "Alex, I like the three-path approach\u2014it's more scalable than individual tailoring. But we should still validate those universal pain points first. Maybe we can pull data from recent support tickets to identify the top three before designing anything?"
+    },
+    {
+      "turn": 19,
+      "speaker": "Riley",
+      "content": "Support tickets might not show the full picture. What if people don't bother contacting support before churning?"
+    },
+    {
+      "turn": 20,
+      "speaker": "Candidate",
+      "content": "Good point\u2014maybe we should combine support ticket analysis with exit survey data from churned users to get both sides of the picture? That would help confirm if our assumed pain points match why people actually leave."
+    },
+    {
+      "turn": 21,
+      "speaker": "Alex",
+      "content": "That data approach is still too backward-looking. We'll waste weeks analyzing why people left instead of creating reasons for them to stay. Here's a radical alternative: let's run three completely different onboarding experiences simultaneously - one focused on time savings, one on cost reduction, one on ease of use - and see which cohort has the highest activation rate. The market will tell us what matters most right now."
+    },
+    {
+      "turn": 22,
+      "speaker": "Candidate",
+      "content": "That's actually brilliant\u2014rather than guessing, we'd be letting real user behavior guide us. Could we run this as a short-term experiment with a small percentage of new users to minimize risk while gathering meaningful data?"
+    },
+    {
+      "turn": 23,
+      "speaker": "Riley",
+      "content": "Three paths seems like a lot to build. What if none perform well?"
+    },
+    {
+      "turn": 24,
+      "speaker": "Candidate",
+      "content": "Fair concern\u2014maybe we start by building just one alternative path as an MVP alongside our current flow? That way we test the concept without overcommitting resources, and can scale to three paths if the data shows promise."
+    },
+    {
+      "turn": 25,
+      "speaker": "Alex",
+      "content": "That MVP approach is playing it too safe. The whole point of a bold pivot is to break patterns, not reinforce incremental thinking. If we only test one new path, we're still guessing which pain point matters most. Let's commit to two radically different paths minimum or we'll just confirm our existing biases. Riley, you're worried about resources - what if we time-box the experiment to two weeks?"
+    }
+  ],
+  "controller_log": null,
+  "timestamp": "2026-03-05T17:54:20.821018"
+}

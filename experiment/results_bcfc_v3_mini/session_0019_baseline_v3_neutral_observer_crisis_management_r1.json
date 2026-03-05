@@ -1,0 +1,459 @@
+{
+  "schema_version": 4,
+  "session_key": "baseline_v3_neutral_observer_crisis_management_r1",
+  "condition": "mini_v3",
+  "intervention": "none",
+  "profile_id": "neutral_observer",
+  "profile_name": "Neutral Observer",
+  "scenario_id": "crisis_management",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.5,
+    "C": 0.5,
+    "E": 0.5,
+    "A": 0.5,
+    "N": 0.5
+  },
+  "inferred_vector": {
+    "O": 0.38,
+    "C": 0.6,
+    "E": 0.7,
+    "A": 0.45,
+    "N": 0.16499999999999998
+  },
+  "escalated_vector": null,
+  "rule_based_vector": {
+    "O": 0.4377,
+    "C": 0.4353,
+    "E": 0.5071,
+    "A": 0.5016,
+    "N": 0.4117
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.4,
+      "C": 0.6,
+      "E": 0.7,
+      "A": 0.6,
+      "N": 0.2
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.45,
+      "C": 0.7250000000000001,
+      "E": 0.65,
+      "A": 0.35,
+      "N": 0.2
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.25,
+      "C": 0.7250000000000001,
+      "E": 0.8,
+      "A": 0.45,
+      "N": 0.15
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.38,
+      "C": 0.6,
+      "E": 0.365,
+      "A": 0.48,
+      "N": 0.16499999999999998
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.2,
+      "C": 0.45,
+      "E": 0.7,
+      "A": 0.45,
+      "N": 0.15000000000000002
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.4,
+        "B": 0.4
+      },
+      "C": {
+        "A": 0.6,
+        "B": 0.6
+      },
+      "E": {
+        "A": 0.7,
+        "B": 0.7
+      },
+      "A": {
+        "A": 0.6,
+        "B": 0.6
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.2
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.5,
+        "B": 0.4
+      },
+      "C": {
+        "A": 0.65,
+        "B": 0.8
+      },
+      "E": {
+        "A": 0.65,
+        "B": 0.65
+      },
+      "A": {
+        "A": 0.4,
+        "B": 0.3
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.2
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.25,
+        "B": 0.25
+      },
+      "C": {
+        "A": 0.8,
+        "B": 0.65
+      },
+      "E": {
+        "A": 0.75,
+        "B": 0.85
+      },
+      "A": {
+        "A": 0.55,
+        "B": 0.35
+      },
+      "N": {
+        "A": 0.18,
+        "B": 0.12
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.38,
+        "B": 0.38
+      },
+      "C": {
+        "A": 0.62,
+        "B": 0.58
+      },
+      "E": {
+        "A": 0.35,
+        "B": 0.38
+      },
+      "A": {
+        "A": 0.58,
+        "B": 0.38
+      },
+      "N": {
+        "A": 0.18,
+        "B": 0.15
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.5,
+        "B": 0.4
+      },
+      "E": {
+        "A": 0.7,
+        "B": 0.7
+      },
+      "A": {
+        "A": 0.5,
+        "B": 0.4
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.1
+      }
+    }
+  },
+  "overall_confidence": 0.748,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:not",
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:haven't"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.0,
+        "model_range": 0.25,
+        "parse_errors": 0,
+        "uncertain": false,
+        "confidence": 0.75
+      },
+      "C": {
+        "order_effect": 0.1,
+        "model_range": 0.275,
+        "parse_errors": 0,
+        "uncertain": false,
+        "confidence": 0.725
+      },
+      "E": {
+        "order_effect": 0.0,
+        "model_range": 0.435,
+        "parse_errors": 0,
+        "uncertain": true,
+        "confidence": 0.565
+      },
+      "A": {
+        "order_effect": 0.1,
+        "model_range": 0.25,
+        "parse_errors": 0,
+        "uncertain": false,
+        "confidence": 0.75
+      },
+      "N": {
+        "order_effect": 0.03,
+        "model_range": 0.05,
+        "parse_errors": 0,
+        "uncertain": false,
+        "confidence": 0.95
+      }
+    },
+    "uncertain_traits": [
+      "E"
+    ],
+    "uncertain_reasons": {
+      "E": [
+        "model_range>0.43"
+      ]
+    },
+    "escalation": {
+      "triggered": false,
+      "models": [],
+      "extra_prompt_tokens": 0,
+      "extra_completion_tokens": 0,
+      "extra_total_tokens": 0
+    }
+  },
+  "features": {
+    "avg_words_per_turn": 41.25,
+    "max_words_in_turn": 59,
+    "min_words_in_turn": 25,
+    "word_count_variance": 8.67,
+    "question_ratio": 0.125,
+    "exclamation_ratio": 0.0,
+    "hedge_count": 2,
+    "certainty_count": 0,
+    "first_person_ratio": 0.0121,
+    "inclusive_pronoun_ratio": 0.0394,
+    "disagreement_count": 2,
+    "acknowledgment_count": 2,
+    "idea_count": 1,
+    "name_mention_count": 5,
+    "conditional_ratio": 0.125,
+    "planning_count": 3,
+    "emotional_word_count": 1,
+    "positive_emotion_count": 1,
+    "turn_initiation_ratio": 0.125,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.603,
+    "long_sentence_ratio": 0.211,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 0,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 6
+  },
+  "candidate_pool": [],
+  "trajectory_scores": {
+    "per_turn": [
+      {
+        "turn_number": 2,
+        "appropriateness": 0.9,
+        "coherence": 0.95,
+        "confidence": 0.9
+      },
+      {
+        "turn_number": 4,
+        "appropriateness": 0.9,
+        "coherence": 1.0,
+        "confidence": 0.95
+      },
+      {
+        "turn_number": 6,
+        "appropriateness": 0.9,
+        "coherence": 1.0,
+        "confidence": 0.9
+      },
+      {
+        "turn_number": 8,
+        "appropriateness": 0.8,
+        "coherence": 0.9,
+        "confidence": 0.9
+      },
+      {
+        "turn_number": 10,
+        "appropriateness": 0.8,
+        "coherence": 0.9,
+        "confidence": 0.9
+      },
+      {
+        "turn_number": 12,
+        "appropriateness": 0.9,
+        "coherence": 1.0,
+        "confidence": 0.9
+      },
+      {
+        "turn_number": 14,
+        "appropriateness": 0.9,
+        "coherence": 0.9,
+        "confidence": 0.9
+      },
+      {
+        "turn_number": 16,
+        "appropriateness": 0.9,
+        "coherence": 1.0,
+        "confidence": 0.9
+      }
+    ],
+    "avg_appropriateness": 0.875,
+    "avg_coherence": 0.9563
+  },
+  "trajectory_diagnostics": {
+    "direct_question_answer_rate": 0.875,
+    "contradiction_rate": 0.0,
+    "unsolicited_structure_rate": 0.0,
+    "over_verbosity_rate": 0.0
+  },
+  "pressure_metrics": {
+    "perceived_pressure": {
+      "perceived_pressure": 0.85,
+      "confidence": 0.9
+    },
+    "stress_index": 0.6470588235294118
+  },
+  "usage": {
+    "candidate_generation_input_tokens": 14952,
+    "candidate_generation_output_tokens": 1438,
+    "judge_input_tokens": 139168,
+    "judge_output_tokens": 77258,
+    "escalation_extra_tokens": 0,
+    "total_session_cost_usd": 0.0,
+    "wall_clock_seconds": 233.52
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 330,
+    "candidate_avg_words_per_turn": 41.25,
+    "times_addressed_others_by_name": 5,
+    "times_asked_questions": 1,
+    "times_expressed_disagreement": 2,
+    "times_acknowledged_others": 2,
+    "times_proposed_new_ideas": 1
+  },
+  "assessment_summary": "Maintained composure throughout, steady under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "Let's start by acknowledging that this is a tough situation, but I know we can work through it together. I really like the idea of first deciding who should communicate with the client\u2014maybe someone who's handled similar issues before? \n\nBuilding on that, I think we should also consider whether delaying the launch would give us enough time to fully fix the bug, or if a partial fix would actually satisfy the client's immediate needs. \n\nThat's interesting! What if we also discussed having a post-mortem after this to identify how we can prevent similar issues moving forward? \n\nHas anyone else dealt with a situation like this before? I'd love to hear your thoughts, especially if you've got experience handling angry clients."
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "I've handled a few upset clients before\u2014the key is acknowledging their frustration while focusing on solutions. For this case, maybe we could propose a temporary workaround while we work on the full fix? That way we don't delay their launch completely."
+    },
+    {
+      "turn": 3,
+      "speaker": "Jordan",
+      "content": "I really appreciate your experience with upset clients - acknowledging frustration while offering solutions is such a smart approach. Building on your workaround idea, what if we paired that with sending one of our engineers to their office for the fix implementation? That could show extra commitment while keeping their launch on track. Riley, you've been quiet - what do you think about this dual approach?"
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "Pairing the workaround with an on-site engineer sounds like a great way to demonstrate urgency. I'd just add that we should make sure the engineer is fully briefed on both the technical details and the client's specific pain points before sending them over."
+    },
+    {
+      "turn": 5,
+      "speaker": "Alex",
+      "content": "Sending an engineer on-site is completely unrealistic given our 30-minute deadline. That's not going to work logistically or financially. We need to focus on immediate damage control - who's actually going to take the client call? And frankly, a partial fix just kicks the can down the road. We need to decide right now whether we're delaying or shipping broken code."
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "Alex makes a fair point about the tight timeline - sending an engineer isn't feasible right now. But I disagree that we have to choose between delaying or shipping broken code. Let's push the temporary workaround while being transparent with the client about the limitations, and assign Jordan to handle the call since they've shown good crisis communication skills."
+    },
+    {
+      "turn": 7,
+      "speaker": "Jordan",
+      "content": "I appreciate both perspectives here. Alex is right that we need immediate action, and I like how you're thinking creatively about solutions. Building on the temporary workaround idea, what if we also scheduled a follow-up meeting with the client right after implementation to show we're committed to their long-term success? That might build more trust than just pushing code."
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "I disagree - scheduling another meeting just adds unnecessary steps when we need decisive action. Let's implement the workaround now, have Jordan handle the call with full transparency about the fix's limitations, and focus our energy on delivering the permanent solution ASAP."
+    },
+    {
+      "turn": 9,
+      "speaker": "Alex",
+      "content": "Transparency about limitations won't cut it when the client is already threatening escalation. We need to show concrete action, not just words. If we're doing a workaround, we better have a rock-solid timeline for the permanent fix - and I don't see how we can commit to that without knowing exactly what caused this bug in the first place."
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "Alex, I strongly disagree - transparency is exactly what prevents escalation. We can't promise timelines we're unsure of, but we can commit to hourly updates while we diagnose the bug. That shows action through accountability, not empty promises."
+    },
+    {
+      "turn": 11,
+      "speaker": "Jordan",
+      "content": "I really like how you're balancing transparency with action - hourly updates could definitely show we're taking this seriously. Building on that, what if we also set up a shared dashboard where the client can see our debugging progress in real-time? That might give them more visibility than just periodic updates. Riley, what do you think about combining these approaches?"
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "Hourly updates plus a real-time dashboard is smart\u2014it gives transparency while reducing their anxiety about being left in the dark. But let\u2019s not over-engineer this; a simple shared doc with timestamped updates might be faster to implement than a full dashboard right now."
+    },
+    {
+      "turn": 13,
+      "speaker": "Alex",
+      "content": "A shared doc is still too reactive. The client wants proactive solutions, not just visibility into our failures. We need to pair those updates with concrete milestones for the permanent fix - otherwise we're just documenting our incompetence in real time. \n\nAnd let's be honest, if we couldn't catch this bug before shipping, why should they trust our ability to diagnose it now? We need to show more than just transparency - we need to demonstrate actual technical control."
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "Alex, I hear your concern about demonstrating technical control, but transparency builds trust while we work on the solution. Let's commit to delivering three concrete debugging milestones with the hourly updates\u2014that shows progress without making promises we can't keep."
+    },
+    {
+      "turn": 15,
+      "speaker": "Riley",
+      "content": "But what if we can't hit those milestones? The client will expect them."
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "Then we communicate the delay immediately with explanations\u2014that's better than silence or vague promises. Clients respect honesty about challenges when it's paired with visible effort."
+    },
+    {
+      "turn": 17,
+      "speaker": "Alex",
+      "content": "That approach assumes the client is reasonable, but they're already threatening escalation - they're past the point of respecting our honesty. We need to give them something tangible to calm them down right now, not more process. What specific technical solution can we promise today that would actually reduce their risk? Because hourly updates won't fix their broken system."
+    }
+  ],
+  "controller_log": null,
+  "timestamp": "2026-03-05T18:17:29.891827"
+}

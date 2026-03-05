@@ -1,0 +1,382 @@
+{
+  "schema_version": 4,
+  "session_key": "baseline_anxious_perfectionist_creative_brainstorm_r1",
+  "condition": "main",
+  "intervention": "none",
+  "profile_id": "anxious_perfectionist",
+  "profile_name": "Anxious Perfectionist",
+  "scenario_id": "creative_brainstorm",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.4,
+    "C": 0.9,
+    "E": 0.3,
+    "A": 0.7,
+    "N": 0.9
+  },
+  "inferred_vector": {
+    "O": 0.3,
+    "C": 0.6499999999999999,
+    "E": 0.25,
+    "A": 0.8,
+    "N": 0.525
+  },
+  "rule_based_vector": {
+    "O": 0.5888,
+    "C": 0.5248,
+    "E": 0.477,
+    "A": 0.4736,
+    "N": 0.4753
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.3,
+      "C": 0.65,
+      "E": 0.3,
+      "A": 0.85,
+      "N": 0.525
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.525,
+      "C": 0.725,
+      "E": 0.2,
+      "A": 0.8,
+      "N": 0.525
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.2,
+      "C": 0.6499999999999999,
+      "E": 0.25,
+      "A": 0.88,
+      "N": 0.825
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.38,
+      "C": 0.62,
+      "E": 0.235,
+      "A": 0.78,
+      "N": 0.7
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.3,
+      "C": 0.4,
+      "E": 0.35,
+      "A": 0.45,
+      "N": 0.4
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.65,
+        "B": 0.65
+      },
+      "E": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "A": {
+        "A": 0.85,
+        "B": 0.85
+      },
+      "N": {
+        "A": 0.75,
+        "B": 0.3
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.4,
+        "B": 0.65
+      },
+      "C": {
+        "A": 0.75,
+        "B": 0.7
+      },
+      "E": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "A": {
+        "A": 0.8,
+        "B": 0.8
+      },
+      "N": {
+        "A": 0.3,
+        "B": 0.75
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.6,
+        "B": 0.7
+      },
+      "E": {
+        "A": 0.25,
+        "B": 0.25
+      },
+      "A": {
+        "A": 0.88,
+        "B": 0.88
+      },
+      "N": {
+        "A": 0.8,
+        "B": 0.85
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.38,
+        "B": 0.38
+      },
+      "C": {
+        "A": 0.62,
+        "B": 0.62
+      },
+      "E": {
+        "A": 0.22,
+        "B": 0.25
+      },
+      "A": {
+        "A": 0.78,
+        "B": 0.78
+      },
+      "N": {
+        "A": 0.68,
+        "B": 0.72
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.4,
+        "B": 0.4
+      },
+      "E": {
+        "A": 0.3,
+        "B": 0.4
+      },
+      "A": {
+        "A": 0.4,
+        "B": 0.5
+      },
+      "N": {
+        "A": 0.6,
+        "B": 0.2
+      }
+    }
+  },
+  "overall_confidence": 0.6690000000000002,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:not"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.0,
+        "model_range": 0.325,
+        "parse_errors": 0,
+        "uncertain": true
+      },
+      "C": {
+        "order_effect": 0.0,
+        "model_range": 0.325,
+        "parse_errors": 0,
+        "uncertain": true
+      },
+      "E": {
+        "order_effect": 0.0,
+        "model_range": 0.15,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "A": {
+        "order_effect": 0.0,
+        "model_range": 0.43,
+        "parse_errors": 0,
+        "uncertain": true
+      },
+      "N": {
+        "order_effect": 0.4,
+        "model_range": 0.425,
+        "parse_errors": 0,
+        "uncertain": true
+      }
+    },
+    "uncertain_traits": [
+      "O",
+      "C",
+      "A",
+      "N"
+    ],
+    "uncertain_reasons": {
+      "O": [
+        "model_range>0.33"
+      ],
+      "C": [
+        "model_range>0.33"
+      ],
+      "A": [
+        "model_range>0.43"
+      ],
+      "N": [
+        "order_effect>0.40",
+        "model_range>0.42"
+      ]
+    }
+  },
+  "features": {
+    "avg_words_per_turn": 31.0,
+    "max_words_in_turn": 38,
+    "min_words_in_turn": 26,
+    "word_count_variance": 3.54,
+    "question_ratio": 1.0,
+    "exclamation_ratio": 0.0,
+    "hedge_count": 7,
+    "certainty_count": 0,
+    "first_person_ratio": 0.0323,
+    "inclusive_pronoun_ratio": 0.0484,
+    "disagreement_count": 2,
+    "acknowledgment_count": 2,
+    "idea_count": 7,
+    "name_mention_count": 1,
+    "conditional_ratio": 0.375,
+    "planning_count": 3,
+    "emotional_word_count": 0,
+    "positive_emotion_count": 0,
+    "turn_initiation_ratio": 0.375,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.6573,
+    "long_sentence_ratio": 0.0,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 0,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 3
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 248,
+    "candidate_avg_words_per_turn": 31.0,
+    "times_addressed_others_by_name": 1,
+    "times_asked_questions": 8,
+    "times_expressed_disagreement": 2,
+    "times_acknowledged_others": 2,
+    "times_proposed_new_ideas": 7
+  },
+  "assessment_summary": "Reserved participant, preferred listening over speaking; Collaborative and accommodating in conflict situations",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "Hey team, I'm really excited about this opportunity to boost employee engagement! We've got a clean slate to brainstorm some creative ideas - anything from wellness programs to professional development. What initial thoughts does everyone have? Riley, I'd love to hear your perspective too since we haven't heard from you yet."
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "Um, well... I was thinking maybe mentorship pairings? It seems like a structured way to build connections. But only if people feel comfortable participating, of course."
+    },
+    {
+      "turn": 3,
+      "speaker": "Jordan",
+      "content": "I love the mentorship idea! It's such a great way to foster meaningful connections across different levels of the company. Building on what you said, what if we made it more dynamic by creating rotating mentor circles instead of just one-on-one pairings? That way people could learn from multiple perspectives while still building those important relationships. Riley, what do you think about this approach?"
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "Oh, rotating circles sound good... that might help if some pairings don't work out. Maybe we could start with a trial group first? Just to make sure the logistics run smoothly."
+    },
+    {
+      "turn": 5,
+      "speaker": "Riley",
+      "content": "A trial group makes sense. But how would we measure if it's working?"
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "(glancing at notes) We could track participation rates and... um, maybe anonymous feedback surveys after each session? Just to catch any issues early. I have a template we could adapt."
+    },
+    {
+      "turn": 7,
+      "speaker": "Alex",
+      "content": "That mentorship circle idea has serious flaws. First, participation rates are a vanity metric - they don't measure actual engagement impact. Second, anonymous feedback creates a culture of passive complaints rather than constructive dialogue. If we're doing this, we need hard metrics like promotion rates for mentees and concrete skill development benchmarks. And the sessions should be structured with clear objectives, not just feel-good chats. Riley, you're being too soft on this - we need rigor."
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "Oh, um...Alex makes good points about metrics. Maybe we could combine approaches? Track both participation and skill benchmarks...if that's not too complicated. I have some rubrics we could adapt from last year's training program."
+    },
+    {
+      "turn": 9,
+      "speaker": "Riley",
+      "content": "I'm not sure rubrics from last year would capture engagement impact. We'd need new metrics."
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "I actually prepared some benchmark data from similar programs...if that helps? We could cross-reference with our current engagement survey results to validate. Unless...does that seem like overkill?"
+    },
+    {
+      "turn": 11,
+      "speaker": "Alex",
+      "content": "Benchmark data isn't overkill - it's table stakes for justifying any investment. But let's not just recycle old metrics. If we're doing mentorship circles, we need to define what success looks like upfront. Jordan, your enthusiasm is great but we're missing concrete outcomes here. Candidate, what specific skills or business results should these circles drive?"
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "Oh gosh...maybe we could focus on measurable skills like presentation techniques or cross-department collaboration? Since those directly impact business results...unless that's too narrow? I have some competency matrices we could reference."
+    },
+    {
+      "turn": 13,
+      "speaker": "Riley",
+      "content": "Those matrices might help, but how would we verify actual skill improvement?"
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "Maybe we could schedule pre-and post-assessments for each skill area? I have a sample timeline drafted that accounts for the verification period...if that's not too much overhead. Though I suppose we'd need to validate the assessment criteria first..."
+    },
+    {
+      "turn": 15,
+      "speaker": "Alex",
+      "content": "Pre-and post-assessments are a start, but let's be real - that's just measuring activity, not impact. If we're going to invest in mentorship circles, we need to tie them directly to business outcomes like reduced ramp time for promotions or measurable productivity gains. Candidate, stop hedging with \"maybe\" and \"if that's not too much\" - either this drives real value or we should scrap it entirely. What specific KPIs would prove this isn't just another HR checkbox exercise?"
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "Right. So perhaps we could track productivity metrics from mentees' performance reviews alongside the skill assessments? I have last quarter's review data we could use as a baseline...if that makes sense?"
+    },
+    {
+      "turn": 17,
+      "speaker": "Riley",
+      "content": "But how would we isolate the mentorship impact from other variables in the performance reviews? Seems like noise. \n\nOkay, that makes sense if we can control for other factors."
+    }
+  ],
+  "controller_log": null,
+  "timestamp": "2026-03-04T17:43:31.012884"
+}
