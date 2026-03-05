@@ -1,0 +1,373 @@
+{
+  "schema_version": 4,
+  "session_key": "baseline_creative_rebel_resource_conflict_r1",
+  "condition": "main",
+  "intervention": "none",
+  "profile_id": "creative_rebel",
+  "profile_name": "Creative Rebel",
+  "scenario_id": "resource_conflict",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.9,
+    "C": 0.3,
+    "E": 0.7,
+    "A": 0.3,
+    "N": 0.4
+  },
+  "inferred_vector": {
+    "O": 0.8,
+    "C": 0.265,
+    "E": 0.85,
+    "A": 0.12,
+    "N": 0.225
+  },
+  "rule_based_vector": {
+    "O": 0.4931,
+    "C": 0.353,
+    "E": 0.716,
+    "A": 0.5692,
+    "N": 0.3735
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.8,
+      "C": 0.3,
+      "E": 0.85,
+      "A": 0.2,
+      "N": 0.35
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.85,
+      "C": 0.35,
+      "E": 0.9,
+      "A": 0.05,
+      "N": 0.1
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.865,
+      "C": 0.225,
+      "E": 0.91,
+      "A": 0.12,
+      "N": 0.225
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.72,
+      "C": 0.265,
+      "E": 0.72,
+      "A": 0.15,
+      "N": 0.75
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.3,
+      "C": 0.2,
+      "E": 0.75,
+      "A": 0.1,
+      "N": 0.1
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.8,
+        "B": 0.8
+      },
+      "C": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "E": {
+        "A": 0.85,
+        "B": 0.85
+      },
+      "A": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.5
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.85,
+        "B": 0.85
+      },
+      "C": {
+        "A": 0.5,
+        "B": 0.2
+      },
+      "E": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "A": {
+        "A": 0.05,
+        "B": 0.05
+      },
+      "N": {
+        "A": 0.1,
+        "B": 0.1
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.88,
+        "B": 0.85
+      },
+      "C": {
+        "A": 0.2,
+        "B": 0.25
+      },
+      "E": {
+        "A": 0.92,
+        "B": 0.9
+      },
+      "A": {
+        "A": 0.12,
+        "B": 0.12
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.25
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.72,
+        "B": 0.72
+      },
+      "C": {
+        "A": 0.28,
+        "B": 0.25
+      },
+      "E": {
+        "A": 0.72,
+        "B": 0.72
+      },
+      "A": {
+        "A": 0.15,
+        "B": 0.15
+      },
+      "N": {
+        "A": 0.72,
+        "B": 0.78
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "E": {
+        "A": 0.7,
+        "B": 0.8
+      },
+      "A": {
+        "A": 0.1,
+        "B": 0.1
+      },
+      "N": {
+        "A": 0.1,
+        "B": 0.1
+      }
+    }
+  },
+  "overall_confidence": 0.635,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:not",
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:no"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.0,
+        "model_range": 0.565,
+        "parse_errors": 0,
+        "uncertain": true
+      },
+      "C": {
+        "order_effect": 0.03,
+        "model_range": 0.15,
+        "parse_errors": 1,
+        "uncertain": false
+      },
+      "E": {
+        "order_effect": 0.0,
+        "model_range": 0.19,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "A": {
+        "order_effect": 0.0,
+        "model_range": 0.15,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "N": {
+        "order_effect": 0.05,
+        "model_range": 0.65,
+        "parse_errors": 1,
+        "uncertain": true
+      }
+    },
+    "uncertain_traits": [
+      "O",
+      "N"
+    ],
+    "uncertain_reasons": {
+      "O": [
+        "model_range>0.56"
+      ],
+      "N": [
+        "model_range>0.65"
+      ]
+    }
+  },
+  "features": {
+    "avg_words_per_turn": 47.38,
+    "max_words_in_turn": 70,
+    "min_words_in_turn": 32,
+    "word_count_variance": 13.17,
+    "question_ratio": 0.875,
+    "exclamation_ratio": 0.25,
+    "hedge_count": 0,
+    "certainty_count": 0,
+    "first_person_ratio": 0.0079,
+    "inclusive_pronoun_ratio": 0.0317,
+    "disagreement_count": 0,
+    "acknowledgment_count": 2,
+    "idea_count": 0,
+    "name_mention_count": 8,
+    "conditional_ratio": 0.0,
+    "planning_count": 0,
+    "emotional_word_count": 0,
+    "positive_emotion_count": 0,
+    "turn_initiation_ratio": 0.25,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.6887,
+    "long_sentence_ratio": 0.079,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 0,
+    "hypothetical_count": 1,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 1
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 379,
+    "candidate_avg_words_per_turn": 47.38,
+    "times_addressed_others_by_name": 8,
+    "times_asked_questions": 7,
+    "times_expressed_disagreement": 0,
+    "times_acknowledged_others": 2,
+    "times_proposed_new_ideas": 0
+  },
+  "assessment_summary": "Highly engaged communicator, took initiative frequently; Assertive in defending positions, comfortable with disagreement; Maintained composure throughout, steady under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "Hey team, I'm really excited to tackle this project together! We've got some tough decisions ahead about which features to prioritize and how to distribute the workload, but I know we can figure this out collaboratively. Let's start by hearing everyone's thoughts on which two features would deliver the most value to the client. Riley, I'd love to hear your perspective first - you always have great insights about client needs."
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "\"Hold on Jordan - why are we defaulting to groupthink already? 'Collaborative' just means lowest common denominator. I say we start by killing one feature right now - that bloated analytics dashboard nobody will use.\" (Waving hand dismissively) \"And Riley? Please, their 'client insights' last quarter led us straight into that integration nightmare. I've got three better ideas we're not even discussing yet.\""
+    },
+    {
+      "turn": 3,
+      "speaker": "Jordan",
+      "content": "That's an interesting perspective! While I appreciate your passion, I still believe we should hear from everyone before making decisions. Riley, I value your insights because you've worked closely with the client. What are your thoughts on the analytics dashboard? \n\nBuilding on what was said, maybe we could evaluate all features based on both client impact and implementation effort. That way we're considering multiple angles, not just personal opinions. \n\nAnd I'd love to hear those three ideas you mentioned - perhaps they could help us find a creative solution none of us have considered yet!"
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "\"You're still missing the point, Jordan. Client 'impact' is meaningless when we're measuring the wrong things. That dashboard only exists because Riley's golf buddy in sales demanded vanity metrics.\" (Turning abruptly to whiteboard) \"Here's what actually moves the needle - scrap all four proposals and...\" (scribbles violently) \"...build this real-time collaboration layer that accounts for the client's unstated security concerns. Who's brave enough to admit our current roadmap is garbage?\""
+    },
+    {
+      "turn": 5,
+      "speaker": "Alex",
+      "content": "That real-time collaboration layer idea sounds nice in theory, but you're ignoring the fundamental constraints here. We've got three weeks and limited resources - you can't just scrap everything and start fresh. And frankly, calling our entire roadmap garbage isn't productive - some of us actually put work into those proposals. If you want to push your idea, show me how it delivers more value than two existing features combined within this timeline."
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "\"Constraints breed creativity, Alex - your precious timeline just proves we need radical solutions. That 'nice in theory' collaboration layer actually combines three existing features into one streamlined workflow. I'll show you the math right now.\" (Grabs marker while knocking over empty coffee cups)"
+    },
+    {
+      "turn": 7,
+      "speaker": "Riley",
+      "content": "I'm not sure combining features would work within the timeline. \n\nThat analytics dashboard has real security requirements we can't ignore."
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "Security requirements? Perfect! That's exactly why my approach eliminates seven redundant auth checks baked into your precious dashboard. Riley, you're thinking like a bureaucrat while our client's getting hacked through legacy code."
+    },
+    {
+      "turn": 9,
+      "speaker": "Alex",
+      "content": "That security argument is a red herring and you know it. The dashboard's auth checks exist because of actual breach attempts last quarter, not bureaucracy. If you want to scrap security measures, show me hard evidence your approach won't reintroduce those vulnerabilities while still delivering two features' worth of value in three weeks. Otherwise you're just trading one risk for another."
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "Evidence? Open your eyes, Alex - our 'security' theater is what created those breaches by overcomplicating the auth flow. I've got the penetration test results right here showing how my simplified model actually closes three backdoors your dashboard leaves wide open.\" (Slams folder on table) \"Now are we solving problems or playing defense attorney for bad code?"
+    },
+    {
+      "turn": 11,
+      "speaker": "Riley",
+      "content": "The test results seem convincing, but who tested this new approach? We can't risk another breach."
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "Who tested it? The same third-party team that caught your dashboard flaws last quarter - they've been begging us to simplify our auth architecture for months. Read page 17 if you want their brutal assessment of our current 'security' circus."
+    },
+    {
+      "turn": 13,
+      "speaker": "Alex",
+      "content": "Hang on\u2014third-party validation is a start, but it doesn\u2019t automatically make your idea the right move for this project. We still have a three-week deadline and two features to deliver. Even if the security model is improved, have you mapped out the engineering hours it\u2019ll take to rebuild everything from scratch? I want to see a day-by-day breakdown before we bet the project on this."
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "Day-by-day breakdown? That's exactly the rigid thinking that got us into this mess! The rebuild takes fewer hours than maintaining your Frankenstein features\u2014I'll prove it by sunsetting two legacy systems tonight while you're still drafting spreadsheets."
+    },
+    {
+      "turn": 15,
+      "speaker": "Riley",
+      "content": "Not sure rebuilding everything in three weeks is realistic. What if we hit unexpected issues?"
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "(scoffs) \"Unexpected issues? That's the beauty\u2014we'll hit them immediately instead of letting them fester. Riley, you're tracking hours while I'm tracking vulnerabilities per line of code. Which metric actually matters to the client?\" (taps security report impatiently)"
+    },
+    {
+      "turn": 17,
+      "speaker": "Alex",
+      "content": "You're missing the point entirely. Vulnerabilities matter, but so does delivering on time - and right now you're proposing to gamble our entire timeline on an untested rebuild. Show me the fallback plan when this blows past three weeks, because clients care about both security AND deadlines. Your approach assumes everything will go perfectly, and that's dangerously naive."
+    }
+  ],
+  "controller_log": null,
+  "timestamp": "2026-03-04T12:08:14.590355"
+}

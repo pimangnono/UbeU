@@ -1,0 +1,898 @@
+{
+  "schema_version": 4,
+  "session_key": "bcfc_anxious_perfectionist_creative_brainstorm_r1",
+  "condition": "main",
+  "intervention": "bcfc",
+  "profile_id": "anxious_perfectionist",
+  "profile_name": "Anxious Perfectionist",
+  "scenario_id": "creative_brainstorm",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.4,
+    "C": 0.9,
+    "E": 0.3,
+    "A": 0.7,
+    "N": 0.9
+  },
+  "inferred_vector": {
+    "O": 0.35,
+    "C": 0.375,
+    "E": 0.21000000000000002,
+    "A": 0.85,
+    "N": 0.7
+  },
+  "rule_based_vector": {
+    "O": 0.5778,
+    "C": 0.5851,
+    "E": 0.4661,
+    "A": 0.508,
+    "N": 0.4538
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.35,
+      "C": 0.45,
+      "E": 0.25,
+      "A": 0.85,
+      "N": 0.7
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.35,
+      "C": 0.5,
+      "E": 0.2,
+      "A": 0.7,
+      "N": 0.6
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.55,
+      "C": 0.375,
+      "E": 0.21000000000000002,
+      "A": 0.95,
+      "N": 0.8
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.425,
+      "C": 0.35,
+      "E": 0.16499999999999998,
+      "A": 0.85,
+      "N": 0.72
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.3,
+      "C": 0.35,
+      "E": 0.25,
+      "A": 0.9,
+      "N": 0.5
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.4,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.5,
+        "B": 0.4
+      },
+      "E": {
+        "A": 0.3,
+        "B": 0.2
+      },
+      "A": {
+        "A": 0.85,
+        "B": 0.85
+      },
+      "N": {
+        "A": 0.7,
+        "B": 0.7
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.3,
+        "B": 0.4
+      },
+      "C": {
+        "A": 0.5,
+        "B": 0.5
+      },
+      "E": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "A": {
+        "A": 0.5,
+        "B": 0.9
+      },
+      "N": {
+        "A": 0.7,
+        "B": 0.5
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.65,
+        "B": 0.45
+      },
+      "C": {
+        "A": 0.4,
+        "B": 0.35
+      },
+      "E": {
+        "A": 0.2,
+        "B": 0.22
+      },
+      "A": {
+        "A": 0.95,
+        "B": 0.95
+      },
+      "N": {
+        "A": 0.75,
+        "B": 0.85
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.35,
+        "B": 0.5
+      },
+      "C": {
+        "A": 0.38,
+        "B": 0.32
+      },
+      "E": {
+        "A": 0.15,
+        "B": 0.18
+      },
+      "A": {
+        "A": 0.82,
+        "B": 0.88
+      },
+      "N": {
+        "A": 0.72,
+        "B": 0.72
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.3,
+        "B": 0.4
+      },
+      "E": {
+        "A": 0.2,
+        "B": 0.3
+      },
+      "A": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "N": {
+        "A": 0.6,
+        "B": 0.4
+      }
+    }
+  },
+  "overall_confidence": 0.7150000000000001,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:not"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.1,
+        "model_range": 0.25,
+        "parse_errors": 1,
+        "uncertain": false
+      },
+      "C": {
+        "order_effect": 0.06,
+        "model_range": 0.15,
+        "parse_errors": 2,
+        "uncertain": true
+      },
+      "E": {
+        "order_effect": 0.03,
+        "model_range": 0.085,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "A": {
+        "order_effect": 0.0,
+        "model_range": 0.25,
+        "parse_errors": 1,
+        "uncertain": false
+      },
+      "N": {
+        "order_effect": 0.1,
+        "model_range": 0.3,
+        "parse_errors": 1,
+        "uncertain": true
+      }
+    },
+    "uncertain_traits": [
+      "C",
+      "N"
+    ],
+    "uncertain_reasons": {
+      "C": [
+        "parse_errors=2"
+      ],
+      "N": []
+    }
+  },
+  "features": {
+    "avg_words_per_turn": 30.38,
+    "max_words_in_turn": 35,
+    "min_words_in_turn": 24,
+    "word_count_variance": 4.12,
+    "question_ratio": 1.0,
+    "exclamation_ratio": 0.0,
+    "hedge_count": 6,
+    "certainty_count": 0,
+    "first_person_ratio": 0.0123,
+    "inclusive_pronoun_ratio": 0.0288,
+    "disagreement_count": 0,
+    "acknowledgment_count": 2,
+    "idea_count": 6,
+    "name_mention_count": 1,
+    "conditional_ratio": 0.375,
+    "planning_count": 7,
+    "emotional_word_count": 0,
+    "positive_emotion_count": 0,
+    "turn_initiation_ratio": 0.25,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.6502,
+    "long_sentence_ratio": 0.0,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 0,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 1
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 243,
+    "candidate_avg_words_per_turn": 30.38,
+    "times_addressed_others_by_name": 1,
+    "times_asked_questions": 8,
+    "times_expressed_disagreement": 0,
+    "times_acknowledged_others": 2,
+    "times_proposed_new_ideas": 6
+  },
+  "assessment_summary": "Reserved participant, preferred listening over speaking; Collaborative and accommodating in conflict situations; Showed some stress signals under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "Hey team, I'm really excited about this opportunity to boost employee engagement! We've got a clean slate to brainstorm some creative ideas today - no budget constraints yet, but we'll need to think about how to justify whatever we recommend. Let's start throwing out some ideas and see what resonates with everyone. Riley, I'd love to hear your thoughts too since you haven't spoken yet!"
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "Nervously adjusting my notes before speaking in a quiet voice. \"I...I was thinking maybe mentorship programs? They seem practical and have good ROI data...\" Then quickly adds, \"Only if others think that would work too.\""
+    },
+    {
+      "turn": 3,
+      "speaker": "Jordan",
+      "content": "That's a fantastic idea! Mentorship programs do have great ROI data, and they help build stronger connections across teams. Building on what you said, what if we combined traditional mentorship with something more creative like reverse mentoring, where junior employees mentor executives on new technologies? I'd love to hear your thoughts on that twist!"
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "Reverse mentoring...that's an interesting approach.\" \"Do you think leadership would be open to that? We'd need data showing its effectiveness first...\" \"But the cross-generational knowledge sharing does sound valuable."
+    },
+    {
+      "turn": 5,
+      "speaker": "Riley",
+      "content": "Not sure leadership would buy into reverse mentoring without hard numbers. Could be seen as gimmicky."
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "I see Riley's point...maybe we could pilot it with a few willing executives first? Just to test the concept before full rollout?\" \"Unless that seems too risky..."
+    },
+    {
+      "turn": 7,
+      "speaker": "Alex",
+      "content": "Piloting with executives first is just kicking the can down the road. Either leadership buys into the concept or they don't - a small pilot won't prove anything meaningful. I think we're getting too hung up on mentorship programs in general. What about implementing company-wide innovation challenges with cash prizes? That would actually get people excited and drive measurable results."
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "That's a fair point about pilots... Innovation challenges do sound exciting.\" \"Maybe we could combine both ideas? Like mentors helping teams develop their challenge submissions?\" \"Only if that doesn't complicate things too much..."
+    },
+    {
+      "turn": 9,
+      "speaker": "Riley",
+      "content": "Combining ideas might make it too complex. How would we measure success for both parts?"
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "We could track participation rates separately for each component... but you're right, that might get messy.\" \"Perhaps we should focus on one clear metric first, like engagement survey scores?\" \"Unless others think that's too narrow..."
+    },
+    {
+      "turn": 11,
+      "speaker": "Alex",
+      "content": "Engagement survey scores are too soft - we need something concrete that leadership can't argue with. Either go with innovation challenges that produce actual prototypes and ideas, or scrap this whole mentorship angle entirely. Jordan, you're too focused on warm fuzzy feelings when we need measurable business impact."
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "\"Maybe...maybe we could track innovation challenge submissions that came through mentor connections? That would combine both measurable outcomes...\" \"Or is that still too fuzzy?\""
+    },
+    {
+      "turn": 13,
+      "speaker": "Riley",
+      "content": "Still seems like we're mixing two different things. Might be better to pick one clear approach."
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "\"What if...what if we ran the innovation challenges first to get concrete results, then layered in mentorship later to sustain engagement?\" \"We'd need to schedule the phases carefully though...\" \"Unless that sequencing seems problematic...\""
+    },
+    {
+      "turn": 15,
+      "speaker": "Alex",
+      "content": "That sequencing actually makes the problem worse by stretching resources thin over time. We need one strong initiative now, not two half-baked ones spread out. Innovation challenges stand on their own - either commit to that or don't. Riley's right about keeping it simple. Candidate, are you actually convinced mentorship adds value here or are you just trying to please everyone?"
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "I...I do see the value in innovation challenges.\" \"Maybe I was overcomplicating things worrying about sustainability...\" \"We could focus purely on challenges with clear submission metrics?"
+    },
+    {
+      "turn": 17,
+      "speaker": "Riley",
+      "content": "Okay, that makes sense. Clear metrics would be better."
+    }
+  ],
+  "controller_log": {
+    "session_key": "bcfc_anxious_perfectionist_creative_brainstorm_r1",
+    "deviation_reports": [
+      {
+        "turn_number": 2,
+        "deviations": [
+          {
+            "feature": "unique_word_ratio",
+            "actual": 0.94,
+            "target_min": 0.33,
+            "target_max": 0.61,
+            "trait": "O",
+            "direction": "above"
+          },
+          {
+            "feature": "idea_count",
+            "actual": 0,
+            "target_min": 0.04,
+            "target_max": 0.52,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "word_count_variance",
+            "actual": 3.0,
+            "target_min": 4.85,
+            "target_max": 9.01,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "long_sentence_ratio",
+            "actual": 0.0,
+            "target_min": 0.03,
+            "target_max": 0.13,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "question_ratio",
+            "actual": 1.0,
+            "target_min": 0.04,
+            "target_max": 0.14,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "planning_count",
+            "actual": 2,
+            "target_min": 1.05,
+            "target_max": 1.96,
+            "trait": "C",
+            "direction": "above"
+          },
+          {
+            "feature": "structure_marker_count",
+            "actual": 0,
+            "target_min": 1.05,
+            "target_max": 1.96,
+            "trait": "C",
+            "direction": "below"
+          },
+          {
+            "feature": "conditional_ratio",
+            "actual": 0.0,
+            "target_min": 0.36,
+            "target_max": 0.67,
+            "trait": "C",
+            "direction": "below"
+          },
+          {
+            "feature": "reference_back_count",
+            "actual": 0,
+            "target_min": 0.85,
+            "target_max": 1.58,
+            "trait": "C",
+            "direction": "below"
+          },
+          {
+            "feature": "action_item_count",
+            "actual": 0,
+            "target_min": 0.68,
+            "target_max": 1.27,
+            "trait": "C",
+            "direction": "below"
+          },
+          {
+            "feature": "emotional_word_count",
+            "actual": 0,
+            "target_min": 0.0,
+            "target_max": -0.15,
+            "trait": "C",
+            "direction": "above"
+          },
+          {
+            "feature": "avg_words_per_turn",
+            "actual": 32.0,
+            "target_min": 11.11,
+            "target_max": 20.64,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "turn_initiation_ratio",
+            "actual": 0.5,
+            "target_min": 0.0,
+            "target_max": 0.08,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "hedge_count",
+            "actual": 1,
+            "target_min": 1.22,
+            "target_max": 2.26,
+            "trait": "N",
+            "direction": "below"
+          },
+          {
+            "feature": "acknowledgment_count",
+            "actual": 0,
+            "target_min": 0.84,
+            "target_max": 1.56,
+            "trait": "A",
+            "direction": "below"
+          },
+          {
+            "feature": "positive_emotion_count",
+            "actual": 0,
+            "target_min": 0.4,
+            "target_max": 0.87,
+            "trait": "A",
+            "direction": "below"
+          },
+          {
+            "feature": "apology_count",
+            "actual": 0,
+            "target_min": 0.62,
+            "target_max": 1.15,
+            "trait": "N",
+            "direction": "below"
+          },
+          {
+            "feature": "self_doubt_count",
+            "actual": 0,
+            "target_min": 0.4,
+            "target_max": 0.87,
+            "trait": "N",
+            "direction": "below"
+          },
+          {
+            "feature": "reassurance_seeking_count",
+            "actual": 0,
+            "target_min": 0.68,
+            "target_max": 1.27,
+            "trait": "N",
+            "direction": "below"
+          },
+          {
+            "feature": "first_person_ratio",
+            "actual": 0.02,
+            "target_min": 0.12,
+            "target_max": 0.22,
+            "trait": "N",
+            "direction": "below"
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your unique word ratio is above target; your idea count is below target; your word count variance is below target; your long sentence ratio is below target; Propose an alternative approach or ask a speculative question.. E: your question ratio is above target; your avg words per turn is above target; your turn initiation ratio is above target; Keep it brief and let others lead.. C: your planning count is above target; your structure marker count is below target; your conditional ratio is below target; your reference back count is below target; your action item count is below target; your emotional word count is above target; Include a concrete action item with an owner or reference a prior commitment.. N: your hedge count is below target; your apology count is below target; your self doubt count is below target; your reassurance seeking count is below target; your first person ratio is below target; Express a concern or qualify your statement with uncertainty.. A: your acknowledgment count is below target; your positive emotion count is below target; Validate someone's contribution or find common ground.. Aim to: In responses longer than one sentence, include at least one concrete organizational element: a deadline, an owner, a next step, or a reference to a prior commitment. ]",
+        "severity": 0.741
+      },
+      {
+        "turn_number": 4,
+        "deviations": [
+          {
+            "feature": "unique_word_ratio",
+            "actual": 0.83,
+            "target_min": 0.33,
+            "target_max": 0.61,
+            "trait": "O",
+            "direction": "above"
+          },
+          {
+            "feature": "idea_count",
+            "actual": 2,
+            "target_min": 0.04,
+            "target_max": 0.52,
+            "trait": "O",
+            "direction": "above"
+          },
+          {
+            "feature": "word_count_variance",
+            "actual": 3.16,
+            "target_min": 4.85,
+            "target_max": 9.01,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "long_sentence_ratio",
+            "actual": 0.0,
+            "target_min": 0.03,
+            "target_max": 0.13,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "question_ratio",
+            "actual": 1.0,
+            "target_min": 0.04,
+            "target_max": 0.14,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "planning_count",
+            "actual": 3,
+            "target_min": 1.05,
+            "target_max": 1.96,
+            "trait": "C",
+            "direction": "above"
+          },
+          {
+            "feature": "structure_marker_count",
+            "actual": 0,
+            "target_min": 1.05,
+            "target_max": 1.96,
+            "trait": "C",
+            "direction": "below"
+          },
+          {
+            "feature": "conditional_ratio",
+            "actual": 0.25,
+            "target_min": 0.36,
+            "target_max": 0.67,
+            "trait": "C",
+            "direction": "below"
+          },
+          {
+            "feature": "reference_back_count",
+            "actual": 0,
+            "target_min": 0.85,
+            "target_max": 1.58,
+            "trait": "C",
+            "direction": "below"
+          },
+          {
+            "feature": "action_item_count",
+            "actual": 0,
+            "target_min": 0.68,
+            "target_max": 1.27,
+            "trait": "C",
+            "direction": "below"
+          },
+          {
+            "feature": "emotional_word_count",
+            "actual": 0,
+            "target_min": 0.0,
+            "target_max": -0.15,
+            "trait": "C",
+            "direction": "above"
+          },
+          {
+            "feature": "avg_words_per_turn",
+            "actual": 31.0,
+            "target_min": 11.11,
+            "target_max": 20.64,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 1,
+            "target_min": 0.0,
+            "target_max": 0.44,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "turn_initiation_ratio",
+            "actual": 0.25,
+            "target_min": 0.0,
+            "target_max": 0.08,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "hedge_count",
+            "actual": 3,
+            "target_min": 1.22,
+            "target_max": 2.26,
+            "trait": "N",
+            "direction": "above"
+          },
+          {
+            "feature": "positive_emotion_count",
+            "actual": 0,
+            "target_min": 0.4,
+            "target_max": 0.87,
+            "trait": "A",
+            "direction": "below"
+          },
+          {
+            "feature": "negation_count",
+            "actual": 1,
+            "target_min": 0.0,
+            "target_max": 0.41,
+            "trait": "A",
+            "direction": "above"
+          },
+          {
+            "feature": "apology_count",
+            "actual": 0,
+            "target_min": 0.62,
+            "target_max": 1.15,
+            "trait": "N",
+            "direction": "below"
+          },
+          {
+            "feature": "self_doubt_count",
+            "actual": 0,
+            "target_min": 0.4,
+            "target_max": 0.87,
+            "trait": "N",
+            "direction": "below"
+          },
+          {
+            "feature": "reassurance_seeking_count",
+            "actual": 0,
+            "target_min": 0.68,
+            "target_max": 1.27,
+            "trait": "N",
+            "direction": "below"
+          },
+          {
+            "feature": "first_person_ratio",
+            "actual": 0.02,
+            "target_min": 0.12,
+            "target_max": 0.22,
+            "trait": "N",
+            "direction": "below"
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your unique word ratio is above target; your idea count is above target; your word count variance is below target; your long sentence ratio is below target; Propose an alternative approach or ask a speculative question.. E: your question ratio is above target; your avg words per turn is above target; your name mention count is above target; your turn initiation ratio is above target; Keep it brief and let others lead.. C: your planning count is above target; your structure marker count is below target; your conditional ratio is below target; your reference back count is below target; your action item count is below target; your emotional word count is above target; Include a concrete action item with an owner or reference a prior commitment.. N: your hedge count is above target; your apology count is below target; your self doubt count is below target; your reassurance seeking count is below target; your first person ratio is below target; Express a concern or qualify your statement with uncertainty.. A: your positive emotion count is below target; your negation count is above target; Validate someone's contribution or find common ground.. Aim to: In responses longer than one sentence, include at least one concrete organizational element: a deadline, an owner, a next step, or a reference to a prior commitment. ]",
+        "severity": 0.778
+      },
+      {
+        "turn_number": 6,
+        "deviations": [
+          {
+            "feature": "unique_word_ratio",
+            "actual": 0.78,
+            "target_min": 0.33,
+            "target_max": 0.61,
+            "trait": "O",
+            "direction": "above"
+          },
+          {
+            "feature": "idea_count",
+            "actual": 4,
+            "target_min": 0.04,
+            "target_max": 0.52,
+            "trait": "O",
+            "direction": "above"
+          },
+          {
+            "feature": "word_count_variance",
+            "actual": 4.44,
+            "target_min": 4.85,
+            "target_max": 9.01,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "long_sentence_ratio",
+            "actual": 0.0,
+            "target_min": 0.03,
+            "target_max": 0.13,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "question_ratio",
+            "actual": 1.0,
+            "target_min": 0.04,
+            "target_max": 0.14,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "planning_count",
+            "actual": 2,
+            "target_min": 1.05,
+            "target_max": 1.96,
+            "trait": "C",
+            "direction": "above"
+          },
+          {
+            "feature": "structure_marker_count",
+            "actual": 0,
+            "target_min": 1.05,
+            "target_max": 1.96,
+            "trait": "C",
+            "direction": "below"
+          },
+          {
+            "feature": "reference_back_count",
+            "actual": 0,
+            "target_min": 0.85,
+            "target_max": 1.58,
+            "trait": "C",
+            "direction": "below"
+          },
+          {
+            "feature": "action_item_count",
+            "actual": 0,
+            "target_min": 0.68,
+            "target_max": 1.27,
+            "trait": "C",
+            "direction": "below"
+          },
+          {
+            "feature": "emotional_word_count",
+            "actual": 0,
+            "target_min": 0.0,
+            "target_max": -0.15,
+            "trait": "C",
+            "direction": "above"
+          },
+          {
+            "feature": "avg_words_per_turn",
+            "actual": 29.75,
+            "target_min": 11.11,
+            "target_max": 20.64,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 1,
+            "target_min": 0.0,
+            "target_max": 0.44,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "turn_initiation_ratio",
+            "actual": 0.25,
+            "target_min": 0.0,
+            "target_max": 0.08,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "hedge_count",
+            "actual": 4,
+            "target_min": 1.22,
+            "target_max": 2.26,
+            "trait": "N",
+            "direction": "above"
+          },
+          {
+            "feature": "acknowledgment_count",
+            "actual": 2,
+            "target_min": 0.84,
+            "target_max": 1.56,
+            "trait": "A",
+            "direction": "above"
+          },
+          {
+            "feature": "positive_emotion_count",
+            "actual": 0,
+            "target_min": 0.4,
+            "target_max": 0.87,
+            "trait": "A",
+            "direction": "below"
+          },
+          {
+            "feature": "negation_count",
+            "actual": 1,
+            "target_min": 0.0,
+            "target_max": 0.41,
+            "trait": "A",
+            "direction": "above"
+          },
+          {
+            "feature": "apology_count",
+            "actual": 0,
+            "target_min": 0.62,
+            "target_max": 1.15,
+            "trait": "N",
+            "direction": "below"
+          },
+          {
+            "feature": "self_doubt_count",
+            "actual": 0,
+            "target_min": 0.4,
+            "target_max": 0.87,
+            "trait": "N",
+            "direction": "below"
+          },
+          {
+            "feature": "reassurance_seeking_count",
+            "actual": 0,
+            "target_min": 0.68,
+            "target_max": 1.27,
+            "trait": "N",
+            "direction": "below"
+          },
+          {
+            "feature": "first_person_ratio",
+            "actual": 0.01,
+            "target_min": 0.12,
+            "target_max": 0.22,
+            "trait": "N",
+            "direction": "below"
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your unique word ratio is above target; your idea count is above target; your word count variance is below target; your long sentence ratio is below target; Propose an alternative approach or ask a speculative question.. E: your question ratio is above target; your avg words per turn is above target; your name mention count is above target; your turn initiation ratio is above target; Keep it brief and let others lead.. C: your planning count is above target; your structure marker count is below target; your reference back count is below target; your action item count is below target; your emotional word count is above target; Include a concrete action item with an owner or reference a prior commitment.. N: your hedge count is above target; your apology count is below target; your self doubt count is below target; your reassurance seeking count is below target; your first person ratio is below target; Express a concern or qualify your statement with uncertainty.. A: your acknowledgment count is above target; your positive emotion count is below target; your negation count is above target; Identify a flaw in the current proposal and push back.. Aim to: In responses longer than one sentence, include at least one concrete organizational element: a deadline, an owner, a next step, or a reference to a prior commitment. ]",
+        "severity": 0.778
+      }
+    ],
+    "constraint_violations": [],
+    "total_nudges": 3,
+    "total_regenerations": 0,
+    "total_candidate_turns": 8,
+    "nudge_rate": 0.375,
+    "regeneration_rate": 0.0
+  },
+  "timestamp": "2026-03-04T14:25:14.846560"
+}

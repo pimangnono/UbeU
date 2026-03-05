@@ -1,0 +1,369 @@
+{
+  "schema_version": 4,
+  "session_key": "baseline_neutral_observer_resource_conflict_r1",
+  "condition": "main",
+  "intervention": "none",
+  "profile_id": "neutral_observer",
+  "profile_name": "Neutral Observer",
+  "scenario_id": "resource_conflict",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.5,
+    "C": 0.5,
+    "E": 0.5,
+    "A": 0.5,
+    "N": 0.5
+  },
+  "inferred_vector": {
+    "O": 0.35,
+    "C": 0.6,
+    "E": 0.4,
+    "A": 0.8,
+    "N": 0.2
+  },
+  "rule_based_vector": {
+    "O": 0.4396,
+    "C": 0.5571,
+    "E": 0.6296,
+    "A": 0.5682,
+    "N": 0.4122
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.35,
+      "C": 0.675,
+      "E": 0.4,
+      "A": 0.675,
+      "N": 0.2
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.4,
+      "C": 0.775,
+      "E": 0.3,
+      "A": 0.8,
+      "N": 0.2
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.225,
+      "C": 0.575,
+      "E": 0.65,
+      "A": 0.935,
+      "N": 0.16499999999999998
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.35,
+      "C": 0.55,
+      "E": 0.28,
+      "A": 0.78,
+      "N": 0.23
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.2,
+      "C": 0.6,
+      "E": 0.4,
+      "A": 0.9,
+      "N": 0.15000000000000002
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.4,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.7,
+        "B": 0.65
+      },
+      "E": {
+        "A": 0.4,
+        "B": 0.4
+      },
+      "A": {
+        "A": 0.5,
+        "B": 0.85
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.2
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.4,
+        "B": 0.4
+      },
+      "C": {
+        "A": 0.8,
+        "B": 0.75
+      },
+      "E": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "A": {
+        "A": 0.8,
+        "B": 0.8
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.2
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.2,
+        "B": 0.25
+      },
+      "C": {
+        "A": 0.55,
+        "B": 0.6
+      },
+      "E": {
+        "A": 0.55,
+        "B": 0.75
+      },
+      "A": {
+        "A": 0.95,
+        "B": 0.92
+      },
+      "N": {
+        "A": 0.15,
+        "B": 0.18
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.35,
+        "B": 0.35
+      },
+      "C": {
+        "A": 0.58,
+        "B": 0.52
+      },
+      "E": {
+        "A": 0.28,
+        "B": 0.28
+      },
+      "A": {
+        "A": 0.78,
+        "B": 0.78
+      },
+      "N": {
+        "A": 0.18,
+        "B": 0.28
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.6,
+        "B": 0.6
+      },
+      "E": {
+        "A": 0.4,
+        "B": 0.4
+      },
+      "A": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "N": {
+        "A": 0.1,
+        "B": 0.2
+      }
+    }
+  },
+  "overall_confidence": 0.7582,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:not"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.0,
+        "model_range": 0.2,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "C": {
+        "order_effect": 0.05,
+        "model_range": 0.225,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "E": {
+        "order_effect": 0.0,
+        "model_range": 0.37,
+        "parse_errors": 0,
+        "uncertain": true
+      },
+      "A": {
+        "order_effect": 0.0,
+        "model_range": 0.26,
+        "parse_errors": 1,
+        "uncertain": false
+      },
+      "N": {
+        "order_effect": 0.03,
+        "model_range": 0.08,
+        "parse_errors": 0,
+        "uncertain": false
+      }
+    },
+    "uncertain_traits": [
+      "E"
+    ],
+    "uncertain_reasons": {
+      "E": [
+        "model_range>0.37"
+      ]
+    }
+  },
+  "features": {
+    "avg_words_per_turn": 47.38,
+    "max_words_in_turn": 61,
+    "min_words_in_turn": 34,
+    "word_count_variance": 7.78,
+    "question_ratio": 0.5,
+    "exclamation_ratio": 0.0,
+    "hedge_count": 4,
+    "certainty_count": 1,
+    "first_person_ratio": 0.0,
+    "inclusive_pronoun_ratio": 0.0396,
+    "disagreement_count": 0,
+    "acknowledgment_count": 2,
+    "idea_count": 1,
+    "name_mention_count": 12,
+    "conditional_ratio": 1.0,
+    "planning_count": 2,
+    "emotional_word_count": 0,
+    "positive_emotion_count": 0,
+    "turn_initiation_ratio": 0.25,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.5541,
+    "long_sentence_ratio": 0.125,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 1,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 4
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 379,
+    "candidate_avg_words_per_turn": 47.38,
+    "times_addressed_others_by_name": 12,
+    "times_asked_questions": 4,
+    "times_expressed_disagreement": 0,
+    "times_acknowledged_others": 2,
+    "times_proposed_new_ideas": 1
+  },
+  "assessment_summary": "Collaborative and accommodating in conflict situations; Maintained composure throughout, steady under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "Hey team, I'm really excited to tackle this challenge together! We've got an important decision ahead about which two features to prioritize and how to handle the workload. Let's brainstorm some creative solutions that align with both the client's needs and our team's wellbeing - I'd love to hear everyone's thoughts on where we should start. Maybe Riley, you've been quiet - any initial reactions you'd like to share?"
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "Given the tight timeline, we should focus on the two features that deliver the most client value with the least development risk. Maybe start by ranking them against the project's core objectives?\" \"Also worth considering which team member has the right skillset to handle overtime most effectively."
+    },
+    {
+      "turn": 3,
+      "speaker": "Jordan",
+      "content": "I love that structured approach! Building on what you said about client value, maybe we could also consider which features align closest with the client's long-term roadmap, not just immediate needs. Riley, you've worked closely with the client before - what would you say their priorities really are under the surface? And about the overtime, I'm thinking we could rotate it weekly rather than burden one person the whole time - what do you all think?"
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "Prioritizing based on client roadmap makes sense - should we cross-reference that with our risk assessment from earlier? For overtime, rotation could work if we document handoffs thoroughly, though specialization might be more efficient. Riley's client insights would definitely help here."
+    },
+    {
+      "turn": 5,
+      "speaker": "Alex",
+      "content": "That's a reasonable approach, but I disagree with spreading the overtime across multiple people. Handoffs create too much risk of knowledge gaps. We should assign the overtime to whoever has the deepest expertise in the most critical feature.\n\nAlso, let's not overcomplicate this - the client's stated priority is hitting the deadline. We should pick the two features with the highest business impact that we can realistically deliver in three weeks. No theoretical roadmap analysis matters if we miss the deadline.\n\nRiley, stop sitting on the fence - which features would cause the most damage if we didn't deliver them? That's what we need to focus on."
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "Alex makes a fair point about minimizing handoff risks. Maybe we could compromise - assign overtime to the most critical feature specialist, but document their work thoroughly in case others need to step in. For feature selection, combining Alex's deadline focus with Jordan's roadmap perspective might give us the clearest priorities. Riley's input on potential damage would help balance both views."
+    },
+    {
+      "turn": 7,
+      "speaker": "Jordan",
+      "content": "That's a great balanced approach! I really like how we're combining both immediate needs and long-term strategy. Building on the compromise idea, what if we also scheduled a mid-point check-in with the client to validate our feature choices? That way we stay agile while still considering their roadmap. Riley, I'd love to hear - does that sound like something that would work with this client's style?"
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "A midpoint check-in could help manage expectations, though we'd need to be careful not to derail our momentum. Maybe Riley could advise if the client typically responds well to interim updates? And we should confirm which features would require minimal rework if priorities shift."
+    },
+    {
+      "turn": 9,
+      "speaker": "Alex",
+      "content": "Mid-point check-ins are just wasted time we don't have - we need to commit to features now and execute. Looking at our options, Feature A delivers immediate revenue impact and Feature C fixes their biggest pain point. Those are the obvious choices. Candidate, since you're worrying about rework, which two would you cut completely? I want to hear your direct opinion."
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "Alex's choices seem practical based on immediate impact, though I'd want to confirm Feature C's technical feasibility before finalizing. Between the remaining options, Feature B looks less critical than Feature D for the client's operations. But Riley should weigh in since they know the client best."
+    },
+    {
+      "turn": 11,
+      "speaker": "Jordan",
+      "content": "I really appreciate how we're balancing both technical feasibility and client impact here! Building on the candidate's point about Feature C, what if we prototyped just the core functionality of that feature first to validate feasibility? That way we could make a more informed decision without committing full resources. Riley, since you know the client's tolerance for partial solutions, would they be open to that approach? And Alex, I hear your urgency - maybe we could timebox the prototype work to just 2 days?"
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "Prototyping Feature C's core functionality sounds reasonable if we strictly timebox it. Though we should confirm with Riley whether the client would accept partial delivery if the prototype reveals feasibility issues. Alex, would you be open to this approach if we commit to your feature selections should the prototype take longer than two days?"
+    },
+    {
+      "turn": 13,
+      "speaker": "Alex",
+      "content": "Prototyping is just kicking the can down the road - we don't have time for experiments. Feature C either gets built properly or we cut it now. Candidate, stop hedging - are you saying Feature C is worth delaying Feature A's development or not? Make a call. Riley can tell us if partial delivery is acceptable, but let's not pretend we'll magically find extra time later."
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "Feature C shouldn't delay Feature A - let's cut it now if we can't commit fully. But we still need Riley's confirmation on whether partial delivery would be acceptable before completely abandoning the option."
+    },
+    {
+      "turn": 15,
+      "speaker": "Jordan",
+      "content": "I really appreciate how you're balancing practicality with client considerations! Building on your point about Feature C, what if we explore a hybrid approach where we dedicate one developer to prototype just the core functionality while the rest focus on Feature A? Riley, would the client potentially accept this as a temporary solution while we fully develop Feature C post-deadline?"
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "Alex makes a valid point about time constraints - we can't afford to delay Feature A for C's uncertainty. But let's get Riley's input on whether partial delivery would satisfy immediate needs before completely cutting it. Either way, we should commit to Feature A first and revisit C only if time permits."
+    },
+    {
+      "turn": 17,
+      "speaker": "Alex",
+      "content": "We're wasting time debating partial solutions when we have a clear deadline. Feature A is non-negotiable, and Feature C either gets full resources or gets cut - no half measures. Riley, tell us straight - will the client accept a broken version of Feature C or should we pivot to Feature D instead? Candidate, stop trying to have it both ways - pick a lane."
+    }
+  ],
+  "controller_log": null,
+  "timestamp": "2026-03-04T17:21:12.503233"
+}

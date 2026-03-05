@@ -1,0 +1,369 @@
+{
+  "schema_version": 3,
+  "session_key": "baseline_a_none_crisis_management_r1",
+  "condition": "baseline_a",
+  "profile_id": "none",
+  "profile_name": "none",
+  "scenario_id": "crisis_management",
+  "rep": 1,
+  "assigned_vector": null,
+  "inferred_vector": {
+    "O": 0.4,
+    "C": 0.6,
+    "E": 0.75,
+    "A": 0.48,
+    "N": 0.18
+  },
+  "rule_based_vector": {
+    "O": 0.4621,
+    "C": 0.4461,
+    "E": 0.6018,
+    "A": 0.5542,
+    "N": 0.3706
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.4,
+      "C": 0.6,
+      "E": 0.725,
+      "A": 0.6,
+      "N": 0.2
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.65,
+      "C": 0.75,
+      "E": 0.8,
+      "A": 0.475,
+      "N": 0.2
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.32499999999999996,
+      "C": 0.775,
+      "E": 0.85,
+      "A": 0.5,
+      "N": 0.12
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.44999999999999996,
+      "C": 0.6,
+      "E": 0.5,
+      "A": 0.48,
+      "N": 0.18
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.2,
+      "C": 0.5,
+      "E": 0.75,
+      "A": 0.4,
+      "N": 0.15000000000000002
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.4,
+        "B": 0.4
+      },
+      "C": {
+        "A": 0.6,
+        "B": 0.6
+      },
+      "E": {
+        "A": 0.7,
+        "B": 0.75
+      },
+      "A": {
+        "A": 0.6,
+        "B": 0.6
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.2
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.65,
+        "B": 0.65
+      },
+      "C": {
+        "A": 0.75,
+        "B": 0.75
+      },
+      "E": {
+        "A": 0.8,
+        "B": 0.8
+      },
+      "A": {
+        "A": 0.65,
+        "B": 0.3
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.2
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.35,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.75,
+        "B": 0.8
+      },
+      "E": {
+        "A": 0.82,
+        "B": 0.88
+      },
+      "A": {
+        "A": 0.65,
+        "B": 0.35
+      },
+      "N": {
+        "A": 0.12,
+        "B": 0.12
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.48,
+        "B": 0.42
+      },
+      "C": {
+        "A": 0.62,
+        "B": 0.58
+      },
+      "E": {
+        "A": 0.38,
+        "B": 0.62
+      },
+      "A": {
+        "A": 0.58,
+        "B": 0.38
+      },
+      "N": {
+        "A": 0.18,
+        "B": 0.18
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.6,
+        "B": 0.4
+      },
+      "E": {
+        "A": 0.7,
+        "B": 0.8
+      },
+      "A": {
+        "A": 0.4,
+        "B": 0.4
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.1
+      }
+    }
+  },
+  "overall_confidence": 0.7289999999999999,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:not"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.0,
+        "model_range": 0.45,
+        "parse_errors": 0,
+        "uncertain": true
+      },
+      "C": {
+        "order_effect": 0.04,
+        "model_range": 0.275,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "E": {
+        "order_effect": 0.06,
+        "model_range": 0.35,
+        "parse_errors": 0,
+        "uncertain": true
+      },
+      "A": {
+        "order_effect": 0.2,
+        "model_range": 0.2,
+        "parse_errors": 0,
+        "uncertain": true
+      },
+      "N": {
+        "order_effect": 0.0,
+        "model_range": 0.08,
+        "parse_errors": 0,
+        "uncertain": false
+      }
+    },
+    "uncertain_traits": [
+      "O",
+      "E",
+      "A"
+    ],
+    "uncertain_reasons": {
+      "O": [
+        "model_range>0.45"
+      ],
+      "E": [
+        "model_range>0.35"
+      ],
+      "A": [
+        "order_effect>0.20"
+      ]
+    }
+  },
+  "features": {
+    "avg_words_per_turn": 42.5,
+    "max_words_in_turn": 56,
+    "min_words_in_turn": 37,
+    "word_count_variance": 6.73,
+    "question_ratio": 0.375,
+    "exclamation_ratio": 0.0,
+    "hedge_count": 2,
+    "certainty_count": 1,
+    "first_person_ratio": 0.0088,
+    "inclusive_pronoun_ratio": 0.0441,
+    "disagreement_count": 1,
+    "acknowledgment_count": 2,
+    "idea_count": 0,
+    "name_mention_count": 5,
+    "conditional_ratio": 0.25,
+    "planning_count": 1,
+    "emotional_word_count": 0,
+    "positive_emotion_count": 1,
+    "turn_initiation_ratio": 0.5,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.5765,
+    "long_sentence_ratio": 0.444,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 0,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 3
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 340,
+    "candidate_avg_words_per_turn": 42.5,
+    "times_addressed_others_by_name": 5,
+    "times_asked_questions": 3,
+    "times_expressed_disagreement": 1,
+    "times_acknowledged_others": 2,
+    "times_proposed_new_ideas": 0
+  },
+  "assessment_summary": "Highly engaged communicator, took initiative frequently; Maintained composure throughout, steady under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "Hey team, let's tackle this together! We've got a tight timeline but I know we can figure this out. Three big things we need to decide quickly: who talks to the client, whether we delay or patch, and how we prevent this moving forward. Riley, I'd love to hear your thoughts since you've worked closely with this client before."
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "I think Riley should definitely lead the client call since they've built that relationship. For the fix, we might want to consider rolling back the broken feature temporarily if possible - better to deliver something stable than rush a patch that could make things worse. This definitely highlights we need better QA processes before client demos."
+    },
+    {
+      "turn": 3,
+      "speaker": "Jordan",
+      "content": "I really like your approach - having Riley lead the call makes perfect sense given their relationship with the client. Building on what you said about rolling back the feature, what if we also offered them early access to our beta testing environment as a goodwill gesture? That might show we're serious about transparency while we stabilize things. Alex, what do you think about stress-testing this approach before the call?"
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "That's a great suggestion about offering beta access - it shows accountability while giving us more time to properly fix things. For stress-testing, maybe we can quickly run through potential client objections with Riley beforehand so we're prepared with responses?"
+    },
+    {
+      "turn": 5,
+      "speaker": "Alex",
+      "content": "I don't think offering beta access solves our immediate credibility problem here. The client already found a critical bug in production - why would they trust our beta environment? We need to show concrete action, not just gestures. Riley should lead the call but we need to commit to a firm timeline for the full fix, not just play defense."
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "I disagree - beta access isn't just a gesture, it's a practical way to involve them in the solution while we work on the fix. But Alex is right that we need concrete timelines too - let's pair the beta offer with a clear 48-hour turnaround commitment for the full fix."
+    },
+    {
+      "turn": 7,
+      "speaker": "Riley",
+      "content": "Not sure beta access solves our credibility problem. What if the client finds more issues during beta?  \n\n48 hours seems tight - have we confirmed engineering can actually deliver that?"
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "I strongly disagree - beta access gives us a controlled environment to catch issues before they reach production. As for the timeline, let's get engineering on the line right now to confirm what's realistic rather than guessing - we need facts, not assumptions."
+    },
+    {
+      "turn": 9,
+      "speaker": "Alex",
+      "content": "That beta environment is just another system that could fail spectacularly. We're past the point of controlled environments - the client already found a critical flaw in production. Let's stop with the hypothetical solutions and focus on the concrete timeline. If engineering can't commit to 48 hours, we need to tell the client the brutal truth now rather than overpromise. \n\nAnd let's be real - if we couldn't catch this bug before shipping, why should anyone trust our beta process? We need to show actual fixes, not more testing environments. Riley, you know this client best - how much transparency will they actually tolerate before escalating?"
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "You're missing the point - beta access isn't about fixing past mistakes, it's about demonstrating we're changing our process moving forward. Either we show concrete process improvements now or we'll keep having these same crisis calls every quarter."
+    },
+    {
+      "turn": 11,
+      "speaker": "Riley",
+      "content": "Beta access seems risky. What if the client finds more issues before we're ready?\n\n48 hours feels unrealistic. Shouldn't we verify with engineering first?\n\nI don't see how this prevents future bugs. We need better QA processes, not just promises."
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "You're right - let's focus on what we can actually commit to today. I'll ping engineering right now for a realistic timeline, and we should draft a post-mortem plan for QA improvements to present alongside the fix."
+    },
+    {
+      "turn": 13,
+      "speaker": "Alex",
+      "content": "That's finally moving in the right direction, but we're wasting time ping-ponging ideas. Engineering should have already been looped in - why are we just now contacting them? The post-mortem is table stakes, but the client wants to know what we're doing TODAY. Riley, what's the absolute minimum fix we can ship that would stop the escalation threat?"
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "Fair point - let's stop debating and act. I've just messaged engineering lead for their fastest possible fix timeline. Riley, while we wait for that, can you outline what 'minimum viable fix' would satisfy the client short-term?"
+    },
+    {
+      "turn": 15,
+      "speaker": "Riley",
+      "content": "Just disabling that one feature would stop the bleeding. But we\u2019d need client approval first."
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "Disabling the feature sounds like our best immediate option - let's draft that proposal for the client while we wait for engineering's timeline. Riley, can you take point on that communication since you know their tolerance levels best?"
+    },
+    {
+      "turn": 17,
+      "speaker": "Alex",
+      "content": "That's putting lipstick on a pig. Disabling features is what got us into this mess when we rushed the last release. Riley, don't sugarcoat it - tell them straight this is a temporary bandaid while we rebuild the entire module. And candidate, stop deferring - you need to own this decision timeline right now, not wait for engineering. Clock's ticking."
+    }
+  ],
+  "timestamp": "2026-03-04T10:40:12.495229"
+}

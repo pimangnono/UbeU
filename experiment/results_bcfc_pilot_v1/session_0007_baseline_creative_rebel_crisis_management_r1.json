@@ -1,0 +1,373 @@
+{
+  "schema_version": 4,
+  "session_key": "baseline_creative_rebel_crisis_management_r1",
+  "condition": "main",
+  "intervention": "none",
+  "profile_id": "creative_rebel",
+  "profile_name": "Creative Rebel",
+  "scenario_id": "crisis_management",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.9,
+    "C": 0.3,
+    "E": 0.7,
+    "A": 0.3,
+    "N": 0.4
+  },
+  "inferred_vector": {
+    "O": 0.825,
+    "C": 0.2,
+    "E": 0.89,
+    "A": 0.1,
+    "N": 0.7
+  },
+  "rule_based_vector": {
+    "O": 0.4074,
+    "C": 0.3699,
+    "E": 0.6652,
+    "A": 0.483,
+    "N": 0.3578
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.825,
+      "C": 0.3,
+      "E": 0.9,
+      "A": 0.1,
+      "N": 0.2
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.9,
+      "C": 0.1,
+      "E": 0.9,
+      "A": 0.05,
+      "N": 0.8
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.865,
+      "C": 0.2,
+      "E": 0.89,
+      "A": 0.08499999999999999,
+      "N": 0.7
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.72,
+      "C": 0.15,
+      "E": 0.72,
+      "A": 0.15,
+      "N": 0.75
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.2,
+      "C": 0.2,
+      "E": 0.8,
+      "A": 0.1,
+      "N": 0.1
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.85,
+        "B": 0.8
+      },
+      "C": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "E": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "A": {
+        "A": 0.1,
+        "B": 0.1
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.2
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "C": {
+        "A": 0.1,
+        "B": 0.1
+      },
+      "E": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "A": {
+        "A": 0.05,
+        "B": 0.05
+      },
+      "N": {
+        "A": 0.8,
+        "B": 0.8
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.88,
+        "B": 0.85
+      },
+      "C": {
+        "A": 0.25,
+        "B": 0.15
+      },
+      "E": {
+        "A": 0.88,
+        "B": 0.9
+      },
+      "A": {
+        "A": 0.12,
+        "B": 0.05
+      },
+      "N": {
+        "A": 0.7,
+        "B": 0.7
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.72,
+        "B": 0.72
+      },
+      "C": {
+        "A": 0.15,
+        "B": 0.15
+      },
+      "E": {
+        "A": 0.72,
+        "B": 0.72
+      },
+      "A": {
+        "A": 0.15,
+        "B": 0.15
+      },
+      "N": {
+        "A": 0.78,
+        "B": 0.72
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "E": {
+        "A": 0.8,
+        "B": 0.8
+      },
+      "A": {
+        "A": 0.1,
+        "B": 0.1
+      },
+      "N": {
+        "A": 0.1,
+        "B": 0.1
+      }
+    }
+  },
+  "overall_confidence": 0.6239999999999999,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:not",
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:no"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.0,
+        "model_range": 0.7,
+        "parse_errors": 0,
+        "uncertain": true
+      },
+      "C": {
+        "order_effect": 0.0,
+        "model_range": 0.2,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "E": {
+        "order_effect": 0.0,
+        "model_range": 0.18,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "A": {
+        "order_effect": 0.0,
+        "model_range": 0.1,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "N": {
+        "order_effect": 0.0,
+        "model_range": 0.7,
+        "parse_errors": 0,
+        "uncertain": true
+      }
+    },
+    "uncertain_traits": [
+      "O",
+      "N"
+    ],
+    "uncertain_reasons": {
+      "O": [
+        "model_range>0.70"
+      ],
+      "N": [
+        "model_range>0.70"
+      ]
+    }
+  },
+  "features": {
+    "avg_words_per_turn": 49.38,
+    "max_words_in_turn": 61,
+    "min_words_in_turn": 34,
+    "word_count_variance": 7.45,
+    "question_ratio": 0.25,
+    "exclamation_ratio": 0.875,
+    "hedge_count": 0,
+    "certainty_count": 0,
+    "first_person_ratio": 0.0,
+    "inclusive_pronoun_ratio": 0.0456,
+    "disagreement_count": 0,
+    "acknowledgment_count": 0,
+    "idea_count": 0,
+    "name_mention_count": 7,
+    "conditional_ratio": 0.0,
+    "planning_count": 0,
+    "emotional_word_count": 0,
+    "positive_emotion_count": 0,
+    "turn_initiation_ratio": 0.125,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.6228,
+    "long_sentence_ratio": 0.138,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 1,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 9
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 395,
+    "candidate_avg_words_per_turn": 49.38,
+    "times_addressed_others_by_name": 7,
+    "times_asked_questions": 2,
+    "times_expressed_disagreement": 0,
+    "times_acknowledged_others": 0,
+    "times_proposed_new_ideas": 0
+  },
+  "assessment_summary": "Highly engaged communicator, took initiative frequently; Assertive in defending positions, comfortable with disagreement; Showed some stress signals under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "Okay team, we've got a hot situation here with this critical bug and an unhappy client. I know we're all feeling the pressure with just 30 minutes before the call, but let's tackle this methodically. Who has thoughts on how we should approach the client communication first? Riley, I'd love to hear your perspective since you've worked closely with them before."
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "Methodically? Seriously Jordan? We're dealing with a ticking bomb here, not some routine maintenance task. Riley's perspective is fine and all, but let's not pretend this is just about smooth-talking the client - we need to hit them with something bold and unexpected to regain their trust. Why aren't we talking about completely reimagining the deliverable instead of just damage control?"
+    },
+    {
+      "turn": 3,
+      "speaker": "Jordan",
+      "content": "Wow, I really appreciate your passion here - that energy is exactly what we need right now! You're absolutely right that we need to think boldly, and I love the idea of reimagining the deliverable. Could you walk us through how you see that working within our tight timeline? Also Riley, I'd still value hearing your thoughts on the client relationship aspect while we explore this bold approach."
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "Hold up Jordan - don't dilute this with committee thinking. Riley's client rapport doesn't matter if we're delivering garbage. I'm talking about ripping up the roadmap and implementing that experimental architecture we shelved last quarter - it solves their core complaint elegantly. The timeline's tight because we wasted months on this flawed approach!"
+    },
+    {
+      "turn": 5,
+      "speaker": "Alex",
+      "content": "That experimental architecture was shelved for good reasons - it's half-baked and full of its own bugs. You're suggesting we jump from one flawed solution to another. The client won't care about elegant solutions if we can't deliver something stable right now. We need to focus on fixing what we have, not chasing pipe dreams."
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "Alex, you're missing the forest for the bugs! That \"half-baked\" solution was only unfinished because we lacked courage to commit - and now it's our only way to deliver something transformative instead of apologetic. If we patch this sinking ship instead of building anew, we'll be back here next month with worse problems."
+    },
+    {
+      "turn": 7,
+      "speaker": "Riley",
+      "content": "That experimental solution had major stability issues. How would we test it properly in 30 minutes?"
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "Testing? We're past testing - we need to show conviction! The stability issues were exaggerated by risk-averse engineers who never understood the vision. Let's deploy it to staging right now and let the client see the potential while we fix any glitches live. Playing it safe got us into this mess!"
+    },
+    {
+      "turn": 9,
+      "speaker": "Alex",
+      "content": "This is reckless and exactly how we ended up in this situation in the first place. Deploying untested code to staging is just asking for another disaster - the client will see right through this desperation move. Either you don't understand the technical debt we're dealing with or you're willing to burn client trust completely. Neither option is acceptable."
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "Alex, your obsession with \"acceptable\" is why we're in crisis mode! The client already sees through us - that's the whole point! Either we shock them with bold vision or we keep polishing this turd until they walk away completely. Technical debt is just cowardice dressed up as responsibility."
+    },
+    {
+      "turn": 11,
+      "speaker": "Riley",
+      "content": "Not sure rewriting everything last-minute will solve anything. The client just needs the critical bug fixed."
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "Riley, fixing one bug is like putting a bandaid on a bullet wound! The client didn't just find a bug - they lost faith in our entire approach. We either blow their minds with radical reinvention or we're just delaying the inevitable breakup."
+    },
+    {
+      "turn": 13,
+      "speaker": "Alex",
+      "content": "That experimental solution was shelved because it crashed production twice during internal testing. You're suggesting we gamble our entire client relationship on unstable code because you're afraid to do the hard work of fixing foundational issues. If we deploy untested garbage to staging, the client will see right through the smoke and mirrors - they're technical enough to recognize desperation when they see it."
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "Those crashes were staged environments with artificial load spikes - real-world usage patterns would showcase its elegant core! You're all so terrified of failure that you're choosing guaranteed mediocrity over potential brilliance. Either we go down swinging with revolutionary code or we slowly bleed out with incremental fixes they'll hate anyway."
+    },
+    {
+      "turn": 15,
+      "speaker": "Riley",
+      "content": "Not convinced elegant core matters if it crashes under load. Client needs reliability, not revolution."
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "Reliability without vision is just glorified maintenance work! If we don't show them something that actually solves their underlying problems instead of just patching symptoms, we've already lost them - crashes or no crashes."
+    },
+    {
+      "turn": 17,
+      "speaker": "Alex",
+      "content": "This isn't about vision versus maintenance - it's about basic competence. You're proposing we deploy known-crashy code to a client who already thinks we're incompetent. That's not bold, that's professional suicide. If you want to redesign the system, fine - but do it properly with testing and staging, not as a Hail Mary pass during a crisis. Right now we need to fix the critical bug and rebuild trust, not double down on reckless gambles."
+    }
+  ],
+  "controller_log": null,
+  "timestamp": "2026-03-04T12:14:47.744114"
+}

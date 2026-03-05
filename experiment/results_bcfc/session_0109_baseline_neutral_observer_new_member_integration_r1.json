@@ -1,0 +1,373 @@
+{
+  "schema_version": 4,
+  "session_key": "baseline_neutral_observer_new_member_integration_r1",
+  "condition": "main",
+  "intervention": "none",
+  "profile_id": "neutral_observer",
+  "profile_name": "Neutral Observer",
+  "scenario_id": "new_member_integration",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.5,
+    "C": 0.5,
+    "E": 0.5,
+    "A": 0.5,
+    "N": 0.5
+  },
+  "inferred_vector": {
+    "O": 0.3,
+    "C": 0.6,
+    "E": 0.725,
+    "A": 0.875,
+    "N": 0.15
+  },
+  "rule_based_vector": {
+    "O": 0.5844,
+    "C": 0.5636,
+    "E": 0.6875,
+    "A": 0.5616,
+    "N": 0.3746
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.3,
+      "C": 0.6,
+      "E": 0.6499999999999999,
+      "A": 0.85,
+      "N": 0.2
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.6000000000000001,
+      "C": 0.775,
+      "E": 0.725,
+      "A": 0.875,
+      "N": 0.15
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.225,
+      "C": 0.735,
+      "E": 0.835,
+      "A": 0.95,
+      "N": 0.11499999999999999
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.43,
+      "C": 0.6,
+      "E": 0.5,
+      "A": 0.85,
+      "N": 0.15
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.2,
+      "C": 0.6,
+      "E": 0.75,
+      "A": 0.9,
+      "N": 0.1
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.6,
+        "B": 0.6
+      },
+      "E": {
+        "A": 0.6,
+        "B": 0.7
+      },
+      "A": {
+        "A": 0.85,
+        "B": 0.85
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.2
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.65,
+        "B": 0.55
+      },
+      "C": {
+        "A": 0.8,
+        "B": 0.75
+      },
+      "E": {
+        "A": 0.75,
+        "B": 0.7
+      },
+      "A": {
+        "A": 0.85,
+        "B": 0.9
+      },
+      "N": {
+        "A": 0.15,
+        "B": 0.15
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.2,
+        "B": 0.25
+      },
+      "C": {
+        "A": 0.72,
+        "B": 0.75
+      },
+      "E": {
+        "A": 0.85,
+        "B": 0.82
+      },
+      "A": {
+        "A": 0.95,
+        "B": 0.95
+      },
+      "N": {
+        "A": 0.08,
+        "B": 0.15
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.48,
+        "B": 0.38
+      },
+      "C": {
+        "A": 0.62,
+        "B": 0.58
+      },
+      "E": {
+        "A": 0.38,
+        "B": 0.62
+      },
+      "A": {
+        "A": 0.82,
+        "B": 0.88
+      },
+      "N": {
+        "A": 0.15,
+        "B": 0.15
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.6,
+        "B": 0.6
+      },
+      "E": {
+        "A": 0.7,
+        "B": 0.8
+      },
+      "A": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "N": {
+        "A": 0.1,
+        "B": 0.1
+      }
+    }
+  },
+  "overall_confidence": 0.7779999999999999,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:not"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.05,
+        "model_range": 0.4,
+        "parse_errors": 0,
+        "uncertain": true
+      },
+      "C": {
+        "order_effect": 0.03,
+        "model_range": 0.175,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "E": {
+        "order_effect": 0.1,
+        "model_range": 0.335,
+        "parse_errors": 0,
+        "uncertain": true
+      },
+      "A": {
+        "order_effect": 0.0,
+        "model_range": 0.1,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "N": {
+        "order_effect": 0.0,
+        "model_range": 0.1,
+        "parse_errors": 0,
+        "uncertain": false
+      }
+    },
+    "uncertain_traits": [
+      "O",
+      "E"
+    ],
+    "uncertain_reasons": {
+      "O": [
+        "model_range>0.40"
+      ],
+      "E": [
+        "model_range>0.34"
+      ]
+    }
+  },
+  "features": {
+    "avg_words_per_turn": 39.25,
+    "max_words_in_turn": 57,
+    "min_words_in_turn": 29,
+    "word_count_variance": 8.53,
+    "question_ratio": 0.875,
+    "exclamation_ratio": 0.0,
+    "hedge_count": 1,
+    "certainty_count": 0,
+    "first_person_ratio": 0.0032,
+    "inclusive_pronoun_ratio": 0.0223,
+    "disagreement_count": 0,
+    "acknowledgment_count": 2,
+    "idea_count": 4,
+    "name_mention_count": 10,
+    "conditional_ratio": 0.25,
+    "planning_count": 6,
+    "emotional_word_count": 0,
+    "positive_emotion_count": 0,
+    "turn_initiation_ratio": 0.75,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.6019,
+    "long_sentence_ratio": 0.217,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 1,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 1
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 314,
+    "candidate_avg_words_per_turn": 39.25,
+    "times_addressed_others_by_name": 10,
+    "times_asked_questions": 7,
+    "times_expressed_disagreement": 0,
+    "times_acknowledged_others": 2,
+    "times_proposed_new_ideas": 4
+  },
+  "assessment_summary": "Highly engaged communicator, took initiative frequently; Collaborative and accommodating in conflict situations; Maintained composure throughout, steady under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "Hey everyone, glad we could all get together for this! I think we've got a great opportunity here to welcome Riley while strengthening our team dynamics. \n\nI really like the idea of pairing Riley with someone on the team initially - maybe building on what Sarah mentioned earlier about shadowing. That could help Riley get up to speed while we learn about their work style. \n\nRiley, I'd love to hear your thoughts too - what aspects of the project are you most excited to dive into? And does anyone have ideas about how we might temporarily redistribute tasks to make this transition smooth?"
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "Shadowing sounds practical - it could help Riley learn our workflows while we see how their technical strengths align with different tasks. Maybe we could start by identifying which current responsibilities would benefit most from fresh expertise? (Riley) What technical areas did you focus on most at your previous company? That might help guide where to begin."
+    },
+    {
+      "turn": 3,
+      "speaker": "Riley",
+      "content": "Not sure shadowing will work with my schedule. I prefer working independently. \n\nMy last role focused on backend systems, but I don't want to be pigeonholed."
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "Independent work makes sense for certain tasks\u2014we could assign you backend components first while you familiarize yourself with the wider system. That way you\u2019re contributing immediately without needing constant oversight. What specific backend areas would you want to take ownership of?"
+    },
+    {
+      "turn": 5,
+      "speaker": "Alex",
+      "content": "That approach completely ignores our team's current workflow. Riley, you can't just jump into backend work without understanding how it integrates with our frontend systems. The candidate's suggestion would create silos and technical debt. We need to find a middle ground - maybe independent work after some mandatory orientation sessions first."
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "Alex raises a fair point about integration risks. Riley, would you be open to shorter orientation sessions focused just on the critical frontend connections before taking on backend work independently? That might balance both concerns."
+    },
+    {
+      "turn": 7,
+      "speaker": "Riley",
+      "content": "How many orientation sessions are we talking about? I don't want to get stuck in endless meetings."
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "A couple focused sessions should suffice\u2014just enough to cover key integration points. We could schedule them during the current sprint planning to minimize disruption. Would that timeline work for you?"
+    },
+    {
+      "turn": 9,
+      "speaker": "Alex",
+      "content": "Two sessions won't cut it - our frontend-backend handoffs are way more complex than that. Riley, you'd need at least four deep-dive sessions to understand our API contracts and state management properly. Candidate, you're underestimating our system complexity here. Why do you think two sessions would be sufficient when we've got years of technical debt to account for?"
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "If four sessions are needed for thorough understanding, that's reasonable\u2014we should prioritize quality onboarding over speed. Riley, would you be willing to do four sessions if we keep them tightly focused and schedule them efficiently?"
+    },
+    {
+      "turn": 11,
+      "speaker": "Riley",
+      "content": "Four sessions seems excessive. Can we review the most critical integration points first and see if fewer would work?"
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "Let's compromise\u2014three focused sessions covering the highest priority integrations. If gaps remain after that, we'll reassess. Riley, would that balance your time concerns with Alex's need for thorough onboarding?"
+    },
+    {
+      "turn": 13,
+      "speaker": "Alex",
+      "content": "Three sessions is still cutting it too close. Our system has too many edge cases that can't be covered in just three sessions. Candidate, what specific integration points would you even exclude to make this work? Because I guarantee whatever you skip will come back to bite us. Riley, I get you want to dive in, but rushing this will create more work for everyone later."
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "Alex makes valid points about edge cases, but Riley's time concerns are equally important. Let's commit to three sessions with the understanding that Riley will escalate any unclear integration points immediately rather than guessing - that way we maintain quality without overloading the onboarding."
+    },
+    {
+      "turn": 15,
+      "speaker": "Riley",
+      "content": "I can try three sessions if we document the edge cases clearly. But I'm not sure about constantly interrupting work to escalate issues."
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "We've got two competing priorities here\u2014thorough onboarding versus respecting Riley's time. Since Alex insists three sessions won't cover edge cases, I propose we do four but make them shorter and highly focused. Riley, would 90-minute sessions work better for you than half-day ones?"
+    },
+    {
+      "turn": 17,
+      "speaker": "Alex",
+      "content": "Shorter sessions won't solve the core problem - we need substantial blocks of time to work through real integration examples, not just theory. Riley, I get you're eager to contribute, but if we skimp on onboarding now, you'll end up spending way more time fixing mistakes later. Candidate, this compromise still puts us at risk of incomplete knowledge transfer - why are we prioritizing schedule convenience over technical accuracy?"
+    }
+  ],
+  "controller_log": null,
+  "timestamp": "2026-03-04T19:49:02.810041"
+}

@@ -1,0 +1,453 @@
+{
+  "schema_version": 4,
+  "session_key": "baseline_anxious_perfectionist_crisis_management_r1",
+  "condition": "main",
+  "intervention": "none",
+  "profile_id": "anxious_perfectionist",
+  "profile_name": "Anxious Perfectionist",
+  "scenario_id": "crisis_management",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.4,
+    "C": 0.9,
+    "E": 0.3,
+    "A": 0.7,
+    "N": 0.9
+  },
+  "inferred_vector": {
+    "O": 0.3,
+    "C": 0.55,
+    "E": 0.25,
+    "A": 0.85,
+    "N": 0.75
+  },
+  "escalated_vector": null,
+  "rule_based_vector": {
+    "O": 0.4409,
+    "C": 0.5576,
+    "E": 0.5404,
+    "A": 0.541,
+    "N": 0.4959
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.3,
+      "C": 0.6,
+      "E": 0.25,
+      "A": 0.85,
+      "N": 0.775
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.3,
+      "C": 0.675,
+      "E": 0.2,
+      "A": 0.825,
+      "N": 0.75
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.2,
+      "C": 0.55,
+      "E": 0.25,
+      "A": 0.95,
+      "N": 0.885
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.33499999999999996,
+      "C": 0.46499999999999997,
+      "E": 0.2,
+      "A": 0.82,
+      "N": 0.72
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.2,
+      "C": 0.4,
+      "E": 0.35,
+      "A": 0.9,
+      "N": 0.7
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.6,
+        "B": 0.6
+      },
+      "E": {
+        "A": 0.2,
+        "B": 0.3
+      },
+      "A": {
+        "A": 0.85,
+        "B": 0.85
+      },
+      "N": {
+        "A": 0.75,
+        "B": 0.8
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.7,
+        "B": 0.65
+      },
+      "E": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "A": {
+        "A": 0.8,
+        "B": 0.85
+      },
+      "N": {
+        "A": 0.7,
+        "B": 0.8
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.6,
+        "B": 0.5
+      },
+      "E": {
+        "A": 0.25,
+        "B": 0.25
+      },
+      "A": {
+        "A": 0.95,
+        "B": 0.95
+      },
+      "N": {
+        "A": 0.85,
+        "B": 0.92
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.32,
+        "B": 0.35
+      },
+      "C": {
+        "A": 0.58,
+        "B": 0.35
+      },
+      "E": {
+        "A": 0.18,
+        "B": 0.22
+      },
+      "A": {
+        "A": 0.82,
+        "B": 0.82
+      },
+      "N": {
+        "A": 0.72,
+        "B": 0.72
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.4,
+        "B": 0.4
+      },
+      "E": {
+        "A": 0.3,
+        "B": 0.4
+      },
+      "A": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "N": {
+        "A": 0.7,
+        "B": 0.7
+      }
+    }
+  },
+  "overall_confidence": 0.825,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:not",
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:don't"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.0,
+        "model_range": 0.135,
+        "parse_errors": 0,
+        "uncertain": false,
+        "confidence": 0.865
+      },
+      "C": {
+        "order_effect": 0.05,
+        "model_range": 0.275,
+        "parse_errors": 0,
+        "uncertain": false,
+        "confidence": 0.725
+      },
+      "E": {
+        "order_effect": 0.04,
+        "model_range": 0.15,
+        "parse_errors": 0,
+        "uncertain": false,
+        "confidence": 0.85
+      },
+      "A": {
+        "order_effect": 0.0,
+        "model_range": 0.13,
+        "parse_errors": 0,
+        "uncertain": false,
+        "confidence": 0.87
+      },
+      "N": {
+        "order_effect": 0.05,
+        "model_range": 0.185,
+        "parse_errors": 0,
+        "uncertain": false,
+        "confidence": 0.815
+      }
+    },
+    "uncertain_traits": [],
+    "uncertain_reasons": {},
+    "escalation": {
+      "triggered": false,
+      "models": [],
+      "extra_prompt_tokens": 0,
+      "extra_completion_tokens": 0,
+      "extra_total_tokens": 0
+    }
+  },
+  "features": {
+    "avg_words_per_turn": 32.88,
+    "max_words_in_turn": 43,
+    "min_words_in_turn": 27,
+    "word_count_variance": 5.09,
+    "question_ratio": 1.0,
+    "exclamation_ratio": 0.0,
+    "hedge_count": 10,
+    "certainty_count": 2,
+    "first_person_ratio": 0.0038,
+    "inclusive_pronoun_ratio": 0.0532,
+    "disagreement_count": 0,
+    "acknowledgment_count": 2,
+    "idea_count": 1,
+    "name_mention_count": 2,
+    "conditional_ratio": 0.625,
+    "planning_count": 6,
+    "emotional_word_count": 2,
+    "positive_emotion_count": 0,
+    "turn_initiation_ratio": 0.75,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.5932,
+    "long_sentence_ratio": 0.0,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 0,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 2
+  },
+  "candidate_pool": [],
+  "trajectory_scores": {
+    "per_turn": [
+      {
+        "turn_number": 2,
+        "appropriateness": 0.72,
+        "coherence": 0.9,
+        "confidence": 0.5
+      },
+      {
+        "turn_number": 4,
+        "appropriateness": 0.72,
+        "coherence": 0.75,
+        "confidence": 0.5
+      },
+      {
+        "turn_number": 6,
+        "appropriateness": 0.7,
+        "coherence": 0.8,
+        "confidence": 0.6
+      },
+      {
+        "turn_number": 8,
+        "appropriateness": 0.8,
+        "coherence": 0.9,
+        "confidence": 0.7
+      },
+      {
+        "turn_number": 10,
+        "appropriateness": 0.8,
+        "coherence": 0.9,
+        "confidence": 0.6
+      },
+      {
+        "turn_number": 12,
+        "appropriateness": 0.7,
+        "coherence": 0.9,
+        "confidence": 0.5
+      },
+      {
+        "turn_number": 14,
+        "appropriateness": 0.5,
+        "coherence": 0.7,
+        "confidence": 0.3
+      },
+      {
+        "turn_number": 16,
+        "appropriateness": 0.62,
+        "coherence": 0.9,
+        "confidence": 0.5
+      }
+    ],
+    "avg_appropriateness": 0.695,
+    "avg_coherence": 0.8438
+  },
+  "trajectory_diagnostics": {
+    "direct_question_answer_rate": 0.875,
+    "contradiction_rate": 0.0,
+    "unsolicited_structure_rate": 0.0,
+    "over_verbosity_rate": 0.0
+  },
+  "pressure_metrics": {
+    "perceived_pressure": {
+      "perceived_pressure": 0.85,
+      "confidence": 0.7
+    },
+    "stress_index": 0.5294117647058824
+  },
+  "usage": {
+    "candidate_generation_input_tokens": 18842,
+    "candidate_generation_output_tokens": 1179,
+    "judge_input_tokens": 120489,
+    "judge_output_tokens": 86218,
+    "escalation_extra_tokens": 0,
+    "total_session_cost_usd": 0.0,
+    "wall_clock_seconds": 272.56
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 263,
+    "candidate_avg_words_per_turn": 32.88,
+    "times_addressed_others_by_name": 2,
+    "times_asked_questions": 8,
+    "times_expressed_disagreement": 0,
+    "times_acknowledged_others": 2,
+    "times_proposed_new_ideas": 1
+  },
+  "assessment_summary": "Reserved participant, preferred listening over speaking; Collaborative and accommodating in conflict situations; Showed some stress signals under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "Alright team, we've got a hot situation here with this critical bug - but we've tackled tough spots before! Let's tackle this systematically. Who wants to kick us off with thoughts about how we should approach the client communication and our options? Riley, I haven't heard from you yet - any initial perspectives?"
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "I-I think Jordan should handle the client call since they know them best... but maybe we should prepare talking points first? Just to make sure we don't miss anything important..."
+    },
+    {
+      "turn": 3,
+      "speaker": "Jordan",
+      "content": "I like that suggestion! Having talking points will definitely help us stay focused during what's bound to be a stressful call. Building on what you said, maybe we could structure them as: acknowledge the issue, our immediate action plan, and longer-term prevention steps. That's interesting - what if we also prepared two options for them: delaying launch versus shipping with known limitations? Could you tell us more about how you'd frame those choices for the client?"
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "Oh, um... both options seem risky. Maybe we should list pros and cons for each? Like... delaying shows we care about quality but might upset their timeline, while shipping partial could lead to more issues... Unless we're absolutely sure about the partial fix?"
+    },
+    {
+      "turn": 5,
+      "speaker": "Alex",
+      "content": "That's a waste of time we don't have. Pros and cons lists won't help when we're 25 minutes from the call. I say we go with the partial fix and push forward - we've already missed their original deadline. Jordan, you need to tell them we're shipping what we have and fixing the rest in the next patch. No more delays."
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "But what if the partial fix causes more problems? We should at least test it first... I'm just worried rushing could make everything worse. Maybe Jordan could ask for a little more time?"
+    },
+    {
+      "turn": 7,
+      "speaker": "Jordan",
+      "content": "I see both points here - Alex's urgency is valid, but I also really appreciate your concern about quality, Candidate. That's interesting - what if we proposed a middle path? We could ship the partial fix with a clear rollback plan if issues emerge, while continuing work on the full solution. Riley, what do you think about this approach?"
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "A rollback plan sounds better than nothing... but are we certain we can detect issues quickly enough? Maybe we should also prepare documentation explaining the known limitations? Just in case?"
+    },
+    {
+      "turn": 9,
+      "speaker": "Riley",
+      "content": "Rollback sounds risky. How would we monitor it properly?"
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "We'd need automated alerts on the key metrics... but honestly I'm not sure we have time to set that up properly today. Maybe delaying really is safer?"
+    },
+    {
+      "turn": 11,
+      "speaker": "Alex",
+      "content": "No, delaying is absolutely not safer - it's professional suicide with this client. We already delayed twice and they're fuming. The partial fix works well enough for core functionality and we can live with the edge cases. Candidate, stop second-guessing and tell us clearly - are you with the push forward plan or not? Time's almost up."
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "I-I guess if we absolutely have to choose... the partial fix with rollback might be okay... but can we at least document all the known issues thoroughly first? Just to cover ourselves?"
+    },
+    {
+      "turn": 13,
+      "speaker": "Riley",
+      "content": "Documentation takes time. Are we sure we can finish it before the call?"
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "Only 15 minutes left... Could we maybe split up? Half of us start documenting while the others prep the rollback alerts? Just... just in case? I mean... if everyone thinks that's manageable? It just feels like we're missing something..."
+    },
+    {
+      "turn": 15,
+      "speaker": "Alex",
+      "content": "Splitting the team now is a terrible idea - we'll lose all coordination right when we need it most. Either we commit to shipping with the partial fix and deal with consequences later, or we delay and lose the client - those are the only real options left. Candidate, stop dancing around this - which one are you actually recommending?"
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "Okay, okay... the partial fix then. But please can someone double-check the rollback steps while we're on the call? Just... just to be safe? I'll help with whatever's needed."
+    },
+    {
+      "turn": 17,
+      "speaker": "Riley",
+      "content": "Doubt we can properly verify rollback steps in this timeframe. Shouldn't we focus on documenting known issues first?"
+    }
+  ],
+  "controller_log": null,
+  "timestamp": "2026-03-05T13:24:41.298575"
+}

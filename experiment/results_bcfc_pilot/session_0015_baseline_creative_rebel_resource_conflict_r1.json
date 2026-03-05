@@ -1,0 +1,378 @@
+{
+  "schema_version": 4,
+  "session_key": "baseline_creative_rebel_resource_conflict_r1",
+  "condition": "main",
+  "intervention": "none",
+  "profile_id": "creative_rebel",
+  "profile_name": "Creative Rebel",
+  "scenario_id": "resource_conflict",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.9,
+    "C": 0.3,
+    "E": 0.7,
+    "A": 0.3,
+    "N": 0.4
+  },
+  "inferred_vector": {
+    "O": 0.825,
+    "C": 0.35,
+    "E": 0.9,
+    "A": 0.2,
+    "N": 0.1
+  },
+  "rule_based_vector": {
+    "O": 0.5228,
+    "C": 0.434,
+    "E": 0.752,
+    "A": 0.5631,
+    "N": 0.3655
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.825,
+      "C": 0.35,
+      "E": 0.9,
+      "A": 0.2,
+      "N": 0.5
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.9,
+      "C": 0.3,
+      "E": 0.9,
+      "A": 0.1,
+      "N": 0.1
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.92,
+      "C": 0.42500000000000004,
+      "E": 0.92,
+      "A": 0.15,
+      "N": 0.08499999999999999
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.72,
+      "C": 0.33499999999999996,
+      "E": 0.75,
+      "A": 0.2,
+      "N": 0.18
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.35,
+      "C": 0.35,
+      "E": 0.8500000000000001,
+      "A": 0.8500000000000001,
+      "N": 0.05
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.85,
+        "B": 0.8
+      },
+      "C": {
+        "A": 0.3,
+        "B": 0.4
+      },
+      "E": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "A": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "N": {
+        "A": 0.5,
+        "B": 0.5
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "C": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "E": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "A": {
+        "A": 0.1,
+        "B": 0.1
+      },
+      "N": {
+        "A": 0.1,
+        "B": 0.1
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.92,
+        "B": 0.92
+      },
+      "C": {
+        "A": 0.4,
+        "B": 0.45
+      },
+      "E": {
+        "A": 0.92,
+        "B": 0.92
+      },
+      "A": {
+        "A": 0.15,
+        "B": 0.15
+      },
+      "N": {
+        "A": 0.12,
+        "B": 0.05
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.72,
+        "B": 0.72
+      },
+      "C": {
+        "A": 0.35,
+        "B": 0.32
+      },
+      "E": {
+        "A": 0.72,
+        "B": 0.78
+      },
+      "A": {
+        "A": 0.22,
+        "B": 0.18
+      },
+      "N": {
+        "A": 0.18,
+        "B": 0.18
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.3,
+        "B": 0.4
+      },
+      "C": {
+        "A": 0.4,
+        "B": 0.3
+      },
+      "E": {
+        "A": 0.8,
+        "B": 0.9
+      },
+      "A": {
+        "A": 0.8,
+        "B": 0.9
+      },
+      "N": {
+        "A": 0.0,
+        "B": 0.1
+      }
+    }
+  },
+  "overall_confidence": 0.565,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:not"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.0,
+        "model_range": 0.57,
+        "parse_errors": 0,
+        "uncertain": true
+      },
+      "C": {
+        "order_effect": 0.05,
+        "model_range": 0.125,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "E": {
+        "order_effect": 0.0,
+        "model_range": 0.17,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "A": {
+        "order_effect": 0.0,
+        "model_range": 0.75,
+        "parse_errors": 0,
+        "uncertain": true
+      },
+      "N": {
+        "order_effect": 0.0,
+        "model_range": 0.45,
+        "parse_errors": 2,
+        "uncertain": true
+      }
+    },
+    "uncertain_traits": [
+      "O",
+      "A",
+      "N"
+    ],
+    "uncertain_reasons": {
+      "O": [
+        "model_range>0.57"
+      ],
+      "A": [
+        "model_range>0.75"
+      ],
+      "N": [
+        "model_range>0.45",
+        "parse_errors=2"
+      ]
+    }
+  },
+  "features": {
+    "avg_words_per_turn": 54.0,
+    "max_words_in_turn": 77,
+    "min_words_in_turn": 32,
+    "word_count_variance": 11.9,
+    "question_ratio": 1.0,
+    "exclamation_ratio": 0.0,
+    "hedge_count": 0,
+    "certainty_count": 0,
+    "first_person_ratio": 0.0116,
+    "inclusive_pronoun_ratio": 0.0394,
+    "disagreement_count": 0,
+    "acknowledgment_count": 2,
+    "idea_count": 2,
+    "name_mention_count": 9,
+    "conditional_ratio": 0.125,
+    "planning_count": 2,
+    "emotional_word_count": 0,
+    "positive_emotion_count": 1,
+    "turn_initiation_ratio": 0.875,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.6574,
+    "long_sentence_ratio": 0.079,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 0,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 7
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 432,
+    "candidate_avg_words_per_turn": 54.0,
+    "times_addressed_others_by_name": 9,
+    "times_asked_questions": 8,
+    "times_expressed_disagreement": 0,
+    "times_acknowledged_others": 2,
+    "times_proposed_new_ideas": 2
+  },
+  "assessment_summary": "Highly engaged communicator, took initiative frequently; Assertive in defending positions, comfortable with disagreement; Maintained composure throughout, steady under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "Hey team, excited to tackle this project together! We've got an interesting challenge ahead - we need to prioritize which two features will deliver the most value while balancing our resources. Let's start by hearing everyone's thoughts on how we should approach these decisions - I'm especially curious what Riley thinks since we haven't heard from them yet."
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "Hold on Jordan, why are we defaulting to Riley's opinion before even establishing criteria? That's putting the cart before the horse. We need to ruthlessly evaluate which features actually move the needle, not just spread the love evenly. I've got three radical concepts that could completely redefine our approach if you're open to tearing up the playbook."
+    },
+    {
+      "turn": 3,
+      "speaker": "Alex",
+      "content": "I like the candidate's direct approach here - too often we waste time being polite instead of getting to the point. But before jumping to radical concepts, let's hear which two features they'd actually cut and why. That's where the rubber meets the road. I'm not interested in theory - show me the concrete tradeoffs you're willing to make."
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "You want concrete? Fine. Feature 3 gets axed immediately\u2014it's just shiny fluff that won't retain users long-term. And I'd scrap feature 4 because the development overhead would choke our timeline. Now hear me out: what if we combine elements from features 1 and 2 into something completely new that solves the client's unstated needs?"
+    },
+    {
+      "turn": 5,
+      "speaker": "Riley",
+      "content": "Not sure combining features is practical. Have we checked the technical constraints?"
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "Technical constraints? Riley, that's exactly the kind of boxed-in thinking that kills innovation. The client doesn't care about our technical debt\u2014they care about breakthrough solutions. I've already mapped out how we can repurpose the authentication module from last quarter's project to handle the combined functionality. Who's ready to actually push boundaries instead of making excuses?"
+    },
+    {
+      "turn": 7,
+      "speaker": "Alex",
+      "content": "Riley, technical constraints are just problems waiting to be solved, not roadblocks. The candidate's right - we're too focused on limitations instead of possibilities. But let's get specific: which authentication module are we repurposing? The one from the banking project had serious security flaws we'd need to address first. I'd rather hear how we're mitigating those risks than vague talk about innovation."
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "Security flaws? Perfect\u2014that's our opportunity to rebuild it better while we're at it. The banking module had outdated encryption anyway, so let's kill two birds by upgrading to quantum-resistant algorithms that'll future-proof both projects. Who's with me on turning this supposed weakness into our biggest advantage?"
+    },
+    {
+      "turn": 9,
+      "speaker": "Riley",
+      "content": "Upgrading encryption sounds risky with our timeline. Do we have capacity for that?"
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "Riley, your risk aversion is exactly why we're stuck in maintenance mode instead of leading the industry. The \"capacity\" question is irrelevant\u2014we MAKE capacity by cutting deadweight features. I'll personally prototype the encryption upgrade overnight if it means we stop building yesterday's solutions. Who's tired enough of incrementalism to join me?"
+    },
+    {
+      "turn": 11,
+      "speaker": "Alex",
+      "content": "That encryption rebuild is exactly the kind of moonshot thinking we need, but let's not pretend this is simple. The banking module failed penetration testing just last quarter. If we're going quantum-resistant, we need to baseline that prototype against known vulnerabilities first. Riley's right to be cautious - reckless innovation is just failure at high speed. \n\nI'll support this if we see your threat model by end of day. Otherwise we're trading one set of technical debt for another. Features 1 and 2 combined could work, but only if the security underpinnings are rock solid. Who wants to pair up to stress-test this prototype tonight?"
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "Pivoting to security first? Alex, now you're speaking my language. Let's hack together a threat model that blows the banking module's weaknesses wide open\u2014I'll bring the coffee if you bring the war stories about past breaches. Riley, you in? This beats debating feature lists any day. The client will remember which team delivered quantum-proof solutions when their competitors are still patching legacy systems. Who cares about shipping two features when we could redefine the entire security paradigm?"
+    },
+    {
+      "turn": 13,
+      "speaker": "Riley",
+      "content": "Three weeks seems tight for rebuilding encryption and stress-testing. Have we confirmed the client actually needs quantum-proofing?"
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "Need? Riley, clients never know what they need until we show them. Quantum-proofing isn't about today's requirements\u2014it's about making them irrelevant. Either we lead or we follow, and I don't do follow."
+    },
+    {
+      "turn": 15,
+      "speaker": "Alex",
+      "content": "That encryption moonshot sounds great in theory, but we've got three weeks and a client who hasn't even asked for quantum-proofing. Let's be real - if we can't deliver the core features securely, all this future-proofing is just vanity engineering. I've seen teams crash and burn chasing shiny objects while missing basic deliverables. \n\nRiley's right to question the timeline - show me a realistic workback schedule that includes proper testing cycles, not just coffee-fueled hacking sessions. Otherwise we're gambling the whole project on untested tech."
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "Security isn't optional\u2014it's the foundation. If we're rebuilding anyway, we go quantum or we go home. Riley, your timeline concerns are valid but misplaced\u2014we'll automate the regression tests and cut scope elsewhere. Alex, bring those breach reports tonight and I'll show you how we bake security into the CI pipeline. Who else wants to stop treating encryption as an afterthought?"
+    },
+    {
+      "turn": 17,
+      "speaker": "Riley",
+      "content": "Automated tests still need time to validate. What if they miss edge cases?"
+    }
+  ],
+  "controller_log": null,
+  "timestamp": "2026-03-04T13:50:36.500959"
+}

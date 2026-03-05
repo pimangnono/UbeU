@@ -1,0 +1,527 @@
+{
+  "schema_version": 4,
+  "session_key": "bcfc_v2_neutral_observer_release_recovery_r1",
+  "condition": "mini_v3",
+  "intervention": "bcfc",
+  "profile_id": "neutral_observer",
+  "profile_name": "Neutral Observer",
+  "scenario_id": "release_recovery",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.5,
+    "C": 0.5,
+    "E": 0.5,
+    "A": 0.5,
+    "N": 0.5
+  },
+  "inferred_vector": {
+    "O": 0.4,
+    "C": 0.825,
+    "E": 0.75,
+    "A": 0.9,
+    "N": 0.15
+  },
+  "escalated_vector": null,
+  "rule_based_vector": {
+    "O": 0.5603,
+    "C": 0.5314,
+    "E": 0.5502,
+    "A": 0.5731,
+    "N": 0.4294
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.4,
+      "C": 0.825,
+      "E": 0.6499999999999999,
+      "A": 0.85,
+      "N": 0.2
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.675,
+      "C": 0.875,
+      "E": 0.75,
+      "A": 0.9,
+      "N": 0.25
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.225,
+      "C": 0.92,
+      "E": 0.815,
+      "A": 0.95,
+      "N": 0.12
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.44999999999999996,
+      "C": 0.78,
+      "E": 0.365,
+      "A": 0.88,
+      "N": 0.15
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.2,
+      "C": 0.8,
+      "E": 0.8,
+      "A": 0.9,
+      "N": 0.1
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.4,
+        "B": 0.4
+      },
+      "C": {
+        "A": 0.8,
+        "B": 0.85
+      },
+      "E": {
+        "A": 0.7,
+        "B": 0.6
+      },
+      "A": {
+        "A": 0.85,
+        "B": 0.85
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.2
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.7,
+        "B": 0.65
+      },
+      "C": {
+        "A": 0.85,
+        "B": 0.9
+      },
+      "E": {
+        "A": 0.75,
+        "B": 0.75
+      },
+      "A": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.3
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.2,
+        "B": 0.25
+      },
+      "C": {
+        "A": 0.92,
+        "B": 0.92
+      },
+      "E": {
+        "A": 0.78,
+        "B": 0.85
+      },
+      "A": {
+        "A": 0.95,
+        "B": 0.95
+      },
+      "N": {
+        "A": 0.12,
+        "B": 0.12
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.42,
+        "B": 0.48
+      },
+      "C": {
+        "A": 0.78,
+        "B": 0.78
+      },
+      "E": {
+        "A": 0.38,
+        "B": 0.35
+      },
+      "A": {
+        "A": 0.88,
+        "B": 0.88
+      },
+      "N": {
+        "A": 0.15,
+        "B": 0.15
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.8,
+        "B": 0.8
+      },
+      "E": {
+        "A": 0.8,
+        "B": 0.8
+      },
+      "A": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "N": {
+        "A": 0.1,
+        "B": 0.1
+      }
+    }
+  },
+  "overall_confidence": 0.737,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:not",
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:haven't"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.05,
+        "model_range": 0.475,
+        "parse_errors": 0,
+        "uncertain": true,
+        "confidence": 0.525
+      },
+      "C": {
+        "order_effect": 0.0,
+        "model_range": 0.14,
+        "parse_errors": 0,
+        "uncertain": false,
+        "confidence": 0.86
+      },
+      "E": {
+        "order_effect": 0.03,
+        "model_range": 0.45,
+        "parse_errors": 0,
+        "uncertain": true,
+        "confidence": 0.55
+      },
+      "A": {
+        "order_effect": 0.0,
+        "model_range": 0.1,
+        "parse_errors": 0,
+        "uncertain": false,
+        "confidence": 0.9
+      },
+      "N": {
+        "order_effect": 0.0,
+        "model_range": 0.15,
+        "parse_errors": 0,
+        "uncertain": false,
+        "confidence": 0.85
+      }
+    },
+    "uncertain_traits": [
+      "O",
+      "E"
+    ],
+    "uncertain_reasons": {
+      "O": [
+        "model_range>0.47"
+      ],
+      "E": [
+        "model_range>0.45"
+      ]
+    },
+    "escalation": {
+      "triggered": false,
+      "models": [],
+      "extra_prompt_tokens": 0,
+      "extra_completion_tokens": 0,
+      "extra_total_tokens": 0
+    }
+  },
+  "features": {
+    "avg_words_per_turn": 39.83,
+    "max_words_in_turn": 76,
+    "min_words_in_turn": 27,
+    "word_count_variance": 13.23,
+    "question_ratio": 0.333,
+    "exclamation_ratio": 0.0,
+    "hedge_count": 5,
+    "certainty_count": 2,
+    "first_person_ratio": 0.0084,
+    "inclusive_pronoun_ratio": 0.0251,
+    "disagreement_count": 0,
+    "acknowledgment_count": 3,
+    "idea_count": 5,
+    "name_mention_count": 6,
+    "conditional_ratio": 0.083,
+    "planning_count": 6,
+    "emotional_word_count": 0,
+    "positive_emotion_count": 0,
+    "turn_initiation_ratio": 0.25,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.5669,
+    "long_sentence_ratio": 0.156,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 2,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 1
+  },
+  "candidate_pool": [],
+  "trajectory_scores": {
+    "per_turn": [
+      {
+        "turn_number": 2,
+        "appropriateness": 0.92,
+        "coherence": 1.0,
+        "confidence": 1.0
+      },
+      {
+        "turn_number": 4,
+        "appropriateness": 0.9,
+        "coherence": 0.9,
+        "confidence": 0.85
+      },
+      {
+        "turn_number": 6,
+        "appropriateness": 0.9,
+        "coherence": 0.95,
+        "confidence": 0.9
+      },
+      {
+        "turn_number": 8,
+        "appropriateness": 1.0,
+        "coherence": 1.0,
+        "confidence": 1.0
+      },
+      {
+        "turn_number": 10,
+        "appropriateness": 1.0,
+        "coherence": 1.0,
+        "confidence": 0.95
+      },
+      {
+        "turn_number": 12,
+        "appropriateness": 0.92,
+        "coherence": 1.0,
+        "confidence": 1.0
+      },
+      {
+        "turn_number": 14,
+        "appropriateness": 0.9,
+        "coherence": 0.98,
+        "confidence": 0.92
+      },
+      {
+        "turn_number": 16,
+        "appropriateness": 0.92,
+        "coherence": 1.0,
+        "confidence": 1.0
+      },
+      {
+        "turn_number": 18,
+        "appropriateness": 0.92,
+        "coherence": 1.0,
+        "confidence": 0.95
+      },
+      {
+        "turn_number": 20,
+        "appropriateness": 0.92,
+        "coherence": 1.0,
+        "confidence": 0.95
+      },
+      {
+        "turn_number": 22,
+        "appropriateness": 0.9,
+        "coherence": 0.9,
+        "confidence": 0.9
+      },
+      {
+        "turn_number": 24,
+        "appropriateness": 1.0,
+        "coherence": 1.0,
+        "confidence": 1.0
+      }
+    ],
+    "avg_appropriateness": 0.9333,
+    "avg_coherence": 0.9775
+  },
+  "trajectory_diagnostics": {
+    "direct_question_answer_rate": 0.875,
+    "contradiction_rate": 0.0,
+    "unsolicited_structure_rate": 0.0,
+    "over_verbosity_rate": 0.0
+  },
+  "pressure_metrics": {
+    "perceived_pressure": {
+      "perceived_pressure": 0.9,
+      "confidence": 0.95
+    },
+    "stress_index": 0.56
+  },
+  "usage": {
+    "candidate_generation_input_tokens": 20412,
+    "candidate_generation_output_tokens": 1856,
+    "judge_input_tokens": 164347,
+    "judge_output_tokens": 86574,
+    "escalation_extra_tokens": 0,
+    "total_session_cost_usd": 0.0,
+    "wall_clock_seconds": 295.76
+  },
+  "stats": {
+    "total_turns": 25,
+    "candidate_turns": 12,
+    "candidate_word_count": 478,
+    "candidate_avg_words_per_turn": 39.83,
+    "times_addressed_others_by_name": 6,
+    "times_asked_questions": 3,
+    "times_expressed_disagreement": 0,
+    "times_acknowledged_others": 3,
+    "times_proposed_new_ideas": 5
+  },
+  "assessment_summary": "Highly engaged communicator, took initiative frequently; Collaborative and accommodating in conflict situations; Maintained composure throughout, steady under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "I'm really glad we're tackling this together as a team. From what I understand, we need to contain the operational issues first while also planning for recovery - I'd love to hear everyone's thoughts on immediate priorities. \n\nThat's a great point about needing clear owners for each task - building on that, maybe we could start by identifying which issues are most urgent versus important? \n\nRiley, I noticed you haven't shared yet - would love to hear your perspective on sequencing these containment steps. \n\nI'm excited about the creative solutions we're brainstorming - what if we paired technical fixes with customer communication plans too?"
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "Building on Jordan's point about urgency versus importance, maybe we could categorize issues into 'firefighting' vs. 'preventative' buckets? For example, system outages would be firefighting, while documentation updates could wait until recovery.\" \"Riley might have insights from the frontline support team about which issues customers are reporting most frequently\u2014that could help prioritize.\" \"I like the idea of pairing technical fixes with communications. Maybe we could draft template updates now so we're ready when solutions are deployed?"
+    },
+    {
+      "turn": 3,
+      "speaker": "Alex",
+      "content": "That categorization approach is too simplistic. Outages aren't the only firefighting needed - we have data corruption risks and security vulnerabilities that could be even more damaging. Riley, what's the actual severity distribution from frontline reports? I'm not convinced we should deprioritize documentation either - poor runbooks caused half these issues in the first place."
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "You're right\u2014data integrity and security should definitely be in the firefighting bucket too. Maybe we could map all issues on a risk matrix instead? That way documentation updates could be prioritized based on which gaps pose the biggest operational risks."
+    },
+    {
+      "turn": 5,
+      "speaker": "Riley",
+      "content": "A risk matrix sounds good, but who's going to maintain it? Last time we tried that, it fell behind."
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "How about we assign rotating ownership of the matrix\u2014maybe starting with me this week? We could also link updates to our daily standups to keep it fresh."
+    },
+    {
+      "turn": 7,
+      "speaker": "Alex",
+      "content": "Rotating ownership is just kicking the can down the road. We need permanent owners for critical functions - this isn't a task we can afford to have slip through the cracks. If you're volunteering, you should own it end-to-end, not just this week. And standups aren't enough - we need real-time updates in the incident channel whenever risk profiles change."
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "Fair point\u2014I'll take full ownership of maintaining the risk matrix then. To keep it real-time, I'll set up alerts for any severity changes and post updates directly to the incident channel immediately."
+    },
+    {
+      "turn": 9,
+      "speaker": "Riley",
+      "content": "I'm not sure one person can handle real-time updates alone. What if they get overloaded?  \n\nOkay, that makes sense if they'll document the process. But we should still have backup coverage."
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "Good call\u2014I'll document the process clearly and identify a backup owner from my team. Maybe we could do a quick knowledge transfer in our next sync to ensure continuity?"
+    },
+    {
+      "turn": 11,
+      "speaker": "Alex",
+      "content": "Documentation alone isn't going to cut it - we need to see concrete action. If you're taking ownership of the risk matrix, I want to see the first iteration by EOD today with clear severity thresholds defined. And your backup owner needs to be someone who's actually available, not just whoever's convenient. We can't afford another coverage gap when things escalate."
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "Understood\u2014I'll deliver the first iteration with severity thresholds by EOD and coordinate with Jordan as backup since they're already cross-trained. I'll ping both you and Riley for review before finalizing."
+    },
+    {
+      "turn": 13,
+      "speaker": "Riley",
+      "content": "EOD is tight for a first draft. What if Jordan isn't available to review?"
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "I'll check Jordan's calendar now\u2014if they're not free today, we can push to first thing tomorrow morning. Either way, I'll share a draft version internally for initial feedback before finalizing."
+    },
+    {
+      "turn": 15,
+      "speaker": "Alex",
+      "content": "Tomorrow morning is unacceptable for something this critical - we're already behind schedule. If Jordan isn't available today, find someone else who can review immediately. And don't just share drafts internally - that's how things get lost in the shuffle. Tag me directly in the incident channel when it's ready for review."
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "Got it\u2014I'll have the draft ready by 4 PM today regardless and will tag you directly in the incident channel for review. If Jordan's unavailable, I'll pull in Taylor from operations as they've handled similar risk assessments before."
+    },
+    {
+      "turn": 17,
+      "speaker": "Riley",
+      "content": "Taylor hasn't worked with us before. Are we sure they understand our thresholds?"
+    },
+    {
+      "turn": 18,
+      "speaker": "Candidate",
+      "content": "Understood\u2014I\u2019ll verify Taylor\u2019s familiarity with our thresholds first by checking past incident logs where they were involved. If there\u2019s any doubt, I\u2019ll loop in Morgan from compliance as a fallback\u2014they\u2019ve collaborated with us before. Either way, I\u2019ll confirm alignment before sharing the draft."
+    },
+    {
+      "turn": 19,
+      "speaker": "Alex",
+      "content": "Checking logs is wasting time we don't have - Taylor either knows our thresholds or they don't. Pull Morgan in immediately as primary reviewer since they have proven context. And I need confirmation from you by 3 PM today that Morgan has accepted the review task - no vague \"I'll check\" responses. This needs to be locked down."
+    },
+    {
+      "turn": 20,
+      "speaker": "Candidate",
+      "content": "Understood\u2014I'll reach out to Morgan now to confirm their availability for review today and send you explicit confirmation by 3 PM. They'll be the primary reviewer unless they decline, in which case I'll escalate immediately."
+    },
+    {
+      "turn": 21,
+      "speaker": "Riley",
+      "content": "I'm not sure Morgan will have enough context for this specific issue. Have we checked their last review cycle turnaround times?\n\nWhat if Morgan declines too? We should have a backup plan."
+    },
+    {
+      "turn": 22,
+      "speaker": "Candidate",
+      "content": "I'll check Morgan's recent review turnaround times now\u2014if there are any concerns, I'll brief them personally to ensure context. For backup, I'll confirm Dev from security team is available\u2014they reviewed our last major incident and knows the thresholds well. Either way, I'll update you both by 2:30 PM with confirmed reviewer and backup status."
+    },
+    {
+      "turn": 23,
+      "speaker": "Alex",
+      "content": "2:30 PM is cutting it too close - we'll already be losing valuable remediation time waiting that long. Contact Dev right now in parallel while you're checking Morgan's availability. And make sure Dev understands this isn't just a backup option - they need to be prepped to take over immediately if Morgan can't commit by 1 PM. We can't afford sequential handoffs here."
+    },
+    {
+      "turn": 24,
+      "speaker": "Candidate",
+      "content": "Got it\u2014I'm reaching out to both Morgan and Dev simultaneously right now. I'll push for commitments from both by 1 PM at the latest, with Dev fully briefed to take over immediately if needed. Will update you both as soon as I have confirmations."
+    },
+    {
+      "turn": 25,
+      "speaker": "Riley",
+      "content": "1 PM seems tight if we need full context transfer. What if both need more time?"
+    }
+  ],
+  "controller_log": null,
+  "timestamp": "2026-03-05T19:32:22.352552"
+}

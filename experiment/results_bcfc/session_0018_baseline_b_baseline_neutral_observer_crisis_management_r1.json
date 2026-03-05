@@ -1,0 +1,369 @@
+{
+  "schema_version": 4,
+  "session_key": "baseline_b_baseline_neutral_observer_crisis_management_r1",
+  "condition": "baseline_b",
+  "intervention": "none",
+  "profile_id": "neutral_observer",
+  "profile_name": "Neutral Observer",
+  "scenario_id": "crisis_management",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.5,
+    "C": 0.5,
+    "E": 0.5,
+    "A": 0.5,
+    "N": 0.5
+  },
+  "inferred_vector": {
+    "O": 0.365,
+    "C": 0.625,
+    "E": 0.4,
+    "A": 0.85,
+    "N": 0.18
+  },
+  "rule_based_vector": {
+    "O": 0.5353,
+    "C": 0.5935,
+    "E": 0.5968,
+    "A": 0.5957,
+    "N": 0.3604
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.4,
+      "C": 0.625,
+      "E": 0.4,
+      "A": 0.85,
+      "N": 0.2
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.45,
+      "C": 0.675,
+      "E": 0.4,
+      "A": 0.675,
+      "N": 0.2
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.25,
+      "C": 0.71,
+      "E": 0.675,
+      "A": 0.95,
+      "N": 0.12
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.365,
+      "C": 0.55,
+      "E": 0.28,
+      "A": 0.78,
+      "N": 0.18
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.2,
+      "C": 0.6,
+      "E": 0.55,
+      "A": 0.9,
+      "N": 0.1
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.4,
+        "B": 0.4
+      },
+      "C": {
+        "A": 0.6,
+        "B": 0.65
+      },
+      "E": {
+        "A": 0.4,
+        "B": 0.4
+      },
+      "A": {
+        "A": 0.85,
+        "B": 0.85
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.2
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.5,
+        "B": 0.4
+      },
+      "C": {
+        "A": 0.7,
+        "B": 0.65
+      },
+      "E": {
+        "A": 0.3,
+        "B": 0.5
+      },
+      "A": {
+        "A": 0.85,
+        "B": 0.5
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.2
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.25,
+        "B": 0.25
+      },
+      "C": {
+        "A": 0.6,
+        "B": 0.82
+      },
+      "E": {
+        "A": 0.65,
+        "B": 0.7
+      },
+      "A": {
+        "A": 0.95,
+        "B": 0.95
+      },
+      "N": {
+        "A": 0.12,
+        "B": 0.12
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.38,
+        "B": 0.35
+      },
+      "C": {
+        "A": 0.58,
+        "B": 0.52
+      },
+      "E": {
+        "A": 0.28,
+        "B": 0.28
+      },
+      "A": {
+        "A": 0.78,
+        "B": 0.78
+      },
+      "N": {
+        "A": 0.18,
+        "B": 0.18
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.6,
+        "B": 0.6
+      },
+      "E": {
+        "A": 0.4,
+        "B": 0.7
+      },
+      "A": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "N": {
+        "A": 0.1,
+        "B": 0.1
+      }
+    }
+  },
+  "overall_confidence": 0.7223999999999999,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:not"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.0,
+        "model_range": 0.25,
+        "parse_errors": 1,
+        "uncertain": false
+      },
+      "C": {
+        "order_effect": 0.05,
+        "model_range": 0.16,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "E": {
+        "order_effect": 0.05,
+        "model_range": 0.395,
+        "parse_errors": 1,
+        "uncertain": true
+      },
+      "A": {
+        "order_effect": 0.0,
+        "model_range": 0.275,
+        "parse_errors": 1,
+        "uncertain": false
+      },
+      "N": {
+        "order_effect": 0.0,
+        "model_range": 0.1,
+        "parse_errors": 0,
+        "uncertain": false
+      }
+    },
+    "uncertain_traits": [
+      "E"
+    ],
+    "uncertain_reasons": {
+      "E": [
+        "model_range>0.40"
+      ]
+    }
+  },
+  "features": {
+    "avg_words_per_turn": 49.25,
+    "max_words_in_turn": 74,
+    "min_words_in_turn": 29,
+    "word_count_variance": 15.78,
+    "question_ratio": 0.375,
+    "exclamation_ratio": 0.0,
+    "hedge_count": 1,
+    "certainty_count": 2,
+    "first_person_ratio": 0.0,
+    "inclusive_pronoun_ratio": 0.0406,
+    "disagreement_count": 0,
+    "acknowledgment_count": 4,
+    "idea_count": 3,
+    "name_mention_count": 4,
+    "conditional_ratio": 0.625,
+    "planning_count": 4,
+    "emotional_word_count": 0,
+    "positive_emotion_count": 0,
+    "turn_initiation_ratio": 0.125,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.533,
+    "long_sentence_ratio": 0.25,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 1,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 2
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 394,
+    "candidate_avg_words_per_turn": 49.25,
+    "times_addressed_others_by_name": 4,
+    "times_asked_questions": 3,
+    "times_expressed_disagreement": 0,
+    "times_acknowledged_others": 4,
+    "times_proposed_new_ideas": 3
+  },
+  "assessment_summary": "Collaborative and accommodating in conflict situations; Maintained composure throughout, steady under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "Hey everyone, thanks for jumping on this quickly. I know this is stressful, but we've got a great team here to figure it out. \n\nI really like what Riley suggested earlier about having our product manager lead the client communication - they know the relationship best. Building on that, maybe we could pair them with engineering to explain the technical aspects? \n\nThat's interesting what Alex said about a partial fix! What if we could identify which parts are most critical to the client and prioritize those? \n\nTaylor, you've been quiet - any thoughts on how we might prevent this in the future? Maybe some additional testing protocols? \n\nI see both points about delaying versus partial fix. Maybe we could get the client's input on what would serve them best"
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "Jordan makes some good points about combining product and engineering for the client call. We'd need to confirm both are available within the 30 minute window though. For prevention, we should look at why our existing tests missed this - was it a coverage gap or something in deployment? A partial fix could work if we're confident about isolating the broken components without introducing new issues."
+    },
+    {
+      "turn": 3,
+      "speaker": "Riley",
+      "content": "Not sure combining teams will solve the root issue. What if we focus on fixing the tests first?"
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "A fair point about tests being the priority. Before deciding who handles the client call, we should confirm what exactly failed in testing - was it a missing test case or an environmental difference? That would inform both the fix and prevention plan."
+    },
+    {
+      "turn": 5,
+      "speaker": "Alex",
+      "content": "That testing angle is missing the urgency of the situation. We don't have time to analyze test gaps right now - the client is threatening escalation in 30 minutes. We need to decide who's owning the communication and whether we're delaying launch TODAY. Prevention can wait until after we put out this fire. \n\nAnd Riley's right - throwing more people at the client call isn't solving anything. Either the product owner handles it alone or engineering does, but not both. Duplicate communication will just confuse the client further. \n\nCandidate, you're getting bogged down in technical details. What's your concrete recommendation for the client call and launch decision? We need action, not analysis."
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "Alex is right about the immediate priorities. I'd recommend the product owner handles the client call alone to present a unified message, and we propose delaying launch by 24 hours to implement a verified fix rather than risking a partial solution. We can document the testing gaps for review after stabilizing the situation."
+    },
+    {
+      "turn": 7,
+      "speaker": "Riley",
+      "content": "24 hours seems optimistic for a verified fix. What if we find more issues?"
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "Alex makes a valid point about the tight timeline. Given the urgency, I'd suggest the product owner handles the call while engineering prepares two options: a verified partial fix we can demo within 24 hours, or a full delay if testing reveals deeper issues. Either way, we should commit to a concrete next steps update within 2 hours after the call."
+    },
+    {
+      "turn": 9,
+      "speaker": "Alex",
+      "content": "A 24-hour window for a verified partial fix is unrealistic and you know it. The client didn't ask for options - they want a solution. Either we delay properly or we don't. This halfway approach just kicks the can down the road. \n\nAnd committing to next steps in 2 hours? That's just setting up another time crunch. We need one clear decision now - delay the launch completely and give engineering proper time to fix this right. \n\nStop trying to please everyone and make the hard call."
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "You're right - trying to compromise isn't helping. Let's delay the launch fully and give engineering the time needed for a proper fix. The product owner should communicate this clearly to the client along with a revised timeline."
+    },
+    {
+      "turn": 11,
+      "speaker": "Riley",
+      "content": "The client might not accept a full delay without pushback. Have we considered their immediate needs?"
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "We could propose offering them temporary workarounds for their most critical functions while we complete the full fix. That might balance their immediate needs with our need for proper resolution."
+    },
+    {
+      "turn": 13,
+      "speaker": "Alex",
+      "content": "Temporary workarounds? That's just slapping duct tape on the problem. The client already found one critical bug - what makes you think we won't discover more during proper testing? Half measures got us into this mess. Either we delay properly and fix it right, or we're just setting ourselves up for another escalation next week. \n\nAnd Riley - the client's immediate needs don't outweigh delivering a stable product. If we cave now, we're teaching them to expect broken software."
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "Alex raises a valid concern\u2014temporary fixes could just lead to more problems down the line. Let\u2019s prioritize a full delay and communicate clearly to the client that stability is our top priority. We can outline our testing plan for the fix to show we\u2019re taking this seriously. As for immediate needs, we could offer status updates at set intervals to keep them informed while we work\u2014transparency might ease their frustration without compromising the solution."
+    },
+    {
+      "turn": 15,
+      "speaker": "Riley",
+      "content": "Setting intervals for updates sounds good, but who's handling that extra communication load? Engineering will be busy fixing."
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "We could have the product owner coordinate updates while engineering focuses on the fix - maybe brief syncs every 4 hours? That balances transparency with not overloading the team."
+    },
+    {
+      "turn": 17,
+      "speaker": "Alex",
+      "content": "A 4-hour sync cadence is still too slow when the client is this escalated. The product owner should be on standby for real-time updates, not some arbitrary schedule. And let's be clear - if engineering can't handle the communication load while fixing, we've got bigger problems with our team structure. \n\nYou're still trying to compromise instead of recognizing this requires full attention from everyone. Either we're all hands on deck or we're not serious about fixing this."
+    }
+  ],
+  "controller_log": null,
+  "timestamp": "2026-03-04T15:12:21.088625"
+}

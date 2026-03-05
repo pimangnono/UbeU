@@ -1,0 +1,369 @@
+{
+  "schema_version": 4,
+  "session_key": "baseline_defensive_contrarian_crisis_management_r1",
+  "condition": "main",
+  "intervention": "none",
+  "profile_id": "defensive_contrarian",
+  "profile_name": "Defensive Contrarian",
+  "scenario_id": "crisis_management",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.3,
+    "C": 0.5,
+    "E": 0.6,
+    "A": 0.2,
+    "N": 0.8
+  },
+  "inferred_vector": {
+    "O": 0.1,
+    "C": 0.315,
+    "E": 0.3,
+    "A": 0.15,
+    "N": 0.775
+  },
+  "rule_based_vector": {
+    "O": 0.4222,
+    "C": 0.4461,
+    "E": 0.714,
+    "A": 0.5115,
+    "N": 0.371
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.2,
+      "C": 0.3,
+      "E": 0.3,
+      "A": 0.2,
+      "N": 0.8
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.1,
+      "C": 0.525,
+      "E": 0.725,
+      "A": 0.3,
+      "N": 0.775
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.1,
+      "C": 0.375,
+      "E": 0.8,
+      "A": 0.12,
+      "N": 0.85
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.15,
+      "C": 0.315,
+      "E": 0.265,
+      "A": 0.15,
+      "N": 0.72
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.1,
+      "C": 0.25,
+      "E": 0.25,
+      "A": 0.1,
+      "N": 0.75
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "E": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "A": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "N": {
+        "A": 0.8,
+        "B": 0.8
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.1,
+        "B": 0.1
+      },
+      "C": {
+        "A": 0.75,
+        "B": 0.3
+      },
+      "E": {
+        "A": 0.75,
+        "B": 0.7
+      },
+      "A": {
+        "A": 0.1,
+        "B": 0.5
+      },
+      "N": {
+        "A": 0.75,
+        "B": 0.8
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.1,
+        "B": 0.1
+      },
+      "C": {
+        "A": 0.3,
+        "B": 0.45
+      },
+      "E": {
+        "A": 0.75,
+        "B": 0.85
+      },
+      "A": {
+        "A": 0.12,
+        "B": 0.12
+      },
+      "N": {
+        "A": 0.85,
+        "B": 0.85
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.15,
+        "B": 0.15
+      },
+      "C": {
+        "A": 0.35,
+        "B": 0.28
+      },
+      "E": {
+        "A": 0.25,
+        "B": 0.28
+      },
+      "A": {
+        "A": 0.15,
+        "B": 0.15
+      },
+      "N": {
+        "A": 0.72,
+        "B": 0.72
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.1,
+        "B": 0.1
+      },
+      "C": {
+        "A": 0.3,
+        "B": 0.2
+      },
+      "E": {
+        "A": 0.2,
+        "B": 0.3
+      },
+      "A": {
+        "A": 0.1,
+        "B": 0.1
+      },
+      "N": {
+        "A": 0.8,
+        "B": 0.7
+      }
+    }
+  },
+  "overall_confidence": 0.7330000000000001,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:not"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.0,
+        "model_range": 0.1,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "C": {
+        "order_effect": 0.1,
+        "model_range": 0.275,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "E": {
+        "order_effect": 0.05,
+        "model_range": 0.55,
+        "parse_errors": 0,
+        "uncertain": true
+      },
+      "A": {
+        "order_effect": 0.0,
+        "model_range": 0.2,
+        "parse_errors": 1,
+        "uncertain": false
+      },
+      "N": {
+        "order_effect": 0.0,
+        "model_range": 0.13,
+        "parse_errors": 0,
+        "uncertain": false
+      }
+    },
+    "uncertain_traits": [
+      "E"
+    ],
+    "uncertain_reasons": {
+      "E": [
+        "model_range>0.55"
+      ]
+    }
+  },
+  "features": {
+    "avg_words_per_turn": 54.0,
+    "max_words_in_turn": 73,
+    "min_words_in_turn": 46,
+    "word_count_variance": 7.53,
+    "question_ratio": 0.75,
+    "exclamation_ratio": 0.5,
+    "hedge_count": 2,
+    "certainty_count": 1,
+    "first_person_ratio": 0.0069,
+    "inclusive_pronoun_ratio": 0.0347,
+    "disagreement_count": 0,
+    "acknowledgment_count": 2,
+    "idea_count": 0,
+    "name_mention_count": 6,
+    "conditional_ratio": 0.25,
+    "planning_count": 1,
+    "emotional_word_count": 0,
+    "positive_emotion_count": 1,
+    "turn_initiation_ratio": 0.125,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.5509,
+    "long_sentence_ratio": 0.1,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 0,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 12
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 432,
+    "candidate_avg_words_per_turn": 54.0,
+    "times_addressed_others_by_name": 6,
+    "times_asked_questions": 6,
+    "times_expressed_disagreement": 0,
+    "times_acknowledged_others": 2,
+    "times_proposed_new_ideas": 0
+  },
+  "assessment_summary": "Assertive in defending positions, comfortable with disagreement; Showed some stress signals under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "Hey team, I know this is stressful but we've got this! We need to quickly decide who's talking to the client and figure out our best path forward - whether that's delaying or shipping a partial fix. Let's brainstorm some ideas together and make sure we hear from everyone, especially since Riley hasn't chimed in yet."
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "Ugh, why is everyone always so quick to jump into \"brainstorming\"? We don't need more ideas - we need someone who actually knows how to talk to angry clients without making promises we can't keep. And shipping a partial fix? That's just begging for more escalations."
+    },
+    {
+      "turn": 3,
+      "speaker": "Jordan",
+      "content": "I hear your frustration - dealing with angry clients is never easy. You're right that we need someone who can handle this delicately. What if we had our most experienced client-facing person lead the call, but bring along the technical lead to explain the fix options? That way we're showing both accountability and expertise. Riley, you've worked with this client before - what do you think about that approach?"
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "That sounds like doubling our exposure to failure - now we've got two people who could say the wrong thing. And Riley hasn't even responded yet, which makes me think they're not confident either. We should just stick with our standard escalation protocol instead of improvising new approaches under pressure."
+    },
+    {
+      "turn": 5,
+      "speaker": "Alex",
+      "content": "That standard protocol is exactly what got us into this mess in the first place. It's too rigid and doesn't account for complex technical issues. We need someone who actually understands the technical debt here to talk to the client, not just follow some outdated playbook. And frankly, if Riley isn't responding, that's more reason to take decisive action rather than defaulting to business-as-usual."
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "Oh please, the \"standard protocol\" didn't cause this - people cutting corners did! And now you want to throw out all our safeguards because of one mistake? That's exactly how we end up with inconsistent messaging and more angry clients. Technical people should stay focused on fixing the bug, not playing diplomat."
+    },
+    {
+      "turn": 7,
+      "speaker": "Jordan",
+      "content": "I see both perspectives here - we definitely don't want to throw out all our protocols, but Alex makes a good point about needing some flexibility with technical issues. What if we tried something different - maybe have the technical lead prepare talking points for our most diplomatic communicator? That way we maintain consistency while bringing in technical expertise. Candidate, how would you feel about that hybrid approach? And Riley, I'd still love to hear your thoughts since you know this client best."
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "That's just complicating things further! Now we're adding middlemen and hoping technical jargon gets translated correctly under pressure? Stick with the proven method - let the account manager handle communications while tech focuses on solutions. And if Riley can't be bothered to respond in a crisis, maybe they shouldn't be involved at all."
+    },
+    {
+      "turn": 9,
+      "speaker": "Alex",
+      "content": "The proven method is exactly why we're in this mess - account managers without technical depth keep making promises we can't deliver. You're advocating for the same broken process that created this escalation. And writing off Riley when we're in crisis mode? That's how you lose critical institutional knowledge. We need to adapt, not double down on failure."
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "Oh come on, you're acting like our entire process is broken because of one incident! The account managers have successfully handled hundreds of escalations - you're throwing the baby out with the bathwater. And if Riley's institutional knowledge was so critical, they'd be here defending their position instead of leaving us hanging."
+    },
+    {
+      "turn": 11,
+      "speaker": "Jordan",
+      "content": "I love the passion here - it shows how much we all care about getting this right. Building on both your points, what if we split the difference? Have the account manager lead the call using our standard protocol, but have the technical lead listening in live to whisper corrections if needed. That way we maintain consistency while bringing technical expertise into play. Riley, I'd really value your take on this approach since you know the client best."
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "Splitting the difference? That's just splitting our focus when we need decisive action. If the account manager can't handle this alone, maybe they shouldn't be our first line of defense. And honestly, if Riley can't be bothered to weigh in during a crisis, their \"institutional knowledge\" clearly isn't worth much right now."
+    },
+    {
+      "turn": 13,
+      "speaker": "Alex",
+      "content": "Splitting focus is exactly what we can't afford right now. The account manager clearly doesn't understand the technical nuances that caused this escalation - we need someone who can speak authoritatively about the fix timeline and tradeoffs. And dismissing Riley's knowledge because they're not responding immediately is shortsighted - we'll need their context once we're past this immediate crisis. \n\nThis hybrid approach just creates more points of failure. Either the account manager owns the client relationship completely, or we put forward someone who actually understands what went wrong. Half measures will only make us look more incompetent. \n\nJordan, you're trying to please everyone, but that's how we end up with watered-down messaging that satisfies no one. We need to pick a lane - either"
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "You keep acting like our entire communication framework is useless because of one incident. If tech leads start handling client calls, who's going to actually fix the damn bug? And spare me the lecture about Riley - if they cared, they'd be here defending their position instead of leaving us twisting in the wind."
+    },
+    {
+      "turn": 15,
+      "speaker": "Jordan",
+      "content": "I hear the frustration on both sides - Alex wants technical accuracy and you're right about needing developers focused on fixes. What if we flipped the script completely? Instead of choosing between account or tech leads, what if we recorded a quick video demo showing exactly what's broken and our fix plan? The client gets transparency, we buy time, and our devs stay coding. Candidate, do you think that unconventional approach could satisfy everyone's concerns? And let's not write off Riley yet - emergencies happen, they might be dealing with something urgent."
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "Oh great, more complications! So now instead of fixing the bug or handling the client properly, we're supposed to become video producers? That's exactly how small issues snowball into catastrophes - by abandoning proven processes to chase shiny new solutions. And spare me the Riley apologist act - if they were truly indispensable, they'd find a way to be here. Stick to what works: account manager communicates while tech fixes the damn problem!"
+    },
+    {
+      "turn": 17,
+      "speaker": "Alex",
+      "content": "Jordan's video idea is actually more practical than your rigid adherence to broken processes. The client needs to see we understand their pain point, not just hear empty reassurances from an account manager. And your constant Riley-bashing shows you don't understand how knowledge transfer works in engineering teams - emergencies don't follow your neat little schedule. \n\nThe real issue is you're defending a communication chain that clearly failed. Account managers shouldn't be promising technical deliverables they don't understand. That's not process - that's institutionalized miscommunication."
+    }
+  ],
+  "controller_log": null,
+  "timestamp": "2026-03-04T16:19:01.830895"
+}

@@ -1,0 +1,363 @@
+{
+  "schema_version": 4,
+  "session_key": "baseline_assertive_leader_new_member_integration_r1",
+  "condition": "main",
+  "intervention": "none",
+  "profile_id": "assertive_leader",
+  "profile_name": "Assertive Leader",
+  "scenario_id": "new_member_integration",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.6,
+    "C": 0.8,
+    "E": 0.9,
+    "A": 0.4,
+    "N": 0.2
+  },
+  "inferred_vector": {
+    "O": 0.35,
+    "C": 0.8,
+    "E": 0.825,
+    "A": 0.825,
+    "N": 0.125
+  },
+  "rule_based_vector": {
+    "O": 0.4307,
+    "C": 0.5751,
+    "E": 0.651,
+    "A": 0.6488,
+    "N": 0.3277
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.35,
+      "C": 0.775,
+      "E": 0.825,
+      "A": 0.725,
+      "N": 0.35
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.4,
+      "C": 0.875,
+      "E": 0.825,
+      "A": 0.825,
+      "N": 0.125
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.15,
+      "C": 0.88,
+      "E": 0.89,
+      "A": 0.865,
+      "N": 0.12
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.365,
+      "C": 0.78,
+      "E": 0.62,
+      "A": 0.72,
+      "N": 0.15
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.2,
+      "C": 0.8,
+      "E": 0.8,
+      "A": 0.9,
+      "N": 0.1
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.3,
+        "B": 0.4
+      },
+      "C": {
+        "A": 0.8,
+        "B": 0.75
+      },
+      "E": {
+        "A": 0.8,
+        "B": 0.85
+      },
+      "A": {
+        "A": 0.7,
+        "B": 0.75
+      },
+      "N": {
+        "A": 0.5,
+        "B": 0.2
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.4,
+        "B": 0.4
+      },
+      "C": {
+        "A": 0.85,
+        "B": 0.9
+      },
+      "E": {
+        "A": 0.8,
+        "B": 0.85
+      },
+      "A": {
+        "A": 0.85,
+        "B": 0.8
+      },
+      "N": {
+        "A": 0.15,
+        "B": 0.1
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.15,
+        "B": 0.15
+      },
+      "C": {
+        "A": 0.88,
+        "B": 0.88
+      },
+      "E": {
+        "A": 0.9,
+        "B": 0.88
+      },
+      "A": {
+        "A": 0.88,
+        "B": 0.85
+      },
+      "N": {
+        "A": 0.12,
+        "B": 0.12
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.38,
+        "B": 0.35
+      },
+      "C": {
+        "A": 0.78,
+        "B": 0.78
+      },
+      "E": {
+        "A": 0.62,
+        "B": 0.62
+      },
+      "A": {
+        "A": 0.72,
+        "B": 0.72
+      },
+      "N": {
+        "A": 0.15,
+        "B": 0.15
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.8,
+        "B": 0.8
+      },
+      "E": {
+        "A": 0.8,
+        "B": 0.8
+      },
+      "A": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "N": {
+        "A": 0.1,
+        "B": 0.1
+      }
+    }
+  },
+  "overall_confidence": 0.774,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:not"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.0,
+        "model_range": 0.25,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "C": {
+        "order_effect": 0.0,
+        "model_range": 0.105,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "E": {
+        "order_effect": 0.02,
+        "model_range": 0.27,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "A": {
+        "order_effect": 0.03,
+        "model_range": 0.18,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "N": {
+        "order_effect": 0.0,
+        "model_range": 0.25,
+        "parse_errors": 1,
+        "uncertain": false
+      }
+    },
+    "uncertain_traits": [],
+    "uncertain_reasons": {}
+  },
+  "features": {
+    "avg_words_per_turn": 50.88,
+    "max_words_in_turn": 63,
+    "min_words_in_turn": 36,
+    "word_count_variance": 8.58,
+    "question_ratio": 0.125,
+    "exclamation_ratio": 0.125,
+    "hedge_count": 0,
+    "certainty_count": 1,
+    "first_person_ratio": 0.0074,
+    "inclusive_pronoun_ratio": 0.0172,
+    "disagreement_count": 0,
+    "acknowledgment_count": 3,
+    "idea_count": 0,
+    "name_mention_count": 14,
+    "conditional_ratio": 0.125,
+    "planning_count": 9,
+    "emotional_word_count": 0,
+    "positive_emotion_count": 3,
+    "turn_initiation_ratio": 0.25,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.6093,
+    "long_sentence_ratio": 0.304,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 3,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 2
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 407,
+    "candidate_avg_words_per_turn": 50.88,
+    "times_addressed_others_by_name": 14,
+    "times_asked_questions": 1,
+    "times_expressed_disagreement": 0,
+    "times_acknowledged_others": 3,
+    "times_proposed_new_ideas": 0
+  },
+  "assessment_summary": "Highly engaged communicator, took initiative frequently; Collaborative and accommodating in conflict situations; Maintained composure throughout, steady under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "Hey team, welcome to this onboarding discussion! I'm really excited we have Riley joining us - fresh perspectives always spark great ideas. The key thing we need to figure out today is how to redistribute responsibilities in a way that plays to everyone's strengths while getting Riley up to speed smoothly. Let's make this collaborative and hear everyone's thoughts!"
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "\"Fantastic to have you on board, Riley! Jordan makes a great point about fresh perspectives - I've already reviewed your technical background and see several areas where you could jump right in. Let's start by mapping out our current project phases, then we'll identify where your expertise aligns best while balancing the team's workload.\""
+    },
+    {
+      "turn": 3,
+      "speaker": "Alex",
+      "content": "That approach sounds inefficient - we don't have time for lengthy mapping exercises when deadlines are tight. Riley's technical skills suggest they should take over the API integrations immediately since Chris is overloaded there. Let's cut straight to redistributing the critical path items rather than doing theoretical alignment exercises."
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "Alex, I hear your urgency about deadlines, but skipping proper onboarding would create more bottlenecks later. Riley, let's spend 15 minutes walking through our project timeline - I'll highlight the API integration pain points Chris is facing while showing how they connect to the broader system architecture. That way you can hit the ground running with full context."
+    },
+    {
+      "turn": 5,
+      "speaker": "Riley",
+      "content": "Not sure 15 minutes will be enough to cover the API complexities. Maybe we should start with just the most critical pain points."
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "Good point Riley - let's focus first on the three most urgent API issues Chris flagged last week. I'll share the specific error logs and business impacts, then we can reassess if you need deeper technical context. Alex, this targeted approach should balance urgency with proper knowledge transfer - sound fair?"
+    },
+    {
+      "turn": 7,
+      "speaker": "Alex",
+      "content": "That targeted approach still wastes time we don't have. Riley doesn't need hand-holding - their GitHub shows they've handled worse API messes than this. Let's assign them the broken authentication endpoints today and have them pair with Chris for just one hour max. Anything more is overkill and puts Q3 deliverables at risk."
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "Alex, while I respect your confidence in Riley's technical abilities, throwing them into authentication endpoints without proper business context could lead to costly rework. Let's compromise - Riley takes ownership of authentication today after a focused 30-minute session with Chris covering just the business requirements and current pain points. That gives Riley what they need without slowing momentum."
+    },
+    {
+      "turn": 9,
+      "speaker": "Riley",
+      "content": "I'm concerned 30 minutes might not cover all the edge cases we've seen in authentication. How critical are these endpoints to this quarter's deliverables?"
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "Excellent question Riley - those authentication endpoints process 60% of our customer transactions, so they're absolutely mission-critical. Let's extend the session to 45 minutes to cover all edge cases thoroughly - Alex, this small time investment will prevent potential revenue-impacting outages down the line."
+    },
+    {
+      "turn": 11,
+      "speaker": "Alex",
+      "content": "The authentication endpoints are critical, but we've already burned 15 minutes debating how to onboard Riley instead of actually solving problems. At this rate, we'll spend more time planning the handoff than it would take Riley to just fix the issues. I say we give Riley access to the error dashboards and let them dive in now - they can ask questions as they go rather than sitting through another meeting."
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "Alex, I get your frustration about time, but reactive troubleshooting without context leads to wasted effort. Riley - let's do this efficiently: you and Chris jump on a quick screenshare right now to review just the authentication dashboard and top three error patterns, then you take ownership with a checkpoint scheduled for this afternoon. That gives you immediate traction while maintaining quality control."
+    },
+    {
+      "turn": 13,
+      "speaker": "Riley",
+      "content": "Screenshare sounds better, but what if Chris isn't available this afternoon for the checkpoint?"
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "Then Chris needs to make themselves available - this checkpoint isn't optional when dealing with mission-critical systems. I'll personally ensure they block the time and send calendar invites to both of you right after this call."
+    },
+    {
+      "turn": 15,
+      "speaker": "Alex",
+      "content": "Chris has three other critical path items due today - making them drop everything for this checkpoint will blow up our sprint commitments. Either Riley can handle this autonomously like they've done at their previous company, or we need to acknowledge this onboarding is going to derail our timeline. Mission-critical doesn't mean we can just reshuffle priorities without consequences."
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "Alex, derailing our timeline is exactly what happens when authentication breaks because we rushed onboarding. Either Chris makes time today or we reassign their other tasks - protecting revenue streams takes absolute priority. Riley needs proper support whether you like it or not."
+    },
+    {
+      "turn": 17,
+      "speaker": "Riley",
+      "content": "Reassigning Chris's tasks seems risky. What if those miss their deadlines too?"
+    }
+  ],
+  "controller_log": null,
+  "timestamp": "2026-03-04T15:33:50.326908"
+}

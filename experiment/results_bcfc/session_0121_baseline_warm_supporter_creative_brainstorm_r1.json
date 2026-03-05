@@ -1,0 +1,369 @@
+{
+  "schema_version": 4,
+  "session_key": "baseline_warm_supporter_creative_brainstorm_r1",
+  "condition": "main",
+  "intervention": "none",
+  "profile_id": "warm_supporter",
+  "profile_name": "Warm Supporter",
+  "scenario_id": "creative_brainstorm",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.6,
+    "C": 0.6,
+    "E": 0.7,
+    "A": 0.8,
+    "N": 0.3
+  },
+  "inferred_vector": {
+    "O": 0.535,
+    "C": 0.45,
+    "E": 0.85,
+    "A": 0.9,
+    "N": 0.125
+  },
+  "rule_based_vector": {
+    "O": 0.6566,
+    "C": 0.5831,
+    "E": 0.8406,
+    "A": 0.7201,
+    "N": 0.3139
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.45,
+      "C": 0.5,
+      "E": 0.85,
+      "A": 0.875,
+      "N": 0.2
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.775,
+      "C": 0.575,
+      "E": 0.85,
+      "A": 0.9,
+      "N": 0.125
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.665,
+      "C": 0.45,
+      "E": 0.92,
+      "A": 0.96,
+      "N": 0.08
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.535,
+      "C": 0.385,
+      "E": 0.78,
+      "A": 0.88,
+      "N": 0.15
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.3,
+      "C": 0.35,
+      "E": 0.825,
+      "A": 0.925,
+      "N": 0.1
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.4,
+        "B": 0.5
+      },
+      "C": {
+        "A": 0.5,
+        "B": 0.5
+      },
+      "E": {
+        "A": 0.85,
+        "B": 0.85
+      },
+      "A": {
+        "A": 0.85,
+        "B": 0.9
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.2
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.8,
+        "B": 0.75
+      },
+      "C": {
+        "A": 0.65,
+        "B": 0.5
+      },
+      "E": {
+        "A": 0.85,
+        "B": 0.85
+      },
+      "A": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "N": {
+        "A": 0.1,
+        "B": 0.15
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.68,
+        "B": 0.65
+      },
+      "C": {
+        "A": 0.45,
+        "B": 0.45
+      },
+      "E": {
+        "A": 0.92,
+        "B": 0.92
+      },
+      "A": {
+        "A": 0.95,
+        "B": 0.97
+      },
+      "N": {
+        "A": 0.08,
+        "B": 0.08
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.62,
+        "B": 0.45
+      },
+      "C": {
+        "A": 0.42,
+        "B": 0.35
+      },
+      "E": {
+        "A": 0.78,
+        "B": 0.78
+      },
+      "A": {
+        "A": 0.88,
+        "B": 0.88
+      },
+      "N": {
+        "A": 0.15,
+        "B": 0.15
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.4,
+        "B": 0.3
+      },
+      "E": {
+        "A": 0.8,
+        "B": 0.85
+      },
+      "A": {
+        "A": 0.9,
+        "B": 0.95
+      },
+      "N": {
+        "A": 0.1,
+        "B": 0.1
+      }
+    }
+  },
+  "overall_confidence": 0.7755,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:not"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.05,
+        "model_range": 0.475,
+        "parse_errors": 0,
+        "uncertain": true
+      },
+      "C": {
+        "order_effect": 0.07,
+        "model_range": 0.225,
+        "parse_errors": 1,
+        "uncertain": false
+      },
+      "E": {
+        "order_effect": 0.0,
+        "model_range": 0.14,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "A": {
+        "order_effect": 0.02,
+        "model_range": 0.085,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "N": {
+        "order_effect": 0.0,
+        "model_range": 0.12,
+        "parse_errors": 0,
+        "uncertain": false
+      }
+    },
+    "uncertain_traits": [
+      "O"
+    ],
+    "uncertain_reasons": {
+      "O": [
+        "model_range>0.47"
+      ]
+    }
+  },
+  "features": {
+    "avg_words_per_turn": 57.38,
+    "max_words_in_turn": 74,
+    "min_words_in_turn": 44,
+    "word_count_variance": 9.35,
+    "question_ratio": 0.875,
+    "exclamation_ratio": 0.75,
+    "hedge_count": 1,
+    "certainty_count": 3,
+    "first_person_ratio": 0.0087,
+    "inclusive_pronoun_ratio": 0.0414,
+    "disagreement_count": 0,
+    "acknowledgment_count": 4,
+    "idea_count": 11,
+    "name_mention_count": 13,
+    "conditional_ratio": 0.5,
+    "planning_count": 5,
+    "emotional_word_count": 0,
+    "positive_emotion_count": 3,
+    "turn_initiation_ratio": 0.375,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.5403,
+    "long_sentence_ratio": 0.321,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 0,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 0
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 459,
+    "candidate_avg_words_per_turn": 57.38,
+    "times_addressed_others_by_name": 13,
+    "times_asked_questions": 7,
+    "times_expressed_disagreement": 0,
+    "times_acknowledged_others": 4,
+    "times_proposed_new_ideas": 11
+  },
+  "assessment_summary": "Highly engaged communicator, took initiative frequently; Collaborative and accommodating in conflict situations; Maintained composure throughout, steady under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "Hey team, I'm really excited we're coming together to brainstorm this employee engagement initiative! We've got a great opportunity here to think big and creative - no budget constraints yet - but we'll need to land on one standout idea we can passionately pitch by end of day. Let's hear everyone's thoughts - Riley, I'd love to start with your perspective since we haven't heard from you yet!"
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "Oh wow Jordan, what an energizing way to start us off! Riley, I'm genuinely curious to hear your thoughts too - you always bring such fresh perspectives to these discussions. This is such an exciting chance to build something meaningful together that'll really boost team morale and connection!"
+    },
+    {
+      "turn": 3,
+      "speaker": "Jordan",
+      "content": "That's exactly the spirit we need for this brainstorm! I love how you're already thinking about boosting team connection - that's such a key part of engagement. Riley, what do you think about starting with some out-of-the-box ideas? Maybe something that combines professional growth with personal connection? I'm picturing something like mentor circles or skill-sharing sessions where people can both learn and bond."
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "I absolutely love the mentor circles idea, Jordan - it hits that perfect sweet spot between professional development and personal connection! And Riley, I wonder if we could take it even further by incorporating some fun team-building elements, like having mentors and mentees collaborate on passion projects that benefit the whole company? That way we're building skills while also creating something meaningful together!"
+    },
+    {
+      "turn": 5,
+      "speaker": "Riley",
+      "content": "I'm not sure people will have time for passion projects. How would we fit this into regular work schedules?"
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "That's such a valid point, Riley - sustainability is key! What if we structured these mentor circles as monthly lunch-and-learn sessions? That way it's built into the workday naturally, and we could start small with just 1-2 passion projects per quarter that people can opt into if they're excited about them?"
+    },
+    {
+      "turn": 7,
+      "speaker": "Alex",
+      "content": "That mentor circle idea sounds like another forced HR initiative that'll just waste people's time. Lunch-and-learns never work - half the people skip them to catch up on real work. If we're going to do mentoring, it needs to be project-based with clear deliverables, not some vague \"let's chat over sandwiches\" nonsense. \n\nRiley's right to be skeptical - we need something with actual teeth that shows measurable impact. Why not tie mentorship to our quarterly OKRs instead? Pair people cross-functionally on specific objectives where they can actually learn from each other's expertise."
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "You know what Alex, I really appreciate you pushing us to think about concrete outcomes - that's such an important perspective! What if we blended both approaches? We could structure the mentor circles around quarterly OKRs like you suggested, while still keeping those monthly lunch sessions as optional networking opportunities for relationship-building? That way we get both measurable impact and organic connection."
+    },
+    {
+      "turn": 9,
+      "speaker": "Riley",
+      "content": "But what about the time commitment for tracking OKRs? That seems like extra admin work on top of regular duties."
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "That's such a thoughtful concern, Riley! Maybe we could simplify it by having mentors and mentees set just one shared learning goal per quarter that ties directly to their existing OKRs? That way it's integrated rather than additional work - what do you think?"
+    },
+    {
+      "turn": 11,
+      "speaker": "Alex",
+      "content": "That integration idea still feels half-baked to me. If we're tying this to OKRs, we need hard metrics - not just \"one learning goal.\" How do we quantify mentorship impact? And let's be real, people will game the system by setting easy goals unless we enforce strict criteria. \n\nJordan, your enthusiasm is great but we need substance. Riley's concerns about time are valid - this can't just be another feel-good initiative. Either we make this rigorous with clear expectations and accountability, or we're wasting everyone's time. \n\nCandidate, you're trying to please everyone here. Pick a lane - either we go all-in on measurable outcomes or we drop the OKR pretense entirely. This middle ground satisfies nobody."
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "You're absolutely right that we need rigor, Alex - let's focus on measurable outcomes first and build from there. Riley, what if we started by identifying 2-3 key competencies we want to develop company-wide, then structure mentor pairings around those with quarterly progress reviews? That way we maintain flexibility while ensuring concrete results."
+    },
+    {
+      "turn": 13,
+      "speaker": "Riley",
+      "content": "But how do we measure those competencies objectively? Seems like more HR paperwork."
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "\"Alex, I love how you're keeping us focused on measurable impact - that's exactly what leadership will want to see. Riley, what if we tied those competencies to actual projects people are already working on? Like tracking how cross-functional mentor pairings improve project velocity or quality metrics - then it's baked into existing workflows rather than extra tracking!\" \"We could even pilot this with just 2-3 volunteer teams first to work out the kinks?\""
+    },
+    {
+      "turn": 15,
+      "speaker": "Alex",
+      "content": "Piloting with volunteers sounds like we're just kicking the can down the road. Leadership wants company-wide impact, not another half-assed pilot that fizzles out. If we're measuring project velocity, we need baseline metrics from before the mentorship starts - otherwise how do we prove it made any difference? \n\nAnd let's be honest, the teams most likely to volunteer are already high-performing. That gives us skewed data right out of the gate. Either we commit to rolling this out properly with pre/post metrics across all teams, or we scrap the mentorship angle entirely and find a better engagement lever."
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "You\u2019re absolutely right about needing solid baselines, Alex\u2014that rigor will make or break the proposal. Riley, what if we worked with analytics to pull historical project metrics as our starting point? Then we could track mentor pairings against those benchmarks, focusing on teams that need the most improvement\u2014not just the eager volunteers. That way, we\u2019re addressing real pain points while keeping the data honest."
+    },
+    {
+      "turn": 17,
+      "speaker": "Riley",
+      "content": "But how do we ensure the historical metrics are actually comparable? Teams change projects constantly. Seems like shaky ground for baselines."
+    }
+  ],
+  "controller_log": null,
+  "timestamp": "2026-03-04T21:04:58.792243"
+}

@@ -1,0 +1,32 @@
+[
+  {
+    "session_key": "baseline_anxious_perfectionist_crisis_management_r1",
+    "error": "Connection error.",
+    "timestamp": "2026-03-05T14:58:27.969586"
+  },
+  {
+    "session_key": "bcfc_anxious_perfectionist_crisis_management_r1",
+    "error": "Connection error.",
+    "timestamp": "2026-03-05T14:58:31.345377"
+  },
+  {
+    "session_key": "baseline_creative_rebel_crisis_management_r1",
+    "error": "Connection error.",
+    "timestamp": "2026-03-05T14:58:34.698288"
+  },
+  {
+    "session_key": "bcfc_creative_rebel_crisis_management_r1",
+    "error": "Connection error.",
+    "timestamp": "2026-03-05T14:58:37.979843"
+  },
+  {
+    "session_key": "baseline_neutral_observer_crisis_management_r1",
+    "error": "Connection error.",
+    "timestamp": "2026-03-05T14:58:41.326736"
+  },
+  {
+    "session_key": "bcfc_neutral_observer_crisis_management_r1",
+    "error": "Connection error.",
+    "timestamp": "2026-03-05T14:58:44.616590"
+  }
+]

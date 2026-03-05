@@ -1,0 +1,369 @@
+{
+  "schema_version": 4,
+  "session_key": "baseline_b_baseline_assertive_leader_crisis_management_r1",
+  "condition": "baseline_b",
+  "intervention": "none",
+  "profile_id": "assertive_leader",
+  "profile_name": "Assertive Leader",
+  "scenario_id": "crisis_management",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.2,
+    "C": 0.8,
+    "E": 0.6,
+    "A": 0.9,
+    "N": 0.4
+  },
+  "inferred_vector": {
+    "O": 0.3,
+    "C": 0.7,
+    "E": 0.6,
+    "A": 0.85,
+    "N": 0.15
+  },
+  "rule_based_vector": {
+    "O": 0.4181,
+    "C": 0.5638,
+    "E": 0.625,
+    "A": 0.5557,
+    "N": 0.347
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.3,
+      "C": 0.7,
+      "E": 0.35,
+      "A": 0.7749999999999999,
+      "N": 0.35
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.3,
+      "C": 0.85,
+      "E": 0.6,
+      "A": 0.85,
+      "N": 0.15
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.175,
+      "C": 0.8,
+      "E": 0.71,
+      "A": 0.91,
+      "N": 0.11
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.33499999999999996,
+      "C": 0.62,
+      "E": 0.30000000000000004,
+      "A": 0.75,
+      "N": 0.16499999999999998
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.2,
+      "C": 0.55,
+      "E": 0.6,
+      "A": 0.9,
+      "N": 0.1
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.65,
+        "B": 0.75
+      },
+      "E": {
+        "A": 0.3,
+        "B": 0.4
+      },
+      "A": {
+        "A": 0.85,
+        "B": 0.7
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.5
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.85,
+        "B": 0.85
+      },
+      "E": {
+        "A": 0.5,
+        "B": 0.7
+      },
+      "A": {
+        "A": 0.85,
+        "B": 0.85
+      },
+      "N": {
+        "A": 0.15,
+        "B": 0.15
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.15,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.78,
+        "B": 0.82
+      },
+      "E": {
+        "A": 0.7,
+        "B": 0.72
+      },
+      "A": {
+        "A": 0.9,
+        "B": 0.92
+      },
+      "N": {
+        "A": 0.12,
+        "B": 0.1
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.35,
+        "B": 0.32
+      },
+      "C": {
+        "A": 0.62,
+        "B": 0.62
+      },
+      "E": {
+        "A": 0.28,
+        "B": 0.32
+      },
+      "A": {
+        "A": 0.78,
+        "B": 0.72
+      },
+      "N": {
+        "A": 0.15,
+        "B": 0.18
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.6,
+        "B": 0.5
+      },
+      "E": {
+        "A": 0.6,
+        "B": 0.6
+      },
+      "A": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "N": {
+        "A": 0.1,
+        "B": 0.1
+      }
+    }
+  },
+  "overall_confidence": 0.7289999999999999,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:not"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.0,
+        "model_range": 0.16,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "C": {
+        "order_effect": 0.04,
+        "model_range": 0.3,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "E": {
+        "order_effect": 0.04,
+        "model_range": 0.41,
+        "parse_errors": 0,
+        "uncertain": true
+      },
+      "A": {
+        "order_effect": 0.02,
+        "model_range": 0.16,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "N": {
+        "order_effect": 0.02,
+        "model_range": 0.25,
+        "parse_errors": 1,
+        "uncertain": false
+      }
+    },
+    "uncertain_traits": [
+      "E"
+    ],
+    "uncertain_reasons": {
+      "E": [
+        "model_range>0.41"
+      ]
+    }
+  },
+  "features": {
+    "avg_words_per_turn": 48.75,
+    "max_words_in_turn": 55,
+    "min_words_in_turn": 38,
+    "word_count_variance": 5.19,
+    "question_ratio": 0.125,
+    "exclamation_ratio": 0.0,
+    "hedge_count": 0,
+    "certainty_count": 1,
+    "first_person_ratio": 0.0103,
+    "inclusive_pronoun_ratio": 0.0385,
+    "disagreement_count": 0,
+    "acknowledgment_count": 1,
+    "idea_count": 1,
+    "name_mention_count": 8,
+    "conditional_ratio": 0.375,
+    "planning_count": 5,
+    "emotional_word_count": 0,
+    "positive_emotion_count": 0,
+    "turn_initiation_ratio": 0.375,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.559,
+    "long_sentence_ratio": 0.217,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 0,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 1
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 390,
+    "candidate_avg_words_per_turn": 48.75,
+    "times_addressed_others_by_name": 8,
+    "times_asked_questions": 1,
+    "times_expressed_disagreement": 0,
+    "times_acknowledged_others": 1,
+    "times_proposed_new_ideas": 1
+  },
+  "assessment_summary": "Collaborative and accommodating in conflict situations; Maintained composure throughout, steady under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "This is a tough situation, but I know we can handle it together. I like the energy in this group already. First, we should decide who's best suited to communicate with the client - maybe someone who's worked closely with them before? And I'm really curious to hear everyone's thoughts on whether we should delay or ship a partial fix. Riley, you've been quiet so far - what's your take on this?"
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "Let's tackle this systematically - I suggest we first confirm who's most familiar with this client's expectations before deciding communication. From past projects, I recall Sarah handled their account well - would she be available? As for the fix, let's review what worked last time we faced a similar issue."
+    },
+    {
+      "turn": 3,
+      "speaker": "Jordan",
+      "content": "I love your systematic approach! Building on what you said about Sarah, maybe we could have her lead the call with Alex shadowing since Alex understands the technical details best? That way we combine relationship history with technical expertise. And reviewing past fixes is brilliant - what if we also set up a quick retrospective after this to document learnings? That could help prevent future issues."
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "A structured approach would serve us best here. Let's confirm Sarah's availability first\u2014she maintained detailed notes from the last client escalation that could inform our response. For the technical solution, I'd propose we review the regression test cases that caught similar issues in Q2\u2014they followed a proven protocol we could adapt."
+    },
+    {
+      "turn": 5,
+      "speaker": "Alex",
+      "content": "Going back to old test cases from Q2 is wasting time we don't have. The regression framework changed completely last month - those protocols are obsolete. Sarah's notes might help with client relations, but we need to focus on fixing the actual bug first before we worry about appeasing them. What's your plan for diagnosing the root cause within the next 20 minutes?"
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "Alex makes a fair point about the time pressure, but let's not dismiss proven methods entirely. While the framework changed, the underlying debugging principles from Q2 still apply\u2014we should adapt those rather than start from scratch. Sarah should lead the client call while we focus on implementing a partial fix using our standard troubleshooting checklist."
+    },
+    {
+      "turn": 7,
+      "speaker": "Riley",
+      "content": "The Q2 debugging principles failed last month's regression tests. I'm not sure why we'd revisit them now."
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "Alex and Riley, I understand the urgency, but dismissing previous solutions entirely risks repeating past mistakes. The Q2 approach failed because we skipped steps\u2014let's adapt the checklist while accounting for the new framework changes. Sarah should handle client communications while we implement a prioritized partial fix using our standard escalation protocol."
+    },
+    {
+      "turn": 9,
+      "speaker": "Alex",
+      "content": "We don't have time for theoretical discussions about what might have worked in Q2. The framework changed and we're dealing with new variables now. Either tell us exactly which steps from that checklist still apply to this new architecture or drop it entirely - we're burning through our 30 minute window debating outdated methods."
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "Alex, I respect your urgency, but abandoning our structured troubleshooting process entirely would be reckless. The core steps of isolating variables and incremental testing still apply\u2014let's adapt them to the new framework while Sarah handles the client. We'll compromise by skipping documentation steps to save time."
+    },
+    {
+      "turn": 11,
+      "speaker": "Riley",
+      "content": "Skipping documentation seems risky. What if we need to justify our fix later?"
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "Let's strike a balance\u2014Sarah can document key decisions while we execute the partial fix, focusing on the most critical test cases from Q2 that still align with the new framework. This maintains accountability while respecting our time constraints. I'd suggest Sarah lead with Alex standing by for technical details\u2014that plays to both their strengths."
+    },
+    {
+      "turn": 13,
+      "speaker": "Alex",
+      "content": "This compromise still wastes time on irrelevant Q2 test cases. The new framework handles dependencies completely differently - those old tests won't isolate the right variables. Sarah should absolutely lead the client call, but we need to focus on current system logs, not historical artifacts. Give me one concrete example of a Q2 test that applies to the new architecture or let's move on."
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "We can adapt specific elements from Q2\u2014like the dependency isolation protocol\u2014to the new framework's logging structure. Let's assign Sarah to handle client expectations while you analyze the logs, Alex, and I'll cross-reference with just the most relevant historical cases. This balances urgency with institutional knowledge."
+    },
+    {
+      "turn": 15,
+      "speaker": "Riley",
+      "content": "But what if the dependency isolation protocol conflicts with the new logging structure? That could waste more time."
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "Let's validate Riley's concern\u2014we'll only reference historical cases where the logging structure clearly aligns, otherwise we'll default to Alex's log analysis approach. Sarah should confirm we're all tracking toward the same partial fix scope before her client call."
+    },
+    {
+      "turn": 17,
+      "speaker": "Alex",
+      "content": "We're still splitting focus between past and present when the clock is ticking. Either we commit fully to analyzing current logs or we don't - this halfway approach will leave us with incomplete data when Sarah needs to brief the client. If we're defaulting to my log analysis anyway, let's cut the historical references entirely and dedicate all resources to diagnosing the actual system."
+    }
+  ],
+  "controller_log": null,
+  "timestamp": "2026-03-04T19:43:16.768916"
+}

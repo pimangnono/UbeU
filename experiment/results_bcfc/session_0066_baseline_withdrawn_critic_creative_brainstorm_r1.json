@@ -1,0 +1,373 @@
+{
+  "schema_version": 4,
+  "session_key": "baseline_withdrawn_critic_creative_brainstorm_r1",
+  "condition": "main",
+  "intervention": "none",
+  "profile_id": "withdrawn_critic",
+  "profile_name": "Withdrawn Critic",
+  "scenario_id": "creative_brainstorm",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.3,
+    "C": 0.4,
+    "E": 0.2,
+    "A": 0.2,
+    "N": 0.8
+  },
+  "inferred_vector": {
+    "O": 0.1,
+    "C": 0.74,
+    "E": 0.2,
+    "A": 0.15000000000000002,
+    "N": 0.25
+  },
+  "rule_based_vector": {
+    "O": 0.4247,
+    "C": 0.4244,
+    "E": 0.5541,
+    "A": 0.4584,
+    "N": 0.3543
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.2,
+      "C": 0.8,
+      "E": 0.2,
+      "A": 0.2,
+      "N": 0.25
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.1,
+      "C": 0.75,
+      "E": 0.2,
+      "A": 0.1,
+      "N": 0.2
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.05,
+      "C": 0.74,
+      "E": 0.25,
+      "A": 0.12,
+      "N": 0.275
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.15,
+      "C": 0.6699999999999999,
+      "E": 0.15,
+      "A": 0.16499999999999998,
+      "N": 0.72
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.1,
+      "C": 0.3,
+      "E": 0.2,
+      "A": 0.15000000000000002,
+      "N": 0.1
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.8,
+        "B": 0.8
+      },
+      "E": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "A": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "N": {
+        "A": 0.3,
+        "B": 0.2
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.1,
+        "B": 0.1
+      },
+      "C": {
+        "A": 0.8,
+        "B": 0.7
+      },
+      "E": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "A": {
+        "A": 0.1,
+        "B": 0.1
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.2
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.05,
+        "B": 0.05
+      },
+      "C": {
+        "A": 0.8,
+        "B": 0.68
+      },
+      "E": {
+        "A": 0.25,
+        "B": 0.25
+      },
+      "A": {
+        "A": 0.12,
+        "B": 0.12
+      },
+      "N": {
+        "A": 0.3,
+        "B": 0.25
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.15,
+        "B": 0.15
+      },
+      "C": {
+        "A": 0.72,
+        "B": 0.62
+      },
+      "E": {
+        "A": 0.15,
+        "B": 0.15
+      },
+      "A": {
+        "A": 0.18,
+        "B": 0.15
+      },
+      "N": {
+        "A": 0.72,
+        "B": 0.72
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.1,
+        "B": 0.1
+      },
+      "C": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "E": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "A": {
+        "A": 0.2,
+        "B": 0.1
+      },
+      "N": {
+        "A": 0.1,
+        "B": 0.1
+      }
+    }
+  },
+  "overall_confidence": 0.706,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:not"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.0,
+        "model_range": 0.15,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "C": {
+        "order_effect": 0.1,
+        "model_range": 0.5,
+        "parse_errors": 0,
+        "uncertain": true
+      },
+      "E": {
+        "order_effect": 0.0,
+        "model_range": 0.1,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "A": {
+        "order_effect": 0.0,
+        "model_range": 0.1,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "N": {
+        "order_effect": 0.0,
+        "model_range": 0.62,
+        "parse_errors": 0,
+        "uncertain": true
+      }
+    },
+    "uncertain_traits": [
+      "C",
+      "N"
+    ],
+    "uncertain_reasons": {
+      "C": [
+        "model_range>0.50"
+      ],
+      "N": [
+        "model_range>0.62"
+      ]
+    }
+  },
+  "features": {
+    "avg_words_per_turn": 28.38,
+    "max_words_in_turn": 38,
+    "min_words_in_turn": 19,
+    "word_count_variance": 5.61,
+    "question_ratio": 0.625,
+    "exclamation_ratio": 0.0,
+    "hedge_count": 0,
+    "certainty_count": 0,
+    "first_person_ratio": 0.0,
+    "inclusive_pronoun_ratio": 0.0176,
+    "disagreement_count": 0,
+    "acknowledgment_count": 0,
+    "idea_count": 0,
+    "name_mention_count": 5,
+    "conditional_ratio": 0.25,
+    "planning_count": 0,
+    "emotional_word_count": 0,
+    "positive_emotion_count": 0,
+    "turn_initiation_ratio": 0.25,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.7004,
+    "long_sentence_ratio": 0.0,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 0,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 5
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 227,
+    "candidate_avg_words_per_turn": 28.38,
+    "times_addressed_others_by_name": 5,
+    "times_asked_questions": 5,
+    "times_expressed_disagreement": 0,
+    "times_acknowledged_others": 0,
+    "times_proposed_new_ideas": 0
+  },
+  "assessment_summary": "Reserved participant, preferred listening over speaking; Assertive in defending positions, comfortable with disagreement; Maintained composure throughout, steady under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "Hey team, I'm really excited we get to brainstorm this employee engagement initiative together! We've got a great opportunity to think outside the box since budget isn't constrained yet. Who wants to kick us off with some fresh ideas? I'd love to hear everyone's thoughts - Riley, I notice you haven't spoken yet, would you like to start?"
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "Fresh ideas often fail in execution. We should look at what's worked before instead of gambling on unproven concepts."
+    },
+    {
+      "turn": 3,
+      "speaker": "Riley",
+      "content": "New ideas sound good, but how do we know they'll actually engage people? We should look at proven methods first."
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "Riley's right - we need data, not guesses. The 2018 mentorship program had measurable engagement gains. Why reinvent what already works?"
+    },
+    {
+      "turn": 5,
+      "speaker": "Alex",
+      "content": "I completely disagree with just recycling old programs. The 2018 mentorship had gains, sure, but engagement metrics have changed and we need fresh solutions. Also, saying new ideas often fail is defeatist thinking - we should be pushing boundaries here. Jordan's right about thinking outside the box."
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "You're dismissing proven methods too quickly. That 2018 program had a 37% engagement lift - can Alex guarantee better results from some untested \"fresh solution\"? We're talking about real people's work lives here, not some... some lab experiment."
+    },
+    {
+      "turn": 7,
+      "speaker": "Riley",
+      "content": "New solutions might sound exciting, but I'd feel better seeing some pilot data first. That 37% lift is hard to ignore."
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "Alex's push for novelty ignores the risk of wasted time and resources. If leadership wants results, we should scale what worked - not gamble on unproven concepts that might backfire spectacularly."
+    },
+    {
+      "turn": 9,
+      "speaker": "Alex",
+      "content": "That 37% lift was five years ago - engagement drivers have completely changed since then. If we just recycle old programs, we'll get stale results. Leadership wants innovation, not museum pieces. The candidate's risk-aversion is exactly why engagement scores plateau - we need bold ideas that match today's workforce."
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "Five years doesn't invalidate proven methodology. Where's your evidence that today's workforce responds differently to fundamental engagement principles? This reckless push for \"bold\" ideas smells like career posturing, not results."
+    },
+    {
+      "turn": 11,
+      "speaker": "Jordan",
+      "content": "I really appreciate both perspectives here - Riley's focus on proven methods gives us a solid foundation, and Alex's push for innovation keeps us moving forward. Building on that 2018 mentorship data, what if we modernized it with some creative elements like reverse mentoring where junior staff teach leadership new tech skills? That could address both the proven methodology and today's workforce needs. Candidate, I'd love to hear your thoughts on how we might test this hybrid approach?"
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "Hybrid approaches still introduce unnecessary variables. Why complicate something that already delivers results? That 37% lift speaks for itself - we'd be fools to dilute it with untested gimmicks."
+    },
+    {
+      "turn": 13,
+      "speaker": "Alex",
+      "content": "That reverse mentoring idea barely scratches the surface of innovation. If we're talking hybrid approaches, let's go all-in - pair the mentorship program with a company-wide gamification layer where employees earn real rewards for engagement milestones. The candidate keeps harping on that 37% number, but fails to acknowledge our current engagement scores are in the toilet. We need shock therapy, not band-aids."
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "Gamification? That's just corporate bribery dressed up as engagement. And shock therapy usually leaves casualties - we'd be gambling with people's livelihoods to satisfy Alex's innovation fetish. Stick with what works."
+    },
+    {
+      "turn": 15,
+      "speaker": "Jordan",
+      "content": "I hear the passion from both sides, and that's exactly what we need for this discussion. Alex, I love your energy for pushing boundaries, and candidate, your commitment to proven results is really valuable. What if we thought about this differently - instead of choosing between old and new, could we pilot the mentorship program with a small gamification component in one department? That way we'd have real data before scaling. Riley, you mentioned pilot data earlier - how would you feel about testing this controlled approach?"
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "Piloting still wastes resources chasing novelty. That department's productivity will suffer while Alex plays mad scientist with their engagement scores. Stick with the full program we KNOW works."
+    },
+    {
+      "turn": 17,
+      "speaker": "Alex",
+      "content": "Sticking with what we KNOW works is exactly why we're in this mess. That 37% lift came from a workforce that no longer exists - half our employees today weren't even here five years ago. Gamification isn't corporate bribery, it's speaking the language of a generation that grew up with instant feedback loops. If the candidate wants to keep running the same playbook while the game changes around us, they'll be explaining why engagement keeps dropping at the next board meeting."
+    }
+  ],
+  "controller_log": null,
+  "timestamp": "2026-03-04T17:48:20.992707"
+}

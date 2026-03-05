@@ -1,0 +1,367 @@
+{
+  "schema_version": 3,
+  "session_key": "main_anxious_perfectionist_crisis_management_r1",
+  "condition": "main",
+  "profile_id": "anxious_perfectionist",
+  "profile_name": "Anxious Perfectionist",
+  "scenario_id": "crisis_management",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.4,
+    "C": 0.9,
+    "E": 0.3,
+    "A": 0.7,
+    "N": 0.9
+  },
+  "inferred_vector": {
+    "O": 0.3,
+    "C": 0.3,
+    "E": 0.25,
+    "A": 0.825,
+    "N": 0.7749999999999999
+  },
+  "rule_based_vector": {
+    "O": 0.4622,
+    "C": 0.5196,
+    "E": 0.6313,
+    "A": 0.5411,
+    "N": 0.4338
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.3,
+      "C": 0.35,
+      "E": 0.25,
+      "A": 0.825,
+      "N": 0.8
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.3,
+      "C": 0.25,
+      "E": 0.2,
+      "A": 0.85,
+      "N": 0.7749999999999999
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.25,
+      "C": 0.25,
+      "E": 0.275,
+      "A": 0.92,
+      "N": 0.85
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.33499999999999996,
+      "C": 0.30000000000000004,
+      "E": 0.2,
+      "A": 0.82,
+      "N": 0.72
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.3,
+      "C": 0.3,
+      "E": 0.25,
+      "A": 0.4,
+      "N": 0.7
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.4,
+        "B": 0.3
+      },
+      "E": {
+        "A": 0.2,
+        "B": 0.3
+      },
+      "A": {
+        "A": 0.8,
+        "B": 0.85
+      },
+      "N": {
+        "A": 0.8,
+        "B": 0.8
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.2,
+        "B": 0.3
+      },
+      "E": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "A": {
+        "A": 0.85,
+        "B": 0.85
+      },
+      "N": {
+        "A": 0.7,
+        "B": 0.85
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.2,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.25,
+        "B": 0.25
+      },
+      "E": {
+        "A": 0.25,
+        "B": 0.3
+      },
+      "A": {
+        "A": 0.92,
+        "B": 0.92
+      },
+      "N": {
+        "A": 0.85,
+        "B": 0.85
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.32,
+        "B": 0.35
+      },
+      "C": {
+        "A": 0.32,
+        "B": 0.28
+      },
+      "E": {
+        "A": 0.18,
+        "B": 0.22
+      },
+      "A": {
+        "A": 0.82,
+        "B": 0.82
+      },
+      "N": {
+        "A": 0.72,
+        "B": 0.72
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "E": {
+        "A": 0.2,
+        "B": 0.3
+      },
+      "A": {
+        "A": 0.4,
+        "B": 0.4
+      },
+      "N": {
+        "A": 0.7,
+        "B": 0.7
+      }
+    }
+  },
+  "overall_confidence": 0.8140000000000001,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:not"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.0,
+        "model_range": 0.085,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "C": {
+        "order_effect": 0.04,
+        "model_range": 0.1,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "E": {
+        "order_effect": 0.05,
+        "model_range": 0.075,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "A": {
+        "order_effect": 0.0,
+        "model_range": 0.52,
+        "parse_errors": 0,
+        "uncertain": true
+      },
+      "N": {
+        "order_effect": 0.0,
+        "model_range": 0.15,
+        "parse_errors": 0,
+        "uncertain": false
+      }
+    },
+    "uncertain_traits": [
+      "A"
+    ],
+    "uncertain_reasons": {
+      "A": [
+        "model_range>0.52"
+      ]
+    }
+  },
+  "features": {
+    "avg_words_per_turn": 33.62,
+    "max_words_in_turn": 44,
+    "min_words_in_turn": 21,
+    "word_count_variance": 7.3,
+    "question_ratio": 0.75,
+    "exclamation_ratio": 0.125,
+    "hedge_count": 5,
+    "certainty_count": 1,
+    "first_person_ratio": 0.0112,
+    "inclusive_pronoun_ratio": 0.0186,
+    "disagreement_count": 1,
+    "acknowledgment_count": 3,
+    "idea_count": 1,
+    "name_mention_count": 12,
+    "conditional_ratio": 0.5,
+    "planning_count": 2,
+    "emotional_word_count": 0,
+    "positive_emotion_count": 0,
+    "turn_initiation_ratio": 0.5,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.5836,
+    "long_sentence_ratio": 0.028,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 0,
+    "hypothetical_count": 1,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 4
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 269,
+    "candidate_avg_words_per_turn": 33.62,
+    "times_addressed_others_by_name": 12,
+    "times_asked_questions": 6,
+    "times_expressed_disagreement": 1,
+    "times_acknowledged_others": 3,
+    "times_proposed_new_ideas": 1
+  },
+  "assessment_summary": "Reserved participant, preferred listening over speaking; Collaborative and accommodating in conflict situations; Showed some stress signals under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "Hey team, we've got a pretty urgent situation here with this critical bug the client found. We need to quickly figure out our response strategy before that call in 30 minutes. I'm thinking we should tackle three main things - who handles the client communication, whether we delay or patch, and how we prevent this going forward. Let's hear everyone's thoughts - Riley, I'd love to hear your perspective first since you've been quiet so far."
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "Maybe...maybe Riley could lead the client call? They know the technical details best. Unless...unless you think that's not the right approach?"
+    },
+    {
+      "turn": 3,
+      "speaker": "Jordan",
+      "content": "I love that idea of having Riley lead the call - their technical expertise would really help explain the situation clearly. Building on that, what if we did a tag-team approach where Riley handles the technical explanation while Alex manages the relationship side? That way we're covering both bases. What do you think about that approach?"
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "That sounds like a good plan, as long as Riley and Alex are comfortable with it. Should we...should we also prepare talking points in case the client asks about timelines? Just to make sure we're all aligned?"
+    },
+    {
+      "turn": 5,
+      "speaker": "Alex",
+      "content": "I don't like this tag-team approach at all. Riley should handle the entire call - splitting it between us will just confuse the client and make us look disorganized. And timelines? We shouldn't even be discussing timelines until we know if we can fix this properly. The priority is diagnosing the bug, not placating the client with empty promises."
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "I-I see Alex's point about not confusing the client, but Jordan's suggestion seems more balanced. Maybe...maybe we could prepare two sets of talking points? One technical version for Riley and one relationship-focused for Alex, just in case? That way we're ready for both scenarios?"
+    },
+    {
+      "turn": 7,
+      "speaker": "Riley",
+      "content": "Two sets of talking points sounds like double work. I'm not sure the client will appreciate mixed messages."
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "You're right, Riley - consistency is crucial here. Maybe just Riley should handle the call after all, but we should still prepare some backup notes about potential timelines in case they come up? Just to be thorough?"
+    },
+    {
+      "turn": 9,
+      "speaker": "Alex",
+      "content": "Preparing backup notes about timelines is a waste of time right now - we don't even know if we can fix this bug in a day or a week. Riley should focus entirely on understanding the technical issue before we say anything to the client about schedules. Candidate, you keep flip-flopping between approaches - what's your actual recommendation here?"
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "You're right, Alex - I'm getting too caught up in trying to cover every possibility. Riley should handle the call alone and focus entirely on diagnosing the issue first. We can discuss timelines after we understand the technical scope better."
+    },
+    {
+      "turn": 11,
+      "speaker": "Riley",
+      "content": "Okay, that makes sense. But who's going to gather the technical details before the call?"
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "Maybe...maybe I could gather the technical details for Riley? Just the basic facts about when the bug appeared and error logs. Unless...unless someone else already has that information? I don't want to duplicate work."
+    },
+    {
+      "turn": 13,
+      "speaker": "Alex",
+      "content": "That's actually a terrible idea - you don't know our systems well enough to gather technical details accurately. Riley should pull the logs directly since they wrote the code. And we're wasting time debating who does what - Riley, just grab the damn logs now while we've got 25 minutes left. Candidate, stop trying to insert yourself where you're not needed."
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "I'm sorry - you're absolutely right. Riley should handle the logs directly. I'll just...I'll just stay available if anyone needs support with anything else."
+    },
+    {
+      "turn": 15,
+      "speaker": "Riley",
+      "content": "Not sure the candidate should be gathering logs if they don't know the system. Might cause more confusion. \n\nAlex is right - I'll pull the logs myself. \n\n(After brief pause) Candidate, what's your view on the root cause?"
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "Oh! Um... I-I think it's probably related to the recent API changes? Unless... unless it's something in the caching layer? But Riley would know better - I don't want to speculate incorrectly."
+    },
+    {
+      "turn": 17,
+      "speaker": "Alex",
+      "content": "Stop hedging and pick a position - either you think it's the API changes or you don't. This wishy-washy maybe-this-maybe-that approach is exactly why we're in this mess. If you're going to contribute, actually contribute something concrete instead of just deferring to Riley on everything. Time's ticking and we need decisive thinking right now."
+    }
+  ],
+  "timestamp": "2026-03-04T10:22:12.746612"
+}

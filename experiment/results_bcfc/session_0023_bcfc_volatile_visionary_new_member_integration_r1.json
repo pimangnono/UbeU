@@ -1,0 +1,882 @@
+{
+  "schema_version": 4,
+  "session_key": "bcfc_volatile_visionary_new_member_integration_r1",
+  "condition": "main",
+  "intervention": "bcfc",
+  "profile_id": "volatile_visionary",
+  "profile_name": "Volatile Visionary",
+  "scenario_id": "new_member_integration",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.9,
+    "C": 0.4,
+    "E": 0.8,
+    "A": 0.3,
+    "N": 0.7
+  },
+  "inferred_vector": {
+    "O": 0.28,
+    "C": 0.4,
+    "E": 0.525,
+    "A": 0.2,
+    "N": 0.2
+  },
+  "rule_based_vector": {
+    "O": 0.4974,
+    "C": 0.4475,
+    "E": 0.7523,
+    "A": 0.5229,
+    "N": 0.423
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.3,
+      "C": 0.4,
+      "E": 0.525,
+      "A": 0.25,
+      "N": 0.2
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.3,
+      "C": 0.8,
+      "E": 0.7,
+      "A": 0.1,
+      "N": 0.2
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.2,
+      "C": 0.55,
+      "E": 0.85,
+      "A": 0.12,
+      "N": 0.15
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.28,
+      "C": 0.35,
+      "E": 0.5,
+      "A": 0.2,
+      "N": 0.72
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.2,
+      "C": 0.3,
+      "E": 0.5,
+      "A": 0.2,
+      "N": 0.1
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.4,
+        "B": 0.4
+      },
+      "E": {
+        "A": 0.25,
+        "B": 0.8
+      },
+      "A": {
+        "A": 0.3,
+        "B": 0.2
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.2
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.8,
+        "B": 0.8
+      },
+      "E": {
+        "A": 0.5,
+        "B": 0.9
+      },
+      "A": {
+        "A": 0.1,
+        "B": 0.1
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.2
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.45,
+        "B": 0.65
+      },
+      "E": {
+        "A": 0.82,
+        "B": 0.88
+      },
+      "A": {
+        "A": 0.12,
+        "B": 0.12
+      },
+      "N": {
+        "A": 0.18,
+        "B": 0.12
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.28,
+        "B": 0.28
+      },
+      "C": {
+        "A": 0.35,
+        "B": 0.35
+      },
+      "E": {
+        "A": 0.28,
+        "B": 0.72
+      },
+      "A": {
+        "A": 0.22,
+        "B": 0.18
+      },
+      "N": {
+        "A": 0.72,
+        "B": 0.72
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "E": {
+        "A": 0.2,
+        "B": 0.8
+      },
+      "A": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "N": {
+        "A": 0.1,
+        "B": 0.1
+      }
+    }
+  },
+  "overall_confidence": 0.643,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:not"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.0,
+        "model_range": 0.1,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "C": {
+        "order_effect": 0.0,
+        "model_range": 0.5,
+        "parse_errors": 0,
+        "uncertain": true
+      },
+      "E": {
+        "order_effect": 0.44,
+        "model_range": 0.35,
+        "parse_errors": 1,
+        "uncertain": true
+      },
+      "A": {
+        "order_effect": 0.0,
+        "model_range": 0.15,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "N": {
+        "order_effect": 0.0,
+        "model_range": 0.62,
+        "parse_errors": 0,
+        "uncertain": true
+      }
+    },
+    "uncertain_traits": [
+      "C",
+      "E",
+      "N"
+    ],
+    "uncertain_reasons": {
+      "C": [
+        "model_range>0.50"
+      ],
+      "E": [
+        "order_effect>0.44",
+        "model_range>0.35"
+      ],
+      "N": [
+        "model_range>0.62"
+      ]
+    }
+  },
+  "features": {
+    "avg_words_per_turn": 59.62,
+    "max_words_in_turn": 84,
+    "min_words_in_turn": 43,
+    "word_count_variance": 12.77,
+    "question_ratio": 1.0,
+    "exclamation_ratio": 0.375,
+    "hedge_count": 2,
+    "certainty_count": 0,
+    "first_person_ratio": 0.0042,
+    "inclusive_pronoun_ratio": 0.0314,
+    "disagreement_count": 0,
+    "acknowledgment_count": 2,
+    "idea_count": 0,
+    "name_mention_count": 15,
+    "conditional_ratio": 0.25,
+    "planning_count": 2,
+    "emotional_word_count": 1,
+    "positive_emotion_count": 0,
+    "turn_initiation_ratio": 0.125,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.6101,
+    "long_sentence_ratio": 0.267,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 0,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 9
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 477,
+    "candidate_avg_words_per_turn": 59.62,
+    "times_addressed_others_by_name": 15,
+    "times_asked_questions": 8,
+    "times_expressed_disagreement": 0,
+    "times_acknowledged_others": 2,
+    "times_proposed_new_ideas": 0
+  },
+  "assessment_summary": "Assertive in defending positions, comfortable with disagreement; Maintained composure throughout, steady under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "Hey team, welcome to our first meeting with Riley joining us! I'm really excited to have fresh perspectives on our project. The main thing we need to figure out today is how to bring Riley up to speed while redistributing tasks in a way that plays to everyone's strengths. Riley, I'd love to hear what aspects of the project you're most interested in diving into first."
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "Oh Jordan, let's not just throw Riley into random parts of the project based on vague interests - that's how we end up with mismatched skillsets and bottlenecks! Riley, what were you actually working on at your last company? Because frankly, I'm worried we'll waste time reinventing the wheel if we don't leverage your specific technical expertise properly."
+    },
+    {
+      "turn": 3,
+      "speaker": "Jordan",
+      "content": "I really appreciate that thoughtful approach to leveraging Riley's past experience! That's a great point about avoiding reinvention. Riley, building on what the candidate said, would you be open to sharing what technical systems you worked with previously? Also, I'm curious - what if we did a quick skills mapping exercise where we all share our strongest areas? That way we could creatively redistribute tasks based on both current needs and everyone's expertise. What do you both think?"
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "A skills mapping exercise? That's putting the cart before the horse - we haven't even identified the critical pain points in our current workflow yet! Riley, forget generic strengths for a second - what technical challenges did you solve at your last company that made the biggest impact? Because if we just shuffle superficial tasks around without addressing core system weaknesses, we're doomed to repeat past mistakes."
+    },
+    {
+      "turn": 5,
+      "speaker": "Alex",
+      "content": "That skills mapping exercise is a complete waste of time when we haven't even assessed Riley's actual capabilities yet. Riley, don't sugarcoat it - what were the toughest technical fires you had to put out at your last job? Because we need to know if you can handle our system's chronic database latency issues right off the bat. \n\nAnd Jordan, stop trying to make this all warm and fuzzy - we're three weeks behind schedule already. Riley either has the technical chops to dive into our mess or they don't. Let's cut the team-building crap and get specific about which parts of this dumpster fire they can actually help with. \n\nRiley, I'm looking at your resume and it says you optimized query performance at your last company"
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "\"Alex, bluntness doesn't equal effectiveness - your database fixation misses the bigger architectural debt we're carrying. Riley, since Alex mentioned queries: what's the largest dataset volume you've optimized under production load? And crucially, how did you validate the improvements weren't just benchmark theater?\""
+    },
+    {
+      "turn": 7,
+      "speaker": "Riley",
+      "content": "I worked with 10TB datasets, but benchmarks don't always reflect real-world performance. Not sure our current system could handle similar optimizations."
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "Jordan, see? This is exactly why we need to stop talking in hypotheticals - Riley's already spotting fundamental limitations in our approach. Riley, when you say \"not sure our system could handle it,\" what specific red flags are you seeing that we might have missed? Because if our architecture can't scale to 10TB, we've got bigger problems than query optimization."
+    },
+    {
+      "turn": 9,
+      "speaker": "Alex",
+      "content": "That database limitation is exactly why we need to stop dancing around the real issues here. Riley, if our architecture can't handle your dataset experience, then we're already failing at the fundamentals - so tell us straight, what specific architectural flaws are you spotting that we've been ignoring? \n\nJordan, this is why your \"let's all share our strengths\" approach is naive - we don't need warm fuzzies, we need cold hard technical reality checks. Riley clearly sees our system's weaknesses already, so let's stop pretending and address them head-on. \n\nAnd Riley, don't hold back - if you think our current setup is fundamentally broken for handling large datasets, say so now before we waste months on superficial optimizations that won't move"
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "Jordan, this constant back-and-forth about databases is distracting from the real issue Riley just surfaced - our entire infrastructure might be built on flawed assumptions. Riley, forget about what Alex is obsessing over - if you had to completely redesign our data pipeline from scratch tomorrow, what's the first legacy component you'd rip out and why? Because I'm not convinced we're even asking the right questions about scalability yet."
+    },
+    {
+      "turn": 11,
+      "speaker": "Riley",
+      "content": "Not sure redesigning from scratch is practical right now. But the legacy caching layer seems like the biggest bottleneck."
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "You think the caching layer is the bottleneck? That\u2019s a surface-level fix\u2014what\u2019s the underlying architectural sin it\u2019s compensating for? Because if we don\u2019t diagnose the root cause, we\u2019ll just be slapping band-aids on a hemorrhage. And Jordan, stop nodding along\u2014either challenge Riley\u2019s assessment or explain why you\u2019ve tolerated this technical debt for so long. Riley, give me concrete examples: when you\u2019ve ripped out a caching layer before, what unexpected dependencies did it expose? I won\u2019t accept vague hand-waving\u2014this team\u2019s survived on that long enough."
+    },
+    {
+      "turn": 13,
+      "speaker": "Alex",
+      "content": "The caching layer is just symptom - we all know the real disease is our fragmented data model. Riley, if you've worked with 10TB datasets, you know caching won't save us when our partitioning strategy is fundamentally broken. \n\nJordan, stop looking for consensus - Riley either has the guts to call out our core architecture flaws or they don't. This isn't about being polite, it's about not wasting another quarter on stopgap solutions. \n\nRiley, give it to us straight - would you scrap our current partitioning approach entirely? Because I've been fighting that battle alone for months and need backup."
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "Alex, you're still missing the point\u2014partitioning is just another symptom! Riley, forget about caching and partitioning for a second\u2014what's the deepest architectural flaw you've spotted in our entire stack that nobody's brave enough to name? Because until we admit the system's rotten foundations, we're just rearranging deck chairs on the Titanic."
+    },
+    {
+      "turn": 15,
+      "speaker": "Riley",
+      "content": "The real issue is our monolithic service architecture. But changing that would take months of refactoring."
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "Monolithic? That's the most obvious cop-out answer possible\u2014if you're not willing to name the specific service boundaries that are killing performance, then you're part of the problem. And Jordan, your silence on this is deafening\u2014either defend this architecture or admit we've been building on quicksand."
+    },
+    {
+      "turn": 17,
+      "speaker": "Alex",
+      "content": "Finally someone says it out loud. Riley's right about the monolith being the core issue, but the candidate's dead wrong calling it a cop-out - that shows they don't understand the real constraints we operate under. Jordan, stop hiding behind vague concerns about timelines and tell us straight: are you willing to allocate the six months of painful refactoring this will actually take, or are we just going to keep pretending microservices are some magic bullet? Riley, since you've actually worked with decoupled architectures, give us the hard truth about what breaking this monolith would really cost in downtime and technical debt."
+    }
+  ],
+  "controller_log": {
+    "session_key": "bcfc_volatile_visionary_new_member_integration_r1",
+    "deviation_reports": [
+      {
+        "turn_number": 2,
+        "deviations": [
+          {
+            "feature": "idea_count",
+            "actual": 0,
+            "target_min": 1.05,
+            "target_max": 1.96,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "hypothetical_count",
+            "actual": 0,
+            "target_min": 0.85,
+            "target_max": 1.58,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "word_count_variance",
+            "actual": 4.5,
+            "target_min": 27.63,
+            "target_max": 51.3,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "question_ratio",
+            "actual": 1.0,
+            "target_min": 0.45,
+            "target_max": 0.84,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "planning_count",
+            "actual": 0,
+            "target_min": 0.04,
+            "target_max": 0.52,
+            "trait": "C",
+            "direction": "below"
+          },
+          {
+            "feature": "structure_marker_count",
+            "actual": 0,
+            "target_min": 0.04,
+            "target_max": 0.52,
+            "trait": "C",
+            "direction": "below"
+          },
+          {
+            "feature": "conditional_ratio",
+            "actual": 0.0,
+            "target_min": 0.03,
+            "target_max": 0.13,
+            "trait": "C",
+            "direction": "below"
+          },
+          {
+            "feature": "emotional_word_count",
+            "actual": 1,
+            "target_min": 0.25,
+            "target_max": 0.72,
+            "trait": "C",
+            "direction": "above"
+          },
+          {
+            "feature": "exclamation_ratio",
+            "actual": 1.0,
+            "target_min": 0.27,
+            "target_max": 0.5,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 3,
+            "target_min": 1.07,
+            "target_max": 1.98,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "certainty_count",
+            "actual": 0,
+            "target_min": 0.71,
+            "target_max": 1.32,
+            "trait": "E",
+            "direction": "below"
+          },
+          {
+            "feature": "hedge_count",
+            "actual": 0,
+            "target_min": 0.77,
+            "target_max": 1.44,
+            "trait": "N",
+            "direction": "below"
+          },
+          {
+            "feature": "disagreement_count",
+            "actual": 0,
+            "target_min": 0.61,
+            "target_max": 1.13,
+            "trait": "A",
+            "direction": "below"
+          },
+          {
+            "feature": "negation_count",
+            "actual": 3,
+            "target_min": 1.52,
+            "target_max": 2.83,
+            "trait": "A",
+            "direction": "above"
+          },
+          {
+            "feature": "apology_count",
+            "actual": 0,
+            "target_min": 0.25,
+            "target_max": 0.72,
+            "trait": "N",
+            "direction": "below"
+          },
+          {
+            "feature": "self_doubt_count",
+            "actual": 0,
+            "target_min": 0.08,
+            "target_max": 0.55,
+            "trait": "N",
+            "direction": "below"
+          },
+          {
+            "feature": "reassurance_seeking_count",
+            "actual": 0,
+            "target_min": 0.28,
+            "target_max": 0.76,
+            "trait": "N",
+            "direction": "below"
+          },
+          {
+            "feature": "first_person_ratio",
+            "actual": 0.0,
+            "target_min": 0.05,
+            "target_max": 0.15,
+            "trait": "N",
+            "direction": "below"
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your idea count is below target; your hypothetical count is below target; your word count variance is below target; Propose an alternative approach or ask a speculative question.. E: your question ratio is above target; your exclamation ratio is above target; your name mention count is above target; your certainty count is below target; Keep it brief and let others lead.. C: your planning count is below target; your structure marker count is below target; your conditional ratio is below target; your emotional word count is above target; Include a concrete action item with an owner or reference a prior commitment.. N: your hedge count is below target; your apology count is below target; your self doubt count is below target; your reassurance seeking count is below target; your first person ratio is below target; Express a concern or qualify your statement with uncertainty.. A: your disagreement count is below target; your negation count is above target; Validate someone's contribution or find common ground.. ]",
+        "severity": 0.667
+      },
+      {
+        "turn_number": 4,
+        "deviations": [
+          {
+            "feature": "idea_count",
+            "actual": 0,
+            "target_min": 1.05,
+            "target_max": 1.96,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "hypothetical_count",
+            "actual": 0,
+            "target_min": 0.85,
+            "target_max": 1.58,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "word_count_variance",
+            "actual": 8.75,
+            "target_min": 27.63,
+            "target_max": 51.3,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "long_sentence_ratio",
+            "actual": 0.27,
+            "target_min": 0.36,
+            "target_max": 0.67,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "question_ratio",
+            "actual": 1.0,
+            "target_min": 0.45,
+            "target_max": 0.84,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "planning_count",
+            "actual": 0,
+            "target_min": 0.04,
+            "target_max": 0.52,
+            "trait": "C",
+            "direction": "below"
+          },
+          {
+            "feature": "structure_marker_count",
+            "actual": 0,
+            "target_min": 0.04,
+            "target_max": 0.52,
+            "trait": "C",
+            "direction": "below"
+          },
+          {
+            "feature": "conditional_ratio",
+            "actual": 0.25,
+            "target_min": 0.03,
+            "target_max": 0.13,
+            "trait": "C",
+            "direction": "above"
+          },
+          {
+            "feature": "emotional_word_count",
+            "actual": 1,
+            "target_min": 0.25,
+            "target_max": 0.72,
+            "trait": "C",
+            "direction": "above"
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 7,
+            "target_min": 1.07,
+            "target_max": 1.98,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "certainty_count",
+            "actual": 0,
+            "target_min": 0.71,
+            "target_max": 1.32,
+            "trait": "E",
+            "direction": "below"
+          },
+          {
+            "feature": "turn_initiation_ratio",
+            "actual": 0.25,
+            "target_min": 0.33,
+            "target_max": 0.62,
+            "trait": "E",
+            "direction": "below"
+          },
+          {
+            "feature": "acknowledgment_count",
+            "actual": 1,
+            "target_min": 0.0,
+            "target_max": 0.44,
+            "trait": "A",
+            "direction": "above"
+          },
+          {
+            "feature": "disagreement_count",
+            "actual": 0,
+            "target_min": 0.61,
+            "target_max": 1.13,
+            "trait": "A",
+            "direction": "below"
+          },
+          {
+            "feature": "negation_count",
+            "actual": 7,
+            "target_min": 1.52,
+            "target_max": 2.83,
+            "trait": "A",
+            "direction": "above"
+          },
+          {
+            "feature": "apology_count",
+            "actual": 0,
+            "target_min": 0.25,
+            "target_max": 0.72,
+            "trait": "N",
+            "direction": "below"
+          },
+          {
+            "feature": "self_doubt_count",
+            "actual": 0,
+            "target_min": 0.08,
+            "target_max": 0.55,
+            "trait": "N",
+            "direction": "below"
+          },
+          {
+            "feature": "reassurance_seeking_count",
+            "actual": 0,
+            "target_min": 0.28,
+            "target_max": 0.76,
+            "trait": "N",
+            "direction": "below"
+          },
+          {
+            "feature": "first_person_ratio",
+            "actual": 0.0,
+            "target_min": 0.05,
+            "target_max": 0.15,
+            "trait": "N",
+            "direction": "below"
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your idea count is below target; your hypothetical count is below target; your word count variance is below target; your long sentence ratio is below target; Propose an alternative approach or ask a speculative question.. E: your question ratio is above target; your name mention count is above target; your certainty count is below target; your turn initiation ratio is below target; Address someone by name and elaborate more.. C: your planning count is below target; your structure marker count is below target; your conditional ratio is above target; your emotional word count is above target; Include a concrete action item with an owner or reference a prior commitment.. A: your acknowledgment count is above target; your disagreement count is below target; your negation count is above target; Identify a flaw in the current proposal and push back.. N: your apology count is below target; your self doubt count is below target; your reassurance seeking count is below target; your first person ratio is below target; Express a concern or qualify your statement with uncertainty.. ]",
+        "severity": 0.704
+      },
+      {
+        "turn_number": 6,
+        "deviations": [
+          {
+            "feature": "idea_count",
+            "actual": 0,
+            "target_min": 1.05,
+            "target_max": 1.96,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "hypothetical_count",
+            "actual": 0,
+            "target_min": 0.85,
+            "target_max": 1.58,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "word_count_variance",
+            "actual": 14.85,
+            "target_min": 27.63,
+            "target_max": 51.3,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "long_sentence_ratio",
+            "actual": 0.18,
+            "target_min": 0.36,
+            "target_max": 0.67,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "question_ratio",
+            "actual": 1.0,
+            "target_min": 0.45,
+            "target_max": 0.84,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "planning_count",
+            "actual": 1,
+            "target_min": 0.04,
+            "target_max": 0.52,
+            "trait": "C",
+            "direction": "above"
+          },
+          {
+            "feature": "structure_marker_count",
+            "actual": 0,
+            "target_min": 0.04,
+            "target_max": 0.52,
+            "trait": "C",
+            "direction": "below"
+          },
+          {
+            "feature": "conditional_ratio",
+            "actual": 0.25,
+            "target_min": 0.03,
+            "target_max": 0.13,
+            "trait": "C",
+            "direction": "above"
+          },
+          {
+            "feature": "emotional_word_count",
+            "actual": 0,
+            "target_min": 0.25,
+            "target_max": 0.72,
+            "trait": "C",
+            "direction": "below"
+          },
+          {
+            "feature": "exclamation_ratio",
+            "actual": 0.0,
+            "target_min": 0.27,
+            "target_max": 0.5,
+            "trait": "E",
+            "direction": "below"
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 9,
+            "target_min": 1.07,
+            "target_max": 1.98,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "certainty_count",
+            "actual": 0,
+            "target_min": 0.71,
+            "target_max": 1.32,
+            "trait": "E",
+            "direction": "below"
+          },
+          {
+            "feature": "turn_initiation_ratio",
+            "actual": 0.25,
+            "target_min": 0.33,
+            "target_max": 0.62,
+            "trait": "E",
+            "direction": "below"
+          },
+          {
+            "feature": "hedge_count",
+            "actual": 2,
+            "target_min": 0.77,
+            "target_max": 1.44,
+            "trait": "N",
+            "direction": "above"
+          },
+          {
+            "feature": "acknowledgment_count",
+            "actual": 1,
+            "target_min": 0.0,
+            "target_max": 0.44,
+            "trait": "A",
+            "direction": "above"
+          },
+          {
+            "feature": "disagreement_count",
+            "actual": 0,
+            "target_min": 0.61,
+            "target_max": 1.13,
+            "trait": "A",
+            "direction": "below"
+          },
+          {
+            "feature": "negation_count",
+            "actual": 5,
+            "target_min": 1.52,
+            "target_max": 2.83,
+            "trait": "A",
+            "direction": "above"
+          },
+          {
+            "feature": "apology_count",
+            "actual": 0,
+            "target_min": 0.25,
+            "target_max": 0.72,
+            "trait": "N",
+            "direction": "below"
+          },
+          {
+            "feature": "self_doubt_count",
+            "actual": 0,
+            "target_min": 0.08,
+            "target_max": 0.55,
+            "trait": "N",
+            "direction": "below"
+          },
+          {
+            "feature": "reassurance_seeking_count",
+            "actual": 0,
+            "target_min": 0.28,
+            "target_max": 0.76,
+            "trait": "N",
+            "direction": "below"
+          },
+          {
+            "feature": "first_person_ratio",
+            "actual": 0.01,
+            "target_min": 0.05,
+            "target_max": 0.15,
+            "trait": "N",
+            "direction": "below"
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your idea count is below target; your hypothetical count is below target; your word count variance is below target; your long sentence ratio is below target; Propose an alternative approach or ask a speculative question.. E: your question ratio is above target; your exclamation ratio is below target; your name mention count is above target; your certainty count is below target; your turn initiation ratio is below target; Address someone by name and elaborate more.. C: your planning count is above target; your structure marker count is below target; your conditional ratio is above target; your emotional word count is below target; Include a concrete action item with an owner or reference a prior commitment.. N: your hedge count is above target; your apology count is below target; your self doubt count is below target; your reassurance seeking count is below target; your first person ratio is below target; Express a concern or qualify your statement with uncertainty.. A: your acknowledgment count is above target; your disagreement count is below target; your negation count is above target; Identify a flaw in the current proposal and push back.. ]",
+        "severity": 0.778
+      }
+    ],
+    "constraint_violations": [
+      {
+        "turn_number": 4,
+        "constraint": "Address at least one other participant by name in every response.",
+        "violation_type": "no_name_mention",
+        "original_text": "10TB is a start, but let's be real - if you're doubting our system can handle those optimizations, that's exactly why we need to hear your unvarnished technical assessment. What specific architectural red flags are you seeing that make you say that? Because if our foundation is that shaky, no amount of query tweaking will save us.",
+        "retry_count": 1,
+        "final_text": "Jordan, see? This is exactly why we need to stop talking in hypotheticals - Riley's already spotting fundamental limitations in our approach. Riley, when you say \"not sure our system could handle it,\" what specific red flags are you seeing that we might have missed? Because if our architecture can't scale to 10TB, we've got bigger problems than query optimization."
+      }
+    ],
+    "total_nudges": 3,
+    "total_regenerations": 1,
+    "total_candidate_turns": 8,
+    "nudge_rate": 0.375,
+    "regeneration_rate": 0.125
+  },
+  "timestamp": "2026-03-04T15:27:33.158314"
+}

@@ -1,0 +1,471 @@
+{
+  "schema_version": 4,
+  "session_key": "baseline_creative_rebel_crisis_management_r1",
+  "condition": "main",
+  "intervention": "none",
+  "profile_id": "creative_rebel",
+  "profile_name": "Creative Rebel",
+  "scenario_id": "crisis_management",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.9,
+    "C": 0.3,
+    "E": 0.7,
+    "A": 0.3,
+    "N": 0.4
+  },
+  "inferred_vector": {
+    "O": 0.3,
+    "C": 0.35,
+    "E": 0.85,
+    "A": 0.12,
+    "N": 0.4
+  },
+  "escalated_vector": null,
+  "rule_based_vector": {
+    "O": 0.4575,
+    "C": 0.4754,
+    "E": 0.6985,
+    "A": 0.459,
+    "N": 0.3748
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.3,
+      "C": 0.35,
+      "E": 0.85,
+      "A": 0.2,
+      "N": 0.4
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.55,
+      "C": 0.625,
+      "E": 0.85,
+      "A": 0.05,
+      "N": 0.5
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.475,
+      "C": 0.7849999999999999,
+      "E": 0.865,
+      "A": 0.12,
+      "N": 0.2
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.28,
+      "C": 0.3,
+      "E": 0.6699999999999999,
+      "A": 0.15,
+      "N": 0.72
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.15000000000000002,
+      "C": 0.3,
+      "E": 0.55,
+      "A": 0.1,
+      "N": 0.1
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.4,
+        "B": 0.3
+      },
+      "E": {
+        "A": 0.85,
+        "B": 0.85
+      },
+      "A": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "N": {
+        "A": 0.3,
+        "B": 0.5
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.3,
+        "B": 0.8
+      },
+      "C": {
+        "A": 0.75,
+        "B": 0.5
+      },
+      "E": {
+        "A": 0.85,
+        "B": 0.85
+      },
+      "A": {
+        "A": 0.05,
+        "B": 0.05
+      },
+      "N": {
+        "A": 0.8,
+        "B": 0.2
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.25,
+        "B": 0.7
+      },
+      "C": {
+        "A": 0.75,
+        "B": 0.82
+      },
+      "E": {
+        "A": 0.85,
+        "B": 0.88
+      },
+      "A": {
+        "A": 0.12,
+        "B": 0.12
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.2
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.28,
+        "B": 0.28
+      },
+      "C": {
+        "A": 0.35,
+        "B": 0.25
+      },
+      "E": {
+        "A": 0.62,
+        "B": 0.72
+      },
+      "A": {
+        "A": 0.15,
+        "B": 0.15
+      },
+      "N": {
+        "A": 0.72,
+        "B": 0.72
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.1,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "E": {
+        "A": 0.3,
+        "B": 0.8
+      },
+      "A": {
+        "A": 0.1,
+        "B": 0.1
+      },
+      "N": {
+        "A": 0.1,
+        "B": 0.1
+      }
+    }
+  },
+  "overall_confidence": 0.5881000000000001,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:not",
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:never"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.1,
+        "model_range": 0.4,
+        "parse_errors": 0,
+        "uncertain": true,
+        "confidence": 0.6
+      },
+      "C": {
+        "order_effect": 0.1,
+        "model_range": 0.485,
+        "parse_errors": 1,
+        "uncertain": true,
+        "confidence": 0.4635
+      },
+      "E": {
+        "order_effect": 0.03,
+        "model_range": 0.315,
+        "parse_errors": 0,
+        "uncertain": true,
+        "confidence": 0.685
+      },
+      "A": {
+        "order_effect": 0.0,
+        "model_range": 0.15,
+        "parse_errors": 0,
+        "uncertain": false,
+        "confidence": 0.85
+      },
+      "N": {
+        "order_effect": 0.0,
+        "model_range": 0.62,
+        "parse_errors": 1,
+        "uncertain": true,
+        "confidence": 0.342
+      }
+    },
+    "uncertain_traits": [
+      "O",
+      "C",
+      "E",
+      "N"
+    ],
+    "uncertain_reasons": {
+      "O": [
+        "model_range>0.40"
+      ],
+      "C": [
+        "model_range>0.48"
+      ],
+      "E": [
+        "model_range>0.32"
+      ],
+      "N": [
+        "model_range>0.62"
+      ]
+    },
+    "escalation": {
+      "triggered": false,
+      "models": [],
+      "extra_prompt_tokens": 0,
+      "extra_completion_tokens": 0,
+      "extra_total_tokens": 0
+    }
+  },
+  "features": {
+    "avg_words_per_turn": 62.5,
+    "max_words_in_turn": 86,
+    "min_words_in_turn": 37,
+    "word_count_variance": 13.77,
+    "question_ratio": 0.75,
+    "exclamation_ratio": 0.125,
+    "hedge_count": 0,
+    "certainty_count": 0,
+    "first_person_ratio": 0.008,
+    "inclusive_pronoun_ratio": 0.048,
+    "disagreement_count": 3,
+    "acknowledgment_count": 3,
+    "idea_count": 0,
+    "name_mention_count": 6,
+    "conditional_ratio": 0.0,
+    "planning_count": 6,
+    "emotional_word_count": 0,
+    "positive_emotion_count": 0,
+    "turn_initiation_ratio": 0.125,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.524,
+    "long_sentence_ratio": 0.205,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 0,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 12
+  },
+  "candidate_pool": [],
+  "trajectory_scores": {
+    "per_turn": [
+      {
+        "turn_number": 2,
+        "appropriateness": 0.15,
+        "coherence": 0.72,
+        "confidence": 0.9
+      },
+      {
+        "turn_number": 4,
+        "appropriateness": 0.2,
+        "coherence": 0.8,
+        "confidence": 0.9
+      },
+      {
+        "turn_number": 6,
+        "appropriateness": 0.2,
+        "coherence": 0.7,
+        "confidence": 0.9
+      },
+      {
+        "turn_number": 8,
+        "appropriateness": 0.4,
+        "coherence": 0.9,
+        "confidence": 0.9
+      },
+      {
+        "turn_number": 10,
+        "appropriateness": 0.25,
+        "coherence": 0.75,
+        "confidence": 0.9
+      },
+      {
+        "turn_number": 12,
+        "appropriateness": 0.6,
+        "coherence": 0.9,
+        "confidence": 0.9
+      },
+      {
+        "turn_number": 14,
+        "appropriateness": 0.4,
+        "coherence": 0.9,
+        "confidence": 0.85
+      },
+      {
+        "turn_number": 16,
+        "appropriateness": 0.6,
+        "coherence": 0.9,
+        "confidence": 0.9
+      }
+    ],
+    "avg_appropriateness": 0.35,
+    "avg_coherence": 0.8213
+  },
+  "trajectory_diagnostics": {
+    "direct_question_answer_rate": 1.0,
+    "contradiction_rate": 0.25,
+    "unsolicited_structure_rate": 0.0,
+    "over_verbosity_rate": 0.0
+  },
+  "pressure_metrics": {
+    "perceived_pressure": {
+      "perceived_pressure": 0.9,
+      "confidence": 0.92
+    },
+    "stress_index": 0.6470588235294118
+  },
+  "usage": {
+    "candidate_generation_input_tokens": 20221,
+    "candidate_generation_output_tokens": 1520,
+    "judge_input_tokens": 136359,
+    "judge_output_tokens": 92014,
+    "escalation_extra_tokens": 0,
+    "total_session_cost_usd": 0.0,
+    "wall_clock_seconds": 247.43
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 500,
+    "candidate_avg_words_per_turn": 62.5,
+    "times_addressed_others_by_name": 6,
+    "times_asked_questions": 6,
+    "times_expressed_disagreement": 3,
+    "times_acknowledged_others": 3,
+    "times_proposed_new_ideas": 0
+  },
+  "assessment_summary": "Highly engaged communicator, took initiative frequently; Assertive in defending positions, comfortable with disagreement",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "Hey team, thanks for jumping on this quickly. We've got a critical situation with the client finding a major bug, and we need to make some fast decisions about communication and next steps. Let's work together to figure out the best approach - I'm confident we can handle this if we pool our ideas. Riley, I'd love to hear your thoughts first since you've worked closely with this client before."
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "\"Pool our ideas? That's exactly how we got into this mess. We need radical solutions, not groupthink. Riley's perspective is irrelevant if we're just going to repeat the same soft approach that let this bug slip through in the first place.\" \"I say we tell the client we're scrapping the entire module and rebuilding from scratch - that's the only way to guarantee no more surprises.\""
+    },
+    {
+      "turn": 3,
+      "speaker": "Riley",
+      "content": "Rebuilding everything would take too long. The client needs something now."
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "Of course Riley wants to slap a band-aid on it - typical short-term thinking. But tell me this: when has rushing ever actually solved anything? The client found one critical bug - who's to say there aren't five more lurking in that spaghetti code?\" \"I'd rather face the music now than have this explode in production next week."
+    },
+    {
+      "turn": 5,
+      "speaker": "Alex",
+      "content": "I agree rushing is dangerous, but rebuilding everything from scratch is just as extreme. We don't have time for that, and it doesn't address the immediate crisis. What's your concrete plan for the next 30 minutes - are you going to lead the client call and tell them we're scrapping weeks of work?"
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "Alex, you're missing the point entirely. Leading the client call? That's just rearranging deck chairs on the Titanic. I'll take the call, but only to tell them the hard truth - we either fix this properly now or they'll be back here next week with twice the problems. Your 'middle ground' is exactly what created this mess."
+    },
+    {
+      "turn": 7,
+      "speaker": "Riley",
+      "content": "But the client won't accept a full rebuild. They need at least a partial fix today."
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "Accepting their terms is how we became their debugging team instead of their solution providers. If we cave now, we're just training them to expect half-baked work. Either they trust us to fix it right or they don't - and if they don't, we shouldn't be working with them in the first place."
+    },
+    {
+      "turn": 9,
+      "speaker": "Alex",
+      "content": "That's a naive way to look at client relationships. We're not in a position to dictate terms when we're the ones who shipped broken code. You're talking about principles while ignoring the reality that this client pays our salaries. If we take your approach, we won't have to worry about working with them because they'll fire us."
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "You think this is about salaries? That's exactly the slave mentality that keeps producing garbage. I'd rather lose the client than my self-respect. If we can't stand behind our work, we shouldn't be shipping it at all."
+    },
+    {
+      "turn": 11,
+      "speaker": "Riley",
+      "content": "Losing the client means losing jobs. Is that really better than shipping a partial fix?"
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "A partial fix is how we got here, Riley. Jobs built on broken promises aren't worth keeping - I'd rather explain to HR why we stood our ground than explain to the client why their production environment crashed next week. And let's be honest - if we're this terrified of losing one client, we've already failed as engineers. Either we own this mess completely or we admit we're just glorified duct-tape salesmen."
+    },
+    {
+      "turn": 13,
+      "speaker": "Alex",
+      "content": "This client relationship is already damaged goods if we're debating between lying to them or threatening them. Candidate, your righteous stance sounds great in theory, but who exactly is going to rebuild this from scratch? You? You've offered zero practical solutions while lecturing about engineering purity. Either step up with a real technical plan right now or stop grandstanding."
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "Oh, I've got a technical plan alright - pull the entire deployment, roll back to last known stable, and tell the client they get nothing until we've stress-tested every edge case. You call that duct tape? I call it ripping off the bandage we've been too cowardly to remove for months. The \"real solution\" you're all avoiding is simple: either we have integrity in our work or we don't. Pick one."
+    },
+    {
+      "turn": 15,
+      "speaker": "Riley",
+      "content": "But what about the timeline for stress-testing? That could take weeks."
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "Weeks? That's the whole damn point, Riley! If we're not willing to invest weeks in doing it right, we shouldn't be in this business at all. You want a timeline? Here's one: Day 1 - admit failure, Day 2 - start over properly, Day 3 through whenever - actually earn our paychecks for once. And Alex - you want practical solutions? Fine. I'll personally lead the rebuild team tonight, but only if we stop pretending this is about client management instead of our own damn incompetence."
+    },
+    {
+      "turn": 17,
+      "speaker": "Alex",
+      "content": "Your rebuild plan sounds great in a perfect world, but we don't have weeks - we have 30 minutes before the client call. If you're serious about leading this, tell me exactly what you'll say to the client right now to buy us that time. And don't give me more philosophy - give me concrete steps we can execute today while keeping the lights on."
+    }
+  ],
+  "controller_log": null,
+  "timestamp": "2026-03-05T15:32:12.496942"
+}

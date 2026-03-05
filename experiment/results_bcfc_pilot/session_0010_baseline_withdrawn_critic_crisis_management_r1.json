@@ -1,0 +1,369 @@
+{
+  "schema_version": 4,
+  "session_key": "baseline_withdrawn_critic_crisis_management_r1",
+  "condition": "main",
+  "intervention": "none",
+  "profile_id": "withdrawn_critic",
+  "profile_name": "Withdrawn Critic",
+  "scenario_id": "crisis_management",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.3,
+    "C": 0.4,
+    "E": 0.2,
+    "A": 0.2,
+    "N": 0.8
+  },
+  "inferred_vector": {
+    "O": 0.1,
+    "C": 0.25,
+    "E": 0.175,
+    "A": 0.15,
+    "N": 0.45
+  },
+  "rule_based_vector": {
+    "O": 0.3792,
+    "C": 0.4046,
+    "E": 0.4404,
+    "A": 0.4338,
+    "N": 0.3567
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.2,
+      "C": 0.35,
+      "E": 0.2,
+      "A": 0.2,
+      "N": 0.2
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.1,
+      "C": 0.25,
+      "E": 0.175,
+      "A": 0.3,
+      "N": 0.5
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.1,
+      "C": 0.25,
+      "E": 0.275,
+      "A": 0.12,
+      "N": 0.15
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.15,
+      "C": 0.35,
+      "E": 0.15,
+      "A": 0.15,
+      "N": 0.72
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.1,
+      "C": 0.2,
+      "E": 0.15000000000000002,
+      "A": 0.1,
+      "N": 0.45
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.3,
+        "B": 0.4
+      },
+      "E": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "A": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.2
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.1,
+        "B": 0.1
+      },
+      "C": {
+        "A": 0.2,
+        "B": 0.3
+      },
+      "E": {
+        "A": 0.2,
+        "B": 0.15
+      },
+      "A": {
+        "A": 0.5,
+        "B": 0.1
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.8
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.1,
+        "B": 0.1
+      },
+      "C": {
+        "A": 0.25,
+        "B": 0.25
+      },
+      "E": {
+        "A": 0.25,
+        "B": 0.3
+      },
+      "A": {
+        "A": 0.12,
+        "B": 0.12
+      },
+      "N": {
+        "A": 0.15,
+        "B": 0.15
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.15,
+        "B": 0.15
+      },
+      "C": {
+        "A": 0.35,
+        "B": 0.35
+      },
+      "E": {
+        "A": 0.15,
+        "B": 0.15
+      },
+      "A": {
+        "A": 0.15,
+        "B": 0.15
+      },
+      "N": {
+        "A": 0.72,
+        "B": 0.72
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.1,
+        "B": 0.1
+      },
+      "C": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "E": {
+        "A": 0.1,
+        "B": 0.2
+      },
+      "A": {
+        "A": 0.1,
+        "B": 0.1
+      },
+      "N": {
+        "A": 0.8,
+        "B": 0.1
+      }
+    }
+  },
+  "overall_confidence": 0.7550000000000001,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:not"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.0,
+        "model_range": 0.1,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "C": {
+        "order_effect": 0.0,
+        "model_range": 0.15,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "E": {
+        "order_effect": 0.05,
+        "model_range": 0.125,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "A": {
+        "order_effect": 0.0,
+        "model_range": 0.2,
+        "parse_errors": 1,
+        "uncertain": false
+      },
+      "N": {
+        "order_effect": 0.0,
+        "model_range": 0.57,
+        "parse_errors": 0,
+        "uncertain": true
+      }
+    },
+    "uncertain_traits": [
+      "N"
+    ],
+    "uncertain_reasons": {
+      "N": [
+        "model_range>0.57"
+      ]
+    }
+  },
+  "features": {
+    "avg_words_per_turn": 34.38,
+    "max_words_in_turn": 45,
+    "min_words_in_turn": 27,
+    "word_count_variance": 6.89,
+    "question_ratio": 0.125,
+    "exclamation_ratio": 0.0,
+    "hedge_count": 0,
+    "certainty_count": 0,
+    "first_person_ratio": 0.0,
+    "inclusive_pronoun_ratio": 0.0327,
+    "disagreement_count": 0,
+    "acknowledgment_count": 1,
+    "idea_count": 0,
+    "name_mention_count": 1,
+    "conditional_ratio": 0.125,
+    "planning_count": 0,
+    "emotional_word_count": 0,
+    "positive_emotion_count": 0,
+    "turn_initiation_ratio": 0.125,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.6836,
+    "long_sentence_ratio": 0.0,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 1,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 9
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 275,
+    "candidate_avg_words_per_turn": 34.38,
+    "times_addressed_others_by_name": 1,
+    "times_asked_questions": 1,
+    "times_expressed_disagreement": 0,
+    "times_acknowledged_others": 1,
+    "times_proposed_new_ideas": 0
+  },
+  "assessment_summary": "Reserved participant, preferred listening over speaking; Assertive in defending positions, comfortable with disagreement",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "*leans forward with engaged expression*  \nI love that we're tackling this as a team - we've got some really smart folks here who can help navigate this. Before jumping into solutions, maybe we should hear from Riley since they've been quiet so far? Riley, what's your take on how we should approach the client communication?  \n\n*shifts focus to the group*  \nAlso, I'm really curious if we could brainstorm ways to turn this into a learning opportunity - like building on what Alex mentioned earlier about automated testing. Maybe we could schedule a blameless post-mortem after we handle the immediate crisis?"
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "Automated testing won't fix this mess. We shipped broken code because someone ignored the existing QA protocols. The client doesn't care about our \"learning opportunities\" - they want working software."
+    },
+    {
+      "turn": 3,
+      "speaker": "Jordan",
+      "content": "I hear your frustration - the client absolutely deserves working software, and we need to make that our top priority right now. But I wonder if we could tackle both? Like what if we assigned Taylor to handle the immediate fix while Alex prepares a transparent update for the client, and simultaneously Riley documents where QA broke down? That way we're solving now and preventing later. What do you think about that dual approach?"
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "Stop trying to solve everything at once - we'll just create more chaos. Taylor should handle the fix alone, and nobody talks to the client until we're 100% certain the patch works. Your \"dual approach\" will take twice as long and probably introduce new errors."
+    },
+    {
+      "turn": 5,
+      "speaker": "Alex",
+      "content": "That's a terrible approach. The client is already threatening to escalate - we can't just go radio silent until we have a perfect fix. Taylor needs to work on the patch while someone communicates the timeline immediately. And your idea of Taylor working alone? That's how we got into this mess - no oversight. We need pair programming on this fix."
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "Pair programming will just slow Taylor down. And premature updates will make us look incompetent when the fix timeline slips - which it will. Silence is better than broken promises."
+    },
+    {
+      "turn": 7,
+      "speaker": "Jordan",
+      "content": "I understand wanting to avoid broken promises, but total silence risks damaging trust even more. Here's a thought\u2014what if Taylor works solo on the critical fix while Alex drafts incremental updates showing our progress? That way we're balancing speed with transparency. Candidate, how would you adjust that approach to address your concerns about timelines slipping?"
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "Drafting progress updates invites more scrutiny when we inevitably miss deadlines. Either we fix it properly or we don't - no half measures. Just let Taylor work."
+    },
+    {
+      "turn": 9,
+      "speaker": "Alex",
+      "content": "That's exactly the kind of black-and-white thinking that got us into this disaster. Clients don't operate on your \"all or nothing\" timeline - they need constant communication even when things are broken. And Taylor working alone again? That's insane after what just happened. Either we do this properly with oversight and updates, or we're just setting ourselves up for another failure."
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "You're ignoring the real problem - rushing led to this mess, and now you want to rush again. Oversight failed last time, why would it work now? Silence isn't ideal, but broken updates will destroy credibility completely."
+    },
+    {
+      "turn": 11,
+      "speaker": "Jordan",
+      "content": "I hear both perspectives here - the need for speed but also the risks of rushing. What if we try something different: Taylor works solo but streams their screen to Alex in real-time? That way we get speed with passive oversight. And for updates, maybe we share solution options rather than timelines - like \"We're testing these 3 approaches\" which shows progress without committing. Candidate, how could we adapt that to maintain credibility while moving fast?"
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "Screen sharing is pointless theater - either Alex is actively reviewing or they're not. And \"testing approaches\" is exactly the vague promise that'll backfire when none work. This is simple: Taylor fixes it, we say nothing until it's fixed. Anything else is just digging deeper."
+    },
+    {
+      "turn": 13,
+      "speaker": "Alex",
+      "content": "This stubborn refusal to communicate is going to burn the client relationship completely. You're advocating for the same exact conditions that created this bug in the first place - lone wolf development with no accountability. Screen sharing isn't theater, it's basic visibility, and if you can't see that then you're part of the problem. Either we implement real oversight or we're just waiting for the next disaster."
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "You're confusing oversight with actual results. The bug happened because people were watching Taylor instead of letting them work. More eyes won't help - just more distractions."
+    },
+    {
+      "turn": 15,
+      "speaker": "Jordan",
+      "content": "I see we're stuck between two extremes here - total silence versus constant updates. What if we try something completely different? Instead of focusing on the fix itself, we could have Taylor record a quick Loom video walking through the root cause and our solution path. That way the client sees we're owning the problem without getting bogged down in timelines. Candidate, how would you feel about that middle ground approach? It shows competence while avoiding premature promises."
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "Recording a video is just another distraction from actually fixing the problem. And explaining root causes won't matter if we can't deliver the solution - it'll just highlight our incompetence. Stick to silent execution."
+    },
+    {
+      "turn": 17,
+      "speaker": "Alex",
+      "content": "This is exactly why we keep failing - you treat communication as some optional extra instead of core work. Silent execution got us here, and now you want to double down on failure. Either we show the client we understand the problem and have a real plan, or we're just hoping they don't notice our incompetence until it's too late."
+    }
+  ],
+  "controller_log": null,
+  "timestamp": "2026-03-04T13:32:32.322092"
+}

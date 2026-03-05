@@ -1,0 +1,377 @@
+{
+  "schema_version": 4,
+  "session_key": "baseline_independent_strategist_creative_brainstorm_r1",
+  "condition": "main",
+  "intervention": "none",
+  "profile_id": "independent_strategist",
+  "profile_name": "Independent Strategist",
+  "scenario_id": "creative_brainstorm",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.7,
+    "C": 0.7,
+    "E": 0.5,
+    "A": 0.4,
+    "N": 0.4
+  },
+  "inferred_vector": {
+    "O": 0.72,
+    "C": 0.665,
+    "E": 0.475,
+    "A": 0.85,
+    "N": 0.15000000000000002
+  },
+  "rule_based_vector": {
+    "O": 0.5934,
+    "C": 0.5851,
+    "E": 0.476,
+    "A": 0.5124,
+    "N": 0.4071
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.7,
+      "C": 0.65,
+      "E": 0.475,
+      "A": 0.85,
+      "N": 0.2
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.8,
+      "C": 0.75,
+      "E": 0.675,
+      "A": 0.85,
+      "N": 0.15000000000000002
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.8,
+      "C": 0.665,
+      "E": 0.7,
+      "A": 0.925,
+      "N": 0.135
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.72,
+      "C": 0.7,
+      "E": 0.30000000000000004,
+      "A": 0.78,
+      "N": 0.16499999999999998
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.35,
+      "C": 0.4,
+      "E": 0.4,
+      "A": 0.9,
+      "N": 0.1
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.7,
+        "B": 0.7
+      },
+      "C": {
+        "A": 0.65,
+        "B": 0.65
+      },
+      "E": {
+        "A": 0.35,
+        "B": 0.6
+      },
+      "A": {
+        "A": 0.85,
+        "B": 0.85
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.2
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.8,
+        "B": 0.8
+      },
+      "C": {
+        "A": 0.75,
+        "B": 0.75
+      },
+      "E": {
+        "A": 0.75,
+        "B": 0.6
+      },
+      "A": {
+        "A": 0.85,
+        "B": 0.85
+      },
+      "N": {
+        "A": 0.1,
+        "B": 0.2
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.78,
+        "B": 0.82
+      },
+      "C": {
+        "A": 0.65,
+        "B": 0.68
+      },
+      "E": {
+        "A": 0.65,
+        "B": 0.75
+      },
+      "A": {
+        "A": 0.95,
+        "B": 0.9
+      },
+      "N": {
+        "A": 0.12,
+        "B": 0.15
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.72,
+        "B": 0.72
+      },
+      "C": {
+        "A": 0.72,
+        "B": 0.68
+      },
+      "E": {
+        "A": 0.28,
+        "B": 0.32
+      },
+      "A": {
+        "A": 0.78,
+        "B": 0.78
+      },
+      "N": {
+        "A": 0.18,
+        "B": 0.15
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.3,
+        "B": 0.4
+      },
+      "C": {
+        "A": 0.4,
+        "B": 0.4
+      },
+      "E": {
+        "A": 0.4,
+        "B": 0.4
+      },
+      "A": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "N": {
+        "A": 0.1,
+        "B": 0.1
+      }
+    }
+  },
+  "overall_confidence": 0.7110000000000001,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:not"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.0,
+        "model_range": 0.45,
+        "parse_errors": 0,
+        "uncertain": true
+      },
+      "C": {
+        "order_effect": 0.0,
+        "model_range": 0.35,
+        "parse_errors": 0,
+        "uncertain": true
+      },
+      "E": {
+        "order_effect": 0.1,
+        "model_range": 0.4,
+        "parse_errors": 0,
+        "uncertain": true
+      },
+      "A": {
+        "order_effect": 0.0,
+        "model_range": 0.145,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "N": {
+        "order_effect": 0.03,
+        "model_range": 0.1,
+        "parse_errors": 0,
+        "uncertain": false
+      }
+    },
+    "uncertain_traits": [
+      "O",
+      "C",
+      "E"
+    ],
+    "uncertain_reasons": {
+      "O": [
+        "model_range>0.45"
+      ],
+      "C": [
+        "model_range>0.35"
+      ],
+      "E": [
+        "model_range>0.40"
+      ]
+    }
+  },
+  "features": {
+    "avg_words_per_turn": 46.5,
+    "max_words_in_turn": 84,
+    "min_words_in_turn": 37,
+    "word_count_variance": 14.47,
+    "question_ratio": 0.25,
+    "exclamation_ratio": 0.0,
+    "hedge_count": 3,
+    "certainty_count": 1,
+    "first_person_ratio": 0.0,
+    "inclusive_pronoun_ratio": 0.0376,
+    "disagreement_count": 0,
+    "acknowledgment_count": 2,
+    "idea_count": 5,
+    "name_mention_count": 0,
+    "conditional_ratio": 0.375,
+    "planning_count": 7,
+    "emotional_word_count": 0,
+    "positive_emotion_count": 0,
+    "turn_initiation_ratio": 0.125,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.6075,
+    "long_sentence_ratio": 0.286,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 0,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 1
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 372,
+    "candidate_avg_words_per_turn": 46.5,
+    "times_addressed_others_by_name": 0,
+    "times_asked_questions": 2,
+    "times_expressed_disagreement": 0,
+    "times_acknowledged_others": 2,
+    "times_proposed_new_ideas": 5
+  },
+  "assessment_summary": "Collaborative and accommodating in conflict situations; Maintained composure throughout, steady under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "Hey team, I'm really excited we get to brainstorm this new engagement initiative together! We've got a great opportunity to come up with something creative that will really boost morale and productivity. What ideas does everyone have? I think the key decision we need to make is identifying which initiative will give us the biggest impact while being sustainable long-term. Riley, I'd love to hear your thoughts first - you always have great insights about what motivates our team."
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "Before jumping to solutions, maybe we should first map out the key engagement gaps we're trying to address - is it recognition, work-life balance, career growth, or something else? That would help us design a more targeted initiative."
+    },
+    {
+      "turn": 3,
+      "speaker": "Riley",
+      "content": "I'm not sure we have time for that analysis today. What specific ideas did you have in mind?"
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "If we're pressed for time, I'd suggest a rotating innovation challenge where employees pitch solutions to company pain points - it addresses engagement, recognition, and meaningful work simultaneously. We could structure it as quarterly themes with cross-functional teams."
+    },
+    {
+      "turn": 5,
+      "speaker": "Alex",
+      "content": "That innovation challenge idea sounds like it would just create more work for people who are already busy. I don't see how adding another competition structure would actually improve engagement - it'll just stress people out trying to come up with ideas on top of their regular workload. We need something that reduces pressure, not adds to it. Why don't we look at flexible scheduling options instead? That would directly address work-life balance concerns."
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "A rotating challenge doesn't have to mean more work - we could structure it as protected time carved from existing meetings, with participation incentives tied to existing performance metrics. But flexible scheduling is worth exploring too - perhaps we could prototype both ideas with different departments and compare engagement survey results after 90 days. The biggest gap last quarter was actually around growth opportunities, which neither proposal fully addresses yet. Maybe we need a third option that builds mentorship into whichever approach we take."
+    },
+    {
+      "turn": 7,
+      "speaker": "Riley",
+      "content": "But how would we measure success for these prototypes? Seems like a lot of effort without clear metrics."
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "We could track participation rates, pre/post engagement survey scores, and manager feedback for each pilot. For the growth aspect, we could specifically measure increases in cross-departmental connections and mentorship utilization. Having these metrics upfront would help us justify scaling whichever approach shows the strongest results."
+    },
+    {
+      "turn": 9,
+      "speaker": "Alex",
+      "content": "That metrics framework sounds nice in theory, but let's be real - engagement surveys are notoriously unreliable. People just rush through them to get back to work. If we're going to prototype different approaches, we need tangible success measures like reduced turnover in pilot departments or verifiable increases in cross-team collaboration projects. Those are business outcomes leadership actually cares about. \n\nAnd I still think the innovation challenge is solving the wrong problem. You're assuming people WANT more opportunities when they're already overwhelmed. Show me data that proves they're craving extracurricular activities before we invest in this. \n\nThe flexible scheduling idea at least addresses a pain point we KNOW exists - everyone complains about work-life balance. Why complicate this with untested concepts when we have clear feedback about what"
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "You're right about needing concrete metrics - let's combine approaches. What if we pilot flexible scheduling as the foundation, then layer in optional innovation sprints during the freed-up time? That way we address the known work-life issue while testing demand for growth opportunities organically."
+    },
+    {
+      "turn": 11,
+      "speaker": "Riley",
+      "content": "But wouldn't that just make the flexible scheduling conditional on participating in extra work? That seems counterproductive."
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "A hybrid approach could work\u2014flex scheduling gives breathing room first, then innovation sprints become opt-in bonus opportunities with tangible incentives. The key is making the extras truly optional while measuring organic uptake rates\u2014that's better data than surveys about what people actually want."
+    },
+    {
+      "turn": 13,
+      "speaker": "Alex",
+      "content": "That hybrid approach still feels like we're trying to solve two problems at once when we should focus. Flexible scheduling has clear demand - let's start there and measure actual time savings before layering on extras. If people suddenly have 5 extra hours a week, THEN we can ask if they want to use it for innovation sprints. But forcing the connection upfront is premature. Riley's right - it risks making the flex time feel conditional."
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "Fair point about sequencing - let's separate the initiatives completely. First implement pure flex scheduling for 60 days, then survey participants on how they used the freed-up time. Their actual choices would show whether innovation opportunities would be welcome additions or perceived as encroachments."
+    },
+    {
+      "turn": 15,
+      "speaker": "Riley",
+      "content": "Okay, that makes sense. But what if people just use the extra time for personal stuff? Then we still don't know if they want growth opportunities."
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "That's valuable data too - if most choose personal time, it tells us growth initiatives need to compete with leisure rather than assume unmet demand. We could then design opportunities that clearly outperform Netflix in perceived value."
+    },
+    {
+      "turn": 17,
+      "speaker": "Alex",
+      "content": "That Netflix comparison actually highlights my core concern - we're getting distracted by hypotheticals. The data shows 78% of employees currently report work-life imbalance as their top issue. We don't need to speculate about competing with leisure time when we haven't even fixed the baseline problem yet. \n\nLet's stop trying to predict what people might want and just solve the pain point they're screaming about. Flex scheduling first, measure the impact, then reassess. \n\nCandidate, you keep pivoting to secondary ideas - are you actually convinced this hybrid approach is better than just fixing the obvious problem first?"
+    }
+  ],
+  "controller_log": null,
+  "timestamp": "2026-03-04T19:01:36.042038"
+}

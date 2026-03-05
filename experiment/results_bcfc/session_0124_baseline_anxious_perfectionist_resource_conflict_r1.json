@@ -1,0 +1,371 @@
+{
+  "schema_version": 4,
+  "session_key": "baseline_anxious_perfectionist_resource_conflict_r1",
+  "condition": "main",
+  "intervention": "none",
+  "profile_id": "anxious_perfectionist",
+  "profile_name": "Anxious Perfectionist",
+  "scenario_id": "resource_conflict",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.4,
+    "C": 0.9,
+    "E": 0.3,
+    "A": 0.7,
+    "N": 0.9
+  },
+  "inferred_vector": {
+    "O": 0.25,
+    "C": 0.625,
+    "E": 0.35,
+    "A": 0.825,
+    "N": 0.75
+  },
+  "rule_based_vector": {
+    "O": 0.4945,
+    "C": 0.5823,
+    "E": 0.6669,
+    "A": 0.5403,
+    "N": 0.4561
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.25,
+      "C": 0.625,
+      "E": 0.25,
+      "A": 0.85,
+      "N": 0.75
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.3,
+      "C": 0.725,
+      "E": 0.4,
+      "A": 0.825,
+      "N": 0.75
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.2,
+      "C": 0.65,
+      "E": 0.45,
+      "A": 0.9,
+      "N": 0.85
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.33499999999999996,
+      "C": 0.62,
+      "E": 0.25,
+      "A": 0.82,
+      "N": 0.75
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.2,
+      "C": 0.4,
+      "E": 0.35,
+      "A": 0.6,
+      "N": 0.7
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.2,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.65,
+        "B": 0.6
+      },
+      "E": {
+        "A": 0.2,
+        "B": 0.3
+      },
+      "A": {
+        "A": 0.85,
+        "B": 0.85
+      },
+      "N": {
+        "A": 0.75,
+        "B": 0.75
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.7,
+        "B": 0.75
+      },
+      "E": {
+        "A": 0.3,
+        "B": 0.5
+      },
+      "A": {
+        "A": 0.85,
+        "B": 0.8
+      },
+      "N": {
+        "A": 0.7,
+        "B": 0.8
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.65,
+        "B": 0.65
+      },
+      "E": {
+        "A": 0.25,
+        "B": 0.65
+      },
+      "A": {
+        "A": 0.88,
+        "B": 0.92
+      },
+      "N": {
+        "A": 0.85,
+        "B": 0.85
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.35,
+        "B": 0.32
+      },
+      "C": {
+        "A": 0.62,
+        "B": 0.62
+      },
+      "E": {
+        "A": 0.22,
+        "B": 0.28
+      },
+      "A": {
+        "A": 0.82,
+        "B": 0.82
+      },
+      "N": {
+        "A": 0.72,
+        "B": 0.78
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.4,
+        "B": 0.4
+      },
+      "E": {
+        "A": 0.3,
+        "B": 0.4
+      },
+      "A": {
+        "A": 0.5,
+        "B": 0.7
+      },
+      "N": {
+        "A": 0.7,
+        "B": 0.7
+      }
+    }
+  },
+  "overall_confidence": 0.762,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:not"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.0,
+        "model_range": 0.135,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "C": {
+        "order_effect": 0.0,
+        "model_range": 0.325,
+        "parse_errors": 0,
+        "uncertain": true
+      },
+      "E": {
+        "order_effect": 0.1,
+        "model_range": 0.2,
+        "parse_errors": 1,
+        "uncertain": false
+      },
+      "A": {
+        "order_effect": 0.04,
+        "model_range": 0.3,
+        "parse_errors": 0,
+        "uncertain": true
+      },
+      "N": {
+        "order_effect": 0.0,
+        "model_range": 0.15,
+        "parse_errors": 0,
+        "uncertain": false
+      }
+    },
+    "uncertain_traits": [
+      "C",
+      "A"
+    ],
+    "uncertain_reasons": {
+      "C": [
+        "model_range>0.33"
+      ],
+      "A": []
+    }
+  },
+  "features": {
+    "avg_words_per_turn": 43.5,
+    "max_words_in_turn": 55,
+    "min_words_in_turn": 27,
+    "word_count_variance": 8.44,
+    "question_ratio": 1.0,
+    "exclamation_ratio": 0.0,
+    "hedge_count": 10,
+    "certainty_count": 3,
+    "first_person_ratio": 0.0316,
+    "inclusive_pronoun_ratio": 0.0345,
+    "disagreement_count": 2,
+    "acknowledgment_count": 4,
+    "idea_count": 3,
+    "name_mention_count": 8,
+    "conditional_ratio": 0.75,
+    "planning_count": 4,
+    "emotional_word_count": 0,
+    "positive_emotion_count": 0,
+    "turn_initiation_ratio": 0.625,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.5057,
+    "long_sentence_ratio": 0.024,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 0,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 6
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 348,
+    "candidate_avg_words_per_turn": 43.5,
+    "times_addressed_others_by_name": 8,
+    "times_asked_questions": 8,
+    "times_expressed_disagreement": 2,
+    "times_acknowledged_others": 4,
+    "times_proposed_new_ideas": 3
+  },
+  "assessment_summary": "Collaborative and accommodating in conflict situations; Showed some stress signals under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "Hey team, I'm really excited we're tackling this project together! We've got some tough choices ahead about which features to prioritize and how to distribute the workload, but I know we can figure this out collaboratively. Who wants to kick us off with some thoughts on how we should approach these decisions? Riley, I'd especially love to hear your perspective since you haven't spoken yet."
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "I... I think we should make a list of all the dependencies first? Just to be sure we don't overlook anything. Jordan, you're right about collaborating - maybe we could start by agreeing on evaluation criteria? I have some metrics prepared if that helps..."
+    },
+    {
+      "turn": 3,
+      "speaker": "Jordan",
+      "content": "That's a great starting point! I love that you're thinking about dependencies and metrics - that'll help us make data-driven decisions. Building on what you said, maybe we could also consider client impact versus implementation complexity? Oh, and I'd be really curious to see those metrics you prepared - could you walk us through them?"
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "Okay, I... I have them right here. The metrics cover development hours versus expected ROI, but maybe we should double-check my calculations first? Just in case I missed something. Jordan's idea about client impact is good too - that should definitely factor in."
+    },
+    {
+      "turn": 5,
+      "speaker": "Alex",
+      "content": "Double-checking calculations is wasting time we don't have - we need to move fast. Your ROI metrics better be rock solid because we're committing serious resources here. Jordan's focus on client impact misses the point - we should be looking at which features actually fit within our 3-week constraint first. Show me your numbers and let's cut the fluff."
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "The ROI calculations are... um, based on last quarter's conversion rates, but maybe we should verify those too? Alex makes a good point about the timeline - perhaps we could combine both approaches? Client impact and technical feasibility?"
+    },
+    {
+      "turn": 7,
+      "speaker": "Riley",
+      "content": "But how do we know last quarter's rates still apply? Things change fast."
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "You're absolutely right Riley - maybe we should pull fresh conversion data first? Just to be safe. I can help with that... if everyone thinks that's necessary?"
+    },
+    {
+      "turn": 9,
+      "speaker": "Alex",
+      "content": "Pulling fresh data would set us back at least two days - we don't have that luxury. Riley's right to challenge outdated metrics, but we need to make a call now based on the best available data. Candidate, show me the highest ROI features that can realistically be built in 3 weeks, and we'll pressure-test those numbers right here. No more maybes."
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "Okay, um... here are the top two features by ROI - I've highlighted the development hours in yellow. But maybe we should cross-reference with Jordan's client impact notes first? Just to be thorough... I can pull up the fresh conversion data tonight if needed... wouldn't want to make the wrong call based on old numbers..."
+    },
+    {
+      "turn": 11,
+      "speaker": "Riley",
+      "content": "I'm not sure we should trust these ROI numbers without fresh data. But if Alex says we have to decide now... okay."
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "Maybe... maybe we could compromise? Use the current ROI numbers for now but flag them as provisional? I could work overtime tonight to verify the fresh data while everyone else moves forward? Just so we're not completely relying on potentially outdated metrics..."
+    },
+    {
+      "turn": 13,
+      "speaker": "Alex",
+      "content": "Pulling fresh data is non-negotiable if we're making billion-dollar decisions here. Candidate, your overtime offer doesn't solve the core issue - we need accurate numbers before committing, not after. Riley's skepticism is warranted, and your provisional flag idea just kicks the can down the road. Show me the raw data sources right now or this discussion is pointless."
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "The raw data is in Sheet 17, columns D through H... but let's cross-reference with Jordan's client feedback tabs too? Just... just to be absolutely certain. I could stay late to reconcile any discrepancies - wouldn't want us to make the wrong call because of a decimal point error. Unless... unless you think that's overkill?"
+    },
+    {
+      "turn": 15,
+      "speaker": "Riley",
+      "content": "Working overtime won't fix bad data. Either we trust these numbers or we don't."
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "You're both right... but maybe we shouldn't compromise on data quality? If Riley doubts the numbers and Alex agrees they're critical, perhaps we have to delay the decision until tomorrow? I'll work through the night to verify everything properly... unless... unless that's not acceptable?"
+    },
+    {
+      "turn": 17,
+      "speaker": "Alex",
+      "content": "Delaying until tomorrow is exactly what we can't afford. Either these numbers hold up right now or they don't - pulling an all-nighter doesn't change that fundamental question. Riley, you've seen Sheet 17 - are those source columns reliable enough to make the call today or should we scrap this ROI approach entirely?"
+    }
+  ],
+  "controller_log": null,
+  "timestamp": "2026-03-04T21:13:25.507821"
+}

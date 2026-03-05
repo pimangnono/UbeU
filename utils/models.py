@@ -281,6 +281,9 @@ class PersonalityAssessment:
     strengths: list[str] = field(default_factory=list)
     development_areas: list[str] = field(default_factory=list)
     per_model_scores: dict[str, dict[str, float]] = field(default_factory=dict)
+    # V5.1: Order-bias diagnostics
+    per_model_order_scores: dict[str, dict[str, dict[str, float]]] = field(default_factory=dict)
+    judge_diagnostics: dict = field(default_factory=dict)
 
     def to_vector(self) -> PersonalityVector:
         return PersonalityVector(
@@ -347,3 +350,8 @@ class SessionOutput:
 
     # Quality flags from session monitoring (Phase 4)
     quality_flags: list[str] = field(default_factory=list)
+
+    # Optional extended logs (BCFC v1.1)
+    usage: dict = field(default_factory=dict)
+    trajectory_metrics: dict = field(default_factory=dict)
+    pressure_metrics: dict = field(default_factory=dict)

@@ -1,0 +1,369 @@
+{
+  "schema_version": 4,
+  "session_key": "baseline_neutral_observer_creative_brainstorm_r1",
+  "condition": "main",
+  "intervention": "none",
+  "profile_id": "neutral_observer",
+  "profile_name": "Neutral Observer",
+  "scenario_id": "creative_brainstorm",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.5,
+    "C": 0.5,
+    "E": 0.5,
+    "A": 0.5,
+    "N": 0.5
+  },
+  "inferred_vector": {
+    "O": 0.6,
+    "C": 0.6,
+    "E": 0.47500000000000003,
+    "A": 0.85,
+    "N": 0.16499999999999998
+  },
+  "rule_based_vector": {
+    "O": 0.6075,
+    "C": 0.5441,
+    "E": 0.4382,
+    "A": 0.509,
+    "N": 0.4465
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.45,
+      "C": 0.6,
+      "E": 0.45,
+      "A": 0.85,
+      "N": 0.2
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.75,
+      "C": 0.675,
+      "E": 0.47500000000000003,
+      "A": 0.85,
+      "N": 0.175
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.685,
+      "C": 0.61,
+      "E": 0.6,
+      "A": 0.95,
+      "N": 0.12
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.6,
+      "C": 0.6,
+      "E": 0.35,
+      "A": 0.78,
+      "N": 0.16499999999999998
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.3,
+      "C": 0.4,
+      "E": 0.6499999999999999,
+      "A": 0.9,
+      "N": 0.1
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.4,
+        "B": 0.5
+      },
+      "C": {
+        "A": 0.6,
+        "B": 0.6
+      },
+      "E": {
+        "A": 0.5,
+        "B": 0.4
+      },
+      "A": {
+        "A": 0.85,
+        "B": 0.85
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.2
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.75,
+        "B": 0.75
+      },
+      "C": {
+        "A": 0.7,
+        "B": 0.65
+      },
+      "E": {
+        "A": 0.4,
+        "B": 0.55
+      },
+      "A": {
+        "A": 0.85,
+        "B": 0.85
+      },
+      "N": {
+        "A": 0.15,
+        "B": 0.2
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.72,
+        "B": 0.65
+      },
+      "C": {
+        "A": 0.62,
+        "B": 0.6
+      },
+      "E": {
+        "A": 0.6,
+        "B": 0.6
+      },
+      "A": {
+        "A": 0.95,
+        "B": 0.95
+      },
+      "N": {
+        "A": 0.12,
+        "B": 0.12
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.58,
+        "B": 0.62
+      },
+      "C": {
+        "A": 0.62,
+        "B": 0.58
+      },
+      "E": {
+        "A": 0.32,
+        "B": 0.38
+      },
+      "A": {
+        "A": 0.78,
+        "B": 0.78
+      },
+      "N": {
+        "A": 0.18,
+        "B": 0.15
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.4,
+        "B": 0.4
+      },
+      "E": {
+        "A": 0.6,
+        "B": 0.7
+      },
+      "A": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "N": {
+        "A": 0.1,
+        "B": 0.1
+      }
+    }
+  },
+  "overall_confidence": 0.7270000000000001,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:not"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.04,
+        "model_range": 0.45,
+        "parse_errors": 0,
+        "uncertain": true
+      },
+      "C": {
+        "order_effect": 0.02,
+        "model_range": 0.275,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "E": {
+        "order_effect": 0.1,
+        "model_range": 0.3,
+        "parse_errors": 1,
+        "uncertain": false
+      },
+      "A": {
+        "order_effect": 0.0,
+        "model_range": 0.17,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "N": {
+        "order_effect": 0.0,
+        "model_range": 0.1,
+        "parse_errors": 0,
+        "uncertain": false
+      }
+    },
+    "uncertain_traits": [
+      "O"
+    ],
+    "uncertain_reasons": {
+      "O": [
+        "model_range>0.45"
+      ]
+    }
+  },
+  "features": {
+    "avg_words_per_turn": 38.88,
+    "max_words_in_turn": 56,
+    "min_words_in_turn": 27,
+    "word_count_variance": 9.82,
+    "question_ratio": 0.25,
+    "exclamation_ratio": 0.0,
+    "hedge_count": 5,
+    "certainty_count": 0,
+    "first_person_ratio": 0.0032,
+    "inclusive_pronoun_ratio": 0.0418,
+    "disagreement_count": 0,
+    "acknowledgment_count": 1,
+    "idea_count": 5,
+    "name_mention_count": 1,
+    "conditional_ratio": 0.5,
+    "planning_count": 3,
+    "emotional_word_count": 0,
+    "positive_emotion_count": 0,
+    "turn_initiation_ratio": 0.25,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.6238,
+    "long_sentence_ratio": 0.444,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 0,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 0
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 311,
+    "candidate_avg_words_per_turn": 38.88,
+    "times_addressed_others_by_name": 1,
+    "times_asked_questions": 2,
+    "times_expressed_disagreement": 0,
+    "times_acknowledged_others": 1,
+    "times_proposed_new_ideas": 5
+  },
+  "assessment_summary": "Collaborative and accommodating in conflict situations; Maintained composure throughout, steady under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "Hey team, I'm really excited we get to brainstorm this employee engagement initiative together! We've got a great opportunity to come up with something creative that will genuinely make our workplace more engaging. The key decision we need to make is which idea will deliver the most impact while being feasible to implement - I'm looking forward to hearing everyone's thoughts!"
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "Sounds like a worthwhile goal. I'd be curious to hear what specific engagement challenges people think we should focus on first - morale, collaboration, or something else?"
+    },
+    {
+      "turn": 3,
+      "speaker": "Jordan",
+      "content": "I love that question! Morale and collaboration are both so important - I think we could really make an impact by focusing on both together. Building on what you said, maybe we could explore ideas that boost morale through better team connections? That way we're addressing two birds with one stone. What specific challenges have you noticed in these areas?"
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "From what I've observed, the biggest disconnect seems to be between departments rather than within teams. Maybe we could structure cross-functional projects that serve dual purposes - solving real business problems while letting people connect outside their usual circles."
+    },
+    {
+      "turn": 5,
+      "speaker": "Riley",
+      "content": "Hmm, cross-functional projects sound complicated to coordinate. Would departments even want to give up their best people for this?"
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "That's a fair concern about coordination. We could test the concept with a pilot program involving one or two departments first to see if the benefits outweigh the logistical challenges."
+    },
+    {
+      "turn": 7,
+      "speaker": "Alex",
+      "content": "A pilot program just kicks the can down the road without solving the fundamental issue. Cross-department projects sound good in theory but never deliver meaningful results in practice. We need something that creates immediate engagement impact - what about company-wide gamification with tangible rewards tied to key performance metrics? That would actually motivate people across all levels."
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "Gamification could work, though I'd want to understand how we'd measure its impact beyond short-term enthusiasm. Maybe we could combine elements of both approaches - use gamification mechanics to incentivize participation in cross-functional collaborations?"
+    },
+    {
+      "turn": 9,
+      "speaker": "Riley",
+      "content": "Gamification sounds expensive. Do we have data showing it actually improves engagement long-term?"
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "We could look at case studies from similar companies that implemented gamification to see if there's evidence of sustained engagement improvements. That might help us evaluate whether the potential benefits justify the costs."
+    },
+    {
+      "turn": 11,
+      "speaker": "Alex",
+      "content": "Case studies won't tell us what will work specifically for our company culture. Gamification either works or it doesn't - we shouldn't waste time researching when we could just implement a small-scale test. I still think tying rewards to performance metrics is the most direct way to drive engagement. Riley's right to question the costs, but we won't know the ROI until we try it."
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "A pilot combining gamification with cross-department projects might give us concrete data while minimizing risk. We could design the rewards to specifically track whether collaboration improves alongside engagement metrics. That said, Alex raises a good point about implementation speed\u2014perhaps we could structure the pilot to yield quick preliminary results before fully committing resources."
+    },
+    {
+      "turn": 13,
+      "speaker": "Riley",
+      "content": "But wouldn't tracking all those metrics just create more overhead? Seems like a lot of work for uncertain results."
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "That's true about the tracking burden. Maybe we'd need to limit metrics to just engagement scores and collaboration outcomes - anything beyond that could get too cumbersome. The simpler we keep the measurement, the clearer the results will be."
+    },
+    {
+      "turn": 15,
+      "speaker": "Alex",
+      "content": "Limiting metrics is just treating symptoms. The real issue is your pilot approach still wastes time on unnecessary complexity. Either we go all-in on gamification with clear performance incentives, or we scrap the idea entirely. Half-measures won't give us definitive answers - they'll just muddy the waters. What specific outcomes would convince you to fully commit to one approach?"
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "If we saw a 20% increase in engagement scores and measurable productivity gains within the first quarter of a full gamification rollout, that would be convincing evidence. But I take your point about definitive answers - perhaps we should focus on designing the simplest possible version of the gamification system that still gives us meaningful data."
+    },
+    {
+      "turn": 17,
+      "speaker": "Riley",
+      "content": "That still sounds like a lot of setup. What\u2019s the simplest version you have in mind?"
+    }
+  ],
+  "controller_log": null,
+  "timestamp": "2026-03-04T18:21:02.241948"
+}

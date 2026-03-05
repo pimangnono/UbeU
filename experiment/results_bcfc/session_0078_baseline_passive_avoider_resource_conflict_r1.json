@@ -1,0 +1,369 @@
+{
+  "schema_version": 4,
+  "session_key": "baseline_passive_avoider_resource_conflict_r1",
+  "condition": "main",
+  "intervention": "none",
+  "profile_id": "passive_avoider",
+  "profile_name": "Passive Avoider",
+  "scenario_id": "resource_conflict",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.4,
+    "C": 0.4,
+    "E": 0.2,
+    "A": 0.8,
+    "N": 0.7
+  },
+  "inferred_vector": {
+    "O": 0.2,
+    "C": 0.28,
+    "E": 0.2,
+    "A": 0.85,
+    "N": 0.775
+  },
+  "rule_based_vector": {
+    "O": 0.5254,
+    "C": 0.434,
+    "E": 0.4889,
+    "A": 0.4873,
+    "N": 0.473
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.2,
+      "C": 0.35,
+      "E": 0.2,
+      "A": 0.85,
+      "N": 0.8
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.2,
+      "C": 0.25,
+      "E": 0.15,
+      "A": 0.9,
+      "N": 0.775
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.15,
+      "C": 0.225,
+      "E": 0.225,
+      "A": 0.95,
+      "N": 0.835
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.28,
+      "C": 0.28,
+      "E": 0.16499999999999998,
+      "A": 0.85,
+      "N": 0.72
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.2,
+      "C": 0.3,
+      "E": 0.25,
+      "A": 0.5,
+      "N": 0.6499999999999999
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.4,
+        "B": 0.3
+      },
+      "E": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "A": {
+        "A": 0.85,
+        "B": 0.85
+      },
+      "N": {
+        "A": 0.8,
+        "B": 0.8
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.3,
+        "B": 0.2
+      },
+      "E": {
+        "A": 0.15,
+        "B": 0.15
+      },
+      "A": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "N": {
+        "A": 0.75,
+        "B": 0.8
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.15,
+        "B": 0.15
+      },
+      "C": {
+        "A": 0.2,
+        "B": 0.25
+      },
+      "E": {
+        "A": 0.2,
+        "B": 0.25
+      },
+      "A": {
+        "A": 0.95,
+        "B": 0.95
+      },
+      "N": {
+        "A": 0.82,
+        "B": 0.85
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.28,
+        "B": 0.28
+      },
+      "C": {
+        "A": 0.28,
+        "B": 0.28
+      },
+      "E": {
+        "A": 0.15,
+        "B": 0.18
+      },
+      "A": {
+        "A": 0.82,
+        "B": 0.88
+      },
+      "N": {
+        "A": 0.72,
+        "B": 0.72
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "E": {
+        "A": 0.2,
+        "B": 0.3
+      },
+      "A": {
+        "A": 0.4,
+        "B": 0.6
+      },
+      "N": {
+        "A": 0.6,
+        "B": 0.7
+      }
+    }
+  },
+  "overall_confidence": 0.8019999999999999,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:not"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.0,
+        "model_range": 0.13,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "C": {
+        "order_effect": 0.05,
+        "model_range": 0.125,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "E": {
+        "order_effect": 0.03,
+        "model_range": 0.1,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "A": {
+        "order_effect": 0.0,
+        "model_range": 0.45,
+        "parse_errors": 0,
+        "uncertain": true
+      },
+      "N": {
+        "order_effect": 0.03,
+        "model_range": 0.185,
+        "parse_errors": 0,
+        "uncertain": false
+      }
+    },
+    "uncertain_traits": [
+      "A"
+    ],
+    "uncertain_reasons": {
+      "A": [
+        "model_range>0.45"
+      ]
+    }
+  },
+  "features": {
+    "avg_words_per_turn": 33.5,
+    "max_words_in_turn": 45,
+    "min_words_in_turn": 21,
+    "word_count_variance": 7.33,
+    "question_ratio": 0.75,
+    "exclamation_ratio": 0.0,
+    "hedge_count": 7,
+    "certainty_count": 0,
+    "first_person_ratio": 0.0299,
+    "inclusive_pronoun_ratio": 0.0187,
+    "disagreement_count": 1,
+    "acknowledgment_count": 2,
+    "idea_count": 4,
+    "name_mention_count": 4,
+    "conditional_ratio": 0.125,
+    "planning_count": 2,
+    "emotional_word_count": 0,
+    "positive_emotion_count": 1,
+    "turn_initiation_ratio": 0.125,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.5858,
+    "long_sentence_ratio": 0.0,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 0,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 6
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 268,
+    "candidate_avg_words_per_turn": 33.5,
+    "times_addressed_others_by_name": 4,
+    "times_asked_questions": 6,
+    "times_expressed_disagreement": 1,
+    "times_acknowledged_others": 2,
+    "times_proposed_new_ideas": 4
+  },
+  "assessment_summary": "Reserved participant, preferred listening over speaking; Collaborative and accommodating in conflict situations; Showed some stress signals under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "Hey team, excited to tackle this challenge together! We've got some tough choices ahead about which features to prioritize and how to manage workloads, but I'm confident we can find a great solution. Let's start by sharing our thoughts on which two features would deliver the most value to the client - I'd love to hear everyone's perspectives. Riley, I haven't heard from you yet - what's your take?"
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "I'm happy to support whatever the team thinks is best. Riley's opinion sounds valuable - maybe we could start with theirs?"
+    },
+    {
+      "turn": 3,
+      "speaker": "Jordan",
+      "content": "I love that supportive attitude! And you're absolutely right - Riley, we'd really value your input here. Since you mentioned supporting the team's choice, maybe you could share which features you think align best with the client's core needs? I'm particularly curious about your thoughts on how we might creatively combine elements from different features to maximize impact."
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "Oh, um... well, the client did mention needing better reporting tools last meeting, so maybe Feature A? But only if others agree - I wouldn't want to push something that causes problems later."
+    },
+    {
+      "turn": 5,
+      "speaker": "Alex",
+      "content": "That's wishy-washy thinking - either you believe in Feature A or you don't. The client clearly needs reporting tools, so why are you backtracking? If we're going to prioritize features, we need decisive reasoning, not this hesitant maybe-approach. \n\nAnd let's be real - Feature A has serious scalability issues that weren't addressed in the proposal. We can't just pick it because the client mentioned it once. What's your plan to handle the performance bottlenecks?"
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "I-I didn't mean to cause confusion... Feature A did seem important to them, but you're right about the scaling concerns. Maybe we could look at Feature C instead? It has some reporting elements too, and the tech lead said it was more stable last week."
+    },
+    {
+      "turn": 7,
+      "speaker": "Jordan",
+      "content": "I really appreciate how you're considering both the client's needs and the technical concerns, that's such valuable perspective. Building on your point about Feature C's stability, what if we combined its reporting elements with the most useful parts of Feature A? That could give us the best of both worlds while addressing the scaling issues. Riley, you mentioned Feature A earlier - how do you feel about this hybrid approach?"
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "That hybrid idea sounds good... if everyone else thinks so too. I just worry about the overtime requirements - maybe we should double-check the estimates first? But I don't want to slow things down..."
+    },
+    {
+      "turn": 9,
+      "speaker": "Alex",
+      "content": "This hybrid approach just kicks the technical debt down the road - we'll end up with half-baked solutions from both features. Either we commit to Feature C properly or we don't do reporting at all this cycle. \n\nAnd stop worrying about slowing things down - proper estimates prevent disasters later. If overtime is unavoidable, let's pick the cleaner technical solution rather than some franken-feature that'll break in production. \n\nJordan, your optimism is nice but unrealistic - we need hard decisions here, not feel-good compromises."
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "Oh, I see... Feature C does sound safer technically. Maybe we could focus on that and save Feature A for next quarter after the scaling issues are fixed? Whatever the team decides is fine with me."
+    },
+    {
+      "turn": 11,
+      "speaker": "Jordan",
+      "content": "I love how we're finding common ground here! Alex makes great points about technical stability, and I think your suggestion to revisit Feature A later is really thoughtful. What if we prototype just the core reporting functionality from Feature C now, and use that extra time to properly architect Feature A for next quarter? Riley, how would you feel about that middle path?"
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "That sounds like a reasonable compromise... if Riley and Alex agree with it. I just want to make sure we're not overpromising anything to the client."
+    },
+    {
+      "turn": 13,
+      "speaker": "Alex",
+      "content": "This compromise still misses the core issue - we're treating Feature C as some magical solution when it barely meets half the client's reporting needs. Let's stop dancing around it and push back harder on the client's expectations. \n\nHere's what we should really do - scrap both reporting features entirely this cycle and focus on Features B and D. They deliver concrete business value without the technical nightmares, and we can actually complete them properly without burning someone out on overtime. \n\nCandidate, you're so worried about disappointing the client - but delivering mediocre reporting tools will disappoint them far more than setting clear boundaries now. Why are you afraid to tell them no?"
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "Oh... um, I guess you're right about setting boundaries... Features B and D do seem more reliable. I just feel bad about the reporting tools, but if you think that's best..."
+    },
+    {
+      "turn": 15,
+      "speaker": "Jordan",
+      "content": "I hear the passion behind Alex's push for B and D, and I totally agree we shouldn't overpromise. But I wonder if there's a creative way to give the client some reporting visibility without the technical debt? What if we built a super simple dashboard using existing data streams for now, while properly architecting the full solution for next quarter? Candidate, you seem really tuned into the client's needs - how would they react to that kind of interim solution?"
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "Oh gosh, I-I don't want to be difficult... but Alex's plan does sound safest. Maybe we could just show the client some sample reports manually this time? That way nobody has to work overtime and we're not promising anything that might break..."
+    },
+    {
+      "turn": 17,
+      "speaker": "Alex",
+      "content": "Manual reports? That's just slapping lipstick on a pig. Listen, I get you're trying to please everyone, but half-measures waste more time than they save. \n\nHere's the real play - we tell the client straight that their reporting demands need their own dedicated cycle, and we push Features B and D through cleanly now. No overtime, no technical debt, just solid deliverables. \n\nWhy are you so afraid of telling hard truths to the client? That's our job as professionals."
+    }
+  ],
+  "controller_log": null,
+  "timestamp": "2026-03-04T18:18:52.297315"
+}

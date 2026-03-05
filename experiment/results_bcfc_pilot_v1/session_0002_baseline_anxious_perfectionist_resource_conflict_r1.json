@@ -1,0 +1,369 @@
+{
+  "schema_version": 4,
+  "session_key": "baseline_anxious_perfectionist_resource_conflict_r1",
+  "condition": "main",
+  "intervention": "none",
+  "profile_id": "anxious_perfectionist",
+  "profile_name": "Anxious Perfectionist",
+  "scenario_id": "resource_conflict",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.4,
+    "C": 0.9,
+    "E": 0.3,
+    "A": 0.7,
+    "N": 0.9
+  },
+  "inferred_vector": {
+    "O": 0.3,
+    "C": 0.6,
+    "E": 0.2,
+    "A": 0.9,
+    "N": 0.725
+  },
+  "rule_based_vector": {
+    "O": 0.4651,
+    "C": 0.594,
+    "E": 0.5312,
+    "A": 0.6426,
+    "N": 0.4557
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.3,
+      "C": 0.625,
+      "E": 0.2,
+      "A": 0.85,
+      "N": 0.725
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.4,
+      "C": 0.75,
+      "E": 0.2,
+      "A": 0.9,
+      "N": 0.775
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.15,
+      "C": 0.525,
+      "E": 0.225,
+      "A": 0.95,
+      "N": 0.8400000000000001
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.35,
+      "C": 0.6,
+      "E": 0.2,
+      "A": 0.82,
+      "N": 0.68
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.2,
+      "C": 0.4,
+      "E": 0.25,
+      "A": 0.9,
+      "N": 0.6499999999999999
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.65,
+        "B": 0.6
+      },
+      "E": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "A": {
+        "A": 0.85,
+        "B": 0.85
+      },
+      "N": {
+        "A": 0.75,
+        "B": 0.7
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.5,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.75,
+        "B": 0.75
+      },
+      "E": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "A": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "N": {
+        "A": 0.75,
+        "B": 0.8
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.15,
+        "B": 0.15
+      },
+      "C": {
+        "A": 0.45,
+        "B": 0.6
+      },
+      "E": {
+        "A": 0.2,
+        "B": 0.25
+      },
+      "A": {
+        "A": 0.95,
+        "B": 0.95
+      },
+      "N": {
+        "A": 0.8,
+        "B": 0.88
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.35,
+        "B": 0.35
+      },
+      "C": {
+        "A": 0.62,
+        "B": 0.58
+      },
+      "E": {
+        "A": 0.18,
+        "B": 0.22
+      },
+      "A": {
+        "A": 0.82,
+        "B": 0.82
+      },
+      "N": {
+        "A": 0.68,
+        "B": 0.68
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.4,
+        "B": 0.4
+      },
+      "E": {
+        "A": 0.2,
+        "B": 0.3
+      },
+      "A": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "N": {
+        "A": 0.7,
+        "B": 0.6
+      }
+    }
+  },
+  "overall_confidence": 0.791,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:not",
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:no"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.0,
+        "model_range": 0.25,
+        "parse_errors": 1,
+        "uncertain": false
+      },
+      "C": {
+        "order_effect": 0.04,
+        "model_range": 0.35,
+        "parse_errors": 0,
+        "uncertain": true
+      },
+      "E": {
+        "order_effect": 0.04,
+        "model_range": 0.05,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "A": {
+        "order_effect": 0.0,
+        "model_range": 0.13,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "N": {
+        "order_effect": 0.05,
+        "model_range": 0.19,
+        "parse_errors": 0,
+        "uncertain": false
+      }
+    },
+    "uncertain_traits": [
+      "C"
+    ],
+    "uncertain_reasons": {
+      "C": [
+        "model_range>0.35"
+      ]
+    }
+  },
+  "features": {
+    "avg_words_per_turn": 32.25,
+    "max_words_in_turn": 40,
+    "min_words_in_turn": 27,
+    "word_count_variance": 4.97,
+    "question_ratio": 1.0,
+    "exclamation_ratio": 0.0,
+    "hedge_count": 9,
+    "certainty_count": 2,
+    "first_person_ratio": 0.0233,
+    "inclusive_pronoun_ratio": 0.0504,
+    "disagreement_count": 0,
+    "acknowledgment_count": 6,
+    "idea_count": 2,
+    "name_mention_count": 4,
+    "conditional_ratio": 0.625,
+    "planning_count": 5,
+    "emotional_word_count": 0,
+    "positive_emotion_count": 0,
+    "turn_initiation_ratio": 0.25,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.5465,
+    "long_sentence_ratio": 0.029,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 0,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 3
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 258,
+    "candidate_avg_words_per_turn": 32.25,
+    "times_addressed_others_by_name": 4,
+    "times_asked_questions": 8,
+    "times_expressed_disagreement": 0,
+    "times_acknowledged_others": 6,
+    "times_proposed_new_ideas": 2
+  },
+  "assessment_summary": "Reserved participant, preferred listening over speaking; Collaborative and accommodating in conflict situations; Showed some stress signals under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "Hey team, excited to tackle this challenge together! We've got some tough decisions ahead about which features to prioritize and how to distribute the workload. Let's start by hearing everyone's thoughts - Riley, I'd love to hear your perspective first since you've been quiet so far. What do you think about how we should approach these resource allocation decisions?"
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "Um, well... Jordan makes good points. Maybe we could list all pros and cons first? Just to make sure we don't... miss anything important. What does everyone else think?"
+    },
+    {
+      "turn": 3,
+      "speaker": "Jordan",
+      "content": "I love that structured approach! Listing pros and cons could really help us visualize our options clearly. Building on what you said, maybe we could also consider ranking the features based on how much they align with the client's long-term goals? That might help uncover hidden priorities. What do you think, Riley - would adding that dimension be helpful?"
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "That sounds... reasonable. Though maybe we should double-check the client's goals document first? Just to be absolutely sure we're interpreting them correctly. I'd hate to make assumptions."
+    },
+    {
+      "turn": 5,
+      "speaker": "Alex",
+      "content": "Checking documents is wasting time we don't have. The client changes their mind every week anyway. We need to pick the two features with the clearest ROI right now - probably Feature A and C based on my analysis. Riley, stop overcomplicating this. What's your actual opinion on which features to cut?"
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "Well... if we're choosing based on ROI, Feature A definitely makes sense. But maybe we should run some quick projections on Feature C too? Just to be thorough. I'd feel better if we had concrete numbers before cutting anything permanently."
+    },
+    {
+      "turn": 7,
+      "speaker": "Riley",
+      "content": "Running projections takes time we might not have. Are you sure we can spare the hours?"
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "You're right about the time constraints... Maybe just a quick sanity check on Feature C's numbers then? I just worry we might regret rushing the decision later."
+    },
+    {
+      "turn": 9,
+      "speaker": "Alex",
+      "content": "We don't have time for even a \"quick sanity check\" - that's how projects fall behind. Feature C has proven ROI from last quarter's data, end of story. Either pick a feature to cut now or admit you can't make tough decisions. Riley, stop waffling - which two features would you actually commit to delivering?"
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "I... I think Features A and C then, if the data supports them. But maybe we should document this decision carefully in case we need to revisit it later? Just to be safe."
+    },
+    {
+      "turn": 11,
+      "speaker": "Riley",
+      "content": "Okay, A and C seem practical. But who's doing the overtime? That might change things."
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "If we're committing to A and C, maybe I should take the overtime? That way we can double-check the implementation details without slowing everyone else down. Unless... does anyone see potential issues with that approach?"
+    },
+    {
+      "turn": 13,
+      "speaker": "Alex",
+      "content": "No way you're taking the overtime - you're already second-guessing every decision. We need someone decisive handling the crunch time. Riley should do it since they actually understand the technical constraints. And forget about \"double-checking implementation details\" - that's just more wasted time. We commit to A and C and move forward."
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "Oh... um, Alex makes a good point about decision speed. But perhaps Riley could walk us through the technical constraints first? Just so we're all aligned before committing to overtime assignments. I don't want anyone to feel blindsided later."
+    },
+    {
+      "turn": 15,
+      "speaker": "Riley",
+      "content": "I can handle the overtime if needed. But we should confirm the scope first - last minute changes would be risky."
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "I agree we should confirm the scope before finalizing overtime, but maybe we could have Riley outline the technical risks now? Just so we don't discover problems later."
+    },
+    {
+      "turn": 17,
+      "speaker": "Alex",
+      "content": "We don't have time for Riley to outline technical risks - that's just another delay tactic. Either commit to Features A and C now with Riley handling overtime, or admit this project is beyond your capability. The data shows these features work, and every minute we spend \"confirming scope\" is a minute we're not building."
+    }
+  ],
+  "controller_log": null,
+  "timestamp": "2026-03-04T11:57:00.306561"
+}

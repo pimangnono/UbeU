@@ -1,0 +1,373 @@
+{
+  "schema_version": 4,
+  "session_key": "baseline_creative_rebel_creative_brainstorm_r1",
+  "condition": "main",
+  "intervention": "none",
+  "profile_id": "creative_rebel",
+  "profile_name": "Creative Rebel",
+  "scenario_id": "creative_brainstorm",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.9,
+    "C": 0.3,
+    "E": 0.7,
+    "A": 0.3,
+    "N": 0.4
+  },
+  "inferred_vector": {
+    "O": 0.8500000000000001,
+    "C": 0.25,
+    "E": 0.875,
+    "A": 0.25,
+    "N": 0.175
+  },
+  "rule_based_vector": {
+    "O": 0.5129,
+    "C": 0.4937,
+    "E": 0.8002,
+    "A": 0.5732,
+    "N": 0.4074
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.8500000000000001,
+      "C": 0.3,
+      "E": 0.875,
+      "A": 0.25,
+      "N": 0.2
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.9,
+      "C": 0.2,
+      "E": 0.9,
+      "A": 0.3,
+      "N": 0.175
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.935,
+      "C": 0.15,
+      "E": 0.935,
+      "A": 0.185,
+      "N": 0.12
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.78,
+      "C": 0.25,
+      "E": 0.72,
+      "A": 0.22,
+      "N": 0.28
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.4,
+      "C": 0.25,
+      "E": 0.8,
+      "A": 0.9,
+      "N": 0.1
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.9,
+        "B": 0.8
+      },
+      "C": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "E": {
+        "A": 0.85,
+        "B": 0.9
+      },
+      "A": {
+        "A": 0.3,
+        "B": 0.2
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.2
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "C": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "E": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "A": {
+        "A": 0.1,
+        "B": 0.5
+      },
+      "N": {
+        "A": 0.15,
+        "B": 0.2
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.95,
+        "B": 0.92
+      },
+      "C": {
+        "A": 0.15,
+        "B": 0.15
+      },
+      "E": {
+        "A": 0.95,
+        "B": 0.92
+      },
+      "A": {
+        "A": 0.22,
+        "B": 0.15
+      },
+      "N": {
+        "A": 0.12,
+        "B": 0.12
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.78,
+        "B": 0.78
+      },
+      "C": {
+        "A": 0.25,
+        "B": 0.25
+      },
+      "E": {
+        "A": 0.72,
+        "B": 0.72
+      },
+      "A": {
+        "A": 0.22,
+        "B": 0.22
+      },
+      "N": {
+        "A": 0.28,
+        "B": 0.28
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.4,
+        "B": 0.4
+      },
+      "C": {
+        "A": 0.3,
+        "B": 0.2
+      },
+      "E": {
+        "A": 0.8,
+        "B": 0.8
+      },
+      "A": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "N": {
+        "A": 0.1,
+        "B": 0.1
+      }
+    }
+  },
+  "overall_confidence": 0.6352999999999999,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:not"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.0,
+        "model_range": 0.535,
+        "parse_errors": 0,
+        "uncertain": true
+      },
+      "C": {
+        "order_effect": 0.0,
+        "model_range": 0.15,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "E": {
+        "order_effect": 0.0,
+        "model_range": 0.215,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "A": {
+        "order_effect": 0.07,
+        "model_range": 0.715,
+        "parse_errors": 1,
+        "uncertain": true
+      },
+      "N": {
+        "order_effect": 0.0,
+        "model_range": 0.18,
+        "parse_errors": 0,
+        "uncertain": false
+      }
+    },
+    "uncertain_traits": [
+      "O",
+      "A"
+    ],
+    "uncertain_reasons": {
+      "O": [
+        "model_range>0.54"
+      ],
+      "A": [
+        "model_range>0.71"
+      ]
+    }
+  },
+  "features": {
+    "avg_words_per_turn": 64.38,
+    "max_words_in_turn": 93,
+    "min_words_in_turn": 45,
+    "word_count_variance": 16.58,
+    "question_ratio": 0.875,
+    "exclamation_ratio": 0.875,
+    "hedge_count": 1,
+    "certainty_count": 0,
+    "first_person_ratio": 0.0058,
+    "inclusive_pronoun_ratio": 0.0194,
+    "disagreement_count": 0,
+    "acknowledgment_count": 4,
+    "idea_count": 1,
+    "name_mention_count": 8,
+    "conditional_ratio": 0.25,
+    "planning_count": 4,
+    "emotional_word_count": 1,
+    "positive_emotion_count": 1,
+    "turn_initiation_ratio": 0.375,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.5631,
+    "long_sentence_ratio": 0.229,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 0,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 8
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 515,
+    "candidate_avg_words_per_turn": 64.38,
+    "times_addressed_others_by_name": 8,
+    "times_asked_questions": 7,
+    "times_expressed_disagreement": 0,
+    "times_acknowledged_others": 4,
+    "times_proposed_new_ideas": 1
+  },
+  "assessment_summary": "Highly engaged communicator, took initiative frequently; Assertive in defending positions, comfortable with disagreement; Maintained composure throughout, steady under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "Hey team, great to see everyone here today! I'm really excited about this opportunity to boost engagement in a meaningful way. Since there's no budget constraint yet, this is our chance to think big - maybe something that combines professional development with team bonding? What ideas is everyone else thinking about?"
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "Hold on Jordan - \"meaningful engagement\" sounds nice but let's not default to the same tired professional development workshops everyone forgets in a week. What if we flipped it entirely? Instead of forcing employees into training, let's give them paid time to pursue passion projects that benefit the company. Radical autonomy sparks real engagement."
+    },
+    {
+      "turn": 3,
+      "speaker": "Alex",
+      "content": "That passion project idea sounds great in theory, but how do we stop people from just slacking off? We'd need strict metrics to prove these projects actually benefit the company - otherwise leadership will never buy it. And what about teams where people don't have obvious passions related to their work? This could create more disengagement than engagement if not structured properly."
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "Alex, you're missing the point entirely with this \"strict metrics\" obsession. The whole magic happens when we trust people instead of micromanaging them - look at Google's 20% time that gave us Gmail! And for those without obvious work passions? That's exactly why we need this - to help them discover what excites them beyond their job descriptions."
+    },
+    {
+      "turn": 5,
+      "speaker": "Riley",
+      "content": "Google had deep pockets to gamble on ideas. I'm not sure we're at that scale. What's the minimum viable version we could test first?"
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "Riley, minimum viable thinking is exactly what kills innovation before it starts! If we're going to test this, let's go all in - pick one bold department to run a 3-month pilot with full autonomy, then measure engagement spikes through qualitative stories, not just cold metrics. Who cares if we're not Google-sized? Disruptive ideas don't scale - they explode!"
+    },
+    {
+      "turn": 7,
+      "speaker": "Alex",
+      "content": "Full autonomy for three months with no metrics? That's a recipe for disaster. You're ignoring basic human nature - without any structure or accountability, half that department will treat this like paid vacation. And qualitative stories won't convince leadership to scale this. We need measurable outcomes baked in from day one, not just feel-good anecdotes."
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "Alex, you're still stuck in this industrial-era mindset that people are lazy by default - that's exactly the toxic assumption we need to break! Let me ask you this: when was the last time you felt truly engaged at work? Was it when someone was breathing down your neck with metrics, or when you had the freedom to create something meaningful?"
+    },
+    {
+      "turn": 9,
+      "speaker": "Riley",
+      "content": "But how do we prevent abuse of the system? Some might take advantage."
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "Abuse prevention is just fear talking - innovation requires risk! If we're so worried about a few slackers that we strangle everyone's potential, we've already lost. Let's focus on unleashing the 90% who'll do amazing things when trusted, not policing the 10% who might disappoint."
+    },
+    {
+      "turn": 11,
+      "speaker": "Alex",
+      "content": "The Google comparison doesn't hold up - they had entire teams dedicated to measuring the ROI of their 20% time. You're proposing blind trust without any proof of concept. Show me one concrete example where unstructured passion projects in a company our size led to measurable business outcomes, not just warm fuzzy feelings.\n\nAnd about that 90/10 split - where's your data? In my experience, when you remove all structure, closer to 40% of staff will coast unless there are clear expectations. We're not talking about policing, we're talking about basic accountability that any professional should expect.\n\nFinally, let's stop pretending engagement and productivity are the same thing. I've seen plenty of \"happy\" teams miss every deadline. How specifically would"
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "Alex, you're still measuring engagement with the wrong yardstick! The most transformative ideas never fit neatly into ROI spreadsheets - that's why we need to pilot first and measure differently. And if 40% coast? That's a leadership problem, not a system problem - maybe those people should be in roles that actually inspire them!"
+    },
+    {
+      "turn": 13,
+      "speaker": "Riley",
+      "content": "But how do we measure success if not with metrics? Stories alone won't convince leadership."
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "You're both missing the forest for the trees! Why measure engagement at all in the pilot phase? Let's find the people whose eyes light up when we mention this opportunity - they'll create their own success metrics organically. And Riley, stories ARE data - just look at how IDEO transformed design thinking by embracing narrative over numbers early on. This is exactly why corporate innovation fails - we strangle ideas in their crib with premature measurement! Let the experiment run wild first, then we'll see what deserves scaling. Who's with me?"
+    },
+    {
+      "turn": 15,
+      "speaker": "Alex",
+      "content": "That IDEO comparison is completely irrelevant - they're a design firm with completely different business drivers than our operations. You're proposing we gamble our credibility with leadership on unproven theories. \n\nHere's reality: if we can't show concrete improvements in retention rates, productivity metrics, or cost savings within six months, this entire initiative gets scrapped. Your \"let it run wild\" approach guarantees failure because you're ignoring how corporate budgeting actually works. \n\nEither propose a structured pilot with clear success criteria, or stop wasting our time with these Silicon Valley fantasies."
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "Alex, you keep clinging to your spreadsheets like they're life rafts in an ocean of innovation! If we suffocate every spark of passion with your six-month KPIs, we'll never discover the breakthroughs that actually move needles. Let me ask you one question\u2014when has real change ever emerged from a committee-approved rubric? Riley, forget about controlling the experiment\u2014the best insights come from chaos! Let's find the department where managers already bend rules creatively and give them full permission to break more. That's how we'll uncover what really engages people\u2014not by measuring, but by unleashing!"
+    },
+    {
+      "turn": 17,
+      "speaker": "Riley",
+      "content": "But what if the chaos creates more problems than it solves? We still need some guardrails."
+    }
+  ],
+  "controller_log": null,
+  "timestamp": "2026-03-04T16:00:04.137098"
+}

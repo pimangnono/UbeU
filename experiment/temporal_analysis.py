@@ -125,6 +125,39 @@ def compute_window_stats(
     )
 
 
+def _split_into_phases(
+    turns: list[Turn],
+    scenario_phases,
+) -> list[dict]:
+    """
+    Split turns into individual phases and compute normalized position.
+
+    Returns a list of dicts, each with:
+    - phase_name, phase_index, phase_pos_norm (0..1), turns
+    """
+    phase_ranges = _get_phase_turn_ranges(scenario_phases)
+    total_phases = len(phase_ranges)
+
+    phases = []
+    for idx, (pname, start, end) in enumerate(phase_ranges):
+        phase_turns = [t for t in turns if start <= t.turn_number <= end]
+        phases.append({
+            "phase_name": pname,
+            "phase_index": idx + 1,
+            "phase_pos_norm": round((idx + 0.5) / total_phases, 4) if total_phases > 0 else 0.0,
+            "turns": phase_turns,
+        })
+
+    # Assign overflow turns to the last phase
+    if phase_ranges:
+        last_end = phase_ranges[-1][2]
+        overflow = [t for t in turns if t.turn_number > last_end]
+        if overflow and phases:
+            phases[-1]["turns"].extend(overflow)
+
+    return phases
+
+
 async def evaluate_per_window(
     eval_client: "LLMClient",
     turns: list[Turn],
@@ -132,7 +165,8 @@ async def evaluate_per_window(
     candidate_name: str = "Candidate",
 ) -> dict:
     """
-    Evaluate personality signals per temporal window (early/peak/late).
+    Evaluate personality signals per temporal window (early/peak/late)
+    and per individual phase.
 
     Args:
         eval_client: LLM client for evaluation.
@@ -141,7 +175,7 @@ async def evaluate_per_window(
         candidate_name: Name of the candidate.
 
     Returns:
-        Dict with per-window inferred vectors and stats.
+        Dict with per-window and per-phase inferred vectors and stats.
     """
     from evaluation.trait_evaluator import evaluate_group_session
 
@@ -190,6 +224,50 @@ async def evaluate_per_window(
                 "error": str(e),
             }
 
+    # Per-phase evaluation (V5.1: Phase-controlled RQ3)
+    phases_data = _split_into_phases(turns, scenario_phases)
+    phase_results = []
+    for phase_info in phases_data:
+        phase_turns = phase_info["turns"]
+        candidate_in_phase = [t for t in phase_turns if t.speaker_name == candidate_name]
+        if len(candidate_in_phase) < 2:
+            phase_results.append({
+                "phase_name": phase_info["phase_name"],
+                "phase_index": phase_info["phase_index"],
+                "phase_pos_norm": phase_info["phase_pos_norm"],
+                "inferred_vector": None,
+                "candidate_turns": len(candidate_in_phase),
+            })
+            continue
+
+        stats = compute_window_stats(phase_turns, candidate_name)
+        try:
+            assessment = await evaluate_group_session(
+                client=eval_client,
+                turns=phase_turns,
+                candidate_name=candidate_name,
+                stats=stats,
+                use_ensemble=True,
+            )
+            phase_results.append({
+                "phase_name": phase_info["phase_name"],
+                "phase_index": phase_info["phase_index"],
+                "phase_pos_norm": phase_info["phase_pos_norm"],
+                "inferred_vector": assessment.to_vector().to_dict(),
+                "candidate_turns": stats.candidate_turns,
+            })
+        except Exception as e:
+            logger.error(f"Phase {phase_info['phase_name']} evaluation failed: {e}")
+            phase_results.append({
+                "phase_name": phase_info["phase_name"],
+                "phase_index": phase_info["phase_index"],
+                "phase_pos_norm": phase_info["phase_pos_norm"],
+                "inferred_vector": None,
+                "candidate_turns": len(candidate_in_phase),
+                "error": str(e),
+            })
+
+    result["phases"] = phase_results
     return result
 
 

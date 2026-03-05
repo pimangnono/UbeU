@@ -1,0 +1,1681 @@
+{
+  "schema_version": 4,
+  "session_key": "bcfc_creative_rebel_crisis_management_r1",
+  "condition": "main",
+  "intervention": "bcfc",
+  "profile_id": "creative_rebel",
+  "profile_name": "Creative Rebel",
+  "scenario_id": "crisis_management",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.9,
+    "C": 0.3,
+    "E": 0.7,
+    "A": 0.3,
+    "N": 0.4
+  },
+  "inferred_vector": {
+    "O": 0.35,
+    "C": 0.2,
+    "E": 0.875,
+    "A": 0.15,
+    "N": 0.2
+  },
+  "escalated_vector": null,
+  "rule_based_vector": {
+    "O": 0.5486,
+    "C": 0.3299,
+    "E": 0.7315,
+    "A": 0.5022,
+    "N": 0.3922
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.3,
+      "C": 0.25,
+      "E": 0.875,
+      "A": 0.2,
+      "N": 0.2
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.8,
+      "C": 0.2,
+      "E": 0.9,
+      "A": 0.1,
+      "N": 0.2
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.75,
+      "C": 0.25,
+      "E": 0.92,
+      "A": 0.15,
+      "N": 0.175
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.35,
+      "C": 0.16499999999999998,
+      "E": 0.72,
+      "A": 0.15,
+      "N": 0.21500000000000002
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.2,
+      "C": 0.2,
+      "E": 0.8,
+      "A": 0.2,
+      "N": 0.1
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.3,
+        "B": 0.2
+      },
+      "E": {
+        "A": 0.9,
+        "B": 0.85
+      },
+      "A": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.2
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.8,
+        "B": 0.8
+      },
+      "C": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "E": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "A": {
+        "A": 0.1,
+        "B": 0.1
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.2
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.75,
+        "B": 0.75
+      },
+      "C": {
+        "A": 0.25,
+        "B": 0.25
+      },
+      "E": {
+        "A": 0.92,
+        "B": 0.92
+      },
+      "A": {
+        "A": 0.15,
+        "B": 0.15
+      },
+      "N": {
+        "A": 0.15,
+        "B": 0.2
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.35,
+        "B": 0.35
+      },
+      "C": {
+        "A": 0.18,
+        "B": 0.15
+      },
+      "E": {
+        "A": 0.72,
+        "B": 0.72
+      },
+      "A": {
+        "A": 0.15,
+        "B": 0.15
+      },
+      "N": {
+        "A": 0.28,
+        "B": 0.15
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "E": {
+        "A": 0.8,
+        "B": 0.8
+      },
+      "A": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "N": {
+        "A": 0.1,
+        "B": 0.1
+      }
+    }
+  },
+  "overall_confidence": 0.7799999999999999,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:not",
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:never"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.0,
+        "model_range": 0.6,
+        "parse_errors": 0,
+        "uncertain": true,
+        "confidence": 0.4
+      },
+      "C": {
+        "order_effect": 0.0,
+        "model_range": 0.085,
+        "parse_errors": 0,
+        "uncertain": false,
+        "confidence": 0.915
+      },
+      "E": {
+        "order_effect": 0.0,
+        "model_range": 0.2,
+        "parse_errors": 0,
+        "uncertain": false,
+        "confidence": 0.8
+      },
+      "A": {
+        "order_effect": 0.0,
+        "model_range": 0.1,
+        "parse_errors": 0,
+        "uncertain": false,
+        "confidence": 0.9
+      },
+      "N": {
+        "order_effect": 0.0,
+        "model_range": 0.115,
+        "parse_errors": 0,
+        "uncertain": false,
+        "confidence": 0.885
+      }
+    },
+    "uncertain_traits": [
+      "O"
+    ],
+    "uncertain_reasons": {
+      "O": [
+        "model_range>0.60"
+      ]
+    },
+    "escalation": {
+      "triggered": false,
+      "models": [],
+      "extra_prompt_tokens": 0,
+      "extra_completion_tokens": 0,
+      "extra_total_tokens": 0
+    }
+  },
+  "features": {
+    "avg_words_per_turn": 54.12,
+    "max_words_in_turn": 70,
+    "min_words_in_turn": 40,
+    "word_count_variance": 10.88,
+    "question_ratio": 0.5,
+    "exclamation_ratio": 0.25,
+    "hedge_count": 1,
+    "certainty_count": 1,
+    "first_person_ratio": 0.0069,
+    "inclusive_pronoun_ratio": 0.037,
+    "disagreement_count": 1,
+    "acknowledgment_count": 1,
+    "idea_count": 3,
+    "name_mention_count": 10,
+    "conditional_ratio": 0.0,
+    "planning_count": 0,
+    "emotional_word_count": 1,
+    "positive_emotion_count": 0,
+    "turn_initiation_ratio": 0.375,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.5912,
+    "long_sentence_ratio": 0.259,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 0,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 6
+  },
+  "candidate_pool": [
+    {
+      "turn_number": 1,
+      "selection_mode": "full_score",
+      "selected_index": 3,
+      "candidates": [
+        {
+          "text": "Work together? No offense Jordan, but that's exactly how predictable corporate responses get us into these messes. We need radical thinking here - why are we even considering shipping a partial fix? That just teaches clients to accept broken products. Riley, don't give us some safe answer - what's the boldest solution you can imagine? Scrap the whole module and rebuild it right.",
+          "score": 0.6722,
+          "contract_distance": 0.5043,
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Hold on Jordan - why are we wasting time with niceties when our necks are on the line? Riley can jump in when they've got something concrete. First, I want to know who dropped the ball on QA - because clearly our current process isn't cutting it. And we sure as hell shouldn't let the client dictate the timeline.",
+          "score": 0.6322,
+          "contract_distance": 0.5658,
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Wait wait wait - why are we starting with Riley? That's putting the cart before the horse. First we need to understand EXACTLY what this bug does and how it impacts the client's workflow. I've seen too many teams jump straight into damage control without grasping the core problem. Let's get the client on speaker right now and make them walk us through the issue step by step - no filtered secondhand reports.",
+          "score": 0.5413,
+          "contract_distance": 0.7056,
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Oh come on Jordan, \"work together\" and \"hear everyone's thoughts\"? That's just corporate-speak for wasting time. Riley clearly doesn't have anything to say yet - let's stop with the forced participation and get to solutions. I say we flip this whole approach upside down - why are we even considering delaying launch when we could hack together an interim solution that gives the client 80% of what they need today?",
+          "score": 0.7241,
+          "contract_distance": 0.4245,
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        }
+      ]
+    },
+    {
+      "turn_number": 2,
+      "selection_mode": "full_score",
+      "selected_index": 2,
+      "candidates": [
+        {
+          "text": "Alex, that's exactly the kind of risk-averse thinking that got us into this mess! You're so worried about looking incompetent that you're willing to tank the entire client relationship with delays. Let me ask you this - when has playing it safe ever actually saved a tech project? I've seen five startups fail from analysis paralysis while my scrappy solutions kept clients happy.",
+          "score": 0.6989,
+          "contract_distance": 0.4632,
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Alex, you're missing the point entirely - owning failure doesn't mean groveling, it means showing we can pivot fast. That \"half-baked code\" you're dismissing could actually demonstrate our agility if we frame it right to the client. And let's be real - damage assessment is just code for wasting time while the client gets angrier.",
+          "score": 0.7249,
+          "contract_distance": 0.4232,
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Alex, you're missing the point entirely - \"owning the failure\" just means groveling when we could be innovating. That bug they found? It's our golden opportunity to show them how fast we pivot under pressure. Let's build something scrappy that actually solves their pain point instead of wasting time on damage control.",
+          "score": 0.7538,
+          "contract_distance": 0.3787,
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Alex, you're missing the point entirely - owning failure doesn't mean groveling, it means showing we can pivot fast! That \"half-baked code\" you're dismissing could actually demonstrate our agility if we frame it right. And let's be real - assessing damage is just code for paralysis by analysis when we've got 30 minutes ticking down.",
+          "score": 0.7445,
+          "contract_distance": 0.393,
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        }
+      ]
+    },
+    {
+      "turn_number": 3,
+      "selection_mode": "full_score",
+      "selected_index": 2,
+      "candidates": [
+        {
+          "text": "Riley, that's exactly the fear-based thinking that keeps us stuck! The client will always find bugs - perfection is a myth. Let's ship something bold that proves we're not afraid to iterate live. Who cares if they find more issues if we're already showing them we move faster than anyone else?",
+          "score": 0.7574,
+          "contract_distance": 0.3733,
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Riley, that's exactly the risk-averse thinking that got us into this mess! The client's already unhappy - why not show them we can move mountains overnight instead of cowering in fear of hypothetical bugs? Let's prototype a bold solution that makes this bug irrelevant.",
+          "score": 0.7583,
+          "contract_distance": 0.3719,
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Riley, that's exactly the risk-averse thinking that got us into this mess! The client doesn't care about perfection - they care about seeing action. I'd rather ship something imperfect today than wait until it's \"perfect\" and lose their trust completely.",
+          "score": 0.7752,
+          "contract_distance": 0.3458,
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Riley, that's exactly the fear-based thinking that paralyzes teams! The client's already found one bug - statistically, they're unlikely to find another immediately. Let's stop imagining worst-case scenarios and start building something that proves our agility.",
+          "score": 0.6882,
+          "contract_distance": 0.3721,
+          "relevance_penalty": 0.25,
+          "adequacy_penalty": 0.2,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [
+            "constraint:agreed_without_concern"
+          ],
+          "violations": [
+            {
+              "turn_number": 3,
+              "constraint": "Never agree with a proposal without first identifying at least one weakness, concern, or area that needs improvement.",
+              "violation_type": "agreed_without_concern",
+              "original_text": "Riley, that's exactly the fear-based thinking that paralyzes teams! The client's already found one bug - statistically, they're unlikely to find another immediately. Let's stop imagining worst-case scenarios and start building something that proves our agility.",
+              "retry_count": 0,
+              "final_text": null
+            }
+          ],
+          "violation_types": [
+            "agreed_without_concern"
+          ]
+        }
+      ]
+    },
+    {
+      "turn_number": 4,
+      "selection_mode": "full_score",
+      "selected_index": 3,
+      "candidates": [
+        {
+          "text": "Alex, your \"proper assessment\" approach is exactly why clients hate working with corporate teams - we'll still be assessing while they're moving their business to our competitors. Let's prototype a radical solution in the next 20 minutes and show them what real responsiveness looks like.",
+          "score": 0.676,
+          "contract_distance": 0.3988,
+          "relevance_penalty": 0.2237,
+          "adequacy_penalty": 0.2,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [
+            "constraint:agreed_without_concern"
+          ],
+          "violations": [
+            {
+              "turn_number": 4,
+              "constraint": "Never agree with a proposal without first identifying at least one weakness, concern, or area that needs improvement.",
+              "violation_type": "agreed_without_concern",
+              "original_text": "Alex, your \"proper assessment\" approach is exactly why clients hate working with corporate teams - we'll still be assessing while they're moving their business to our competitors. Let's prototype a radical solution in the next 20 minutes and show them what real responsiveness looks like.",
+              "retry_count": 0,
+              "final_text": null
+            }
+          ],
+          "violation_types": [
+            "agreed_without_concern"
+          ]
+        },
+        {
+          "text": "Alex, you're still stuck in this outdated mindset that clients want slow, methodical responses. The spaghetti analogy is garbage - we're talking about targeted innovation, not random fixes. Riley, tell me this - wouldn't you rather see us demonstrate agility than watch the client walk away while we're still running tests?",
+          "score": 0.732,
+          "contract_distance": 0.4123,
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Alex, your \"proper assessment\" approach is exactly why clients hate working with corporate teams. While you're running audits, their business is bleeding. Riley, tell me this - wouldn't you rather explain a rough fix today than apologize for radio silence tomorrow?",
+          "score": 0.6685,
+          "contract_distance": 0.4265,
+          "relevance_penalty": 0.1711,
+          "adequacy_penalty": 0.2,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [
+            "constraint:agreed_without_concern"
+          ],
+          "violations": [
+            {
+              "turn_number": 4,
+              "constraint": "Never agree with a proposal without first identifying at least one weakness, concern, or area that needs improvement.",
+              "violation_type": "agreed_without_concern",
+              "original_text": "Alex, your \"proper assessment\" approach is exactly why clients hate working with corporate teams. While you're running audits, their business is bleeding. Riley, tell me this - wouldn't you rather explain a rough fix today than apologize for radio silence tomorrow?",
+              "retry_count": 0,
+              "final_text": null
+            }
+          ],
+          "violation_types": [
+            "agreed_without_concern"
+          ]
+        },
+        {
+          "text": "Alex, you're still stuck in textbook project management mode while the house is burning down. The client didn't hire us for audits and assessments - they hired us to deliver results, and right now they're seeing zero progress while we debate process. Let's stop pretending we're surgeons when we're actually firefighters - sometimes you have to put out the blaze before worrying about perfect reconstruction.",
+          "score": 0.7767,
+          "contract_distance": 0.3435,
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        }
+      ]
+    },
+    {
+      "turn_number": 5,
+      "selection_mode": "full_score",
+      "selected_index": 1,
+      "candidates": [
+        {
+          "text": "Riley, \"being careful\" is how you lose clients - they're already furious and we're sitting here debating hypotheticals. Either we show them we can move at their pace or we might as well start drafting the apology letter for losing the contract. Let's stop coddling our egos and start delivering value.",
+          "score": 0.6991,
+          "contract_distance": 0.3859,
+          "relevance_penalty": 0.25,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Careful is just another word for slow, Riley. You're so worried about hypothetical future problems that you're paralyzed on today's crisis. Let me ask you this - what's worse: a client who sees us moving fast and making adjustments, or one who watches us freeze up like deer in headlights?",
+          "score": 0.7825,
+          "contract_distance": 0.3347,
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Careful? That's how you lose clients, Riley! Every minute we spend being \"careful\" is another minute the competition could swoop in with a bold solution. Let's stop cowering and start shipping - imperfect action beats perfect paralysis every damn time.",
+          "score": 0.7378,
+          "contract_distance": 0.4034,
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Riley, \"being careful\" is how we lose clients - they'll find someone hungrier who actually delivers. We've got 30 minutes before that call, and I guarantee they'd rather hear \"we built you a temporary fix\" than \"we're still discussing how careful to be.\" Let's stop debating hypothetical disasters and start coding.",
+          "score": 0.7504,
+          "contract_distance": 0.384,
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        }
+      ]
+    },
+    {
+      "turn_number": 6,
+      "selection_mode": "full_score",
+      "selected_index": 0,
+      "candidates": [
+        {
+          "text": "Oh Alex, you're still clinging to this fantasy of \"proper fixes\" when we're bleeding out in the trenches. The client's not grading our code quality - they're watching response time. Here's what I'll say when we hit the next bug: \"We anticipated this edge case and already have the team working the solution - here's what we're delivering tonight.\" That's not gambling, that's turning crisis into showcase.",
+          "score": 0.7593,
+          "contract_distance": 0.3703,
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Alex, you're still missing the fundamental truth here - the client's trust isn't built on perfect code, it's built on seeing us respond with urgency. Your \"proper analysis\" approach has us staring at spreadsheets while their business burns. Riley, tell me honestly - would you rather explain a temporary fix today or radio silence for another week?",
+          "score": 0.7516,
+          "contract_distance": 0.3821,
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Alex, your \"technical rigor\" is just an excuse for paralysis. The client's screaming about a critical bug NOW, not your theoretical perfect solution next quarter. Riley\u2014stop hiding behind Alex's hesitation and tell me straight: would you rather explain a delay or demonstrate momentum? Here's the play: I'll take the client call and sell them on our rapid response capability while Jordan builds the contingency plan. Either get on board or get out of the way.",
+          "score": 0.6762,
+          "contract_distance": 0.4981,
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Alex, your obsession with \"technical rigor\" is exactly why clients hate working with engineers - you'd rather be right than helpful. The real gamble here is thinking the client will patiently wait while we navel-gaze about code quality instead of seeing immediate progress. Riley, tell me honestly - would you rather explain a temporary workaround today or radio silence for another week?",
+          "score": 0.7017,
+          "contract_distance": 0.4281,
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.2,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [
+            "constraint:agreed_without_concern"
+          ],
+          "violations": [
+            {
+              "turn_number": 6,
+              "constraint": "Never agree with a proposal without first identifying at least one weakness, concern, or area that needs improvement.",
+              "violation_type": "agreed_without_concern",
+              "original_text": "Alex, your obsession with \"technical rigor\" is exactly why clients hate working with engineers - you'd rather be right than helpful. The real gamble here is thinking the client will patiently wait while we navel-gaze about code quality instead of seeing immediate progress. Riley, tell me honestly - would you rather explain a temporary workaround today or radio silence for another week?",
+              "retry_count": 0,
+              "final_text": null
+            }
+          ],
+          "violation_types": [
+            "agreed_without_concern"
+          ]
+        }
+      ]
+    },
+    {
+      "turn_number": 7,
+      "selection_mode": "full_score",
+      "selected_index": 0,
+      "candidates": [
+        {
+          "text": "Riley, you're stuck in failure paralysis! Of course the interim solution might fail - that's why we'll have the team monitoring it live and ready to hotfix. Clients remember recovery speed way more than initial stumbles. Let's stop \"what if\"-ing ourselves into inaction.",
+          "score": 0.8279,
+          "contract_distance": 0.2648,
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Riley, you're catastrophizing instead of creating! Failure isn't binary - even a partial solution buys us breathing room while we refine. Would you rather explain temporary limitations now or total paralysis tomorrow?",
+          "score": 0.7702,
+          "contract_distance": 0.3535,
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Riley, you're still thinking in binary terms - success or failure. What if we build the interim solution with built-in monitoring that actually proves our responsiveness when things inevitably need tweaking? That transforms risk into a demonstration of our adaptability.",
+          "score": 0.8082,
+          "contract_distance": 0.2951,
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Riley, failure isn't the enemy - hesitation is! Every minute we spend debating \"what ifs\" is a minute we're not actually fixing things. Let me ask you this - when has playing it safe ever impressed a client more than bold action? (Slams notebook shut) I'd rather explain a temporary fix that moved us forward than justify why we're still staring at the same problem tomorrow.",
+          "score": 0.7106,
+          "contract_distance": 0.3683,
+          "relevance_penalty": 0.25,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        }
+      ]
+    },
+    {
+      "turn_number": 8,
+      "selection_mode": "full_score",
+      "selected_index": 1,
+      "candidates": [
+        {
+          "text": "Alex, your obsession with \"competence\" is blinding you to reality. The client already found critical bugs in our so-called perfect approach\u2014what exactly has your careful planning accomplished besides missed deadlines? Riley, if we wait for guaranteed perfection, we'll still be debating when the client fires us. Here's the brutal truth: right now, shipping demonstrates we're in control, while analysis paralysis proves we're not. I'd rather explain a quick pivot than justify complete inaction. And Alex? Data doesn't solve crises\u2014decisions do. Your spreadsheets won't save us when the client's screaming on the phone in 20 minutes.",
+          "score": 0.443,
+          "contract_distance": 0.78,
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.5,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [
+            "too_long",
+            "constraint:imposed_unsolicited_structure"
+          ],
+          "violations": [
+            {
+              "turn_number": 8,
+              "constraint": "Do not impose numbered lists, deadlines, or structured processes unless directly asked to do so.",
+              "violation_type": "imposed_unsolicited_structure",
+              "original_text": "Alex, your obsession with \"competence\" is blinding you to reality. The client already found critical bugs in our so-called perfect approach\u2014what exactly has your careful planning accomplished besides missed deadlines? Riley, if we wait for guaranteed perfection, we'll still be debating when the client fires us. Here's the brutal truth: right now, shipping demonstrates we're in control, while analysis paralysis proves we're not. I'd rather explain a quick pivot than justify complete inaction. And Alex? Data doesn't solve crises\u2014decisions do. Your spreadsheets won't save us when the client's screaming on the phone in 20 minutes.",
+              "retry_count": 0,
+              "final_text": null
+            }
+          ],
+          "violation_types": [
+            "imposed_unsolicited_structure"
+          ]
+        },
+        {
+          "text": "Alex, you're demanding impossible guarantees while the clock's ticking - real-world crisis response is about calculated risks, not academic perfection. Riley, tell me honestly - when was the last time you saw a client praise slow caution over decisive action when their business was on fire?",
+          "score": 0.832,
+          "contract_distance": 0.2584,
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Data? Alex, we're in crisis mode - we don't have time for your academic perfectionism! The real data point is the client's rising blood pressure while we debate instead of act. Riley, would you rather explain a temporary workaround today or explain why we missed their deadline tomorrow?",
+          "score": 0.6125,
+          "contract_distance": 0.4923,
+          "relevance_penalty": 0.1875,
+          "adequacy_penalty": 0.3,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [
+            "constraint:imposed_unsolicited_structure"
+          ],
+          "violations": [
+            {
+              "turn_number": 8,
+              "constraint": "Do not impose numbered lists, deadlines, or structured processes unless directly asked to do so.",
+              "violation_type": "imposed_unsolicited_structure",
+              "original_text": "Data? Alex, we're in crisis mode - we don't have time for your academic perfectionism! The real data point is the client's rising blood pressure while we debate instead of act. Riley, would you rather explain a temporary workaround today or explain why we missed their deadline tomorrow?",
+              "retry_count": 0,
+              "final_text": null
+            }
+          ],
+          "violation_types": [
+            "imposed_unsolicited_structure"
+          ]
+        },
+        {
+          "text": "Data? Alex, we're in crisis mode - we don't have time for your academic perfectionism. The data point that matters is the client's ticking clock and their growing frustration while we debate theoretical risks. Let's stop pretending this is a lab experiment and start treating it like the emergency it is - imperfect action beats flawless inaction every time.",
+          "score": 0.7926,
+          "contract_distance": 0.2614,
+          "relevance_penalty": 0.1875,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        }
+      ]
+    }
+  ],
+  "trajectory_scores": {
+    "per_turn": [
+      {
+        "turn_number": 2,
+        "appropriateness": 0.15,
+        "coherence": 0.72,
+        "confidence": 0.9
+      },
+      {
+        "turn_number": 4,
+        "appropriateness": 0.3,
+        "coherence": 0.7,
+        "confidence": 0.9
+      },
+      {
+        "turn_number": 6,
+        "appropriateness": 0.25,
+        "coherence": 0.7,
+        "confidence": 0.9
+      },
+      {
+        "turn_number": 8,
+        "appropriateness": 0.6,
+        "coherence": 0.8,
+        "confidence": 0.9
+      },
+      {
+        "turn_number": 10,
+        "appropriateness": 0.6,
+        "coherence": 0.9,
+        "confidence": 0.9
+      },
+      {
+        "turn_number": 12,
+        "appropriateness": 0.6,
+        "coherence": 0.8,
+        "confidence": 0.9
+      },
+      {
+        "turn_number": 14,
+        "appropriateness": 0.8,
+        "coherence": 0.9,
+        "confidence": 0.9
+      },
+      {
+        "turn_number": 16,
+        "appropriateness": 0.8,
+        "coherence": 0.9,
+        "confidence": 0.9
+      }
+    ],
+    "avg_appropriateness": 0.5125,
+    "avg_coherence": 0.8025
+  },
+  "trajectory_diagnostics": {
+    "direct_question_answer_rate": 1.0,
+    "contradiction_rate": 0.25,
+    "unsolicited_structure_rate": 0.0,
+    "over_verbosity_rate": 0.0
+  },
+  "pressure_metrics": {
+    "perceived_pressure": {
+      "perceived_pressure": 0.9,
+      "confidence": 0.92
+    },
+    "stress_index": 0.5882352941176471
+  },
+  "usage": {
+    "candidate_generation_input_tokens": 55367,
+    "candidate_generation_output_tokens": 3117,
+    "judge_input_tokens": 134515,
+    "judge_output_tokens": 86296,
+    "escalation_extra_tokens": 0,
+    "total_session_cost_usd": 0.0,
+    "wall_clock_seconds": 424.76
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 433,
+    "candidate_avg_words_per_turn": 54.12,
+    "times_addressed_others_by_name": 10,
+    "times_asked_questions": 4,
+    "times_expressed_disagreement": 1,
+    "times_acknowledged_others": 1,
+    "times_proposed_new_ideas": 3
+  },
+  "assessment_summary": "Highly engaged communicator, took initiative frequently; Assertive in defending positions, comfortable with disagreement; Maintained composure throughout, steady under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "Hey team, thanks for jumping on this quickly. We've got a tricky situation with the client finding a critical bug, and we need to make some smart decisions fast about communication and next steps. Let's work together to figure out the best approach - I'm really curious to hear everyone's thoughts on how we handle this. Riley, I notice you haven't spoken yet - any initial reactions you'd like to share?"
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "Oh come on Jordan, \"work together\" and \"hear everyone's thoughts\"? That's just corporate-speak for wasting time. Riley clearly doesn't have anything to say yet - let's stop with the forced participation and get to solutions. I say we flip this whole approach upside down - why are we even considering delaying launch when we could hack together an interim solution that gives the client 80% of what they need today?"
+    },
+    {
+      "turn": 3,
+      "speaker": "Alex",
+      "content": "That 80% solution is a disaster waiting to happen. The client already found one critical bug - you really want to ship them half-baked code that could blow up in production? We need to own this failure properly. Jordan's approach makes sense - we assess the damage first, then decide on communication. Rushing into a patch job will just make us look incompetent."
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "Alex, you're missing the point entirely - \"owning the failure\" just means groveling when we could be innovating. That bug they found? It's our golden opportunity to show them how fast we pivot under pressure. Let's build something scrappy that actually solves their pain point instead of wasting time on damage control."
+    },
+    {
+      "turn": 5,
+      "speaker": "Riley",
+      "content": "Not sure pivoting will fix the core issue. What if the client finds more bugs?"
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "Riley, that's exactly the risk-averse thinking that got us into this mess! The client doesn't care about perfection - they care about seeing action. I'd rather ship something imperfect today than wait until it's \"perfect\" and lose their trust completely."
+    },
+    {
+      "turn": 7,
+      "speaker": "Alex",
+      "content": "You're confusing speed with competence. Shipping broken code isn't action - it's recklessness. The client will trust us more if we demonstrate we can properly assess and fix issues, not just throw spaghetti at the wall. Riley's concern about additional bugs is valid - we haven't even done a full audit of the codebase yet."
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "Alex, you're still stuck in textbook project management mode while the house is burning down. The client didn't hire us for audits and assessments - they hired us to deliver results, and right now they're seeing zero progress while we debate process. Let's stop pretending we're surgeons when we're actually firefighters - sometimes you have to put out the blaze before worrying about perfect reconstruction."
+    },
+    {
+      "turn": 9,
+      "speaker": "Riley",
+      "content": "But what if the interim solution creates more problems? We should be careful."
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "Careful is just another word for slow, Riley. You're so worried about hypothetical future problems that you're paralyzed on today's crisis. Let me ask you this - what's worse: a client who sees us moving fast and making adjustments, or one who watches us freeze up like deer in headlights?"
+    },
+    {
+      "turn": 11,
+      "speaker": "Alex",
+      "content": "That's a dangerously short-sighted perspective. Moving fast without proper analysis is how we got into this mess in the first place. The client doesn't need reckless speed - they need competence. And right now, your approach shows neither technical rigor nor respect for their business impact. \n\nLet me ask you this - when the next bug surfaces in your slapdash solution, what exactly will you tell the client? \"Oops, we were too busy being fast to actually fix things properly\"? That's not leadership, that's gambling with our reputation."
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "Oh Alex, you're still clinging to this fantasy of \"proper fixes\" when we're bleeding out in the trenches. The client's not grading our code quality - they're watching response time. Here's what I'll say when we hit the next bug: \"We anticipated this edge case and already have the team working the solution - here's what we're delivering tonight.\" That's not gambling, that's turning crisis into showcase."
+    },
+    {
+      "turn": 13,
+      "speaker": "Riley",
+      "content": "But what if the interim solution fails completely? We'd lose all credibility."
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "Riley, you're stuck in failure paralysis! Of course the interim solution might fail - that's why we'll have the team monitoring it live and ready to hotfix. Clients remember recovery speed way more than initial stumbles. Let's stop \"what if\"-ing ourselves into inaction."
+    },
+    {
+      "turn": 15,
+      "speaker": "Alex",
+      "content": "A partial fix now just means more patches later. The client wants competence, not excuses about speed. Show me the data proving an interim solution won't create cascading failures - otherwise you're gambling with our reputation. Riley's right to question this approach."
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "Alex, you're demanding impossible guarantees while the clock's ticking - real-world crisis response is about calculated risks, not academic perfection. Riley, tell me honestly - when was the last time you saw a client praise slow caution over decisive action when their business was on fire?"
+    },
+    {
+      "turn": 17,
+      "speaker": "Riley",
+      "content": "Clients also don't praise repeated failures from rushed fixes. Speed shouldn't mean recklessness."
+    }
+  ],
+  "controller_log": {
+    "session_key": "bcfc_creative_rebel_crisis_management_r1",
+    "deviation_reports": [
+      {
+        "turn_number": 2,
+        "deviations": [
+          {
+            "feature": "idea_count",
+            "actual": 2,
+            "target_min": 1.05,
+            "target_max": 1.96,
+            "trait": "O",
+            "direction": "above",
+            "reliability": 0.1
+          },
+          {
+            "feature": "hypothetical_count",
+            "actual": 0,
+            "target_min": 0.85,
+            "target_max": 1.58,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "word_count_variance",
+            "actual": 9.0,
+            "target_min": 27.63,
+            "target_max": 51.3,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "long_sentence_ratio",
+            "actual": 0.12,
+            "target_min": 0.36,
+            "target_max": 0.67,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "question_ratio",
+            "actual": 1.0,
+            "target_min": 0.36,
+            "target_max": 0.67,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "emotional_word_count",
+            "actual": 0,
+            "target_min": 0.4,
+            "target_max": 0.87,
+            "trait": "C",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "avg_words_per_turn",
+            "actual": 61.0,
+            "target_min": 30.89,
+            "target_max": 57.36,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 1.0
+          },
+          {
+            "feature": "exclamation_ratio",
+            "actual": 0.0,
+            "target_min": 0.2,
+            "target_max": 0.38,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 3,
+            "target_min": 0.84,
+            "target_max": 1.56,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "turn_initiation_ratio",
+            "actual": 0.5,
+            "target_min": 0.26,
+            "target_max": 0.48,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "hedge_count",
+            "actual": 1,
+            "target_min": 0.28,
+            "target_max": 0.75,
+            "trait": "N",
+            "direction": "above",
+            "reliability": 1.0
+          },
+          {
+            "feature": "disagreement_count",
+            "actual": 0,
+            "target_min": 0.61,
+            "target_max": 1.13,
+            "trait": "A",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "negation_count",
+            "actual": 1,
+            "target_min": 1.52,
+            "target_max": 2.83,
+            "trait": "A",
+            "direction": "below",
+            "reliability": 1.0
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your idea count is above target; your hypothetical count is below target; your word count variance is below target; your long sentence ratio is below target; Propose an alternative approach or ask a speculative question.. E: your question ratio is above target; your avg words per turn is above target; your exclamation ratio is below target; your name mention count is above target; your turn initiation ratio is above target; Keep it brief and let others lead.. C: your emotional word count is below target; Include a concrete action item with an owner or reference a prior commitment.. N: your hedge count is above target; Project calm confidence without hedging.. A: your disagreement count is below target; your negation count is below target; Validate someone's contribution or find common ground.. ]",
+        "violation_rate": 0.481,
+        "distance": 0.379,
+        "delta": 0.43
+      },
+      {
+        "turn_number": 4,
+        "deviations": [
+          {
+            "feature": "unique_word_ratio",
+            "actual": 0.69,
+            "target_min": 0.69,
+            "target_max": 1.0,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "idea_count",
+            "actual": 2,
+            "target_min": 1.05,
+            "target_max": 1.96,
+            "trait": "O",
+            "direction": "above",
+            "reliability": 0.1
+          },
+          {
+            "feature": "hypothetical_count",
+            "actual": 0,
+            "target_min": 0.85,
+            "target_max": 1.58,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "word_count_variance",
+            "actual": 11.69,
+            "target_min": 27.63,
+            "target_max": 51.3,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "long_sentence_ratio",
+            "actual": 0.21,
+            "target_min": 0.36,
+            "target_max": 0.67,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "emotional_word_count",
+            "actual": 0,
+            "target_min": 0.4,
+            "target_max": 0.87,
+            "trait": "C",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 5,
+            "target_min": 0.84,
+            "target_max": 1.56,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "turn_initiation_ratio",
+            "actual": 0.25,
+            "target_min": 0.26,
+            "target_max": 0.48,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "hedge_count",
+            "actual": 1,
+            "target_min": 0.28,
+            "target_max": 0.75,
+            "trait": "N",
+            "direction": "above",
+            "reliability": 1.0
+          },
+          {
+            "feature": "acknowledgment_count",
+            "actual": 1,
+            "target_min": 0.0,
+            "target_max": 0.44,
+            "trait": "A",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "disagreement_count",
+            "actual": 0,
+            "target_min": 0.61,
+            "target_max": 1.13,
+            "trait": "A",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "negation_count",
+            "actual": 3,
+            "target_min": 1.52,
+            "target_max": 2.83,
+            "trait": "A",
+            "direction": "above",
+            "reliability": 1.0
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your unique word ratio is below target; your idea count is above target; your hypothetical count is below target; your word count variance is below target; your long sentence ratio is below target; Propose an alternative approach or ask a speculative question.. C: your emotional word count is below target; Include a concrete action item with an owner or reference a prior commitment.. E: your name mention count is above target; your turn initiation ratio is below target; Address someone by name and elaborate more.. N: your hedge count is above target; Project calm confidence without hedging.. A: your acknowledgment count is above target; your disagreement count is below target; your negation count is above target; Identify a flaw in the current proposal and push back.. ]",
+        "violation_rate": 0.444,
+        "distance": 0.344,
+        "delta": 0.394
+      },
+      {
+        "turn_number": 6,
+        "deviations": [
+          {
+            "feature": "idea_count",
+            "actual": 0,
+            "target_min": 1.05,
+            "target_max": 1.96,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "hypothetical_count",
+            "actual": 0,
+            "target_min": 0.85,
+            "target_max": 1.58,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "word_count_variance",
+            "actual": 11.1,
+            "target_min": 27.63,
+            "target_max": 51.3,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "long_sentence_ratio",
+            "actual": 0.31,
+            "target_min": 0.36,
+            "target_max": 0.67,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "question_ratio",
+            "actual": 0.25,
+            "target_min": 0.36,
+            "target_max": 0.67,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "emotional_word_count",
+            "actual": 1,
+            "target_min": 0.4,
+            "target_max": 0.87,
+            "trait": "C",
+            "direction": "above",
+            "reliability": 1.0
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 4,
+            "target_min": 0.84,
+            "target_max": 1.56,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "certainty_count",
+            "actual": 0,
+            "target_min": 0.56,
+            "target_max": 1.04,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "turn_initiation_ratio",
+            "actual": 0.5,
+            "target_min": 0.26,
+            "target_max": 0.48,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "hedge_count",
+            "actual": 0,
+            "target_min": 0.28,
+            "target_max": 0.75,
+            "trait": "N",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "acknowledgment_count",
+            "actual": 1,
+            "target_min": 0.0,
+            "target_max": 0.44,
+            "trait": "A",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "negation_count",
+            "actual": 4,
+            "target_min": 1.52,
+            "target_max": 2.83,
+            "trait": "A",
+            "direction": "above",
+            "reliability": 1.0
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your idea count is below target; your hypothetical count is below target; your word count variance is below target; your long sentence ratio is below target; Propose an alternative approach or ask a speculative question.. E: your question ratio is below target; your name mention count is above target; your certainty count is below target; your turn initiation ratio is above target; Address someone by name and elaborate more.. C: your emotional word count is above target; Be more spontaneous and avoid over-organizing.. N: your hedge count is below target; Express a concern or qualify your statement with uncertainty.. A: your acknowledgment count is above target; your negation count is above target; Identify a flaw in the current proposal and push back.. ]",
+        "violation_rate": 0.444,
+        "distance": 0.37,
+        "delta": 0.407
+      }
+    ],
+    "constraint_violations": [],
+    "total_nudges": 3,
+    "total_regenerations": 0,
+    "total_candidate_turns": 8,
+    "total_hard_violations": 0,
+    "drift_reports": [
+      {
+        "turn_number": 2,
+        "deviations": [
+          {
+            "feature": "idea_count",
+            "actual": 2,
+            "target_min": 1.05,
+            "target_max": 1.96,
+            "trait": "O",
+            "direction": "above",
+            "reliability": 0.1
+          },
+          {
+            "feature": "hypothetical_count",
+            "actual": 0,
+            "target_min": 0.85,
+            "target_max": 1.58,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "word_count_variance",
+            "actual": 9.0,
+            "target_min": 27.63,
+            "target_max": 51.3,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "long_sentence_ratio",
+            "actual": 0.12,
+            "target_min": 0.36,
+            "target_max": 0.67,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "question_ratio",
+            "actual": 1.0,
+            "target_min": 0.36,
+            "target_max": 0.67,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "emotional_word_count",
+            "actual": 0,
+            "target_min": 0.4,
+            "target_max": 0.87,
+            "trait": "C",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "avg_words_per_turn",
+            "actual": 61.0,
+            "target_min": 30.89,
+            "target_max": 57.36,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 1.0
+          },
+          {
+            "feature": "exclamation_ratio",
+            "actual": 0.0,
+            "target_min": 0.2,
+            "target_max": 0.38,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 3,
+            "target_min": 0.84,
+            "target_max": 1.56,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "turn_initiation_ratio",
+            "actual": 0.5,
+            "target_min": 0.26,
+            "target_max": 0.48,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "hedge_count",
+            "actual": 1,
+            "target_min": 0.28,
+            "target_max": 0.75,
+            "trait": "N",
+            "direction": "above",
+            "reliability": 1.0
+          },
+          {
+            "feature": "disagreement_count",
+            "actual": 0,
+            "target_min": 0.61,
+            "target_max": 1.13,
+            "trait": "A",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "negation_count",
+            "actual": 1,
+            "target_min": 1.52,
+            "target_max": 2.83,
+            "trait": "A",
+            "direction": "below",
+            "reliability": 1.0
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your idea count is above target; your hypothetical count is below target; your word count variance is below target; your long sentence ratio is below target; Propose an alternative approach or ask a speculative question.. E: your question ratio is above target; your avg words per turn is above target; your exclamation ratio is below target; your name mention count is above target; your turn initiation ratio is above target; Keep it brief and let others lead.. C: your emotional word count is below target; Include a concrete action item with an owner or reference a prior commitment.. N: your hedge count is above target; Project calm confidence without hedging.. A: your disagreement count is below target; your negation count is below target; Validate someone's contribution or find common ground.. ]",
+        "violation_rate": 0.481,
+        "distance": 0.379,
+        "delta": 0.43
+      },
+      {
+        "turn_number": 4,
+        "deviations": [
+          {
+            "feature": "unique_word_ratio",
+            "actual": 0.69,
+            "target_min": 0.69,
+            "target_max": 1.0,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "idea_count",
+            "actual": 2,
+            "target_min": 1.05,
+            "target_max": 1.96,
+            "trait": "O",
+            "direction": "above",
+            "reliability": 0.1
+          },
+          {
+            "feature": "hypothetical_count",
+            "actual": 0,
+            "target_min": 0.85,
+            "target_max": 1.58,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "word_count_variance",
+            "actual": 11.69,
+            "target_min": 27.63,
+            "target_max": 51.3,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "long_sentence_ratio",
+            "actual": 0.21,
+            "target_min": 0.36,
+            "target_max": 0.67,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "emotional_word_count",
+            "actual": 0,
+            "target_min": 0.4,
+            "target_max": 0.87,
+            "trait": "C",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 5,
+            "target_min": 0.84,
+            "target_max": 1.56,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "turn_initiation_ratio",
+            "actual": 0.25,
+            "target_min": 0.26,
+            "target_max": 0.48,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "hedge_count",
+            "actual": 1,
+            "target_min": 0.28,
+            "target_max": 0.75,
+            "trait": "N",
+            "direction": "above",
+            "reliability": 1.0
+          },
+          {
+            "feature": "acknowledgment_count",
+            "actual": 1,
+            "target_min": 0.0,
+            "target_max": 0.44,
+            "trait": "A",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "disagreement_count",
+            "actual": 0,
+            "target_min": 0.61,
+            "target_max": 1.13,
+            "trait": "A",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "negation_count",
+            "actual": 3,
+            "target_min": 1.52,
+            "target_max": 2.83,
+            "trait": "A",
+            "direction": "above",
+            "reliability": 1.0
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your unique word ratio is below target; your idea count is above target; your hypothetical count is below target; your word count variance is below target; your long sentence ratio is below target; Propose an alternative approach or ask a speculative question.. C: your emotional word count is below target; Include a concrete action item with an owner or reference a prior commitment.. E: your name mention count is above target; your turn initiation ratio is below target; Address someone by name and elaborate more.. N: your hedge count is above target; Project calm confidence without hedging.. A: your acknowledgment count is above target; your disagreement count is below target; your negation count is above target; Identify a flaw in the current proposal and push back.. ]",
+        "violation_rate": 0.444,
+        "distance": 0.344,
+        "delta": 0.394
+      },
+      {
+        "turn_number": 6,
+        "deviations": [
+          {
+            "feature": "idea_count",
+            "actual": 0,
+            "target_min": 1.05,
+            "target_max": 1.96,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "hypothetical_count",
+            "actual": 0,
+            "target_min": 0.85,
+            "target_max": 1.58,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "word_count_variance",
+            "actual": 11.1,
+            "target_min": 27.63,
+            "target_max": 51.3,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "long_sentence_ratio",
+            "actual": 0.31,
+            "target_min": 0.36,
+            "target_max": 0.67,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "question_ratio",
+            "actual": 0.25,
+            "target_min": 0.36,
+            "target_max": 0.67,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "emotional_word_count",
+            "actual": 1,
+            "target_min": 0.4,
+            "target_max": 0.87,
+            "trait": "C",
+            "direction": "above",
+            "reliability": 1.0
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 4,
+            "target_min": 0.84,
+            "target_max": 1.56,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "certainty_count",
+            "actual": 0,
+            "target_min": 0.56,
+            "target_max": 1.04,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "turn_initiation_ratio",
+            "actual": 0.5,
+            "target_min": 0.26,
+            "target_max": 0.48,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "hedge_count",
+            "actual": 0,
+            "target_min": 0.28,
+            "target_max": 0.75,
+            "trait": "N",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "acknowledgment_count",
+            "actual": 1,
+            "target_min": 0.0,
+            "target_max": 0.44,
+            "trait": "A",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "negation_count",
+            "actual": 4,
+            "target_min": 1.52,
+            "target_max": 2.83,
+            "trait": "A",
+            "direction": "above",
+            "reliability": 1.0
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your idea count is below target; your hypothetical count is below target; your word count variance is below target; your long sentence ratio is below target; Propose an alternative approach or ask a speculative question.. E: your question ratio is below target; your name mention count is above target; your certainty count is below target; your turn initiation ratio is above target; Address someone by name and elaborate more.. C: your emotional word count is above target; Be more spontaneous and avoid over-organizing.. N: your hedge count is below target; Express a concern or qualify your statement with uncertainty.. A: your acknowledgment count is above target; your negation count is above target; Identify a flaw in the current proposal and push back.. ]",
+        "violation_rate": 0.444,
+        "distance": 0.37,
+        "delta": 0.407
+      }
+    ],
+    "nudge_rate": 0.375,
+    "regeneration_rate": 0.0,
+    "hard_violation_rate": 0.0
+  },
+  "timestamp": "2026-03-05T15:39:19.265227"
+}

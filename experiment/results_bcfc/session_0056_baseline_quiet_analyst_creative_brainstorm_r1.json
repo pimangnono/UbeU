@@ -1,0 +1,369 @@
+{
+  "schema_version": 4,
+  "session_key": "baseline_quiet_analyst_creative_brainstorm_r1",
+  "condition": "main",
+  "intervention": "none",
+  "profile_id": "quiet_analyst",
+  "profile_name": "Quiet Analyst",
+  "scenario_id": "creative_brainstorm",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.5,
+    "C": 0.9,
+    "E": 0.2,
+    "A": 0.6,
+    "N": 0.3
+  },
+  "inferred_vector": {
+    "O": 0.4,
+    "C": 0.6699999999999999,
+    "E": 0.25,
+    "A": 0.825,
+    "N": 0.125
+  },
+  "rule_based_vector": {
+    "O": 0.4147,
+    "C": 0.4237,
+    "E": 0.3287,
+    "A": 0.44,
+    "N": 0.3794
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.4,
+      "C": 0.55,
+      "E": 0.35,
+      "A": 0.825,
+      "N": 0.2
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.7,
+      "C": 0.7,
+      "E": 0.25,
+      "A": 0.8,
+      "N": 0.125
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.3,
+      "C": 0.75,
+      "E": 0.225,
+      "A": 0.95,
+      "N": 0.11
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.53,
+      "C": 0.6699999999999999,
+      "E": 0.265,
+      "A": 0.75,
+      "N": 0.15
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.2,
+      "C": 0.45,
+      "E": 0.2,
+      "A": 0.9,
+      "N": 0.1
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.4,
+        "B": 0.4
+      },
+      "C": {
+        "A": 0.6,
+        "B": 0.5
+      },
+      "E": {
+        "A": 0.3,
+        "B": 0.4
+      },
+      "A": {
+        "A": 0.8,
+        "B": 0.85
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.2
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.7,
+        "B": 0.7
+      },
+      "C": {
+        "A": 0.7,
+        "B": 0.7
+      },
+      "E": {
+        "A": 0.3,
+        "B": 0.2
+      },
+      "A": {
+        "A": 0.8,
+        "B": 0.8
+      },
+      "N": {
+        "A": 0.1,
+        "B": 0.15
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.75,
+        "B": 0.75
+      },
+      "E": {
+        "A": 0.25,
+        "B": 0.2
+      },
+      "A": {
+        "A": 0.95,
+        "B": 0.95
+      },
+      "N": {
+        "A": 0.1,
+        "B": 0.12
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.58,
+        "B": 0.48
+      },
+      "C": {
+        "A": 0.72,
+        "B": 0.62
+      },
+      "E": {
+        "A": 0.28,
+        "B": 0.25
+      },
+      "A": {
+        "A": 0.78,
+        "B": 0.72
+      },
+      "N": {
+        "A": 0.15,
+        "B": 0.15
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.5,
+        "B": 0.4
+      },
+      "E": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "A": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "N": {
+        "A": 0.1,
+        "B": 0.1
+      }
+    }
+  },
+  "overall_confidence": 0.736,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:not"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.0,
+        "model_range": 0.5,
+        "parse_errors": 0,
+        "uncertain": true
+      },
+      "C": {
+        "order_effect": 0.1,
+        "model_range": 0.3,
+        "parse_errors": 1,
+        "uncertain": false
+      },
+      "E": {
+        "order_effect": 0.05,
+        "model_range": 0.15,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "A": {
+        "order_effect": 0.0,
+        "model_range": 0.2,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "N": {
+        "order_effect": 0.0,
+        "model_range": 0.1,
+        "parse_errors": 0,
+        "uncertain": false
+      }
+    },
+    "uncertain_traits": [
+      "O"
+    ],
+    "uncertain_reasons": {
+      "O": [
+        "model_range>0.50"
+      ]
+    }
+  },
+  "features": {
+    "avg_words_per_turn": 19.5,
+    "max_words_in_turn": 26,
+    "min_words_in_turn": 15,
+    "word_count_variance": 3.35,
+    "question_ratio": 0.0,
+    "exclamation_ratio": 0.0,
+    "hedge_count": 2,
+    "certainty_count": 0,
+    "first_person_ratio": 0.0,
+    "inclusive_pronoun_ratio": 0.0128,
+    "disagreement_count": 0,
+    "acknowledgment_count": 0,
+    "idea_count": 2,
+    "name_mention_count": 0,
+    "conditional_ratio": 0.0,
+    "planning_count": 3,
+    "emotional_word_count": 0,
+    "positive_emotion_count": 0,
+    "turn_initiation_ratio": 0.125,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.6731,
+    "long_sentence_ratio": 0.0,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 0,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 0
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 156,
+    "candidate_avg_words_per_turn": 19.5,
+    "times_addressed_others_by_name": 0,
+    "times_asked_questions": 0,
+    "times_expressed_disagreement": 0,
+    "times_acknowledged_others": 0,
+    "times_proposed_new_ideas": 2
+  },
+  "assessment_summary": "Reserved participant, preferred listening over speaking; Collaborative and accommodating in conflict situations; Maintained composure throughout, steady under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "Hey team, I'm really excited we get to brainstorm some fresh ideas for employee engagement today! Since we've got creative freedom and need to land on our top recommendation by EOD, let's start by throwing out any wild or innovative ideas that come to mind. What gets you most excited about coming to work that we could potentially scale up?"
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "Flexible project rotations could boost engagement. Let's evaluate feasibility against measurable outcomes like retention rates."
+    },
+    {
+      "turn": 3,
+      "speaker": "Riley",
+      "content": "But what about the disruption to current projects? Rotations might slow productivity."
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "Valid concern. We could pilot rotations in non-critical teams first, tracking both engagement metrics and productivity impact."
+    },
+    {
+      "turn": 5,
+      "speaker": "Alex",
+      "content": "Piloting in non-critical teams is just kicking the can down the road. Either rotations provide value or they don't - why waste time testing on teams that don't represent our core business? I'd rather see us invest in something with immediate impact like quarterly innovation challenges where employees pitch ideas for company improvements. That drives engagement and delivers tangible results."
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "Innovation challenges offer merit, but we'd need structured criteria to assess submissions fairly. Could combine both ideas - rotations for skill-building alongside challenges for idea generation."
+    },
+    {
+      "turn": 7,
+      "speaker": "Riley",
+      "content": "Combining both sounds complicated. How would we measure which part is working?"
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "Data could separate the effects\u2014track engagement surveys before/after rotations, then compare to challenge participants. But we'd need controls."
+    },
+    {
+      "turn": 9,
+      "speaker": "Alex",
+      "content": "That's way too much overhead for something that should be simple and impactful. Tracking controls and separating effects sounds like we're designing a scientific study, not an engagement program. Let's stick to one clear initiative - either rotations or challenges - and execute it properly across the whole company. Half-measures never work."
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "Data matters, but simplicity has merit. Propose a 90-day pilot: rotations for willing teams, challenges company-wide. Compare engagement metrics side-by-side."
+    },
+    {
+      "turn": 11,
+      "speaker": "Riley",
+      "content": "Pilots sound messy. How do we ensure fair comparison when conditions aren't equal?\n\nI still think we're overcomplicating this."
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "Fair comparison could track baseline metrics first. But agree complexity grows - perhaps better to select one initiative with clearest ROI potential first."
+    },
+    {
+      "turn": 13,
+      "speaker": "Alex",
+      "content": "Finally some sense. I think we should drop this hybrid approach entirely and go all-in on the innovation challenges. They're easier to implement company-wide and we'll see results faster. Rotations sound good in theory but take too long to show impact - challenges let us measure engagement through participation rates and idea quality immediately."
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "Innovation challenges do offer quicker metrics. Could propose quarterly cycles with clear submission guidelines and judging criteria to maintain fairness."
+    },
+    {
+      "turn": 15,
+      "speaker": "Riley",
+      "content": "But what about employees who don't like competitions? Some might find challenges stressful rather than engaging.\n\nOkay, that makes sense if we account for that."
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "We could include non-competitive participation options - perhaps team submissions or anonymous idea contributions alongside individual challenges."
+    },
+    {
+      "turn": 17,
+      "speaker": "Alex",
+      "content": "Forcing non-competitive options defeats the whole purpose of challenges. Either we want to drive engagement through healthy competition or we don't. Anonymous submissions? That's just a suggestion box with extra steps - we've tried those before and they never move the needle. Challenges with clear rewards work because they create urgency and visibility. \n\nRiley, you're worried about stress, but engagement isn't about making everyone comfortable - it's about energizing people. The data shows competitive formats drive 3x more participation than open-ended programs. \n\nCandidate, stop trying to please everyone and pick a direction - which option actually moves metrics?"
+    }
+  ],
+  "controller_log": null,
+  "timestamp": "2026-03-04T17:08:36.642002"
+}

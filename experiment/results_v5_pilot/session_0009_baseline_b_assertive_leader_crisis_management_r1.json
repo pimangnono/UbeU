@@ -1,0 +1,367 @@
+{
+  "schema_version": 3,
+  "session_key": "baseline_b_assertive_leader_crisis_management_r1",
+  "condition": "baseline_b",
+  "profile_id": "assertive_leader",
+  "profile_name": "Assertive Leader",
+  "scenario_id": "crisis_management",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.6,
+    "C": 0.8,
+    "E": 0.4,
+    "A": 0.9,
+    "N": 0.2
+  },
+  "inferred_vector": {
+    "O": 0.25,
+    "C": 0.62,
+    "E": 0.75,
+    "A": 0.72,
+    "N": 0.16499999999999998
+  },
+  "rule_based_vector": {
+    "O": 0.4486,
+    "C": 0.5341,
+    "E": 0.6979,
+    "A": 0.6261,
+    "N": 0.3796
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.3,
+      "C": 0.575,
+      "E": 0.7,
+      "A": 0.7,
+      "N": 0.2
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.25,
+      "C": 0.775,
+      "E": 0.75,
+      "A": 0.75,
+      "N": 0.175
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.225,
+      "C": 0.76,
+      "E": 0.825,
+      "A": 0.8,
+      "N": 0.1
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.315,
+      "C": 0.62,
+      "E": 0.485,
+      "A": 0.72,
+      "N": 0.16499999999999998
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.2,
+      "C": 0.55,
+      "E": 0.75,
+      "A": 0.6499999999999999,
+      "N": 0.1
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.65,
+        "B": 0.5
+      },
+      "E": {
+        "A": 0.7,
+        "B": 0.7
+      },
+      "A": {
+        "A": 0.7,
+        "B": 0.7
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.2
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.2,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.75,
+        "B": 0.8
+      },
+      "E": {
+        "A": 0.7,
+        "B": 0.8
+      },
+      "A": {
+        "A": 0.75,
+        "B": 0.75
+      },
+      "N": {
+        "A": 0.15,
+        "B": 0.2
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.25,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.7,
+        "B": 0.82
+      },
+      "E": {
+        "A": 0.8,
+        "B": 0.85
+      },
+      "A": {
+        "A": 0.8,
+        "B": 0.8
+      },
+      "N": {
+        "A": 0.12,
+        "B": 0.08
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.35,
+        "B": 0.28
+      },
+      "C": {
+        "A": 0.62,
+        "B": 0.62
+      },
+      "E": {
+        "A": 0.35,
+        "B": 0.62
+      },
+      "A": {
+        "A": 0.72,
+        "B": 0.72
+      },
+      "N": {
+        "A": 0.18,
+        "B": 0.15
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.6,
+        "B": 0.5
+      },
+      "E": {
+        "A": 0.7,
+        "B": 0.8
+      },
+      "A": {
+        "A": 0.6,
+        "B": 0.7
+      },
+      "N": {
+        "A": 0.1,
+        "B": 0.1
+      }
+    }
+  },
+  "overall_confidence": 0.7985,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:not"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.05,
+        "model_range": 0.115,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "C": {
+        "order_effect": 0.1,
+        "model_range": 0.225,
+        "parse_errors": 1,
+        "uncertain": false
+      },
+      "E": {
+        "order_effect": 0.1,
+        "model_range": 0.34,
+        "parse_errors": 0,
+        "uncertain": true
+      },
+      "A": {
+        "order_effect": 0.0,
+        "model_range": 0.15,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "N": {
+        "order_effect": 0.03,
+        "model_range": 0.1,
+        "parse_errors": 0,
+        "uncertain": false
+      }
+    },
+    "uncertain_traits": [
+      "E"
+    ],
+    "uncertain_reasons": {
+      "E": [
+        "model_range>0.34"
+      ]
+    }
+  },
+  "features": {
+    "avg_words_per_turn": 47.5,
+    "max_words_in_turn": 56,
+    "min_words_in_turn": 40,
+    "word_count_variance": 5.85,
+    "question_ratio": 0.625,
+    "exclamation_ratio": 0.0,
+    "hedge_count": 3,
+    "certainty_count": 1,
+    "first_person_ratio": 0.0105,
+    "inclusive_pronoun_ratio": 0.0316,
+    "disagreement_count": 1,
+    "acknowledgment_count": 3,
+    "idea_count": 0,
+    "name_mention_count": 17,
+    "conditional_ratio": 0.25,
+    "planning_count": 5,
+    "emotional_word_count": 0,
+    "positive_emotion_count": 2,
+    "turn_initiation_ratio": 0.75,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.5395,
+    "long_sentence_ratio": 0.292,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 0,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 2
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 380,
+    "candidate_avg_words_per_turn": 47.5,
+    "times_addressed_others_by_name": 17,
+    "times_asked_questions": 5,
+    "times_expressed_disagreement": 1,
+    "times_acknowledged_others": 3,
+    "times_proposed_new_ideas": 0
+  },
+  "assessment_summary": "Highly engaged communicator, took initiative frequently; Collaborative and accommodating in conflict situations; Maintained composure throughout, steady under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "We just got hit with this urgent situation, but I know we can handle it together. Let's start by acknowledging the stress but focus on solutions\u2014who wants to take the lead on communicating with the client? Also, Riley, I noticed you've been quiet\u2014what are your thoughts on whether we should delay or ship a partial fix?"
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "That's a good approach, Jordan. Riley, I'd also be interested to hear your perspective\u2014you've handled similar client escalations before. For communication, I suggest we designate one point person to ensure consistency, perhaps someone who's already built rapport with this client."
+    },
+    {
+      "turn": 3,
+      "speaker": "Jordan",
+      "content": "I really like the idea of having a single point person\u2014it keeps our message clear and consistent. Building on that, maybe we could turn this into an opportunity by having Alex deliver the news alongside a creative solution, like offering them early access to our next feature as a goodwill gesture? What do you think about that approach? Riley, you've worked closely with Alex\u2014do you think they'd be comfortable leading that conversation?"
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "I think Alex would be a great choice\u2014they've shown excellent client-facing skills before. The goodwill gesture is a thoughtful touch, though we should confirm with Alex first about their comfort level and ensure we have concrete timelines for that next feature. Riley, since you know Alex's workload best, would they have capacity to take this on?"
+    },
+    {
+      "turn": 5,
+      "speaker": "Alex",
+      "content": "I appreciate the vote of confidence, but let's not sugarcoat this - throwing me in as the messenger with some vague feature promise isn't going to cut it. The client is furious about a critical bug, not looking for future perks. We need to show them we've already got a concrete fix timeline, not distract with unrelated offerings. Riley, what's the actual status on that bug fix - can we realistically commit to a delivery date today?"
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "Alex makes a fair point\u2014we shouldn't offer future perks as a distraction from the immediate issue. Let's focus first on getting Riley's assessment of the bug fix timeline, then we can discuss whether to pair that with any goodwill gestures afterward. Riley, what's your realistic estimate for implementing and testing the fix?"
+    },
+    {
+      "turn": 7,
+      "speaker": "Jordan",
+      "content": "I completely agree we need to focus on the concrete fix first\u2014Alex's directness is refreshing here. But I wonder if there's a creative middle ground\u2014what if we structure the conversation as \"Here's our immediate fix timeline\" followed by \"And here's how we'll prevent similar issues in the future\"? That way we address both the urgent and systemic concerns. Riley, would that approach work with your fix timeline? And Alex, do you think the client would respond better to that kind of structured update?"
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "While I appreciate Jordan's creative approach, I have to side with Alex here\u2014we need to focus solely on the fix timeline first. Presenting systemic solutions prematurely risks undermining confidence if we can't deliver the immediate fix. Riley, let's hear your assessment before discussing anything else."
+    },
+    {
+      "turn": 9,
+      "speaker": "Alex",
+      "content": "Good, at least someone's seeing the urgency here. But let's not just ask Riley for an estimate - we need to know if they've actually started working on the fix yet. Riley, have you already pulled engineers off other tasks to prioritize this? Because if not, any timeline we give the client today is just speculation. And speculation is exactly what got us into this mess - we promised deliverables without proper QA."
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "Alex is absolutely right\u2014we need concrete action before promising anything. Riley, please confirm whether engineers are actively working on the fix right now, because empty timelines will only make this worse. Let's get that confirmation before we discuss anything else with the client."
+    },
+    {
+      "turn": 11,
+      "speaker": "Riley",
+      "content": "The engineers started on the fix an hour ago, but I'm not sure we can give a timeline yet."
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "That's helpful context, Riley. Since the fix is already in progress, let's focus on getting a realistic ETA from the engineers before our client call\u2014perhaps we can circle back in 15 minutes for an update? In the meantime, Alex, would you be comfortable drafting the key talking points based on what we know so far?"
+    },
+    {
+      "turn": 13,
+      "speaker": "Alex",
+      "content": "Drafting talking points now is premature - we don't even know if we're fixing this in hours or days. I'm not putting my name on vague promises again. Riley, go get those engineers on a huddle right now - we need actual numbers before we can plan any communication. And someone check if this bug affects other clients while we're at it."
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "You're right\u2014we need concrete numbers before drafting anything. Riley, could you please pull the engineers into a quick huddle to get their best estimate? And Jordan, would you check if this impacts any other clients while we wait for that update?"
+    },
+    {
+      "turn": 15,
+      "speaker": "Riley",
+      "content": "The engineers are already stretched thin. Not sure we'll get a reliable estimate in 15 minutes."
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "Understood, Riley. Let's focus on what we confirm right now\u2014the fix is already in progress, and we'll have more concrete data soon. In the meantime, Jordan, could you quietly prep two versions of talking points\u2014one optimistic scenario and one conservative\u2014so we're ready to adapt once we have numbers?"
+    },
+    {
+      "turn": 17,
+      "speaker": "Alex",
+      "content": "Prepping two versions of talking points is just creating more work when we don't even know which scenario is realistic yet. Jordan should be focused on checking for other affected clients, not wasting time on hypotheticals. Riley, tell those engineers to drop everything else - this is an all-hands situation until we have a real fix timeline. We're burning client trust by the minute here."
+    }
+  ],
+  "timestamp": "2026-03-04T10:33:32.632954"
+}

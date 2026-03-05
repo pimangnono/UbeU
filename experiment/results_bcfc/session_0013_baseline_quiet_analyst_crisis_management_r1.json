@@ -1,0 +1,369 @@
+{
+  "schema_version": 4,
+  "session_key": "baseline_quiet_analyst_crisis_management_r1",
+  "condition": "main",
+  "intervention": "none",
+  "profile_id": "quiet_analyst",
+  "profile_name": "Quiet Analyst",
+  "scenario_id": "crisis_management",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.5,
+    "C": 0.9,
+    "E": 0.2,
+    "A": 0.6,
+    "N": 0.3
+  },
+  "inferred_vector": {
+    "O": 0.3,
+    "C": 0.825,
+    "E": 0.3,
+    "A": 0.8,
+    "N": 0.15
+  },
+  "rule_based_vector": {
+    "O": 0.3825,
+    "C": 0.4951,
+    "E": 0.5002,
+    "A": 0.4954,
+    "N": 0.3281
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.3,
+      "C": 0.825,
+      "E": 0.275,
+      "A": 0.775,
+      "N": 0.2
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.3,
+      "C": 0.875,
+      "E": 0.3,
+      "A": 0.8,
+      "N": 0.15000000000000002
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.15,
+      "C": 0.9,
+      "E": 0.5,
+      "A": 0.875,
+      "N": 0.12
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.30000000000000004,
+      "C": 0.78,
+      "E": 0.28,
+      "A": 0.28,
+      "N": 0.15
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.2,
+      "C": 0.75,
+      "E": 0.3,
+      "A": 0.9,
+      "N": 0.1
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.8,
+        "B": 0.85
+      },
+      "E": {
+        "A": 0.25,
+        "B": 0.3
+      },
+      "A": {
+        "A": 0.8,
+        "B": 0.75
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.2
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.85,
+        "B": 0.9
+      },
+      "E": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "A": {
+        "A": 0.75,
+        "B": 0.85
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.1
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.15,
+        "B": 0.15
+      },
+      "C": {
+        "A": 0.88,
+        "B": 0.92
+      },
+      "E": {
+        "A": 0.45,
+        "B": 0.55
+      },
+      "A": {
+        "A": 0.85,
+        "B": 0.9
+      },
+      "N": {
+        "A": 0.12,
+        "B": 0.12
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.32,
+        "B": 0.28
+      },
+      "C": {
+        "A": 0.78,
+        "B": 0.78
+      },
+      "E": {
+        "A": 0.28,
+        "B": 0.28
+      },
+      "A": {
+        "A": 0.28,
+        "B": 0.28
+      },
+      "N": {
+        "A": 0.15,
+        "B": 0.15
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.7,
+        "B": 0.8
+      },
+      "E": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "A": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "N": {
+        "A": 0.1,
+        "B": 0.1
+      }
+    }
+  },
+  "overall_confidence": 0.751,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:not"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.0,
+        "model_range": 0.15,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "C": {
+        "order_effect": 0.05,
+        "model_range": 0.15,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "E": {
+        "order_effect": 0.0,
+        "model_range": 0.225,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "A": {
+        "order_effect": 0.05,
+        "model_range": 0.62,
+        "parse_errors": 0,
+        "uncertain": true
+      },
+      "N": {
+        "order_effect": 0.0,
+        "model_range": 0.1,
+        "parse_errors": 0,
+        "uncertain": false
+      }
+    },
+    "uncertain_traits": [
+      "A"
+    ],
+    "uncertain_reasons": {
+      "A": [
+        "model_range>0.62"
+      ]
+    }
+  },
+  "features": {
+    "avg_words_per_turn": 26.38,
+    "max_words_in_turn": 33,
+    "min_words_in_turn": 16,
+    "word_count_variance": 5.94,
+    "question_ratio": 0.125,
+    "exclamation_ratio": 0.0,
+    "hedge_count": 0,
+    "certainty_count": 2,
+    "first_person_ratio": 0.0,
+    "inclusive_pronoun_ratio": 0.019,
+    "disagreement_count": 0,
+    "acknowledgment_count": 1,
+    "idea_count": 0,
+    "name_mention_count": 6,
+    "conditional_ratio": 0.25,
+    "planning_count": 3,
+    "emotional_word_count": 0,
+    "positive_emotion_count": 0,
+    "turn_initiation_ratio": 0.125,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.7109,
+    "long_sentence_ratio": 0.0,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 0,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 4
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 211,
+    "candidate_avg_words_per_turn": 26.38,
+    "times_addressed_others_by_name": 6,
+    "times_asked_questions": 1,
+    "times_expressed_disagreement": 0,
+    "times_acknowledged_others": 1,
+    "times_proposed_new_ideas": 0
+  },
+  "assessment_summary": "Collaborative and accommodating in conflict situations; Maintained composure throughout, steady under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "Okay team, we've got a hot situation here - the client found a critical bug and they're understandably upset. We've got three big decisions to make in the next 30 minutes before we call them back. I'm confident we can work through this together - who wants to start with thoughts on who should handle the client communication? Riley, I'd love to hear your perspective since you've worked closely with this client before."
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "Riley has the strongest relationship with them. They should lead the call, with Jordan backing them up for technical details."
+    },
+    {
+      "turn": 3,
+      "speaker": "Jordan",
+      "content": "I really like that suggestion - Riley's relationship with the client is definitely our strongest asset here. Building on what you said, maybe I could prepare a technical one-pager for Riley to reference during the call? That way we're combining relationship strength with technical accuracy. Alex, what do you think about this approach - would that help you feel prepared to support Riley with the technical details?"
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "The one-pager is a good idea. Make sure it clearly separates known issues from potential workarounds."
+    },
+    {
+      "turn": 5,
+      "speaker": "Alex",
+      "content": "That one-pager idea is wasting time we don't have. The client already found a critical bug - they don't need us explaining the obvious. Riley should just handle the call directly with the facts. If we start feeding them prepared scripts, it'll sound rehearsed and damage trust further. Let's focus on fixing the damn problem instead of paperwork."
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "Alex has a point about urgency, but structure prevents more mistakes. The one-pager isn't a script\u2014it's a reference to keep responses consistent across teams. Riley can adapt it naturally during the call."
+    },
+    {
+      "turn": 7,
+      "speaker": "Riley",
+      "content": "I'm not sure a one-pager will help if the client is already upset. They'll want answers, not paperwork.\n\nHow do we know the fix won't introduce more bugs? That's my main concern here."
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "A structured reference ensures we don't contradict ourselves under pressure. Riley can use it flexibly while maintaining accuracy\u2014that builds trust, not damages it. For the fix, we should prioritize regression testing before deployment."
+    },
+    {
+      "turn": 9,
+      "speaker": "Alex",
+      "content": "That structured reference is just bureaucracy slowing us down. We're already on thin ice with the client - they don't care about our internal processes, they care about results. Regression testing? That's baseline work we should have done already. The real issue is we're trying to cover our tracks instead of owning the failure and presenting concrete solutions. Let's cut the corporate speak and tell them exactly how we're fixing this - no fluff."
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "Processes exist to prevent exactly this situation. Skipping them now guarantees more mistakes under pressure. The client needs both honesty and competence\u2014we deliver both through structure, not shortcuts."
+    },
+    {
+      "turn": 11,
+      "speaker": "Riley",
+      "content": "But we only have 30 minutes. How do we ensure quality with that time pressure?"
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "Structure the 30 minutes: 15 for root cause analysis, 10 for solution options, 5 for client messaging. Assign owners to each segment\u2014I'll track time. Regression tests can be prioritized to critical paths only."
+    },
+    {
+      "turn": 13,
+      "speaker": "Alex",
+      "content": "Breaking down the time like that is unrealistic - root cause analysis in 15 minutes? That's how we got into this mess by rushing diagnostics. And who's actually coding the fix while we're in meetings? Your plan has us spending all our time talking about the problem instead of fixing it. We need engineers heads-down right now, not more process overhead."
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "Prioritize engineers on the fix\u2014I'll handle root cause analysis solo. Suggest we split: coding team works while leadership finalizes client approach in parallel."
+    },
+    {
+      "turn": 15,
+      "speaker": "Riley",
+      "content": "Who's verifying the root cause analysis if you're doing it alone? That seems risky."
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "A second pair of eyes would help\u2014Riley, could you review the analysis output while engineers start coding? We'll document assumptions clearly so you can spot-check efficiently."
+    },
+    {
+      "turn": 17,
+      "speaker": "Alex",
+      "content": "That still leaves us with zero time for actual testing before we push the fix to the client. Riley reviewing your analysis doesn't solve the core problem - we're just moving paperwork around while engineers code blind. Either we delay the launch to properly test, or we're setting ourselves up for another failure. Clients don't care about our internal reviews when their systems are down."
+    }
+  ],
+  "controller_log": null,
+  "timestamp": "2026-03-04T14:55:30.069076"
+}

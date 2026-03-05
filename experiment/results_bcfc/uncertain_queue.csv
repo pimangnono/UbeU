@@ -1,0 +1,2 @@
+session_key,trait,reason,assigned,inferred,scenario_id,profile_id
+baseline_quiet_analyst_resource_conflict_r1,C,"model_range>0.31,parse_errors=2",0.9,0.62,resource_conflict,quiet_analyst

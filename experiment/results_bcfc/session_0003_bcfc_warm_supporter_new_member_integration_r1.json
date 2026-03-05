@@ -1,0 +1,776 @@
+{
+  "schema_version": 4,
+  "session_key": "bcfc_warm_supporter_new_member_integration_r1",
+  "condition": "main",
+  "intervention": "bcfc",
+  "profile_id": "warm_supporter",
+  "profile_name": "Warm Supporter",
+  "scenario_id": "new_member_integration",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.6,
+    "C": 0.6,
+    "E": 0.7,
+    "A": 0.8,
+    "N": 0.3
+  },
+  "inferred_vector": {
+    "O": 0.35,
+    "C": 0.75,
+    "E": 0.8,
+    "A": 0.85,
+    "N": 0.125
+  },
+  "rule_based_vector": {
+    "O": 0.5818,
+    "C": 0.4925,
+    "E": 0.7946,
+    "A": 0.6357,
+    "N": 0.4171
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.35,
+      "C": 0.75,
+      "E": 0.775,
+      "A": 0.825,
+      "N": 0.2
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.675,
+      "C": 0.825,
+      "E": 0.825,
+      "A": 0.85,
+      "N": 0.125
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.225,
+      "C": 0.835,
+      "E": 0.91,
+      "A": 0.95,
+      "N": 0.12
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.53,
+      "C": 0.6699999999999999,
+      "E": 0.72,
+      "A": 0.8,
+      "N": 0.18
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.2,
+      "C": 0.7,
+      "E": 0.8,
+      "A": 0.9,
+      "N": 0.1
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.4,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.75,
+        "B": 0.75
+      },
+      "E": {
+        "A": 0.8,
+        "B": 0.75
+      },
+      "A": {
+        "A": 0.8,
+        "B": 0.85
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.2
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.7,
+        "B": 0.65
+      },
+      "C": {
+        "A": 0.8,
+        "B": 0.85
+      },
+      "E": {
+        "A": 0.8,
+        "B": 0.85
+      },
+      "A": {
+        "A": 0.85,
+        "B": 0.85
+      },
+      "N": {
+        "A": 0.1,
+        "B": 0.15
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.2,
+        "B": 0.25
+      },
+      "C": {
+        "A": 0.85,
+        "B": 0.82
+      },
+      "E": {
+        "A": 0.9,
+        "B": 0.92
+      },
+      "A": {
+        "A": 0.95,
+        "B": 0.95
+      },
+      "N": {
+        "A": 0.12,
+        "B": 0.12
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.68,
+        "B": 0.38
+      },
+      "C": {
+        "A": 0.72,
+        "B": 0.62
+      },
+      "E": {
+        "A": 0.72,
+        "B": 0.72
+      },
+      "A": {
+        "A": 0.82,
+        "B": 0.78
+      },
+      "N": {
+        "A": 0.18,
+        "B": 0.18
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.8,
+        "B": 0.6
+      },
+      "E": {
+        "A": 0.8,
+        "B": 0.8
+      },
+      "A": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "N": {
+        "A": 0.1,
+        "B": 0.1
+      }
+    }
+  },
+  "overall_confidence": 0.784,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:don't",
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:not"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.05,
+        "model_range": 0.475,
+        "parse_errors": 0,
+        "uncertain": true
+      },
+      "C": {
+        "order_effect": 0.05,
+        "model_range": 0.165,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "E": {
+        "order_effect": 0.02,
+        "model_range": 0.19,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "A": {
+        "order_effect": 0.0,
+        "model_range": 0.15,
+        "parse_errors": 0,
+        "uncertain": false
+      },
+      "N": {
+        "order_effect": 0.0,
+        "model_range": 0.1,
+        "parse_errors": 0,
+        "uncertain": false
+      }
+    },
+    "uncertain_traits": [
+      "O"
+    ],
+    "uncertain_reasons": {
+      "O": [
+        "model_range>0.47"
+      ]
+    }
+  },
+  "features": {
+    "avg_words_per_turn": 61.88,
+    "max_words_in_turn": 101,
+    "min_words_in_turn": 38,
+    "word_count_variance": 19.08,
+    "question_ratio": 1.0,
+    "exclamation_ratio": 0.375,
+    "hedge_count": 4,
+    "certainty_count": 1,
+    "first_person_ratio": 0.0121,
+    "inclusive_pronoun_ratio": 0.0242,
+    "disagreement_count": 0,
+    "acknowledgment_count": 2,
+    "idea_count": 3,
+    "name_mention_count": 21,
+    "conditional_ratio": 0.0,
+    "planning_count": 4,
+    "emotional_word_count": 0,
+    "positive_emotion_count": 3,
+    "turn_initiation_ratio": 0.625,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.5515,
+    "long_sentence_ratio": 0.229,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 3,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 2
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 495,
+    "candidate_avg_words_per_turn": 61.88,
+    "times_addressed_others_by_name": 21,
+    "times_asked_questions": 8,
+    "times_expressed_disagreement": 0,
+    "times_acknowledged_others": 2,
+    "times_proposed_new_ideas": 3
+  },
+  "assessment_summary": "Highly engaged communicator, took initiative frequently; Collaborative and accommodating in conflict situations; Maintained composure throughout, steady under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "It's great to have Riley joining our team! I think we should start by sharing where we're at with the project and then hear from Riley about their strengths and preferred working style. That way we can find the best way to redistribute tasks while playing to everyone's strengths. \n\nRiley, what types of projects or responsibilities have you really enjoyed in your previous role? That might help us see where you'd fit best here. \n\nAnd team, maybe we could each share one current responsibility we think might be a good fit to transition to Riley? I'll start - I've been handling the client progress reports, but I know Riley has strong presentation skills from their background. What does everyone think?"
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "That's a fantastic approach, Jordan! Riley, I'd love to hear more about what energizes you - maybe share a project where you felt particularly in your element? And I completely agree about playing to strengths - I've been handling the data visualization work but noticed Riley's portfolio had some stunning interactive dashboards that might be a perfect fit. How does that sound to everyone?"
+    },
+    {
+      "turn": 3,
+      "speaker": "Jordan",
+      "content": "I love how you're already identifying great connections between Riley's skills and our needs! Riley, I'd be really curious to hear more about those interactive dashboards you've created - what tools and approaches did you use? \n\nAnd building on what you both said, maybe we could schedule a quick knowledge sharing session where Riley walks us through one of those dashboards? That could help us see how to best integrate those skills into our workflow. \n\nWhat do you think, team? Should we look at scheduling that for later this week?"
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "That knowledge sharing session sounds brilliant, Jordan! Riley, I'd be especially interested to hear how you approach user experience design in those dashboards - that's something our team could really grow in. How about we aim for Thursday afternoon? That gives everyone time to clear their schedules."
+    },
+    {
+      "turn": 5,
+      "speaker": "Alex",
+      "content": "That Thursday timeline is way too loose. We need Riley operational by Wednesday at the latest if we're hitting our quarterly targets. Riley, forget the fluffy knowledge sharing - can you show us raw output from your last dashboard project? We'll reverse engineer your process in half the time. \n\nAlso, Jordan, your reports are overdue. If we're shifting those to Riley, I need to see concrete evidence they can handle the pace. Pretty presentations don't mean squat if they can't meet deadlines. \n\nCandidate, you're being too soft here. We're bleeding time - how exactly will you compress this onboarding?"
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "Alex, I hear your urgency about the deadlines\u2014let\u2019s tackle this pragmatically. Riley, could you share a recent dashboard file by end of day? That\u2019ll give Alex the concrete output needed, while Jordan and I can still coordinate Thursday\u2019s session to unpack the behind your design choices. Alex, I\u2019ll personally ensure the client reports transition smoothly\u2014maybe we sync tomorrow morning to align on priorities? That way, Riley gets both the immediate need and the long-term integration."
+    },
+    {
+      "turn": 7,
+      "speaker": "Riley",
+      "content": "Not sure about sharing files before understanding the project scope. What data protections are in place here?  \n\nThursday seems rushed for knowledge transfer. Could we see a documentation draft first?"
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "Absolutely, Riley raises excellent points about security and pacing! Let's start by sharing our NDA and data protocols today\u2014Alex, could you forward those? Then we'll revisit the timeline once Riley's comfortable with the framework. Sound fair to everyone?"
+    },
+    {
+      "turn": 9,
+      "speaker": "Alex",
+      "content": "That NDA handoff is just bureaucracy slowing us down. Riley, I need to know right now\u2014can you commit to having functional dashboards integrated by Wednesday? The client demo isn't waiting for your comfort level. \n\nCandidate, you're dancing around the hard deadlines. Either Riley can deliver under pressure or we need to adjust our expectations downward. Which is it? \n\nAnd Jordan, your reports still aren't done. If we're transferring those, I need to see Riley cranking out draft slides by end of day today, not next week."
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "Alex, I completely understand the urgency\u2014let\u2019s get Riley those report templates and sample data immediately so they can hit the ground running. Riley, how about we carve out 30 minutes after lunch to walk through the dashboard framework together? That way you\u2019ll have both the security context and the raw materials to show progress by EOD. Jordan, maybe you could join us to bridge any gaps between the reports and dashboards?"
+    },
+    {
+      "turn": 11,
+      "speaker": "Riley",
+      "content": "Not sure that 30 minutes is enough. What's the error margin on these dashboards? \n\nI'll need to see the data schema before committing to any output."
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "Let's take this step by step\u2014Alex, I'll get Riley those data schemas right away, and Riley, why don't we schedule a full hour after lunch? That way we can properly assess the error margins together while Jordan shares the report context. Everyone comfortable with that approach?"
+    },
+    {
+      "turn": 13,
+      "speaker": "Alex",
+      "content": "This hour-long meeting after lunch is wasting productive time we don't have. Riley either understands the schemas or doesn't - an hour won't change that basic competency. \n\nCandidate, you're still not addressing the core issue: we have client deliverables due Wednesday that require functional dashboards TODAY for QA checks. All this handholding is jeopardizing that timeline.\n\nJordan, since you're apparently free enough to attend these lengthy sessions, why aren't those reports finished? Priorities people."
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "Alex, let's address both urgencies\u2014Riley gets the schemas and a 1-hour crash course now, while Jordan and I knock out those reports by noon. That gives Riley space to ask clarifying questions hitting Wednesday's deadline. Riley, sound fair if we combine the dashboard review with your onboarding paperwork right after lunch? Hard deadlines stay intact\u2014I'll stake my reputation on those reports being polished by lunch. But we can't sacrifice quality onboarding that'll bite us later. Let's trust each other's strengths here. Anyone blocked on making this timeline work? Jordan, especially want your take on merging the report handoff with Riley's training."
+    },
+    {
+      "turn": 15,
+      "speaker": "Riley",
+      "content": "Not convinced merging onboarding with dashboard review works. The schemas have changed twice this month already - how do we prevent rework? \n\nAlex is right about QA needing time. Maybe Jordan should handle dashboards while I audit the data sources first."
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "Alex makes a fair point about QA timelines, but Riley's concern about shifting schemas is valid too\u2014let's have Jordan run today's dashboards while Riley audits the sources. That way we meet the deadline without compromising data integrity. Riley, would reviewing Jordan's output tomorrow morning give you enough confidence to take over future iterations?"
+    },
+    {
+      "turn": 17,
+      "speaker": "Alex",
+      "content": "That approach creates more problems than it solves. Jordan barely understands the current schema themselves - their dashboards will require complete rework once Riley finishes auditing. Either Riley takes ownership now with proper oversight or we delay the client demo. There\u2019s no middle ground that doesn\u2019t waste time. \n\nAnd candidate, you\u2019re still ignoring Jordan\u2019s overdue reports - we can\u2019t keep shifting priorities without someone actually delivering something. Either Jordan focuses on reports or dashboards, not this half-assed attempt at both."
+    }
+  ],
+  "controller_log": {
+    "session_key": "bcfc_warm_supporter_new_member_integration_r1",
+    "deviation_reports": [
+      {
+        "turn_number": 2,
+        "deviations": [
+          {
+            "feature": "idea_count",
+            "actual": 1,
+            "target_min": 0.43,
+            "target_max": 0.9,
+            "trait": "O",
+            "direction": "above"
+          },
+          {
+            "feature": "hypothetical_count",
+            "actual": 0,
+            "target_min": 0.28,
+            "target_max": 0.75,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "word_count_variance",
+            "actual": 8.5,
+            "target_min": 11.95,
+            "target_max": 22.19,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "long_sentence_ratio",
+            "actual": 0.38,
+            "target_min": 0.15,
+            "target_max": 0.28,
+            "trait": "O",
+            "direction": "above"
+          },
+          {
+            "feature": "question_ratio",
+            "actual": 1.0,
+            "target_min": 0.36,
+            "target_max": 0.67,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "planning_count",
+            "actual": 1,
+            "target_min": 0.43,
+            "target_max": 0.9,
+            "trait": "C",
+            "direction": "above"
+          },
+          {
+            "feature": "structure_marker_count",
+            "actual": 0,
+            "target_min": 0.43,
+            "target_max": 0.9,
+            "trait": "C",
+            "direction": "below"
+          },
+          {
+            "feature": "conditional_ratio",
+            "actual": 0.0,
+            "target_min": 0.15,
+            "target_max": 0.28,
+            "trait": "C",
+            "direction": "below"
+          },
+          {
+            "feature": "reference_back_count",
+            "actual": 0,
+            "target_min": 0.28,
+            "target_max": 0.75,
+            "trait": "C",
+            "direction": "below"
+          },
+          {
+            "feature": "action_item_count",
+            "actual": 0,
+            "target_min": 0.14,
+            "target_max": 0.61,
+            "trait": "C",
+            "direction": "below"
+          },
+          {
+            "feature": "exclamation_ratio",
+            "actual": 1.0,
+            "target_min": 0.2,
+            "target_max": 0.38,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 4,
+            "target_min": 0.84,
+            "target_max": 1.56,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "certainty_count",
+            "actual": 0,
+            "target_min": 0.56,
+            "target_max": 1.04,
+            "trait": "E",
+            "direction": "below"
+          },
+          {
+            "feature": "turn_initiation_ratio",
+            "actual": 0.5,
+            "target_min": 0.26,
+            "target_max": 0.48,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "hedge_count",
+            "actual": 2,
+            "target_min": 0.07,
+            "target_max": 0.54,
+            "trait": "N",
+            "direction": "above"
+          },
+          {
+            "feature": "acknowledgment_count",
+            "actual": 0,
+            "target_min": 1.07,
+            "target_max": 1.98,
+            "trait": "A",
+            "direction": "below"
+          },
+          {
+            "feature": "positive_emotion_count",
+            "actual": 2,
+            "target_min": 0.57,
+            "target_max": 1.06,
+            "trait": "A",
+            "direction": "above"
+          },
+          {
+            "feature": "negation_count",
+            "actual": 0,
+            "target_min": 0.0,
+            "target_max": -0.22,
+            "trait": "A",
+            "direction": "above"
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your idea count is above target; your hypothetical count is below target; your word count variance is below target; your long sentence ratio is above target; Propose an alternative approach or ask a speculative question.. E: your question ratio is above target; your exclamation ratio is above target; your name mention count is above target; your certainty count is below target; your turn initiation ratio is above target; Keep it brief and let others lead.. C: your planning count is above target; your structure marker count is below target; your conditional ratio is below target; your reference back count is below target; your action item count is below target; Include a concrete action item with an owner or reference a prior commitment.. N: your hedge count is above target; Project calm confidence without hedging.. A: your acknowledgment count is below target; your positive emotion count is above target; your negation count is above target; Identify a flaw in the current proposal and push back.. ]",
+        "severity": 0.667
+      },
+      {
+        "turn_number": 4,
+        "deviations": [
+          {
+            "feature": "idea_count",
+            "actual": 1,
+            "target_min": 0.43,
+            "target_max": 0.9,
+            "trait": "O",
+            "direction": "above"
+          },
+          {
+            "feature": "hypothetical_count",
+            "actual": 0,
+            "target_min": 0.28,
+            "target_max": 0.75,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "question_ratio",
+            "actual": 1.0,
+            "target_min": 0.36,
+            "target_max": 0.67,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "planning_count",
+            "actual": 2,
+            "target_min": 0.43,
+            "target_max": 0.9,
+            "trait": "C",
+            "direction": "above"
+          },
+          {
+            "feature": "structure_marker_count",
+            "actual": 0,
+            "target_min": 0.43,
+            "target_max": 0.9,
+            "trait": "C",
+            "direction": "below"
+          },
+          {
+            "feature": "conditional_ratio",
+            "actual": 0.0,
+            "target_min": 0.15,
+            "target_max": 0.28,
+            "trait": "C",
+            "direction": "below"
+          },
+          {
+            "feature": "reference_back_count",
+            "actual": 0,
+            "target_min": 0.28,
+            "target_max": 0.75,
+            "trait": "C",
+            "direction": "below"
+          },
+          {
+            "feature": "action_item_count",
+            "actual": 1,
+            "target_min": 0.14,
+            "target_max": 0.61,
+            "trait": "C",
+            "direction": "above"
+          },
+          {
+            "feature": "exclamation_ratio",
+            "actual": 0.75,
+            "target_min": 0.2,
+            "target_max": 0.38,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 9,
+            "target_min": 0.84,
+            "target_max": 1.56,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "turn_initiation_ratio",
+            "actual": 0.5,
+            "target_min": 0.26,
+            "target_max": 0.48,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "hedge_count",
+            "actual": 3,
+            "target_min": 0.07,
+            "target_max": 0.54,
+            "trait": "N",
+            "direction": "above"
+          },
+          {
+            "feature": "acknowledgment_count",
+            "actual": 1,
+            "target_min": 1.07,
+            "target_max": 1.98,
+            "trait": "A",
+            "direction": "below"
+          },
+          {
+            "feature": "positive_emotion_count",
+            "actual": 3,
+            "target_min": 0.57,
+            "target_max": 1.06,
+            "trait": "A",
+            "direction": "above"
+          },
+          {
+            "feature": "negation_count",
+            "actual": 0,
+            "target_min": 0.0,
+            "target_max": -0.22,
+            "trait": "A",
+            "direction": "above"
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your idea count is above target; your hypothetical count is below target; Propose an alternative approach or ask a speculative question.. E: your question ratio is above target; your exclamation ratio is above target; your name mention count is above target; your turn initiation ratio is above target; Keep it brief and let others lead.. C: your planning count is above target; your structure marker count is below target; your conditional ratio is below target; your reference back count is below target; your action item count is above target; Include a concrete action item with an owner or reference a prior commitment.. N: your hedge count is above target; Project calm confidence without hedging.. A: your acknowledgment count is below target; your positive emotion count is above target; your negation count is above target; Identify a flaw in the current proposal and push back.. ]",
+        "severity": 0.556
+      },
+      {
+        "turn_number": 6,
+        "deviations": [
+          {
+            "feature": "idea_count",
+            "actual": 2,
+            "target_min": 0.43,
+            "target_max": 0.9,
+            "trait": "O",
+            "direction": "above"
+          },
+          {
+            "feature": "hypothetical_count",
+            "actual": 0,
+            "target_min": 0.28,
+            "target_max": 0.75,
+            "trait": "O",
+            "direction": "below"
+          },
+          {
+            "feature": "question_ratio",
+            "actual": 1.0,
+            "target_min": 0.36,
+            "target_max": 0.67,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "planning_count",
+            "actual": 3,
+            "target_min": 0.43,
+            "target_max": 0.9,
+            "trait": "C",
+            "direction": "above"
+          },
+          {
+            "feature": "structure_marker_count",
+            "actual": 0,
+            "target_min": 0.43,
+            "target_max": 0.9,
+            "trait": "C",
+            "direction": "below"
+          },
+          {
+            "feature": "conditional_ratio",
+            "actual": 0.0,
+            "target_min": 0.15,
+            "target_max": 0.28,
+            "trait": "C",
+            "direction": "below"
+          },
+          {
+            "feature": "reference_back_count",
+            "actual": 0,
+            "target_min": 0.28,
+            "target_max": 0.75,
+            "trait": "C",
+            "direction": "below"
+          },
+          {
+            "feature": "action_item_count",
+            "actual": 1,
+            "target_min": 0.14,
+            "target_max": 0.61,
+            "trait": "C",
+            "direction": "above"
+          },
+          {
+            "feature": "avg_words_per_turn",
+            "actual": 57.5,
+            "target_min": 30.89,
+            "target_max": 57.36,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 11,
+            "target_min": 0.84,
+            "target_max": 1.56,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "turn_initiation_ratio",
+            "actual": 1.0,
+            "target_min": 0.26,
+            "target_max": 0.48,
+            "trait": "E",
+            "direction": "above"
+          },
+          {
+            "feature": "hedge_count",
+            "actual": 2,
+            "target_min": 0.07,
+            "target_max": 0.54,
+            "trait": "N",
+            "direction": "above"
+          },
+          {
+            "feature": "acknowledgment_count",
+            "actual": 1,
+            "target_min": 1.07,
+            "target_max": 1.98,
+            "trait": "A",
+            "direction": "below"
+          },
+          {
+            "feature": "negation_count",
+            "actual": 1,
+            "target_min": 0.0,
+            "target_max": -0.22,
+            "trait": "A",
+            "direction": "above"
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your idea count is above target; your hypothetical count is below target; Propose an alternative approach or ask a speculative question.. E: your question ratio is above target; your avg words per turn is above target; your name mention count is above target; your turn initiation ratio is above target; Keep it brief and let others lead.. C: your planning count is above target; your structure marker count is below target; your conditional ratio is below target; your reference back count is below target; your action item count is above target; Include a concrete action item with an owner or reference a prior commitment.. N: your hedge count is above target; Project calm confidence without hedging.. A: your acknowledgment count is below target; your negation count is above target; Validate someone's contribution or find common ground.. ]",
+        "severity": 0.519
+      }
+    ],
+    "constraint_violations": [],
+    "total_nudges": 3,
+    "total_regenerations": 0,
+    "total_candidate_turns": 8,
+    "nudge_rate": 0.375,
+    "regeneration_rate": 0.0
+  },
+  "timestamp": "2026-03-04T14:22:31.998363"
+}
