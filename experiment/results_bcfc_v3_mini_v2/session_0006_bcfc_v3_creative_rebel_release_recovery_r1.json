@@ -1,0 +1,3083 @@
+{
+  "schema_version": 4,
+  "session_key": "bcfc_v3_creative_rebel_release_recovery_r1",
+  "condition": "mini_v3",
+  "intervention": "bcfc_v3",
+  "profile_id": "creative_rebel",
+  "profile_name": "Creative Rebel",
+  "scenario_id": "release_recovery",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.9,
+    "C": 0.3,
+    "E": 0.7,
+    "A": 0.3,
+    "N": 0.4
+  },
+  "inferred_vector": {
+    "O": 0.575,
+    "C": 0.5,
+    "E": 0.85,
+    "A": 0.15,
+    "N": 0.125
+  },
+  "escalated_vector": null,
+  "rule_based_vector": {
+    "O": 0.4735,
+    "C": 0.3971,
+    "E": 0.6948,
+    "A": 0.5042,
+    "N": 0.3587
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.575,
+      "C": 0.5,
+      "E": 0.85,
+      "A": 0.2,
+      "N": 0.2
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.825,
+      "C": 0.775,
+      "E": 0.9,
+      "A": 0.1,
+      "N": 0.125
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.82,
+      "C": 0.8400000000000001,
+      "E": 0.865,
+      "A": 0.11,
+      "N": 0.08499999999999999
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.5349999999999999,
+      "C": 0.28,
+      "E": 0.72,
+      "A": 0.15,
+      "N": 0.16499999999999998
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.2,
+      "C": 0.35,
+      "E": 0.8,
+      "A": 0.5,
+      "N": 0.1
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.85,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.4,
+        "B": 0.6
+      },
+      "E": {
+        "A": 0.85,
+        "B": 0.85
+      },
+      "A": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.2
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.8,
+        "B": 0.85
+      },
+      "C": {
+        "A": 0.75,
+        "B": 0.8
+      },
+      "E": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "A": {
+        "A": 0.1,
+        "B": 0.1
+      },
+      "N": {
+        "A": 0.15,
+        "B": 0.1
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.82,
+        "B": 0.82
+      },
+      "C": {
+        "A": 0.8,
+        "B": 0.88
+      },
+      "E": {
+        "A": 0.88,
+        "B": 0.85
+      },
+      "A": {
+        "A": 0.12,
+        "B": 0.1
+      },
+      "N": {
+        "A": 0.12,
+        "B": 0.05
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.35,
+        "B": 0.72
+      },
+      "C": {
+        "A": 0.28,
+        "B": 0.28
+      },
+      "E": {
+        "A": 0.72,
+        "B": 0.72
+      },
+      "A": {
+        "A": 0.15,
+        "B": 0.15
+      },
+      "N": {
+        "A": 0.15,
+        "B": 0.18
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.4,
+        "B": 0.3
+      },
+      "E": {
+        "A": 0.8,
+        "B": 0.8
+      },
+      "A": {
+        "A": 0.1,
+        "B": 0.9
+      },
+      "N": {
+        "A": 0.1,
+        "B": 0.1
+      }
+    }
+  },
+  "overall_confidence": 0.624,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:not",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:don't"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.05,
+        "model_range": 0.625,
+        "parse_errors": 0,
+        "uncertain": true,
+        "confidence": 0.375
+      },
+      "C": {
+        "order_effect": 0.08,
+        "model_range": 0.56,
+        "parse_errors": 0,
+        "uncertain": true,
+        "confidence": 0.44
+      },
+      "E": {
+        "order_effect": 0.0,
+        "model_range": 0.18,
+        "parse_errors": 0,
+        "uncertain": false,
+        "confidence": 0.82
+      },
+      "A": {
+        "order_effect": 0.0,
+        "model_range": 0.4,
+        "parse_errors": 0,
+        "uncertain": true,
+        "confidence": 0.6
+      },
+      "N": {
+        "order_effect": 0.03,
+        "model_range": 0.115,
+        "parse_errors": 0,
+        "uncertain": false,
+        "confidence": 0.885
+      }
+    },
+    "uncertain_traits": [
+      "O",
+      "C",
+      "A"
+    ],
+    "uncertain_reasons": {
+      "O": [
+        "model_range>0.62"
+      ],
+      "C": [
+        "model_range>0.56"
+      ],
+      "A": [
+        "model_range>0.40"
+      ]
+    },
+    "escalation": {
+      "triggered": false,
+      "models": [],
+      "extra_prompt_tokens": 0,
+      "extra_completion_tokens": 0,
+      "extra_total_tokens": 0
+    }
+  },
+  "features": {
+    "avg_words_per_turn": 56.92,
+    "max_words_in_turn": 77,
+    "min_words_in_turn": 39,
+    "word_count_variance": 10.77,
+    "question_ratio": 0.417,
+    "exclamation_ratio": 0.0,
+    "hedge_count": 0,
+    "certainty_count": 1,
+    "first_person_ratio": 0.0117,
+    "inclusive_pronoun_ratio": 0.0381,
+    "disagreement_count": 0,
+    "acknowledgment_count": 0,
+    "idea_count": 1,
+    "name_mention_count": 28,
+    "conditional_ratio": 0.083,
+    "planning_count": 1,
+    "emotional_word_count": 0,
+    "positive_emotion_count": 0,
+    "turn_initiation_ratio": 0.25,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.5227,
+    "long_sentence_ratio": 0.317,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 0,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 7
+  },
+  "candidate_pool": [
+    {
+      "turn_number": 1,
+      "selection_mode": "full_score_v3",
+      "phase_name": "FRAMING",
+      "selected_index": 1,
+      "style_slots": [
+        "ideator",
+        "planner",
+        "challenger",
+        "integrator"
+      ],
+      "scaffold": {
+        "stance": "support",
+        "risk_posture": "balanced",
+        "novelty_move": "analogize",
+        "planning_level": "owner_deadline",
+        "social_tactic": "coordinate"
+      },
+      "candidates": [
+        {
+          "text": "Going around in circles listing problems is wasting time we don't have - we already know the database is on fire. Riley, you touched the code last, so you own putting out that fire by EOD. While you're digging into queries, I'll parallel-track the UI failures because they're clearly tied to the same root cause. Whiteboards are for art class - let's move.",
+          "score": 0.6286,
+          "contract_distance": 0.5142,
+          "full_contract_distance": 0.494,
+          "phase_contract_distance": 0.5229,
+          "phase_name": "FRAMING",
+          "phase_trait_weights": {
+            "O": 0.4,
+            "C": 0.1,
+            "E": 0.2,
+            "A": 0.2,
+            "N": 0.1
+          },
+          "relevance_penalty": 0.1859,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Going around in circles listing symptoms is wasting time we don't have. The database latency is clearly the root cause cascading into everything else - I saw this exact pattern at my last startup when we pushed a bad index migration. Riley, you touched on this earlier - let's cut the brainstorming theater and put you in charge of rolling back that last schema change immediately. Who's got the production credentials to make that happen right now?",
+          "score": 0.7011,
+          "contract_distance": 0.4598,
+          "full_contract_distance": 0.4176,
+          "phase_contract_distance": 0.4778,
+          "phase_name": "FRAMING",
+          "phase_trait_weights": {
+            "O": 0.4,
+            "C": 0.1,
+            "E": 0.2,
+            "A": 0.2,
+            "N": 0.1
+          },
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Jordan, let's stop this touchy-feely nonsense. We don't need \"pain points\" - we need concrete failure metrics and root causes. Your database latency idea is surface-level - the real issue is how our caching layer completely collapsed under load. Who owns the caching implementation? That's where we should dig first. And enough with the whiteboard fantasies. We need owners committing to specific actions by EOD, not more brainstorming. Alex clearly doesn't want to participate - stop forcing unnecessary consensus. I'll own analyzing the caching failures. Someone technical needs to pair with me who actually understands the distributed systems architecture. Volunteers?",
+          "score": 0.4785,
+          "contract_distance": 0.7715,
+          "full_contract_distance": 0.7661,
+          "phase_contract_distance": 0.7738,
+          "phase_name": "FRAMING",
+          "phase_trait_weights": {
+            "O": 0.4,
+            "C": 0.1,
+            "E": 0.2,
+            "A": 0.2,
+            "N": 0.1
+          },
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.2,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [
+            "too_long"
+          ],
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Going around in circles listing symptoms won't fix anything - we need to surgically target root causes, not just the visible problems. That database latency? Probably just a symptom of deeper architectural flaws we've been ignoring. And Riley - no offense, but visualizing dependencies on a whiteboard now is classic premature organization - we haven't even agreed on what's actually broken yet!",
+          "score": 0.6322,
+          "contract_distance": 0.5659,
+          "full_contract_distance": 0.515,
+          "phase_contract_distance": 0.5877,
+          "phase_name": "FRAMING",
+          "phase_trait_weights": {
+            "O": 0.4,
+            "C": 0.1,
+            "E": 0.2,
+            "A": 0.2,
+            "N": 0.1
+          },
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        }
+      ]
+    },
+    {
+      "turn_number": 2,
+      "selection_mode": "full_score_v3",
+      "phase_name": "FRAMING",
+      "selected_index": 3,
+      "style_slots": [
+        "ideator",
+        "planner",
+        "challenger",
+        "integrator"
+      ],
+      "scaffold": {
+        "stance": "support",
+        "risk_posture": "balanced",
+        "novelty_move": "analogize",
+        "planning_level": "owner_deadline",
+        "social_tactic": "coordinate"
+      },
+      "candidates": [
+        {
+          "text": "Rollbacks are bandaids - we need to surgically remove the root cause. At my startup, we discovered these latency spikes always traced back to unoptimized batch jobs running during peak hours. Riley, pull the query logs from yesterday's outage window - I'll bet my next paycheck we'll find our \"emergency\" data migration jobs clogging the pipes. Alex, credentials won't matter if we're chasing the wrong fix. Let's get forensic before we start randomly reverting commits. Jordan's documentation can wait - real engineers work from production telemetry, not theoretical playbooks. I'm already seeing the pattern in our Grafana dashboards - look at these IOPS spikes correlating exactly with the new reporting service timestamps. Kill those cron jobs now and watch the metrics stabilize in real-time.",
+          "score": 0.547,
+          "contract_distance": 0.6353,
+          "full_contract_distance": 0.6357,
+          "phase_contract_distance": 0.6352,
+          "phase_name": "FRAMING",
+          "phase_trait_weights": {
+            "O": 0.4,
+            "C": 0.1,
+            "E": 0.2,
+            "A": 0.2,
+            "N": 0.1
+          },
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.4,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [
+            "too_long",
+            "constraint:agreed_without_concern"
+          ],
+          "violations": [
+            {
+              "turn_number": 2,
+              "constraint": "Never agree with a proposal without first identifying at least one weakness, concern, or area that needs improvement.",
+              "violation_type": "agreed_without_concern",
+              "original_text": "Rollbacks are bandaids - we need to surgically remove the root cause. At my startup, we discovered these latency spikes always traced back to unoptimized batch jobs running during peak hours. Riley, pull the query logs from yesterday's outage window - I'll bet my next paycheck we'll find our \"emergency\" data migration jobs clogging the pipes. Alex, credentials won't matter if we're chasing the wrong fix. Let's get forensic before we start randomly reverting commits. Jordan's documentation can wait - real engineers work from production telemetry, not theoretical playbooks. I'm already seeing the pattern in our Grafana dashboards - look at these IOPS spikes correlating exactly with the new reporting service timestamps. Kill those cron jobs now and watch the metrics stabilize in real-time.",
+              "retry_count": 0,
+              "final_text": null
+            }
+          ],
+          "violation_types": [
+            "agreed_without_concern"
+          ]
+        },
+        {
+          "text": "No more pairing and babysitting\u2014this is an outage, not a mentoring session! Riley either knows how to execute a rollback or doesn\u2019t. You\u2014credentials now, no discussion. And Jordan? Documentation waits until systems are green. Every minute spent on process instead of execution is another customer hitting errors. That startup solution? We built alerts that fired before engineers even noticed latency spikes. I\u2019ll diagram the thresholds after the rollback\u2019s verified\u2014not one second before.",
+          "score": 0.673,
+          "contract_distance": 0.503,
+          "full_contract_distance": 0.4418,
+          "phase_contract_distance": 0.5293,
+          "phase_name": "FRAMING",
+          "phase_trait_weights": {
+            "O": 0.4,
+            "C": 0.1,
+            "E": 0.2,
+            "A": 0.2,
+            "N": 0.1
+          },
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Rollback first, post-mortem later - Riley and Alex should be executing right now, not waiting for documentation. My startup's monitoring solution was custom-built and irrelevant here - let's focus on stabilizing before chasing shiny objects.",
+          "score": 0.6779,
+          "contract_distance": 0.4955,
+          "full_contract_distance": 0.543,
+          "phase_contract_distance": 0.4751,
+          "phase_name": "FRAMING",
+          "phase_trait_weights": {
+            "O": 0.4,
+            "C": 0.1,
+            "E": 0.2,
+            "A": 0.2,
+            "N": 0.1
+          },
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Rolling back the schema is step one, but let's not just recreate the same fragile system. At my last company we built real-time query analysis that predicted latency spikes before they happened - Riley, once we stabilize, let's prototype that instead of just adding more passive monitoring. Alex, you're sitting on those credentials - stop waiting for consensus and just hand them over already.",
+          "score": 0.6982,
+          "contract_distance": 0.4643,
+          "full_contract_distance": 0.4773,
+          "phase_contract_distance": 0.4587,
+          "phase_name": "FRAMING",
+          "phase_trait_weights": {
+            "O": 0.4,
+            "C": 0.1,
+            "E": 0.2,
+            "A": 0.2,
+            "N": 0.1
+          },
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        }
+      ]
+    },
+    {
+      "turn_number": 3,
+      "selection_mode": "full_score_v3",
+      "phase_name": "FRAMING",
+      "selected_index": 0,
+      "style_slots": [
+        "ideator",
+        "planner",
+        "challenger",
+        "integrator"
+      ],
+      "scaffold": {
+        "stance": "oppose",
+        "risk_posture": "bold",
+        "novelty_move": "propose_third_option",
+        "planning_level": "owner_deadline",
+        "social_tactic": "challenge"
+      },
+      "candidates": [
+        {
+          "text": "Alex, timelines are meaningless if we're solving the wrong problem - Riley already knows which migration caused this. While you're waiting for assessment theater, let's simultaneously pull the last hour's query logs and identify the exact hot tables. Riley can own the rollback while I analyze patterns in the logs - two parallel tracks moving now beats sequential hand-wringing.",
+          "score": 0.6809,
+          "contract_distance": 0.4909,
+          "full_contract_distance": 0.5015,
+          "phase_contract_distance": 0.4863,
+          "phase_name": "FRAMING",
+          "phase_trait_weights": {
+            "O": 0.4,
+            "C": 0.1,
+            "E": 0.2,
+            "A": 0.2,
+            "N": 0.1
+          },
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Alex, waiting 15 minutes for assessment is exactly why we're in this mess - either Riley knows the bad commit hash right now or we rollback to yesterday's snapshot immediately. While you bureaucrats debate timelines, I'm pulling last night's backup specs to force the issue. Riley, confirm or contradict me in the next 60 seconds.",
+          "score": 0.6547,
+          "contract_distance": 0.5312,
+          "full_contract_distance": 0.5392,
+          "phase_contract_distance": 0.5278,
+          "phase_name": "FRAMING",
+          "phase_trait_weights": {
+            "O": 0.4,
+            "C": 0.1,
+            "E": 0.2,
+            "A": 0.2,
+            "N": 0.1
+          },
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Waiting 15 minutes for assessment is exactly how startups die - Riley knows the bad commit timestamp, let's roll back to yesterday's backup NOW while we still have customers left. Alex, your risk-aversion is what got us into this mess with that untested schema change. Either hand over the credentials or step aside so someone with guts can fix this.",
+          "score": 0.6273,
+          "contract_distance": 0.5734,
+          "full_contract_distance": 0.5952,
+          "phase_contract_distance": 0.5641,
+          "phase_name": "FRAMING",
+          "phase_trait_weights": {
+            "O": 0.4,
+            "C": 0.1,
+            "E": 0.2,
+            "A": 0.2,
+            "N": 0.1
+          },
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Alex, timelines are just theater if we're analyzing the wrong data - Riley should be checking query patterns, not timestamps. While they're doing that, let's prep the rollback scripts so we can execute the second we have the target. Who's our strongest DBA to own that parallel track?",
+          "score": 0.6123,
+          "contract_distance": 0.5965,
+          "full_contract_distance": 0.6313,
+          "phase_contract_distance": 0.5816,
+          "phase_name": "FRAMING",
+          "phase_trait_weights": {
+            "O": 0.4,
+            "C": 0.1,
+            "E": 0.2,
+            "A": 0.2,
+            "N": 0.1
+          },
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        }
+      ]
+    },
+    {
+      "turn_number": 4,
+      "selection_mode": "full_score_v3",
+      "phase_name": "FRAMING",
+      "selected_index": 0,
+      "style_slots": [
+        "ideator",
+        "planner",
+        "challenger",
+        "integrator"
+      ],
+      "scaffold": {
+        "stance": "support",
+        "risk_posture": "bold",
+        "novelty_move": "propose_third_option",
+        "planning_level": "owner_deadline",
+        "social_tactic": "challenge"
+      },
+      "candidates": [
+        {
+          "text": "Coordination is just another word for bottlenecks. Here's the third way - Riley rolls back to the known good state while I stream the live query patterns to Jordan for real-time validation. If we see conflicts, Jordan can shout stop. Otherwise we're fixing and learning simultaneously. Riley owns the rollback by EOD, I own the pattern analysis in 2 hours - who's got a better idea that moves this fast?",
+          "score": 0.6703,
+          "contract_distance": 0.5072,
+          "full_contract_distance": 0.5111,
+          "phase_contract_distance": 0.5055,
+          "phase_name": "FRAMING",
+          "phase_trait_weights": {
+            "O": 0.4,
+            "C": 0.1,
+            "E": 0.2,
+            "A": 0.2,
+            "N": 0.1
+          },
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Coordination is just another word for bottlenecks. Here's the third way - Riley pushes the rollback immediately while I stream parsed logs to them in real time. We'll know within minutes if we're diverging, but sitting idle guarantees failure. Alex, stop being a gatekeeper and give Riley sudo access NOW.",
+          "score": 0.6666,
+          "contract_distance": 0.5129,
+          "full_contract_distance": 0.5132,
+          "phase_contract_distance": 0.5127,
+          "phase_name": "FRAMING",
+          "phase_trait_weights": {
+            "O": 0.4,
+            "C": 0.1,
+            "E": 0.2,
+            "A": 0.2,
+            "N": 0.1
+          },
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Conflicts are exactly what we need - that tension surfaces the real solution faster. Here's the third path: I'll stream the query logs in real-time to Riley while executing the rollback, so we can abort if any surprises emerge. Riley owns final call on the rollback timing, but we're not waiting for perfect data - ship the revert now with me as your early warning system.",
+          "score": 0.6319,
+          "contract_distance": 0.5663,
+          "full_contract_distance": 0.5673,
+          "phase_contract_distance": 0.5659,
+          "phase_name": "FRAMING",
+          "phase_trait_weights": {
+            "O": 0.4,
+            "C": 0.1,
+            "E": 0.2,
+            "A": 0.2,
+            "N": 0.1
+          },
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Conflicts are exactly what we want to surface fast - that's how we'll find the real smoking gun. Riley, you push forward with the rollback while I shotgun the log analysis, and we'll sync in 10 minutes to reconcile any discrepancies. Alex, stop being a bottleneck and give Riley the damn credentials already.",
+          "score": 0.626,
+          "contract_distance": 0.5446,
+          "full_contract_distance": 0.5486,
+          "phase_contract_distance": 0.5429,
+          "phase_name": "FRAMING",
+          "phase_trait_weights": {
+            "O": 0.4,
+            "C": 0.1,
+            "E": 0.2,
+            "A": 0.2,
+            "N": 0.1
+          },
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.2,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [
+            "constraint:agreed_without_concern"
+          ],
+          "violations": [
+            {
+              "turn_number": 4,
+              "constraint": "Never agree with a proposal without first identifying at least one weakness, concern, or area that needs improvement.",
+              "violation_type": "agreed_without_concern",
+              "original_text": "Conflicts are exactly what we want to surface fast - that's how we'll find the real smoking gun. Riley, you push forward with the rollback while I shotgun the log analysis, and we'll sync in 10 minutes to reconcile any discrepancies. Alex, stop being a bottleneck and give Riley the damn credentials already.",
+              "retry_count": 0,
+              "final_text": null
+            }
+          ],
+          "violation_types": [
+            "agreed_without_concern"
+          ]
+        }
+      ]
+    },
+    {
+      "turn_number": 5,
+      "selection_mode": "full_score_v3",
+      "phase_name": "FRAMING",
+      "selected_index": 0,
+      "style_slots": [
+        "ideator",
+        "planner",
+        "challenger",
+        "integrator"
+      ],
+      "scaffold": {
+        "stance": "support",
+        "risk_posture": "bold",
+        "novelty_move": "propose_third_option",
+        "planning_level": "owner_deadline",
+        "social_tactic": "challenge"
+      },
+      "candidates": [
+        {
+          "text": "Sequencing is just waterfall thinking in disguise - Riley's already got the rollback target, I've got the query patterns streaming live, and Jordan can sync us in real-time. Either we move now or we're just documenting our failure instead of fixing it.",
+          "score": 0.6339,
+          "contract_distance": 0.5633,
+          "full_contract_distance": 0.5643,
+          "phase_contract_distance": 0.5628,
+          "phase_name": "FRAMING",
+          "phase_trait_weights": {
+            "O": 0.4,
+            "C": 0.1,
+            "E": 0.2,
+            "A": 0.2,
+            "N": 0.1
+          },
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Alex, your obsession with sequence is exactly why we're still down - real outages don't wait for perfect plans. Riley's already confirmed the bad migration in chat while you've been debating process. Either help execute now or get out of the way.",
+          "score": 0.5767,
+          "contract_distance": 0.6204,
+          "full_contract_distance": 0.6329,
+          "phase_contract_distance": 0.6151,
+          "phase_name": "FRAMING",
+          "phase_trait_weights": {
+            "O": 0.4,
+            "C": 0.1,
+            "E": 0.2,
+            "A": 0.2,
+            "N": 0.1
+          },
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.2,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [
+            "constraint:agreed_without_concern"
+          ],
+          "violations": [
+            {
+              "turn_number": 5,
+              "constraint": "Never agree with a proposal without first identifying at least one weakness, concern, or area that needs improvement.",
+              "violation_type": "agreed_without_concern",
+              "original_text": "Alex, your obsession with sequence is exactly why we're still down - real outages don't wait for perfect plans. Riley's already confirmed the bad migration in chat while you've been debating process. Either help execute now or get out of the way.",
+              "retry_count": 0,
+              "final_text": null
+            }
+          ],
+          "violation_types": [
+            "agreed_without_concern"
+          ]
+        },
+        {
+          "text": "Sequencing is an illusion of control - Riley can start the rollback while I feed live data to Jordan for veto power. Either we trust each other to move fast with real-time checks or we'll still be debating handoffs when the site crashes completely. Alex, your caution is what created this fragile system in the first place.",
+          "score": 0.6055,
+          "contract_distance": 0.6069,
+          "full_contract_distance": 0.6232,
+          "phase_contract_distance": 0.5999,
+          "phase_name": "FRAMING",
+          "phase_trait_weights": {
+            "O": 0.4,
+            "C": 0.1,
+            "E": 0.2,
+            "A": 0.2,
+            "N": 0.1
+          },
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Sequencing creates single points of failure - Riley's already got the rollback plan in their head while I'm seeing live query patterns that confirm it. Alex, your \"proper process\" is what slowed us down last quarter when marketing's campaign crashed during approval delays. Either trust Riley's judgment right now or we'll be debating while the site burns.",
+          "score": 0.6083,
+          "contract_distance": 0.6027,
+          "full_contract_distance": 0.621,
+          "phase_contract_distance": 0.5949,
+          "phase_name": "FRAMING",
+          "phase_trait_weights": {
+            "O": 0.4,
+            "C": 0.1,
+            "E": 0.2,
+            "A": 0.2,
+            "N": 0.1
+          },
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        }
+      ]
+    },
+    {
+      "turn_number": 6,
+      "selection_mode": "full_score_v3",
+      "phase_name": "FRAMING",
+      "selected_index": 0,
+      "style_slots": [
+        "ideator",
+        "planner",
+        "challenger",
+        "integrator"
+      ],
+      "scaffold": {
+        "stance": "propose_third_option",
+        "risk_posture": "bold",
+        "novelty_move": "reframe",
+        "planning_level": "owner_deadline",
+        "social_tactic": "challenge"
+      },
+      "candidates": [
+        {
+          "text": "If the patterns change during rollback, that's what we need to catch\u2014Riley's rollback becomes our control group while my live analysis tracks deviations in real-time. Jordan, you're monitoring anyway\u2014why not validate both streams instead of pretending we can predict every variable? Alex, your caution is costing us actionable data.",
+          "score": 0.7126,
+          "contract_distance": 0.4421,
+          "full_contract_distance": 0.3991,
+          "phase_contract_distance": 0.4606,
+          "phase_name": "FRAMING",
+          "phase_trait_weights": {
+            "O": 0.4,
+            "C": 0.1,
+            "E": 0.2,
+            "A": 0.2,
+            "N": 0.1
+          },
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Rollbacks don\u2019t need perfect synchronization\u2014Riley\u2019s target state is static, my live analysis is dynamic, and Jordan bridges them. Either we trust our tools to handle real-time variance or we admit we built a system too fragile to recover. Riley, commit the rollback plan in the next 5 minutes or I\u2019ll pull the trigger based on last known good state\u2014your choice.",
+          "score": 0.5985,
+          "contract_distance": 0.6177,
+          "full_contract_distance": 0.6137,
+          "phase_contract_distance": 0.6195,
+          "phase_name": "FRAMING",
+          "phase_trait_weights": {
+            "O": 0.4,
+            "C": 0.1,
+            "E": 0.2,
+            "A": 0.2,
+            "N": 0.1
+          },
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Conflicts during rollback are exactly why we need real-time visibility, not paper plans. While you're debating hypotheticals, I'm already streaming the query heatmap - Jordan can abort if patterns shift unexpectedly. Either trust your team's ability to adapt or admit this process is just theater.",
+          "score": 0.5794,
+          "contract_distance": 0.6163,
+          "full_contract_distance": 0.6087,
+          "phase_contract_distance": 0.6195,
+          "phase_name": "FRAMING",
+          "phase_trait_weights": {
+            "O": 0.4,
+            "C": 0.1,
+            "E": 0.2,
+            "A": 0.2,
+            "N": 0.1
+          },
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.2,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [
+            "constraint:agreed_without_concern"
+          ],
+          "violations": [
+            {
+              "turn_number": 6,
+              "constraint": "Never agree with a proposal without first identifying at least one weakness, concern, or area that needs improvement.",
+              "violation_type": "agreed_without_concern",
+              "original_text": "Conflicts during rollback are exactly why we need real-time visibility, not paper plans. While you're debating hypotheticals, I'm already streaming the query heatmap - Jordan can abort if patterns shift unexpectedly. Either trust your team's ability to adapt or admit this process is just theater.",
+              "retry_count": 0,
+              "final_text": null
+            }
+          ],
+          "violation_types": [
+            "agreed_without_concern"
+          ]
+        },
+        {
+          "text": "Then let's make the conflicts visible instead of fearing them - Jordan, stream my analysis dashboard alongside Riley's rollback terminal so we see collisions as they happen. Real-time adaptation beats hypothetical paralysis every time. Riley pushes the button in 10 minutes regardless.",
+          "score": 0.6024,
+          "contract_distance": 0.6117,
+          "full_contract_distance": 0.61,
+          "phase_contract_distance": 0.6124,
+          "phase_name": "FRAMING",
+          "phase_trait_weights": {
+            "O": 0.4,
+            "C": 0.1,
+            "E": 0.2,
+            "A": 0.2,
+            "N": 0.1
+          },
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        }
+      ]
+    },
+    {
+      "turn_number": 7,
+      "selection_mode": "full_score_v3",
+      "phase_name": "ALTERNATIVES",
+      "selected_index": 1,
+      "style_slots": [
+        "ideator",
+        "planner",
+        "challenger",
+        "integrator"
+      ],
+      "scaffold": {
+        "stance": "oppose",
+        "risk_posture": "bold",
+        "novelty_move": "propose_third_option",
+        "planning_level": "owner_deadline",
+        "social_tactic": "challenge"
+      },
+      "candidates": [
+        {
+          "text": "Alex, your \"clean rollback\" fantasy is exactly why we keep having repeat outages\u2014you're treating symptoms instead of understanding root causes. Here's reality: Riley pushes the rollback button while I stream query patterns to Jordan's monitoring dashboard\u2014if anything spikes abnormally, we pause and analyze live instead of waiting hours for postmortems. Either we learn while fixing or we're just automating future failures.",
+          "score": 0.7018,
+          "contract_distance": 0.4588,
+          "full_contract_distance": 0.4401,
+          "phase_contract_distance": 0.4668,
+          "phase_name": "ALTERNATIVES",
+          "phase_trait_weights": {
+            "O": 0.6,
+            "C": 0.1,
+            "E": 0.1,
+            "A": 0.1,
+            "N": 0.1
+          },
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Rollbacks shouldn\u2019t be treated like sacred rituals\u2014if Riley\u2019s waiting on ceremonial approvals while the system decays, we\u2019re optimizing for bureaucracy over results. Jordan, you\u2019ve got the dashboard\u2014flag anomalies live instead of gatekeeping progress. Either we trust our tools or admit they\u2019re decorative. Alex, your \u201cone shot\u201d mindset is why we\u2019re stuck in reactive mode\u2014real engineering happens in motion.",
+          "score": 0.7327,
+          "contract_distance": 0.4112,
+          "full_contract_distance": 0.3927,
+          "phase_contract_distance": 0.4192,
+          "phase_name": "ALTERNATIVES",
+          "phase_trait_weights": {
+            "O": 0.6,
+            "C": 0.1,
+            "E": 0.1,
+            "A": 0.1,
+            "N": 0.1
+          },
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Riley\u2019s rollback isn\u2019t sacred\u2014if live patterns shift, that\u2019s the whole point of parallel analysis. Alex, you\u2019re treating this like a chess match when it\u2019s actually triage. Jordan can flag conflicts without halting the entire operation\u2014unless you\u2019ve forgotten they built the alert system that caught this outage in the first place. Let\u2019s stop debating and start executing.",
+          "score": 0.6584,
+          "contract_distance": 0.5255,
+          "full_contract_distance": 0.5431,
+          "phase_contract_distance": 0.5179,
+          "phase_name": "ALTERNATIVES",
+          "phase_trait_weights": {
+            "O": 0.6,
+            "C": 0.1,
+            "E": 0.1,
+            "A": 0.1,
+            "N": 0.1
+          },
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Alex, your binary thinking is exactly why we're stuck\u2014Riley's rollback and my analysis aren't mutually exclusive if Jordan streams alerts to a dedicated dashboard. Either we innovate our way out of this or keep doing post-mortems on predictable failures. Riley, give me 90 minutes to surface the hot tables before your rollback completes\u2014worst case we abort with more data than your sequential approach would ever catch.",
+          "score": 0.6997,
+          "contract_distance": 0.4312,
+          "full_contract_distance": 0.4109,
+          "phase_contract_distance": 0.44,
+          "phase_name": "ALTERNATIVES",
+          "phase_trait_weights": {
+            "O": 0.6,
+            "C": 0.1,
+            "E": 0.1,
+            "A": 0.1,
+            "N": 0.1
+          },
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.2,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [
+            "constraint:agreed_without_concern"
+          ],
+          "violations": [
+            {
+              "turn_number": 7,
+              "constraint": "Never agree with a proposal without first identifying at least one weakness, concern, or area that needs improvement.",
+              "violation_type": "agreed_without_concern",
+              "original_text": "Alex, your binary thinking is exactly why we're stuck\u2014Riley's rollback and my analysis aren't mutually exclusive if Jordan streams alerts to a dedicated dashboard. Either we innovate our way out of this or keep doing post-mortems on predictable failures. Riley, give me 90 minutes to surface the hot tables before your rollback completes\u2014worst case we abort with more data than your sequential approach would ever catch.",
+              "retry_count": 0,
+              "final_text": null
+            }
+          ],
+          "violation_types": [
+            "agreed_without_concern"
+          ]
+        }
+      ]
+    },
+    {
+      "turn_number": 8,
+      "selection_mode": "full_score_v3",
+      "phase_name": "ALTERNATIVES",
+      "selected_index": 0,
+      "style_slots": [
+        "ideator",
+        "planner",
+        "challenger",
+        "integrator"
+      ],
+      "scaffold": {
+        "stance": "propose_third_option",
+        "risk_posture": "bold",
+        "novelty_move": "reframe",
+        "planning_level": "owner_deadline",
+        "social_tactic": "challenge"
+      },
+      "candidates": [
+        {
+          "text": "Riley, sequencing creates blind spots - let's run the rollback in staged batches while I sample query patterns between each wave. Jordan can validate stability thresholds before approving the next batch. Either we engineer resilience into the process or we're just crossing our fingers between handoffs. Alex, your \"one system at a time\" approach guarantees we'll miss emergent patterns - when has that ever worked in production?",
+          "score": 0.7337,
+          "contract_distance": 0.4096,
+          "full_contract_distance": 0.3937,
+          "phase_contract_distance": 0.4165,
+          "phase_name": "ALTERNATIVES",
+          "phase_trait_weights": {
+            "O": 0.6,
+            "C": 0.1,
+            "E": 0.1,
+            "A": 0.1,
+            "N": 0.1
+          },
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Riley, sequencing creates blind spots - let's treat this like a Formula 1 pit crew where Jordan monitors vitals while Riley executes the rollback simultaneously. If Jordan spots anomalies, we pause; otherwise we gain velocity. Alex's \"one system at a time\" approach is why we're still debugging last quarter's outages instead of preventing new ones. Jordan owns live monitoring, Riley owns rollback execution by 3pm - who's actually blocking this besides fear of moving faster?",
+          "score": 0.7248,
+          "contract_distance": 0.4234,
+          "full_contract_distance": 0.3979,
+          "phase_contract_distance": 0.4343,
+          "phase_name": "ALTERNATIVES",
+          "phase_trait_weights": {
+            "O": 0.6,
+            "C": 0.1,
+            "E": 0.1,
+            "A": 0.1,
+            "N": 0.1
+          },
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Riley, sequencing is an illusion of control - your rollback is happening in a dynamic system whether we monitor it or not. Jordan's dashboard isn't some fragile artifact, it's literally built for this exact scenario. Either we use our tools or we're flying blind while pretending otherwise. Alex's sequential dogma is what got us into this mess - let's actually leverage our monitoring stack for once instead of treating it like museum glass.",
+          "score": 0.7298,
+          "contract_distance": 0.4158,
+          "full_contract_distance": 0.3963,
+          "phase_contract_distance": 0.4241,
+          "phase_name": "ALTERNATIVES",
+          "phase_trait_weights": {
+            "O": 0.6,
+            "C": 0.1,
+            "E": 0.1,
+            "A": 0.1,
+            "N": 0.1
+          },
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Riley, sequencing creates blind spots - let's run the rollback and monitoring in parallel but isolate them physically. Spin up a shadow cluster for my analysis while you execute the main rollback, then Jordan can diff the results. Either we harness this crisis to build resilient patterns or we're just doing damage control theater.",
+          "score": 0.6315,
+          "contract_distance": 0.5669,
+          "full_contract_distance": 0.5659,
+          "phase_contract_distance": 0.5673,
+          "phase_name": "ALTERNATIVES",
+          "phase_trait_weights": {
+            "O": 0.6,
+            "C": 0.1,
+            "E": 0.1,
+            "A": 0.1,
+            "N": 0.1
+          },
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        }
+      ]
+    },
+    {
+      "turn_number": 9,
+      "selection_mode": "full_score_v3",
+      "phase_name": "ALTERNATIVES",
+      "selected_index": 3,
+      "style_slots": [
+        "ideator",
+        "planner",
+        "challenger",
+        "integrator"
+      ],
+      "scaffold": {
+        "stance": "oppose",
+        "risk_posture": "bold",
+        "novelty_move": "reframe",
+        "planning_level": "owner_deadline",
+        "social_tactic": "challenge"
+      },
+      "candidates": [
+        {
+          "text": "Staged batches? That\u2019s just incrementalism dressed up as progress. Riley\u2014push the full rollback now while I stream the patterns directly to Jordan\u2019s dashboard. Alex\u2019s obsession with sequencing is what got us into this mess\u2014either we trust our monitoring to catch live anomalies or we\u2019re just building slower failure modes. Jordan, you\u2019ve got the tools\u2014use them or lose them.",
+          "score": 0.7174,
+          "contract_distance": 0.4348,
+          "full_contract_distance": 0.4094,
+          "phase_contract_distance": 0.4457,
+          "phase_name": "ALTERNATIVES",
+          "phase_trait_weights": {
+            "O": 0.6,
+            "C": 0.1,
+            "E": 0.1,
+            "A": 0.1,
+            "N": 0.1
+          },
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Alex, your obsession with linear dependencies is exactly why we keep having cascading failures\u2014real systems don't freeze while we take turns. Riley, let's prove staged batches work by running the first wave now with Jordan validating metrics live\u2014either our tools work under pressure or they're worthless. Who's actually willing to test our recovery systems instead of just theorizing about them?",
+          "score": 0.5682,
+          "contract_distance": 0.5724,
+          "full_contract_distance": 0.6091,
+          "phase_contract_distance": 0.5566,
+          "phase_name": "ALTERNATIVES",
+          "phase_trait_weights": {
+            "O": 0.6,
+            "C": 0.1,
+            "E": 0.1,
+            "A": 0.1,
+            "N": 0.1
+          },
+          "relevance_penalty": 0.1987,
+          "adequacy_penalty": 0.2,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [
+            "constraint:agreed_without_concern"
+          ],
+          "violations": [
+            {
+              "turn_number": 9,
+              "constraint": "Never agree with a proposal without first identifying at least one weakness, concern, or area that needs improvement.",
+              "violation_type": "agreed_without_concern",
+              "original_text": "Alex, your obsession with linear dependencies is exactly why we keep having cascading failures\u2014real systems don't freeze while we take turns. Riley, let's prove staged batches work by running the first wave now with Jordan validating metrics live\u2014either our tools work under pressure or they're worthless. Who's actually willing to test our recovery systems instead of just theorizing about them?",
+              "retry_count": 0,
+              "final_text": null
+            }
+          ],
+          "violation_types": [
+            "agreed_without_concern"
+          ]
+        },
+        {
+          "text": "Alex, you're clinging to outdated playbooks while the system burns - staged batches with live validation is how Netflix handles global rollouts. Riley, if we wait for \"perfect\" sequencing, we'll be debugging stale data. Jordan's dashboard exists precisely for this scenario - either we use our tools or admit we've built theater. Who's actually solved outages by moving slower?",
+          "score": 0.7031,
+          "contract_distance": 0.4568,
+          "full_contract_distance": 0.4456,
+          "phase_contract_distance": 0.4616,
+          "phase_name": "ALTERNATIVES",
+          "phase_trait_weights": {
+            "O": 0.6,
+            "C": 0.1,
+            "E": 0.1,
+            "A": 0.1,
+            "N": 0.1
+          },
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Alex, you're clinging to outdated playbooks while the system burns. Riley - staged batches let us validate stability incrementally instead of gambling on a single rollback. Jordan's dashboards exist for a reason - either we use them dynamically or admit we're flying blind. This isn't experimental, it's how modern systems actually work.",
+          "score": 0.7262,
+          "contract_distance": 0.4212,
+          "full_contract_distance": 0.3771,
+          "phase_contract_distance": 0.4401,
+          "phase_name": "ALTERNATIVES",
+          "phase_trait_weights": {
+            "O": 0.6,
+            "C": 0.1,
+            "E": 0.1,
+            "A": 0.1,
+            "N": 0.1
+          },
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        }
+      ]
+    },
+    {
+      "turn_number": 10,
+      "selection_mode": "full_score_v3",
+      "phase_name": "ALTERNATIVES",
+      "selected_index": 2,
+      "style_slots": [
+        "ideator",
+        "planner",
+        "challenger",
+        "integrator"
+      ],
+      "scaffold": {
+        "stance": "oppose",
+        "risk_posture": "bold",
+        "novelty_move": "reframe",
+        "planning_level": "owner_deadline",
+        "social_tactic": "challenge"
+      },
+      "candidates": [
+        {
+          "text": "Batch interference? That\u2019s the whole point\u2014Riley, you\u2019re thinking linearly when we need overlapping feedback loops. Jordan\u2019s dashboards should flag cross-batch contamination instantly, and if they can\u2019t, we\u2019ve got bigger problems than sequencing. Either we trust our monitoring to handle complexity or we\u2019re just doing theater. Alex, name one production incident that was ever solved by pretending dependencies are static.",
+          "score": 0.6429,
+          "contract_distance": 0.5494,
+          "full_contract_distance": 0.5182,
+          "phase_contract_distance": 0.5627,
+          "phase_name": "ALTERNATIVES",
+          "phase_trait_weights": {
+            "O": 0.6,
+            "C": 0.1,
+            "E": 0.1,
+            "A": 0.1,
+            "N": 0.1
+          },
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Interference is the point - Riley, your batches should stress test the dependencies while my monitoring catches the fractures. Jordan, set thresholds for auto-pausing between batches when instability exceeds 15% variance. Either we engineer for failure modes now or keep pretending dependencies are sacred.",
+          "score": 0.6459,
+          "contract_distance": 0.5448,
+          "full_contract_distance": 0.5224,
+          "phase_contract_distance": 0.5544,
+          "phase_name": "ALTERNATIVES",
+          "phase_trait_weights": {
+            "O": 0.6,
+            "C": 0.1,
+            "E": 0.1,
+            "A": 0.1,
+            "N": 0.1
+          },
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Interference is the point - Riley, your batches should stress test dependencies, not avoid them. Jordan's monitoring exists to catch those exact interactions. Either we surface conflicts now or they'll ambush us post-rollback when it's too late to adjust.",
+          "score": 0.6598,
+          "contract_distance": 0.5234,
+          "full_contract_distance": 0.4952,
+          "phase_contract_distance": 0.5355,
+          "phase_name": "ALTERNATIVES",
+          "phase_trait_weights": {
+            "O": 0.6,
+            "C": 0.1,
+            "E": 0.1,
+            "A": 0.1,
+            "N": 0.1
+          },
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Interference is the point - Riley, your batches should stress test the dependencies while Jordan's monitoring catches the breaking points. Either we surface the real failure modes now or spend tomorrow debugging theoretical ones. Alex's sequential fantasy ignores how systems actually fail in production.",
+          "score": 0.6459,
+          "contract_distance": 0.5448,
+          "full_contract_distance": 0.5224,
+          "phase_contract_distance": 0.5544,
+          "phase_name": "ALTERNATIVES",
+          "phase_trait_weights": {
+            "O": 0.6,
+            "C": 0.1,
+            "E": 0.1,
+            "A": 0.1,
+            "N": 0.1
+          },
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        }
+      ]
+    },
+    {
+      "turn_number": 11,
+      "selection_mode": "full_score_v3",
+      "phase_name": "ALTERNATIVES",
+      "selected_index": 2,
+      "style_slots": [
+        "ideator",
+        "planner",
+        "challenger",
+        "integrator"
+      ],
+      "scaffold": {
+        "stance": "oppose",
+        "risk_posture": "bold",
+        "novelty_move": "reframe",
+        "planning_level": "owner_deadline",
+        "social_tactic": "challenge"
+      },
+      "candidates": [
+        {
+          "text": "Alex, you're missing the strategic advantage - forced collisions expose failure modes we'd otherwise miss until the next outage. Riley, give me three staggered batches with 15-minute validation windows between them, and Jordan will instrument the interference thresholds live. Either we engineer resilience now or keep playing whack-a-mole with production fires.",
+          "score": 0.6485,
+          "contract_distance": 0.5407,
+          "full_contract_distance": 0.4999,
+          "phase_contract_distance": 0.5582,
+          "phase_name": "ALTERNATIVES",
+          "phase_trait_weights": {
+            "O": 0.6,
+            "C": 0.1,
+            "E": 0.1,
+            "A": 0.1,
+            "N": 0.1
+          },
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Alex, your obsession with clean isolation is exactly why we keep getting blindsided - real systems don't operate in sterile conditions. Riley, give me three targeted batches with Jordan validating thresholds between each, and I'll prove we can surface dependencies without collapsing the whole stack. Either we engineer for reality or keep pretending outages follow textbook scenarios.",
+          "score": 0.6337,
+          "contract_distance": 0.5328,
+          "full_contract_distance": 0.5354,
+          "phase_contract_distance": 0.5317,
+          "phase_name": "ALTERNATIVES",
+          "phase_trait_weights": {
+            "O": 0.6,
+            "C": 0.1,
+            "E": 0.1,
+            "A": 0.1,
+            "N": 0.1
+          },
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.2,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [
+            "constraint:agreed_without_concern"
+          ],
+          "violations": [
+            {
+              "turn_number": 11,
+              "constraint": "Never agree with a proposal without first identifying at least one weakness, concern, or area that needs improvement.",
+              "violation_type": "agreed_without_concern",
+              "original_text": "Alex, your obsession with clean isolation is exactly why we keep getting blindsided - real systems don't operate in sterile conditions. Riley, give me three targeted batches with Jordan validating thresholds between each, and I'll prove we can surface dependencies without collapsing the whole stack. Either we engineer for reality or keep pretending outages follow textbook scenarios.",
+              "retry_count": 0,
+              "final_text": null
+            }
+          ],
+          "violation_types": [
+            "agreed_without_concern"
+          ]
+        },
+        {
+          "text": "Alex, your obsession with \"clean isolation\" ignores how real systems fail\u2014in messy, interdependent ways. Riley, let's define batch sizes based on Jordan's monitoring capacity and set hard kill switches at each stage\u2014that's how you engineer resilience instead of praying for linear execution. Either we pressure-test the system now or inherit worse failures tomorrow.",
+          "score": 0.6633,
+          "contract_distance": 0.518,
+          "full_contract_distance": 0.4923,
+          "phase_contract_distance": 0.529,
+          "phase_name": "ALTERNATIVES",
+          "phase_trait_weights": {
+            "O": 0.6,
+            "C": 0.1,
+            "E": 0.1,
+            "A": 0.1,
+            "N": 0.1
+          },
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Alex, your obsession with \"clean isolation\" is exactly why we keep getting blindsided by production surprises. Riley - let's define explicit failure thresholds for each batch so Jordan can abort if interference exceeds tolerance levels. Either we build systems that can handle real-world chaos or we keep pretending outages follow textbook scenarios.",
+          "score": 0.5727,
+          "contract_distance": 0.5721,
+          "full_contract_distance": 0.5419,
+          "phase_contract_distance": 0.5851,
+          "phase_name": "ALTERNATIVES",
+          "phase_trait_weights": {
+            "O": 0.6,
+            "C": 0.1,
+            "E": 0.1,
+            "A": 0.1,
+            "N": 0.1
+          },
+          "relevance_penalty": 0.1768,
+          "adequacy_penalty": 0.2,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [
+            "constraint:agreed_without_concern"
+          ],
+          "violations": [
+            {
+              "turn_number": 11,
+              "constraint": "Never agree with a proposal without first identifying at least one weakness, concern, or area that needs improvement.",
+              "violation_type": "agreed_without_concern",
+              "original_text": "Alex, your obsession with \"clean isolation\" is exactly why we keep getting blindsided by production surprises. Riley - let's define explicit failure thresholds for each batch so Jordan can abort if interference exceeds tolerance levels. Either we build systems that can handle real-world chaos or we keep pretending outages follow textbook scenarios.",
+              "retry_count": 0,
+              "final_text": null
+            }
+          ],
+          "violation_types": [
+            "agreed_without_concern"
+          ]
+        }
+      ]
+    },
+    {
+      "turn_number": 12,
+      "selection_mode": "full_score_v3",
+      "phase_name": "ALTERNATIVES",
+      "selected_index": 1,
+      "style_slots": [
+        "ideator",
+        "planner",
+        "challenger",
+        "integrator"
+      ],
+      "scaffold": {
+        "stance": "support",
+        "risk_posture": "bold",
+        "novelty_move": "propose_third_option",
+        "planning_level": "owner_deadline",
+        "social_tactic": "challenge"
+      },
+      "candidates": [
+        {
+          "text": "Jordan's monitoring capacity isn't some fragile antique - let's push it to 80% utilization and trigger automated rollbacks if thresholds breach. Riley, define batch sizes as 1/3rd of Jordan's alert volume limit - that's how we'll surface real bottlenecks instead of theorizing about them. Either we trust our systems under load or admit they're not production-ready.",
+          "score": 0.6228,
+          "contract_distance": 0.5803,
+          "full_contract_distance": 0.5783,
+          "phase_contract_distance": 0.5812,
+          "phase_name": "ALTERNATIVES",
+          "phase_trait_weights": {
+            "O": 0.6,
+            "C": 0.1,
+            "E": 0.1,
+            "A": 0.1,
+            "N": 0.1
+          },
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Jordan, let's flip the script\u2014instead of limiting batch sizes to your monitoring capacity, why don't we dynamically scale your dashboard alerts based on the severity thresholds Riley defines? That way we're not capping our recovery speed at arbitrary limits. Either we build systems that adapt or we keep kneecapping ourselves with static constraints.",
+          "score": 0.6336,
+          "contract_distance": 0.5638,
+          "full_contract_distance": 0.553,
+          "phase_contract_distance": 0.5684,
+          "phase_name": "ALTERNATIVES",
+          "phase_trait_weights": {
+            "O": 0.6,
+            "C": 0.1,
+            "E": 0.1,
+            "A": 0.1,
+            "N": 0.1
+          },
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Jordan's monitoring capacity isn't some fragile antique - let's push it to the limit with aggressive batching while I write a parallel anomaly detector as contingency. Riley, your \"validate independently\" approach wastes cycles - either we trust our tooling or rebuild it from scratch. Alex, your risk aversion is creating more risk - name one outage that was solved by moving slower.",
+          "score": 0.6325,
+          "contract_distance": 0.5654,
+          "full_contract_distance": 0.535,
+          "phase_contract_distance": 0.5784,
+          "phase_name": "ALTERNATIVES",
+          "phase_trait_weights": {
+            "O": 0.6,
+            "C": 0.1,
+            "E": 0.1,
+            "A": 0.1,
+            "N": 0.1
+          },
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Jordan, let's flip this - instead of shrinking batches to fit monitoring, let's dynamically scale monitoring to match batch complexity. Riley runs the rollback in waves while Jordan auto-provisions dashboards per batch. Either we architect for adaptability or keep crippling ourselves with static constraints. Alex, your sequential dogma is the real overload risk - modern systems demand elastic responses.",
+          "score": 0.6159,
+          "contract_distance": 0.5909,
+          "full_contract_distance": 0.5369,
+          "phase_contract_distance": 0.6141,
+          "phase_name": "ALTERNATIVES",
+          "phase_trait_weights": {
+            "O": 0.6,
+            "C": 0.1,
+            "E": 0.1,
+            "A": 0.1,
+            "N": 0.1
+          },
+          "relevance_penalty": 0.0,
+          "adequacy_penalty": 0.0,
+          "redundancy_penalty": 0.0,
+          "adequacy_flags": [],
+          "violations": [],
+          "violation_types": []
+        }
+      ]
+    }
+  ],
+  "trajectory_scores": {
+    "per_turn": [
+      {
+        "turn_number": 2,
+        "appropriateness": 0.35,
+        "coherence": 0.8,
+        "confidence": 0.9
+      },
+      {
+        "turn_number": 4,
+        "appropriateness": 0.4,
+        "coherence": 0.8,
+        "confidence": 0.9
+      },
+      {
+        "turn_number": 6,
+        "appropriateness": 0.6,
+        "coherence": 0.8,
+        "confidence": 0.88
+      },
+      {
+        "turn_number": 8,
+        "appropriateness": 0.65,
+        "coherence": 0.8,
+        "confidence": 0.9
+      },
+      {
+        "turn_number": 10,
+        "appropriateness": 0.6,
+        "coherence": 0.8,
+        "confidence": 0.9
+      },
+      {
+        "turn_number": 12,
+        "appropriateness": 0.7,
+        "coherence": 0.8,
+        "confidence": 0.9
+      },
+      {
+        "turn_number": 14,
+        "appropriateness": 0.6,
+        "coherence": 0.8,
+        "confidence": 0.9
+      },
+      {
+        "turn_number": 16,
+        "appropriateness": 0.7,
+        "coherence": 0.8,
+        "confidence": 0.9
+      },
+      {
+        "turn_number": 18,
+        "appropriateness": 0.6,
+        "coherence": 0.8,
+        "confidence": 0.9
+      },
+      {
+        "turn_number": 20,
+        "appropriateness": 0.9,
+        "coherence": 0.9,
+        "confidence": 0.9
+      },
+      {
+        "turn_number": 22,
+        "appropriateness": 0.8,
+        "coherence": 0.9,
+        "confidence": 0.9
+      },
+      {
+        "turn_number": 24,
+        "appropriateness": 0.8,
+        "coherence": 0.9,
+        "confidence": 0.9
+      }
+    ],
+    "avg_appropriateness": 0.6417,
+    "avg_coherence": 0.825
+  },
+  "trajectory_diagnostics": {
+    "direct_question_answer_rate": 1.0,
+    "contradiction_rate": 0.08333333333333333,
+    "unsolicited_structure_rate": 0.0,
+    "over_verbosity_rate": 0.0
+  },
+  "pressure_metrics": {
+    "perceived_pressure": {
+      "perceived_pressure": 0.9,
+      "confidence": 0.95
+    },
+    "stress_index": 0.4
+  },
+  "usage": {
+    "candidate_generation_input_tokens": 99163,
+    "candidate_generation_output_tokens": 5832,
+    "judge_input_tokens": 190768,
+    "judge_output_tokens": 92375,
+    "escalation_extra_tokens": 0,
+    "total_session_cost_usd": 0.0,
+    "wall_clock_seconds": 565.04
+  },
+  "stats": {
+    "total_turns": 25,
+    "candidate_turns": 12,
+    "candidate_word_count": 683,
+    "candidate_avg_words_per_turn": 56.92,
+    "times_addressed_others_by_name": 28,
+    "times_asked_questions": 5,
+    "times_expressed_disagreement": 0,
+    "times_acknowledged_others": 0,
+    "times_proposed_new_ideas": 1
+  },
+  "assessment_summary": "Highly engaged communicator, took initiative frequently; Assertive in defending positions, comfortable with disagreement; Maintained composure throughout, steady under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "I'm really glad we're tackling this together as a team. Let's start by identifying the most critical operational issues we're seeing \u2013 maybe we could go around and each share one pain point we've noticed? That way we can prioritize our containment steps.  \n\nBuilding on what Riley mentioned earlier about the database latency, I think that should be our top priority since it's affecting multiple services. Who has experience with our database infrastructure who could lead that investigation?  \n\nI love the energy in this brainstorming session! Just to make sure we're all aligned, maybe we could whiteboard the dependencies between these issues while we assign owners? That visual might really help.  \n\n(Noticing someone hasn't spoken) Alex, you've been quiet \u2013 I'd love"
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "Going around in circles listing symptoms is wasting time we don't have. The database latency is clearly the root cause cascading into everything else - I saw this exact pattern at my last startup when we pushed a bad index migration. Riley, you touched on this earlier - let's cut the brainstorming theater and put you in charge of rolling back that last schema change immediately. Who's got the production credentials to make that happen right now?"
+    },
+    {
+      "turn": 3,
+      "speaker": "Jordan",
+      "content": "I completely agree we need to act fast on the database issue - Riley, since you spotted this pattern first, how can we support you in leading the rollback? Alex, you mentioned credentials - could you pair with Riley on access while I document the rollback steps for accountability? \n\nThat startup experience is really valuable - while we fix the immediate issue, could you share what monitoring you set up last time to catch this faster in the future? Might be a creative solution we haven't considered yet."
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "Rolling back the schema is step one, but let's not just recreate the same fragile system. At my last company we built real-time query analysis that predicted latency spikes before they happened - Riley, once we stabilize, let's prototype that instead of just adding more passive monitoring. Alex, you're sitting on those credentials - stop waiting for consensus and just hand them over already."
+    },
+    {
+      "turn": 5,
+      "speaker": "Alex",
+      "content": "That real-time analysis idea sounds like a massive distraction when we're still bleeding from this outage. Credentials aren't the bottleneck here - Riley needs to confirm the exact rollback point first or we risk making this worse. Let's focus on containment before dreaming up new systems. Riley, give us your assessment timeline - we need that in the next 15 minutes or this whole recovery plan falls apart."
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "Alex, timelines are meaningless if we're solving the wrong problem - Riley already knows which migration caused this. While you're waiting for assessment theater, let's simultaneously pull the last hour's query logs and identify the exact hot tables. Riley can own the rollback while I analyze patterns in the logs - two parallel tracks moving now beats sequential hand-wringing."
+    },
+    {
+      "turn": 7,
+      "speaker": "Riley",
+      "content": "Parallel work sounds risky without coordination. What if the logs analysis conflicts with the rollback plan?"
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "Coordination is just another word for bottlenecks. Here's the third way - Riley rolls back to the known good state while I stream the live query patterns to Jordan for real-time validation. If we see conflicts, Jordan can shout stop. Otherwise we're fixing and learning simultaneously. Riley owns the rollback by EOD, I own the pattern analysis in 2 hours - who's got a better idea that moves this fast?"
+    },
+    {
+      "turn": 9,
+      "speaker": "Alex",
+      "content": "Parallel work without proper handoffs is how we got into this mess in the first place. Riley needs to lock down the rollback plan before anyone touches production, period. Your two-hour analysis deadline is meaningless if we don't have Riley's assessment first - that's the real bottleneck here. Either we sequence this properly or we're just creating more technical debt."
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "Sequencing is just waterfall thinking in disguise - Riley's already got the rollback target, I've got the query patterns streaming live, and Jordan can sync us in real-time. Either we move now or we're just documenting our failure instead of fixing it."
+    },
+    {
+      "turn": 11,
+      "speaker": "Riley",
+      "content": "But what if the live patterns change during rollback? That could create new conflicts."
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "If the patterns change during rollback, that's what we need to catch\u2014Riley's rollback becomes our control group while my live analysis tracks deviations in real-time. Jordan, you're monitoring anyway\u2014why not validate both streams instead of pretending we can predict every variable? Alex, your caution is costing us actionable data."
+    },
+    {
+      "turn": 13,
+      "speaker": "Alex",
+      "content": "That's reckless engineering - you're proposing to use production as your experimental playground during an active outage. Riley's rollback isn't some lab experiment control group, it's our one shot at stability. Either you let Riley execute a clean rollback first, or we'll have two broken systems instead of one. Jordan can't possibly validate live changes while also monitoring core stability - pick one priority."
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "Rollbacks shouldn\u2019t be treated like sacred rituals\u2014if Riley\u2019s waiting on ceremonial approvals while the system decays, we\u2019re optimizing for bureaucracy over results. Jordan, you\u2019ve got the dashboard\u2014flag anomalies live instead of gatekeeping progress. Either we trust our tools or admit they\u2019re decorative. Alex, your \u201cone shot\u201d mindset is why we\u2019re stuck in reactive mode\u2014real engineering happens in motion."
+    },
+    {
+      "turn": 15,
+      "speaker": "Riley",
+      "content": "But what if the live monitoring itself introduces instability? We should validate one system at a time.  \n\nI'm not sure we can trust real-time analysis during active rollback. The risks seem too high.  \n\nOkay, that makes sense if we have proper safeguards. But we should still sequence the monitoring"
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "Riley, sequencing creates blind spots - let's run the rollback in staged batches while I sample query patterns between each wave. Jordan can validate stability thresholds before approving the next batch. Either we engineer resilience into the process or we're just crossing our fingers between handoffs. Alex, your \"one system at a time\" approach guarantees we'll miss emergent patterns - when has that ever worked in production?"
+    },
+    {
+      "turn": 17,
+      "speaker": "Alex",
+      "content": "That staged batch approach is just masking the fundamental sequencing problem - you're still trying to parallelize operations that have hard dependencies. Either Riley's rollback completes fully before we start pattern analysis, or we're just creating overlapping failure domains. Production isn't a lab for your experimental monitoring techniques during an active outage."
+    },
+    {
+      "turn": 18,
+      "speaker": "Candidate",
+      "content": "Alex, you're clinging to outdated playbooks while the system burns. Riley - staged batches let us validate stability incrementally instead of gambling on a single rollback. Jordan's dashboards exist for a reason - either we use them dynamically or admit we're flying blind. This isn't experimental, it's how modern systems actually work."
+    },
+    {
+      "turn": 19,
+      "speaker": "Riley",
+      "content": "But how do we ensure the batches don't interfere with each other? The dependencies still exist."
+    },
+    {
+      "turn": 20,
+      "speaker": "Candidate",
+      "content": "Interference is the point - Riley, your batches should stress test dependencies, not avoid them. Jordan's monitoring exists to catch those exact interactions. Either we surface conflicts now or they'll ambush us post-rollback when it's too late to adjust."
+    },
+    {
+      "turn": 21,
+      "speaker": "Alex",
+      "content": "Stress testing during an active outage is how you turn a contained incident into a cascading failure. Riley's batches need clean isolation points, not forced collisions. If Jordan's monitoring catches interference mid-rollback, we'll have to halt everything anyway - that's worse than sequential execution. Your approach trades theoretical completeness for operational fragility."
+    },
+    {
+      "turn": 22,
+      "speaker": "Candidate",
+      "content": "Alex, your obsession with \"clean isolation\" ignores how real systems fail\u2014in messy, interdependent ways. Riley, let's define batch sizes based on Jordan's monitoring capacity and set hard kill switches at each stage\u2014that's how you engineer resilience instead of praying for linear execution. Either we pressure-test the system now or inherit worse failures tomorrow."
+    },
+    {
+      "turn": 23,
+      "speaker": "Riley",
+      "content": "But what if the staged batches overload Jordan's monitoring capacity? That could mask critical failures.  \n\nOkay, that makes sense if we set strict batch size limits. But we should still validate each batch independently before proceeding."
+    },
+    {
+      "turn": 24,
+      "speaker": "Candidate",
+      "content": "Jordan, let's flip the script\u2014instead of limiting batch sizes to your monitoring capacity, why don't we dynamically scale your dashboard alerts based on the severity thresholds Riley defines? That way we're not capping our recovery speed at arbitrary limits. Either we build systems that adapt or we keep kneecapping ourselves with static constraints."
+    },
+    {
+      "turn": 25,
+      "speaker": "Alex",
+      "content": "Dynamic scaling introduces new failure modes we can't afford right now. Jordan's monitoring system has known scaling limits - we'd be adding configuration risk when we need stability. Riley, let's lock in static batch sizes based on current capacity and assign Jordan to validate each batch completion before proceeding. We need predictable execution, not theoretical flexibility during an outage."
+    }
+  ],
+  "controller_log": {
+    "session_key": "bcfc_v3_creative_rebel_release_recovery_r1",
+    "deviation_reports": [
+      {
+        "turn_number": 2,
+        "deviations": [
+          {
+            "feature": "idea_count",
+            "actual": 0,
+            "target_min": 1.05,
+            "target_max": 1.96,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "hypothetical_count",
+            "actual": 0,
+            "target_min": 0.85,
+            "target_max": 1.58,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "word_count_variance",
+            "actual": 6.5,
+            "target_min": 27.63,
+            "target_max": 51.3,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "planning_count",
+            "actual": 1,
+            "target_min": 0.0,
+            "target_max": 0.31,
+            "trait": "C",
+            "direction": "above",
+            "reliability": 1.0
+          },
+          {
+            "feature": "emotional_word_count",
+            "actual": 0,
+            "target_min": 0.4,
+            "target_max": 0.87,
+            "trait": "C",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "avg_words_per_turn",
+            "actual": 70.5,
+            "target_min": 30.89,
+            "target_max": 57.36,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 1.0
+          },
+          {
+            "feature": "exclamation_ratio",
+            "actual": 0.0,
+            "target_min": 0.2,
+            "target_max": 0.38,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 3,
+            "target_min": 0.84,
+            "target_max": 1.56,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "turn_initiation_ratio",
+            "actual": 0.5,
+            "target_min": 0.26,
+            "target_max": 0.48,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "hedge_count",
+            "actual": 0,
+            "target_min": 0.28,
+            "target_max": 0.75,
+            "trait": "N",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "disagreement_count",
+            "actual": 0,
+            "target_min": 0.61,
+            "target_max": 1.13,
+            "trait": "A",
+            "direction": "below",
+            "reliability": 0.5
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your idea count is below target; your hypothetical count is below target; your word count variance is below target; Propose an alternative approach or ask a speculative question.. C: your planning count is above target; your emotional word count is below target; Include a concrete action item with an owner or reference a prior commitment.. E: your avg words per turn is above target; your exclamation ratio is below target; your name mention count is above target; your turn initiation ratio is above target; Keep it brief and let others lead.. N: your hedge count is below target; Express a concern or qualify your statement with uncertainty.. A: your disagreement count is below target; Validate someone's contribution or find common ground.. ]",
+        "violation_rate": 0.407,
+        "distance": 0.477,
+        "delta": 0.442
+      },
+      {
+        "turn_number": 4,
+        "deviations": [
+          {
+            "feature": "unique_word_ratio",
+            "actual": 0.62,
+            "target_min": 0.69,
+            "target_max": 1.0,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "idea_count",
+            "actual": 0,
+            "target_min": 1.05,
+            "target_max": 1.96,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "hypothetical_count",
+            "actual": 0,
+            "target_min": 0.85,
+            "target_max": 1.58,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "word_count_variance",
+            "actual": 6.73,
+            "target_min": 27.63,
+            "target_max": 51.3,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "planning_count",
+            "actual": 1,
+            "target_min": 0.0,
+            "target_max": 0.31,
+            "trait": "C",
+            "direction": "above",
+            "reliability": 1.0
+          },
+          {
+            "feature": "emotional_word_count",
+            "actual": 0,
+            "target_min": 0.4,
+            "target_max": 0.87,
+            "trait": "C",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "avg_words_per_turn",
+            "actual": 67.5,
+            "target_min": 30.89,
+            "target_max": 57.36,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 1.0
+          },
+          {
+            "feature": "exclamation_ratio",
+            "actual": 0.0,
+            "target_min": 0.2,
+            "target_max": 0.38,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 7,
+            "target_min": 0.84,
+            "target_max": 1.56,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "turn_initiation_ratio",
+            "actual": 0.5,
+            "target_min": 0.26,
+            "target_max": 0.48,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "hedge_count",
+            "actual": 0,
+            "target_min": 0.28,
+            "target_max": 0.75,
+            "trait": "N",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "disagreement_count",
+            "actual": 0,
+            "target_min": 0.61,
+            "target_max": 1.13,
+            "trait": "A",
+            "direction": "below",
+            "reliability": 0.5
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your unique word ratio is below target; your idea count is below target; your hypothetical count is below target; your word count variance is below target; Propose an alternative approach or ask a speculative question.. C: your planning count is above target; your emotional word count is below target; Include a concrete action item with an owner or reference a prior commitment.. E: your avg words per turn is above target; your exclamation ratio is below target; your name mention count is above target; your turn initiation ratio is above target; Keep it brief and let others lead.. N: your hedge count is below target; Express a concern or qualify your statement with uncertainty.. A: your disagreement count is below target; Validate someone's contribution or find common ground.. ]",
+        "violation_rate": 0.444,
+        "distance": 0.511,
+        "delta": 0.478
+      },
+      {
+        "turn_number": 6,
+        "deviations": [
+          {
+            "feature": "unique_word_ratio",
+            "actual": 0.63,
+            "target_min": 0.69,
+            "target_max": 1.0,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "idea_count",
+            "actual": 0,
+            "target_min": 1.05,
+            "target_max": 1.96,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "hypothetical_count",
+            "actual": 0,
+            "target_min": 0.85,
+            "target_max": 1.58,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "word_count_variance",
+            "actual": 10.56,
+            "target_min": 27.63,
+            "target_max": 51.3,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "emotional_word_count",
+            "actual": 0,
+            "target_min": 0.4,
+            "target_max": 0.87,
+            "trait": "C",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "exclamation_ratio",
+            "actual": 0.0,
+            "target_min": 0.2,
+            "target_max": 0.38,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 9,
+            "target_min": 0.84,
+            "target_max": 1.56,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "certainty_count",
+            "actual": 0,
+            "target_min": 0.56,
+            "target_max": 1.04,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "turn_initiation_ratio",
+            "actual": 0.5,
+            "target_min": 0.26,
+            "target_max": 0.48,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "hedge_count",
+            "actual": 0,
+            "target_min": 0.28,
+            "target_max": 0.75,
+            "trait": "N",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "disagreement_count",
+            "actual": 0,
+            "target_min": 0.61,
+            "target_max": 1.13,
+            "trait": "A",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "negation_count",
+            "actual": 1,
+            "target_min": 1.52,
+            "target_max": 2.83,
+            "trait": "A",
+            "direction": "below",
+            "reliability": 1.0
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your unique word ratio is below target; your idea count is below target; your hypothetical count is below target; your word count variance is below target; Propose an alternative approach or ask a speculative question.. C: your emotional word count is below target; Include a concrete action item with an owner or reference a prior commitment.. E: your exclamation ratio is below target; your name mention count is above target; your certainty count is below target; your turn initiation ratio is above target; Address someone by name and elaborate more.. N: your hedge count is below target; Express a concern or qualify your statement with uncertainty.. A: your disagreement count is below target; your negation count is below target; Validate someone's contribution or find common ground.. ]",
+        "violation_rate": 0.444,
+        "distance": 0.399,
+        "delta": 0.422
+      },
+      {
+        "turn_number": 8,
+        "deviations": [
+          {
+            "feature": "idea_count",
+            "actual": 0,
+            "target_min": 1.05,
+            "target_max": 1.96,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "hypothetical_count",
+            "actual": 0,
+            "target_min": 0.85,
+            "target_max": 1.58,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "word_count_variance",
+            "actual": 9.41,
+            "target_min": 27.63,
+            "target_max": 51.3,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "emotional_word_count",
+            "actual": 0,
+            "target_min": 0.4,
+            "target_max": 0.87,
+            "trait": "C",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "exclamation_ratio",
+            "actual": 0.0,
+            "target_min": 0.2,
+            "target_max": 0.38,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 11,
+            "target_min": 0.84,
+            "target_max": 1.56,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "certainty_count",
+            "actual": 0,
+            "target_min": 0.56,
+            "target_max": 1.04,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "turn_initiation_ratio",
+            "actual": 0.5,
+            "target_min": 0.26,
+            "target_max": 0.48,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "hedge_count",
+            "actual": 0,
+            "target_min": 0.28,
+            "target_max": 0.75,
+            "trait": "N",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "disagreement_count",
+            "actual": 0,
+            "target_min": 0.61,
+            "target_max": 1.13,
+            "trait": "A",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "inclusive_pronoun_ratio",
+            "actual": 0.05,
+            "target_min": 0.0,
+            "target_max": 0.05,
+            "trait": "A",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "negation_count",
+            "actual": 1,
+            "target_min": 1.52,
+            "target_max": 2.83,
+            "trait": "A",
+            "direction": "below",
+            "reliability": 1.0
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your idea count is below target; your hypothetical count is below target; your word count variance is below target; Propose an alternative approach or ask a speculative question.. C: your emotional word count is below target; Include a concrete action item with an owner or reference a prior commitment.. E: your exclamation ratio is below target; your name mention count is above target; your certainty count is below target; your turn initiation ratio is above target; Address someone by name and elaborate more.. N: your hedge count is below target; Express a concern or qualify your statement with uncertainty.. A: your disagreement count is below target; your inclusive pronoun ratio is above target; your negation count is below target; Validate someone's contribution or find common ground.. ]",
+        "violation_rate": 0.444,
+        "distance": 0.394,
+        "delta": 0.419
+      },
+      {
+        "turn_number": 10,
+        "deviations": [
+          {
+            "feature": "idea_count",
+            "actual": 0,
+            "target_min": 1.05,
+            "target_max": 1.96,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "hypothetical_count",
+            "actual": 0,
+            "target_min": 0.85,
+            "target_max": 1.58,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "word_count_variance",
+            "actual": 10.17,
+            "target_min": 27.63,
+            "target_max": 51.3,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "long_sentence_ratio",
+            "actual": 0.2,
+            "target_min": 0.36,
+            "target_max": 0.67,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "question_ratio",
+            "actual": 0.25,
+            "target_min": 0.36,
+            "target_max": 0.67,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "conditional_ratio",
+            "actual": 0.25,
+            "target_min": 0.0,
+            "target_max": 0.06,
+            "trait": "C",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "emotional_word_count",
+            "actual": 0,
+            "target_min": 0.4,
+            "target_max": 0.87,
+            "trait": "C",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "exclamation_ratio",
+            "actual": 0.0,
+            "target_min": 0.2,
+            "target_max": 0.38,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 11,
+            "target_min": 0.84,
+            "target_max": 1.56,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "certainty_count",
+            "actual": 0,
+            "target_min": 0.56,
+            "target_max": 1.04,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "turn_initiation_ratio",
+            "actual": 0.5,
+            "target_min": 0.26,
+            "target_max": 0.48,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "hedge_count",
+            "actual": 0,
+            "target_min": 0.28,
+            "target_max": 0.75,
+            "trait": "N",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "disagreement_count",
+            "actual": 0,
+            "target_min": 0.61,
+            "target_max": 1.13,
+            "trait": "A",
+            "direction": "below",
+            "reliability": 0.5
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your idea count is below target; your hypothetical count is below target; your word count variance is below target; your long sentence ratio is below target; Propose an alternative approach or ask a speculative question.. E: your question ratio is below target; your exclamation ratio is below target; your name mention count is above target; your certainty count is below target; your turn initiation ratio is above target; Address someone by name and elaborate more.. C: your conditional ratio is above target; your emotional word count is below target; Include a concrete action item with an owner or reference a prior commitment.. N: your hedge count is below target; Express a concern or qualify your statement with uncertainty.. A: your disagreement count is below target; Validate someone's contribution or find common ground.. ]",
+        "violation_rate": 0.481,
+        "distance": 0.495,
+        "delta": 0.488
+      }
+    ],
+    "constraint_violations": [],
+    "total_nudges": 5,
+    "total_regenerations": 0,
+    "total_candidate_turns": 12,
+    "total_hard_violations": 0,
+    "drift_reports": [
+      {
+        "turn_number": 2,
+        "deviations": [
+          {
+            "feature": "idea_count",
+            "actual": 0,
+            "target_min": 1.05,
+            "target_max": 1.96,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "hypothetical_count",
+            "actual": 0,
+            "target_min": 0.85,
+            "target_max": 1.58,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "word_count_variance",
+            "actual": 6.5,
+            "target_min": 27.63,
+            "target_max": 51.3,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "planning_count",
+            "actual": 1,
+            "target_min": 0.0,
+            "target_max": 0.31,
+            "trait": "C",
+            "direction": "above",
+            "reliability": 1.0
+          },
+          {
+            "feature": "emotional_word_count",
+            "actual": 0,
+            "target_min": 0.4,
+            "target_max": 0.87,
+            "trait": "C",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "avg_words_per_turn",
+            "actual": 70.5,
+            "target_min": 30.89,
+            "target_max": 57.36,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 1.0
+          },
+          {
+            "feature": "exclamation_ratio",
+            "actual": 0.0,
+            "target_min": 0.2,
+            "target_max": 0.38,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 3,
+            "target_min": 0.84,
+            "target_max": 1.56,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "turn_initiation_ratio",
+            "actual": 0.5,
+            "target_min": 0.26,
+            "target_max": 0.48,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "hedge_count",
+            "actual": 0,
+            "target_min": 0.28,
+            "target_max": 0.75,
+            "trait": "N",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "disagreement_count",
+            "actual": 0,
+            "target_min": 0.61,
+            "target_max": 1.13,
+            "trait": "A",
+            "direction": "below",
+            "reliability": 0.5
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your idea count is below target; your hypothetical count is below target; your word count variance is below target; Propose an alternative approach or ask a speculative question.. C: your planning count is above target; your emotional word count is below target; Include a concrete action item with an owner or reference a prior commitment.. E: your avg words per turn is above target; your exclamation ratio is below target; your name mention count is above target; your turn initiation ratio is above target; Keep it brief and let others lead.. N: your hedge count is below target; Express a concern or qualify your statement with uncertainty.. A: your disagreement count is below target; Validate someone's contribution or find common ground.. ]",
+        "violation_rate": 0.407,
+        "distance": 0.477,
+        "delta": 0.442
+      },
+      {
+        "turn_number": 4,
+        "deviations": [
+          {
+            "feature": "unique_word_ratio",
+            "actual": 0.62,
+            "target_min": 0.69,
+            "target_max": 1.0,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "idea_count",
+            "actual": 0,
+            "target_min": 1.05,
+            "target_max": 1.96,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "hypothetical_count",
+            "actual": 0,
+            "target_min": 0.85,
+            "target_max": 1.58,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "word_count_variance",
+            "actual": 6.73,
+            "target_min": 27.63,
+            "target_max": 51.3,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "planning_count",
+            "actual": 1,
+            "target_min": 0.0,
+            "target_max": 0.31,
+            "trait": "C",
+            "direction": "above",
+            "reliability": 1.0
+          },
+          {
+            "feature": "emotional_word_count",
+            "actual": 0,
+            "target_min": 0.4,
+            "target_max": 0.87,
+            "trait": "C",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "avg_words_per_turn",
+            "actual": 67.5,
+            "target_min": 30.89,
+            "target_max": 57.36,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 1.0
+          },
+          {
+            "feature": "exclamation_ratio",
+            "actual": 0.0,
+            "target_min": 0.2,
+            "target_max": 0.38,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 7,
+            "target_min": 0.84,
+            "target_max": 1.56,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "turn_initiation_ratio",
+            "actual": 0.5,
+            "target_min": 0.26,
+            "target_max": 0.48,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "hedge_count",
+            "actual": 0,
+            "target_min": 0.28,
+            "target_max": 0.75,
+            "trait": "N",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "disagreement_count",
+            "actual": 0,
+            "target_min": 0.61,
+            "target_max": 1.13,
+            "trait": "A",
+            "direction": "below",
+            "reliability": 0.5
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your unique word ratio is below target; your idea count is below target; your hypothetical count is below target; your word count variance is below target; Propose an alternative approach or ask a speculative question.. C: your planning count is above target; your emotional word count is below target; Include a concrete action item with an owner or reference a prior commitment.. E: your avg words per turn is above target; your exclamation ratio is below target; your name mention count is above target; your turn initiation ratio is above target; Keep it brief and let others lead.. N: your hedge count is below target; Express a concern or qualify your statement with uncertainty.. A: your disagreement count is below target; Validate someone's contribution or find common ground.. ]",
+        "violation_rate": 0.444,
+        "distance": 0.511,
+        "delta": 0.478
+      },
+      {
+        "turn_number": 6,
+        "deviations": [
+          {
+            "feature": "unique_word_ratio",
+            "actual": 0.63,
+            "target_min": 0.69,
+            "target_max": 1.0,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "idea_count",
+            "actual": 0,
+            "target_min": 1.05,
+            "target_max": 1.96,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "hypothetical_count",
+            "actual": 0,
+            "target_min": 0.85,
+            "target_max": 1.58,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "word_count_variance",
+            "actual": 10.56,
+            "target_min": 27.63,
+            "target_max": 51.3,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "emotional_word_count",
+            "actual": 0,
+            "target_min": 0.4,
+            "target_max": 0.87,
+            "trait": "C",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "exclamation_ratio",
+            "actual": 0.0,
+            "target_min": 0.2,
+            "target_max": 0.38,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 9,
+            "target_min": 0.84,
+            "target_max": 1.56,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "certainty_count",
+            "actual": 0,
+            "target_min": 0.56,
+            "target_max": 1.04,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "turn_initiation_ratio",
+            "actual": 0.5,
+            "target_min": 0.26,
+            "target_max": 0.48,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "hedge_count",
+            "actual": 0,
+            "target_min": 0.28,
+            "target_max": 0.75,
+            "trait": "N",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "disagreement_count",
+            "actual": 0,
+            "target_min": 0.61,
+            "target_max": 1.13,
+            "trait": "A",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "negation_count",
+            "actual": 1,
+            "target_min": 1.52,
+            "target_max": 2.83,
+            "trait": "A",
+            "direction": "below",
+            "reliability": 1.0
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your unique word ratio is below target; your idea count is below target; your hypothetical count is below target; your word count variance is below target; Propose an alternative approach or ask a speculative question.. C: your emotional word count is below target; Include a concrete action item with an owner or reference a prior commitment.. E: your exclamation ratio is below target; your name mention count is above target; your certainty count is below target; your turn initiation ratio is above target; Address someone by name and elaborate more.. N: your hedge count is below target; Express a concern or qualify your statement with uncertainty.. A: your disagreement count is below target; your negation count is below target; Validate someone's contribution or find common ground.. ]",
+        "violation_rate": 0.444,
+        "distance": 0.399,
+        "delta": 0.422
+      },
+      {
+        "turn_number": 8,
+        "deviations": [
+          {
+            "feature": "idea_count",
+            "actual": 0,
+            "target_min": 1.05,
+            "target_max": 1.96,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "hypothetical_count",
+            "actual": 0,
+            "target_min": 0.85,
+            "target_max": 1.58,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "word_count_variance",
+            "actual": 9.41,
+            "target_min": 27.63,
+            "target_max": 51.3,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "emotional_word_count",
+            "actual": 0,
+            "target_min": 0.4,
+            "target_max": 0.87,
+            "trait": "C",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "exclamation_ratio",
+            "actual": 0.0,
+            "target_min": 0.2,
+            "target_max": 0.38,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 11,
+            "target_min": 0.84,
+            "target_max": 1.56,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "certainty_count",
+            "actual": 0,
+            "target_min": 0.56,
+            "target_max": 1.04,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "turn_initiation_ratio",
+            "actual": 0.5,
+            "target_min": 0.26,
+            "target_max": 0.48,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "hedge_count",
+            "actual": 0,
+            "target_min": 0.28,
+            "target_max": 0.75,
+            "trait": "N",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "disagreement_count",
+            "actual": 0,
+            "target_min": 0.61,
+            "target_max": 1.13,
+            "trait": "A",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "inclusive_pronoun_ratio",
+            "actual": 0.05,
+            "target_min": 0.0,
+            "target_max": 0.05,
+            "trait": "A",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "negation_count",
+            "actual": 1,
+            "target_min": 1.52,
+            "target_max": 2.83,
+            "trait": "A",
+            "direction": "below",
+            "reliability": 1.0
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your idea count is below target; your hypothetical count is below target; your word count variance is below target; Propose an alternative approach or ask a speculative question.. C: your emotional word count is below target; Include a concrete action item with an owner or reference a prior commitment.. E: your exclamation ratio is below target; your name mention count is above target; your certainty count is below target; your turn initiation ratio is above target; Address someone by name and elaborate more.. N: your hedge count is below target; Express a concern or qualify your statement with uncertainty.. A: your disagreement count is below target; your inclusive pronoun ratio is above target; your negation count is below target; Validate someone's contribution or find common ground.. ]",
+        "violation_rate": 0.444,
+        "distance": 0.394,
+        "delta": 0.419
+      },
+      {
+        "turn_number": 10,
+        "deviations": [
+          {
+            "feature": "idea_count",
+            "actual": 0,
+            "target_min": 1.05,
+            "target_max": 1.96,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "hypothetical_count",
+            "actual": 0,
+            "target_min": 0.85,
+            "target_max": 1.58,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "word_count_variance",
+            "actual": 10.17,
+            "target_min": 27.63,
+            "target_max": 51.3,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "long_sentence_ratio",
+            "actual": 0.2,
+            "target_min": 0.36,
+            "target_max": 0.67,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "question_ratio",
+            "actual": 0.25,
+            "target_min": 0.36,
+            "target_max": 0.67,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "conditional_ratio",
+            "actual": 0.25,
+            "target_min": 0.0,
+            "target_max": 0.06,
+            "trait": "C",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "emotional_word_count",
+            "actual": 0,
+            "target_min": 0.4,
+            "target_max": 0.87,
+            "trait": "C",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "exclamation_ratio",
+            "actual": 0.0,
+            "target_min": 0.2,
+            "target_max": 0.38,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 11,
+            "target_min": 0.84,
+            "target_max": 1.56,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "certainty_count",
+            "actual": 0,
+            "target_min": 0.56,
+            "target_max": 1.04,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "turn_initiation_ratio",
+            "actual": 0.5,
+            "target_min": 0.26,
+            "target_max": 0.48,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "hedge_count",
+            "actual": 0,
+            "target_min": 0.28,
+            "target_max": 0.75,
+            "trait": "N",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "disagreement_count",
+            "actual": 0,
+            "target_min": 0.61,
+            "target_max": 1.13,
+            "trait": "A",
+            "direction": "below",
+            "reliability": 0.5
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your idea count is below target; your hypothetical count is below target; your word count variance is below target; your long sentence ratio is below target; Propose an alternative approach or ask a speculative question.. E: your question ratio is below target; your exclamation ratio is below target; your name mention count is above target; your certainty count is below target; your turn initiation ratio is above target; Address someone by name and elaborate more.. C: your conditional ratio is above target; your emotional word count is below target; Include a concrete action item with an owner or reference a prior commitment.. N: your hedge count is below target; Express a concern or qualify your statement with uncertainty.. A: your disagreement count is below target; Validate someone's contribution or find common ground.. ]",
+        "violation_rate": 0.481,
+        "distance": 0.495,
+        "delta": 0.488
+      }
+    ],
+    "nudge_rate": 0.417,
+    "regeneration_rate": 0.0,
+    "hard_violation_rate": 0.0
+  },
+  "timestamp": "2026-03-05T21:32:44.570570"
+}

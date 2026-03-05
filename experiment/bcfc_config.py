@@ -152,6 +152,33 @@ class BCFCConfig:
         "REVISION": {"O": 0.2, "C": 0.2, "E": 0.1, "A": 0.3, "N": 0.2},
     })
 
+    # BCFC v4 (policy + phase-conditioned scoring)
+    v4_style_slots: list = field(default_factory=lambda: [
+        "ideator",
+        "planner",
+        "challenger",
+        "integrator",
+    ])
+    v4_phase_slots: dict = field(default_factory=lambda: {
+        "FRAMING": ["ideator", "integrator"],
+        "ALTERNATIVES": ["ideator", "challenger", "integrator"],
+        "DECISION": ["planner", "integrator"],
+        "REVISION": ["challenger", "integrator"],
+        "CRISIS_REVEAL": ["challenger", "planner", "integrator"],
+        "INITIAL_REACTION": ["challenger", "integrator"],
+        "PROBLEM_SOLVING": ["planner", "integrator"],
+        "STRESS_TEST": ["challenger", "integrator"],
+        "CLOSING": ["integrator", "planner"],
+    })
+    v4_score_weights: dict = field(default_factory=lambda: {
+        "policy_match": 0.30,
+        "situational_adequacy": 0.20,
+        "commitment_continuity": 0.20,
+        "trait_evidence": 0.15,
+        "relationship_consistency": 0.10,
+        "redundancy_penalty": 0.05,
+    })
+
 
 def get_feature_reliability(feature_name: str) -> float:
     return FEATURE_RELIABILITY.get(feature_name, 0.5)

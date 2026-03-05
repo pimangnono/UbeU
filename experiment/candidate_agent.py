@@ -66,8 +66,10 @@ class ExperimentCandidateAgent:
         phase_style: str,
         constraint_suffix: Optional[str] = None,
         style_directive: Optional[str] = None,
-        scaffold: Optional[dict] = None,
+        policy_plan: Optional[dict] = None,
         phase_name: Optional[str] = None,
+        phase_cues: Optional[list[str]] = None,
+        target_traits: Optional[list[str]] = None,
     ) -> str:
         """
         Generate a candidate response given the conversation history.
@@ -99,18 +101,26 @@ class ExperimentCandidateAgent:
         elif phase_style == "agreement":
             style_hint = "\nThe group is in an exploratory, collaborative phase."
 
-        scaffold_text = ""
-        if scaffold:
-            scaffold_text = (
-                "\nHidden decision scaffold (do not mention explicitly): "
-                f"stance={scaffold.get('stance')}; "
-                f"risk_posture={scaffold.get('risk_posture')}; "
-                f"novelty_move={scaffold.get('novelty_move')}; "
-                f"planning_level={scaffold.get('planning_level')}; "
-                f"social_tactic={scaffold.get('social_tactic')}."
+        policy_text = ""
+        if policy_plan:
+            policy_text = (
+                "\nHidden policy plan (do not mention explicitly): "
+                f"stance={policy_plan.get('stance')}; "
+                f"goal_mode={policy_plan.get('goal_mode')}; "
+                f"planning_depth={policy_plan.get('planning_depth')}; "
+                f"novelty_move={policy_plan.get('novelty_move')}; "
+                f"social_tactic={policy_plan.get('social_tactic')}; "
+                f"risk_posture={policy_plan.get('risk_posture')}; "
+                f"memory_focus={policy_plan.get('memory_focus')}."
             )
 
         phase_hint = f"\nCurrent phase: {phase_name}." if phase_name else ""
+        cues_hint = ""
+        if phase_cues:
+            cues_hint = f"\nPhase cues: {', '.join(phase_cues)}."
+        traits_hint = ""
+        if target_traits:
+            traits_hint = f"\nTarget traits for this phase: {', '.join(target_traits)}."
 
         style_hint_extra = f"\nStyle slot: {style_directive}." if style_directive else ""
 
@@ -118,7 +128,7 @@ class ExperimentCandidateAgent:
 
 {history}
 {style_hint}
-{phase_hint}{style_hint_extra}{scaffold_text}
+{phase_hint}{cues_hint}{traits_hint}{style_hint_extra}{policy_text}
 
 Respond as {self.candidate_name} in this discussion. Keep your response natural, concise (1-3 sentences), and in character. Do not include your name as a prefix."""
 
@@ -177,31 +187,39 @@ Respond as {self.candidate_name} in this discussion. Keep your response natural,
             candidates.append(text)
         return candidates
 
-    async def generate_decision_scaffold(
+    async def generate_policy_plan(
         self,
         turns: list["Turn"],
         scenario_brief: str,
         phase_name: Optional[str] = None,
+        phase_cues: Optional[list[str]] = None,
+        target_traits: Optional[list[str]] = None,
     ) -> dict:
         """
-        Generate a hidden decision scaffold (stance/risk/novelty/plan/social).
-        Used in BCFC v3 mini experiment.
+        Generate a latent policy plan (hierarchical persona scaffold).
+        Used in BCFC v4.
         """
         recent_turns = turns[-8:] if len(turns) > 8 else turns
         history_lines = [f"{t.speaker_name}: {t.content}" for t in recent_turns]
         history = "\n".join(history_lines)
 
         phase_hint = f"Phase: {phase_name}" if phase_name else "Phase: unknown"
+        cues_hint = f"Cues: {', '.join(phase_cues)}" if phase_cues else "Cues: none"
+        traits_hint = f"Target traits: {', '.join(target_traits)}" if target_traits else "Target traits: none"
 
         prompt = f"""Given the discussion, output a compact JSON with fields:
 stance (support/oppose/synthesize/probe),
-risk_posture (cautious/balanced/bold),
-novelty_move (none/analogize/reframe/propose_third_option),
-planning_level (none/milestone/owner_deadline/contingency),
-social_tactic (empathize/challenge/coordinate/persuade).
+goal_mode (influence/coordinate/protect/discover),
+planning_depth (none/milestone/owner_deadline/contingency),
+novelty_move (none/analogy/reframe/new_option/third_option),
+social_tactic (empathize/challenge/persuade/mediate/align),
+risk_posture (bold/balanced/cautious),
+memory_focus (commitment/relation/identity/none).
 
 Scenario: {scenario_brief}
 {phase_hint}
+{cues_hint}
+{traits_hint}
 Transcript:
 {history}
 
@@ -217,10 +235,12 @@ Return JSON only."""
         except Exception:
             return {
                 "stance": "synthesize",
-                "risk_posture": "balanced",
+                "goal_mode": "coordinate",
+                "planning_depth": "milestone",
                 "novelty_move": "none",
-                "planning_level": "milestone",
-                "social_tactic": "coordinate",
+                "social_tactic": "align",
+                "risk_posture": "balanced",
+                "memory_focus": "commitment",
             }
 
         # Best-effort JSON parse
@@ -234,10 +254,12 @@ Return JSON only."""
         except Exception:
             return {
                 "stance": "synthesize",
-                "risk_posture": "balanced",
+                "goal_mode": "coordinate",
+                "planning_depth": "milestone",
                 "novelty_move": "none",
-                "planning_level": "milestone",
-                "social_tactic": "coordinate",
+                "social_tactic": "align",
+                "risk_posture": "balanced",
+                "memory_focus": "commitment",
             }
 
     async def generate_candidate_pool_styles(
@@ -247,17 +269,23 @@ Return JSON only."""
         phase_style: str,
         style_slots: list[str],
         phase_name: Optional[str] = None,
+        phase_cues: Optional[list[str]] = None,
+        target_traits: Optional[list[str]] = None,
         constraint_suffix: Optional[str] = None,
+        policy_plan: Optional[dict] = None,
     ) -> list[dict]:
         """
         Generate candidates for best-of-styles selection (BCFC v3).
         Returns list of dicts: {slot, text, scaffold}.
         """
-        scaffold = await self.generate_decision_scaffold(
-            turns=turns,
-            scenario_brief=scenario_brief,
-            phase_name=phase_name,
-        )
+        if policy_plan is None:
+            policy_plan = await self.generate_policy_plan(
+                turns=turns,
+                scenario_brief=scenario_brief,
+                phase_name=phase_name,
+                phase_cues=phase_cues,
+                target_traits=target_traits,
+            )
         outputs: list[dict] = []
         for slot in style_slots:
             directive = slot
@@ -267,13 +295,15 @@ Return JSON only."""
                 phase_style=phase_style,
                 constraint_suffix=constraint_suffix,
                 style_directive=directive,
-                scaffold=scaffold,
+                policy_plan=policy_plan,
                 phase_name=phase_name,
+                phase_cues=phase_cues,
+                target_traits=target_traits,
             )
             outputs.append({
                 "slot": slot,
                 "text": text,
-                "scaffold": scaffold,
+                "policy_plan": policy_plan,
             })
         return outputs
 

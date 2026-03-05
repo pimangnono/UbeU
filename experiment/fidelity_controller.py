@@ -29,6 +29,11 @@ from experiment.behavioral_features import (
     REASSURANCE_SEEKING_PHRASES,
 )
 from experiment.bcfc_config import DEFAULT_CONFIG, CONSTRAINT_PENALTIES
+from experiment.memory_backend import (
+    score_commitment_continuity,
+    score_relationship_consistency,
+    detect_commitment_contradiction,
+)
 
 if TYPE_CHECKING:
     from utils.models import Turn
@@ -498,6 +503,79 @@ class FidelityController:
             })
         return scored
 
+    def score_candidates_policy(
+        self,
+        turns: list["Turn"],
+        candidates: list[str],
+        policy_plan: dict,
+        phase_context: dict,
+        memory_context: dict,
+        candidate_name: str = "Candidate",
+    ) -> list[dict]:
+        """Score candidate pool with policy + phase-conditioned scoring (BCFC v4)."""
+        scored: list[dict] = []
+        target_traits = phase_context.get("target_traits") or []
+        phase_style = phase_context.get("phase_style") or ""
+
+        for text in candidates:
+            violations = self.check_hard_constraints(text, turns, candidate_name)
+            features = self._features_for_candidate(turns, text, candidate_name)
+
+            # Hard-fail on commitment contradictions if detected
+            commitments = memory_context.get("commitments") or []
+            if detect_commitment_contradiction(text, commitments):
+                scored.append({
+                    "text": text,
+                    "score": 0.0,
+                    "hard_fail_reason": "commitment_contradiction",
+                    "policy_match": 0.0,
+                    "situational_adequacy": 0.0,
+                    "commitment_continuity": 0.0,
+                    "trait_evidence": 0.0,
+                    "relationship_consistency": 0.0,
+                    "redundancy_penalty": 1.0,
+                    "violations": [v.to_dict() for v in violations],
+                    "violation_types": [v.violation_type for v in violations],
+                })
+                continue
+
+            policy_match = self._policy_match_score(policy_plan, text)
+            situational_adequacy = self._situational_adequacy_score(text, turns, violations, candidate_name)
+            commitment_continuity = score_commitment_continuity(text, commitments)
+            trait_evidence = self._trait_evidence_score(features, target_traits)
+            relationship_consistency = score_relationship_consistency(
+                text, memory_context.get("relationships") or []
+            )
+            redundancy_penalty = self._redundancy_penalty(text, turns, candidate_name)
+
+            weights = self.config.v4_score_weights
+            total_score = (
+                weights["policy_match"] * policy_match
+                + weights["situational_adequacy"] * situational_adequacy
+                + weights["commitment_continuity"] * commitment_continuity
+                + weights["trait_evidence"] * trait_evidence
+                + weights["relationship_consistency"] * relationship_consistency
+                - weights["redundancy_penalty"] * redundancy_penalty
+            )
+            total_score = round(max(0.0, min(1.0, total_score)), 4)
+
+            scored.append({
+                "text": text,
+                "score": total_score,
+                "policy_match": round(policy_match, 4),
+                "situational_adequacy": round(situational_adequacy, 4),
+                "commitment_continuity": round(commitment_continuity, 4),
+                "trait_evidence": round(trait_evidence, 4),
+                "relationship_consistency": round(relationship_consistency, 4),
+                "redundancy_penalty": round(redundancy_penalty, 4),
+                "phase_target_traits": target_traits,
+                "phase_style": phase_style,
+                "violations": [v.to_dict() for v in violations],
+                "violation_types": [v.violation_type for v in violations],
+            })
+
+        return scored
+
     def _features_for_candidate(
         self,
         turns: list["Turn"],
@@ -517,6 +595,99 @@ class FidelityController:
         return extract_incremental_features(
             temp_turns, candidate_name, window_size=self.config.drift_window_size
         )
+
+    def _trait_evidence_score(self, features: dict, target_traits: list[str]) -> float:
+        """Compute trait evidence score based on target traits in phase."""
+        if not target_traits:
+            return 0.5
+        trait_weights = {t: 1.0 for t in target_traits if t in ["O", "C", "E", "A", "N"]}
+        if not trait_weights:
+            return 0.5
+        distance = self._compute_weighted_distance(features, trait_weights=trait_weights)
+        clipped = min(1.0, distance / max(self.config.distance_clip, 1e-6))
+        return max(0.0, 1.0 - clipped)
+
+    def _situational_adequacy_score(
+        self,
+        text: str,
+        turns: list["Turn"],
+        violations: list[ConstraintViolation],
+        candidate_name: str,
+    ) -> float:
+        relevance_penalty = self._relevance_penalty(text, turns)
+        adequacy_penalty, _ = self._adequacy_penalty(text, turns, violations, candidate_name)
+        penalty = min(1.0, relevance_penalty + adequacy_penalty)
+        return max(0.0, 1.0 - penalty)
+
+    def _policy_match_score(self, policy_plan: dict, text: str) -> float:
+        """Heuristic policy match against the latent policy plan."""
+        if not policy_plan:
+            return 0.5
+        lower = text.lower()
+
+        def _match(expected: str, keywords: list[str]) -> float:
+            if expected in (None, "", "none"):
+                return 0.5
+            if any(k in lower for k in keywords):
+                return 1.0
+            return 0.3
+
+        stance = policy_plan.get("stance", "")
+        stance_score = _match(stance, {
+            "support": ["agree", "support", "yes", "good point", "aligned"],
+            "oppose": ["disagree", "but", "however", "push back", "not"],
+            "synthesize": ["both", "combine", "balance", "middle ground", "merge"],
+            "probe": ["?", "clarify", "help me understand", "can you explain"],
+        }.get(stance, []))
+
+        goal = policy_plan.get("goal_mode", "")
+        goal_score = _match(goal, {
+            "influence": ["convince", "persuade", "align", "sell"],
+            "coordinate": ["assign", "owner", "next steps", "timeline", "schedule"],
+            "protect": ["risk", "avoid", "mitigate", "protect"],
+            "discover": ["explore", "learn", "test", "experiment"],
+        }.get(goal, []))
+
+        planning = policy_plan.get("planning_depth", "")
+        planning_score = _match(planning, {
+            "milestone": ["milestone", "phase", "step"],
+            "owner_deadline": ["owner", "deadline", "by friday", "by end"],
+            "contingency": ["if", "backup", "fallback", "contingency"],
+        }.get(planning, []))
+
+        novelty = policy_plan.get("novelty_move", "")
+        novelty_score = _match(novelty, {
+            "analogy": ["like", "similar to", "as if"],
+            "reframe": ["reframe", "another way", "different lens"],
+            "new_option": ["alternative", "another option", "new approach"],
+            "third_option": ["third option", "middle option"],
+        }.get(novelty, []))
+
+        social = policy_plan.get("social_tactic", "")
+        social_score = _match(social, {
+            "empathize": ["i understand", "i hear you", "makes sense"],
+            "challenge": ["i disagree", "push back", "challenge"],
+            "persuade": ["convince", "persuade", "should"],
+            "mediate": ["both sides", "compromise", "bridge"],
+            "align": ["align", "agree", "same page"],
+        }.get(social, []))
+
+        risk = policy_plan.get("risk_posture", "")
+        risk_score = _match(risk, {
+            "bold": ["let's do it", "move fast", "go for it"],
+            "balanced": ["tradeoff", "balance", "careful"],
+            "cautious": ["risk", "concern", "mitigate", "safe"],
+        }.get(risk, []))
+
+        memory_focus = policy_plan.get("memory_focus", "")
+        memory_score = _match(memory_focus, {
+            "commitment": ["as we agreed", "we said", "commit", "promise"],
+            "relation": ["alex", "jordan", "riley"],
+            "identity": ["i tend to", "i prefer", "my approach"],
+        }.get(memory_focus, []))
+
+        scores = [stance_score, goal_score, planning_score, novelty_score, social_score, risk_score, memory_score]
+        return round(sum(scores) / len(scores), 4)
 
     def _compute_weighted_distance(self, features, trait_weights: Optional[dict] = None) -> float:
         """Compute weighted normalized distance from contract ranges."""
