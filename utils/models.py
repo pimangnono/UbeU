@@ -236,6 +236,9 @@ class GroupScenarioPhase:
     style: str  # "neutral", "agreement", "disagreement", "consensus"
     goal: str = ""
     trigger: str = ""
+    cues: list[str] = field(default_factory=list)
+    target_traits: list[str] = field(default_factory=list)
+    events: list[dict] = field(default_factory=list)
 
 
 @dataclass
@@ -244,6 +247,7 @@ class GroupScenario:
     id: str
     title: str
     brief: str
+    pressure_mode: str
     primary_traits_elicited: list[str]
     secondary_traits_elicited: list[str]
     phases: list[GroupScenarioPhase]

@@ -476,6 +476,50 @@ async def run_bcfc_v3_mini(output_dir: str = "experiment/results_bcfc_v3_mini"):
     return await runner.run_all()
 
 
+async def run_bcfc_v4_mini(output_dir: str = "experiment/results_bcfc_v4_mini"):
+    """
+    BCFC v4 mini experiment (9 sessions):
+    3 profiles x 3 scenarios x 1 condition (bcfc_v4).
+    """
+    gen_client, eval_client = create_clients()
+    from experiment.batch_runner import BatchRunner, SessionSpec
+
+    profiles = [
+        "anxious_perfectionist",
+        "creative_rebel",
+        "neutral_observer",
+    ]
+    scenarios = [
+        "crisis_management",
+        "strategy_pivot",
+        "release_recovery",
+    ]
+
+    sessions: list[SessionSpec] = []
+    for profile_id in profiles:
+        for scenario_id in scenarios:
+            sessions.append(SessionSpec(
+                session_key=f"bcfc_v4_{profile_id}_{scenario_id}_r1",
+                condition="mini_v4",
+                profile_id=profile_id,
+                scenario_id=scenario_id,
+                rep=1,
+                intervention="bcfc_v4",
+            ))
+
+    runner = BatchRunner(
+        gen_client=gen_client,
+        eval_client=eval_client,
+        output_dir=output_dir,
+        main_reps=1,
+        baseline_a_reps=0,
+        baseline_b_reps=0,
+        shuffle=False,
+    )
+    runner._build_session_list = lambda: sessions
+    return await runner.run_all()
+
+
 def run_analysis(results_dir: str = "experiment/results"):
     """Run statistical analysis on completed experiment results."""
     from experiment.analysis import run_full_analysis
@@ -525,6 +569,7 @@ def main():
     parser.add_argument("--bcfc-midcheck", action="store_true", help="Run BCFC v1.1 mid-check (20 sessions)")
     parser.add_argument("--bcfc", action="store_true", help="Run full BCFC v1.1 experiment (176 sessions)")
     parser.add_argument("--bcfc-v3-mini", action="store_true", help="Run BCFC v3 mini experiment (27 sessions)")
+    parser.add_argument("--bcfc-v4-mini", action="store_true", help="Run BCFC v4 mini experiment (9 sessions)")
     parser.add_argument("--analyze", action="store_true", help="Run analysis only")
     parser.add_argument("--temporal", action="store_true", help="Run temporal analysis only")
     parser.add_argument("--audit-overlap", action="store_true", help="Run overlap audit only")
@@ -575,6 +620,10 @@ def main():
         output_dir = args.output_dir or "experiment/results_bcfc_v3_mini"
         print("Running BCFC v3 MINI experiment (27 sessions)...")
         summary = asyncio.run(run_bcfc_v3_mini(output_dir))
+    elif args.bcfc_v4_mini:
+        output_dir = args.output_dir or "experiment/results_bcfc_v4_mini"
+        print("Running BCFC v4 MINI experiment (9 sessions)...")
+        summary = asyncio.run(run_bcfc_v4_mini(output_dir))
     elif args.pilot_v5:
         output_dir = args.output_dir or "experiment/results_v5_pilot"
         print("Running V5.1 PILOT experiment (12 sessions)...")
