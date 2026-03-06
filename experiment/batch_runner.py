@@ -58,12 +58,12 @@ logger = logging.getLogger(__name__)
 class SessionSpec:
     """Specification for a single experiment session."""
     session_key: str       # Unique key for resume, e.g. "main_assertive_leader_resource_conflict_r1"
-    condition: str         # "main" | "baseline_a" | "baseline_b" | "mini_v3" | "mini_v4" | "mini_v5"
+    condition: str         # "main" | "baseline_a" | "baseline_b" | "mini_v3" | "mini_v4" | "mini_v5" | "mini_v5_langgraph"
     profile_id: str        # Profile ID or "none" for baseline_a
     scenario_id: str       # Scenario ID
     rep: int               # Repetition number (1-based)
     assigned_vector: Optional[dict] = None  # For baseline_b: shuffled OCEAN vector
-    intervention: str = "none"  # "none" | "bcfc"
+    intervention: str = "none"  # "none" | "bcfc" | "bcfc_v3" | "bcfc_v4" | "bcfc_v5" | "bcfc_v5_langgraph" | "bon_random"
 
 
 # Profiles used for baseline_b (one extreme, one balanced)
@@ -254,7 +254,7 @@ class BatchRunner:
         system_prompt = None
         assigned_vector = None
 
-        if spec.condition in ("main", "mini_v3", "mini_v4", "mini_v5"):
+        if spec.condition in ("main", "mini_v3", "mini_v4", "mini_v5", "mini_v5_langgraph"):
             profile = EXPERIMENT_PROFILES[spec.profile_id]
             system_prompt = profile.build_system_prompt(scenario.brief)
             assigned_vector = profile.get_vector()
