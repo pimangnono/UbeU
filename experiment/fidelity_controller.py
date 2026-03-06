@@ -12,7 +12,7 @@ Monitoring is zero-cost (deterministic). Control is achieved via BoN reranking.
 import logging
 import re
 from dataclasses import dataclass, field
-from typing import Optional, TYPE_CHECKING
+from typing import Optional, TYPE_CHECKING, Any
 
 from experiment.persona_compiler import BehaviorContract
 from experiment.incremental_features import extract_incremental_features
@@ -98,6 +98,7 @@ class ControllerLog:
     total_candidate_turns: int = 0
     total_hard_violations: int = 0
     drift_reports: list = field(default_factory=list)
+    selection_audit: list = field(default_factory=list)
 
     def to_dict(self) -> dict:
         return {
@@ -109,6 +110,7 @@ class ControllerLog:
             "total_candidate_turns": self.total_candidate_turns,
             "total_hard_violations": self.total_hard_violations,
             "drift_reports": [d.to_dict() for d in self.drift_reports],
+            "selection_audit": self.selection_audit,
             "nudge_rate": round(
                 self.total_nudges / max(self.total_candidate_turns, 1), 3
             ),
@@ -151,6 +153,8 @@ class FidelityController:
         self.log = ControllerLog(session_key=session_key)
         self._current_nudge: Optional[str] = None
         self.config = DEFAULT_CONFIG
+        # Per-phase policy-act tracking for v5 facet-level execution control.
+        self._phase_policy_state: dict[str, dict[str, set[str]]] = {}
 
     def check_and_nudge(
         self,
@@ -408,6 +412,11 @@ class FidelityController:
         "response_too_long": "avg_words_per_turn",
         "no_name_mention": "name_mention_count",
     }
+    _VIOLATION_TRAIT_MAP = {
+        "no_organizational_element": "C",
+        "imposed_unsolicited_structure": "C",
+        "accepted_without_alternative": "O",
+    }
 
     def score_candidates(
         self,
@@ -511,14 +520,45 @@ class FidelityController:
         phase_context: dict,
         memory_context: dict,
         candidate_name: str = "Candidate",
+        scoring_version: str = "v4",
     ) -> list[dict]:
         """Score candidate pool with policy + phase-conditioned scoring (BCFC v4)."""
         scored: list[dict] = []
         target_traits = phase_context.get("target_traits") or []
         phase_style = phase_context.get("phase_style") or ""
+        use_v5 = scoring_version.lower() == "v5"
+        weights = self.config.v5_score_weights if use_v5 else self.config.v4_score_weights
+        opportunities = self._trait_opportunity_scores(turns, phase_context) if use_v5 else {}
+        activation_mask = (
+            self._build_activation_mask(
+                opportunities=opportunities,
+                target_traits=target_traits,
+                apply_floor=True,
+            )
+            if use_v5
+            else {}
+        )
+        phase_name = str(phase_context.get("phase_name") or "UNKNOWN")
+        required_policy_acts = (
+            self._derive_required_policy_acts(policy_plan, phase_context, opportunities)
+            if use_v5
+            else set()
+        )
+        phase_state = self._phase_policy_state.setdefault(
+            phase_name,
+            {"required_acts": set(), "completed_acts": set()},
+        )
+        if use_v5:
+            phase_state["required_acts"].update(required_policy_acts)
 
         for text in candidates:
-            violations = self.check_hard_constraints(text, turns, candidate_name)
+            violations = self.check_hard_constraints(
+                text,
+                turns,
+                candidate_name,
+                phase_context=phase_context if use_v5 else None,
+                scoring_version=scoring_version,
+            )
             features = self._features_for_candidate(turns, text, candidate_name)
 
             # Hard-fail on commitment contradictions if detected
@@ -533,28 +573,72 @@ class FidelityController:
                     "commitment_continuity": 0.0,
                     "trait_evidence": 0.0,
                     "relationship_consistency": 0.0,
+                    "trait_execution": 0.0 if use_v5 else None,
                     "redundancy_penalty": 1.0,
+                    "phase_target_traits": target_traits,
+                    "phase_style": phase_style,
+                    "scoring_version": scoring_version,
                     "violations": [v.to_dict() for v in violations],
                     "violation_types": [v.violation_type for v in violations],
                 })
                 continue
 
-            policy_match = self._policy_match_score(policy_plan, text)
+            policy_match_base = self._policy_match_score(policy_plan, text)
+            if use_v5:
+                policy_match = self._policy_match_score_v5(
+                    policy_plan,
+                    text,
+                    phase_context=phase_context,
+                    turns=turns,
+                )
+            else:
+                policy_match = policy_match_base
             situational_adequacy = self._situational_adequacy_score(text, turns, violations, candidate_name)
             commitment_continuity = score_commitment_continuity(text, commitments)
             trait_evidence = self._trait_evidence_score(features, target_traits)
             relationship_consistency = score_relationship_consistency(
                 text, memory_context.get("relationships") or []
             )
+            trait_execution = 0.5
+            trait_execution_details: dict[str, Any] = {}
+            trait_opportunities: dict[str, float] = {}
+            policy_act_completion = 0.5
+            policy_act_matches: list[str] = []
+            policy_act_missing: list[str] = []
+            policy_act_required: list[str] = []
+            activation_weighted_contract_distance = self._compute_weighted_distance(features)
+            if use_v5:
+                trait_execution, trait_execution_details, trait_opportunities = self._trait_execution_score(
+                    text=text,
+                    turns=turns,
+                    phase_context=phase_context,
+                    opportunities=opportunities,
+                )
+                (
+                    policy_act_completion,
+                    policy_act_matches,
+                    policy_act_missing,
+                    policy_act_required,
+                ) = self._policy_act_completion_score(
+                    text=text,
+                    policy_plan=policy_plan,
+                    phase_state=phase_state,
+                    opportunities=opportunities,
+                    trait_execution_details=trait_execution_details,
+                )
+                activation_weighted_contract_distance = self._compute_weighted_distance(
+                    features,
+                    activation_mask=activation_mask,
+                )
             redundancy_penalty = self._redundancy_penalty(text, turns, candidate_name)
 
-            weights = self.config.v4_score_weights
             total_score = (
                 weights["policy_match"] * policy_match
                 + weights["situational_adequacy"] * situational_adequacy
                 + weights["commitment_continuity"] * commitment_continuity
                 + weights["trait_evidence"] * trait_evidence
                 + weights["relationship_consistency"] * relationship_consistency
+                + weights.get("trait_execution", 0.0) * trait_execution
                 - weights["redundancy_penalty"] * redundancy_penalty
             )
             total_score = round(max(0.0, min(1.0, total_score)), 4)
@@ -563,18 +647,358 @@ class FidelityController:
                 "text": text,
                 "score": total_score,
                 "policy_match": round(policy_match, 4),
+                "policy_match_base": round(policy_match_base, 4),
                 "situational_adequacy": round(situational_adequacy, 4),
                 "commitment_continuity": round(commitment_continuity, 4),
                 "trait_evidence": round(trait_evidence, 4),
                 "relationship_consistency": round(relationship_consistency, 4),
+                "trait_execution": round(trait_execution, 4),
+                "trait_execution_details": trait_execution_details if use_v5 else {},
+                "trait_opportunities": trait_opportunities if use_v5 else {},
+                "activation_mask": activation_mask if use_v5 else {},
+                "activation_weighted_contract_distance": round(activation_weighted_contract_distance, 4),
+                "policy_act_completion": round(policy_act_completion, 4),
+                "policy_act_matches": policy_act_matches,
+                "policy_act_missing": policy_act_missing,
+                "policy_act_required": policy_act_required,
                 "redundancy_penalty": round(redundancy_penalty, 4),
                 "phase_target_traits": target_traits,
                 "phase_style": phase_style,
+                "phase_name": phase_name,
+                "scoring_version": scoring_version,
                 "violations": [v.to_dict() for v in violations],
                 "violation_types": [v.violation_type for v in violations],
             })
 
         return scored
+
+    def _context_window_text(self, turns: list["Turn"], window: int = 4) -> str:
+        """Collect a short lowercase context window from recent turns."""
+        recent = turns[-window:] if len(turns) > window else turns
+        chunks = []
+        for t in recent:
+            content = getattr(t, "content", "")
+            if content:
+                chunks.append(content.lower())
+        return " ".join(chunks)
+
+    def _count_keyword_hits(self, text_lower: str, keywords: list[str]) -> int:
+        """Count keyword matches with boundary-aware checks for single tokens."""
+        hits = 0
+        for kw in keywords:
+            kw_l = kw.lower().strip()
+            if not kw_l:
+                continue
+            if " " in kw_l:
+                if kw_l in text_lower:
+                    hits += 1
+            else:
+                if re.search(rf"\b{re.escape(kw_l)}\b", text_lower):
+                    hits += 1
+        return hits
+
+    def _trait_opportunity_scores(self, turns: list["Turn"], phase_context: dict) -> dict[str, float]:
+        """
+        Estimate whether O/C expression opportunities exist in the current turn context.
+
+        This drives opportunity-gated scoring: traits are strongly required only when
+        the local context actually provides a chance to express them.
+        """
+        cues = [str(c).lower() for c in (phase_context.get("phase_cues") or [])]
+        target_traits = set(phase_context.get("target_traits") or [])
+        context_text = self._context_window_text(turns, window=4)
+
+        scores: dict[str, float] = {}
+        for trait in ("O", "C"):
+            cue_terms = self.config.v5_opportunity_cue_map.get(trait, [])
+            cue_hits = 0
+            for cue in cues:
+                if any(term in cue for term in cue_terms):
+                    cue_hits += 1
+
+            keyword_hits = self._count_keyword_hits(
+                context_text, self.config.v5_context_keyword_map.get(trait, [])
+            )
+
+            score = 0.0
+            if cue_hits > 0:
+                score += min(0.60, 0.20 * cue_hits)
+            if keyword_hits > 0:
+                score += min(0.50, 0.15 * keyword_hits)
+            if trait in target_traits:
+                score += 0.20
+
+            scores[trait] = round(min(1.0, score), 4)
+
+        return scores
+
+    def _trait_signal_coverage(self, trait: str, text_lower: str) -> tuple[float, dict[str, Any]]:
+        """Measure how many trait-specific signal categories are present."""
+        signal_map = self.config.v5_trait_signal_keywords.get(trait, {})
+        if not signal_map:
+            return 0.0, {
+                "matched_categories": [],
+                "missing_categories": [],
+                "category_hits": {},
+            }
+
+        category_hits: dict[str, int] = {}
+        for category, keywords in signal_map.items():
+            category_hits[category] = self._count_keyword_hits(text_lower, keywords)
+
+        # Extra structural checks to reduce lexical brittleness for C signals.
+        if trait == "C":
+            owner_pattern = r"\b(alex|jordan|riley|i|we)\b.{0,40}\b(will|owner|own|responsible|take)\b"
+            deadline_pattern = (
+                r"\b(deadline|due|by\s+(today|tomorrow|monday|tuesday|wednesday|thursday|friday|"
+                r"eod|end of day|\d{1,2}(?:am|pm)?))\b"
+            )
+            contingency_pattern = r"\b(follow up|check in|contingency|fallback|backup plan|in case|if\b.*\bthen)\b"
+
+            if re.search(owner_pattern, text_lower):
+                category_hits["owner_assignment"] = max(1, category_hits.get("owner_assignment", 0))
+            if re.search(deadline_pattern, text_lower):
+                category_hits["deadline_commitment"] = max(1, category_hits.get("deadline_commitment", 0))
+            if re.search(contingency_pattern, text_lower):
+                category_hits["follow_up_or_contingency"] = max(
+                    1, category_hits.get("follow_up_or_contingency", 0)
+                )
+
+        matched = [c for c, h in category_hits.items() if h > 0]
+        missing = [c for c, h in category_hits.items() if h <= 0]
+        coverage = len(matched) / max(len(category_hits), 1)
+
+        return coverage, {
+            "matched_categories": matched,
+            "missing_categories": missing,
+            "category_hits": category_hits,
+        }
+
+    def _trait_execution_score(
+        self,
+        text: str,
+        turns: list["Turn"],
+        phase_context: dict,
+        opportunities: Optional[dict[str, float]] = None,
+    ) -> tuple[float, dict[str, Any], dict[str, float]]:
+        """
+        Opportunity-gated O/C execution score.
+
+        When opportunity is low, score stays neutral-ish to avoid forcing unnatural
+        trait expression. When opportunity is high, missing core O/C signals is
+        penalized.
+        """
+        text_lower = text.lower()
+        gate = self.config.v5_opportunity_gate_threshold
+        target_traits = set(phase_context.get("target_traits") or [])
+        opportunities = opportunities or self._trait_opportunity_scores(turns, phase_context)
+
+        details: dict[str, Any] = {}
+        weighted_sum = 0.0
+        weight_sum = 0.0
+
+        for trait in ("O", "C"):
+            coverage, signal_info = self._trait_signal_coverage(trait, text_lower)
+            hit_count = len(signal_info["matched_categories"])
+            required = self.config.v5_required_signal_counts.get(trait, 1)
+            opportunity = opportunities.get(trait, 0.0)
+            active = opportunity >= gate
+
+            if active:
+                met_requirement = hit_count >= required
+                base = 0.65 if met_requirement else 0.25
+                trait_score = min(1.0, base + 0.35 * coverage)
+            else:
+                # Neutral by default when no opportunity, but still reward clean execution.
+                met_requirement = hit_count >= required if hit_count > 0 else False
+                trait_score = min(0.85, 0.50 + 0.30 * coverage)
+
+            if trait in target_traits:
+                trait_score = min(1.0, trait_score + 0.05)
+
+            trait_weight = 1.0 + opportunity + (0.25 if trait in target_traits else 0.0)
+            weighted_sum += trait_score * trait_weight
+            weight_sum += trait_weight
+
+            details[trait] = {
+                "opportunity_score": round(opportunity, 4),
+                "opportunity_active": active,
+                "required_signal_categories": required,
+                "observed_signal_categories": hit_count,
+                "met_requirement": met_requirement,
+                "coverage": round(coverage, 4),
+                "score": round(trait_score, 4),
+                **signal_info,
+            }
+
+        final = weighted_sum / max(weight_sum, 1e-6)
+        return round(final, 4), details, opportunities
+
+    def _build_activation_mask(
+        self,
+        opportunities: dict[str, float],
+        target_traits: list[str],
+        apply_floor: bool = True,
+    ) -> dict[str, float]:
+        """
+        Build trait activation mask a_t(trait) in [0,1].
+
+        O/C are situation-aware; other traits default to fully active.
+        """
+        floor = self.config.v5_activation_floor if apply_floor else 0.0
+        targets = set(target_traits or [])
+        mask = {"O": 1.0, "C": 1.0, "E": 1.0, "A": 1.0, "N": 1.0}
+        for trait in ("O", "C"):
+            raw = float(opportunities.get(trait, 0.0))
+            if trait in targets:
+                raw = min(1.0, raw + 0.05)
+            mask[trait] = round(max(floor, raw), 4)
+        return mask
+
+    def _derive_required_policy_acts(
+        self,
+        policy_plan: dict,
+        phase_context: dict,
+        opportunities: dict[str, float],
+    ) -> set[str]:
+        """Derive facet-level policy acts expected in this phase."""
+        required: set[str] = set()
+        gate = self.config.v5_opportunity_gate_threshold
+        targets = set(phase_context.get("target_traits") or [])
+
+        planning_depth = str((policy_plan or {}).get("planning_depth") or "").lower()
+        novelty_move = str((policy_plan or {}).get("novelty_move") or "").lower()
+        goal_mode = str((policy_plan or {}).get("goal_mode") or "").lower()
+
+        if planning_depth == "milestone":
+            required.add("c_sequence")
+        elif planning_depth == "owner_deadline":
+            required.add("c_owner_deadline")
+        elif planning_depth == "contingency":
+            required.add("c_contingency")
+
+        if novelty_move in {"new_option", "third_option"}:
+            required.add("o_alternative")
+        elif novelty_move in {"analogy", "reframe"}:
+            required.add("o_reframe")
+
+        if goal_mode == "coordinate":
+            required.add("c_owner_deadline")
+        elif goal_mode == "discover":
+            required.add("o_alternative")
+
+        if "O" in targets and opportunities.get("O", 0.0) >= gate:
+            required.add("o_alternative")
+        if "C" in targets and opportunities.get("C", 0.0) >= gate:
+            required.add("c_owner_deadline")
+        if opportunities.get("O", 0.0) >= 0.75:
+            required.add("o_tradeoff")
+
+        return required
+
+    def _policy_act_completion_score(
+        self,
+        text: str,
+        policy_plan: dict,
+        phase_state: dict[str, set[str]],
+        opportunities: dict[str, float],
+        trait_execution_details: dict[str, Any],
+    ) -> tuple[float, list[str], list[str], list[str]]:
+        """
+        Score completion of currently missing phase policy acts.
+
+        Returns:
+            completion_score, matched_acts, missing_acts, required_acts
+        """
+        required_now = self._derive_required_policy_acts(policy_plan, {"target_traits": []}, opportunities)
+        phase_state["required_acts"].update(required_now)
+        required = set(phase_state["required_acts"])
+        completed = set(phase_state["completed_acts"])
+        missing = required - completed
+
+        o_hits = (
+            trait_execution_details.get("O", {}).get("category_hits", {})
+            if trait_execution_details
+            else {}
+        )
+        c_hits = (
+            trait_execution_details.get("C", {}).get("category_hits", {})
+            if trait_execution_details
+            else {}
+        )
+        text_lower = text.lower()
+        act_hits = {
+            "o_alternative": (o_hits.get("alternative_generation", 0) > 0),
+            "o_reframe": (o_hits.get("reframing_or_analogy", 0) > 0),
+            "o_tradeoff": (o_hits.get("tradeoff_exploration", 0) > 0),
+            "c_owner_deadline": (
+                c_hits.get("owner_assignment", 0) > 0
+                or c_hits.get("deadline_commitment", 0) > 0
+            ),
+            "c_sequence": (c_hits.get("sequence_structure", 0) > 0),
+            "c_contingency": (c_hits.get("follow_up_or_contingency", 0) > 0),
+        }
+
+        if "owner" in text_lower and re.search(r"\b(by|due|deadline|eod)\b", text_lower):
+            act_hits["c_owner_deadline"] = True
+
+        matched = sorted([a for a in missing if act_hits.get(a, False)])
+        missing_sorted = sorted(missing)
+        required_sorted = sorted(required)
+
+        if not missing_sorted:
+            return 1.0, matched, missing_sorted, required_sorted
+        score = len(matched) / len(missing_sorted)
+        return round(score, 4), matched, missing_sorted, required_sorted
+
+    def _policy_match_score_v5(
+        self,
+        policy_plan: dict,
+        text: str,
+        phase_context: dict,
+        turns: list["Turn"],
+    ) -> float:
+        """
+        v5 policy-match bridge:
+        - keeps existing latent-plan keyword match
+        - adds O/C execution alignment for planning/novelty policy dimensions
+        """
+        base = self._policy_match_score(policy_plan, text)
+        if not policy_plan:
+            return base
+
+        text_lower = text.lower()
+        bridge_parts: list[float] = []
+
+        planning_depth = (policy_plan.get("planning_depth") or "").lower()
+        if planning_depth in {"milestone", "owner_deadline", "contingency"}:
+            c_cov, _ = self._trait_signal_coverage("C", text_lower)
+            bridge_parts.append(c_cov)
+
+        novelty_move = (policy_plan.get("novelty_move") or "").lower()
+        if novelty_move in {"analogy", "reframe", "new_option", "third_option"}:
+            o_cov, _ = self._trait_signal_coverage("O", text_lower)
+            bridge_parts.append(o_cov)
+
+        goal_mode = (policy_plan.get("goal_mode") or "").lower()
+        if goal_mode == "coordinate":
+            c_cov, _ = self._trait_signal_coverage("C", text_lower)
+            bridge_parts.append(c_cov)
+        elif goal_mode == "discover":
+            o_cov, _ = self._trait_signal_coverage("O", text_lower)
+            bridge_parts.append(o_cov)
+
+        bridge = sum(bridge_parts) / len(bridge_parts) if bridge_parts else 0.5
+        opportunities = self._trait_opportunity_scores(turns, phase_context)
+        active_ratio = sum(
+            1 for t in ("O", "C")
+            if opportunities.get(t, 0.0) >= self.config.v5_opportunity_gate_threshold
+        ) / 2.0
+
+        # Lean more on execution bridge when O/C opportunity is high.
+        base_weight = 0.70 if active_ratio > 0 else 0.82
+        score = (base_weight * base) + ((1.0 - base_weight) * bridge)
+        return round(max(0.0, min(1.0, score)), 4)
 
     def _features_for_candidate(
         self,
@@ -689,7 +1113,12 @@ class FidelityController:
         scores = [stance_score, goal_score, planning_score, novelty_score, social_score, risk_score, memory_score]
         return round(sum(scores) / len(scores), 4)
 
-    def _compute_weighted_distance(self, features, trait_weights: Optional[dict] = None) -> float:
+    def _compute_weighted_distance(
+        self,
+        features,
+        trait_weights: Optional[dict] = None,
+        activation_mask: Optional[dict[str, float]] = None,
+    ) -> float:
         """Compute weighted normalized distance from contract ranges."""
         features_dict = features.to_dict()
         window_size = self.config.drift_window_size
@@ -725,10 +1154,119 @@ class FidelityController:
             rel = spec.get("reliability", 0.5)
             trait = spec.get("trait")
             trait_w = trait_weights.get(trait, 1.0)
+            if activation_mask and trait in activation_mask:
+                trait_w *= activation_mask[trait]
             total += rel * trait_w * dist
             weight_sum += rel * trait_w
 
         return total / max(weight_sum, 1e-6)
+
+    def _compute_activation_weighted_distance(self, features, activation_mask: dict[str, float]) -> float:
+        """Compute contract distance scaled by activation mask a_t(trait)."""
+        return self._compute_weighted_distance(
+            features,
+            activation_mask=activation_mask,
+        )
+
+    def select_candidate_policy_v5(
+        self,
+        scored: list[dict],
+        phase_context: dict,
+        turn_number: int,
+    ) -> dict[str, Any]:
+        """
+        Select candidate with lexicographic two-stage BoN:
+        A) adequacy gate, B) min activation-weighted contract distance,
+        C) tie-break by relevance/redundancy (+ policy-act completion).
+        """
+        if not scored:
+            audit = {
+                "turn_number": turn_number,
+                "phase_name": phase_context.get("phase_name"),
+                "selection_mode": "two_stage_v5",
+                "error": "empty_scored_pool",
+            }
+            self.log.selection_audit.append(audit)
+            return {"selected_index": -1, "selected": None, "audit": audit}
+
+        n = len(scored)
+        all_indices = list(range(n))
+        tau = self.config.v5_adequacy_threshold
+        tie_delta = self.config.v5_tie_delta
+        policy_tie_weight = self.config.v5_policy_tie_weight
+        phase_name = str(phase_context.get("phase_name") or "UNKNOWN")
+        phase_state = self._phase_policy_state.setdefault(
+            phase_name,
+            {"required_acts": set(), "completed_acts": set()},
+        )
+
+        # Stage A: adequacy gate
+        adequate = [
+            i for i, c in enumerate(scored)
+            if (c.get("situational_adequacy", 0.0) >= tau) and not c.get("hard_fail_reason")
+        ]
+        stage_a_pool = adequate
+        fail_open = False
+        if not stage_a_pool:
+            stage_a_pool = [i for i, c in enumerate(scored) if not c.get("hard_fail_reason")]
+            fail_open = True
+        if not stage_a_pool:
+            stage_a_pool = all_indices
+            fail_open = True
+
+        # Stage B: minimize activation-weighted contract distance
+        def _dist(idx: int) -> float:
+            c = scored[idx]
+            return float(c.get("activation_weighted_contract_distance", c.get("contract_distance", 1.0)))
+
+        best_dist = min(_dist(i) for i in stage_a_pool)
+        near = [i for i in stage_a_pool if abs(_dist(i) - best_dist) <= tie_delta]
+
+        # Stage C: tie-break
+        tie_rows: list[dict[str, Any]] = []
+        selected_idx = near[0]
+        if len(near) > 1:
+            best_tie = None
+            for i in near:
+                c = scored[i]
+                tie_score = (
+                    (1.0 - float(c.get("relevance_penalty", 1.0)))
+                    - float(c.get("redundancy_penalty", 1.0))
+                    + (policy_tie_weight * float(c.get("policy_act_completion", 0.0)))
+                )
+                row = {"index": i, "tie_score": round(tie_score, 4)}
+                tie_rows.append(row)
+                if best_tie is None or tie_score > best_tie[1]:
+                    best_tie = (i, tie_score)
+            selected_idx = best_tie[0] if best_tie else near[0]
+
+        selected = scored[selected_idx]
+        selected_matches = set(selected.get("policy_act_matches") or [])
+        if selected_matches:
+            phase_state["completed_acts"].update(selected_matches)
+
+        audit = {
+            "turn_number": turn_number,
+            "phase_name": phase_name,
+            "selection_mode": "two_stage_v5",
+            "adequacy_threshold": tau,
+            "tie_delta": tie_delta,
+            "stage_a_pool_size": len(stage_a_pool),
+            "stage_a_rejected_indices": [i for i in all_indices if i not in stage_a_pool],
+            "stage_a_fail_open": fail_open,
+            "stage_b_best_distance": round(best_dist, 4),
+            "stage_b_near_indices": near,
+            "stage_c_tie_scores": tie_rows,
+            "selected_index": selected_idx,
+            "activation_mask": selected.get("activation_mask", {}),
+            "phase_required_policy_acts": sorted(phase_state["required_acts"]),
+            "phase_completed_policy_acts": sorted(phase_state["completed_acts"]),
+            "phase_missing_policy_acts": sorted(
+                set(phase_state["required_acts"]) - set(phase_state["completed_acts"])
+            ),
+        }
+        self.log.selection_audit.append(audit)
+        return {"selected_index": selected_idx, "selected": selected, "audit": audit}
 
     def _relevance_penalty(self, text: str, turns: list["Turn"]) -> float:
         """Penalize if response is weakly related to the last non-candidate turn."""
@@ -840,6 +1378,8 @@ class FidelityController:
         response_text: str,
         turns: list["Turn"],
         candidate_name: str = "Candidate",
+        phase_context: Optional[dict] = None,
+        scoring_version: str = "v4",
     ) -> list[ConstraintViolation]:
         """
         Check a candidate response against hard constraints before submission.
@@ -852,6 +1392,16 @@ class FidelityController:
             1 for t in turns if t.speaker_name == candidate_name
         ) + 1
 
+        is_v5 = scoring_version.lower() == "v5"
+        hard_activation = {}
+        if is_v5:
+            opportunities = self._trait_opportunity_scores(turns, phase_context or {})
+            hard_activation = self._build_activation_mask(
+                opportunities=opportunities,
+                target_traits=(phase_context or {}).get("target_traits") or [],
+                apply_floor=False,
+            )
+
         for constraint in self.contract.hard_constraints:
             violation = self._check_single_constraint(
                 constraint, response_text, text_lower, turns, turn_number
@@ -859,6 +1409,12 @@ class FidelityController:
             if violation:
                 # Only strong/reliable features remain hard-gated
                 if self._is_hard_violation(violation):
+                    if is_v5:
+                        trait = self._VIOLATION_TRAIT_MAP.get(violation.violation_type)
+                        if trait in {"O", "C"}:
+                            act = float(hard_activation.get(trait, 0.0))
+                            if act < self.config.v5_hard_activation_threshold:
+                                continue
                     violations.append(violation)
 
         return violations

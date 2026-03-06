@@ -223,6 +223,105 @@
     "error": "temporal analysis not run yet"
   },
   "rq3_phase_controlled": {},
+  "scenario_sets": {
+    "primary_endpoint": "robustness",
+    "probe_scenarios": [],
+    "robustness_scenarios": [
+      "resource_conflict",
+      "crisis_management"
+    ],
+    "probe": {
+      "error": "no probe sessions"
+    },
+    "robustness": {
+      "per_trait": {
+        "O": {
+          "pearson_r": 0.6908,
+          "p_value": 0.057837,
+          "mae": 0.1813,
+          "n": 8
+        },
+        "C": {
+          "pearson_r": 0.2545,
+          "p_value": 0.543024,
+          "mae": 0.2056,
+          "n": 8
+        },
+        "E": {
+          "pearson_r": 0.9789,
+          "p_value": 2.3e-05,
+          "mae": 0.0594,
+          "n": 8
+        },
+        "A": {
+          "pearson_r": 0.8693,
+          "p_value": 0.005051,
+          "mae": 0.1212,
+          "n": 8
+        },
+        "N": {
+          "pearson_r": 0.9076,
+          "p_value": 0.001839,
+          "mae": 0.1138,
+          "n": 8
+        }
+      },
+      "overall": {
+        "mean_r": 0.7402,
+        "mean_mae": 0.1363,
+        "mae_p90": 0.3,
+        "worst10_session_mae_mean": 0.2,
+        "min_trait_r": 0.2545,
+        "O_mae": 0.1813,
+        "C_mae": 0.2056,
+        "n_sessions": 8
+      }
+    },
+    "all_main": {
+      "per_trait": {
+        "O": {
+          "pearson_r": 0.6908,
+          "p_value": 0.057837,
+          "mae": 0.1813,
+          "n": 8
+        },
+        "C": {
+          "pearson_r": 0.2545,
+          "p_value": 0.543024,
+          "mae": 0.2056,
+          "n": 8
+        },
+        "E": {
+          "pearson_r": 0.9789,
+          "p_value": 2.3e-05,
+          "mae": 0.0594,
+          "n": 8
+        },
+        "A": {
+          "pearson_r": 0.8693,
+          "p_value": 0.005051,
+          "mae": 0.1212,
+          "n": 8
+        },
+        "N": {
+          "pearson_r": 0.9076,
+          "p_value": 0.001839,
+          "mae": 0.1138,
+          "n": 8
+        }
+      },
+      "overall": {
+        "mean_r": 0.7402,
+        "mean_mae": 0.1363,
+        "mae_p90": 0.3,
+        "worst10_session_mae_mean": 0.2,
+        "min_trait_r": 0.2545,
+        "O_mae": 0.1813,
+        "C_mae": 0.2056,
+        "n_sessions": 8
+      }
+    }
+  },
   "judge_bias": {
     "per_trait": {
       "O": {
@@ -356,16 +455,16 @@
     }
   },
   "feature_trait_validation": {
-    "Hypotheticals -> O": {
-      "pearson_r": -0.0867,
-      "p_value": 0.83823,
+    "Word variance -> O": {
+      "pearson_r": 0.0613,
+      "p_value": 0.885278,
       "expected_direction": "positive",
-      "correct_direction": false,
+      "correct_direction": "True",
       "n": 8
     },
-    "Exclamation ratio -> E": {
-      "pearson_r": 0.3961,
-      "p_value": 0.331393,
+    "Planning -> C": {
+      "pearson_r": 0.5098,
+      "p_value": 0.196882,
       "expected_direction": "positive",
       "correct_direction": "True",
       "n": 8
@@ -377,97 +476,6 @@
       "correct_direction": "True",
       "n": 8
     },
-    "Emotional words -> N": {
-      "pearson_r": 0.0702,
-      "p_value": 0.868832,
-      "expected_direction": "positive",
-      "correct_direction": "True",
-      "n": 8
-    },
-    "Max words -> E": {
-      "pearson_r": 0.6714,
-      "p_value": 0.06827,
-      "expected_direction": "positive",
-      "correct_direction": "True",
-      "n": 8
-    },
-    "Certainty -> E": {
-      "pearson_r": 0.308,
-      "p_value": 0.457952,
-      "expected_direction": "positive",
-      "correct_direction": "True",
-      "n": 8
-    },
-    "Reference back -> C": {
-      "pearson_r": -0.3734,
-      "p_value": 0.362254,
-      "expected_direction": "positive",
-      "correct_direction": false,
-      "n": 8
-    },
-    "Hedges -> N": {
-      "pearson_r": 0.4972,
-      "p_value": 0.209976,
-      "expected_direction": "positive",
-      "correct_direction": "True",
-      "n": 8
-    },
-    "Turn initiation -> E": {
-      "pearson_r": 0.3859,
-      "p_value": 0.34506,
-      "expected_direction": "positive",
-      "correct_direction": "True",
-      "n": 8
-    },
-    "Acknowledgments -> A": {
-      "pearson_r": 0.158,
-      "p_value": 0.708581,
-      "expected_direction": "positive",
-      "correct_direction": "True",
-      "n": 8
-    },
-    "Question ratio -> E": {
-      "pearson_r": -0.5209,
-      "p_value": 0.185615,
-      "expected_direction": "positive",
-      "correct_direction": false,
-      "n": 8
-    },
-    "Planning -> C": {
-      "pearson_r": 0.5098,
-      "p_value": 0.196882,
-      "expected_direction": "positive",
-      "correct_direction": "True",
-      "n": 8
-    },
-    "Avg words -> E": {
-      "pearson_r": 0.8547,
-      "p_value": 0.006863,
-      "expected_direction": "positive",
-      "correct_direction": "True",
-      "n": 8
-    },
-    "Inclusive pronouns -> A": {
-      "pearson_r": 0.4881,
-      "p_value": 0.219771,
-      "expected_direction": "positive",
-      "correct_direction": "True",
-      "n": 8
-    },
-    "Reassurance seeking -> N": {
-      "pearson_r": NaN,
-      "p_value": NaN,
-      "expected_direction": "positive",
-      "correct_direction": false,
-      "n": 8
-    },
-    "Ideas -> O": {
-      "pearson_r": -0.4041,
-      "p_value": 0.320763,
-      "expected_direction": "positive",
-      "correct_direction": false,
-      "n": 8
-    },
     "First-person -> N": {
       "pearson_r": 0.0929,
       "p_value": 0.826859,
@@ -475,16 +483,9 @@
       "correct_direction": "True",
       "n": 8
     },
-    "Unique words -> O": {
-      "pearson_r": -0.5118,
-      "p_value": 0.194785,
-      "expected_direction": "positive",
-      "correct_direction": false,
-      "n": 8
-    },
-    "Action items -> C": {
-      "pearson_r": -0.1098,
-      "p_value": 0.795839,
+    "Ideas -> O": {
+      "pearson_r": -0.4041,
+      "p_value": 0.320763,
       "expected_direction": "positive",
       "correct_direction": false,
       "n": 8
@@ -496,16 +497,65 @@
       "correct_direction": "True",
       "n": 8
     },
-    "Word variance -> O": {
-      "pearson_r": 0.0613,
-      "p_value": 0.885278,
+    "Turn initiation -> E": {
+      "pearson_r": 0.3859,
+      "p_value": 0.34506,
       "expected_direction": "positive",
       "correct_direction": "True",
+      "n": 8
+    },
+    "Avg words -> E": {
+      "pearson_r": 0.8547,
+      "p_value": 0.006863,
+      "expected_direction": "positive",
+      "correct_direction": "True",
+      "n": 8
+    },
+    "Exclamation ratio -> E": {
+      "pearson_r": 0.3961,
+      "p_value": 0.331393,
+      "expected_direction": "positive",
+      "correct_direction": "True",
+      "n": 8
+    },
+    "Hedges -> N": {
+      "pearson_r": 0.4972,
+      "p_value": 0.209976,
+      "expected_direction": "positive",
+      "correct_direction": "True",
+      "n": 8
+    },
+    "Max words -> E": {
+      "pearson_r": 0.6714,
+      "p_value": 0.06827,
+      "expected_direction": "positive",
+      "correct_direction": "True",
+      "n": 8
+    },
+    "Acknowledgments -> A": {
+      "pearson_r": 0.158,
+      "p_value": 0.708581,
+      "expected_direction": "positive",
+      "correct_direction": "True",
+      "n": 8
+    },
+    "Disagreements -> -A": {
+      "pearson_r": 0.5447,
+      "p_value": 0.162716,
+      "expected_direction": "negative",
+      "correct_direction": "False",
       "n": 8
     },
     "Apologies -> N": {
       "pearson_r": NaN,
       "p_value": NaN,
+      "expected_direction": "positive",
+      "correct_direction": false,
+      "n": 8
+    },
+    "Reference back -> C": {
+      "pearson_r": -0.3734,
+      "p_value": 0.362254,
       "expected_direction": "positive",
       "correct_direction": false,
       "n": 8
@@ -517,23 +567,16 @@
       "correct_direction": "True",
       "n": 8
     },
-    "Disagreements -> -A": {
-      "pearson_r": 0.5447,
-      "p_value": 0.162716,
-      "expected_direction": "negative",
-      "correct_direction": "False",
-      "n": 8
-    },
-    "Long sentences -> C": {
-      "pearson_r": 0.4371,
-      "p_value": 0.278887,
-      "expected_direction": "positive",
-      "correct_direction": "True",
-      "n": 8
-    },
     "Positive emotion -> A": {
       "pearson_r": -0.1981,
       "p_value": 0.638153,
+      "expected_direction": "positive",
+      "correct_direction": false,
+      "n": 8
+    },
+    "Question ratio -> E": {
+      "pearson_r": -0.5209,
+      "p_value": 0.185615,
       "expected_direction": "positive",
       "correct_direction": false,
       "n": 8
@@ -550,6 +593,62 @@
       "p_value": 0.547764,
       "expected_direction": "positive",
       "correct_direction": "True",
+      "n": 8
+    },
+    "Action items -> C": {
+      "pearson_r": -0.1098,
+      "p_value": 0.795839,
+      "expected_direction": "positive",
+      "correct_direction": false,
+      "n": 8
+    },
+    "Reassurance seeking -> N": {
+      "pearson_r": NaN,
+      "p_value": NaN,
+      "expected_direction": "positive",
+      "correct_direction": false,
+      "n": 8
+    },
+    "Certainty -> E": {
+      "pearson_r": 0.308,
+      "p_value": 0.457952,
+      "expected_direction": "positive",
+      "correct_direction": "True",
+      "n": 8
+    },
+    "Inclusive pronouns -> A": {
+      "pearson_r": 0.4881,
+      "p_value": 0.219771,
+      "expected_direction": "positive",
+      "correct_direction": "True",
+      "n": 8
+    },
+    "Emotional words -> N": {
+      "pearson_r": 0.0702,
+      "p_value": 0.868832,
+      "expected_direction": "positive",
+      "correct_direction": "True",
+      "n": 8
+    },
+    "Hypotheticals -> O": {
+      "pearson_r": -0.0867,
+      "p_value": 0.83823,
+      "expected_direction": "positive",
+      "correct_direction": false,
+      "n": 8
+    },
+    "Long sentences -> C": {
+      "pearson_r": 0.4371,
+      "p_value": 0.278887,
+      "expected_direction": "positive",
+      "correct_direction": "True",
+      "n": 8
+    },
+    "Unique words -> O": {
+      "pearson_r": -0.5118,
+      "p_value": 0.194785,
+      "expected_direction": "positive",
+      "correct_direction": false,
       "n": 8
     },
     "_correlation_matrix": {
@@ -1351,5 +1450,23 @@
   },
   "bcfc_paired": null,
   "bcfc_ablation": null,
-  "bcfc_cost": null
+  "bcfc_cost": null,
+  "bon_ablation": {
+    "error": "no candidate pools found"
+  },
+  "bon_random": {
+    "error": "no bon_random sessions"
+  },
+  "trajectory": {
+    "error": "insufficient data"
+  },
+  "pressure": {
+    "error": "insufficient pressure data"
+  },
+  "diversity": {
+    "error": "no candidate pools found"
+  },
+  "opportunity_conditional": {
+    "error": "no selected candidate pools with v5 diagnostics"
+  }
 }

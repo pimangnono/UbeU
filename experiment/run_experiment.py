@@ -12,6 +12,7 @@ Usage:
     python -m experiment.run_experiment --analyze              # Analysis only
     python -m experiment.run_experiment --temporal             # Temporal analysis only
     python -m experiment.run_experiment --audit-overlap        # Overlap audit only
+    python -m experiment.run_experiment --bcfc-v5-mini         # BCFC v5 mini (12 sessions)
 """
 
 import argparse
@@ -520,6 +521,54 @@ async def run_bcfc_v4_mini(output_dir: str = "experiment/results_bcfc_v4_mini"):
     return await runner.run_all()
 
 
+async def run_bcfc_v5_mini(output_dir: str = "experiment/results_bcfc_v5_mini"):
+    """
+    BCFC v5 mini experiment (12 sessions):
+    3 profiles x 4 scenarios x 1 condition (bcfc_v5).
+
+    Scenario mix:
+    - Probe set: strategy_pivot, release_recovery
+    - Robustness set sample: crisis_management, resource_conflict
+    """
+    gen_client, eval_client = create_clients()
+    from experiment.batch_runner import BatchRunner, SessionSpec
+    from experiment.bcfc_config import DEFAULT_CONFIG
+
+    profiles = [
+        "anxious_perfectionist",
+        "creative_rebel",
+        "neutral_observer",
+    ]
+
+    probe = list(DEFAULT_CONFIG.probe_scenario_ids)
+    robust = [s for s in DEFAULT_CONFIG.robustness_scenario_ids if s in {"crisis_management", "resource_conflict"}]
+    scenarios = probe + robust
+
+    sessions: list[SessionSpec] = []
+    for profile_id in profiles:
+        for scenario_id in scenarios:
+            sessions.append(SessionSpec(
+                session_key=f"bcfc_v5_{profile_id}_{scenario_id}_r1",
+                condition="mini_v5",
+                profile_id=profile_id,
+                scenario_id=scenario_id,
+                rep=1,
+                intervention="bcfc_v5",
+            ))
+
+    runner = BatchRunner(
+        gen_client=gen_client,
+        eval_client=eval_client,
+        output_dir=output_dir,
+        main_reps=1,
+        baseline_a_reps=0,
+        baseline_b_reps=0,
+        shuffle=False,
+    )
+    runner._build_session_list = lambda: sessions
+    return await runner.run_all()
+
+
 def run_analysis(results_dir: str = "experiment/results"):
     """Run statistical analysis on completed experiment results."""
     from experiment.analysis import run_full_analysis
@@ -570,6 +619,7 @@ def main():
     parser.add_argument("--bcfc", action="store_true", help="Run full BCFC v1.1 experiment (176 sessions)")
     parser.add_argument("--bcfc-v3-mini", action="store_true", help="Run BCFC v3 mini experiment (27 sessions)")
     parser.add_argument("--bcfc-v4-mini", action="store_true", help="Run BCFC v4 mini experiment (9 sessions)")
+    parser.add_argument("--bcfc-v5-mini", action="store_true", help="Run BCFC v5 mini experiment (12 sessions)")
     parser.add_argument("--analyze", action="store_true", help="Run analysis only")
     parser.add_argument("--temporal", action="store_true", help="Run temporal analysis only")
     parser.add_argument("--audit-overlap", action="store_true", help="Run overlap audit only")
@@ -624,6 +674,10 @@ def main():
         output_dir = args.output_dir or "experiment/results_bcfc_v4_mini"
         print("Running BCFC v4 MINI experiment (9 sessions)...")
         summary = asyncio.run(run_bcfc_v4_mini(output_dir))
+    elif args.bcfc_v5_mini:
+        output_dir = args.output_dir or "experiment/results_bcfc_v5_mini"
+        print("Running BCFC v5 MINI experiment (12 sessions)...")
+        summary = asyncio.run(run_bcfc_v5_mini(output_dir))
     elif args.pilot_v5:
         output_dir = args.output_dir or "experiment/results_v5_pilot"
         print("Running V5.1 PILOT experiment (12 sessions)...")

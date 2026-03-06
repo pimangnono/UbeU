@@ -179,6 +179,119 @@ class BCFCConfig:
         "redundancy_penalty": 0.05,
     })
 
+    # BCFC v5 (opportunity-gated trait execution)
+    # Positive components sum to 0.95; redundancy is subtractive.
+    v5_score_weights: dict = field(default_factory=lambda: {
+        "policy_match": 0.30,
+        "situational_adequacy": 0.17,
+        "commitment_continuity": 0.17,
+        "trait_evidence": 0.11,
+        "relationship_consistency": 0.07,
+        "trait_execution": 0.13,
+        "redundancy_penalty": 0.05,
+    })
+    v5_phase_slots: dict = field(default_factory=lambda: {
+        "FRAMING": ["ideator", "integrator"],
+        "ALTERNATIVES": ["ideator", "challenger", "integrator"],
+        "DECISION": ["planner", "integrator"],
+        "REVISION": ["challenger", "integrator"],
+        "CRISIS_REVEAL": ["challenger", "planner", "integrator"],
+        "INITIAL_REACTION": ["challenger", "integrator"],
+        "PROBLEM_SOLVING": ["planner", "integrator"],
+        "STRESS_TEST": ["challenger", "integrator"],
+        "CLOSING": ["integrator", "planner"],
+    })
+    v5_opportunity_gate_threshold: float = 0.35
+    v5_activation_floor: float = 0.15
+    v5_hard_activation_threshold: float = 0.55
+    v5_adequacy_threshold: float = 0.55
+    v5_tie_delta: float = 0.08
+    v5_policy_tie_weight: float = 0.25
+    v5_required_signal_counts: dict = field(default_factory=lambda: {
+        "O": 1,
+        "C": 1,
+    })
+    v5_opportunity_cue_map: dict = field(default_factory=lambda: {
+        "O": [
+            "ambiguity",
+            "problem_reframing",
+            "option_generation",
+            "tradeoff_comparison",
+            "reframe_request",
+            "novelty",
+            "ideation",
+            "opportunity",
+            "strategy_pivot",
+        ],
+        "C": [
+            "owner_deadline_dependency",
+            "structured_planning",
+            "sequencing",
+            "triage",
+            "plan_under_pressure",
+            "coordination",
+            "commitment",
+            "follow_up",
+            "execution",
+        ],
+    })
+    v5_context_keyword_map: dict = field(default_factory=lambda: {
+        "O": [
+            "unknown", "uncertain", "no data", "pivot", "alternative",
+            "new approach", "reframe", "option", "experiment", "hypothesis",
+        ],
+        "C": [
+            "owner", "responsible", "deadline", "due", "by when", "timeline",
+            "sequence", "next step", "follow up", "contingency", "handoff",
+        ],
+    })
+    # Signal categories used by the trait execution layer (coverage-based scoring).
+    v5_trait_signal_keywords: dict = field(default_factory=lambda: {
+        "O": {
+            "alternative_generation": [
+                "what if", "alternative", "another option", "another way",
+                "we could", "new approach", "third option",
+            ],
+            "reframing_or_analogy": [
+                "reframe", "different lens", "another way to look",
+                "similar to", "as if", "analogy",
+            ],
+            "tradeoff_exploration": [
+                "tradeoff", "upside", "downside", "pros and cons",
+                "cost-benefit", "risk", "benefit",
+            ],
+        },
+        "C": {
+            "owner_assignment": [
+                "owner", "assigned", "responsible", "ownership", "who will",
+            ],
+            "deadline_commitment": [
+                "deadline", "due", "by ", "eod", "end of day", "timeline",
+            ],
+            "sequence_structure": [
+                "first", "second", "next", "then", "after that", "step",
+                "phase",
+            ],
+            "follow_up_or_contingency": [
+                "follow up", "check in", "contingency", "fallback",
+                "backup plan", "if", "in case",
+            ],
+        },
+    })
+
+    # Reporting sets: probe highlights detectability; robustness is the primary endpoint.
+    probe_scenario_ids: list = field(default_factory=lambda: [
+        "strategy_pivot",
+        "release_recovery",
+    ])
+    robustness_scenario_ids: list = field(default_factory=lambda: [
+        "resource_conflict",
+        "creative_brainstorm",
+        "crisis_management",
+        "new_member_integration",
+        "crisis_management_low",
+    ])
+
 
 def get_feature_reliability(feature_name: str) -> float:
     return FEATURE_RELIABILITY.get(feature_name, 0.5)

@@ -1,6 +1,6 @@
 # Behavioral Fidelity Experiment Report
 
-Generated: 2026-03-04 11:49
+Generated: 2026-03-06 11:03
 
 ---
 
@@ -18,6 +18,17 @@ Do assigned personality profiles produce matching behavioral signals?
 
 **Overall mean r:** 0.7402
 **Overall mean MAE:** 0.1362
+
+### Scenario-Set Fidelity (Primary = Robustness)
+
+| Set | Mean r | Mean MAE | MAE p90 | Worst-10% Session MAE | O MAE | C MAE | N sessions |
+|-----|--------|----------|---------|------------------------|-------|-------|------------|
+| Robustness (primary) | 0.7402 | 0.1363 | 0.3 | 0.2 | 0.1813 | 0.2056 | 8 |
+| Probe (diagnostic) | - | - | - | - | - | - | - |
+| All main | 0.7402 | 0.1363 | 0.3 | 0.2 | 0.1813 | 0.2056 | 8 |
+
+Probe scenarios: -
+Robustness scenarios: resource_conflict, crisis_management
 
 ---
 
@@ -107,20 +118,20 @@ Top significant feature-trait correlations:
 | Feature -> Trait | Pearson r | p-value | Expected | Correct? |
 |-----------------|----------|---------|----------|----------|
 | Avg words -> E | 0.8547* | 0.006863 | positive | Yes |
-| Max words -> E | 0.6714 | 0.06827 | positive | Yes |
-| Question ratio -> E | -0.5209 | 0.185615 | positive | No |
-| Reassurance seeking -> N | nan | nan | positive | No |
 | Name mentions -> E | 0.7998* | 0.017157 | positive | Yes |
-| Unique words -> O | -0.5118 | 0.194785 | positive | No |
-| Inclusive pronouns -> A | 0.4881 | 0.219771 | positive | Yes |
-| Ideas -> O | -0.4041 | 0.320763 | positive | No |
-| Apologies -> N | nan | nan | positive | No |
+| Max words -> E | 0.6714 | 0.06827 | positive | Yes |
 | Disagreements -> -A | 0.5447 | 0.162716 | negative | No |
+| Apologies -> N | nan | nan | positive | No |
+| Question ratio -> E | -0.5209 | 0.185615 | positive | No |
 | Planning -> C | 0.5098 | 0.196882 | positive | Yes |
 | Hedges -> N | 0.4972 | 0.209976 | positive | Yes |
+| Reference back -> C | -0.3734 | 0.362254 | positive | No |
+| Self-doubt -> N | nan | nan | positive | No |
+| Reassurance seeking -> N | nan | nan | positive | No |
+| Unique words -> O | -0.5118 | 0.194785 | positive | No |
+| Inclusive pronouns -> A | 0.4881 | 0.219771 | positive | Yes |
 | Long sentences -> C | 0.4371 | 0.278887 | positive | Yes |
-| Exclamation ratio -> E | 0.3961 | 0.331393 | positive | Yes |
-| Turn initiation -> E | 0.3859 | 0.34506 | positive | Yes |
+| Ideas -> O | -0.4041 | 0.320763 | positive | No |
 
 ---
 

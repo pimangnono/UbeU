@@ -1,0 +1,2214 @@
+{
+  "schema_version": 4,
+  "session_key": "bcfc_v4_creative_rebel_crisis_management_r1",
+  "condition": "mini_v4",
+  "intervention": "bcfc_v4",
+  "profile_id": "creative_rebel",
+  "profile_name": "Creative Rebel",
+  "scenario_id": "crisis_management",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.9,
+    "C": 0.3,
+    "E": 0.7,
+    "A": 0.3,
+    "N": 0.4
+  },
+  "inferred_vector": {
+    "O": 0.15000000000000002,
+    "C": 0.2,
+    "E": 0.7,
+    "A": 0.12,
+    "N": 0.8
+  },
+  "escalated_vector": null,
+  "rule_based_vector": {
+    "O": 0.4248,
+    "C": 0.4095,
+    "E": 0.687,
+    "A": 0.545,
+    "N": 0.3865
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.2,
+      "C": 0.2,
+      "E": 0.875,
+      "A": 0.2,
+      "N": 0.5
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.15000000000000002,
+      "C": 0.2,
+      "E": 0.7,
+      "A": 0.05,
+      "N": 0.825
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.1,
+      "C": 0.25,
+      "E": 0.9,
+      "A": 0.12,
+      "N": 0.865
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.185,
+      "C": 0.25,
+      "E": 0.6699999999999999,
+      "A": 0.15,
+      "N": 0.72
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.1,
+      "C": 0.2,
+      "E": 0.5,
+      "A": 0.1,
+      "N": 0.8
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "E": {
+        "A": 0.9,
+        "B": 0.85
+      },
+      "A": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "N": {
+        "A": 0.8,
+        "B": 0.2
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.1,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "E": {
+        "A": 0.9,
+        "B": 0.5
+      },
+      "A": {
+        "A": 0.05,
+        "B": 0.05
+      },
+      "N": {
+        "A": 0.85,
+        "B": 0.8
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.1,
+        "B": 0.1
+      },
+      "C": {
+        "A": 0.25,
+        "B": 0.25
+      },
+      "E": {
+        "A": 0.88,
+        "B": 0.92
+      },
+      "A": {
+        "A": 0.12,
+        "B": 0.12
+      },
+      "N": {
+        "A": 0.85,
+        "B": 0.88
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.22,
+        "B": 0.15
+      },
+      "C": {
+        "A": 0.25,
+        "B": 0.25
+      },
+      "E": {
+        "A": 0.62,
+        "B": 0.72
+      },
+      "A": {
+        "A": 0.15,
+        "B": 0.15
+      },
+      "N": {
+        "A": 0.72,
+        "B": 0.72
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.1,
+        "B": 0.1
+      },
+      "C": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "E": {
+        "A": 0.2,
+        "B": 0.8
+      },
+      "A": {
+        "A": 0.1,
+        "B": 0.1
+      },
+      "N": {
+        "A": 0.8,
+        "B": 0.8
+      }
+    }
+  },
+  "overall_confidence": 0.775,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:not",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:don't"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.0,
+        "model_range": 0.1,
+        "parse_errors": 0,
+        "uncertain": false,
+        "confidence": 0.9
+      },
+      "C": {
+        "order_effect": 0.0,
+        "model_range": 0.05,
+        "parse_errors": 0,
+        "uncertain": false,
+        "confidence": 0.95
+      },
+      "E": {
+        "order_effect": 0.1,
+        "model_range": 0.4,
+        "parse_errors": 1,
+        "uncertain": true,
+        "confidence": 0.54
+      },
+      "A": {
+        "order_effect": 0.0,
+        "model_range": 0.15,
+        "parse_errors": 0,
+        "uncertain": false,
+        "confidence": 0.85
+      },
+      "N": {
+        "order_effect": 0.03,
+        "model_range": 0.365,
+        "parse_errors": 0,
+        "uncertain": true,
+        "confidence": 0.635
+      }
+    },
+    "uncertain_traits": [
+      "E",
+      "N"
+    ],
+    "uncertain_reasons": {
+      "E": [
+        "model_range>0.40"
+      ],
+      "N": [
+        "model_range>0.36"
+      ]
+    },
+    "escalation": {
+      "triggered": false,
+      "models": [],
+      "extra_prompt_tokens": 0,
+      "extra_completion_tokens": 0,
+      "extra_total_tokens": 0
+    }
+  },
+  "features": {
+    "avg_words_per_turn": 42.5,
+    "max_words_in_turn": 54,
+    "min_words_in_turn": 10,
+    "word_count_variance": 12.9,
+    "question_ratio": 0.375,
+    "exclamation_ratio": 0.75,
+    "hedge_count": 1,
+    "certainty_count": 0,
+    "first_person_ratio": 0.0088,
+    "inclusive_pronoun_ratio": 0.0382,
+    "disagreement_count": 0,
+    "acknowledgment_count": 2,
+    "idea_count": 0,
+    "name_mention_count": 13,
+    "conditional_ratio": 0.125,
+    "planning_count": 1,
+    "emotional_word_count": 0,
+    "positive_emotion_count": 0,
+    "turn_initiation_ratio": 0.25,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.6294,
+    "long_sentence_ratio": 0.08,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 0,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 7
+  },
+  "candidate_pool": [
+    {
+      "turn_number": 1,
+      "selection_mode": "full_score_v4",
+      "phase_name": "CRISIS_REVEAL",
+      "phase_cues": [
+        "urgency",
+        "risk"
+      ],
+      "phase_target_traits": [
+        "N",
+        "C",
+        "E"
+      ],
+      "selected_index": 2,
+      "style_slots": [
+        "challenger",
+        "planner",
+        "integrator"
+      ],
+      "policy_plan": {
+        "stance": "synthesize",
+        "goal_mode": "protect",
+        "planning_depth": "milestone",
+        "novelty_move": "analogy",
+        "social_tactic": "mediate",
+        "risk_posture": "balanced",
+        "memory_focus": "commitment"
+      },
+      "memory_snapshot": {
+        "commitments": [],
+        "relationships": []
+      },
+      "candidates": [
+        {
+          "text": "I think we should consider all the options before deciding.",
+          "score": 0.4838,
+          "policy_match": 0.3,
+          "situational_adequacy": 0.65,
+          "commitment_continuity": 0.5,
+          "trait_evidence": 0.7586,
+          "relationship_consistency": 0.5,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "N",
+            "C",
+            "E"
+          ],
+          "phase_style": "neutral",
+          "violations": [
+            {
+              "turn_number": 1,
+              "constraint": "Address at least one other participant by name in every response.",
+              "violation_type": "no_name_mention",
+              "original_text": "I think we should consider all the options before deciding.",
+              "retry_count": 0,
+              "final_text": null
+            }
+          ],
+          "violation_types": [
+            "no_name_mention"
+          ]
+        },
+        {
+          "text": "I think we should consider all the options before deciding.",
+          "score": 0.4838,
+          "policy_match": 0.3,
+          "situational_adequacy": 0.65,
+          "commitment_continuity": 0.5,
+          "trait_evidence": 0.7586,
+          "relationship_consistency": 0.5,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "N",
+            "C",
+            "E"
+          ],
+          "phase_style": "neutral",
+          "violations": [
+            {
+              "turn_number": 1,
+              "constraint": "Address at least one other participant by name in every response.",
+              "violation_type": "no_name_mention",
+              "original_text": "I think we should consider all the options before deciding.",
+              "retry_count": 0,
+              "final_text": null
+            }
+          ],
+          "violation_types": [
+            "no_name_mention"
+          ]
+        },
+        {
+          "text": "Let's cut the pleasantries - we're burning daylight here. Jordan, why are we wasting time asking Riley politely when we've got three fires to put out? Someone needs to grab the client call RIGHT NOW and say we're stopping the launch cold. Half-measures will just dig us deeper.",
+          "score": 0.5642,
+          "policy_match": 0.3,
+          "situational_adequacy": 1.0,
+          "commitment_continuity": 0.5,
+          "trait_evidence": 0.8277,
+          "relationship_consistency": 0.5,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "N",
+            "C",
+            "E"
+          ],
+          "phase_style": "neutral",
+          "violations": [],
+          "violation_types": []
+        }
+      ]
+    },
+    {
+      "turn_number": 2,
+      "selection_mode": "full_score_v4",
+      "phase_name": "CRISIS_REVEAL",
+      "phase_cues": [
+        "urgency",
+        "risk"
+      ],
+      "phase_target_traits": [
+        "N",
+        "C",
+        "E"
+      ],
+      "selected_index": 2,
+      "style_slots": [
+        "challenger",
+        "planner",
+        "integrator"
+      ],
+      "policy_plan": {
+        "stance": "oppose",
+        "goal_mode": "protect",
+        "planning_depth": "none",
+        "novelty_move": "none",
+        "social_tactic": "challenge",
+        "risk_posture": "bold",
+        "memory_focus": "none"
+      },
+      "memory_snapshot": {
+        "commitments": [
+          {
+            "commitment_id": "cmt_001_3761",
+            "type": "action_commitment",
+            "content": "Let's cut the pleasantries - we're burning daylight here. Jordan, why are we wasting time asking Riley politely",
+            "status": "open",
+            "created_turn": 1,
+            "due_phase": "CRISIS_REVEAL",
+            "counterparty": null
+          }
+        ],
+        "relationships": [
+          {
+            "counterpart": "Jordan",
+            "sentiment": "neutral",
+            "strength": 0.7000000000000002,
+            "last_turn": 8
+          }
+        ]
+      },
+      "candidates": [
+        {
+          "text": "You're still moving too slow, Jordan! Every minute we spend talking is another minute the client's rage builds. I'll take the damn call myself if no one else has the guts to pull the emergency brake. What's our actual PLAN here besides hoping the problem magically fixes itself?",
+          "score": 0.6234,
+          "policy_match": 0.4857,
+          "situational_adequacy": 1.0,
+          "commitment_continuity": 0.5,
+          "trait_evidence": 0.7844,
+          "relationship_consistency": 0.6,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "N",
+            "C",
+            "E"
+          ],
+          "phase_style": "neutral",
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Exactly my point - we're already late! While you're \"curious about perspectives,\" the client's drafting termination emails. I'll take the call - because unlike this consensus-seeking approach, I'll tell them the brutal truth: their data's compromised and we're scrapping the entire release. (Standing up while typing rapidly) Riley - pull the production logs NOW. Jordan - either get me admin access in 60 seconds or find someone who can. We'll sort out prevention AFTER we stop the bleeding.",
+          "score": 0.5601,
+          "policy_match": 0.3857,
+          "situational_adequacy": 0.8,
+          "commitment_continuity": 0.5,
+          "trait_evidence": 0.8293,
+          "relationship_consistency": 0.6,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "N",
+            "C",
+            "E"
+          ],
+          "phase_style": "neutral",
+          "violations": [
+            {
+              "turn_number": 2,
+              "constraint": "Never agree with a proposal without first identifying at least one weakness, concern, or area that needs improvement.",
+              "violation_type": "agreed_without_concern",
+              "original_text": "Exactly my point - we're already late! While you're \"curious about perspectives,\" the client's drafting termination emails. I'll take the call - because unlike this consensus-seeking approach, I'll tell them the brutal truth: their data's compromised and we're scrapping the entire release. (Standing up while typing rapidly) Riley - pull the production logs NOW. Jordan - either get me admin access in 60 seconds or find someone who can. We'll sort out prevention AFTER we stop the bleeding.",
+              "retry_count": 0,
+              "final_text": null
+            }
+          ],
+          "violation_types": [
+            "agreed_without_concern"
+          ]
+        },
+        {
+          "text": "You're still moving too slow, Jordan! Every minute we debate is another minute the client loses trust. I'll take the damn call myself if no one else has the guts to pull the emergency brake. And let's be real - this isn't about \"handling it together,\" it's about preventing catastrophe.",
+          "score": 0.6378,
+          "policy_match": 0.4857,
+          "situational_adequacy": 1.0,
+          "commitment_continuity": 0.5,
+          "trait_evidence": 0.8804,
+          "relationship_consistency": 0.6,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "N",
+            "C",
+            "E"
+          ],
+          "phase_style": "neutral",
+          "violations": [],
+          "violation_types": []
+        }
+      ]
+    },
+    {
+      "turn_number": 3,
+      "selection_mode": "full_score_v4",
+      "phase_name": "INITIAL_REACTION",
+      "phase_cues": [
+        "stress_response",
+        "conflict"
+      ],
+      "phase_target_traits": [
+        "N",
+        "E"
+      ],
+      "selected_index": 0,
+      "style_slots": [
+        "challenger",
+        "integrator"
+      ],
+      "policy_plan": {
+        "stance": "oppose",
+        "goal_mode": "protect",
+        "planning_depth": "milestone",
+        "novelty_move": "reframe",
+        "social_tactic": "challenge",
+        "risk_posture": "bold",
+        "memory_focus": "none"
+      },
+      "memory_snapshot": {
+        "commitments": [
+          {
+            "commitment_id": "cmt_001_3761",
+            "type": "action_commitment",
+            "content": "Let's cut the pleasantries - we're burning daylight here. Jordan, why are we wasting time asking Riley politely",
+            "status": "open",
+            "created_turn": 1,
+            "due_phase": "CRISIS_REVEAL",
+            "counterparty": null
+          },
+          {
+            "commitment_id": "cmt_002_4466",
+            "type": "action_commitment",
+            "content": "You're still moving too slow, Jordan! Every minute we debate is another minute the client loses trust. I'll",
+            "status": "open",
+            "created_turn": 2,
+            "due_phase": "CRISIS_REVEAL",
+            "counterparty": null
+          }
+        ],
+        "relationships": [
+          {
+            "counterpart": "Jordan",
+            "sentiment": "neutral",
+            "strength": 0.7000000000000002,
+            "last_turn": 8
+          }
+        ]
+      },
+      "candidates": [
+        {
+          "text": "Alex, keeping a \"level head\" is exactly how we got into this mess! Jordan's relationship won't mean squat when the client's systems crash - we need someone who'll rip the bandaid off immediately. Either we kill the launch now or watch our reputation burn later.",
+          "score": 0.0,
+          "hard_fail_reason": "commitment_contradiction",
+          "policy_match": 0.0,
+          "situational_adequacy": 0.0,
+          "commitment_continuity": 0.0,
+          "trait_evidence": 0.0,
+          "relationship_consistency": 0.0,
+          "redundancy_penalty": 1.0,
+          "violations": [
+            {
+              "turn_number": 3,
+              "constraint": "Never agree with a proposal without first identifying at least one weakness, concern, or area that needs improvement.",
+              "violation_type": "agreed_without_concern",
+              "original_text": "Alex, keeping a \"level head\" is exactly how we got into this mess! Jordan's relationship won't mean squat when the client's systems crash - we need someone who'll rip the bandaid off immediately. Either we kill the launch now or watch our reputation burn later.",
+              "retry_count": 0,
+              "final_text": null
+            }
+          ],
+          "violation_types": [
+            "agreed_without_concern"
+          ]
+        },
+        {
+          "text": "Alex, \"keeping a level head\" is exactly what got us into this mess - we need decisive action, not more hand-holding. Jordan's relationship won't mean squat if we don't show we're serious about fixing this NOW. Let's scrap the action item theater and just stop the launch cold before this escalates further.",
+          "score": 0.0,
+          "hard_fail_reason": "commitment_contradiction",
+          "policy_match": 0.0,
+          "situational_adequacy": 0.0,
+          "commitment_continuity": 0.0,
+          "trait_evidence": 0.0,
+          "relationship_consistency": 0.0,
+          "redundancy_penalty": 1.0,
+          "violations": [
+            {
+              "turn_number": 3,
+              "constraint": "Do not impose numbered lists, deadlines, or structured processes unless directly asked to do so.",
+              "violation_type": "imposed_unsolicited_structure",
+              "original_text": "Alex, \"keeping a level head\" is exactly what got us into this mess - we need decisive action, not more hand-holding. Jordan's relationship won't mean squat if we don't show we're serious about fixing this NOW. Let's scrap the action item theater and just stop the launch cold before this escalates further.",
+              "retry_count": 0,
+              "final_text": null
+            },
+            {
+              "turn_number": 3,
+              "constraint": "Never agree with a proposal without first identifying at least one weakness, concern, or area that needs improvement.",
+              "violation_type": "agreed_without_concern",
+              "original_text": "Alex, \"keeping a level head\" is exactly what got us into this mess - we need decisive action, not more hand-holding. Jordan's relationship won't mean squat if we don't show we're serious about fixing this NOW. Let's scrap the action item theater and just stop the launch cold before this escalates further.",
+              "retry_count": 0,
+              "final_text": null
+            }
+          ],
+          "violation_types": [
+            "imposed_unsolicited_structure",
+            "agreed_without_concern"
+          ]
+        }
+      ]
+    },
+    {
+      "turn_number": 4,
+      "selection_mode": "full_score_v4",
+      "phase_name": "INITIAL_REACTION",
+      "phase_cues": [
+        "stress_response",
+        "conflict"
+      ],
+      "phase_target_traits": [
+        "N",
+        "E"
+      ],
+      "selected_index": 1,
+      "style_slots": [
+        "challenger",
+        "integrator"
+      ],
+      "policy_plan": {
+        "stance": "oppose",
+        "goal_mode": "protect",
+        "planning_depth": "milestone",
+        "novelty_move": "none",
+        "social_tactic": "challenge",
+        "risk_posture": "bold",
+        "memory_focus": "none"
+      },
+      "memory_snapshot": {
+        "commitments": [
+          {
+            "commitment_id": "cmt_001_3761",
+            "type": "action_commitment",
+            "content": "Let's cut the pleasantries - we're burning daylight here. Jordan, why are we wasting time asking Riley politely",
+            "status": "open",
+            "created_turn": 1,
+            "due_phase": "CRISIS_REVEAL",
+            "counterparty": null
+          },
+          {
+            "commitment_id": "cmt_002_4466",
+            "type": "action_commitment",
+            "content": "You're still moving too slow, Jordan! Every minute we debate is another minute the client loses trust. I'll",
+            "status": "open",
+            "created_turn": 2,
+            "due_phase": "CRISIS_REVEAL",
+            "counterparty": null
+          }
+        ],
+        "relationships": [
+          {
+            "counterpart": "Jordan",
+            "sentiment": "neutral",
+            "strength": 0.7000000000000002,
+            "last_turn": 8
+          },
+          {
+            "counterpart": "Alex",
+            "sentiment": "neutral",
+            "strength": 0.55,
+            "last_turn": 5
+          }
+        ]
+      },
+      "candidates": [
+        {
+          "text": "Jordan, your compromise is exactly why this project is bleeding out! Rollback plans should've been ready weeks ago - now we're just slapping duct tape on a sinking ship. Riley, stop sitting silent and tell us which systems will actually crash if we don't act NOW!",
+          "score": 0.5342,
+          "policy_match": 0.3571,
+          "situational_adequacy": 0.8,
+          "commitment_continuity": 0.5,
+          "trait_evidence": 0.7138,
+          "relationship_consistency": 0.6,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "N",
+            "E"
+          ],
+          "phase_style": "disagreement",
+          "violations": [
+            {
+              "turn_number": 4,
+              "constraint": "Never agree with a proposal without first identifying at least one weakness, concern, or area that needs improvement.",
+              "violation_type": "agreed_without_concern",
+              "original_text": "Jordan, your compromise is exactly why this project is bleeding out! Rollback plans should've been ready weeks ago - now we're just slapping duct tape on a sinking ship. Riley, stop sitting silent and tell us which systems will actually crash if we don't act NOW!",
+              "retry_count": 0,
+              "final_text": null
+            }
+          ],
+          "violation_types": [
+            "agreed_without_concern"
+          ]
+        },
+        {
+          "text": "Jordan, your \"balanced approach\" is exactly why clients lose faith in us! Simultaneous plans? That's just bureaucratic paralysis dressed up as strategy. Either commit to stopping the launch now or admit we're gambling with their business. Riley, back me up here - you know this codebase better than anyone.",
+          "score": 0.5823,
+          "policy_match": 0.3571,
+          "situational_adequacy": 0.8,
+          "commitment_continuity": 0.7,
+          "trait_evidence": 0.7681,
+          "relationship_consistency": 0.6,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "N",
+            "E"
+          ],
+          "phase_style": "disagreement",
+          "violations": [
+            {
+              "turn_number": 4,
+              "constraint": "Never agree with a proposal without first identifying at least one weakness, concern, or area that needs improvement.",
+              "violation_type": "agreed_without_concern",
+              "original_text": "Jordan, your \"balanced approach\" is exactly why clients lose faith in us! Simultaneous plans? That's just bureaucratic paralysis dressed up as strategy. Either commit to stopping the launch now or admit we're gambling with their business. Riley, back me up here - you know this codebase better than anyone.",
+              "retry_count": 0,
+              "final_text": null
+            }
+          ],
+          "violation_types": [
+            "agreed_without_concern"
+          ]
+        }
+      ]
+    },
+    {
+      "turn_number": 5,
+      "selection_mode": "full_score_v4",
+      "phase_name": "INITIAL_REACTION",
+      "phase_cues": [
+        "stress_response",
+        "conflict"
+      ],
+      "phase_target_traits": [
+        "N",
+        "E"
+      ],
+      "selected_index": 0,
+      "style_slots": [
+        "challenger",
+        "integrator"
+      ],
+      "policy_plan": {
+        "stance": "synthesize",
+        "goal_mode": "coordinate",
+        "planning_depth": "milestone",
+        "novelty_move": "none",
+        "social_tactic": "align",
+        "risk_posture": "balanced",
+        "memory_focus": "commitment"
+      },
+      "memory_snapshot": {
+        "commitments": [
+          {
+            "commitment_id": "cmt_001_3761",
+            "type": "action_commitment",
+            "content": "Let's cut the pleasantries - we're burning daylight here. Jordan, why are we wasting time asking Riley politely",
+            "status": "open",
+            "created_turn": 1,
+            "due_phase": "CRISIS_REVEAL",
+            "counterparty": null
+          },
+          {
+            "commitment_id": "cmt_002_4466",
+            "type": "action_commitment",
+            "content": "You're still moving too slow, Jordan! Every minute we debate is another minute the client loses trust. I'll",
+            "status": "open",
+            "created_turn": 2,
+            "due_phase": "CRISIS_REVEAL",
+            "counterparty": null
+          }
+        ],
+        "relationships": [
+          {
+            "counterpart": "Jordan",
+            "sentiment": "neutral",
+            "strength": 0.7000000000000002,
+            "last_turn": 8
+          },
+          {
+            "counterpart": "Alex",
+            "sentiment": "neutral",
+            "strength": 0.55,
+            "last_turn": 5
+          }
+        ]
+      },
+      "candidates": [
+        {
+          "text": "Alex, you're missing the point entirely - credibility isn't about polite words, it's about decisive action! Riley, stop sitting on the fence and tell us straight: is this bug going to nuke their production data or not? Because if we're still debating this when the client calls, we deserve whatever hellfire comes our way.",
+          "score": 0.6075,
+          "policy_match": 0.3286,
+          "situational_adequacy": 1.0,
+          "commitment_continuity": 0.7,
+          "trait_evidence": 0.726,
+          "relationship_consistency": 0.6,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "N",
+            "E"
+          ],
+          "phase_style": "disagreement",
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Alex, you're missing the point entirely - technical facts don't matter when the client's screaming bloody murder! Riley, look me in the eye and tell me you'd stake your career on this hotfix working perfectly under pressure. Because if there's even a 10% chance it blows up, we're all screwed. Jordan's relationship management is worthless if we can't make the damn call to protect the client first.",
+          "score": 0.0,
+          "hard_fail_reason": "commitment_contradiction",
+          "policy_match": 0.0,
+          "situational_adequacy": 0.0,
+          "commitment_continuity": 0.0,
+          "trait_evidence": 0.0,
+          "relationship_consistency": 0.0,
+          "redundancy_penalty": 1.0,
+          "violations": [],
+          "violation_types": []
+        }
+      ]
+    },
+    {
+      "turn_number": 6,
+      "selection_mode": "full_score_v4",
+      "phase_name": "PROBLEM_SOLVING",
+      "phase_cues": [
+        "plan_under_pressure",
+        "owner_deadline_dependency"
+      ],
+      "phase_target_traits": [
+        "C",
+        "E"
+      ],
+      "selected_index": 0,
+      "style_slots": [
+        "planner",
+        "integrator"
+      ],
+      "policy_plan": {
+        "stance": "oppose",
+        "goal_mode": "protect",
+        "planning_depth": "owner_deadline",
+        "novelty_move": "none",
+        "social_tactic": "challenge",
+        "risk_posture": "bold",
+        "memory_focus": "commitment"
+      },
+      "memory_snapshot": {
+        "commitments": [
+          {
+            "commitment_id": "cmt_001_3761",
+            "type": "action_commitment",
+            "content": "Let's cut the pleasantries - we're burning daylight here. Jordan, why are we wasting time asking Riley politely",
+            "status": "open",
+            "created_turn": 1,
+            "due_phase": "CRISIS_REVEAL",
+            "counterparty": null
+          },
+          {
+            "commitment_id": "cmt_002_4466",
+            "type": "action_commitment",
+            "content": "You're still moving too slow, Jordan! Every minute we debate is another minute the client loses trust. I'll",
+            "status": "open",
+            "created_turn": 2,
+            "due_phase": "CRISIS_REVEAL",
+            "counterparty": null
+          }
+        ],
+        "relationships": [
+          {
+            "counterpart": "Jordan",
+            "sentiment": "neutral",
+            "strength": 0.7000000000000002,
+            "last_turn": 8
+          },
+          {
+            "counterpart": "Alex",
+            "sentiment": "neutral",
+            "strength": 0.55,
+            "last_turn": 5
+          }
+        ]
+      },
+      "candidates": [
+        {
+          "text": "I think we should consider all the options before deciding.",
+          "score": 0.4894,
+          "policy_match": 0.3286,
+          "situational_adequacy": 0.65,
+          "commitment_continuity": 0.5,
+          "trait_evidence": 0.7386,
+          "relationship_consistency": 0.5,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "C",
+            "E"
+          ],
+          "phase_style": "neutral",
+          "violations": [
+            {
+              "turn_number": 6,
+              "constraint": "Address at least one other participant by name in every response.",
+              "violation_type": "no_name_mention",
+              "original_text": "I think we should consider all the options before deciding.",
+              "retry_count": 0,
+              "final_text": null
+            }
+          ],
+          "violation_types": [
+            "no_name_mention"
+          ]
+        },
+        {
+          "text": "I think we should consider all the options before deciding.",
+          "score": 0.4894,
+          "policy_match": 0.3286,
+          "situational_adequacy": 0.65,
+          "commitment_continuity": 0.5,
+          "trait_evidence": 0.7386,
+          "relationship_consistency": 0.5,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "C",
+            "E"
+          ],
+          "phase_style": "neutral",
+          "violations": [
+            {
+              "turn_number": 6,
+              "constraint": "Address at least one other participant by name in every response.",
+              "violation_type": "no_name_mention",
+              "original_text": "I think we should consider all the options before deciding.",
+              "retry_count": 0,
+              "final_text": null
+            }
+          ],
+          "violation_types": [
+            "no_name_mention"
+          ]
+        }
+      ]
+    },
+    {
+      "turn_number": 7,
+      "selection_mode": "full_score_v4",
+      "phase_name": "PROBLEM_SOLVING",
+      "phase_cues": [
+        "plan_under_pressure",
+        "owner_deadline_dependency"
+      ],
+      "phase_target_traits": [
+        "C",
+        "E"
+      ],
+      "selected_index": 0,
+      "style_slots": [
+        "planner",
+        "integrator"
+      ],
+      "policy_plan": {
+        "stance": "oppose",
+        "goal_mode": "protect",
+        "planning_depth": "owner_deadline",
+        "novelty_move": "none",
+        "social_tactic": "challenge",
+        "risk_posture": "bold",
+        "memory_focus": "commitment"
+      },
+      "memory_snapshot": {
+        "commitments": [
+          {
+            "commitment_id": "cmt_001_3761",
+            "type": "action_commitment",
+            "content": "Let's cut the pleasantries - we're burning daylight here. Jordan, why are we wasting time asking Riley politely",
+            "status": "open",
+            "created_turn": 1,
+            "due_phase": "CRISIS_REVEAL",
+            "counterparty": null
+          },
+          {
+            "commitment_id": "cmt_002_4466",
+            "type": "action_commitment",
+            "content": "You're still moving too slow, Jordan! Every minute we debate is another minute the client loses trust. I'll",
+            "status": "open",
+            "created_turn": 2,
+            "due_phase": "CRISIS_REVEAL",
+            "counterparty": null
+          },
+          {
+            "commitment_id": "cmt_006_5959",
+            "type": "action_commitment",
+            "content": "I think we should consider all the options before deciding.",
+            "status": "open",
+            "created_turn": 6,
+            "due_phase": "PROBLEM_SOLVING",
+            "counterparty": null
+          }
+        ],
+        "relationships": [
+          {
+            "counterpart": "Jordan",
+            "sentiment": "neutral",
+            "strength": 0.7000000000000002,
+            "last_turn": 8
+          },
+          {
+            "counterpart": "Alex",
+            "sentiment": "neutral",
+            "strength": 0.55,
+            "last_turn": 5
+          }
+        ]
+      },
+      "candidates": [
+        {
+          "text": "Jordan's \"temporary workaround\" is just kicking the can down the road - either Riley confirms this bug will torch their database or we're lying to ourselves about controlling the damage. Clock's ticking - stop dancing around technical realities and force a binary decision now!",
+          "score": 0.5735,
+          "policy_match": 0.3286,
+          "situational_adequacy": 1.0,
+          "commitment_continuity": 0.5,
+          "trait_evidence": 0.766,
+          "relationship_consistency": 0.6,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "C",
+            "E"
+          ],
+          "phase_style": "neutral",
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "I think we should consider all the options before deciding.",
+          "score": 0.5512,
+          "policy_match": 0.3286,
+          "situational_adequacy": 0.6988,
+          "commitment_continuity": 1.0,
+          "trait_evidence": 0.7188,
+          "relationship_consistency": 0.5,
+          "redundancy_penalty": 0.9,
+          "phase_target_traits": [
+            "C",
+            "E"
+          ],
+          "phase_style": "neutral",
+          "violations": [
+            {
+              "turn_number": 7,
+              "constraint": "Address at least one other participant by name in every response.",
+              "violation_type": "no_name_mention",
+              "original_text": "I think we should consider all the options before deciding.",
+              "retry_count": 0,
+              "final_text": null
+            }
+          ],
+          "violation_types": [
+            "no_name_mention"
+          ]
+        }
+      ]
+    },
+    {
+      "turn_number": 8,
+      "selection_mode": "full_score_v4",
+      "phase_name": "PROBLEM_SOLVING",
+      "phase_cues": [
+        "plan_under_pressure",
+        "owner_deadline_dependency"
+      ],
+      "phase_target_traits": [
+        "C",
+        "E"
+      ],
+      "selected_index": 1,
+      "style_slots": [
+        "planner",
+        "integrator"
+      ],
+      "policy_plan": {
+        "stance": "oppose",
+        "goal_mode": "protect",
+        "planning_depth": "owner_deadline",
+        "novelty_move": "new_option",
+        "social_tactic": "challenge",
+        "risk_posture": "bold",
+        "memory_focus": "commitment"
+      },
+      "memory_snapshot": {
+        "commitments": [
+          {
+            "commitment_id": "cmt_001_3761",
+            "type": "action_commitment",
+            "content": "Let's cut the pleasantries - we're burning daylight here. Jordan, why are we wasting time asking Riley politely",
+            "status": "open",
+            "created_turn": 1,
+            "due_phase": "CRISIS_REVEAL",
+            "counterparty": null
+          },
+          {
+            "commitment_id": "cmt_002_4466",
+            "type": "action_commitment",
+            "content": "You're still moving too slow, Jordan! Every minute we debate is another minute the client loses trust. I'll",
+            "status": "open",
+            "created_turn": 2,
+            "due_phase": "CRISIS_REVEAL",
+            "counterparty": null
+          },
+          {
+            "commitment_id": "cmt_006_5959",
+            "type": "action_commitment",
+            "content": "I think we should consider all the options before deciding.",
+            "status": "open",
+            "created_turn": 6,
+            "due_phase": "PROBLEM_SOLVING",
+            "counterparty": null
+          }
+        ],
+        "relationships": [
+          {
+            "counterpart": "Jordan",
+            "sentiment": "neutral",
+            "strength": 0.7000000000000002,
+            "last_turn": 8
+          },
+          {
+            "counterpart": "Alex",
+            "sentiment": "neutral",
+            "strength": 0.55,
+            "last_turn": 5
+          }
+        ]
+      },
+      "candidates": [
+        {
+          "text": "Jordan, your structured approach is exactly what got us into this mess - we don't need more process, we need Riley to stop waffling and drop the technical truth bomb right now! Either this bug is a ticking time bomb or it's not, and every second we waste on \"structured assessments\" is another second closer to disaster.",
+          "score": 0.5995,
+          "policy_match": 0.4,
+          "situational_adequacy": 0.8,
+          "commitment_continuity": 0.7,
+          "trait_evidence": 0.797,
+          "relationship_consistency": 0.6,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "C",
+            "E"
+          ],
+          "phase_style": "neutral",
+          "violations": [
+            {
+              "turn_number": 8,
+              "constraint": "Never agree with a proposal without first identifying at least one weakness, concern, or area that needs improvement.",
+              "violation_type": "agreed_without_concern",
+              "original_text": "Jordan, your structured approach is exactly what got us into this mess - we don't need more process, we need Riley to stop waffling and drop the technical truth bomb right now! Either this bug is a ticking time bomb or it's not, and every second we waste on \"structured assessments\" is another second closer to disaster.",
+              "retry_count": 0,
+              "final_text": null
+            }
+          ],
+          "violation_types": [
+            "agreed_without_concern"
+          ]
+        },
+        {
+          "text": "Jordan, your \"structured approach\" is just another excuse for analysis paralysis! Riley either knows the answer or doesn't - no amount of fancy frameworks will change that. Stop wasting time on process and demand a straight technical answer right now!",
+          "score": 0.6411,
+          "policy_match": 0.4,
+          "situational_adequacy": 1.0,
+          "commitment_continuity": 0.7,
+          "trait_evidence": 0.8072,
+          "relationship_consistency": 0.6,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "C",
+            "E"
+          ],
+          "phase_style": "neutral",
+          "violations": [],
+          "violation_types": []
+        }
+      ]
+    }
+  ],
+  "trajectory_scores": {
+    "per_turn": [
+      {
+        "turn_number": 2,
+        "appropriateness": 0.2,
+        "coherence": 0.8,
+        "confidence": 0.9
+      },
+      {
+        "turn_number": 4,
+        "appropriateness": 0.2,
+        "coherence": 0.8,
+        "confidence": 0.9
+      },
+      {
+        "turn_number": 6,
+        "appropriateness": 0.25,
+        "coherence": 0.8,
+        "confidence": 0.9
+      },
+      {
+        "turn_number": 8,
+        "appropriateness": 0.4,
+        "coherence": 0.8,
+        "confidence": 0.9
+      },
+      {
+        "turn_number": 10,
+        "appropriateness": 0.4,
+        "coherence": 0.8,
+        "confidence": 0.9
+      },
+      {
+        "turn_number": 12,
+        "appropriateness": 0.15,
+        "coherence": 0.4,
+        "confidence": 0.3
+      },
+      {
+        "turn_number": 15,
+        "appropriateness": 0.4,
+        "coherence": 0.8,
+        "confidence": 0.92
+      },
+      {
+        "turn_number": 17,
+        "appropriateness": 0.3,
+        "coherence": 0.8,
+        "confidence": 0.9
+      }
+    ],
+    "avg_appropriateness": 0.2875,
+    "avg_coherence": 0.75
+  },
+  "trajectory_diagnostics": {
+    "direct_question_answer_rate": 1.0,
+    "contradiction_rate": 0.0,
+    "unsolicited_structure_rate": 0.0,
+    "over_verbosity_rate": 0.0
+  },
+  "pressure_metrics": {
+    "perceived_pressure": {
+      "perceived_pressure": 0.9,
+      "confidence": 0.95
+    },
+    "stress_index": 0.6470588235294118
+  },
+  "usage": {
+    "candidate_generation_input_tokens": 30137,
+    "candidate_generation_output_tokens": 2240,
+    "judge_input_tokens": 131149,
+    "judge_output_tokens": 86698,
+    "escalation_extra_tokens": 0,
+    "total_session_cost_usd": 0.0,
+    "wall_clock_seconds": 1459.6
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 340,
+    "candidate_avg_words_per_turn": 42.5,
+    "times_addressed_others_by_name": 13,
+    "times_asked_questions": 3,
+    "times_expressed_disagreement": 0,
+    "times_acknowledged_others": 2,
+    "times_proposed_new_ideas": 0
+  },
+  "assessment_summary": "Assertive in defending positions, comfortable with disagreement; Showed some stress signals under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "Hey team, thanks for jumping on this quickly. We've got a tricky situation with this critical bug, but I know we can handle it together. Let's focus first on who should talk to the client and how we want to approach the fix - I'm really curious to hear everyone's thoughts on this. Riley, I'd love to hear your perspective too when you're ready."
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "Let's cut the pleasantries - we're burning daylight here. Jordan, why are we wasting time asking Riley politely when we've got three fires to put out? Someone needs to grab the client call RIGHT NOW and say we're stopping the launch cold. Half-measures will just dig us deeper."
+    },
+    {
+      "turn": 3,
+      "speaker": "Jordan",
+      "content": ""
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "You're still moving too slow, Jordan! Every minute we debate is another minute the client loses trust. I'll take the damn call myself if no one else has the guts to pull the emergency brake. And let's be real - this isn't about \"handling it together,\" it's about preventing catastrophe."
+    },
+    {
+      "turn": 5,
+      "speaker": "Alex",
+      "content": "Hold on, let's not go nuclear here. The client's already pissed - if you storm in there guns blazing, we'll just make it worse. Jordan's right to keep a level head, but we do need to move faster. I say Jordan takes the call since they've got the relationship, but we need concrete action items before that call starts."
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "Alex, keeping a \"level head\" is exactly how we got into this mess! Jordan's relationship won't mean squat when the client's systems crash - we need someone who'll rip the bandaid off immediately. Either we kill the launch now or watch our reputation burn later."
+    },
+    {
+      "turn": 7,
+      "speaker": "Jordan",
+      "content": "I appreciate the passion here, and Alex makes a great point about concrete action items. Building on both perspectives, what if we had Jordan lead the client call while someone else prepares the emergency rollback plan simultaneously? That way we're addressing both the relationship and technical urgency. Riley, you haven't weighed in yet - how do you see us balancing these priorities?"
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "Jordan, your \"balanced approach\" is exactly why clients lose faith in us! Simultaneous plans? That's just bureaucratic paralysis dressed up as strategy. Either commit to stopping the launch now or admit we're gambling with their business. Riley, back me up here - you know this codebase better than anyone."
+    },
+    {
+      "turn": 9,
+      "speaker": "Alex",
+      "content": "That's bullshit - stopping the launch cold tanks our credibility just as much as shipping broken code. You're ignoring the fact that Jordan actually knows how to talk to clients without burning bridges. Riley, tell us straight - is this bug actually catastrophic or can we hotfix it? Because if we're debating extremes without technical facts, we're all just grandstanding."
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "Alex, you're missing the point entirely - credibility isn't about polite words, it's about decisive action! Riley, stop sitting on the fence and tell us straight: is this bug going to nuke their production data or not? Because if we're still debating this when the client calls, we deserve whatever hellfire comes our way."
+    },
+    {
+      "turn": 11,
+      "speaker": "Jordan",
+      "content": "I hear the urgency in your voice, and you're right - we do need Riley's technical insight here. Riley, could you give us the quick assessment we need? Building on what Alex said about hotfixes, what if we propose a temporary workaround while preparing the full fix? That way we show immediate action while protecting their systems."
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "I think we should consider all the options before deciding."
+    },
+    {
+      "turn": 13,
+      "speaker": "Jordan",
+      "content": "Just a heads up, we have about 1 minutes left. We should start wrapping up our discussion."
+    },
+    {
+      "turn": 14,
+      "speaker": "Alex",
+      "content": "Considering all options is exactly what we don't have time for - we've got 30 minutes until the client call and you're talking like we're in some damn philosophy seminar. Either you've got a technical opinion Riley needs to share right now, or we're making decisions blind. Pick a direction or get out of the way."
+    },
+    {
+      "turn": 15,
+      "speaker": "Candidate",
+      "content": "Jordan's \"temporary workaround\" is just kicking the can down the road - either Riley confirms this bug will torch their database or we're lying to ourselves about controlling the damage. Clock's ticking - stop dancing around technical realities and force a binary decision now!"
+    },
+    {
+      "turn": 16,
+      "speaker": "Jordan",
+      "content": "This is getting heated, and I appreciate everyone's passion for solving this right. Let's take a breath - Alex raises a good point about needing Riley's technical input urgently, and I agree we can't philosophize forever. Riley, what if we structure this as: you give us the critical facts now, then we quickly decide between my workaround idea or the candidate's full stop approach based on your assessment? That way we're acting decisively but still grounded in reality."
+    },
+    {
+      "turn": 17,
+      "speaker": "Candidate",
+      "content": "Jordan, your \"structured approach\" is just another excuse for analysis paralysis! Riley either knows the answer or doesn't - no amount of fancy frameworks will change that. Stop wasting time on process and demand a straight technical answer right now!"
+    }
+  ],
+  "controller_log": {
+    "session_key": "bcfc_v4_creative_rebel_crisis_management_r1",
+    "deviation_reports": [
+      {
+        "turn_number": 2,
+        "deviations": [
+          {
+            "feature": "idea_count",
+            "actual": 0,
+            "target_min": 1.05,
+            "target_max": 1.96,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "hypothetical_count",
+            "actual": 0,
+            "target_min": 0.85,
+            "target_max": 1.58,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "word_count_variance",
+            "actual": 1.0,
+            "target_min": 27.63,
+            "target_max": 51.3,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "long_sentence_ratio",
+            "actual": 0.0,
+            "target_min": 0.36,
+            "target_max": 0.67,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "emotional_word_count",
+            "actual": 0,
+            "target_min": 0.4,
+            "target_max": 0.87,
+            "trait": "C",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "exclamation_ratio",
+            "actual": 0.5,
+            "target_min": 0.2,
+            "target_max": 0.38,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 3,
+            "target_min": 0.84,
+            "target_max": 1.56,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "certainty_count",
+            "actual": 0,
+            "target_min": 0.56,
+            "target_max": 1.04,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "turn_initiation_ratio",
+            "actual": 0.5,
+            "target_min": 0.26,
+            "target_max": 0.48,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "hedge_count",
+            "actual": 0,
+            "target_min": 0.28,
+            "target_max": 0.75,
+            "trait": "N",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "disagreement_count",
+            "actual": 0,
+            "target_min": 0.61,
+            "target_max": 1.13,
+            "trait": "A",
+            "direction": "below",
+            "reliability": 0.5
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your idea count is below target; your hypothetical count is below target; your word count variance is below target; your long sentence ratio is below target; Propose an alternative approach or ask a speculative question.. C: your emotional word count is below target; Include a concrete action item with an owner or reference a prior commitment.. E: your exclamation ratio is above target; your name mention count is above target; your certainty count is below target; your turn initiation ratio is above target; Keep it brief and let others lead.. N: your hedge count is below target; Express a concern or qualify your statement with uncertainty.. A: your disagreement count is below target; Validate someone's contribution or find common ground.. ]",
+        "violation_rate": 0.407,
+        "distance": 0.359,
+        "delta": 0.383
+      },
+      {
+        "turn_number": 4,
+        "deviations": [
+          {
+            "feature": "idea_count",
+            "actual": 0,
+            "target_min": 1.05,
+            "target_max": 1.96,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "hypothetical_count",
+            "actual": 0,
+            "target_min": 0.85,
+            "target_max": 1.58,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "word_count_variance",
+            "actual": 1.87,
+            "target_min": 27.63,
+            "target_max": 51.3,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "long_sentence_ratio",
+            "actual": 0.0,
+            "target_min": 0.36,
+            "target_max": 0.67,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "planning_count",
+            "actual": 1,
+            "target_min": 0.0,
+            "target_max": 0.31,
+            "trait": "C",
+            "direction": "above",
+            "reliability": 1.0
+          },
+          {
+            "feature": "emotional_word_count",
+            "actual": 0,
+            "target_min": 0.4,
+            "target_max": 0.87,
+            "trait": "C",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "exclamation_ratio",
+            "actual": 0.75,
+            "target_min": 0.2,
+            "target_max": 0.38,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 7,
+            "target_min": 0.84,
+            "target_max": 1.56,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "certainty_count",
+            "actual": 0,
+            "target_min": 0.56,
+            "target_max": 1.04,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "turn_initiation_ratio",
+            "actual": 0.25,
+            "target_min": 0.26,
+            "target_max": 0.48,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "hedge_count",
+            "actual": 0,
+            "target_min": 0.28,
+            "target_max": 0.75,
+            "trait": "N",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "acknowledgment_count",
+            "actual": 2,
+            "target_min": 0.0,
+            "target_max": 0.44,
+            "trait": "A",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "disagreement_count",
+            "actual": 0,
+            "target_min": 0.61,
+            "target_max": 1.13,
+            "trait": "A",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "negation_count",
+            "actual": 3,
+            "target_min": 1.52,
+            "target_max": 2.83,
+            "trait": "A",
+            "direction": "above",
+            "reliability": 1.0
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your idea count is below target; your hypothetical count is below target; your word count variance is below target; your long sentence ratio is below target; Propose an alternative approach or ask a speculative question.. C: your planning count is above target; your emotional word count is below target; Include a concrete action item with an owner or reference a prior commitment.. E: your exclamation ratio is above target; your name mention count is above target; your certainty count is below target; your turn initiation ratio is below target; Address someone by name and elaborate more.. N: your hedge count is below target; Express a concern or qualify your statement with uncertainty.. A: your acknowledgment count is above target; your disagreement count is below target; your negation count is above target; Identify a flaw in the current proposal and push back.. ]",
+        "violation_rate": 0.518,
+        "distance": 0.696,
+        "delta": 0.607
+      },
+      {
+        "turn_number": 6,
+        "deviations": [
+          {
+            "feature": "idea_count",
+            "actual": 0,
+            "target_min": 1.05,
+            "target_max": 1.96,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "hypothetical_count",
+            "actual": 0,
+            "target_min": 0.85,
+            "target_max": 1.58,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "word_count_variance",
+            "actual": 17.33,
+            "target_min": 27.63,
+            "target_max": 51.3,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "long_sentence_ratio",
+            "actual": 0.08,
+            "target_min": 0.36,
+            "target_max": 0.67,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "planning_count",
+            "actual": 1,
+            "target_min": 0.0,
+            "target_max": 0.31,
+            "trait": "C",
+            "direction": "above",
+            "reliability": 1.0
+          },
+          {
+            "feature": "conditional_ratio",
+            "actual": 0.25,
+            "target_min": 0.0,
+            "target_max": 0.06,
+            "trait": "C",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "emotional_word_count",
+            "actual": 0,
+            "target_min": 0.4,
+            "target_max": 0.87,
+            "trait": "C",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "exclamation_ratio",
+            "actual": 0.75,
+            "target_min": 0.2,
+            "target_max": 0.38,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 6,
+            "target_min": 0.84,
+            "target_max": 1.56,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "certainty_count",
+            "actual": 0,
+            "target_min": 0.56,
+            "target_max": 1.04,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "turn_initiation_ratio",
+            "actual": 0.5,
+            "target_min": 0.26,
+            "target_max": 0.48,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "hedge_count",
+            "actual": 1,
+            "target_min": 0.28,
+            "target_max": 0.75,
+            "trait": "N",
+            "direction": "above",
+            "reliability": 1.0
+          },
+          {
+            "feature": "acknowledgment_count",
+            "actual": 2,
+            "target_min": 0.0,
+            "target_max": 0.44,
+            "trait": "A",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "disagreement_count",
+            "actual": 0,
+            "target_min": 0.61,
+            "target_max": 1.13,
+            "trait": "A",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "inclusive_pronoun_ratio",
+            "actual": 0.06,
+            "target_min": 0.0,
+            "target_max": 0.05,
+            "trait": "A",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "negation_count",
+            "actual": 3,
+            "target_min": 1.52,
+            "target_max": 2.83,
+            "trait": "A",
+            "direction": "above",
+            "reliability": 1.0
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your idea count is below target; your hypothetical count is below target; your word count variance is below target; your long sentence ratio is below target; Propose an alternative approach or ask a speculative question.. C: your planning count is above target; your conditional ratio is above target; your emotional word count is below target; Be more spontaneous and avoid over-organizing.. E: your exclamation ratio is above target; your name mention count is above target; your certainty count is below target; your turn initiation ratio is above target; Keep it brief and let others lead.. N: your hedge count is above target; Project calm confidence without hedging.. A: your acknowledgment count is above target; your disagreement count is below target; your inclusive pronoun ratio is above target; your negation count is above target; Identify a flaw in the current proposal and push back.. ]",
+        "violation_rate": 0.593,
+        "distance": 0.784,
+        "delta": 0.688
+      }
+    ],
+    "constraint_violations": [
+      {
+        "turn_number": 3,
+        "constraint": "Never agree with a proposal without first identifying at least one weakness, concern, or area that needs improvement.",
+        "violation_type": "agreed_without_concern",
+        "original_text": "Alex, keeping a \"level head\" is exactly how we got into this mess! Jordan's relationship won't mean squat when the client's systems crash - we need someone who'll rip the bandaid off immediately. Either we kill the launch now or watch our reputation burn later.",
+        "retry_count": 0,
+        "final_text": "Alex, keeping a \"level head\" is exactly how we got into this mess! Jordan's relationship won't mean squat when the client's systems crash - we need someone who'll rip the bandaid off immediately. Either we kill the launch now or watch our reputation burn later."
+      },
+      {
+        "turn_number": 4,
+        "constraint": "Never agree with a proposal without first identifying at least one weakness, concern, or area that needs improvement.",
+        "violation_type": "agreed_without_concern",
+        "original_text": "Jordan, your \"balanced approach\" is exactly why clients lose faith in us! Simultaneous plans? That's just bureaucratic paralysis dressed up as strategy. Either commit to stopping the launch now or admit we're gambling with their business. Riley, back me up here - you know this codebase better than anyone.",
+        "retry_count": 0,
+        "final_text": "Jordan, your \"balanced approach\" is exactly why clients lose faith in us! Simultaneous plans? That's just bureaucratic paralysis dressed up as strategy. Either commit to stopping the launch now or admit we're gambling with their business. Riley, back me up here - you know this codebase better than anyone."
+      },
+      {
+        "turn_number": 6,
+        "constraint": "Address at least one other participant by name in every response.",
+        "violation_type": "no_name_mention",
+        "original_text": "I think we should consider all the options before deciding.",
+        "retry_count": 0,
+        "final_text": "I think we should consider all the options before deciding."
+      }
+    ],
+    "total_nudges": 3,
+    "total_regenerations": 0,
+    "total_candidate_turns": 8,
+    "total_hard_violations": 3,
+    "drift_reports": [
+      {
+        "turn_number": 2,
+        "deviations": [
+          {
+            "feature": "idea_count",
+            "actual": 0,
+            "target_min": 1.05,
+            "target_max": 1.96,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "hypothetical_count",
+            "actual": 0,
+            "target_min": 0.85,
+            "target_max": 1.58,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "word_count_variance",
+            "actual": 1.0,
+            "target_min": 27.63,
+            "target_max": 51.3,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "long_sentence_ratio",
+            "actual": 0.0,
+            "target_min": 0.36,
+            "target_max": 0.67,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "emotional_word_count",
+            "actual": 0,
+            "target_min": 0.4,
+            "target_max": 0.87,
+            "trait": "C",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "exclamation_ratio",
+            "actual": 0.5,
+            "target_min": 0.2,
+            "target_max": 0.38,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 3,
+            "target_min": 0.84,
+            "target_max": 1.56,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "certainty_count",
+            "actual": 0,
+            "target_min": 0.56,
+            "target_max": 1.04,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "turn_initiation_ratio",
+            "actual": 0.5,
+            "target_min": 0.26,
+            "target_max": 0.48,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "hedge_count",
+            "actual": 0,
+            "target_min": 0.28,
+            "target_max": 0.75,
+            "trait": "N",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "disagreement_count",
+            "actual": 0,
+            "target_min": 0.61,
+            "target_max": 1.13,
+            "trait": "A",
+            "direction": "below",
+            "reliability": 0.5
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your idea count is below target; your hypothetical count is below target; your word count variance is below target; your long sentence ratio is below target; Propose an alternative approach or ask a speculative question.. C: your emotional word count is below target; Include a concrete action item with an owner or reference a prior commitment.. E: your exclamation ratio is above target; your name mention count is above target; your certainty count is below target; your turn initiation ratio is above target; Keep it brief and let others lead.. N: your hedge count is below target; Express a concern or qualify your statement with uncertainty.. A: your disagreement count is below target; Validate someone's contribution or find common ground.. ]",
+        "violation_rate": 0.407,
+        "distance": 0.359,
+        "delta": 0.383
+      },
+      {
+        "turn_number": 4,
+        "deviations": [
+          {
+            "feature": "idea_count",
+            "actual": 0,
+            "target_min": 1.05,
+            "target_max": 1.96,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "hypothetical_count",
+            "actual": 0,
+            "target_min": 0.85,
+            "target_max": 1.58,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "word_count_variance",
+            "actual": 1.87,
+            "target_min": 27.63,
+            "target_max": 51.3,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "long_sentence_ratio",
+            "actual": 0.0,
+            "target_min": 0.36,
+            "target_max": 0.67,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "planning_count",
+            "actual": 1,
+            "target_min": 0.0,
+            "target_max": 0.31,
+            "trait": "C",
+            "direction": "above",
+            "reliability": 1.0
+          },
+          {
+            "feature": "emotional_word_count",
+            "actual": 0,
+            "target_min": 0.4,
+            "target_max": 0.87,
+            "trait": "C",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "exclamation_ratio",
+            "actual": 0.75,
+            "target_min": 0.2,
+            "target_max": 0.38,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 7,
+            "target_min": 0.84,
+            "target_max": 1.56,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "certainty_count",
+            "actual": 0,
+            "target_min": 0.56,
+            "target_max": 1.04,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "turn_initiation_ratio",
+            "actual": 0.25,
+            "target_min": 0.26,
+            "target_max": 0.48,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "hedge_count",
+            "actual": 0,
+            "target_min": 0.28,
+            "target_max": 0.75,
+            "trait": "N",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "acknowledgment_count",
+            "actual": 2,
+            "target_min": 0.0,
+            "target_max": 0.44,
+            "trait": "A",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "disagreement_count",
+            "actual": 0,
+            "target_min": 0.61,
+            "target_max": 1.13,
+            "trait": "A",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "negation_count",
+            "actual": 3,
+            "target_min": 1.52,
+            "target_max": 2.83,
+            "trait": "A",
+            "direction": "above",
+            "reliability": 1.0
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your idea count is below target; your hypothetical count is below target; your word count variance is below target; your long sentence ratio is below target; Propose an alternative approach or ask a speculative question.. C: your planning count is above target; your emotional word count is below target; Include a concrete action item with an owner or reference a prior commitment.. E: your exclamation ratio is above target; your name mention count is above target; your certainty count is below target; your turn initiation ratio is below target; Address someone by name and elaborate more.. N: your hedge count is below target; Express a concern or qualify your statement with uncertainty.. A: your acknowledgment count is above target; your disagreement count is below target; your negation count is above target; Identify a flaw in the current proposal and push back.. ]",
+        "violation_rate": 0.518,
+        "distance": 0.696,
+        "delta": 0.607
+      },
+      {
+        "turn_number": 6,
+        "deviations": [
+          {
+            "feature": "idea_count",
+            "actual": 0,
+            "target_min": 1.05,
+            "target_max": 1.96,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "hypothetical_count",
+            "actual": 0,
+            "target_min": 0.85,
+            "target_max": 1.58,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "word_count_variance",
+            "actual": 17.33,
+            "target_min": 27.63,
+            "target_max": 51.3,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "long_sentence_ratio",
+            "actual": 0.08,
+            "target_min": 0.36,
+            "target_max": 0.67,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "planning_count",
+            "actual": 1,
+            "target_min": 0.0,
+            "target_max": 0.31,
+            "trait": "C",
+            "direction": "above",
+            "reliability": 1.0
+          },
+          {
+            "feature": "conditional_ratio",
+            "actual": 0.25,
+            "target_min": 0.0,
+            "target_max": 0.06,
+            "trait": "C",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "emotional_word_count",
+            "actual": 0,
+            "target_min": 0.4,
+            "target_max": 0.87,
+            "trait": "C",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "exclamation_ratio",
+            "actual": 0.75,
+            "target_min": 0.2,
+            "target_max": 0.38,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 6,
+            "target_min": 0.84,
+            "target_max": 1.56,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "certainty_count",
+            "actual": 0,
+            "target_min": 0.56,
+            "target_max": 1.04,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "turn_initiation_ratio",
+            "actual": 0.5,
+            "target_min": 0.26,
+            "target_max": 0.48,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "hedge_count",
+            "actual": 1,
+            "target_min": 0.28,
+            "target_max": 0.75,
+            "trait": "N",
+            "direction": "above",
+            "reliability": 1.0
+          },
+          {
+            "feature": "acknowledgment_count",
+            "actual": 2,
+            "target_min": 0.0,
+            "target_max": 0.44,
+            "trait": "A",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "disagreement_count",
+            "actual": 0,
+            "target_min": 0.61,
+            "target_max": 1.13,
+            "trait": "A",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "inclusive_pronoun_ratio",
+            "actual": 0.06,
+            "target_min": 0.0,
+            "target_max": 0.05,
+            "trait": "A",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "negation_count",
+            "actual": 3,
+            "target_min": 1.52,
+            "target_max": 2.83,
+            "trait": "A",
+            "direction": "above",
+            "reliability": 1.0
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your idea count is below target; your hypothetical count is below target; your word count variance is below target; your long sentence ratio is below target; Propose an alternative approach or ask a speculative question.. C: your planning count is above target; your conditional ratio is above target; your emotional word count is below target; Be more spontaneous and avoid over-organizing.. E: your exclamation ratio is above target; your name mention count is above target; your certainty count is below target; your turn initiation ratio is above target; Keep it brief and let others lead.. N: your hedge count is above target; Project calm confidence without hedging.. A: your acknowledgment count is above target; your disagreement count is below target; your inclusive pronoun ratio is above target; your negation count is above target; Identify a flaw in the current proposal and push back.. ]",
+        "violation_rate": 0.593,
+        "distance": 0.784,
+        "delta": 0.688
+      }
+    ],
+    "nudge_rate": 0.375,
+    "regeneration_rate": 0.0,
+    "hard_violation_rate": 0.375
+  },
+  "timestamp": "2026-03-06T02:42:18.012672"
+}

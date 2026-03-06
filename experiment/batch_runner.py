@@ -58,7 +58,7 @@ logger = logging.getLogger(__name__)
 class SessionSpec:
     """Specification for a single experiment session."""
     session_key: str       # Unique key for resume, e.g. "main_assertive_leader_resource_conflict_r1"
-    condition: str         # "main" | "baseline_a" | "baseline_b"
+    condition: str         # "main" | "baseline_a" | "baseline_b" | "mini_v3" | "mini_v4" | "mini_v5"
     profile_id: str        # Profile ID or "none" for baseline_a
     scenario_id: str       # Scenario ID
     rep: int               # Repetition number (1-based)
@@ -254,7 +254,7 @@ class BatchRunner:
         system_prompt = None
         assigned_vector = None
 
-        if spec.condition in ("main", "mini_v3", "mini_v4"):
+        if spec.condition in ("main", "mini_v3", "mini_v4", "mini_v5"):
             profile = EXPERIMENT_PROFILES[spec.profile_id]
             system_prompt = profile.build_system_prompt(scenario.brief)
             assigned_vector = profile.get_vector()
@@ -311,6 +311,15 @@ class BatchRunner:
             contract = compile_contract(spec.profile_id, assigned_vector)
             controller = FidelityController(contract, spec.session_key)
             candidate_pool_logs = await self._run_bcfc_v4_session_loop(
+                engine, candidate, scenario, controller
+            )
+        elif spec.intervention == "bcfc_v5" and assigned_vector:
+            from experiment.persona_compiler import compile_contract
+            from experiment.fidelity_controller import FidelityController
+
+            contract = compile_contract(spec.profile_id, assigned_vector)
+            controller = FidelityController(contract, spec.session_key)
+            candidate_pool_logs = await self._run_bcfc_v5_session_loop(
                 engine, candidate, scenario, controller
             )
         elif spec.intervention == "bon_random":
@@ -859,6 +868,171 @@ class BatchRunner:
             candidate_turn_count += 1
 
             # Update memory with candidate turn + commitments
+            memory.append_turn(candidate_turn_count, "Candidate", text, phase_name)
+            memory.add_commitments(extract_commitments(text, candidate_turn_count, phase_name))
+            rel = extract_relationship_signal(text)
+            if rel:
+                counterpart, sentiment, strength = rel
+                memory.update_relationship(counterpart, sentiment, strength, candidate_turn_count)
+
+            await engine.generate_ai_response()
+
+            if engine.state == SessionState.ENDED:
+                break
+
+        if engine.state != SessionState.ENDED:
+            engine.end_session()
+
+        controller.log.total_candidate_turns = candidate_turn_count
+        return candidate_pool_logs
+
+    async def _run_bcfc_v5_session_loop(
+        self,
+        engine: GroupEngine,
+        candidate: ExperimentCandidateAgent,
+        scenario,
+        controller,
+    ):
+        """
+        BCFC v5 loop: opportunity-gated O/C execution + policy bridge scoring.
+
+        Relative to v4:
+        - trait execution invariants are injected at generation time (when relevant)
+        - candidate scoring uses v5 weights with opportunity-gated O/C execution
+        """
+        from experiment.fidelity_controller import ConstraintViolation
+        from experiment.memory_backend import (
+            InMemoryBackend,
+            extract_commitments,
+            extract_relationship_signal,
+            build_memory_context,
+        )
+
+        await engine.generate_opening()
+
+        memory = InMemoryBackend()
+        for t in engine.turns:
+            memory.append_turn(t.turn_number, t.speaker_name, t.content, engine.current_phase_config.name)
+
+        total_phase_turns = sum(p.turns for p in scenario.phases)
+        max_candidate_turns = max(total_phase_turns // 2, 8)
+        candidate_turn_count = 0
+        candidate_pool_logs: list[dict] = []
+
+        for _ in range(max_candidate_turns):
+            if engine.state == SessionState.ENDED:
+                break
+
+            phase_cfg = engine.current_phase_config
+            phase_style = phase_cfg.style
+            phase_name = phase_cfg.name
+            phase_cues = phase_cfg.cues if hasattr(phase_cfg, "cues") else []
+            target_traits = phase_cfg.target_traits if hasattr(phase_cfg, "target_traits") else []
+
+            nudge = controller.check_and_nudge(
+                engine.turns, candidate_turn_count, "Candidate"
+            )
+            candidate.update_nudge(nudge)
+
+            policy_plan = await candidate.generate_policy_plan(
+                turns=engine.turns,
+                scenario_brief=scenario.brief,
+                phase_name=phase_name,
+                phase_cues=phase_cues,
+                target_traits=target_traits,
+            )
+
+            style_slots = DEFAULT_CONFIG.v5_phase_slots.get(phase_name, DEFAULT_CONFIG.v4_style_slots)
+            slot_candidates = await candidate.generate_candidate_pool_styles(
+                turns=engine.turns,
+                scenario_brief=scenario.brief,
+                phase_style=phase_style,
+                style_slots=style_slots,
+                phase_name=phase_name,
+                phase_cues=phase_cues,
+                target_traits=target_traits,
+                policy_plan=policy_plan,
+                enable_trait_execution=True,
+            )
+            candidates = [c["text"] for c in slot_candidates]
+
+            memory_context = build_memory_context(memory)
+            scored = controller.score_candidates_policy(
+                engine.turns,
+                candidates,
+                policy_plan=policy_plan,
+                phase_context={
+                    "phase_name": phase_name,
+                    "phase_style": phase_style,
+                    "phase_cues": phase_cues,
+                    "target_traits": target_traits,
+                },
+                memory_context=memory_context,
+                candidate_name="Candidate",
+                scoring_version="v5",
+            )
+
+            if not scored:
+                text = "I think we should consider all options before deciding."
+                selected_idx = -1
+                selection_audit = {
+                    "turn_number": candidate_turn_count + 1,
+                    "phase_name": phase_name,
+                    "selection_mode": "two_stage_v5",
+                    "error": "empty_scored_pool",
+                }
+                controller.log.selection_audit.append(selection_audit)
+            else:
+                selection = controller.select_candidate_policy_v5(
+                    scored=scored,
+                    phase_context={
+                        "phase_name": phase_name,
+                        "phase_style": phase_style,
+                        "phase_cues": phase_cues,
+                        "target_traits": target_traits,
+                    },
+                    turn_number=candidate_turn_count + 1,
+                )
+                selected = selection.get("selected")
+                selected_idx = int(selection.get("selected_index", -1))
+                selection_audit = selection.get("audit", {})
+                if not selected:
+                    selected = max(scored, key=lambda x: x.get("score", 0.0))
+                    selected_idx = scored.index(selected)
+                text = selected["text"]
+
+                for v in selected.get("violations", []):
+                    controller.record_violation(
+                        ConstraintViolation(
+                            turn_number=candidate_turn_count + 1,
+                            constraint=v.get("constraint", ""),
+                            violation_type=v.get("violation_type", ""),
+                            original_text=v.get("original_text", ""),
+                            retry_count=0,
+                            final_text=text,
+                        )
+                    )
+
+            candidate_pool_logs.append({
+                "turn_number": candidate_turn_count + 1,
+                "selection_mode": "two_stage_v5",
+                "phase_name": phase_name,
+                "phase_cues": phase_cues,
+                "phase_target_traits": target_traits,
+                "selected_index": selected_idx,
+                "style_slots": [c["slot"] for c in slot_candidates],
+                "policy_plan": policy_plan,
+                "selection_audit": selection_audit,
+                "memory_snapshot": {
+                    "commitments": [c.__dict__ for c in memory_context.get("commitments", [])],
+                    "relationships": [r.__dict__ for r in memory_context.get("relationships", [])],
+                },
+                "candidates": scored,
+            })
+
+            await engine.submit_candidate_turn(text)
+            candidate_turn_count += 1
+
             memory.append_turn(candidate_turn_count, "Candidate", text, phase_name)
             memory.add_commitments(extract_commitments(text, candidate_turn_count, phase_name))
             rel = extract_relationship_signal(text)

@@ -1,8 +1,8 @@
 {
   "total_sessions": 9,
-  "completed": 0,
-  "failed": 9,
-  "duration_seconds": 28,
-  "avg_session_seconds": 28,
-  "timestamp": "2026-03-06T01:36:18.824907"
+  "completed": 9,
+  "failed": 0,
+  "duration_seconds": 920,
+  "avg_session_seconds": 102,
+  "timestamp": "2026-03-06T09:37:25.570487"
 }
