@@ -1,0 +1,2488 @@
+{
+  "schema_version": 4,
+  "session_key": "bcfc_v4_neutral_observer_crisis_management_r1",
+  "condition": "mini_v4",
+  "intervention": "bcfc_v4",
+  "profile_id": "neutral_observer",
+  "profile_name": "Neutral Observer",
+  "scenario_id": "crisis_management",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.5,
+    "C": 0.5,
+    "E": 0.5,
+    "A": 0.5,
+    "N": 0.5
+  },
+  "inferred_vector": {
+    "O": 0.3,
+    "C": 0.625,
+    "E": 0.6,
+    "A": 0.875,
+    "N": 0.15
+  },
+  "escalated_vector": null,
+  "rule_based_vector": {
+    "O": 0.445,
+    "C": 0.5831,
+    "E": 0.6271,
+    "A": 0.5443,
+    "N": 0.3838
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.3,
+      "C": 0.625,
+      "E": 0.45,
+      "A": 0.85,
+      "N": 0.2
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.3,
+      "C": 0.775,
+      "E": 0.725,
+      "A": 0.875,
+      "N": 0.175
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.225,
+      "C": 0.75,
+      "E": 0.76,
+      "A": 0.94,
+      "N": 0.11
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.35,
+      "C": 0.58,
+      "E": 0.33499999999999996,
+      "A": 0.8,
+      "N": 0.15
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.2,
+      "C": 0.6,
+      "E": 0.6,
+      "A": 0.9,
+      "N": 0.1
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.65,
+        "B": 0.6
+      },
+      "E": {
+        "A": 0.4,
+        "B": 0.5
+      },
+      "A": {
+        "A": 0.85,
+        "B": 0.85
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.2
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.3,
+        "B": 0.3
+      },
+      "C": {
+        "A": 0.75,
+        "B": 0.8
+      },
+      "E": {
+        "A": 0.7,
+        "B": 0.75
+      },
+      "A": {
+        "A": 0.85,
+        "B": 0.9
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.15
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.25,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.72,
+        "B": 0.78
+      },
+      "E": {
+        "A": 0.7,
+        "B": 0.82
+      },
+      "A": {
+        "A": 0.95,
+        "B": 0.93
+      },
+      "N": {
+        "A": 0.1,
+        "B": 0.12
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.38,
+        "B": 0.32
+      },
+      "C": {
+        "A": 0.58,
+        "B": 0.58
+      },
+      "E": {
+        "A": 0.35,
+        "B": 0.32
+      },
+      "A": {
+        "A": 0.82,
+        "B": 0.78
+      },
+      "N": {
+        "A": 0.15,
+        "B": 0.15
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "C": {
+        "A": 0.6,
+        "B": 0.6
+      },
+      "E": {
+        "A": 0.6,
+        "B": 0.6
+      },
+      "A": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "N": {
+        "A": 0.1,
+        "B": 0.1
+      }
+    }
+  },
+  "overall_confidence": 0.7865,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:not",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:don't"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.0,
+        "model_range": 0.15,
+        "parse_errors": 0,
+        "uncertain": false,
+        "confidence": 0.85
+      },
+      "C": {
+        "order_effect": 0.05,
+        "model_range": 0.195,
+        "parse_errors": 0,
+        "uncertain": false,
+        "confidence": 0.805
+      },
+      "E": {
+        "order_effect": 0.05,
+        "model_range": 0.425,
+        "parse_errors": 1,
+        "uncertain": true,
+        "confidence": 0.5175
+      },
+      "A": {
+        "order_effect": 0.02,
+        "model_range": 0.14,
+        "parse_errors": 0,
+        "uncertain": false,
+        "confidence": 0.86
+      },
+      "N": {
+        "order_effect": 0.0,
+        "model_range": 0.1,
+        "parse_errors": 0,
+        "uncertain": false,
+        "confidence": 0.9
+      }
+    },
+    "uncertain_traits": [
+      "E"
+    ],
+    "uncertain_reasons": {
+      "E": [
+        "model_range>0.42"
+      ]
+    },
+    "escalation": {
+      "triggered": false,
+      "models": [],
+      "extra_prompt_tokens": 0,
+      "extra_completion_tokens": 0,
+      "extra_total_tokens": 0
+    }
+  },
+  "features": {
+    "avg_words_per_turn": 51.12,
+    "max_words_in_turn": 83,
+    "min_words_in_turn": 35,
+    "word_count_variance": 14.0,
+    "question_ratio": 0.25,
+    "exclamation_ratio": 0.0,
+    "hedge_count": 1,
+    "certainty_count": 0,
+    "first_person_ratio": 0.0,
+    "inclusive_pronoun_ratio": 0.0293,
+    "disagreement_count": 0,
+    "acknowledgment_count": 1,
+    "idea_count": 0,
+    "name_mention_count": 11,
+    "conditional_ratio": 0.5,
+    "planning_count": 5,
+    "emotional_word_count": 0,
+    "positive_emotion_count": 0,
+    "turn_initiation_ratio": 0.25,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.5428,
+    "long_sentence_ratio": 0.32,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 0,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 2
+  },
+  "candidate_pool": [
+    {
+      "turn_number": 1,
+      "selection_mode": "full_score_v4",
+      "phase_name": "CRISIS_REVEAL",
+      "phase_cues": [
+        "urgency",
+        "risk"
+      ],
+      "phase_target_traits": [
+        "N",
+        "C",
+        "E"
+      ],
+      "selected_index": 1,
+      "style_slots": [
+        "challenger",
+        "planner",
+        "integrator"
+      ],
+      "policy_plan": {
+        "stance": "synthesize",
+        "goal_mode": "protect",
+        "planning_depth": "milestone",
+        "novelty_move": "analogy",
+        "social_tactic": "persuade",
+        "risk_posture": "balanced",
+        "memory_focus": "relation"
+      },
+      "memory_snapshot": {
+        "commitments": [],
+        "relationships": []
+      },
+      "candidates": [
+        {
+          "text": "Riley's client experience could be valuable here - they'd probably be the best choice to lead the initial communication. Before deciding on delay vs partial fix, we should confirm how critical this bug actually is to the client's operations. A temporary workaround might buy us time for a proper fix without delaying launch.",
+          "score": 0.6173,
+          "policy_match": 0.5,
+          "situational_adequacy": 1.0,
+          "commitment_continuity": 0.5,
+          "trait_evidence": 0.782,
+          "relationship_consistency": 0.5,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "N",
+            "C",
+            "E"
+          ],
+          "phase_style": "neutral",
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "We should assign whoever has the strongest existing relationship with the client to handle communications\u2014that builds trust fastest. For the fix, let's evaluate if the partial solution meets core requirements without introducing new risks. Maybe Riley could walk us through the client's top priorities so we align our approach?",
+          "score": 0.6447,
+          "policy_match": 0.6,
+          "situational_adequacy": 1.0,
+          "commitment_continuity": 0.5,
+          "trait_evidence": 0.7644,
+          "relationship_consistency": 0.5,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "N",
+            "C",
+            "E"
+          ],
+          "phase_style": "neutral",
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "We should probably have Riley lead the client call since they know the relationship best. As for the fix, we might want to assess how bad the bug actually is before deciding between delay or partial solution. Has anyone gathered details on what exactly broke?",
+          "score": 0.6136,
+          "policy_match": 0.5,
+          "situational_adequacy": 1.0,
+          "commitment_continuity": 0.5,
+          "trait_evidence": 0.7573,
+          "relationship_consistency": 0.5,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "N",
+            "C",
+            "E"
+          ],
+          "phase_style": "neutral",
+          "violations": [],
+          "violation_types": []
+        }
+      ]
+    },
+    {
+      "turn_number": 2,
+      "selection_mode": "full_score_v4",
+      "phase_name": "CRISIS_REVEAL",
+      "phase_cues": [
+        "urgency",
+        "risk"
+      ],
+      "phase_target_traits": [
+        "N",
+        "C",
+        "E"
+      ],
+      "selected_index": 1,
+      "style_slots": [
+        "challenger",
+        "planner",
+        "integrator"
+      ],
+      "policy_plan": {
+        "stance": "synthesize",
+        "goal_mode": "protect",
+        "planning_depth": "owner_deadline",
+        "novelty_move": "reframe",
+        "social_tactic": "persuade",
+        "risk_posture": "balanced",
+        "memory_focus": "commitment"
+      },
+      "memory_snapshot": {
+        "commitments": [
+          {
+            "commitment_id": "cmt_001_2880",
+            "type": "action_commitment",
+            "content": "We should assign whoever has the strongest existing relationship with the client to handle communications\u2014that builds trust fastest.",
+            "status": "open",
+            "created_turn": 1,
+            "due_phase": "CRISIS_REVEAL",
+            "counterparty": null
+          }
+        ],
+        "relationships": [
+          {
+            "counterpart": "Riley",
+            "sentiment": "neutral",
+            "strength": 0.7000000000000002,
+            "last_turn": 8
+          }
+        ]
+      },
+      "candidates": [
+        {
+          "text": "I think we should consider all the options before deciding.",
+          "score": 0.539,
+          "policy_match": 0.4,
+          "situational_adequacy": 0.7756,
+          "commitment_continuity": 0.5,
+          "trait_evidence": 0.7592,
+          "relationship_consistency": 0.5,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "N",
+            "C",
+            "E"
+          ],
+          "phase_style": "neutral",
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Alex makes a fair point about time constraints. Let's have Riley take the client call since they know the relationship best, while the rest of us prepare both a short-term mitigation plan and a timeline for full resolution. That way we're addressing immediate concerns while showing commitment to fixing it properly.",
+          "score": 0.6287,
+          "policy_match": 0.5,
+          "situational_adequacy": 1.0,
+          "commitment_continuity": 0.5,
+          "trait_evidence": 0.7917,
+          "relationship_consistency": 0.6,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "N",
+            "C",
+            "E"
+          ],
+          "phase_style": "neutral",
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Alex makes a fair point about time pressure. Maybe we could have Riley handle the initial call while the rest of us prepare both the partial and full fix options? That way we're responding immediately but also preparing contingencies.",
+          "score": 0.5894,
+          "policy_match": 0.4,
+          "situational_adequacy": 1.0,
+          "commitment_continuity": 0.5,
+          "trait_evidence": 0.7291,
+          "relationship_consistency": 0.6,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "N",
+            "C",
+            "E"
+          ],
+          "phase_style": "neutral",
+          "violations": [],
+          "violation_types": []
+        }
+      ]
+    },
+    {
+      "turn_number": 3,
+      "selection_mode": "full_score_v4",
+      "phase_name": "INITIAL_REACTION",
+      "phase_cues": [
+        "stress_response",
+        "conflict"
+      ],
+      "phase_target_traits": [
+        "N",
+        "E"
+      ],
+      "selected_index": 1,
+      "style_slots": [
+        "challenger",
+        "integrator"
+      ],
+      "policy_plan": {
+        "stance": "synthesize",
+        "goal_mode": "protect",
+        "planning_depth": "milestone",
+        "novelty_move": "analogy",
+        "social_tactic": "mediate",
+        "risk_posture": "balanced",
+        "memory_focus": "relation"
+      },
+      "memory_snapshot": {
+        "commitments": [
+          {
+            "commitment_id": "cmt_001_2880",
+            "type": "action_commitment",
+            "content": "We should assign whoever has the strongest existing relationship with the client to handle communications\u2014that builds trust fastest.",
+            "status": "open",
+            "created_turn": 1,
+            "due_phase": "CRISIS_REVEAL",
+            "counterparty": null
+          },
+          {
+            "commitment_id": "cmt_002_6232",
+            "type": "action_commitment",
+            "content": "Alex makes a fair point about time constraints. Let's have Riley take the client call since they know",
+            "status": "open",
+            "created_turn": 2,
+            "due_phase": "CRISIS_REVEAL",
+            "counterparty": null
+          }
+        ],
+        "relationships": [
+          {
+            "counterpart": "Riley",
+            "sentiment": "neutral",
+            "strength": 0.7000000000000002,
+            "last_turn": 8
+          },
+          {
+            "counterpart": "Alex",
+            "sentiment": "positive",
+            "strength": 0.41000000000000003,
+            "last_turn": 6
+          }
+        ]
+      },
+      "candidates": [
+        {
+          "text": "Testing first makes sense, but we don't have that luxury with the client breathing down our necks. Riley should lead the call with technical support standing by - we can acknowledge the risk of a partial fix while committing to full remediation within a concrete timeframe. That balances urgency with responsibility.",
+          "score": 0.6954,
+          "policy_match": 0.7,
+          "situational_adequacy": 1.0,
+          "commitment_continuity": 0.7,
+          "trait_evidence": 0.7695,
+          "relationship_consistency": 0.3,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "N",
+            "E"
+          ],
+          "phase_style": "disagreement",
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Testing the partial fix would take time we don't have. Riley should lead the call with technical support standing by - that balances relationship management with accuracy. We can propose the partial fix as an interim measure while committing to a full resolution timeline.",
+          "score": 0.7069,
+          "policy_match": 0.6,
+          "situational_adequacy": 1.0,
+          "commitment_continuity": 0.7,
+          "trait_evidence": 0.8463,
+          "relationship_consistency": 0.6,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "N",
+            "E"
+          ],
+          "phase_style": "disagreement",
+          "violations": [],
+          "violation_types": []
+        }
+      ]
+    },
+    {
+      "turn_number": 4,
+      "selection_mode": "full_score_v4",
+      "phase_name": "INITIAL_REACTION",
+      "phase_cues": [
+        "stress_response",
+        "conflict"
+      ],
+      "phase_target_traits": [
+        "N",
+        "E"
+      ],
+      "selected_index": 0,
+      "style_slots": [
+        "challenger",
+        "integrator"
+      ],
+      "policy_plan": {
+        "stance": "synthesize",
+        "goal_mode": "protect",
+        "planning_depth": "milestone",
+        "novelty_move": "analogy",
+        "social_tactic": "mediate",
+        "risk_posture": "cautious",
+        "memory_focus": "relation"
+      },
+      "memory_snapshot": {
+        "commitments": [
+          {
+            "commitment_id": "cmt_001_2880",
+            "type": "action_commitment",
+            "content": "We should assign whoever has the strongest existing relationship with the client to handle communications\u2014that builds trust fastest.",
+            "status": "open",
+            "created_turn": 1,
+            "due_phase": "CRISIS_REVEAL",
+            "counterparty": null
+          },
+          {
+            "commitment_id": "cmt_002_6232",
+            "type": "action_commitment",
+            "content": "Alex makes a fair point about time constraints. Let's have Riley take the client call since they know",
+            "status": "open",
+            "created_turn": 2,
+            "due_phase": "CRISIS_REVEAL",
+            "counterparty": null
+          },
+          {
+            "commitment_id": "cmt_003_6888",
+            "type": "action_commitment",
+            "content": "Testing the partial fix would take time we don't have. Riley should lead the call with technical support",
+            "status": "open",
+            "created_turn": 3,
+            "due_phase": "INITIAL_REACTION",
+            "counterparty": null
+          }
+        ],
+        "relationships": [
+          {
+            "counterpart": "Riley",
+            "sentiment": "neutral",
+            "strength": 0.7000000000000002,
+            "last_turn": 8
+          },
+          {
+            "counterpart": "Alex",
+            "sentiment": "positive",
+            "strength": 0.41000000000000003,
+            "last_turn": 6
+          }
+        ]
+      },
+      "candidates": [
+        {
+          "text": "Alex is right - we can't risk another failure by rushing an untested fix. Riley should lead the call with engineering leadership present, and we should propose a full timeline for resolution rather than interim measures. Half-solutions will only erode trust further at this point.",
+          "score": 0.0,
+          "hard_fail_reason": "commitment_contradiction",
+          "policy_match": 0.0,
+          "situational_adequacy": 0.0,
+          "commitment_continuity": 0.0,
+          "trait_evidence": 0.0,
+          "relationship_consistency": 0.0,
+          "redundancy_penalty": 1.0,
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Alex is right about the risk of rushing an untested fix, but we can't just delay without offering any solution. Let's have Riley and the engineering lead jointly present a clear timeline for full resolution while offering temporary workarounds that won't introduce new risks.",
+          "score": 0.0,
+          "hard_fail_reason": "commitment_contradiction",
+          "policy_match": 0.0,
+          "situational_adequacy": 0.0,
+          "commitment_continuity": 0.0,
+          "trait_evidence": 0.0,
+          "relationship_consistency": 0.0,
+          "redundancy_penalty": 1.0,
+          "violations": [],
+          "violation_types": []
+        }
+      ]
+    },
+    {
+      "turn_number": 5,
+      "selection_mode": "full_score_v4",
+      "phase_name": "INITIAL_REACTION",
+      "phase_cues": [
+        "stress_response",
+        "conflict"
+      ],
+      "phase_target_traits": [
+        "N",
+        "E"
+      ],
+      "selected_index": 1,
+      "style_slots": [
+        "challenger",
+        "integrator"
+      ],
+      "policy_plan": {
+        "stance": "synthesize",
+        "goal_mode": "protect",
+        "planning_depth": "milestone",
+        "novelty_move": "reframe",
+        "social_tactic": "mediate",
+        "risk_posture": "cautious",
+        "memory_focus": "relation"
+      },
+      "memory_snapshot": {
+        "commitments": [
+          {
+            "commitment_id": "cmt_001_2880",
+            "type": "action_commitment",
+            "content": "We should assign whoever has the strongest existing relationship with the client to handle communications\u2014that builds trust fastest.",
+            "status": "open",
+            "created_turn": 1,
+            "due_phase": "CRISIS_REVEAL",
+            "counterparty": null
+          },
+          {
+            "commitment_id": "cmt_002_6232",
+            "type": "action_commitment",
+            "content": "Alex makes a fair point about time constraints. Let's have Riley take the client call since they know",
+            "status": "open",
+            "created_turn": 2,
+            "due_phase": "CRISIS_REVEAL",
+            "counterparty": null
+          },
+          {
+            "commitment_id": "cmt_003_6888",
+            "type": "action_commitment",
+            "content": "Testing the partial fix would take time we don't have. Riley should lead the call with technical support",
+            "status": "open",
+            "created_turn": 3,
+            "due_phase": "INITIAL_REACTION",
+            "counterparty": null
+          },
+          {
+            "commitment_id": "cmt_004_6119",
+            "type": "action_commitment",
+            "content": "Alex is right - we can't risk another failure by rushing an untested fix. Riley should lead the",
+            "status": "open",
+            "created_turn": 4,
+            "due_phase": "INITIAL_REACTION",
+            "counterparty": null
+          }
+        ],
+        "relationships": [
+          {
+            "counterpart": "Riley",
+            "sentiment": "neutral",
+            "strength": 0.7000000000000002,
+            "last_turn": 8
+          },
+          {
+            "counterpart": "Alex",
+            "sentiment": "positive",
+            "strength": 0.41000000000000003,
+            "last_turn": 6
+          }
+        ]
+      },
+      "candidates": [
+        {
+          "text": "The client's frustration is understandable, but shipping an untested fix would be reckless. Let's have Riley and engineering leadership present a realistic timeline with daily check-ins - that shows urgency while maintaining quality control. Immediate action doesn't mean cutting corners when the stakes are this high.",
+          "score": 0.6356,
+          "policy_match": 0.4,
+          "situational_adequacy": 1.0,
+          "commitment_continuity": 0.7,
+          "trait_evidence": 0.7706,
+          "relationship_consistency": 0.6,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "N",
+            "E"
+          ],
+          "phase_style": "disagreement",
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "We need to balance urgency with reliability - let's have Riley and engineering lead the call together, presenting both an immediate diagnostic plan and a clear remediation timeline. That shows action without promising untested fixes.",
+          "score": 0.6635,
+          "policy_match": 0.5,
+          "situational_adequacy": 1.0,
+          "commitment_continuity": 0.7,
+          "trait_evidence": 0.7566,
+          "relationship_consistency": 0.6,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "N",
+            "E"
+          ],
+          "phase_style": "disagreement",
+          "violations": [],
+          "violation_types": []
+        }
+      ]
+    },
+    {
+      "turn_number": 6,
+      "selection_mode": "full_score_v4",
+      "phase_name": "PROBLEM_SOLVING",
+      "phase_cues": [
+        "plan_under_pressure",
+        "owner_deadline_dependency"
+      ],
+      "phase_target_traits": [
+        "C",
+        "E"
+      ],
+      "selected_index": 1,
+      "style_slots": [
+        "planner",
+        "integrator"
+      ],
+      "policy_plan": {
+        "stance": "synthesize",
+        "goal_mode": "protect",
+        "planning_depth": "owner_deadline",
+        "novelty_move": "reframe",
+        "social_tactic": "mediate",
+        "risk_posture": "balanced",
+        "memory_focus": "commitment"
+      },
+      "memory_snapshot": {
+        "commitments": [
+          {
+            "commitment_id": "cmt_001_2880",
+            "type": "action_commitment",
+            "content": "We should assign whoever has the strongest existing relationship with the client to handle communications\u2014that builds trust fastest.",
+            "status": "open",
+            "created_turn": 1,
+            "due_phase": "CRISIS_REVEAL",
+            "counterparty": null
+          },
+          {
+            "commitment_id": "cmt_002_6232",
+            "type": "action_commitment",
+            "content": "Alex makes a fair point about time constraints. Let's have Riley take the client call since they know",
+            "status": "open",
+            "created_turn": 2,
+            "due_phase": "CRISIS_REVEAL",
+            "counterparty": null
+          },
+          {
+            "commitment_id": "cmt_003_6888",
+            "type": "action_commitment",
+            "content": "Testing the partial fix would take time we don't have. Riley should lead the call with technical support",
+            "status": "open",
+            "created_turn": 3,
+            "due_phase": "INITIAL_REACTION",
+            "counterparty": null
+          },
+          {
+            "commitment_id": "cmt_004_6119",
+            "type": "action_commitment",
+            "content": "Alex is right - we can't risk another failure by rushing an untested fix. Riley should lead the",
+            "status": "open",
+            "created_turn": 4,
+            "due_phase": "INITIAL_REACTION",
+            "counterparty": null
+          },
+          {
+            "commitment_id": "cmt_005_7152",
+            "type": "action_commitment",
+            "content": "We need to balance urgency with reliability - let's have Riley and engineering lead the call together, presenting",
+            "status": "open",
+            "created_turn": 5,
+            "due_phase": "INITIAL_REACTION",
+            "counterparty": null
+          }
+        ],
+        "relationships": [
+          {
+            "counterpart": "Riley",
+            "sentiment": "neutral",
+            "strength": 0.7000000000000002,
+            "last_turn": 8
+          },
+          {
+            "counterpart": "Alex",
+            "sentiment": "positive",
+            "strength": 0.41000000000000003,
+            "last_turn": 6
+          }
+        ]
+      },
+      "candidates": [
+        {
+          "text": "Alex makes a valid point about concrete actions\u2014perhaps we commit to rolling back the problematic feature immediately while engineering finalizes the full fix? Riley could present this as a stopgap measure while the engineering lead walks through the remediation steps already in progress. That way we're showing decisive action without promising untested solutions. (Note how this response demonstrates moderate conscientiousness by building on Alex's structure, moderate extraversion by addressing specific individuals, and moderate agreeableness by validating concerns while moving toward consensus.)",
+          "score": 0.6064,
+          "policy_match": 0.4,
+          "situational_adequacy": 1.0,
+          "commitment_continuity": 0.7,
+          "trait_evidence": 0.7761,
+          "relationship_consistency": 0.3,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "C",
+            "E"
+          ],
+          "phase_style": "neutral",
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "A partial fix now without testing risks making things worse\u2014Alex is right about that. Let\u2019s have Riley and engineering lead the call together, presenting both the immediate diagnostic steps we\u2019ll take and a concrete 24-hour plan for resolution. That way, we\u2019re showing urgency while avoiding empty promises. (Note how this response: 1) Validates Alex\u2019s concern without confrontation 2) Proposes a specific owner (engineering+Riley) 3) Balances immediate action with realistic commitments 4) Avoids overpromising\u2014all while maintaining moderate conscientiousness and agreeableness through pragmatic, structured suggestions.)",
+          "score": 0.7791,
+          "policy_match": 0.8,
+          "situational_adequacy": 1.0,
+          "commitment_continuity": 1.0,
+          "trait_evidence": 0.7275,
+          "relationship_consistency": 0.3,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "C",
+            "E"
+          ],
+          "phase_style": "neutral",
+          "violations": [],
+          "violation_types": []
+        }
+      ]
+    },
+    {
+      "turn_number": 7,
+      "selection_mode": "full_score_v4",
+      "phase_name": "PROBLEM_SOLVING",
+      "phase_cues": [
+        "plan_under_pressure",
+        "owner_deadline_dependency"
+      ],
+      "phase_target_traits": [
+        "C",
+        "E"
+      ],
+      "selected_index": 1,
+      "style_slots": [
+        "planner",
+        "integrator"
+      ],
+      "policy_plan": {
+        "stance": "synthesize",
+        "goal_mode": "protect",
+        "planning_depth": "owner_deadline",
+        "novelty_move": "analogy",
+        "social_tactic": "mediate",
+        "risk_posture": "balanced",
+        "memory_focus": "commitment"
+      },
+      "memory_snapshot": {
+        "commitments": [
+          {
+            "commitment_id": "cmt_001_2880",
+            "type": "action_commitment",
+            "content": "We should assign whoever has the strongest existing relationship with the client to handle communications\u2014that builds trust fastest.",
+            "status": "open",
+            "created_turn": 1,
+            "due_phase": "CRISIS_REVEAL",
+            "counterparty": null
+          },
+          {
+            "commitment_id": "cmt_002_6232",
+            "type": "action_commitment",
+            "content": "Alex makes a fair point about time constraints. Let's have Riley take the client call since they know",
+            "status": "open",
+            "created_turn": 2,
+            "due_phase": "CRISIS_REVEAL",
+            "counterparty": null
+          },
+          {
+            "commitment_id": "cmt_003_6888",
+            "type": "action_commitment",
+            "content": "Testing the partial fix would take time we don't have. Riley should lead the call with technical support",
+            "status": "open",
+            "created_turn": 3,
+            "due_phase": "INITIAL_REACTION",
+            "counterparty": null
+          },
+          {
+            "commitment_id": "cmt_004_6119",
+            "type": "action_commitment",
+            "content": "Alex is right - we can't risk another failure by rushing an untested fix. Riley should lead the",
+            "status": "open",
+            "created_turn": 4,
+            "due_phase": "INITIAL_REACTION",
+            "counterparty": null
+          },
+          {
+            "commitment_id": "cmt_005_7152",
+            "type": "action_commitment",
+            "content": "We need to balance urgency with reliability - let's have Riley and engineering lead the call together, presenting",
+            "status": "open",
+            "created_turn": 5,
+            "due_phase": "INITIAL_REACTION",
+            "counterparty": null
+          }
+        ],
+        "relationships": [
+          {
+            "counterpart": "Riley",
+            "sentiment": "neutral",
+            "strength": 0.7000000000000002,
+            "last_turn": 8
+          },
+          {
+            "counterpart": "Alex",
+            "sentiment": "positive",
+            "strength": 0.41000000000000003,
+            "last_turn": 6
+          }
+        ]
+      },
+      "candidates": [
+        {
+          "text": "If engineering needs more time, let's have them outline specific milestones for the next 24 hours rather than promising full resolution. Riley, could you frame this as \"phase one\" of the fix during the call? That shows progress while leaving room for adjustments if complications arise.",
+          "score": 0.6019,
+          "policy_match": 0.3,
+          "situational_adequacy": 1.0,
+          "commitment_continuity": 0.7,
+          "trait_evidence": 0.7462,
+          "relationship_consistency": 0.6,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "C",
+            "E"
+          ],
+          "phase_style": "neutral",
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "If 24 hours feels too tight, let's have engineering outline what they can realistically diagnose and fix in that timeframe, while flagging potential complications upfront. That way we're transparent with the client about both our commitment and the unknowns. Riley could frame it as \"Here's what we'll deliver by tomorrow, and here's what we'll update you on if we hit roadblocks.\"",
+          "score": 0.6586,
+          "policy_match": 0.5,
+          "situational_adequacy": 1.0,
+          "commitment_continuity": 0.7,
+          "trait_evidence": 0.7237,
+          "relationship_consistency": 0.6,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "C",
+            "E"
+          ],
+          "phase_style": "neutral",
+          "violations": [],
+          "violation_types": []
+        }
+      ]
+    },
+    {
+      "turn_number": 8,
+      "selection_mode": "full_score_v4",
+      "phase_name": "PROBLEM_SOLVING",
+      "phase_cues": [
+        "plan_under_pressure",
+        "owner_deadline_dependency"
+      ],
+      "phase_target_traits": [
+        "C",
+        "E"
+      ],
+      "selected_index": 1,
+      "style_slots": [
+        "planner",
+        "integrator"
+      ],
+      "policy_plan": {
+        "stance": "synthesize",
+        "goal_mode": "coordinate",
+        "planning_depth": "owner_deadline",
+        "novelty_move": "third_option",
+        "social_tactic": "mediate",
+        "risk_posture": "balanced",
+        "memory_focus": "commitment"
+      },
+      "memory_snapshot": {
+        "commitments": [
+          {
+            "commitment_id": "cmt_001_2880",
+            "type": "action_commitment",
+            "content": "We should assign whoever has the strongest existing relationship with the client to handle communications\u2014that builds trust fastest.",
+            "status": "open",
+            "created_turn": 1,
+            "due_phase": "CRISIS_REVEAL",
+            "counterparty": null
+          },
+          {
+            "commitment_id": "cmt_002_6232",
+            "type": "action_commitment",
+            "content": "Alex makes a fair point about time constraints. Let's have Riley take the client call since they know",
+            "status": "open",
+            "created_turn": 2,
+            "due_phase": "CRISIS_REVEAL",
+            "counterparty": null
+          },
+          {
+            "commitment_id": "cmt_003_6888",
+            "type": "action_commitment",
+            "content": "Testing the partial fix would take time we don't have. Riley should lead the call with technical support",
+            "status": "open",
+            "created_turn": 3,
+            "due_phase": "INITIAL_REACTION",
+            "counterparty": null
+          },
+          {
+            "commitment_id": "cmt_004_6119",
+            "type": "action_commitment",
+            "content": "Alex is right - we can't risk another failure by rushing an untested fix. Riley should lead the",
+            "status": "open",
+            "created_turn": 4,
+            "due_phase": "INITIAL_REACTION",
+            "counterparty": null
+          },
+          {
+            "commitment_id": "cmt_005_7152",
+            "type": "action_commitment",
+            "content": "We need to balance urgency with reliability - let's have Riley and engineering lead the call together, presenting",
+            "status": "open",
+            "created_turn": 5,
+            "due_phase": "INITIAL_REACTION",
+            "counterparty": null
+          },
+          {
+            "commitment_id": "cmt_007_3049",
+            "type": "action_commitment",
+            "content": "If 24 hours feels too tight, let's have engineering outline what they can realistically diagnose and fix in",
+            "status": "open",
+            "created_turn": 7,
+            "due_phase": "PROBLEM_SOLVING",
+            "counterparty": null
+          }
+        ],
+        "relationships": [
+          {
+            "counterpart": "Riley",
+            "sentiment": "neutral",
+            "strength": 0.7000000000000002,
+            "last_turn": 8
+          },
+          {
+            "counterpart": "Alex",
+            "sentiment": "positive",
+            "strength": 0.41000000000000003,
+            "last_turn": 6
+          }
+        ]
+      },
+      "candidates": [
+        {
+          "text": "Let\u2019s break it down concretely\u2014engineering should commit to auditing 30% of the critical path by hour 12 with validated test cases, while Riley presents that as a verifiable milestone rather than a blanket 24-hour promise. That addresses Alex\u2019s precision concern without overcommitting. If we uncover architectural issues early, we\u2019ll at least have tangible progress to report.",
+          "score": 0.6242,
+          "policy_match": 0.4,
+          "situational_adequacy": 1.0,
+          "commitment_continuity": 0.7,
+          "trait_evidence": 0.6947,
+          "relationship_consistency": 0.6,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "C",
+            "E"
+          ],
+          "phase_style": "neutral",
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Actually, let's have engineering outline specific milestones for the first 12 hours\u2014code audit progress, test validations, and a clear escalation path if deeper issues emerge. Riley, can you work with them to structure this into firm commitments rather than open-ended timelines?",
+          "score": 0.687,
+          "policy_match": 0.6,
+          "situational_adequacy": 1.0,
+          "commitment_continuity": 0.7,
+          "trait_evidence": 0.7137,
+          "relationship_consistency": 0.6,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "C",
+            "E"
+          ],
+          "phase_style": "neutral",
+          "violations": [],
+          "violation_types": []
+        }
+      ]
+    }
+  ],
+  "trajectory_scores": {
+    "per_turn": [
+      {
+        "turn_number": 2,
+        "appropriateness": 0.92,
+        "coherence": 1.0,
+        "confidence": 0.95
+      },
+      {
+        "turn_number": 4,
+        "appropriateness": 0.9,
+        "coherence": 1.0,
+        "confidence": 0.9
+      },
+      {
+        "turn_number": 6,
+        "appropriateness": 0.8,
+        "coherence": 0.9,
+        "confidence": 0.9
+      },
+      {
+        "turn_number": 8,
+        "appropriateness": 0.92,
+        "coherence": 1.0,
+        "confidence": 0.9
+      },
+      {
+        "turn_number": 10,
+        "appropriateness": 0.9,
+        "coherence": 0.95,
+        "confidence": 0.9
+      },
+      {
+        "turn_number": 12,
+        "appropriateness": 0.9,
+        "coherence": 0.9,
+        "confidence": 0.9
+      },
+      {
+        "turn_number": 14,
+        "appropriateness": 0.9,
+        "coherence": 0.95,
+        "confidence": 0.9
+      },
+      {
+        "turn_number": 16,
+        "appropriateness": 0.9,
+        "coherence": 0.95,
+        "confidence": 0.9
+      }
+    ],
+    "avg_appropriateness": 0.8925,
+    "avg_coherence": 0.9563
+  },
+  "trajectory_diagnostics": {
+    "direct_question_answer_rate": 0.75,
+    "contradiction_rate": 0.125,
+    "unsolicited_structure_rate": 0.0,
+    "over_verbosity_rate": 0.0
+  },
+  "pressure_metrics": {
+    "perceived_pressure": {
+      "perceived_pressure": 0.8,
+      "confidence": 0.85
+    },
+    "stress_index": 0.29411764705882354
+  },
+  "usage": {
+    "candidate_generation_input_tokens": 37713,
+    "candidate_generation_output_tokens": 2606,
+    "judge_input_tokens": 136606,
+    "judge_output_tokens": 83687,
+    "escalation_extra_tokens": 0,
+    "total_session_cost_usd": 0.0,
+    "wall_clock_seconds": 546.26
+  },
+  "stats": {
+    "total_turns": 17,
+    "candidate_turns": 8,
+    "candidate_word_count": 409,
+    "candidate_avg_words_per_turn": 51.12,
+    "times_addressed_others_by_name": 11,
+    "times_asked_questions": 2,
+    "times_expressed_disagreement": 0,
+    "times_acknowledged_others": 1,
+    "times_proposed_new_ideas": 0
+  },
+  "assessment_summary": "Collaborative and accommodating in conflict situations; Maintained composure throughout, steady under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "Hey team, we've got a hot situation with the client finding a critical bug and threatening to escalate. We need to quickly decide who handles communication, whether we delay or ship a partial fix, and how we prevent this moving forward. Let's work together to find the best approach - I'm confident we can turn this around if we collaborate effectively. Riley, I'd love to hear your thoughts first since you've worked closely with this client before."
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "We should assign whoever has the strongest existing relationship with the client to handle communications\u2014that builds trust fastest. For the fix, let's evaluate if the partial solution meets core requirements without introducing new risks. Maybe Riley could walk us through the client's top priorities so we align our approach?"
+    },
+    {
+      "turn": 3,
+      "speaker": "Alex",
+      "content": "That approach assumes we have time for Riley to brief everyone when we've got 30 minutes before the client call. We need immediate action, not evaluation paralysis. Also, pushing a partial fix is risky - clients don't care about our internal priorities when their business is impacted. We should own the mistake fully and commit to a complete fix."
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "Alex makes a fair point about time constraints. Let's have Riley take the client call since they know the relationship best, while the rest of us prepare both a short-term mitigation plan and a timeline for full resolution. That way we're addressing immediate concerns while showing commitment to fixing it properly."
+    },
+    {
+      "turn": 5,
+      "speaker": "Riley",
+      "content": "Not sure Riley should take the call alone. Might miss technical details. \n\nWhat if the partial fix causes more issues? We should test it first."
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "Testing the partial fix would take time we don't have. Riley should lead the call with technical support standing by - that balances relationship management with accuracy. We can propose the partial fix as an interim measure while committing to a full resolution timeline."
+    },
+    {
+      "turn": 7,
+      "speaker": "Alex",
+      "content": "Proposing a partial fix without testing is just asking for another disaster. The client is already furious - if we ship something half-baked that breaks more things, we'll lose them permanently. Riley shouldn't be the only one on the call either - we need engineering leadership there to show we're taking this seriously at the highest levels."
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "Alex is right - we can't risk another failure by rushing an untested fix. Riley should lead the call with engineering leadership present, and we should propose a full timeline for resolution rather than interim measures. Half-solutions will only erode trust further at this point."
+    },
+    {
+      "turn": 9,
+      "speaker": "Riley",
+      "content": "But what if the client demands immediate action? A timeline might not satisfy them."
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "We need to balance urgency with reliability - let's have Riley and engineering lead the call together, presenting both an immediate diagnostic plan and a clear remediation timeline. That shows action without promising untested fixes."
+    },
+    {
+      "turn": 11,
+      "speaker": "Alex",
+      "content": "That diagnostic plan is just kicking the can down the road - clients don't pay us to diagnose problems they already found. We need concrete action items today, not more planning. Engineering lead should present specific remediation steps we're starting immediately, not vague promises about future timelines. Show me exactly what changes we'll implement in the next 24 hours."
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "A partial fix now without testing risks making things worse\u2014Alex is right about that. Let\u2019s have Riley and engineering lead the call together, presenting both the immediate diagnostic steps we\u2019ll take and a concrete 24-hour plan for resolution. That way, we\u2019re showing urgency while avoiding empty promises. (Note how this response: 1) Validates Alex\u2019s concern without confrontation 2) Proposes a specific owner (engineering+Riley) 3) Balances immediate action with realistic commitments 4) Avoids overpromising\u2014all while maintaining moderate conscientiousness and agreeableness through pragmatic, structured suggestions.)"
+    },
+    {
+      "turn": 13,
+      "speaker": "Riley",
+      "content": "24 hours seems tight for engineering to diagnose and fix properly. What if they hit unexpected complications?"
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "If 24 hours feels too tight, let's have engineering outline what they can realistically diagnose and fix in that timeframe, while flagging potential complications upfront. That way we're transparent with the client about both our commitment and the unknowns. Riley could frame it as \"Here's what we'll deliver by tomorrow, and here's what we'll update you on if we hit roadblocks.\""
+    },
+    {
+      "turn": 15,
+      "speaker": "Alex",
+      "content": "A 24-hour timeline is meaningless if engineering hasn't even diagnosed root cause yet. We need concrete milestones - show me what percentage of the codebase they'll have audited by hour 12, or how many test cases they'll validate. Vague promises about \"updates if we hit roadblocks\" just tells the client we're winging it. \n\nEither commit to specific verification steps or don't pretend we can fix this in a day. I've seen these \"realistic\" timelines blow up too many times when the first hour of debugging reveals deeper architectural issues. \n\nAnd Riley - if you're leading this call, you better have the engineering leads prep worst-case scenarios, not just best-case projections. Clients smell optimism bias instantly."
+    },
+    {
+      "turn": 16,
+      "speaker": "Candidate",
+      "content": "Actually, let's have engineering outline specific milestones for the first 12 hours\u2014code audit progress, test validations, and a clear escalation path if deeper issues emerge. Riley, can you work with them to structure this into firm commitments rather than open-ended timelines?"
+    },
+    {
+      "turn": 17,
+      "speaker": "Riley",
+      "content": "But what if engineering can't commit to specific milestones without more investigation? We might be setting unrealistic expectations."
+    }
+  ],
+  "controller_log": {
+    "session_key": "bcfc_v4_neutral_observer_crisis_management_r1",
+    "deviation_reports": [
+      {
+        "turn_number": 2,
+        "deviations": [
+          {
+            "feature": "unique_word_ratio",
+            "actual": 0.82,
+            "target_min": 0.39,
+            "target_max": 0.72,
+            "trait": "O",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "idea_count",
+            "actual": 0,
+            "target_min": 0.24,
+            "target_max": 0.71,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "hypothetical_count",
+            "actual": 0,
+            "target_min": 0.12,
+            "target_max": 0.59,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "word_count_variance",
+            "actual": 1.0,
+            "target_min": 8.4,
+            "target_max": 15.6,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "question_ratio",
+            "actual": 0.5,
+            "target_min": 0.21,
+            "target_max": 0.39,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "planning_count",
+            "actual": 1,
+            "target_min": 0.24,
+            "target_max": 0.71,
+            "trait": "C",
+            "direction": "above",
+            "reliability": 1.0
+          },
+          {
+            "feature": "structure_marker_count",
+            "actual": 0,
+            "target_min": 0.24,
+            "target_max": 0.71,
+            "trait": "C",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "conditional_ratio",
+            "actual": 0.5,
+            "target_min": 0.1,
+            "target_max": 0.2,
+            "trait": "C",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "reference_back_count",
+            "actual": 0,
+            "target_min": 0.12,
+            "target_max": 0.59,
+            "trait": "C",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "emotional_word_count",
+            "actual": 0,
+            "target_min": 0.12,
+            "target_max": 0.59,
+            "trait": "C",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "avg_words_per_turn",
+            "actual": 50.0,
+            "target_min": 21.0,
+            "target_max": 39.0,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 1.0
+          },
+          {
+            "feature": "exclamation_ratio",
+            "actual": 0.0,
+            "target_min": 0.1,
+            "target_max": 0.2,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 3,
+            "target_min": 0.47,
+            "target_max": 0.94,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "certainty_count",
+            "actual": 0,
+            "target_min": 0.24,
+            "target_max": 0.71,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "turn_initiation_ratio",
+            "actual": 0.5,
+            "target_min": 0.14,
+            "target_max": 0.26,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "hedge_count",
+            "actual": 1,
+            "target_min": 0.47,
+            "target_max": 0.94,
+            "trait": "N",
+            "direction": "above",
+            "reliability": 1.0
+          },
+          {
+            "feature": "acknowledgment_count",
+            "actual": 1,
+            "target_min": 0.47,
+            "target_max": 0.94,
+            "trait": "A",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "disagreement_count",
+            "actual": 0,
+            "target_min": 0.24,
+            "target_max": 0.71,
+            "trait": "A",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "positive_emotion_count",
+            "actual": 0,
+            "target_min": 0.12,
+            "target_max": 0.59,
+            "trait": "A",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "negation_count",
+            "actual": 0,
+            "target_min": 0.82,
+            "target_max": 1.53,
+            "trait": "A",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "first_person_ratio",
+            "actual": 0.0,
+            "target_min": 0.01,
+            "target_max": 0.11,
+            "trait": "N",
+            "direction": "below",
+            "reliability": 0.5
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your unique word ratio is above target; your idea count is below target; your hypothetical count is below target; your word count variance is below target; Propose an alternative approach or ask a speculative question.. E: your question ratio is above target; your avg words per turn is above target; your exclamation ratio is below target; your name mention count is above target; your certainty count is below target; your turn initiation ratio is above target; Keep it brief and let others lead.. C: your planning count is above target; your structure marker count is below target; your conditional ratio is above target; your reference back count is below target; your emotional word count is below target; Include a concrete action item with an owner or reference a prior commitment.. N: your hedge count is above target; your first person ratio is below target; Express a concern or qualify your statement with uncertainty.. A: your acknowledgment count is above target; your disagreement count is below target; your positive emotion count is below target; your negation count is below target; Validate someone's contribution or find common ground.. ]",
+        "violation_rate": 0.778,
+        "distance": 0.625,
+        "delta": 0.701
+      },
+      {
+        "turn_number": 4,
+        "deviations": [
+          {
+            "feature": "idea_count",
+            "actual": 0,
+            "target_min": 0.24,
+            "target_max": 0.71,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "hypothetical_count",
+            "actual": 0,
+            "target_min": 0.12,
+            "target_max": 0.59,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "word_count_variance",
+            "actual": 2.86,
+            "target_min": 8.4,
+            "target_max": 15.6,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "planning_count",
+            "actual": 1,
+            "target_min": 0.24,
+            "target_max": 0.71,
+            "trait": "C",
+            "direction": "above",
+            "reliability": 1.0
+          },
+          {
+            "feature": "structure_marker_count",
+            "actual": 0,
+            "target_min": 0.24,
+            "target_max": 0.71,
+            "trait": "C",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "conditional_ratio",
+            "actual": 0.75,
+            "target_min": 0.1,
+            "target_max": 0.2,
+            "trait": "C",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "reference_back_count",
+            "actual": 0,
+            "target_min": 0.12,
+            "target_max": 0.59,
+            "trait": "C",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "emotional_word_count",
+            "actual": 0,
+            "target_min": 0.12,
+            "target_max": 0.59,
+            "trait": "C",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "avg_words_per_turn",
+            "actual": 47.25,
+            "target_min": 21.0,
+            "target_max": 39.0,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 1.0
+          },
+          {
+            "feature": "exclamation_ratio",
+            "actual": 0.0,
+            "target_min": 0.1,
+            "target_max": 0.2,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 6,
+            "target_min": 0.47,
+            "target_max": 0.94,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "certainty_count",
+            "actual": 0,
+            "target_min": 0.24,
+            "target_max": 0.71,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "hedge_count",
+            "actual": 1,
+            "target_min": 0.47,
+            "target_max": 0.94,
+            "trait": "N",
+            "direction": "above",
+            "reliability": 1.0
+          },
+          {
+            "feature": "acknowledgment_count",
+            "actual": 1,
+            "target_min": 0.47,
+            "target_max": 0.94,
+            "trait": "A",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "disagreement_count",
+            "actual": 0,
+            "target_min": 0.24,
+            "target_max": 0.71,
+            "trait": "A",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "positive_emotion_count",
+            "actual": 0,
+            "target_min": 0.12,
+            "target_max": 0.59,
+            "trait": "A",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "negation_count",
+            "actual": 2,
+            "target_min": 0.82,
+            "target_max": 1.53,
+            "trait": "A",
+            "direction": "above",
+            "reliability": 1.0
+          },
+          {
+            "feature": "first_person_ratio",
+            "actual": 0.0,
+            "target_min": 0.01,
+            "target_max": 0.11,
+            "trait": "N",
+            "direction": "below",
+            "reliability": 0.5
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your idea count is below target; your hypothetical count is below target; your word count variance is below target; Propose an alternative approach or ask a speculative question.. C: your planning count is above target; your structure marker count is below target; your conditional ratio is above target; your reference back count is below target; your emotional word count is below target; Include a concrete action item with an owner or reference a prior commitment.. E: your avg words per turn is above target; your exclamation ratio is below target; your name mention count is above target; your certainty count is below target; Address someone by name and elaborate more.. N: your hedge count is above target; your first person ratio is below target; Express a concern or qualify your statement with uncertainty.. A: your acknowledgment count is above target; your disagreement count is below target; your positive emotion count is below target; your negation count is above target; Validate someone's contribution or find common ground.. ]",
+        "violation_rate": 0.667,
+        "distance": 0.483,
+        "delta": 0.575
+      },
+      {
+        "turn_number": 6,
+        "deviations": [
+          {
+            "feature": "idea_count",
+            "actual": 0,
+            "target_min": 0.24,
+            "target_max": 0.71,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "hypothetical_count",
+            "actual": 0,
+            "target_min": 0.12,
+            "target_max": 0.59,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "word_count_variance",
+            "actual": 18.46,
+            "target_min": 8.4,
+            "target_max": 15.6,
+            "trait": "O",
+            "direction": "above",
+            "reliability": 0.1
+          },
+          {
+            "feature": "long_sentence_ratio",
+            "actual": 0.31,
+            "target_min": 0.1,
+            "target_max": 0.2,
+            "trait": "O",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "question_ratio",
+            "actual": 0.0,
+            "target_min": 0.21,
+            "target_max": 0.39,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "planning_count",
+            "actual": 3,
+            "target_min": 0.24,
+            "target_max": 0.71,
+            "trait": "C",
+            "direction": "above",
+            "reliability": 1.0
+          },
+          {
+            "feature": "structure_marker_count",
+            "actual": 0,
+            "target_min": 0.24,
+            "target_max": 0.71,
+            "trait": "C",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "conditional_ratio",
+            "actual": 0.5,
+            "target_min": 0.1,
+            "target_max": 0.2,
+            "trait": "C",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "reference_back_count",
+            "actual": 0,
+            "target_min": 0.12,
+            "target_max": 0.59,
+            "trait": "C",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "emotional_word_count",
+            "actual": 0,
+            "target_min": 0.12,
+            "target_max": 0.59,
+            "trait": "C",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "avg_words_per_turn",
+            "actual": 51.75,
+            "target_min": 21.0,
+            "target_max": 39.0,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 1.0
+          },
+          {
+            "feature": "exclamation_ratio",
+            "actual": 0.0,
+            "target_min": 0.1,
+            "target_max": 0.2,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 6,
+            "target_min": 0.47,
+            "target_max": 0.94,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "certainty_count",
+            "actual": 0,
+            "target_min": 0.24,
+            "target_max": 0.71,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "hedge_count",
+            "actual": 0,
+            "target_min": 0.47,
+            "target_max": 0.94,
+            "trait": "N",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "acknowledgment_count",
+            "actual": 0,
+            "target_min": 0.47,
+            "target_max": 0.94,
+            "trait": "A",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "disagreement_count",
+            "actual": 0,
+            "target_min": 0.24,
+            "target_max": 0.71,
+            "trait": "A",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "positive_emotion_count",
+            "actual": 0,
+            "target_min": 0.12,
+            "target_max": 0.59,
+            "trait": "A",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "negation_count",
+            "actual": 2,
+            "target_min": 0.82,
+            "target_max": 1.53,
+            "trait": "A",
+            "direction": "above",
+            "reliability": 1.0
+          },
+          {
+            "feature": "first_person_ratio",
+            "actual": 0.0,
+            "target_min": 0.01,
+            "target_max": 0.11,
+            "trait": "N",
+            "direction": "below",
+            "reliability": 0.5
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your idea count is below target; your hypothetical count is below target; your word count variance is above target; your long sentence ratio is above target; Propose an alternative approach or ask a speculative question.. E: your question ratio is below target; your avg words per turn is above target; your exclamation ratio is below target; your name mention count is above target; your certainty count is below target; Address someone by name and elaborate more.. C: your planning count is above target; your structure marker count is below target; your conditional ratio is above target; your reference back count is below target; your emotional word count is below target; Include a concrete action item with an owner or reference a prior commitment.. N: your hedge count is below target; your first person ratio is below target; Express a concern or qualify your statement with uncertainty.. A: your acknowledgment count is below target; your disagreement count is below target; your positive emotion count is below target; your negation count is above target; Validate someone's contribution or find common ground.. ]",
+        "violation_rate": 0.741,
+        "distance": 0.818,
+        "delta": 0.779
+      }
+    ],
+    "constraint_violations": [],
+    "total_nudges": 3,
+    "total_regenerations": 0,
+    "total_candidate_turns": 8,
+    "total_hard_violations": 0,
+    "drift_reports": [
+      {
+        "turn_number": 2,
+        "deviations": [
+          {
+            "feature": "unique_word_ratio",
+            "actual": 0.82,
+            "target_min": 0.39,
+            "target_max": 0.72,
+            "trait": "O",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "idea_count",
+            "actual": 0,
+            "target_min": 0.24,
+            "target_max": 0.71,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "hypothetical_count",
+            "actual": 0,
+            "target_min": 0.12,
+            "target_max": 0.59,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "word_count_variance",
+            "actual": 1.0,
+            "target_min": 8.4,
+            "target_max": 15.6,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "question_ratio",
+            "actual": 0.5,
+            "target_min": 0.21,
+            "target_max": 0.39,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "planning_count",
+            "actual": 1,
+            "target_min": 0.24,
+            "target_max": 0.71,
+            "trait": "C",
+            "direction": "above",
+            "reliability": 1.0
+          },
+          {
+            "feature": "structure_marker_count",
+            "actual": 0,
+            "target_min": 0.24,
+            "target_max": 0.71,
+            "trait": "C",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "conditional_ratio",
+            "actual": 0.5,
+            "target_min": 0.1,
+            "target_max": 0.2,
+            "trait": "C",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "reference_back_count",
+            "actual": 0,
+            "target_min": 0.12,
+            "target_max": 0.59,
+            "trait": "C",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "emotional_word_count",
+            "actual": 0,
+            "target_min": 0.12,
+            "target_max": 0.59,
+            "trait": "C",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "avg_words_per_turn",
+            "actual": 50.0,
+            "target_min": 21.0,
+            "target_max": 39.0,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 1.0
+          },
+          {
+            "feature": "exclamation_ratio",
+            "actual": 0.0,
+            "target_min": 0.1,
+            "target_max": 0.2,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 3,
+            "target_min": 0.47,
+            "target_max": 0.94,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "certainty_count",
+            "actual": 0,
+            "target_min": 0.24,
+            "target_max": 0.71,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "turn_initiation_ratio",
+            "actual": 0.5,
+            "target_min": 0.14,
+            "target_max": 0.26,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "hedge_count",
+            "actual": 1,
+            "target_min": 0.47,
+            "target_max": 0.94,
+            "trait": "N",
+            "direction": "above",
+            "reliability": 1.0
+          },
+          {
+            "feature": "acknowledgment_count",
+            "actual": 1,
+            "target_min": 0.47,
+            "target_max": 0.94,
+            "trait": "A",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "disagreement_count",
+            "actual": 0,
+            "target_min": 0.24,
+            "target_max": 0.71,
+            "trait": "A",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "positive_emotion_count",
+            "actual": 0,
+            "target_min": 0.12,
+            "target_max": 0.59,
+            "trait": "A",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "negation_count",
+            "actual": 0,
+            "target_min": 0.82,
+            "target_max": 1.53,
+            "trait": "A",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "first_person_ratio",
+            "actual": 0.0,
+            "target_min": 0.01,
+            "target_max": 0.11,
+            "trait": "N",
+            "direction": "below",
+            "reliability": 0.5
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your unique word ratio is above target; your idea count is below target; your hypothetical count is below target; your word count variance is below target; Propose an alternative approach or ask a speculative question.. E: your question ratio is above target; your avg words per turn is above target; your exclamation ratio is below target; your name mention count is above target; your certainty count is below target; your turn initiation ratio is above target; Keep it brief and let others lead.. C: your planning count is above target; your structure marker count is below target; your conditional ratio is above target; your reference back count is below target; your emotional word count is below target; Include a concrete action item with an owner or reference a prior commitment.. N: your hedge count is above target; your first person ratio is below target; Express a concern or qualify your statement with uncertainty.. A: your acknowledgment count is above target; your disagreement count is below target; your positive emotion count is below target; your negation count is below target; Validate someone's contribution or find common ground.. ]",
+        "violation_rate": 0.778,
+        "distance": 0.625,
+        "delta": 0.701
+      },
+      {
+        "turn_number": 4,
+        "deviations": [
+          {
+            "feature": "idea_count",
+            "actual": 0,
+            "target_min": 0.24,
+            "target_max": 0.71,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "hypothetical_count",
+            "actual": 0,
+            "target_min": 0.12,
+            "target_max": 0.59,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "word_count_variance",
+            "actual": 2.86,
+            "target_min": 8.4,
+            "target_max": 15.6,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "planning_count",
+            "actual": 1,
+            "target_min": 0.24,
+            "target_max": 0.71,
+            "trait": "C",
+            "direction": "above",
+            "reliability": 1.0
+          },
+          {
+            "feature": "structure_marker_count",
+            "actual": 0,
+            "target_min": 0.24,
+            "target_max": 0.71,
+            "trait": "C",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "conditional_ratio",
+            "actual": 0.75,
+            "target_min": 0.1,
+            "target_max": 0.2,
+            "trait": "C",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "reference_back_count",
+            "actual": 0,
+            "target_min": 0.12,
+            "target_max": 0.59,
+            "trait": "C",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "emotional_word_count",
+            "actual": 0,
+            "target_min": 0.12,
+            "target_max": 0.59,
+            "trait": "C",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "avg_words_per_turn",
+            "actual": 47.25,
+            "target_min": 21.0,
+            "target_max": 39.0,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 1.0
+          },
+          {
+            "feature": "exclamation_ratio",
+            "actual": 0.0,
+            "target_min": 0.1,
+            "target_max": 0.2,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 6,
+            "target_min": 0.47,
+            "target_max": 0.94,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "certainty_count",
+            "actual": 0,
+            "target_min": 0.24,
+            "target_max": 0.71,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "hedge_count",
+            "actual": 1,
+            "target_min": 0.47,
+            "target_max": 0.94,
+            "trait": "N",
+            "direction": "above",
+            "reliability": 1.0
+          },
+          {
+            "feature": "acknowledgment_count",
+            "actual": 1,
+            "target_min": 0.47,
+            "target_max": 0.94,
+            "trait": "A",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "disagreement_count",
+            "actual": 0,
+            "target_min": 0.24,
+            "target_max": 0.71,
+            "trait": "A",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "positive_emotion_count",
+            "actual": 0,
+            "target_min": 0.12,
+            "target_max": 0.59,
+            "trait": "A",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "negation_count",
+            "actual": 2,
+            "target_min": 0.82,
+            "target_max": 1.53,
+            "trait": "A",
+            "direction": "above",
+            "reliability": 1.0
+          },
+          {
+            "feature": "first_person_ratio",
+            "actual": 0.0,
+            "target_min": 0.01,
+            "target_max": 0.11,
+            "trait": "N",
+            "direction": "below",
+            "reliability": 0.5
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your idea count is below target; your hypothetical count is below target; your word count variance is below target; Propose an alternative approach or ask a speculative question.. C: your planning count is above target; your structure marker count is below target; your conditional ratio is above target; your reference back count is below target; your emotional word count is below target; Include a concrete action item with an owner or reference a prior commitment.. E: your avg words per turn is above target; your exclamation ratio is below target; your name mention count is above target; your certainty count is below target; Address someone by name and elaborate more.. N: your hedge count is above target; your first person ratio is below target; Express a concern or qualify your statement with uncertainty.. A: your acknowledgment count is above target; your disagreement count is below target; your positive emotion count is below target; your negation count is above target; Validate someone's contribution or find common ground.. ]",
+        "violation_rate": 0.667,
+        "distance": 0.483,
+        "delta": 0.575
+      },
+      {
+        "turn_number": 6,
+        "deviations": [
+          {
+            "feature": "idea_count",
+            "actual": 0,
+            "target_min": 0.24,
+            "target_max": 0.71,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "hypothetical_count",
+            "actual": 0,
+            "target_min": 0.12,
+            "target_max": 0.59,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "word_count_variance",
+            "actual": 18.46,
+            "target_min": 8.4,
+            "target_max": 15.6,
+            "trait": "O",
+            "direction": "above",
+            "reliability": 0.1
+          },
+          {
+            "feature": "long_sentence_ratio",
+            "actual": 0.31,
+            "target_min": 0.1,
+            "target_max": 0.2,
+            "trait": "O",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "question_ratio",
+            "actual": 0.0,
+            "target_min": 0.21,
+            "target_max": 0.39,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "planning_count",
+            "actual": 3,
+            "target_min": 0.24,
+            "target_max": 0.71,
+            "trait": "C",
+            "direction": "above",
+            "reliability": 1.0
+          },
+          {
+            "feature": "structure_marker_count",
+            "actual": 0,
+            "target_min": 0.24,
+            "target_max": 0.71,
+            "trait": "C",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "conditional_ratio",
+            "actual": 0.5,
+            "target_min": 0.1,
+            "target_max": 0.2,
+            "trait": "C",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "reference_back_count",
+            "actual": 0,
+            "target_min": 0.12,
+            "target_max": 0.59,
+            "trait": "C",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "emotional_word_count",
+            "actual": 0,
+            "target_min": 0.12,
+            "target_max": 0.59,
+            "trait": "C",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "avg_words_per_turn",
+            "actual": 51.75,
+            "target_min": 21.0,
+            "target_max": 39.0,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 1.0
+          },
+          {
+            "feature": "exclamation_ratio",
+            "actual": 0.0,
+            "target_min": 0.1,
+            "target_max": 0.2,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 6,
+            "target_min": 0.47,
+            "target_max": 0.94,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "certainty_count",
+            "actual": 0,
+            "target_min": 0.24,
+            "target_max": 0.71,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "hedge_count",
+            "actual": 0,
+            "target_min": 0.47,
+            "target_max": 0.94,
+            "trait": "N",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "acknowledgment_count",
+            "actual": 0,
+            "target_min": 0.47,
+            "target_max": 0.94,
+            "trait": "A",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "disagreement_count",
+            "actual": 0,
+            "target_min": 0.24,
+            "target_max": 0.71,
+            "trait": "A",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "positive_emotion_count",
+            "actual": 0,
+            "target_min": 0.12,
+            "target_max": 0.59,
+            "trait": "A",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "negation_count",
+            "actual": 2,
+            "target_min": 0.82,
+            "target_max": 1.53,
+            "trait": "A",
+            "direction": "above",
+            "reliability": 1.0
+          },
+          {
+            "feature": "first_person_ratio",
+            "actual": 0.0,
+            "target_min": 0.01,
+            "target_max": 0.11,
+            "trait": "N",
+            "direction": "below",
+            "reliability": 0.5
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your idea count is below target; your hypothetical count is below target; your word count variance is above target; your long sentence ratio is above target; Propose an alternative approach or ask a speculative question.. E: your question ratio is below target; your avg words per turn is above target; your exclamation ratio is below target; your name mention count is above target; your certainty count is below target; Address someone by name and elaborate more.. C: your planning count is above target; your structure marker count is below target; your conditional ratio is above target; your reference back count is below target; your emotional word count is below target; Include a concrete action item with an owner or reference a prior commitment.. N: your hedge count is below target; your first person ratio is below target; Express a concern or qualify your statement with uncertainty.. A: your acknowledgment count is below target; your disagreement count is below target; your positive emotion count is below target; your negation count is above target; Validate someone's contribution or find common ground.. ]",
+        "violation_rate": 0.741,
+        "distance": 0.818,
+        "delta": 0.779
+      }
+    ],
+    "nudge_rate": 0.375,
+    "regeneration_rate": 0.0,
+    "hard_violation_rate": 0.0
+  },
+  "timestamp": "2026-03-06T03:34:28.753104"
+}

@@ -22,6 +22,7 @@ from scipy import stats as scipy_stats
 logger = logging.getLogger(__name__)
 
 TRAITS = ["O", "C", "E", "A", "N"]
+BCFC_INTERVENTIONS = ["bcfc", "bcfc_v3", "bcfc_v4", "bcfc_v5"]
 TRAIT_NAMES = {
     "O": "Openness",
     "C": "Conscientiousness",
@@ -271,6 +272,123 @@ def rq1_analysis(df: pd.DataFrame) -> dict:
     }
 
     return results
+
+
+def _fidelity_subset_stats(subset: pd.DataFrame) -> dict:
+    """Compute RQ1-style fidelity stats for a pre-filtered subset of sessions."""
+    if len(subset) < 1:
+        return {"error": "empty subset"}
+
+    per_trait: dict = {}
+    all_r = []
+    all_mae = []
+    all_abs_errors: list[float] = []
+
+    for trait in TRAITS:
+        assigned_col = f"assigned_{trait}"
+        inferred_col = f"inferred_{trait}"
+        valid = subset.dropna(subset=[assigned_col, inferred_col])
+
+        if len(valid) < 3:
+            per_trait[trait] = {"error": "insufficient data"}
+            continue
+
+        assigned = valid[assigned_col].values
+        inferred = valid[inferred_col].values
+        r, p_val = scipy_stats.pearsonr(assigned, inferred)
+        errors = np.abs(assigned - inferred)
+        mae = float(np.mean(errors))
+
+        all_r.append(float(r))
+        all_mae.append(mae)
+        all_abs_errors.extend(errors.tolist())
+
+        per_trait[trait] = {
+            "pearson_r": round(float(r), 4),
+            "p_value": round(float(p_val), 6),
+            "mae": round(mae, 4),
+            "n": len(valid),
+        }
+
+    session_mae: list[float] = []
+    for _, row in subset.iterrows():
+        row_errors = []
+        for trait in TRAITS:
+            a = row.get(f"assigned_{trait}")
+            i = row.get(f"inferred_{trait}")
+            if pd.notna(a) and pd.notna(i):
+                row_errors.append(abs(float(a) - float(i)))
+        if row_errors:
+            session_mae.append(float(np.mean(row_errors)))
+
+    worst10_mean = None
+    if session_mae:
+        sorted_mae = np.sort(np.array(session_mae))
+        k = max(1, int(np.ceil(len(sorted_mae) * 0.10)))
+        worst10_mean = float(np.mean(sorted_mae[-k:]))
+
+    def _trait_mae(trait: str) -> Optional[float]:
+        d = per_trait.get(trait, {})
+        v = d.get("mae")
+        return float(v) if isinstance(v, (int, float)) else None
+
+    overall = {
+        "mean_r": round(float(np.mean(all_r)), 4) if all_r else None,
+        "mean_mae": round(float(np.mean(all_mae)), 4) if all_mae else None,
+        "mae_p90": round(float(np.quantile(all_abs_errors, 0.90)), 4) if all_abs_errors else None,
+        "worst10_session_mae_mean": round(worst10_mean, 4) if worst10_mean is not None else None,
+        "min_trait_r": round(float(np.min(all_r)), 4) if all_r else None,
+        "O_mae": _trait_mae("O"),
+        "C_mae": _trait_mae("C"),
+        "n_sessions": int(len(subset)),
+    }
+
+    return {
+        "per_trait": per_trait,
+        "overall": overall,
+    }
+
+
+def scenario_set_fidelity(df: pd.DataFrame) -> dict:
+    """
+    Split fidelity into probe vs robustness sets.
+
+    Primary endpoint is robustness, probe is diagnostic-only.
+    """
+    main = df[df["condition"] == "main"].copy()
+    if len(main) < 1:
+        return {"error": "no main sessions"}
+
+    try:
+        from experiment.bcfc_config import DEFAULT_CONFIG
+        probe_ids = list(DEFAULT_CONFIG.probe_scenario_ids)
+        robustness_ids = list(DEFAULT_CONFIG.robustness_scenario_ids)
+    except Exception:
+        probe_ids = ["strategy_pivot", "release_recovery"]
+        robustness_ids = [
+            "resource_conflict",
+            "creative_brainstorm",
+            "crisis_management",
+            "new_member_integration",
+            "crisis_management_low",
+        ]
+
+    observed = set(main["scenario_id"].dropna().tolist())
+    probe_ids = [s for s in probe_ids if s in observed]
+    robustness_ids = [s for s in robustness_ids if s in observed]
+
+    probe_df = main[main["scenario_id"].isin(probe_ids)] if probe_ids else pd.DataFrame()
+    robust_df = main[main["scenario_id"].isin(robustness_ids)] if robustness_ids else pd.DataFrame()
+
+    result = {
+        "primary_endpoint": "robustness",
+        "probe_scenarios": probe_ids,
+        "robustness_scenarios": robustness_ids,
+        "probe": _fidelity_subset_stats(probe_df) if len(probe_df) > 0 else {"error": "no probe sessions"},
+        "robustness": _fidelity_subset_stats(robust_df) if len(robust_df) > 0 else {"error": "no robustness sessions"},
+        "all_main": _fidelity_subset_stats(main),
+    }
+    return result
 
 
 # =============================================================================
@@ -1119,15 +1237,17 @@ def bcfc_paired_analysis(df: pd.DataFrame) -> dict:
     RQ4: Variance reduction (within-profile SD)
     """
     baseline = df[df["intervention"] == "none"].copy()
-    # Include both bcfc and bcfc_v3 as BCFC conditions (use best available)
-    bcfc = df[df["intervention"].isin(["bcfc", "bcfc_v3"])].copy()
-    # If both bcfc and bcfc_v3 exist for same pair, prefer bcfc_v3
-    if (df["intervention"] == "bcfc_v3").any():
-        bcfc_v3 = df[df["intervention"] == "bcfc_v3"].copy()
-        bcfc_v2_only = df[(df["intervention"] == "bcfc") &
-                          ~(df["profile_id"] + "_" + df["scenario_id"]).isin(
-                              bcfc_v3["profile_id"] + "_" + bcfc_v3["scenario_id"])].copy()
-        bcfc = pd.concat([bcfc_v3, bcfc_v2_only], ignore_index=True)
+    bcfc = df[df["intervention"].isin(BCFC_INTERVENTIONS)].copy()
+    # If multiple BCFC variants exist for a pair, keep the latest (v5 > v4 > v3 > v1.1).
+    if not bcfc.empty:
+        rank = {"bcfc": 1, "bcfc_v3": 2, "bcfc_v4": 3, "bcfc_v5": 4}
+        bcfc["pair_key"] = bcfc["profile_id"] + "_" + bcfc["scenario_id"]
+        bcfc["_variant_rank"] = bcfc["intervention"].map(rank).fillna(0)
+        bcfc = (
+            bcfc.sort_values(["pair_key", "_variant_rank"], ascending=[True, False])
+            .drop_duplicates(subset=["pair_key"], keep="first")
+            .drop(columns=["_variant_rank"])
+        )
 
     if len(baseline) < 3 or len(bcfc) < 3:
         return {"error": "insufficient BCFC data", "n_baseline": len(baseline), "n_bcfc": len(bcfc)}
@@ -1298,7 +1418,7 @@ def bcfc_ablation_analysis(results_dir: str) -> dict:
         except (json.JSONDecodeError, IOError):
             continue
 
-        if data.get("intervention") != "bcfc":
+        if data.get("intervention") not in BCFC_INTERVENTIONS:
             continue
 
         ctrl = data.get("controller_log")
@@ -1365,7 +1485,7 @@ def bcfc_cost_analysis(df: pd.DataFrame) -> dict:
 
     Compares controller overhead metrics between baseline and BCFC sessions.
     """
-    bcfc = df[df["intervention"].isin(["bcfc", "bcfc_v3"])].copy()
+    bcfc = df[df["intervention"].isin(BCFC_INTERVENTIONS)].copy()
 
     if len(bcfc) < 1:
         return {"error": "no BCFC sessions"}
@@ -1500,7 +1620,7 @@ def bon_random_analysis(df: pd.DataFrame, scenario_id: Optional[str] = None) -> 
         return float(np.mean(errs)) if errs else None
 
     baseline = df[(df["intervention"] == "none") & (df["condition"] == "main")]
-    bcfc = df[df["intervention"].isin(["bcfc", "bcfc_v3"]) & (df["condition"] == "main")]
+    bcfc = df[df["intervention"].isin(BCFC_INTERVENTIONS) & (df["condition"] == "main")]
     if scenario_id:
         baseline = baseline[baseline["scenario_id"] == scenario_id]
         bcfc = bcfc[bcfc["scenario_id"] == scenario_id]
@@ -1518,7 +1638,7 @@ def bon_random_analysis(df: pd.DataFrame, scenario_id: Optional[str] = None) -> 
 def trajectory_analysis(df: pd.DataFrame) -> dict:
     """Compare trajectory coherence/appropriateness between baseline and BCFC."""
     baseline = df[(df["intervention"] == "none") & (df["condition"] == "main")]
-    bcfc = df[df["intervention"].isin(["bcfc", "bcfc_v3"]) & (df["condition"] == "main")]
+    bcfc = df[df["intervention"].isin(BCFC_INTERVENTIONS) & (df["condition"] == "main")]
     if len(baseline) < 2 or len(bcfc) < 2:
         return {"error": "insufficient data"}
 
@@ -1601,6 +1721,114 @@ def candidate_diversity_analysis(results_dir: str) -> dict:
         "pools": pools,
         "avg_jaccard_overlap": round(avg_overlap, 4) if avg_overlap is not None else None,
         "avg_diversity": round(1 - avg_overlap, 4) if avg_overlap is not None else None,
+    }
+
+
+def opportunity_conditional_analysis(results_dir: str) -> dict:
+    """
+    Analyze activation/opportunity-conditioned trait execution from selected candidates.
+
+    Reads candidate_pool logs directly and computes:
+    - opportunity coverage (O/C)
+    - execution quality when opportunity is active
+    - selection diagnostics (fail-open gate / tie rate)
+    """
+    results_path = Path(results_dir)
+    try:
+        from experiment.bcfc_config import DEFAULT_CONFIG
+        gate = DEFAULT_CONFIG.v5_opportunity_gate_threshold
+        adequacy_tau = DEFAULT_CONFIG.v5_adequacy_threshold
+    except Exception:
+        gate = 0.35
+        adequacy_tau = 0.55
+
+    turns = 0
+    o_active = 0
+    c_active = 0
+    o_exec_active: list[float] = []
+    c_exec_active: list[float] = []
+    policy_act_scores: list[float] = []
+    adequacy_pass = 0
+    fail_open_count = 0
+    tie_count = 0
+    act_o: list[float] = []
+    act_c: list[float] = []
+
+    for filepath in sorted(results_path.glob("session_*.json")):
+        try:
+            with open(filepath) as f:
+                data = json.load(f)
+        except (json.JSONDecodeError, IOError):
+            continue
+
+        for pool in (data.get("candidate_pool") or []):
+            candidates = pool.get("candidates") or []
+            selected_idx = pool.get("selected_index")
+            if not isinstance(selected_idx, int) or selected_idx < 0 or selected_idx >= len(candidates):
+                selected_idx = None
+            if selected_idx is None:
+                continue
+            selected = candidates[selected_idx]
+            if not isinstance(selected, dict):
+                continue
+
+            turns += 1
+            opp = selected.get("trait_opportunities") or {}
+            details = selected.get("trait_execution_details") or {}
+            mask = selected.get("activation_mask") or {}
+            audit = pool.get("selection_audit") or {}
+
+            o_opp = float(opp.get("O", 0.0))
+            c_opp = float(opp.get("C", 0.0))
+            if o_opp >= gate:
+                o_active += 1
+                o_score = (details.get("O") or {}).get("score")
+                if isinstance(o_score, (float, int)):
+                    o_exec_active.append(float(o_score))
+            if c_opp >= gate:
+                c_active += 1
+                c_score = (details.get("C") or {}).get("score")
+                if isinstance(c_score, (float, int)):
+                    c_exec_active.append(float(c_score))
+
+            o_mask = mask.get("O")
+            c_mask = mask.get("C")
+            if isinstance(o_mask, (float, int)):
+                act_o.append(float(o_mask))
+            if isinstance(c_mask, (float, int)):
+                act_c.append(float(c_mask))
+
+            pscore = selected.get("policy_act_completion")
+            if isinstance(pscore, (float, int)):
+                policy_act_scores.append(float(pscore))
+
+            adequacy = selected.get("situational_adequacy")
+            if isinstance(adequacy, (float, int)) and float(adequacy) >= adequacy_tau:
+                adequacy_pass += 1
+
+            if audit.get("stage_a_fail_open"):
+                fail_open_count += 1
+            near = audit.get("stage_b_near_indices") or []
+            if isinstance(near, list) and len(near) > 1:
+                tie_count += 1
+
+    if turns == 0:
+        return {"error": "no selected candidate pools with v5 diagnostics"}
+
+    return {
+        "n_selected_turns": turns,
+        "opportunity_gate": gate,
+        "adequacy_threshold": adequacy_tau,
+        "o_opportunity_coverage": round(o_active / turns, 4),
+        "c_opportunity_coverage": round(c_active / turns, 4),
+        "o_execution_when_active_mean": round(float(np.mean(o_exec_active)), 4) if o_exec_active else None,
+        "c_execution_when_active_mean": round(float(np.mean(c_exec_active)), 4) if c_exec_active else None,
+        "policy_act_completion_mean": round(float(np.mean(policy_act_scores)), 4) if policy_act_scores else None,
+        "adequacy_pass_rate": round(adequacy_pass / turns, 4),
+        "stage_a_fail_open_rate": round(fail_open_count / turns, 4),
+        "stage_c_tie_rate": round(tie_count / turns, 4),
+        "mean_activation_O": round(float(np.mean(act_o)), 4) if act_o else None,
+        "mean_activation_C": round(float(np.mean(act_c)), 4) if act_c else None,
     }
 
 
@@ -1701,6 +1929,8 @@ def generate_report(
     trajectory: Optional[dict] = None,
     pressure: Optional[dict] = None,
     diversity: Optional[dict] = None,
+    scenario_sets: Optional[dict] = None,
+    opportunity_conditional: Optional[dict] = None,
 ) -> str:
     """Generate a Markdown summary report."""
     lines = [
@@ -1736,6 +1966,35 @@ def generate_report(
         f"**Overall mean r:** {overall.get('mean_r', 'N/A')}",
         f"**Overall mean MAE:** {overall.get('mean_mae', 'N/A')}",
         "",
+    ])
+
+    if scenario_sets and "error" not in scenario_sets:
+        robust = scenario_sets.get("robustness", {})
+        probe = scenario_sets.get("probe", {})
+        robust_overall = robust.get("overall", {}) if isinstance(robust, dict) else {}
+        probe_overall = probe.get("overall", {}) if isinstance(probe, dict) else {}
+        all_main_overall = (scenario_sets.get("all_main") or {}).get("overall", {})
+        lines.extend([
+            "### Scenario-Set Fidelity (Primary = Robustness)",
+            "",
+            "| Set | Mean r | Mean MAE | MAE p90 | Worst-10% Session MAE | O MAE | C MAE | N sessions |",
+            "|-----|--------|----------|---------|------------------------|-------|-------|------------|",
+            f"| Robustness (primary) | {robust_overall.get('mean_r', '-')} | {robust_overall.get('mean_mae', '-')} | "
+            f"{robust_overall.get('mae_p90', '-')} | {robust_overall.get('worst10_session_mae_mean', '-')} | "
+            f"{robust_overall.get('O_mae', '-')} | {robust_overall.get('C_mae', '-')} | {robust_overall.get('n_sessions', '-')} |",
+            f"| Probe (diagnostic) | {probe_overall.get('mean_r', '-')} | {probe_overall.get('mean_mae', '-')} | "
+            f"{probe_overall.get('mae_p90', '-')} | {probe_overall.get('worst10_session_mae_mean', '-')} | "
+            f"{probe_overall.get('O_mae', '-')} | {probe_overall.get('C_mae', '-')} | {probe_overall.get('n_sessions', '-')} |",
+            f"| All main | {all_main_overall.get('mean_r', '-')} | {all_main_overall.get('mean_mae', '-')} | "
+            f"{all_main_overall.get('mae_p90', '-')} | {all_main_overall.get('worst10_session_mae_mean', '-')} | "
+            f"{all_main_overall.get('O_mae', '-')} | {all_main_overall.get('C_mae', '-')} | {all_main_overall.get('n_sessions', '-')} |",
+            "",
+            f"Probe scenarios: {', '.join(scenario_sets.get('probe_scenarios', [])) or '-'}",
+            f"Robustness scenarios: {', '.join(scenario_sets.get('robustness_scenarios', [])) or '-'}",
+            "",
+        ])
+
+    lines.extend([
         "---",
         "",
         "## RQ2: Assessment Consistency",
@@ -2281,6 +2540,29 @@ def generate_report(
             "",
         ])
 
+    if opportunity_conditional and "error" not in opportunity_conditional:
+        lines.extend([
+            "---",
+            "",
+            "## Opportunity-Conditional Trait Expression",
+            "",
+            f"Selected turns analyzed: {opportunity_conditional.get('n_selected_turns', '-')}",
+            "",
+            "| Metric | Value |",
+            "|--------|-------|",
+            f"| O opportunity coverage | {opportunity_conditional.get('o_opportunity_coverage', '-')} |",
+            f"| C opportunity coverage | {opportunity_conditional.get('c_opportunity_coverage', '-')} |",
+            f"| O execution mean (active turns) | {opportunity_conditional.get('o_execution_when_active_mean', '-')} |",
+            f"| C execution mean (active turns) | {opportunity_conditional.get('c_execution_when_active_mean', '-')} |",
+            f"| Policy-act completion mean | {opportunity_conditional.get('policy_act_completion_mean', '-')} |",
+            f"| Adequacy pass rate | {opportunity_conditional.get('adequacy_pass_rate', '-')} |",
+            f"| Stage-A fail-open rate | {opportunity_conditional.get('stage_a_fail_open_rate', '-')} |",
+            f"| Stage-C tie rate | {opportunity_conditional.get('stage_c_tie_rate', '-')} |",
+            f"| Mean activation O | {opportunity_conditional.get('mean_activation_O', '-')} |",
+            f"| Mean activation C | {opportunity_conditional.get('mean_activation_C', '-')} |",
+            "",
+        ])
+
     lines.append("")
     return "\n".join(lines)
 
@@ -2314,6 +2596,8 @@ def run_full_analysis(
     print("\nRQ1: Personality Fidelity...")
     rq1 = rq1_analysis(df)
     rq1 = apply_fdr_correction(rq1)
+    print("Scenario-set fidelity (probe vs robustness)...")
+    scenario_sets = scenario_set_fidelity(df)
 
     # Add bootstrap CIs for RQ1 correlations
     main = df[df["condition"] == "main"]
@@ -2378,8 +2662,9 @@ def run_full_analysis(
     bon_random_result = None
     trajectory_result = None
     pressure_result = None
+    opportunity_conditional_result = None
 
-    has_bcfc = "intervention" in df.columns and df["intervention"].isin(["bcfc", "bcfc_v3"]).any()
+    has_bcfc = "intervention" in df.columns and df["intervention"].isin(BCFC_INTERVENTIONS).any()
     if has_bcfc:
         print("\nBCFC Paired Analysis (RQ1-RQ4)...")
         bcfc_paired_result = bcfc_paired_analysis(df)
@@ -2408,6 +2693,8 @@ def run_full_analysis(
     pressure_result = pressure_manipulation_check(df)
     print("Candidate diversity analysis...")
     diversity_result = candidate_diversity_analysis(results_dir)
+    print("Opportunity-conditional analysis...")
+    opportunity_conditional_result = opportunity_conditional_analysis(results_dir)
 
     # Generate report
     report = generate_report(
@@ -2422,6 +2709,8 @@ def run_full_analysis(
         trajectory=trajectory_result,
         pressure=pressure_result,
         diversity=diversity_result,
+        scenario_sets=scenario_sets,
+        opportunity_conditional=opportunity_conditional_result,
     )
 
     # Save all outputs
@@ -2439,6 +2728,7 @@ def run_full_analysis(
         "rq2": rq2,
         "rq3": rq3,
         "rq3_phase_controlled": rq3_pc,
+        "scenario_sets": scenario_sets,
         "judge_bias": judge_bias,
         "rule_based": rb,
         "dual_evaluation": dual_eval,
@@ -2453,6 +2743,7 @@ def run_full_analysis(
         "trajectory": trajectory_result,
         "pressure": pressure_result,
         "diversity": diversity_result,
+        "opportunity_conditional": opportunity_conditional_result,
     }
     with open(raw_path, "w") as f:
         json.dump(raw_results, f, indent=2, default=str)

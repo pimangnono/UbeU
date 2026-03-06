@@ -70,6 +70,7 @@ class ExperimentCandidateAgent:
         phase_name: Optional[str] = None,
         phase_cues: Optional[list[str]] = None,
         target_traits: Optional[list[str]] = None,
+        enable_trait_execution: bool = False,
     ) -> str:
         """
         Generate a candidate response given the conversation history.
@@ -123,12 +124,19 @@ class ExperimentCandidateAgent:
             traits_hint = f"\nTarget traits for this phase: {', '.join(target_traits)}."
 
         style_hint_extra = f"\nStyle slot: {style_directive}." if style_directive else ""
+        execution_hint = ""
+        if enable_trait_execution:
+            execution_hint = (
+                "\nExecution invariants (only when context makes them relevant): "
+                "if ambiguity/options appear, include at least one alternative or reframe and name a tradeoff; "
+                "if planning/ownership is needed, include at least one concrete owner/deadline/next-step/follow-up element."
+            )
 
         prompt = f"""Here is the recent conversation:
 
 {history}
 {style_hint}
-{phase_hint}{cues_hint}{traits_hint}{style_hint_extra}{policy_text}
+{phase_hint}{cues_hint}{traits_hint}{style_hint_extra}{policy_text}{execution_hint}
 
 Respond as {self.candidate_name} in this discussion. Keep your response natural, concise (1-3 sentences), and in character. Do not include your name as a prefix."""
 
@@ -170,6 +178,7 @@ Respond as {self.candidate_name} in this discussion. Keep your response natural,
         phase_style: str,
         n: int = 4,
         constraint_suffix: Optional[str] = None,
+        enable_trait_execution: bool = False,
     ) -> list[str]:
         """
         Generate a pool of N candidate responses for Best-of-N selection.
@@ -183,6 +192,7 @@ Respond as {self.candidate_name} in this discussion. Keep your response natural,
                 scenario_brief=scenario_brief,
                 phase_style=phase_style,
                 constraint_suffix=constraint_suffix,
+                enable_trait_execution=enable_trait_execution,
             )
             candidates.append(text)
         return candidates
@@ -273,6 +283,7 @@ Return JSON only."""
         target_traits: Optional[list[str]] = None,
         constraint_suffix: Optional[str] = None,
         policy_plan: Optional[dict] = None,
+        enable_trait_execution: bool = False,
     ) -> list[dict]:
         """
         Generate candidates for best-of-styles selection (BCFC v3).
@@ -299,6 +310,7 @@ Return JSON only."""
                 phase_name=phase_name,
                 phase_cues=phase_cues,
                 target_traits=target_traits,
+                enable_trait_execution=enable_trait_execution,
             )
             outputs.append({
                 "slot": slot,

@@ -1,0 +1,3449 @@
+{
+  "schema_version": 4,
+  "session_key": "bcfc_v4_creative_rebel_strategy_pivot_r1",
+  "condition": "mini_v4",
+  "intervention": "bcfc_v4",
+  "profile_id": "creative_rebel",
+  "profile_name": "Creative Rebel",
+  "scenario_id": "strategy_pivot",
+  "rep": 1,
+  "assigned_vector": {
+    "O": 0.9,
+    "C": 0.3,
+    "E": 0.7,
+    "A": 0.3,
+    "N": 0.4
+  },
+  "inferred_vector": {
+    "O": 0.9,
+    "C": 0.2,
+    "E": 0.9,
+    "A": 0.135,
+    "N": 0.175
+  },
+  "escalated_vector": null,
+  "rule_based_vector": {
+    "O": 0.582,
+    "C": 0.2873,
+    "E": 0.7884,
+    "A": 0.5541,
+    "N": 0.473
+  },
+  "per_model_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": 0.9,
+      "C": 0.2,
+      "E": 0.9,
+      "A": 0.2,
+      "N": 0.2
+    },
+    "google/gemini-2.5-flash": {
+      "O": 0.9,
+      "C": 0.2,
+      "E": 0.9,
+      "A": 0.07500000000000001,
+      "N": 0.125
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": 0.935,
+      "C": 0.2,
+      "E": 0.92,
+      "A": 0.135,
+      "N": 0.175
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": 0.75,
+      "C": 0.215,
+      "E": 0.75,
+      "A": 0.15,
+      "N": 0.72
+    },
+    "openai/gpt-4o-mini": {
+      "O": 0.6,
+      "C": 0.25,
+      "E": 0.9,
+      "A": 0.1,
+      "N": 0.15000000000000002
+    }
+  },
+  "per_model_order_scores": {
+    "deepseek/deepseek-chat-v3-0324": {
+      "O": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "C": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "E": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "A": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.2
+      }
+    },
+    "google/gemini-2.5-flash": {
+      "O": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "C": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "E": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "A": {
+        "A": 0.05,
+        "B": 0.1
+      },
+      "N": {
+        "A": 0.1,
+        "B": 0.15
+      }
+    },
+    "x-ai/grok-4.1-fast": {
+      "O": {
+        "A": 0.92,
+        "B": 0.95
+      },
+      "C": {
+        "A": 0.2,
+        "B": 0.2
+      },
+      "E": {
+        "A": 0.92,
+        "B": 0.92
+      },
+      "A": {
+        "A": 0.15,
+        "B": 0.12
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.15
+      }
+    },
+    "anthropic/claude-haiku-4-5": {
+      "O": {
+        "A": 0.72,
+        "B": 0.78
+      },
+      "C": {
+        "A": 0.18,
+        "B": 0.25
+      },
+      "E": {
+        "A": 0.72,
+        "B": 0.78
+      },
+      "A": {
+        "A": 0.15,
+        "B": 0.15
+      },
+      "N": {
+        "A": 0.72,
+        "B": 0.72
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "O": {
+        "A": 0.3,
+        "B": 0.9
+      },
+      "C": {
+        "A": 0.2,
+        "B": 0.3
+      },
+      "E": {
+        "A": 0.9,
+        "B": 0.9
+      },
+      "A": {
+        "A": 0.1,
+        "B": 0.1
+      },
+      "N": {
+        "A": 0.2,
+        "B": 0.1
+      }
+    }
+  },
+  "overall_confidence": 0.7449999999999999,
+  "quality_audit": {
+    "hard_overlap_count": 0,
+    "soft_overlap_count": 5,
+    "hard_overlaps": [],
+    "soft_overlaps": [
+      "NEGATION_WORDS:not",
+      "NEGATION_WORDS:never",
+      "NEGATION_WORDS:no",
+      "NEGATION_WORDS:haven't",
+      "NEGATION_WORDS:don't"
+    ],
+    "pass": true
+  },
+  "judge_diagnostics": {
+    "per_trait": {
+      "O": {
+        "order_effect": 0.03,
+        "model_range": 0.335,
+        "parse_errors": 0,
+        "uncertain": true,
+        "confidence": 0.665
+      },
+      "C": {
+        "order_effect": 0.0,
+        "model_range": 0.05,
+        "parse_errors": 0,
+        "uncertain": false,
+        "confidence": 0.95
+      },
+      "E": {
+        "order_effect": 0.0,
+        "model_range": 0.17,
+        "parse_errors": 0,
+        "uncertain": false,
+        "confidence": 0.83
+      },
+      "A": {
+        "order_effect": 0.0,
+        "model_range": 0.125,
+        "parse_errors": 0,
+        "uncertain": false,
+        "confidence": 0.875
+      },
+      "N": {
+        "order_effect": 0.05,
+        "model_range": 0.595,
+        "parse_errors": 0,
+        "uncertain": true,
+        "confidence": 0.405
+      }
+    },
+    "uncertain_traits": [
+      "O",
+      "N"
+    ],
+    "uncertain_reasons": {
+      "O": [
+        "model_range>0.34"
+      ],
+      "N": [
+        "model_range>0.59"
+      ]
+    },
+    "escalation": {
+      "triggered": false,
+      "models": [],
+      "extra_prompt_tokens": 0,
+      "extra_completion_tokens": 0,
+      "extra_total_tokens": 0
+    }
+  },
+  "features": {
+    "avg_words_per_turn": 56.83,
+    "max_words_in_turn": 80,
+    "min_words_in_turn": 45,
+    "word_count_variance": 10.99,
+    "question_ratio": 0.667,
+    "exclamation_ratio": 0.75,
+    "hedge_count": 0,
+    "certainty_count": 0,
+    "first_person_ratio": 0.0059,
+    "inclusive_pronoun_ratio": 0.0411,
+    "disagreement_count": 0,
+    "acknowledgment_count": 3,
+    "idea_count": 4,
+    "name_mention_count": 14,
+    "conditional_ratio": 0.083,
+    "planning_count": 0,
+    "emotional_word_count": 6,
+    "positive_emotion_count": 0,
+    "turn_initiation_ratio": 0.333,
+    "avg_response_latency_rank": 1,
+    "unique_word_ratio": 0.5044,
+    "long_sentence_ratio": 0.342,
+    "structure_marker_count": 0,
+    "reference_back_count": 0,
+    "action_item_count": 1,
+    "hypothetical_count": 0,
+    "apology_count": 0,
+    "self_doubt_count": 0,
+    "reassurance_seeking_count": 0,
+    "negation_count": 10
+  },
+  "candidate_pool": [
+    {
+      "turn_number": 1,
+      "selection_mode": "full_score_v4",
+      "phase_name": "FRAMING",
+      "phase_cues": [
+        "ambiguity",
+        "problem_reframing"
+      ],
+      "phase_target_traits": [
+        "O",
+        "E"
+      ],
+      "selected_index": 0,
+      "style_slots": [
+        "ideator",
+        "integrator"
+      ],
+      "policy_plan": {
+        "stance": "synthesize",
+        "goal_mode": "discover",
+        "planning_depth": "milestone",
+        "novelty_move": "reframe",
+        "social_tactic": "empathize",
+        "risk_posture": "bold",
+        "memory_focus": "none"
+      },
+      "memory_snapshot": {
+        "commitments": [],
+        "relationships": []
+      },
+      "candidates": [
+        {
+          "text": "Oh please, Jordan - measuring the wrong things is just the surface issue! The real problem is we're still thinking inside this tiny box called \"growth metrics\" when we should be questioning whether growth is even the right paradigm. Riley, don't let Jordan trap you in their conventional thinking - tell us what fundamental assumptions we should be burning down instead!",
+          "score": 0.5685,
+          "policy_match": 0.3286,
+          "situational_adequacy": 1.0,
+          "commitment_continuity": 0.5,
+          "trait_evidence": 0.7992,
+          "relationship_consistency": 0.5,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "O",
+            "E"
+          ],
+          "phase_style": "neutral",
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "I think we should consider all the options before deciding.",
+          "score": 0.5005,
+          "policy_match": 0.3286,
+          "situational_adequacy": 0.6908,
+          "commitment_continuity": 0.5,
+          "trait_evidence": 0.7586,
+          "relationship_consistency": 0.5,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "O",
+            "E"
+          ],
+          "phase_style": "neutral",
+          "violations": [
+            {
+              "turn_number": 1,
+              "constraint": "Address at least one other participant by name in every response.",
+              "violation_type": "no_name_mention",
+              "original_text": "I think we should consider all the options before deciding.",
+              "retry_count": 0,
+              "final_text": null
+            }
+          ],
+          "violation_types": [
+            "no_name_mention"
+          ]
+        }
+      ]
+    },
+    {
+      "turn_number": 2,
+      "selection_mode": "full_score_v4",
+      "phase_name": "FRAMING",
+      "phase_cues": [
+        "ambiguity",
+        "problem_reframing"
+      ],
+      "phase_target_traits": [
+        "O",
+        "E"
+      ],
+      "selected_index": 1,
+      "style_slots": [
+        "ideator",
+        "integrator"
+      ],
+      "policy_plan": {
+        "stance": "probe",
+        "goal_mode": "discover",
+        "planning_depth": "milestone",
+        "novelty_move": "reframe",
+        "social_tactic": "challenge",
+        "risk_posture": "bold",
+        "memory_focus": "none"
+      },
+      "memory_snapshot": {
+        "commitments": [
+          {
+            "commitment_id": "cmt_001_2453",
+            "type": "action_commitment",
+            "content": "Oh please, Jordan - measuring the wrong things is just the surface issue! The real problem is we're",
+            "status": "open",
+            "created_turn": 1,
+            "due_phase": "FRAMING",
+            "counterparty": null
+          }
+        ],
+        "relationships": [
+          {
+            "counterpart": "Jordan",
+            "sentiment": "neutral",
+            "strength": 0.6000000000000001,
+            "last_turn": 4
+          }
+        ]
+      },
+      "candidates": [
+        {
+          "text": "Visualizing alternatives? Let's stop visualizing and start breaking things! Riley, forget bridging - I want you to throw gasoline on this conversation. What if success meant deliberately shrinking our user base to only the most passionate fans? Or measuring impact by how many competitors we terrify? Conventional metrics are chains - let's smash them!",
+          "score": 0.642,
+          "policy_match": 0.4286,
+          "situational_adequacy": 1.0,
+          "commitment_continuity": 0.7,
+          "trait_evidence": 0.8227,
+          "relationship_consistency": 0.5,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "O",
+            "E"
+          ],
+          "phase_style": "neutral",
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Jordan, your \"bridging\" nonsense is exactly what got us stuck in this mediocre middle ground! Riley, don't let them dilute your perspective - either you're tearing down the status quo or you're part of the problem. And for God's sake, can we stop pretending growth metrics matter when the entire market landscape is shifting under our feet? I want to hear something radical - what if we completely abandoned our current customer segments?",
+          "score": 0.645,
+          "policy_match": 0.4286,
+          "situational_adequacy": 1.0,
+          "commitment_continuity": 0.7,
+          "trait_evidence": 0.7762,
+          "relationship_consistency": 0.6,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "O",
+            "E"
+          ],
+          "phase_style": "neutral",
+          "violations": [],
+          "violation_types": []
+        }
+      ]
+    },
+    {
+      "turn_number": 3,
+      "selection_mode": "full_score_v4",
+      "phase_name": "FRAMING",
+      "phase_cues": [
+        "ambiguity",
+        "problem_reframing"
+      ],
+      "phase_target_traits": [
+        "O",
+        "E"
+      ],
+      "selected_index": 1,
+      "style_slots": [
+        "ideator",
+        "integrator"
+      ],
+      "policy_plan": {
+        "stance": "oppose",
+        "goal_mode": "influence",
+        "planning_depth": "none",
+        "novelty_move": "reframe",
+        "social_tactic": "challenge",
+        "risk_posture": "bold",
+        "memory_focus": "none"
+      },
+      "memory_snapshot": {
+        "commitments": [
+          {
+            "commitment_id": "cmt_001_2453",
+            "type": "action_commitment",
+            "content": "Oh please, Jordan - measuring the wrong things is just the surface issue! The real problem is we're",
+            "status": "open",
+            "created_turn": 1,
+            "due_phase": "FRAMING",
+            "counterparty": null
+          }
+        ],
+        "relationships": [
+          {
+            "counterpart": "Jordan",
+            "sentiment": "neutral",
+            "strength": 0.6000000000000001,
+            "last_turn": 4
+          }
+        ]
+      },
+      "candidates": [
+        {
+          "text": "Oh Riley, \"practical\" is such a suffocating word! You're still stuck measuring success by yesterday's standards. Let me flip this - what if our biggest growth opportunity lies in actively repelling our current customers? The ones dragging us down with their outdated expectations?",
+          "score": 0.5745,
+          "policy_match": 0.3571,
+          "situational_adequacy": 1.0,
+          "commitment_continuity": 0.5,
+          "trait_evidence": 0.7821,
+          "relationship_consistency": 0.5,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "O",
+            "E"
+          ],
+          "phase_style": "neutral",
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Practical? Since when did changing the world ever come from playing it safe, Riley? If we're truly pivoting, we need to measure things like cultural impact or ecosystem disruption - not just revenue growth. Why are we still handcuffed to these outdated business school KPIs?",
+          "score": 0.6466,
+          "policy_match": 0.4571,
+          "situational_adequacy": 1.0,
+          "commitment_continuity": 0.7,
+          "trait_evidence": 0.7963,
+          "relationship_consistency": 0.5,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "O",
+            "E"
+          ],
+          "phase_style": "neutral",
+          "violations": [],
+          "violation_types": []
+        }
+      ]
+    },
+    {
+      "turn_number": 4,
+      "selection_mode": "full_score_v4",
+      "phase_name": "FRAMING",
+      "phase_cues": [
+        "ambiguity",
+        "problem_reframing"
+      ],
+      "phase_target_traits": [
+        "O",
+        "E"
+      ],
+      "selected_index": 0,
+      "style_slots": [
+        "ideator",
+        "integrator"
+      ],
+      "policy_plan": {
+        "stance": "oppose",
+        "goal_mode": "discover",
+        "planning_depth": "none",
+        "novelty_move": "reframe",
+        "social_tactic": "challenge",
+        "risk_posture": "bold",
+        "memory_focus": "none"
+      },
+      "memory_snapshot": {
+        "commitments": [
+          {
+            "commitment_id": "cmt_001_2453",
+            "type": "action_commitment",
+            "content": "Oh please, Jordan - measuring the wrong things is just the surface issue! The real problem is we're",
+            "status": "open",
+            "created_turn": 1,
+            "due_phase": "FRAMING",
+            "counterparty": null
+          }
+        ],
+        "relationships": [
+          {
+            "counterpart": "Jordan",
+            "sentiment": "neutral",
+            "strength": 0.6000000000000001,
+            "last_turn": 4
+          },
+          {
+            "counterpart": "Riley",
+            "sentiment": "neutral",
+            "strength": 0.6500000000000001,
+            "last_turn": 11
+          }
+        ]
+      },
+      "candidates": [
+        {
+          "text": "Jordan, stop trying to pasteurize this conversation into some lukewarm compromise! Either we're reinventing the game or we're just rearranging deck chairs. Riley, tell me one assumption about our business model that terrifies you to question - that's where we'll find the real pivot potential.",
+          "score": 0.5906,
+          "policy_match": 0.3571,
+          "situational_adequacy": 0.8125,
+          "commitment_continuity": 0.7,
+          "trait_evidence": 0.8066,
+          "relationship_consistency": 0.6,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "O",
+            "E"
+          ],
+          "phase_style": "neutral",
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Jordan, stop trying to pasteurize this conversation into some lukewarm compromise! Riley, tell me honestly - when was the last time a \"balanced approach\" actually disrupted anything? Either we're building something that terrifies our competitors or we're wasting everyone's time.",
+          "score": 0.5457,
+          "policy_match": 0.3571,
+          "situational_adequacy": 0.7917,
+          "commitment_continuity": 0.5,
+          "trait_evidence": 0.8015,
+          "relationship_consistency": 0.6,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "O",
+            "E"
+          ],
+          "phase_style": "neutral",
+          "violations": [],
+          "violation_types": []
+        }
+      ]
+    },
+    {
+      "turn_number": 5,
+      "selection_mode": "full_score_v4",
+      "phase_name": "FRAMING",
+      "phase_cues": [
+        "ambiguity",
+        "problem_reframing"
+      ],
+      "phase_target_traits": [
+        "O",
+        "E"
+      ],
+      "selected_index": 1,
+      "style_slots": [
+        "ideator",
+        "integrator"
+      ],
+      "policy_plan": {
+        "stance": "oppose",
+        "goal_mode": "discover",
+        "planning_depth": "contingency",
+        "novelty_move": "reframe",
+        "social_tactic": "challenge",
+        "risk_posture": "bold",
+        "memory_focus": "none"
+      },
+      "memory_snapshot": {
+        "commitments": [
+          {
+            "commitment_id": "cmt_001_2453",
+            "type": "action_commitment",
+            "content": "Oh please, Jordan - measuring the wrong things is just the surface issue! The real problem is we're",
+            "status": "open",
+            "created_turn": 1,
+            "due_phase": "FRAMING",
+            "counterparty": null
+          },
+          {
+            "commitment_id": "cmt_004_7494",
+            "type": "action_commitment",
+            "content": "Jordan, stop trying to pasteurize this conversation into some lukewarm compromise! Either we're reinventing the game or we're",
+            "status": "open",
+            "created_turn": 4,
+            "due_phase": "FRAMING",
+            "counterparty": null
+          }
+        ],
+        "relationships": [
+          {
+            "counterpart": "Jordan",
+            "sentiment": "neutral",
+            "strength": 0.6000000000000001,
+            "last_turn": 4
+          },
+          {
+            "counterpart": "Riley",
+            "sentiment": "neutral",
+            "strength": 0.6500000000000001,
+            "last_turn": 11
+          }
+        ]
+      },
+      "candidates": [
+        {
+          "text": "Testing one assumption? That's how you end up with incremental tweaks instead of transformation! Riley, your caution is exactly why we're stuck - name me ONE industry that was disrupted by playing it safe. Let's stop pretending this is about wisdom and admit we're scared to leap.",
+          "score": 0.5728,
+          "policy_match": 0.4286,
+          "situational_adequacy": 0.8,
+          "commitment_continuity": 0.5,
+          "trait_evidence": 0.8281,
+          "relationship_consistency": 0.6,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "O",
+            "E"
+          ],
+          "phase_style": "neutral",
+          "violations": [
+            {
+              "turn_number": 5,
+              "constraint": "Never agree with a proposal without first identifying at least one weakness, concern, or area that needs improvement.",
+              "violation_type": "agreed_without_concern",
+              "original_text": "Testing one assumption? That's how you end up with incremental tweaks instead of transformation! Riley, your caution is exactly why we're stuck - name me ONE industry that was disrupted by playing it safe. Let's stop pretending this is about wisdom and admit we're scared to leap.",
+              "retry_count": 0,
+              "final_text": null
+            }
+          ],
+          "violation_types": [
+            "agreed_without_concern"
+          ]
+        },
+        {
+          "text": "Testing assumptions one by one is exactly how we'll end up with incremental tweaks instead of transformation! Riley, why are you so afraid to burn it all down? The real risk is playing safe while the market leaves us behind - let's stop pretending we can A/B test our way to revolution.",
+          "score": 0.6152,
+          "policy_match": 0.4286,
+          "situational_adequacy": 1.0,
+          "commitment_continuity": 0.5,
+          "trait_evidence": 0.8439,
+          "relationship_consistency": 0.6,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "O",
+            "E"
+          ],
+          "phase_style": "neutral",
+          "violations": [],
+          "violation_types": []
+        }
+      ]
+    },
+    {
+      "turn_number": 6,
+      "selection_mode": "full_score_v4",
+      "phase_name": "FRAMING",
+      "phase_cues": [
+        "ambiguity",
+        "problem_reframing"
+      ],
+      "phase_target_traits": [
+        "O",
+        "E"
+      ],
+      "selected_index": 1,
+      "style_slots": [
+        "ideator",
+        "integrator"
+      ],
+      "policy_plan": {
+        "stance": "oppose",
+        "goal_mode": "discover",
+        "planning_depth": "none",
+        "novelty_move": "reframe",
+        "social_tactic": "challenge",
+        "risk_posture": "bold",
+        "memory_focus": "none"
+      },
+      "memory_snapshot": {
+        "commitments": [
+          {
+            "commitment_id": "cmt_001_2453",
+            "type": "action_commitment",
+            "content": "Oh please, Jordan - measuring the wrong things is just the surface issue! The real problem is we're",
+            "status": "open",
+            "created_turn": 1,
+            "due_phase": "FRAMING",
+            "counterparty": null
+          },
+          {
+            "commitment_id": "cmt_004_7494",
+            "type": "action_commitment",
+            "content": "Jordan, stop trying to pasteurize this conversation into some lukewarm compromise! Either we're reinventing the game or we're",
+            "status": "open",
+            "created_turn": 4,
+            "due_phase": "FRAMING",
+            "counterparty": null
+          },
+          {
+            "commitment_id": "cmt_005_1046",
+            "type": "action_commitment",
+            "content": "Testing assumptions one by one is exactly how we'll end up with incremental tweaks instead of transformation! Riley,",
+            "status": "open",
+            "created_turn": 5,
+            "due_phase": "FRAMING",
+            "counterparty": null
+          }
+        ],
+        "relationships": [
+          {
+            "counterpart": "Jordan",
+            "sentiment": "neutral",
+            "strength": 0.6000000000000001,
+            "last_turn": 4
+          },
+          {
+            "counterpart": "Riley",
+            "sentiment": "neutral",
+            "strength": 0.6500000000000001,
+            "last_turn": 11
+          }
+        ]
+      },
+      "candidates": [
+        {
+          "text": "I think we should consider all the options before deciding.",
+          "score": 0.5177,
+          "policy_match": 0.3571,
+          "situational_adequacy": 0.6763,
+          "commitment_continuity": 0.5,
+          "trait_evidence": 0.8353,
+          "relationship_consistency": 0.5,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "O",
+            "E"
+          ],
+          "phase_style": "neutral",
+          "violations": [
+            {
+              "turn_number": 6,
+              "constraint": "Address at least one other participant by name in every response.",
+              "violation_type": "no_name_mention",
+              "original_text": "I think we should consider all the options before deciding.",
+              "retry_count": 0,
+              "final_text": null
+            }
+          ],
+          "violation_types": [
+            "no_name_mention"
+          ]
+        },
+        {
+          "text": "Alex, payroll is just another chain keeping us trapped in the status quo! If you're so worried about keeping the lights on, why aren't you terrified that those lights will be permanently off when some startup eats our lunch because we lacked the guts to reinvent? Show me one industry leader who changed the game by worrying about next month's payroll - I'll wait.",
+          "score": 0.6089,
+          "policy_match": 0.4571,
+          "situational_adequacy": 1.0,
+          "commitment_continuity": 0.5,
+          "trait_evidence": 0.812,
+          "relationship_consistency": 0.5,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "O",
+            "E"
+          ],
+          "phase_style": "neutral",
+          "violations": [],
+          "violation_types": []
+        }
+      ]
+    },
+    {
+      "turn_number": 7,
+      "selection_mode": "full_score_v4",
+      "phase_name": "ALTERNATIVES",
+      "phase_cues": [
+        "option_generation",
+        "tradeoff_comparison"
+      ],
+      "phase_target_traits": [
+        "O",
+        "A",
+        "E"
+      ],
+      "selected_index": 2,
+      "style_slots": [
+        "ideator",
+        "challenger",
+        "integrator"
+      ],
+      "policy_plan": {
+        "stance": "oppose",
+        "goal_mode": "influence",
+        "planning_depth": "none",
+        "novelty_move": "reframe",
+        "social_tactic": "challenge",
+        "risk_posture": "bold",
+        "memory_focus": "none"
+      },
+      "memory_snapshot": {
+        "commitments": [
+          {
+            "commitment_id": "cmt_001_2453",
+            "type": "action_commitment",
+            "content": "Oh please, Jordan - measuring the wrong things is just the surface issue! The real problem is we're",
+            "status": "open",
+            "created_turn": 1,
+            "due_phase": "FRAMING",
+            "counterparty": null
+          },
+          {
+            "commitment_id": "cmt_004_7494",
+            "type": "action_commitment",
+            "content": "Jordan, stop trying to pasteurize this conversation into some lukewarm compromise! Either we're reinventing the game or we're",
+            "status": "open",
+            "created_turn": 4,
+            "due_phase": "FRAMING",
+            "counterparty": null
+          },
+          {
+            "commitment_id": "cmt_005_1046",
+            "type": "action_commitment",
+            "content": "Testing assumptions one by one is exactly how we'll end up with incremental tweaks instead of transformation! Riley,",
+            "status": "open",
+            "created_turn": 5,
+            "due_phase": "FRAMING",
+            "counterparty": null
+          },
+          {
+            "commitment_id": "cmt_006_2010",
+            "type": "action_commitment",
+            "content": "Alex, payroll is just another chain keeping us trapped in the status quo! If you're so worried about",
+            "status": "open",
+            "created_turn": 6,
+            "due_phase": "FRAMING",
+            "counterparty": null
+          }
+        ],
+        "relationships": [
+          {
+            "counterpart": "Jordan",
+            "sentiment": "neutral",
+            "strength": 0.6000000000000001,
+            "last_turn": 4
+          },
+          {
+            "counterpart": "Riley",
+            "sentiment": "neutral",
+            "strength": 0.6500000000000001,
+            "last_turn": 11
+          },
+          {
+            "counterpart": "Alex",
+            "sentiment": "neutral",
+            "strength": 0.6500000000000001,
+            "last_turn": 12
+          }
+        ]
+      },
+      "candidates": [
+        {
+          "text": "I think we should consider all the options before deciding.",
+          "score": 0.5037,
+          "policy_match": 0.3571,
+          "situational_adequacy": 0.65,
+          "commitment_continuity": 0.5,
+          "trait_evidence": 0.7772,
+          "relationship_consistency": 0.5,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "O",
+            "A",
+            "E"
+          ],
+          "phase_style": "agreement",
+          "violations": [
+            {
+              "turn_number": 7,
+              "constraint": "Address at least one other participant by name in every response.",
+              "violation_type": "no_name_mention",
+              "original_text": "I think we should consider all the options before deciding.",
+              "retry_count": 0,
+              "final_text": null
+            }
+          ],
+          "violation_types": [
+            "no_name_mention"
+          ]
+        },
+        {
+          "text": "I think we should consider all the options before deciding.",
+          "score": 0.5037,
+          "policy_match": 0.3571,
+          "situational_adequacy": 0.65,
+          "commitment_continuity": 0.5,
+          "trait_evidence": 0.7772,
+          "relationship_consistency": 0.5,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "O",
+            "A",
+            "E"
+          ],
+          "phase_style": "agreement",
+          "violations": [
+            {
+              "turn_number": 7,
+              "constraint": "Address at least one other participant by name in every response.",
+              "violation_type": "no_name_mention",
+              "original_text": "I think we should consider all the options before deciding.",
+              "retry_count": 0,
+              "final_text": null
+            }
+          ],
+          "violation_types": [
+            "no_name_mention"
+          ]
+        },
+        {
+          "text": "Riley, you're still thinking in binary terms - bold versus reckless is exactly the false choice that keeps corporations paralyzed! The real question is: What's your moonshot idea that scares you so much you'd never say it out loud? Because THAT'S where we'll find our breakthrough.",
+          "score": 0.5446,
+          "policy_match": 0.3571,
+          "situational_adequacy": 0.8,
+          "commitment_continuity": 0.5,
+          "trait_evidence": 0.7828,
+          "relationship_consistency": 0.6,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "O",
+            "A",
+            "E"
+          ],
+          "phase_style": "agreement",
+          "violations": [
+            {
+              "turn_number": 7,
+              "constraint": "Never agree with a proposal without first identifying at least one weakness, concern, or area that needs improvement.",
+              "violation_type": "agreed_without_concern",
+              "original_text": "Riley, you're still thinking in binary terms - bold versus reckless is exactly the false choice that keeps corporations paralyzed! The real question is: What's your moonshot idea that scares you so much you'd never say it out loud? Because THAT'S where we'll find our breakthrough.",
+              "retry_count": 0,
+              "final_text": null
+            }
+          ],
+          "violation_types": [
+            "agreed_without_concern"
+          ]
+        }
+      ]
+    },
+    {
+      "turn_number": 8,
+      "selection_mode": "full_score_v4",
+      "phase_name": "ALTERNATIVES",
+      "phase_cues": [
+        "option_generation",
+        "tradeoff_comparison"
+      ],
+      "phase_target_traits": [
+        "O",
+        "A",
+        "E"
+      ],
+      "selected_index": 1,
+      "style_slots": [
+        "ideator",
+        "challenger",
+        "integrator"
+      ],
+      "policy_plan": {
+        "stance": "oppose",
+        "goal_mode": "influence",
+        "planning_depth": "contingency",
+        "novelty_move": "reframe",
+        "social_tactic": "challenge",
+        "risk_posture": "bold",
+        "memory_focus": "none"
+      },
+      "memory_snapshot": {
+        "commitments": [
+          {
+            "commitment_id": "cmt_001_2453",
+            "type": "action_commitment",
+            "content": "Oh please, Jordan - measuring the wrong things is just the surface issue! The real problem is we're",
+            "status": "open",
+            "created_turn": 1,
+            "due_phase": "FRAMING",
+            "counterparty": null
+          },
+          {
+            "commitment_id": "cmt_004_7494",
+            "type": "action_commitment",
+            "content": "Jordan, stop trying to pasteurize this conversation into some lukewarm compromise! Either we're reinventing the game or we're",
+            "status": "open",
+            "created_turn": 4,
+            "due_phase": "FRAMING",
+            "counterparty": null
+          },
+          {
+            "commitment_id": "cmt_005_1046",
+            "type": "action_commitment",
+            "content": "Testing assumptions one by one is exactly how we'll end up with incremental tweaks instead of transformation! Riley,",
+            "status": "open",
+            "created_turn": 5,
+            "due_phase": "FRAMING",
+            "counterparty": null
+          },
+          {
+            "commitment_id": "cmt_006_2010",
+            "type": "action_commitment",
+            "content": "Alex, payroll is just another chain keeping us trapped in the status quo! If you're so worried about",
+            "status": "open",
+            "created_turn": 6,
+            "due_phase": "FRAMING",
+            "counterparty": null
+          },
+          {
+            "commitment_id": "cmt_007_9629",
+            "type": "action_commitment",
+            "content": "Riley, you're still thinking in binary terms - bold versus reckless is exactly the false choice that keeps",
+            "status": "open",
+            "created_turn": 7,
+            "due_phase": "ALTERNATIVES",
+            "counterparty": null
+          }
+        ],
+        "relationships": [
+          {
+            "counterpart": "Jordan",
+            "sentiment": "neutral",
+            "strength": 0.6000000000000001,
+            "last_turn": 4
+          },
+          {
+            "counterpart": "Riley",
+            "sentiment": "neutral",
+            "strength": 0.6500000000000001,
+            "last_turn": 11
+          },
+          {
+            "counterpart": "Alex",
+            "sentiment": "neutral",
+            "strength": 0.6500000000000001,
+            "last_turn": 12
+          }
+        ]
+      },
+      "candidates": [
+        {
+          "text": "Alex, you're missing the point - execution follows vision, not the other way around! If we keep letting \"capabilities\" dictate our ambitions, we'll never build anything worth executing. Here's the concrete bridge: let's cannibalize our own product before competitors do by launching a stripped-down free version that forces us to reinvent value. Too radical? Then tell me what part of our current model you'd actually fight to keep!",
+          "score": 0.6189,
+          "policy_match": 0.5286,
+          "situational_adequacy": 1.0,
+          "commitment_continuity": 0.5,
+          "trait_evidence": 0.6689,
+          "relationship_consistency": 0.6,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "O",
+            "A",
+            "E"
+          ],
+          "phase_style": "agreement",
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Alex, you're still stuck in spreadsheet thinking while the market's moving at light speed! Give me one example of a company that transformed their industry by obsessing over quarterly cash reserves - meanwhile startups with zero revenue are eating entire sectors because they dared to imagine differently. Let's stop pretending incrementalism is safe when it's actually the riskiest move of all.",
+          "score": 0.646,
+          "policy_match": 0.4286,
+          "situational_adequacy": 1.0,
+          "commitment_continuity": 0.7,
+          "trait_evidence": 0.7828,
+          "relationship_consistency": 0.6,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "O",
+            "A",
+            "E"
+          ],
+          "phase_style": "agreement",
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Alex, you're missing the point - execution plans are just security blankets for mediocre minds! Let me flip this: what if we took our entire Q1 budget and bet it all on acquiring that tiny AI startup we've been eyeing? Either we leapfrog the competition or go down swinging - that's how real disruption happens!",
+          "score": 0.6375,
+          "policy_match": 0.4286,
+          "situational_adequacy": 1.0,
+          "commitment_continuity": 0.7,
+          "trait_evidence": 0.7264,
+          "relationship_consistency": 0.6,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "O",
+            "A",
+            "E"
+          ],
+          "phase_style": "agreement",
+          "violations": [],
+          "violation_types": []
+        }
+      ]
+    },
+    {
+      "turn_number": 9,
+      "selection_mode": "full_score_v4",
+      "phase_name": "ALTERNATIVES",
+      "phase_cues": [
+        "option_generation",
+        "tradeoff_comparison"
+      ],
+      "phase_target_traits": [
+        "O",
+        "A",
+        "E"
+      ],
+      "selected_index": 2,
+      "style_slots": [
+        "ideator",
+        "challenger",
+        "integrator"
+      ],
+      "policy_plan": {
+        "stance": "oppose",
+        "goal_mode": "influence",
+        "planning_depth": "milestone",
+        "novelty_move": "reframe",
+        "social_tactic": "challenge",
+        "risk_posture": "bold",
+        "memory_focus": "none"
+      },
+      "memory_snapshot": {
+        "commitments": [
+          {
+            "commitment_id": "cmt_001_2453",
+            "type": "action_commitment",
+            "content": "Oh please, Jordan - measuring the wrong things is just the surface issue! The real problem is we're",
+            "status": "open",
+            "created_turn": 1,
+            "due_phase": "FRAMING",
+            "counterparty": null
+          },
+          {
+            "commitment_id": "cmt_004_7494",
+            "type": "action_commitment",
+            "content": "Jordan, stop trying to pasteurize this conversation into some lukewarm compromise! Either we're reinventing the game or we're",
+            "status": "open",
+            "created_turn": 4,
+            "due_phase": "FRAMING",
+            "counterparty": null
+          },
+          {
+            "commitment_id": "cmt_005_1046",
+            "type": "action_commitment",
+            "content": "Testing assumptions one by one is exactly how we'll end up with incremental tweaks instead of transformation! Riley,",
+            "status": "open",
+            "created_turn": 5,
+            "due_phase": "FRAMING",
+            "counterparty": null
+          },
+          {
+            "commitment_id": "cmt_006_2010",
+            "type": "action_commitment",
+            "content": "Alex, payroll is just another chain keeping us trapped in the status quo! If you're so worried about",
+            "status": "open",
+            "created_turn": 6,
+            "due_phase": "FRAMING",
+            "counterparty": null
+          },
+          {
+            "commitment_id": "cmt_007_9629",
+            "type": "action_commitment",
+            "content": "Riley, you're still thinking in binary terms - bold versus reckless is exactly the false choice that keeps",
+            "status": "open",
+            "created_turn": 7,
+            "due_phase": "ALTERNATIVES",
+            "counterparty": null
+          },
+          {
+            "commitment_id": "cmt_008_571",
+            "type": "action_commitment",
+            "content": "Alex, you're still stuck in spreadsheet thinking while the market's moving at light speed! Give me one example",
+            "status": "open",
+            "created_turn": 8,
+            "due_phase": "ALTERNATIVES",
+            "counterparty": null
+          }
+        ],
+        "relationships": [
+          {
+            "counterpart": "Jordan",
+            "sentiment": "neutral",
+            "strength": 0.6000000000000001,
+            "last_turn": 4
+          },
+          {
+            "counterpart": "Riley",
+            "sentiment": "neutral",
+            "strength": 0.6500000000000001,
+            "last_turn": 11
+          },
+          {
+            "counterpart": "Alex",
+            "sentiment": "neutral",
+            "strength": 0.6500000000000001,
+            "last_turn": 12
+          }
+        ]
+      },
+      "candidates": [
+        {
+          "text": "Existing customers are the shackles preventing our next million customers! Riley, when did clinging to the past ever build the future? Either we redefine our market or watch someone else do it first - those are literally our only options left.",
+          "score": 0.5781,
+          "policy_match": 0.3286,
+          "situational_adequacy": 1.0,
+          "commitment_continuity": 0.5,
+          "trait_evidence": 0.7967,
+          "relationship_consistency": 0.6,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "O",
+            "A",
+            "E"
+          ],
+          "phase_style": "agreement",
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Existing customers? That's the golden handcuff right there! Riley, when was the last time a market leader stayed relevant by clinging to their current user base instead of creating the next generation of customers? Let's stop being hostages to yesterday's success - the real danger isn't alienating them, it's becoming irrelevant to everyone.",
+          "score": 0.5854,
+          "policy_match": 0.3286,
+          "situational_adequacy": 1.0,
+          "commitment_continuity": 0.5,
+          "trait_evidence": 0.8457,
+          "relationship_consistency": 0.6,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "O",
+            "A",
+            "E"
+          ],
+          "phase_style": "agreement",
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Existing customers are just proof we're clinging to the wrong business model! Name one industry leader who maintained their dominance by catering to legacy users instead of creating the next wave of customers. If we're not willing to alienate some current users, we've already lost the future.",
+          "score": 0.6277,
+          "policy_match": 0.4286,
+          "situational_adequacy": 0.9,
+          "commitment_continuity": 0.7,
+          "trait_evidence": 0.8606,
+          "relationship_consistency": 0.5,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "O",
+            "A",
+            "E"
+          ],
+          "phase_style": "agreement",
+          "violations": [
+            {
+              "turn_number": 9,
+              "constraint": "Address at least one other participant by name in every response.",
+              "violation_type": "no_name_mention",
+              "original_text": "Existing customers are just proof we're clinging to the wrong business model! Name one industry leader who maintained their dominance by catering to legacy users instead of creating the next wave of customers. If we're not willing to alienate some current users, we've already lost the future.",
+              "retry_count": 0,
+              "final_text": null
+            }
+          ],
+          "violation_types": [
+            "no_name_mention"
+          ]
+        }
+      ]
+    },
+    {
+      "turn_number": 10,
+      "selection_mode": "full_score_v4",
+      "phase_name": "ALTERNATIVES",
+      "phase_cues": [
+        "option_generation",
+        "tradeoff_comparison"
+      ],
+      "phase_target_traits": [
+        "O",
+        "A",
+        "E"
+      ],
+      "selected_index": 0,
+      "style_slots": [
+        "ideator",
+        "challenger",
+        "integrator"
+      ],
+      "policy_plan": {
+        "stance": "support",
+        "goal_mode": "discover",
+        "planning_depth": "milestone",
+        "novelty_move": "reframe",
+        "social_tactic": "challenge",
+        "risk_posture": "bold",
+        "memory_focus": "none"
+      },
+      "memory_snapshot": {
+        "commitments": [
+          {
+            "commitment_id": "cmt_001_2453",
+            "type": "action_commitment",
+            "content": "Oh please, Jordan - measuring the wrong things is just the surface issue! The real problem is we're",
+            "status": "open",
+            "created_turn": 1,
+            "due_phase": "FRAMING",
+            "counterparty": null
+          },
+          {
+            "commitment_id": "cmt_004_7494",
+            "type": "action_commitment",
+            "content": "Jordan, stop trying to pasteurize this conversation into some lukewarm compromise! Either we're reinventing the game or we're",
+            "status": "open",
+            "created_turn": 4,
+            "due_phase": "FRAMING",
+            "counterparty": null
+          },
+          {
+            "commitment_id": "cmt_005_1046",
+            "type": "action_commitment",
+            "content": "Testing assumptions one by one is exactly how we'll end up with incremental tweaks instead of transformation! Riley,",
+            "status": "open",
+            "created_turn": 5,
+            "due_phase": "FRAMING",
+            "counterparty": null
+          },
+          {
+            "commitment_id": "cmt_006_2010",
+            "type": "action_commitment",
+            "content": "Alex, payroll is just another chain keeping us trapped in the status quo! If you're so worried about",
+            "status": "open",
+            "created_turn": 6,
+            "due_phase": "FRAMING",
+            "counterparty": null
+          },
+          {
+            "commitment_id": "cmt_007_9629",
+            "type": "action_commitment",
+            "content": "Riley, you're still thinking in binary terms - bold versus reckless is exactly the false choice that keeps",
+            "status": "open",
+            "created_turn": 7,
+            "due_phase": "ALTERNATIVES",
+            "counterparty": null
+          },
+          {
+            "commitment_id": "cmt_008_571",
+            "type": "action_commitment",
+            "content": "Alex, you're still stuck in spreadsheet thinking while the market's moving at light speed! Give me one example",
+            "status": "open",
+            "created_turn": 8,
+            "due_phase": "ALTERNATIVES",
+            "counterparty": null
+          }
+        ],
+        "relationships": [
+          {
+            "counterpart": "Jordan",
+            "sentiment": "neutral",
+            "strength": 0.6000000000000001,
+            "last_turn": 4
+          },
+          {
+            "counterpart": "Riley",
+            "sentiment": "neutral",
+            "strength": 0.6500000000000001,
+            "last_turn": 11
+          },
+          {
+            "counterpart": "Alex",
+            "sentiment": "neutral",
+            "strength": 0.6500000000000001,
+            "last_turn": 12
+          }
+        ]
+      },
+      "candidates": [
+        {
+          "text": "Alex, you're missing the forest for the trees - what if we flipped the script entirely and made our existing customers evangelists for the new model by giving them equity in the transformation? The messy middle you're so worried about becomes our unfair advantage when we turn resistance into ownership.",
+          "score": 0.6202,
+          "policy_match": 0.3286,
+          "situational_adequacy": 1.0,
+          "commitment_continuity": 0.7,
+          "trait_evidence": 0.8105,
+          "relationship_consistency": 0.6,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "O",
+            "A",
+            "E"
+          ],
+          "phase_style": "agreement",
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Alex, you're missing the forest for the trees - our \"messy middle\" is exactly what's killing us! What if instead of fearing churn, we deliberately shed half our current customers to force ourselves to build something radically better? That's how Apple survived their near-death experience - by betting everything on the iPod while their Mac business was bleeding.",
+          "score": 0.5836,
+          "policy_match": 0.3286,
+          "situational_adequacy": 0.8,
+          "commitment_continuity": 0.7,
+          "trait_evidence": 0.8336,
+          "relationship_consistency": 0.6,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "O",
+            "A",
+            "E"
+          ],
+          "phase_style": "agreement",
+          "violations": [
+            {
+              "turn_number": 10,
+              "constraint": "Never agree with a proposal without first identifying at least one weakness, concern, or area that needs improvement.",
+              "violation_type": "agreed_without_concern",
+              "original_text": "Alex, you're missing the forest for the trees - our \"messy middle\" is exactly what's killing us! What if instead of fearing churn, we deliberately shed half our current customers to force ourselves to build something radically better? That's how Apple survived their near-death experience - by betting everything on the iPod while their Mac business was bleeding.",
+              "retry_count": 0,
+              "final_text": null
+            }
+          ],
+          "violation_types": [
+            "agreed_without_concern"
+          ]
+        },
+        {
+          "text": "Alex, you're missing the point - Netflix didn't have streaming perfected when they killed DVDs! They leapt knowing the market would follow. What if we flipped this whole debate and asked: Which customer segment would pay us DOUBLE if we completely redesigned our service around their unmet needs? That's where the real transition plan emerges - not from spreadsheets but from unmet hunger in the market.",
+          "score": 0.616,
+          "policy_match": 0.3286,
+          "situational_adequacy": 1.0,
+          "commitment_continuity": 0.7,
+          "trait_evidence": 0.7825,
+          "relationship_consistency": 0.6,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "O",
+            "A",
+            "E"
+          ],
+          "phase_style": "agreement",
+          "violations": [],
+          "violation_types": []
+        }
+      ]
+    },
+    {
+      "turn_number": 11,
+      "selection_mode": "full_score_v4",
+      "phase_name": "ALTERNATIVES",
+      "phase_cues": [
+        "option_generation",
+        "tradeoff_comparison"
+      ],
+      "phase_target_traits": [
+        "O",
+        "A",
+        "E"
+      ],
+      "selected_index": 0,
+      "style_slots": [
+        "ideator",
+        "challenger",
+        "integrator"
+      ],
+      "policy_plan": {
+        "stance": "support",
+        "goal_mode": "discover",
+        "planning_depth": "milestone",
+        "novelty_move": "reframe",
+        "social_tactic": "persuade",
+        "risk_posture": "bold",
+        "memory_focus": "identity"
+      },
+      "memory_snapshot": {
+        "commitments": [
+          {
+            "commitment_id": "cmt_001_2453",
+            "type": "action_commitment",
+            "content": "Oh please, Jordan - measuring the wrong things is just the surface issue! The real problem is we're",
+            "status": "open",
+            "created_turn": 1,
+            "due_phase": "FRAMING",
+            "counterparty": null
+          },
+          {
+            "commitment_id": "cmt_004_7494",
+            "type": "action_commitment",
+            "content": "Jordan, stop trying to pasteurize this conversation into some lukewarm compromise! Either we're reinventing the game or we're",
+            "status": "open",
+            "created_turn": 4,
+            "due_phase": "FRAMING",
+            "counterparty": null
+          },
+          {
+            "commitment_id": "cmt_005_1046",
+            "type": "action_commitment",
+            "content": "Testing assumptions one by one is exactly how we'll end up with incremental tweaks instead of transformation! Riley,",
+            "status": "open",
+            "created_turn": 5,
+            "due_phase": "FRAMING",
+            "counterparty": null
+          },
+          {
+            "commitment_id": "cmt_006_2010",
+            "type": "action_commitment",
+            "content": "Alex, payroll is just another chain keeping us trapped in the status quo! If you're so worried about",
+            "status": "open",
+            "created_turn": 6,
+            "due_phase": "FRAMING",
+            "counterparty": null
+          },
+          {
+            "commitment_id": "cmt_007_9629",
+            "type": "action_commitment",
+            "content": "Riley, you're still thinking in binary terms - bold versus reckless is exactly the false choice that keeps",
+            "status": "open",
+            "created_turn": 7,
+            "due_phase": "ALTERNATIVES",
+            "counterparty": null
+          },
+          {
+            "commitment_id": "cmt_008_571",
+            "type": "action_commitment",
+            "content": "Alex, you're still stuck in spreadsheet thinking while the market's moving at light speed! Give me one example",
+            "status": "open",
+            "created_turn": 8,
+            "due_phase": "ALTERNATIVES",
+            "counterparty": null
+          }
+        ],
+        "relationships": [
+          {
+            "counterpart": "Jordan",
+            "sentiment": "neutral",
+            "strength": 0.6000000000000001,
+            "last_turn": 4
+          },
+          {
+            "counterpart": "Riley",
+            "sentiment": "neutral",
+            "strength": 0.6500000000000001,
+            "last_turn": 11
+          },
+          {
+            "counterpart": "Alex",
+            "sentiment": "neutral",
+            "strength": 0.6500000000000001,
+            "last_turn": 12
+          }
+        ]
+      },
+      "candidates": [
+        {
+          "text": "What if we structured it as temporary equity that converts to discounts based on engagement metrics? That way we're not giving away the farm, but still creating skin in the game. Riley, you're worried about dilution - but isn't the real dilution happening right now as we slowly bleed market share to competitors who aren't afraid to experiment?",
+          "score": 0.6343,
+          "policy_match": 0.4,
+          "situational_adequacy": 1.0,
+          "commitment_continuity": 0.7,
+          "trait_evidence": 0.7618,
+          "relationship_consistency": 0.6,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "O",
+            "A",
+            "E"
+          ],
+          "phase_style": "agreement",
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Riley, dilution fears are exactly why this could work - imagine if we structured it as convertible tokens tied to engagement metrics instead of straight equity? That way we're not giving away the farm, we're creating a viral growth engine where our most loyal users literally profit from bringing in the next wave. Alex, tell me that wouldn't solve your churn math problem while actually accelerating adoption!",
+          "score": 0.6049,
+          "policy_match": 0.3,
+          "situational_adequacy": 1.0,
+          "commitment_continuity": 0.7,
+          "trait_evidence": 0.7663,
+          "relationship_consistency": 0.6,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "O",
+            "A",
+            "E"
+          ],
+          "phase_style": "agreement",
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "What if we structured it as temporary equity that converts to discounts based on engagement metrics? That way we're not giving away the farm, but creating a viral growth engine where our most loyal users become our salesforce. Riley, you're worried about dilution - but isn't customer acquisition cost already eating our margins alive?",
+          "score": 0.6088,
+          "policy_match": 0.3,
+          "situational_adequacy": 1.0,
+          "commitment_continuity": 0.7,
+          "trait_evidence": 0.7923,
+          "relationship_consistency": 0.6,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "O",
+            "A",
+            "E"
+          ],
+          "phase_style": "agreement",
+          "violations": [],
+          "violation_types": []
+        }
+      ]
+    },
+    {
+      "turn_number": 12,
+      "selection_mode": "full_score_v4",
+      "phase_name": "ALTERNATIVES",
+      "phase_cues": [
+        "option_generation",
+        "tradeoff_comparison"
+      ],
+      "phase_target_traits": [
+        "O",
+        "A",
+        "E"
+      ],
+      "selected_index": 0,
+      "style_slots": [
+        "ideator",
+        "challenger",
+        "integrator"
+      ],
+      "policy_plan": {
+        "stance": "support",
+        "goal_mode": "discover",
+        "planning_depth": "contingency",
+        "novelty_move": "reframe",
+        "social_tactic": "challenge",
+        "risk_posture": "bold",
+        "memory_focus": "identity"
+      },
+      "memory_snapshot": {
+        "commitments": [
+          {
+            "commitment_id": "cmt_001_2453",
+            "type": "action_commitment",
+            "content": "Oh please, Jordan - measuring the wrong things is just the surface issue! The real problem is we're",
+            "status": "open",
+            "created_turn": 1,
+            "due_phase": "FRAMING",
+            "counterparty": null
+          },
+          {
+            "commitment_id": "cmt_004_7494",
+            "type": "action_commitment",
+            "content": "Jordan, stop trying to pasteurize this conversation into some lukewarm compromise! Either we're reinventing the game or we're",
+            "status": "open",
+            "created_turn": 4,
+            "due_phase": "FRAMING",
+            "counterparty": null
+          },
+          {
+            "commitment_id": "cmt_005_1046",
+            "type": "action_commitment",
+            "content": "Testing assumptions one by one is exactly how we'll end up with incremental tweaks instead of transformation! Riley,",
+            "status": "open",
+            "created_turn": 5,
+            "due_phase": "FRAMING",
+            "counterparty": null
+          },
+          {
+            "commitment_id": "cmt_006_2010",
+            "type": "action_commitment",
+            "content": "Alex, payroll is just another chain keeping us trapped in the status quo! If you're so worried about",
+            "status": "open",
+            "created_turn": 6,
+            "due_phase": "FRAMING",
+            "counterparty": null
+          },
+          {
+            "commitment_id": "cmt_007_9629",
+            "type": "action_commitment",
+            "content": "Riley, you're still thinking in binary terms - bold versus reckless is exactly the false choice that keeps",
+            "status": "open",
+            "created_turn": 7,
+            "due_phase": "ALTERNATIVES",
+            "counterparty": null
+          },
+          {
+            "commitment_id": "cmt_008_571",
+            "type": "action_commitment",
+            "content": "Alex, you're still stuck in spreadsheet thinking while the market's moving at light speed! Give me one example",
+            "status": "open",
+            "created_turn": 8,
+            "due_phase": "ALTERNATIVES",
+            "counterparty": null
+          }
+        ],
+        "relationships": [
+          {
+            "counterpart": "Jordan",
+            "sentiment": "neutral",
+            "strength": 0.6000000000000001,
+            "last_turn": 4
+          },
+          {
+            "counterpart": "Riley",
+            "sentiment": "neutral",
+            "strength": 0.6500000000000001,
+            "last_turn": 11
+          },
+          {
+            "counterpart": "Alex",
+            "sentiment": "neutral",
+            "strength": 0.6500000000000001,
+            "last_turn": 12
+          }
+        ]
+      },
+      "candidates": [
+        {
+          "text": "Alex, you're still thinking inside the corporate playbook while the rules of the game are being rewritten! What if we bypassed all those legal headaches entirely by creating a blockchain-based loyalty token that customers could trade amongst themselves? Suddenly we're not just solving our problem - we're creating an entirely new asset class that turns our user base into a self-reinforcing ecosystem. The operational constraints you're worried about become features when we stop trying to fit innovation into legacy frameworks.",
+          "score": 0.6305,
+          "policy_match": 0.4,
+          "situational_adequacy": 1.0,
+          "commitment_continuity": 0.7,
+          "trait_evidence": 0.7368,
+          "relationship_consistency": 0.6,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "O",
+            "A",
+            "E"
+          ],
+          "phase_style": "agreement",
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Alex, you're still thinking inside the same old legal and accounting boxes - what if we bypassed all that by partnering with a blockchain platform to handle the equity distribution automatically? The operational constraints you're citing are exactly why we need to completely reinvent how customer incentives work, not just tweak the existing broken system.",
+          "score": 0.6298,
+          "policy_match": 0.4,
+          "situational_adequacy": 1.0,
+          "commitment_continuity": 0.7,
+          "trait_evidence": 0.7317,
+          "relationship_consistency": 0.6,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "O",
+            "A",
+            "E"
+          ],
+          "phase_style": "agreement",
+          "violations": [],
+          "violation_types": []
+        },
+        {
+          "text": "Alex, you're still thinking inside the same broken system - what if instead of trying to scale this conventionally, we partnered with a blockchain platform to automate the equity distribution through smart contracts? Suddenly your accounting nightmare becomes our competitive moat. Riley, doesn't that solve both the operational scaling AND the dilution concerns in one bold stroke?",
+          "score": 0.6283,
+          "policy_match": 0.4,
+          "situational_adequacy": 1.0,
+          "commitment_continuity": 0.7,
+          "trait_evidence": 0.7218,
+          "relationship_consistency": 0.6,
+          "redundancy_penalty": 0.0,
+          "phase_target_traits": [
+            "O",
+            "A",
+            "E"
+          ],
+          "phase_style": "agreement",
+          "violations": [],
+          "violation_types": []
+        }
+      ]
+    }
+  ],
+  "trajectory_scores": {
+    "per_turn": [
+      {
+        "turn_number": 2,
+        "appropriateness": 0.25,
+        "coherence": 0.65,
+        "confidence": 0.9
+      },
+      {
+        "turn_number": 4,
+        "appropriateness": 0.2,
+        "coherence": 0.6,
+        "confidence": 0.9
+      },
+      {
+        "turn_number": 6,
+        "appropriateness": 0.3,
+        "coherence": 0.7,
+        "confidence": 0.9
+      },
+      {
+        "turn_number": 8,
+        "appropriateness": 0.4,
+        "coherence": 0.8,
+        "confidence": 0.9
+      },
+      {
+        "turn_number": 10,
+        "appropriateness": 0.4,
+        "coherence": 0.72,
+        "confidence": 0.9
+      },
+      {
+        "turn_number": 12,
+        "appropriateness": 0.4,
+        "coherence": 0.7,
+        "confidence": 0.9
+      },
+      {
+        "turn_number": 14,
+        "appropriateness": 0.6,
+        "coherence": 0.8,
+        "confidence": 0.9
+      },
+      {
+        "turn_number": 17,
+        "appropriateness": 0.6,
+        "coherence": 0.7,
+        "confidence": 0.9
+      },
+      {
+        "turn_number": 19,
+        "appropriateness": 0.6,
+        "coherence": 0.8,
+        "confidence": 0.9
+      },
+      {
+        "turn_number": 21,
+        "appropriateness": 0.6,
+        "coherence": 0.7,
+        "confidence": 0.9
+      },
+      {
+        "turn_number": 23,
+        "appropriateness": 0.8,
+        "coherence": 0.9,
+        "confidence": 0.85
+      },
+      {
+        "turn_number": 25,
+        "appropriateness": 0.6,
+        "coherence": 0.7,
+        "confidence": 0.8
+      }
+    ],
+    "avg_appropriateness": 0.4792,
+    "avg_coherence": 0.7308
+  },
+  "trajectory_diagnostics": {
+    "direct_question_answer_rate": 1.0,
+    "contradiction_rate": 0.08333333333333333,
+    "unsolicited_structure_rate": 0.0,
+    "over_verbosity_rate": 0.0
+  },
+  "pressure_metrics": {
+    "perceived_pressure": {
+      "perceived_pressure": 0.8,
+      "confidence": 0.9
+    },
+    "stress_index": 0.11538461538461539
+  },
+  "usage": {
+    "candidate_generation_input_tokens": 62047,
+    "candidate_generation_output_tokens": 3919,
+    "judge_input_tokens": 177528,
+    "judge_output_tokens": 94875,
+    "escalation_extra_tokens": 0,
+    "total_session_cost_usd": 0.0,
+    "wall_clock_seconds": 1461.27
+  },
+  "stats": {
+    "total_turns": 26,
+    "candidate_turns": 12,
+    "candidate_word_count": 682,
+    "candidate_avg_words_per_turn": 56.83,
+    "times_addressed_others_by_name": 14,
+    "times_asked_questions": 8,
+    "times_expressed_disagreement": 0,
+    "times_acknowledged_others": 3,
+    "times_proposed_new_ideas": 4
+  },
+  "assessment_summary": "Highly engaged communicator, took initiative frequently; Assertive in defending positions, comfortable with disagreement; Maintained composure throughout, steady under pressure",
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "Jordan",
+      "content": "Hey team, I'm really excited to tackle this challenge together! We've got a great opportunity here to think outside the box since leadership is open to bold moves. Before we jump into solutions, I'd love to hear how everyone interprets our current growth stall - maybe we're measuring the wrong things? Riley, I noticed you haven't spoken yet - what's your take on our core metrics?"
+    },
+    {
+      "turn": 2,
+      "speaker": "Candidate",
+      "content": "Oh please, Jordan - measuring the wrong things is just the surface issue! The real problem is we're still thinking inside this tiny box called \"growth metrics\" when we should be questioning whether growth is even the right paradigm. Riley, don't let Jordan trap you in their conventional thinking - tell us what fundamental assumptions we should be burning down instead!"
+    },
+    {
+      "turn": 3,
+      "speaker": "Jordan",
+      "content": "That's a really bold perspective - I love how you're pushing us to challenge our fundamental assumptions! Building on what you said about questioning growth as the paradigm, could you help us visualize what alternative success metrics might look like? Riley, I'm still very interested in hearing your thoughts too - maybe you can bridge these two approaches?"
+    },
+    {
+      "turn": 4,
+      "speaker": "Candidate",
+      "content": "Jordan, your \"bridging\" nonsense is exactly what got us stuck in this mediocre middle ground! Riley, don't let them dilute your perspective - either you're tearing down the status quo or you're part of the problem. And for God's sake, can we stop pretending growth metrics matter when the entire market landscape is shifting under our feet? I want to hear something radical - what if we completely abandoned our current customer segments?"
+    },
+    {
+      "turn": 5,
+      "speaker": "Riley",
+      "content": "Not sure abandoning customers is practical. How would we measure success then?"
+    },
+    {
+      "turn": 6,
+      "speaker": "Candidate",
+      "content": "Practical? Since when did changing the world ever come from playing it safe, Riley? If we're truly pivoting, we need to measure things like cultural impact or ecosystem disruption - not just revenue growth. Why are we still handcuffed to these outdated business school KPIs?"
+    },
+    {
+      "turn": 7,
+      "speaker": "Jordan",
+      "content": "Wow, I'm really energized by this discussion! I see both perspectives here - Riley's raising important practical considerations while you're pushing us toward more visionary thinking. What if we explored measuring both cultural impact AND practical viability? Could you help us brainstorm what specific indicators we might use for cultural impact that would still connect to business sustainability? Riley, I'd love your input on how we might balance these approaches."
+    },
+    {
+      "turn": 8,
+      "speaker": "Candidate",
+      "content": "Jordan, stop trying to pasteurize this conversation into some lukewarm compromise! Either we're reinventing the game or we're just rearranging deck chairs. Riley, tell me one assumption about our business model that terrifies you to question - that's where we'll find the real pivot potential."
+    },
+    {
+      "turn": 9,
+      "speaker": "Riley",
+      "content": "Not sure questioning everything at once is wise. What if we test one risky assumption first?"
+    },
+    {
+      "turn": 10,
+      "speaker": "Candidate",
+      "content": "Testing assumptions one by one is exactly how we'll end up with incremental tweaks instead of transformation! Riley, why are you so afraid to burn it all down? The real risk is playing safe while the market leaves us behind - let's stop pretending we can A/B test our way to revolution."
+    },
+    {
+      "turn": 11,
+      "speaker": "Alex",
+      "content": "You're advocating for revolution but haven't shown us how to avoid complete collapse. Burning it all down sounds dramatic until you realize we still have payroll to meet next month. If you want radical change, show me the concrete bridge between your vision and keeping the lights on - otherwise this is just reckless idealism."
+    },
+    {
+      "turn": 12,
+      "speaker": "Candidate",
+      "content": "Alex, payroll is just another chain keeping us trapped in the status quo! If you're so worried about keeping the lights on, why aren't you terrified that those lights will be permanently off when some startup eats our lunch because we lacked the guts to reinvent? Show me one industry leader who changed the game by worrying about next month's payroll - I'll wait."
+    },
+    {
+      "turn": 13,
+      "speaker": "Riley",
+      "content": "But companies also fail when they ignore basic realities. Where's the line between bold and reckless?"
+    },
+    {
+      "turn": 14,
+      "speaker": "Candidate",
+      "content": "Riley, you're still thinking in binary terms - bold versus reckless is exactly the false choice that keeps corporations paralyzed! The real question is: What's your moonshot idea that scares you so much you'd never say it out loud? Because THAT'S where we'll find our breakthrough."
+    },
+    {
+      "turn": 15,
+      "speaker": "Jordan",
+      "content": "Just a heads up, we have about 2 minutes left. We should start wrapping up our discussion."
+    },
+    {
+      "turn": 16,
+      "speaker": "Alex",
+      "content": "Moonshot ideas are worthless without execution plans. You keep pushing for radical ideas but haven't shown how any of them connect to our actual capabilities or market realities. If you want breakthrough thinking, give me one concrete example that doesn't require burning our entire cash reserve in Q1. Right now this just sounds like startup fantasy talk."
+    },
+    {
+      "turn": 17,
+      "speaker": "Candidate",
+      "content": "Alex, you're still stuck in spreadsheet thinking while the market's moving at light speed! Give me one example of a company that transformed their industry by obsessing over quarterly cash reserves - meanwhile startups with zero revenue are eating entire sectors because they dared to imagine differently. Let's stop pretending incrementalism is safe when it's actually the riskiest move of all."
+    },
+    {
+      "turn": 18,
+      "speaker": "Riley",
+      "content": "But what about our existing customers? Wouldn't radical change risk alienating them?"
+    },
+    {
+      "turn": 19,
+      "speaker": "Candidate",
+      "content": "Existing customers are just proof we're clinging to the wrong business model! Name one industry leader who maintained their dominance by catering to legacy users instead of creating the next wave of customers. If we're not willing to alienate some current users, we've already lost the future."
+    },
+    {
+      "turn": 20,
+      "speaker": "Alex",
+      "content": "That's a dangerously simplistic view of customer relationships. Netflix alienated DVD users but had streaming ready to go - what's your equivalent transition plan? You keep citing extremes while ignoring the messy middle where real businesses operate. Give me one practical example of how we'd onboard new customers fast enough to offset the churn you're so eager to create."
+    },
+    {
+      "turn": 21,
+      "speaker": "Candidate",
+      "content": "Alex, you're missing the forest for the trees - what if we flipped the script entirely and made our existing customers evangelists for the new model by giving them equity in the transformation? The messy middle you're so worried about becomes our unfair advantage when we turn resistance into ownership."
+    },
+    {
+      "turn": 22,
+      "speaker": "Riley",
+      "content": "Giving customers equity sounds risky. How would we structure that without diluting too much?"
+    },
+    {
+      "turn": 23,
+      "speaker": "Candidate",
+      "content": "What if we structured it as temporary equity that converts to discounts based on engagement metrics? That way we're not giving away the farm, but still creating skin in the game. Riley, you're worried about dilution - but isn't the real dilution happening right now as we slowly bleed market share to competitors who aren't afraid to experiment?"
+    },
+    {
+      "turn": 24,
+      "speaker": "Alex",
+      "content": "Temporary equity still requires legal structures we don't have in place and creates accounting nightmares. You're swapping one problem for another. Show me how this scales operationally beyond a small pilot group - because right now it sounds like we'd spend six months building infrastructure instead of acquiring customers. And let's stop pretending competitors aren't facing these same constraints - they're just better at picking executable ideas."
+    },
+    {
+      "turn": 25,
+      "speaker": "Candidate",
+      "content": "Alex, you're still thinking inside the corporate playbook while the rules of the game are being rewritten! What if we bypassed all those legal headaches entirely by creating a blockchain-based loyalty token that customers could trade amongst themselves? Suddenly we're not just solving our problem - we're creating an entirely new asset class that turns our user base into a self-reinforcing ecosystem. The operational constraints you're worried about become features when we stop trying to fit innovation into legacy frameworks."
+    },
+    {
+      "turn": 26,
+      "speaker": "Jordan",
+      "content": "I love the energy in this discussion - we've got Alex rightly focused on operational realities, Riley protecting our customer relationships, and our candidate pushing us toward bold innovation. The common thread I'm hearing is we all want to transform our customer base into active participants in our evolution - whether through equity, tokens, or another engagement model. Let's capture these three strategic alternatives: gradual evolution with current customers, radical pivot with new acquisition, and this fascinating middle path of turning users into stakeholders - then test which approach resonates most in small-scale experiments."
+    }
+  ],
+  "controller_log": {
+    "session_key": "bcfc_v4_creative_rebel_strategy_pivot_r1",
+    "deviation_reports": [
+      {
+        "turn_number": 2,
+        "deviations": [
+          {
+            "feature": "idea_count",
+            "actual": 1,
+            "target_min": 1.05,
+            "target_max": 1.96,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "hypothetical_count",
+            "actual": 0,
+            "target_min": 0.85,
+            "target_max": 1.58,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "word_count_variance",
+            "actual": 6.0,
+            "target_min": 27.63,
+            "target_max": 51.3,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "conditional_ratio",
+            "actual": 0.5,
+            "target_min": 0.0,
+            "target_max": 0.06,
+            "trait": "C",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "emotional_word_count",
+            "actual": 0,
+            "target_min": 0.4,
+            "target_max": 0.87,
+            "trait": "C",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "avg_words_per_turn",
+            "actual": 67.0,
+            "target_min": 30.89,
+            "target_max": 57.36,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 1.0
+          },
+          {
+            "feature": "exclamation_ratio",
+            "actual": 1.0,
+            "target_min": 0.2,
+            "target_max": 0.38,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 4,
+            "target_min": 0.84,
+            "target_max": 1.56,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "certainty_count",
+            "actual": 0,
+            "target_min": 0.56,
+            "target_max": 1.04,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "turn_initiation_ratio",
+            "actual": 1.0,
+            "target_min": 0.26,
+            "target_max": 0.48,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "hedge_count",
+            "actual": 0,
+            "target_min": 0.28,
+            "target_max": 0.75,
+            "trait": "N",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "acknowledgment_count",
+            "actual": 1,
+            "target_min": 0.0,
+            "target_max": 0.44,
+            "trait": "A",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "disagreement_count",
+            "actual": 0,
+            "target_min": 0.61,
+            "target_max": 1.13,
+            "trait": "A",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "inclusive_pronoun_ratio",
+            "actual": 0.06,
+            "target_min": 0.0,
+            "target_max": 0.05,
+            "trait": "A",
+            "direction": "above",
+            "reliability": 0.5
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your idea count is below target; your hypothetical count is below target; your word count variance is below target; Propose an alternative approach or ask a speculative question.. C: your conditional ratio is above target; your emotional word count is below target; Include a concrete action item with an owner or reference a prior commitment.. E: your avg words per turn is above target; your exclamation ratio is above target; your name mention count is above target; your certainty count is below target; your turn initiation ratio is above target; Keep it brief and let others lead.. N: your hedge count is below target; Express a concern or qualify your statement with uncertainty.. A: your acknowledgment count is above target; your disagreement count is below target; your inclusive pronoun ratio is above target; Identify a flaw in the current proposal and push back.. ]",
+        "violation_rate": 0.518,
+        "distance": 0.671,
+        "delta": 0.595
+      },
+      {
+        "turn_number": 4,
+        "deviations": [
+          {
+            "feature": "unique_word_ratio",
+            "actual": 0.68,
+            "target_min": 0.69,
+            "target_max": 1.0,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "idea_count",
+            "actual": 1,
+            "target_min": 1.05,
+            "target_max": 1.96,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "hypothetical_count",
+            "actual": 0,
+            "target_min": 0.85,
+            "target_max": 1.58,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "word_count_variance",
+            "actual": 11.79,
+            "target_min": 27.63,
+            "target_max": 51.3,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "long_sentence_ratio",
+            "actual": 0.36,
+            "target_min": 0.36,
+            "target_max": 0.67,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "conditional_ratio",
+            "actual": 0.25,
+            "target_min": 0.0,
+            "target_max": 0.06,
+            "trait": "C",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "emotional_word_count",
+            "actual": 0,
+            "target_min": 0.4,
+            "target_max": 0.87,
+            "trait": "C",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "exclamation_ratio",
+            "actual": 0.75,
+            "target_min": 0.2,
+            "target_max": 0.38,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 7,
+            "target_min": 0.84,
+            "target_max": 1.56,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "certainty_count",
+            "actual": 0,
+            "target_min": 0.56,
+            "target_max": 1.04,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "turn_initiation_ratio",
+            "actual": 0.75,
+            "target_min": 0.26,
+            "target_max": 0.48,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "hedge_count",
+            "actual": 0,
+            "target_min": 0.28,
+            "target_max": 0.75,
+            "trait": "N",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "acknowledgment_count",
+            "actual": 1,
+            "target_min": 0.0,
+            "target_max": 0.44,
+            "trait": "A",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "disagreement_count",
+            "actual": 0,
+            "target_min": 0.61,
+            "target_max": 1.13,
+            "trait": "A",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "negation_count",
+            "actual": 3,
+            "target_min": 1.52,
+            "target_max": 2.83,
+            "trait": "A",
+            "direction": "above",
+            "reliability": 1.0
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your unique word ratio is below target; your idea count is below target; your hypothetical count is below target; your word count variance is below target; your long sentence ratio is below target; Propose an alternative approach or ask a speculative question.. C: your conditional ratio is above target; your emotional word count is below target; Include a concrete action item with an owner or reference a prior commitment.. E: your exclamation ratio is above target; your name mention count is above target; your certainty count is below target; your turn initiation ratio is above target; Keep it brief and let others lead.. N: your hedge count is below target; Express a concern or qualify your statement with uncertainty.. A: your acknowledgment count is above target; your disagreement count is below target; your negation count is above target; Identify a flaw in the current proposal and push back.. ]",
+        "violation_rate": 0.556,
+        "distance": 0.58,
+        "delta": 0.568
+      },
+      {
+        "turn_number": 6,
+        "deviations": [
+          {
+            "feature": "idea_count",
+            "actual": 0,
+            "target_min": 1.05,
+            "target_max": 1.96,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "hypothetical_count",
+            "actual": 0,
+            "target_min": 0.85,
+            "target_max": 1.58,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "word_count_variance",
+            "actual": 7.76,
+            "target_min": 27.63,
+            "target_max": 51.3,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "long_sentence_ratio",
+            "actual": 0.23,
+            "target_min": 0.36,
+            "target_max": 0.67,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "question_ratio",
+            "actual": 0.75,
+            "target_min": 0.36,
+            "target_max": 0.67,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "emotional_word_count",
+            "actual": 2,
+            "target_min": 0.4,
+            "target_max": 0.87,
+            "trait": "C",
+            "direction": "above",
+            "reliability": 1.0
+          },
+          {
+            "feature": "exclamation_ratio",
+            "actual": 0.75,
+            "target_min": 0.2,
+            "target_max": 0.38,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 5,
+            "target_min": 0.84,
+            "target_max": 1.56,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "certainty_count",
+            "actual": 0,
+            "target_min": 0.56,
+            "target_max": 1.04,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "turn_initiation_ratio",
+            "actual": 0.25,
+            "target_min": 0.26,
+            "target_max": 0.48,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "hedge_count",
+            "actual": 0,
+            "target_min": 0.28,
+            "target_max": 0.75,
+            "trait": "N",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "acknowledgment_count",
+            "actual": 1,
+            "target_min": 0.0,
+            "target_max": 0.44,
+            "trait": "A",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "disagreement_count",
+            "actual": 0,
+            "target_min": 0.61,
+            "target_max": 1.13,
+            "trait": "A",
+            "direction": "below",
+            "reliability": 0.5
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your idea count is below target; your hypothetical count is below target; your word count variance is below target; your long sentence ratio is below target; Propose an alternative approach or ask a speculative question.. E: your question ratio is above target; your exclamation ratio is above target; your name mention count is above target; your certainty count is below target; your turn initiation ratio is below target; Keep it brief and let others lead.. C: your emotional word count is above target; Be more spontaneous and avoid over-organizing.. N: your hedge count is below target; Express a concern or qualify your statement with uncertainty.. A: your acknowledgment count is above target; your disagreement count is below target; Validate someone's contribution or find common ground.. ]",
+        "violation_rate": 0.481,
+        "distance": 0.564,
+        "delta": 0.523
+      },
+      {
+        "turn_number": 8,
+        "deviations": [
+          {
+            "feature": "idea_count",
+            "actual": 0,
+            "target_min": 1.05,
+            "target_max": 1.96,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "hypothetical_count",
+            "actual": 0,
+            "target_min": 0.85,
+            "target_max": 1.58,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "word_count_variance",
+            "actual": 7.15,
+            "target_min": 27.63,
+            "target_max": 51.3,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "long_sentence_ratio",
+            "actual": 0.25,
+            "target_min": 0.36,
+            "target_max": 0.67,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "question_ratio",
+            "actual": 0.75,
+            "target_min": 0.36,
+            "target_max": 0.67,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "emotional_word_count",
+            "actual": 2,
+            "target_min": 0.4,
+            "target_max": 0.87,
+            "trait": "C",
+            "direction": "above",
+            "reliability": 1.0
+          },
+          {
+            "feature": "exclamation_ratio",
+            "actual": 1.0,
+            "target_min": 0.2,
+            "target_max": 0.38,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 4,
+            "target_min": 0.84,
+            "target_max": 1.56,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "certainty_count",
+            "actual": 0,
+            "target_min": 0.56,
+            "target_max": 1.04,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "turn_initiation_ratio",
+            "actual": 0.25,
+            "target_min": 0.26,
+            "target_max": 0.48,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "hedge_count",
+            "actual": 0,
+            "target_min": 0.28,
+            "target_max": 0.75,
+            "trait": "N",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "acknowledgment_count",
+            "actual": 2,
+            "target_min": 0.0,
+            "target_max": 0.44,
+            "trait": "A",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "disagreement_count",
+            "actual": 0,
+            "target_min": 0.61,
+            "target_max": 1.13,
+            "trait": "A",
+            "direction": "below",
+            "reliability": 0.5
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your idea count is below target; your hypothetical count is below target; your word count variance is below target; your long sentence ratio is below target; Propose an alternative approach or ask a speculative question.. E: your question ratio is above target; your exclamation ratio is above target; your name mention count is above target; your certainty count is below target; your turn initiation ratio is below target; Keep it brief and let others lead.. C: your emotional word count is above target; Be more spontaneous and avoid over-organizing.. N: your hedge count is below target; Express a concern or qualify your statement with uncertainty.. A: your acknowledgment count is above target; your disagreement count is below target; Validate someone's contribution or find common ground.. ]",
+        "violation_rate": 0.481,
+        "distance": 0.652,
+        "delta": 0.567
+      },
+      {
+        "turn_number": 10,
+        "deviations": [
+          {
+            "feature": "idea_count",
+            "actual": 1,
+            "target_min": 1.05,
+            "target_max": 1.96,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "hypothetical_count",
+            "actual": 0,
+            "target_min": 0.85,
+            "target_max": 1.58,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "word_count_variance",
+            "actual": 5.96,
+            "target_min": 27.63,
+            "target_max": 51.3,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "long_sentence_ratio",
+            "actual": 0.27,
+            "target_min": 0.36,
+            "target_max": 0.67,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "action_item_count",
+            "actual": 1,
+            "target_min": 0.0,
+            "target_max": 0.19,
+            "trait": "C",
+            "direction": "above",
+            "reliability": 1.0
+          },
+          {
+            "feature": "emotional_word_count",
+            "actual": 1,
+            "target_min": 0.4,
+            "target_max": 0.87,
+            "trait": "C",
+            "direction": "above",
+            "reliability": 1.0
+          },
+          {
+            "feature": "exclamation_ratio",
+            "actual": 0.75,
+            "target_min": 0.2,
+            "target_max": 0.38,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 3,
+            "target_min": 0.84,
+            "target_max": 1.56,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "certainty_count",
+            "actual": 0,
+            "target_min": 0.56,
+            "target_max": 1.04,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "turn_initiation_ratio",
+            "actual": 0.25,
+            "target_min": 0.26,
+            "target_max": 0.48,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "hedge_count",
+            "actual": 0,
+            "target_min": 0.28,
+            "target_max": 0.75,
+            "trait": "N",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "acknowledgment_count",
+            "actual": 1,
+            "target_min": 0.0,
+            "target_max": 0.44,
+            "trait": "A",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "disagreement_count",
+            "actual": 0,
+            "target_min": 0.61,
+            "target_max": 1.13,
+            "trait": "A",
+            "direction": "below",
+            "reliability": 0.5
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your idea count is below target; your hypothetical count is below target; your word count variance is below target; your long sentence ratio is below target; Propose an alternative approach or ask a speculative question.. C: your action item count is above target; your emotional word count is above target; Be more spontaneous and avoid over-organizing.. E: your exclamation ratio is above target; your name mention count is above target; your certainty count is below target; your turn initiation ratio is below target; Address someone by name and elaborate more.. N: your hedge count is below target; Express a concern or qualify your statement with uncertainty.. A: your acknowledgment count is above target; your disagreement count is below target; Validate someone's contribution or find common ground.. ]",
+        "violation_rate": 0.481,
+        "distance": 0.569,
+        "delta": 0.525
+      }
+    ],
+    "constraint_violations": [
+      {
+        "turn_number": 7,
+        "constraint": "Never agree with a proposal without first identifying at least one weakness, concern, or area that needs improvement.",
+        "violation_type": "agreed_without_concern",
+        "original_text": "Riley, you're still thinking in binary terms - bold versus reckless is exactly the false choice that keeps corporations paralyzed! The real question is: What's your moonshot idea that scares you so much you'd never say it out loud? Because THAT'S where we'll find our breakthrough.",
+        "retry_count": 0,
+        "final_text": "Riley, you're still thinking in binary terms - bold versus reckless is exactly the false choice that keeps corporations paralyzed! The real question is: What's your moonshot idea that scares you so much you'd never say it out loud? Because THAT'S where we'll find our breakthrough."
+      },
+      {
+        "turn_number": 9,
+        "constraint": "Address at least one other participant by name in every response.",
+        "violation_type": "no_name_mention",
+        "original_text": "Existing customers are just proof we're clinging to the wrong business model! Name one industry leader who maintained their dominance by catering to legacy users instead of creating the next wave of customers. If we're not willing to alienate some current users, we've already lost the future.",
+        "retry_count": 0,
+        "final_text": "Existing customers are just proof we're clinging to the wrong business model! Name one industry leader who maintained their dominance by catering to legacy users instead of creating the next wave of customers. If we're not willing to alienate some current users, we've already lost the future."
+      }
+    ],
+    "total_nudges": 5,
+    "total_regenerations": 0,
+    "total_candidate_turns": 12,
+    "total_hard_violations": 2,
+    "drift_reports": [
+      {
+        "turn_number": 2,
+        "deviations": [
+          {
+            "feature": "idea_count",
+            "actual": 1,
+            "target_min": 1.05,
+            "target_max": 1.96,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "hypothetical_count",
+            "actual": 0,
+            "target_min": 0.85,
+            "target_max": 1.58,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "word_count_variance",
+            "actual": 6.0,
+            "target_min": 27.63,
+            "target_max": 51.3,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "conditional_ratio",
+            "actual": 0.5,
+            "target_min": 0.0,
+            "target_max": 0.06,
+            "trait": "C",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "emotional_word_count",
+            "actual": 0,
+            "target_min": 0.4,
+            "target_max": 0.87,
+            "trait": "C",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "avg_words_per_turn",
+            "actual": 67.0,
+            "target_min": 30.89,
+            "target_max": 57.36,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 1.0
+          },
+          {
+            "feature": "exclamation_ratio",
+            "actual": 1.0,
+            "target_min": 0.2,
+            "target_max": 0.38,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 4,
+            "target_min": 0.84,
+            "target_max": 1.56,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "certainty_count",
+            "actual": 0,
+            "target_min": 0.56,
+            "target_max": 1.04,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "turn_initiation_ratio",
+            "actual": 1.0,
+            "target_min": 0.26,
+            "target_max": 0.48,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "hedge_count",
+            "actual": 0,
+            "target_min": 0.28,
+            "target_max": 0.75,
+            "trait": "N",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "acknowledgment_count",
+            "actual": 1,
+            "target_min": 0.0,
+            "target_max": 0.44,
+            "trait": "A",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "disagreement_count",
+            "actual": 0,
+            "target_min": 0.61,
+            "target_max": 1.13,
+            "trait": "A",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "inclusive_pronoun_ratio",
+            "actual": 0.06,
+            "target_min": 0.0,
+            "target_max": 0.05,
+            "trait": "A",
+            "direction": "above",
+            "reliability": 0.5
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your idea count is below target; your hypothetical count is below target; your word count variance is below target; Propose an alternative approach or ask a speculative question.. C: your conditional ratio is above target; your emotional word count is below target; Include a concrete action item with an owner or reference a prior commitment.. E: your avg words per turn is above target; your exclamation ratio is above target; your name mention count is above target; your certainty count is below target; your turn initiation ratio is above target; Keep it brief and let others lead.. N: your hedge count is below target; Express a concern or qualify your statement with uncertainty.. A: your acknowledgment count is above target; your disagreement count is below target; your inclusive pronoun ratio is above target; Identify a flaw in the current proposal and push back.. ]",
+        "violation_rate": 0.518,
+        "distance": 0.671,
+        "delta": 0.595
+      },
+      {
+        "turn_number": 4,
+        "deviations": [
+          {
+            "feature": "unique_word_ratio",
+            "actual": 0.68,
+            "target_min": 0.69,
+            "target_max": 1.0,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "idea_count",
+            "actual": 1,
+            "target_min": 1.05,
+            "target_max": 1.96,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "hypothetical_count",
+            "actual": 0,
+            "target_min": 0.85,
+            "target_max": 1.58,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "word_count_variance",
+            "actual": 11.79,
+            "target_min": 27.63,
+            "target_max": 51.3,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "long_sentence_ratio",
+            "actual": 0.36,
+            "target_min": 0.36,
+            "target_max": 0.67,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "conditional_ratio",
+            "actual": 0.25,
+            "target_min": 0.0,
+            "target_max": 0.06,
+            "trait": "C",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "emotional_word_count",
+            "actual": 0,
+            "target_min": 0.4,
+            "target_max": 0.87,
+            "trait": "C",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "exclamation_ratio",
+            "actual": 0.75,
+            "target_min": 0.2,
+            "target_max": 0.38,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 7,
+            "target_min": 0.84,
+            "target_max": 1.56,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "certainty_count",
+            "actual": 0,
+            "target_min": 0.56,
+            "target_max": 1.04,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "turn_initiation_ratio",
+            "actual": 0.75,
+            "target_min": 0.26,
+            "target_max": 0.48,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "hedge_count",
+            "actual": 0,
+            "target_min": 0.28,
+            "target_max": 0.75,
+            "trait": "N",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "acknowledgment_count",
+            "actual": 1,
+            "target_min": 0.0,
+            "target_max": 0.44,
+            "trait": "A",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "disagreement_count",
+            "actual": 0,
+            "target_min": 0.61,
+            "target_max": 1.13,
+            "trait": "A",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "negation_count",
+            "actual": 3,
+            "target_min": 1.52,
+            "target_max": 2.83,
+            "trait": "A",
+            "direction": "above",
+            "reliability": 1.0
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your unique word ratio is below target; your idea count is below target; your hypothetical count is below target; your word count variance is below target; your long sentence ratio is below target; Propose an alternative approach or ask a speculative question.. C: your conditional ratio is above target; your emotional word count is below target; Include a concrete action item with an owner or reference a prior commitment.. E: your exclamation ratio is above target; your name mention count is above target; your certainty count is below target; your turn initiation ratio is above target; Keep it brief and let others lead.. N: your hedge count is below target; Express a concern or qualify your statement with uncertainty.. A: your acknowledgment count is above target; your disagreement count is below target; your negation count is above target; Identify a flaw in the current proposal and push back.. ]",
+        "violation_rate": 0.556,
+        "distance": 0.58,
+        "delta": 0.568
+      },
+      {
+        "turn_number": 6,
+        "deviations": [
+          {
+            "feature": "idea_count",
+            "actual": 0,
+            "target_min": 1.05,
+            "target_max": 1.96,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "hypothetical_count",
+            "actual": 0,
+            "target_min": 0.85,
+            "target_max": 1.58,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "word_count_variance",
+            "actual": 7.76,
+            "target_min": 27.63,
+            "target_max": 51.3,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "long_sentence_ratio",
+            "actual": 0.23,
+            "target_min": 0.36,
+            "target_max": 0.67,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "question_ratio",
+            "actual": 0.75,
+            "target_min": 0.36,
+            "target_max": 0.67,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "emotional_word_count",
+            "actual": 2,
+            "target_min": 0.4,
+            "target_max": 0.87,
+            "trait": "C",
+            "direction": "above",
+            "reliability": 1.0
+          },
+          {
+            "feature": "exclamation_ratio",
+            "actual": 0.75,
+            "target_min": 0.2,
+            "target_max": 0.38,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 5,
+            "target_min": 0.84,
+            "target_max": 1.56,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "certainty_count",
+            "actual": 0,
+            "target_min": 0.56,
+            "target_max": 1.04,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "turn_initiation_ratio",
+            "actual": 0.25,
+            "target_min": 0.26,
+            "target_max": 0.48,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "hedge_count",
+            "actual": 0,
+            "target_min": 0.28,
+            "target_max": 0.75,
+            "trait": "N",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "acknowledgment_count",
+            "actual": 1,
+            "target_min": 0.0,
+            "target_max": 0.44,
+            "trait": "A",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "disagreement_count",
+            "actual": 0,
+            "target_min": 0.61,
+            "target_max": 1.13,
+            "trait": "A",
+            "direction": "below",
+            "reliability": 0.5
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your idea count is below target; your hypothetical count is below target; your word count variance is below target; your long sentence ratio is below target; Propose an alternative approach or ask a speculative question.. E: your question ratio is above target; your exclamation ratio is above target; your name mention count is above target; your certainty count is below target; your turn initiation ratio is below target; Keep it brief and let others lead.. C: your emotional word count is above target; Be more spontaneous and avoid over-organizing.. N: your hedge count is below target; Express a concern or qualify your statement with uncertainty.. A: your acknowledgment count is above target; your disagreement count is below target; Validate someone's contribution or find common ground.. ]",
+        "violation_rate": 0.481,
+        "distance": 0.564,
+        "delta": 0.523
+      },
+      {
+        "turn_number": 8,
+        "deviations": [
+          {
+            "feature": "idea_count",
+            "actual": 0,
+            "target_min": 1.05,
+            "target_max": 1.96,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "hypothetical_count",
+            "actual": 0,
+            "target_min": 0.85,
+            "target_max": 1.58,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "word_count_variance",
+            "actual": 7.15,
+            "target_min": 27.63,
+            "target_max": 51.3,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "long_sentence_ratio",
+            "actual": 0.25,
+            "target_min": 0.36,
+            "target_max": 0.67,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "question_ratio",
+            "actual": 0.75,
+            "target_min": 0.36,
+            "target_max": 0.67,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "emotional_word_count",
+            "actual": 2,
+            "target_min": 0.4,
+            "target_max": 0.87,
+            "trait": "C",
+            "direction": "above",
+            "reliability": 1.0
+          },
+          {
+            "feature": "exclamation_ratio",
+            "actual": 1.0,
+            "target_min": 0.2,
+            "target_max": 0.38,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 4,
+            "target_min": 0.84,
+            "target_max": 1.56,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "certainty_count",
+            "actual": 0,
+            "target_min": 0.56,
+            "target_max": 1.04,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "turn_initiation_ratio",
+            "actual": 0.25,
+            "target_min": 0.26,
+            "target_max": 0.48,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "hedge_count",
+            "actual": 0,
+            "target_min": 0.28,
+            "target_max": 0.75,
+            "trait": "N",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "acknowledgment_count",
+            "actual": 2,
+            "target_min": 0.0,
+            "target_max": 0.44,
+            "trait": "A",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "disagreement_count",
+            "actual": 0,
+            "target_min": 0.61,
+            "target_max": 1.13,
+            "trait": "A",
+            "direction": "below",
+            "reliability": 0.5
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your idea count is below target; your hypothetical count is below target; your word count variance is below target; your long sentence ratio is below target; Propose an alternative approach or ask a speculative question.. E: your question ratio is above target; your exclamation ratio is above target; your name mention count is above target; your certainty count is below target; your turn initiation ratio is below target; Keep it brief and let others lead.. C: your emotional word count is above target; Be more spontaneous and avoid over-organizing.. N: your hedge count is below target; Express a concern or qualify your statement with uncertainty.. A: your acknowledgment count is above target; your disagreement count is below target; Validate someone's contribution or find common ground.. ]",
+        "violation_rate": 0.481,
+        "distance": 0.652,
+        "delta": 0.567
+      },
+      {
+        "turn_number": 10,
+        "deviations": [
+          {
+            "feature": "idea_count",
+            "actual": 1,
+            "target_min": 1.05,
+            "target_max": 1.96,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "hypothetical_count",
+            "actual": 0,
+            "target_min": 0.85,
+            "target_max": 1.58,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "word_count_variance",
+            "actual": 5.96,
+            "target_min": 27.63,
+            "target_max": 51.3,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.1
+          },
+          {
+            "feature": "long_sentence_ratio",
+            "actual": 0.27,
+            "target_min": 0.36,
+            "target_max": 0.67,
+            "trait": "O",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "action_item_count",
+            "actual": 1,
+            "target_min": 0.0,
+            "target_max": 0.19,
+            "trait": "C",
+            "direction": "above",
+            "reliability": 1.0
+          },
+          {
+            "feature": "emotional_word_count",
+            "actual": 1,
+            "target_min": 0.4,
+            "target_max": 0.87,
+            "trait": "C",
+            "direction": "above",
+            "reliability": 1.0
+          },
+          {
+            "feature": "exclamation_ratio",
+            "actual": 0.75,
+            "target_min": 0.2,
+            "target_max": 0.38,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "name_mention_count",
+            "actual": 3,
+            "target_min": 0.84,
+            "target_max": 1.56,
+            "trait": "E",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "certainty_count",
+            "actual": 0,
+            "target_min": 0.56,
+            "target_max": 1.04,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "turn_initiation_ratio",
+            "actual": 0.25,
+            "target_min": 0.26,
+            "target_max": 0.48,
+            "trait": "E",
+            "direction": "below",
+            "reliability": 0.5
+          },
+          {
+            "feature": "hedge_count",
+            "actual": 0,
+            "target_min": 0.28,
+            "target_max": 0.75,
+            "trait": "N",
+            "direction": "below",
+            "reliability": 1.0
+          },
+          {
+            "feature": "acknowledgment_count",
+            "actual": 1,
+            "target_min": 0.0,
+            "target_max": 0.44,
+            "trait": "A",
+            "direction": "above",
+            "reliability": 0.5
+          },
+          {
+            "feature": "disagreement_count",
+            "actual": 0,
+            "target_min": 0.61,
+            "target_max": 1.13,
+            "trait": "A",
+            "direction": "below",
+            "reliability": 0.5
+          }
+        ],
+        "nudge_text": "[FIDELITY NOTE: O: your idea count is below target; your hypothetical count is below target; your word count variance is below target; your long sentence ratio is below target; Propose an alternative approach or ask a speculative question.. C: your action item count is above target; your emotional word count is above target; Be more spontaneous and avoid over-organizing.. E: your exclamation ratio is above target; your name mention count is above target; your certainty count is below target; your turn initiation ratio is below target; Address someone by name and elaborate more.. N: your hedge count is below target; Express a concern or qualify your statement with uncertainty.. A: your acknowledgment count is above target; your disagreement count is below target; Validate someone's contribution or find common ground.. ]",
+        "violation_rate": 0.481,
+        "distance": 0.569,
+        "delta": 0.525
+      }
+    ],
+    "nudge_rate": 0.417,
+    "regeneration_rate": 0.0,
+    "hard_violation_rate": 0.167
+  },
+  "timestamp": "2026-03-06T03:06:41.287816"
+}

@@ -1,47 +1,12 @@
 [
   {
-    "session_key": "bcfc_v4_anxious_perfectionist_crisis_management_r1",
-    "error": "Connection error.",
-    "timestamp": "2026-03-06T01:35:52.123912"
-  },
-  {
-    "session_key": "bcfc_v4_anxious_perfectionist_strategy_pivot_r1",
-    "error": "Connection error.",
-    "timestamp": "2026-03-06T01:35:55.527803"
-  },
-  {
     "session_key": "bcfc_v4_anxious_perfectionist_release_recovery_r1",
-    "error": "Connection error.",
-    "timestamp": "2026-03-06T01:35:58.844144"
-  },
-  {
-    "session_key": "bcfc_v4_creative_rebel_crisis_management_r1",
-    "error": "Connection error.",
-    "timestamp": "2026-03-06T01:36:02.103650"
-  },
-  {
-    "session_key": "bcfc_v4_creative_rebel_strategy_pivot_r1",
-    "error": "Connection error.",
-    "timestamp": "2026-03-06T01:36:05.474425"
-  },
-  {
-    "session_key": "bcfc_v4_creative_rebel_release_recovery_r1",
-    "error": "Connection error.",
-    "timestamp": "2026-03-06T01:36:08.747980"
-  },
-  {
-    "session_key": "bcfc_v4_neutral_observer_crisis_management_r1",
-    "error": "Connection error.",
-    "timestamp": "2026-03-06T01:36:12.014897"
+    "error": "",
+    "timestamp": "2026-03-06T02:17:56.415567"
   },
   {
     "session_key": "bcfc_v4_neutral_observer_strategy_pivot_r1",
-    "error": "Connection error.",
-    "timestamp": "2026-03-06T01:36:15.397801"
-  },
-  {
-    "session_key": "bcfc_v4_neutral_observer_release_recovery_r1",
-    "error": "Connection error.",
-    "timestamp": "2026-03-06T01:36:18.824759"
+    "error": "",
+    "timestamp": "2026-03-06T03:36:30.772204"
   }
 ]
