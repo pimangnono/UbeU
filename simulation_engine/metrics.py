@@ -268,6 +268,28 @@ def action_feedback_utilization(runtime: StakeholderSimulationRuntime) -> float:
     return round(hits / max(opportunities, 1), 4)
 
 
+def action_plan_alignment_mean(runtime: StakeholderSimulationRuntime) -> float:
+    audits = runtime.ledger.ordered_action_audits()
+    if not audits:
+        return 0.0
+    values = [
+        float(audit.get("action_plan_alignment", 0.0))
+        for audit in audits
+        if audit.get("planned_action_artifact")
+    ]
+    if not values:
+        return 0.0
+    return round(sum(values) / len(values), 4)
+
+
+def planned_action_coverage_rate(runtime: StakeholderSimulationRuntime) -> float:
+    audits = runtime.ledger.ordered_action_audits()
+    if not audits:
+        return 0.0
+    with_plan = [audit for audit in audits if audit.get("planned_action_artifact")]
+    return round(len(with_plan) / len(audits), 4)
+
+
 def phase_end_world_states(runtime: StakeholderSimulationRuntime) -> list[dict[str, float]]:
     return [
         dict(snapshot.global_state)
@@ -292,6 +314,8 @@ class BenchmarkRunMetrics:
     executed_action_contradiction_rate: float = 0.0
     state_transition_coherence: float = 0.0
     action_feedback_utilization: float = 0.0
+    action_plan_alignment_mean: float = 0.0
+    planned_action_coverage_rate: float = 0.0
     phase_end_world_states: list[dict[str, float]] | None = None
 
     def to_dict(self) -> dict[str, Any]:
@@ -310,6 +334,8 @@ class BenchmarkRunMetrics:
             "executed_action_contradiction_rate": self.executed_action_contradiction_rate,
             "state_transition_coherence": self.state_transition_coherence,
             "action_feedback_utilization": self.action_feedback_utilization,
+            "action_plan_alignment_mean": self.action_plan_alignment_mean,
+            "planned_action_coverage_rate": self.planned_action_coverage_rate,
             "phase_end_world_states": self.phase_end_world_states or [],
         }
 
@@ -350,6 +376,8 @@ def compute_runtime_metrics(runtime: StakeholderSimulationRuntime) -> BenchmarkR
         executed_action_contradiction_rate=executed_action_contradiction_rate(runtime),
         state_transition_coherence=state_transition_coherence(runtime),
         action_feedback_utilization=action_feedback_utilization(runtime),
+        action_plan_alignment_mean=action_plan_alignment_mean(runtime),
+        planned_action_coverage_rate=planned_action_coverage_rate(runtime),
         phase_end_world_states=phase_end_world_states(runtime),
     )
 

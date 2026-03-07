@@ -9,8 +9,10 @@ from langgraph.graph import END, START, StateGraph
 from .ablation import DEFAULT_ABLATION_CONFIG
 from .action_layer import (
     apply_transition_rule,
+    action_plan_alignment_score,
     arbitrate_phase_actions,
     compile_action_proposal,
+    normalize_planned_action_artifact,
 )
 from .controller import PersonaStateController
 from .graph_state import StakeholderGraphState
@@ -50,12 +52,14 @@ class StakeholderSimulationNodes:
             "simulation_complete": False,
             "injected_events": [],
             "policy_plan": {},
+            "planned_action_artifact": None,
             "candidate_pool": [],
             "scored_candidates": [],
             "selected_candidate": {},
             "selected_candidate_text": "",
             "selected_meta": {},
             "selected_action_proposal": None,
+            "selected_action_audit": None,
             "approved_phase_actions": [],
             "rejected_phase_actions": [],
             "executed_phase_actions": [],
@@ -100,12 +104,14 @@ class StakeholderSimulationNodes:
             "actor_context": runtime.actor_context(actor_id, max_turns=8),
             "drift_nudge": None,
             "policy_plan": {},
+            "planned_action_artifact": None,
             "candidate_pool": [],
             "scored_candidates": [],
             "selected_candidate": {},
             "selected_candidate_text": "",
             "selected_meta": {},
             "selected_action_proposal": None,
+            "selected_action_audit": None,
         }
 
     def route_generation_mode(self, state: StakeholderGraphState) -> str:
@@ -145,10 +151,22 @@ class StakeholderSimulationNodes:
             actor_snapshot=snapshot,
             phase_name=phase.name,
             phase_cues=phase.cues,
+            allowed_action_types=list(runtime.script.allowed_action_types_for_phase(phase.name)),
+            valid_target_keys=list(runtime.script.target_keys_for_phase(phase.name)),
+        )
+        planned_action_artifact = normalize_planned_action_artifact(
+            script=runtime.script,
+            actor_id=state["active_actor_id"],
+            phase_name=phase.name,
+            policy_plan=policy_plan,
+            planned_action_artifact=policy_plan.get("action_plan"),
+            valid_target_keys=list(runtime.script.target_keys_for_phase(phase.name)),
+            allowed_action_types=list(runtime.script.allowed_action_types_for_phase(phase.name)),
         )
         return {
             "drift_nudge": drift_nudge,
             "policy_plan": policy_plan,
+            "planned_action_artifact": planned_action_artifact.to_dict() if planned_action_artifact else None,
         }
 
     async def generate_candidate_pool(self, state: StakeholderGraphState) -> dict[str, Any]:
@@ -179,6 +197,7 @@ class StakeholderSimulationNodes:
                 "mode": state["condition"],
                 "policy_plan": state["policy_plan"],
                 "slot": selected.get("slot"),
+                "planned_action_artifact": state.get("planned_action_artifact"),
             },
         }
 
@@ -188,8 +207,8 @@ class StakeholderSimulationNodes:
         phase = runtime.current_phase
         action_context = {
             "script": runtime.script,
-            "valid_target_keys": list(runtime.script.world_state_schema),
-            "allowed_action_types": list(runtime.script.allowed_action_types),
+            "valid_target_keys": list(runtime.script.target_keys_for_phase(phase.name)),
+            "allowed_action_types": list(runtime.script.allowed_action_types_for_phase(phase.name)),
             "global_state": dict(runtime.ledger.latest_world_state().global_state),
             "turn_index": runtime.turn_index + 1,
             "use_action_aware_scoring": bool(state["ablation_config"].use_action_aware_scoring),
@@ -234,6 +253,8 @@ class StakeholderSimulationNodes:
                 "audit": selection["audit"],
                 "slot": selected.get("slot"),
                 "action_hint": selected.get("action_hint"),
+                "planned_action_artifact": selected.get("planned_action_artifact") or state.get("planned_action_artifact"),
+                "action_plan_alignment": selected.get("action_plan_alignment"),
             },
         }
 
@@ -273,24 +294,56 @@ class StakeholderSimulationNodes:
             selected_text=state["selected_candidate_text"],
             policy_plan=state.get("policy_plan", {}),
             actor_snapshot=state["actor_context"]["snapshot"],
+            planned_action_artifact=state.get("planned_action_artifact"),
+            seed_action_hint=state.get("selected_meta", {}).get("action_hint"),
         )
+        trace_id = f"{runtime.script.simulation_id}:{state['active_actor_id']}:{runtime.current_phase.name}:{state['last_turn_index']}"
+        selected_action_hint = state.get("selected_meta", {}).get("action_hint")
+        planned_action_artifact = state.get("planned_action_artifact")
+        compiled_payload = proposal.to_dict() if proposal else None
+        alignment_score, alignment_details = action_plan_alignment_score(
+            planned_action_artifact,
+            compiled_payload or selected_action_hint,
+        )
+        audit = {
+            "trace_id": trace_id,
+            "proposal_id": proposal.proposal_id if proposal else trace_id,
+            "actor_id": state["active_actor_id"],
+            "phase_name": runtime.current_phase.name,
+            "turn_index": state["last_turn_index"],
+            "planned_action_artifact": planned_action_artifact,
+            "selected_action_hint": selected_action_hint,
+            "compiled_proposal": compiled_payload,
+            "compiler_source": proposal.compiler_source if proposal else "none",
+            "compile_status": proposal.status if proposal else "no_action",
+            "compile_rejection_reason": proposal.rejection_reason if proposal else "no_action_detected",
+            "validation_trace": list(proposal.validation_trace) if proposal else [],
+            "action_plan_alignment": alignment_score,
+            "action_plan_alignment_details": alignment_details,
+            "selected_text_excerpt": state["selected_candidate_text"][:180],
+        }
         return {
-            "selected_action_proposal": proposal.to_dict() if proposal else None,
+            "selected_action_proposal": compiled_payload,
+            "selected_action_audit": audit,
             "selected_meta": {
                 **state.get("selected_meta", {}),
-                "action_compilation": proposal.to_dict() if proposal else None,
+                "action_compilation": compiled_payload,
+                "action_audit_trace_id": trace_id,
             },
         }
 
     async def record_action_proposal(self, state: StakeholderGraphState) -> dict[str, Any]:
         runtime = state["runtime"]
         payload = state.get("selected_action_proposal")
+        audit = state.get("selected_action_audit")
+        if audit:
+            runtime.ledger.upsert_action_audit(audit["trace_id"], audit)
         if not payload:
-            return {"selected_action_proposal": None}
+            return {"selected_action_proposal": None, "selected_action_audit": audit}
         from .action_layer import ActionProposal
 
         runtime.ledger.append_action_proposal(ActionProposal(**payload))
-        return {"selected_action_proposal": payload}
+        return {"selected_action_proposal": payload, "selected_action_audit": audit}
 
     def route_phase_boundary(self, state: StakeholderGraphState) -> str:
         runtime = state["runtime"]
@@ -309,11 +362,21 @@ class StakeholderSimulationNodes:
         )
         for proposal in approved:
             runtime.ledger.update_action_proposal_status(proposal.proposal_id, status="approved")
+            runtime.ledger.update_action_audit(
+                proposal.proposal_id,
+                arbitration_status="approved",
+                arbitration_reason=None,
+            )
         for proposal in rejected:
             runtime.ledger.update_action_proposal_status(
                 proposal.proposal_id,
                 status="rejected",
                 rejection_reason=proposal.rejection_reason,
+            )
+            runtime.ledger.update_action_audit(
+                proposal.proposal_id,
+                arbitration_status="rejected",
+                arbitration_reason=proposal.rejection_reason,
             )
         return {
             "approved_phase_actions": [proposal.to_dict() for proposal in approved],
@@ -339,8 +402,21 @@ class StakeholderSimulationNodes:
                     status="rejected",
                     rejection_reason=rejection_reason or "transition_failed",
                 )
+                runtime.ledger.update_action_audit(
+                    proposal.proposal_id,
+                    execution_status="rejected",
+                    execution_rejection_reason=rejection_reason or "transition_failed",
+                )
                 continue
             runtime.ledger.apply_executed_action(executed, next_snapshot)
+            runtime.ledger.update_action_audit(
+                proposal.proposal_id,
+                execution_status="executed",
+                execution_rejection_reason=None,
+                executed_action=executed.to_dict(),
+                pre_state=dict(current_snapshot.global_state),
+                post_state=dict(next_snapshot.global_state),
+            )
             current_snapshot = next_snapshot
             executed_rows.append(executed)
         return {

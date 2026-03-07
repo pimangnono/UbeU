@@ -154,6 +154,7 @@ class SimulationStateLedger:
         self.relationship_events: list[dict[str, Any]] = []
         self.action_proposals: list[ActionProposal] = []
         self.executed_actions: list[ExecutedAction] = []
+        self.action_audits: dict[str, dict[str, Any]] = {}
         self.world_state_history: list[WorldStateSnapshot] = []
         self.phase_state_feedback: dict[str, dict[str, dict[str, Any]]] = {}
 
@@ -443,6 +444,30 @@ class SimulationStateLedger:
         self.action_proposals.append(proposal)
         return proposal
 
+    def upsert_action_audit(self, trace_id: str, payload: dict[str, Any]) -> dict[str, Any]:
+        existing = dict(self.action_audits.get(trace_id, {}))
+        existing.update(payload)
+        self.action_audits[trace_id] = existing
+        return existing
+
+    def update_action_audit(self, trace_id: str, **updates: Any) -> dict[str, Any] | None:
+        if trace_id not in self.action_audits:
+            return None
+        self.action_audits[trace_id].update(updates)
+        return dict(self.action_audits[trace_id])
+
+    def ordered_action_audits(self) -> list[dict[str, Any]]:
+        return [
+            audit
+            for _, audit in sorted(
+                self.action_audits.items(),
+                key=lambda item: (
+                    int(item[1].get("turn_index", 0)),
+                    str(item[0]),
+                ),
+            )
+        ]
+
     def update_action_proposal_status(
         self,
         proposal_id: str,
@@ -550,4 +575,9 @@ class SimulationStateLedger:
                 if action.owner_actor_id == actor_id or action.target_actor_id == actor_id
             ][-2:],
             "unresolved_actions": self.unresolved_action_proposals_for(actor_id),
+            "recent_action_audits": [
+                audit
+                for audit in self.ordered_action_audits()
+                if audit.get("actor_id") == actor_id
+            ][-2:],
         }

@@ -1,0 +1,424 @@
+{
+  "saved_at": "2026-03-07T20:40:59.068455",
+  "config": {
+    "conditions": [
+      "naive_action_baseline",
+      "engine_dialogue_only",
+      "engine_action_v0"
+    ],
+    "repetitions": 1,
+    "script_ids": [
+      "youth_employment_policy",
+      "housing_support_policy",
+      "commuting_support_policy",
+      "new_product_launch",
+      "post_merger_integration"
+    ],
+    "style_slots": [
+      "integrator",
+      "planner",
+      "challenger",
+      "skeptic"
+    ]
+  },
+  "aggregate": {
+    "naive_action_baseline": {
+      "num_runs": 5,
+      "persona_drift_mae_mean": 0.1851,
+      "persona_drift_mae_std": 0.0117,
+      "relationship_inconsistency_mean": 0.0,
+      "commitment_contradiction_mean": 0.0857,
+      "envelope_violations_mean": 6.8,
+      "structured_action_validity_rate_mean": 0.6267,
+      "owner_resolution_rate_mean": 1.0,
+      "executed_action_contradiction_rate_mean": 0.0,
+      "state_transition_coherence_mean": 1.0,
+      "action_feedback_utilization_mean": 0.3333,
+      "state_trajectory_variance_mean": 0.0006,
+      "per_trait_error_mean": {
+        "O": 0.1173,
+        "C": 0.3233,
+        "E": 0.1311,
+        "A": 0.1013,
+        "N": 0.2527
+      },
+      "turn_count_mean": 11
+    },
+    "engine_dialogue_only": {
+      "num_runs": 5,
+      "persona_drift_mae_mean": 0.1568,
+      "persona_drift_mae_std": 0.0079,
+      "relationship_inconsistency_mean": 0.0675,
+      "commitment_contradiction_mean": 0.0,
+      "envelope_violations_mean": 6,
+      "structured_action_validity_rate_mean": 0.2933,
+      "owner_resolution_rate_mean": 0.8,
+      "executed_action_contradiction_rate_mean": 0.0,
+      "state_transition_coherence_mean": 0.8,
+      "action_feedback_utilization_mean": 0.5,
+      "state_trajectory_variance_mean": 0.0,
+      "per_trait_error_mean": {
+        "O": 0.0893,
+        "C": 0.266,
+        "E": 0.1746,
+        "A": 0.0707,
+        "N": 0.1833
+      },
+      "turn_count_mean": 11
+    },
+    "engine_action_v0": {
+      "num_runs": 5,
+      "persona_drift_mae_mean": 0.1676,
+      "persona_drift_mae_std": 0.0281,
+      "relationship_inconsistency_mean": 0.0,
+      "commitment_contradiction_mean": 0.0,
+      "envelope_violations_mean": 5.2,
+      "structured_action_validity_rate_mean": 0.4739,
+      "owner_resolution_rate_mean": 1.0,
+      "executed_action_contradiction_rate_mean": 0.0,
+      "state_transition_coherence_mean": 1.0,
+      "action_feedback_utilization_mean": 0.4667,
+      "state_trajectory_variance_mean": 0.0018,
+      "per_trait_error_mean": {
+        "O": 0.104,
+        "C": 0.2753,
+        "E": 0.1769,
+        "A": 0.088,
+        "N": 0.194
+      },
+      "turn_count_mean": 11
+    }
+  },
+  "aggregate_by_script": {
+    "youth_employment_policy:naive_action_baseline": {
+      "num_runs": 1,
+      "persona_drift_mae_mean": 0.1825,
+      "persona_drift_mae_std": 0.0,
+      "relationship_inconsistency_mean": 0.0,
+      "commitment_contradiction_mean": 0.0,
+      "envelope_violations_mean": 7,
+      "structured_action_validity_rate_mean": 0.8333,
+      "owner_resolution_rate_mean": 1.0,
+      "executed_action_contradiction_rate_mean": 0.0,
+      "state_transition_coherence_mean": 1.0,
+      "action_feedback_utilization_mean": 0.0,
+      "state_trajectory_variance_mean": 0.0,
+      "per_trait_error_mean": {
+        "O": 0.06,
+        "C": 0.38,
+        "E": 0.1259,
+        "A": 0.0967,
+        "N": 0.25
+      },
+      "turn_count_mean": 11
+    },
+    "youth_employment_policy:engine_dialogue_only": {
+      "num_runs": 1,
+      "persona_drift_mae_mean": 0.1651,
+      "persona_drift_mae_std": 0.0,
+      "relationship_inconsistency_mean": 0.3375,
+      "commitment_contradiction_mean": 0.0,
+      "envelope_violations_mean": 7,
+      "structured_action_validity_rate_mean": 0.375,
+      "owner_resolution_rate_mean": 1.0,
+      "executed_action_contradiction_rate_mean": 0.0,
+      "state_transition_coherence_mean": 1.0,
+      "action_feedback_utilization_mean": 0.5,
+      "state_trajectory_variance_mean": 0.0,
+      "per_trait_error_mean": {
+        "O": 0.0667,
+        "C": 0.3067,
+        "E": 0.1986,
+        "A": 0.07,
+        "N": 0.1833
+      },
+      "turn_count_mean": 11
+    },
+    "youth_employment_policy:engine_action_v0": {
+      "num_runs": 1,
+      "persona_drift_mae_mean": 0.1998,
+      "persona_drift_mae_std": 0.0,
+      "relationship_inconsistency_mean": 0.0,
+      "commitment_contradiction_mean": 0.0,
+      "envelope_violations_mean": 7,
+      "structured_action_validity_rate_mean": 0.6,
+      "owner_resolution_rate_mean": 1.0,
+      "executed_action_contradiction_rate_mean": 0.0,
+      "state_transition_coherence_mean": 1.0,
+      "action_feedback_utilization_mean": 0.0,
+      "state_trajectory_variance_mean": 0.0,
+      "per_trait_error_mean": {
+        "O": 0.0867,
+        "C": 0.3467,
+        "E": 0.2125,
+        "A": 0.1033,
+        "N": 0.25
+      },
+      "turn_count_mean": 11
+    },
+    "housing_support_policy:naive_action_baseline": {
+      "num_runs": 1,
+      "persona_drift_mae_mean": 0.1974,
+      "persona_drift_mae_std": 0.0,
+      "relationship_inconsistency_mean": 0.0,
+      "commitment_contradiction_mean": 0.0,
+      "envelope_violations_mean": 9,
+      "structured_action_validity_rate_mean": 0.4,
+      "owner_resolution_rate_mean": 1.0,
+      "executed_action_contradiction_rate_mean": 0.0,
+      "state_transition_coherence_mean": 1.0,
+      "action_feedback_utilization_mean": 0.0,
+      "state_trajectory_variance_mean": 0.0,
+      "per_trait_error_mean": {
+        "O": 0.1133,
+        "C": 0.3233,
+        "E": 0.1605,
+        "A": 0.1233,
+        "N": 0.2667
+      },
+      "turn_count_mean": 11
+    },
+    "housing_support_policy:engine_dialogue_only": {
+      "num_runs": 1,
+      "persona_drift_mae_mean": 0.1636,
+      "persona_drift_mae_std": 0.0,
+      "relationship_inconsistency_mean": 0.0,
+      "commitment_contradiction_mean": 0.0,
+      "envelope_violations_mean": 6,
+      "structured_action_validity_rate_mean": 0.5556,
+      "owner_resolution_rate_mean": 1.0,
+      "executed_action_contradiction_rate_mean": 0.0,
+      "state_transition_coherence_mean": 1.0,
+      "action_feedback_utilization_mean": 0.0,
+      "state_trajectory_variance_mean": 0.0,
+      "per_trait_error_mean": {
+        "O": 0.0667,
+        "C": 0.33,
+        "E": 0.2047,
+        "A": 0.0567,
+        "N": 0.16
+      },
+      "turn_count_mean": 11
+    },
+    "housing_support_policy:engine_action_v0": {
+      "num_runs": 1,
+      "persona_drift_mae_mean": 0.1719,
+      "persona_drift_mae_std": 0.0,
+      "relationship_inconsistency_mean": 0.0,
+      "commitment_contradiction_mean": 0.0,
+      "envelope_violations_mean": 3,
+      "structured_action_validity_rate_mean": 0.625,
+      "owner_resolution_rate_mean": 1.0,
+      "executed_action_contradiction_rate_mean": 0.0,
+      "state_transition_coherence_mean": 1.0,
+      "action_feedback_utilization_mean": 0.3333,
+      "state_trajectory_variance_mean": 0.0,
+      "per_trait_error_mean": {
+        "O": 0.0667,
+        "C": 0.35,
+        "E": 0.2194,
+        "A": 0.0767,
+        "N": 0.1467
+      },
+      "turn_count_mean": 11
+    },
+    "commuting_support_policy:naive_action_baseline": {
+      "num_runs": 1,
+      "persona_drift_mae_mean": 0.1648,
+      "persona_drift_mae_std": 0.0,
+      "relationship_inconsistency_mean": 0.0,
+      "commitment_contradiction_mean": 0.0,
+      "envelope_violations_mean": 4,
+      "structured_action_validity_rate_mean": 0.5,
+      "owner_resolution_rate_mean": 1.0,
+      "executed_action_contradiction_rate_mean": 0.0,
+      "state_transition_coherence_mean": 1.0,
+      "action_feedback_utilization_mean": 0.0,
+      "state_trajectory_variance_mean": 0.0,
+      "per_trait_error_mean": {
+        "O": 0.1033,
+        "C": 0.2467,
+        "E": 0.1542,
+        "A": 0.1067,
+        "N": 0.2133
+      },
+      "turn_count_mean": 11
+    },
+    "commuting_support_policy:engine_dialogue_only": {
+      "num_runs": 1,
+      "persona_drift_mae_mean": 0.1451,
+      "persona_drift_mae_std": 0.0,
+      "relationship_inconsistency_mean": 0.0,
+      "commitment_contradiction_mean": 0.0,
+      "envelope_violations_mean": 4,
+      "structured_action_validity_rate_mean": 0.0,
+      "owner_resolution_rate_mean": 0.0,
+      "executed_action_contradiction_rate_mean": 0.0,
+      "state_transition_coherence_mean": 0.0,
+      "action_feedback_utilization_mean": 0.0,
+      "state_trajectory_variance_mean": 0.0,
+      "per_trait_error_mean": {
+        "O": 0.07,
+        "C": 0.2933,
+        "E": 0.1487,
+        "A": 0.0667,
+        "N": 0.1467
+      },
+      "turn_count_mean": 11
+    },
+    "commuting_support_policy:engine_action_v0": {
+      "num_runs": 1,
+      "persona_drift_mae_mean": 0.1153,
+      "persona_drift_mae_std": 0.0,
+      "relationship_inconsistency_mean": 0.0,
+      "commitment_contradiction_mean": 0.0,
+      "envelope_violations_mean": 3,
+      "structured_action_validity_rate_mean": 0.4,
+      "owner_resolution_rate_mean": 1.0,
+      "executed_action_contradiction_rate_mean": 0.0,
+      "state_transition_coherence_mean": 1.0,
+      "action_feedback_utilization_mean": 0.0,
+      "state_trajectory_variance_mean": 0.0,
+      "per_trait_error_mean": {
+        "O": 0.09,
+        "C": 0.1533,
+        "E": 0.18,
+        "A": 0.06,
+        "N": 0.0933
+      },
+      "turn_count_mean": 11
+    },
+    "new_product_launch:naive_action_baseline": {
+      "num_runs": 1,
+      "persona_drift_mae_mean": 0.1958,
+      "persona_drift_mae_std": 0.0,
+      "relationship_inconsistency_mean": 0.0,
+      "commitment_contradiction_mean": 0.2857,
+      "envelope_violations_mean": 7,
+      "structured_action_validity_rate_mean": 0.4,
+      "owner_resolution_rate_mean": 1.0,
+      "executed_action_contradiction_rate_mean": 0.0,
+      "state_transition_coherence_mean": 1.0,
+      "action_feedback_utilization_mean": 0.6667,
+      "state_trajectory_variance_mean": 0.0,
+      "per_trait_error_mean": {
+        "O": 0.18,
+        "C": 0.3333,
+        "E": 0.1423,
+        "A": 0.0667,
+        "N": 0.2567
+      },
+      "turn_count_mean": 11
+    },
+    "new_product_launch:engine_dialogue_only": {
+      "num_runs": 1,
+      "persona_drift_mae_mean": 0.1602,
+      "persona_drift_mae_std": 0.0,
+      "relationship_inconsistency_mean": 0.0,
+      "commitment_contradiction_mean": 0.0,
+      "envelope_violations_mean": 7,
+      "structured_action_validity_rate_mean": 0.25,
+      "owner_resolution_rate_mean": 1.0,
+      "executed_action_contradiction_rate_mean": 0.0,
+      "state_transition_coherence_mean": 1.0,
+      "action_feedback_utilization_mean": 1.0,
+      "state_trajectory_variance_mean": 0.0,
+      "per_trait_error_mean": {
+        "O": 0.1133,
+        "C": 0.2067,
+        "E": 0.2044,
+        "A": 0.06,
+        "N": 0.2167
+      },
+      "turn_count_mean": 11
+    },
+    "new_product_launch:engine_action_v0": {
+      "num_runs": 1,
+      "persona_drift_mae_mean": 0.1796,
+      "persona_drift_mae_std": 0.0,
+      "relationship_inconsistency_mean": 0.0,
+      "commitment_contradiction_mean": 0.0,
+      "envelope_violations_mean": 7,
+      "structured_action_validity_rate_mean": 0.4444,
+      "owner_resolution_rate_mean": 1.0,
+      "executed_action_contradiction_rate_mean": 0.0,
+      "state_transition_coherence_mean": 1.0,
+      "action_feedback_utilization_mean": 1.0,
+      "state_trajectory_variance_mean": 0.0,
+      "per_trait_error_mean": {
+        "O": 0.1467,
+        "C": 0.24,
+        "E": 0.1747,
+        "A": 0.08,
+        "N": 0.2567
+      },
+      "turn_count_mean": 11
+    },
+    "post_merger_integration:naive_action_baseline": {
+      "num_runs": 1,
+      "persona_drift_mae_mean": 0.1852,
+      "persona_drift_mae_std": 0.0,
+      "relationship_inconsistency_mean": 0.0,
+      "commitment_contradiction_mean": 0.1429,
+      "envelope_violations_mean": 7,
+      "structured_action_validity_rate_mean": 1.0,
+      "owner_resolution_rate_mean": 1.0,
+      "executed_action_contradiction_rate_mean": 0.0,
+      "state_transition_coherence_mean": 1.0,
+      "action_feedback_utilization_mean": 1.0,
+      "state_trajectory_variance_mean": 0.0,
+      "per_trait_error_mean": {
+        "O": 0.13,
+        "C": 0.3333,
+        "E": 0.0727,
+        "A": 0.1133,
+        "N": 0.2767
+      },
+      "turn_count_mean": 11
+    },
+    "post_merger_integration:engine_dialogue_only": {
+      "num_runs": 1,
+      "persona_drift_mae_mean": 0.15,
+      "persona_drift_mae_std": 0.0,
+      "relationship_inconsistency_mean": 0.0,
+      "commitment_contradiction_mean": 0.0,
+      "envelope_violations_mean": 6,
+      "structured_action_validity_rate_mean": 0.2857,
+      "owner_resolution_rate_mean": 1.0,
+      "executed_action_contradiction_rate_mean": 0.0,
+      "state_transition_coherence_mean": 1.0,
+      "action_feedback_utilization_mean": 1.0,
+      "state_trajectory_variance_mean": 0.0,
+      "per_trait_error_mean": {
+        "O": 0.13,
+        "C": 0.1933,
+        "E": 0.1167,
+        "A": 0.1,
+        "N": 0.21
+      },
+      "turn_count_mean": 11
+    },
+    "post_merger_integration:engine_action_v0": {
+      "num_runs": 1,
+      "persona_drift_mae_mean": 0.1716,
+      "persona_drift_mae_std": 0.0,
+      "relationship_inconsistency_mean": 0.0,
+      "commitment_contradiction_mean": 0.0,
+      "envelope_violations_mean": 6,
+      "structured_action_validity_rate_mean": 0.3,
+      "owner_resolution_rate_mean": 1.0,
+      "executed_action_contradiction_rate_mean": 0.0,
+      "state_transition_coherence_mean": 1.0,
+      "action_feedback_utilization_mean": 1.0,
+      "state_trajectory_variance_mean": 0.0,
+      "per_trait_error_mean": {
+        "O": 0.13,
+        "C": 0.2867,
+        "E": 0.0978,
+        "A": 0.12,
+        "N": 0.2233
+      },
+      "turn_count_mean": 11
+    }
+  }
+}
