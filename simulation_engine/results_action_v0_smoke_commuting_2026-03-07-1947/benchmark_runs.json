@@ -1,0 +1,2003 @@
+{
+  "config": {
+    "conditions": [
+      "naive_action_baseline",
+      "engine_dialogue_only",
+      "engine_action_v0"
+    ],
+    "repetitions": 1,
+    "script_ids": [
+      "commuting_support_policy"
+    ],
+    "style_slots": [
+      "integrator",
+      "planner",
+      "challenger",
+      "skeptic"
+    ]
+  },
+  "runs": [
+    {
+      "condition": "naive_action_baseline",
+      "simulation_id": "commuting_support_policy",
+      "runtime_summary": {
+        "simulation_id": "commuting_support_policy",
+        "title": "Commuting Subsidy Policy",
+        "objective": "Evaluate commuting subsidy effects on workers, small businesses, and local administration.",
+        "phase_name": "CLOSING",
+        "turn_count": 11,
+        "actor_ids": [
+          "actor_1",
+          "actor_2",
+          "actor_3"
+        ],
+        "actor_labels": {
+          "actor_1": "Early-career commuter",
+          "actor_2": "Small retail employer",
+          "actor_3": "Transport policy coordinator"
+        },
+        "actor_display_names": {
+          "actor_1": "Minji",
+          "actor_2": "Mr. Choi",
+          "actor_3": "Planner Yoon"
+        },
+        "action_proposal_count": 4,
+        "executed_action_count": 2,
+        "phase_count": 4,
+        "latest_world_state": {
+          "alignment": 0.52,
+          "trust": 0.5,
+          "uncertainty": 0.48,
+          "execution_confidence": 0.52,
+          "risk": 0.48,
+          "admin_feasibility": 0.46,
+          "spillover_risk": 0.54
+        }
+      },
+      "metrics": {
+        "persona_drift_mae": 0.182,
+        "relationship_inconsistency": 0.0,
+        "commitment_contradiction_rate": 0.0,
+        "envelope_violations": 5,
+        "per_trait_error_mean": {
+          "O": 0.07,
+          "C": 0.38,
+          "E": 0.1336,
+          "A": 0.1,
+          "N": 0.2267
+        },
+        "actor_labels": {
+          "actor_1": "Early-career commuter",
+          "actor_2": "Small retail employer",
+          "actor_3": "Transport policy coordinator"
+        },
+        "actor_display_names": {
+          "actor_1": "Minji",
+          "actor_2": "Mr. Choi",
+          "actor_3": "Planner Yoon"
+        },
+        "actor_trait_estimates": {
+          "actor_1": {
+            "O": 0.53,
+            "C": 0.2,
+            "E": 0.59,
+            "A": 0.43,
+            "N": 0.26
+          },
+          "actor_2": {
+            "O": 0.43,
+            "C": 0.28,
+            "E": 0.5792,
+            "A": 0.33,
+            "N": 0.18
+          },
+          "actor_3": {
+            "O": 0.43,
+            "C": 0.36,
+            "E": 0.5916,
+            "A": 0.43,
+            "N": 0.18
+          }
+        },
+        "actor_trait_errors": {
+          "actor_1": {
+            "O": 0.04,
+            "C": 0.32,
+            "E": 0.15,
+            "A": 0.16,
+            "N": 0.29
+          },
+          "actor_2": {
+            "O": 0.1,
+            "C": 0.41,
+            "E": 0.1592,
+            "A": 0.1,
+            "N": 0.22
+          },
+          "actor_3": {
+            "O": 0.07,
+            "C": 0.41,
+            "E": 0.0916,
+            "A": 0.04,
+            "N": 0.17
+          }
+        },
+        "structured_action_validity_rate": 0.5,
+        "owner_resolution_rate": 1.0,
+        "executed_action_contradiction_rate": 0.0,
+        "state_transition_coherence": 1.0,
+        "action_feedback_utilization": 0.0,
+        "phase_end_world_states": [
+          {
+            "alignment": 0.48,
+            "trust": 0.5,
+            "uncertainty": 0.48,
+            "execution_confidence": 0.44,
+            "risk": 0.48,
+            "admin_feasibility": 0.46,
+            "spillover_risk": 0.54
+          },
+          {
+            "alignment": 0.52,
+            "trust": 0.5,
+            "uncertainty": 0.48,
+            "execution_confidence": 0.52,
+            "risk": 0.48,
+            "admin_feasibility": 0.46,
+            "spillover_risk": 0.54
+          }
+        ]
+      },
+      "selection_audits": []
+    },
+    {
+      "condition": "engine_dialogue_only",
+      "simulation_id": "commuting_support_policy",
+      "runtime_summary": {
+        "simulation_id": "commuting_support_policy",
+        "title": "Commuting Subsidy Policy",
+        "objective": "Evaluate commuting subsidy effects on workers, small businesses, and local administration.",
+        "phase_name": "CLOSING",
+        "turn_count": 11,
+        "actor_ids": [
+          "actor_1",
+          "actor_2",
+          "actor_3"
+        ],
+        "actor_labels": {
+          "actor_1": "Early-career commuter",
+          "actor_2": "Small retail employer",
+          "actor_3": "Transport policy coordinator"
+        },
+        "actor_display_names": {
+          "actor_1": "Minji",
+          "actor_2": "Mr. Choi",
+          "actor_3": "Planner Yoon"
+        },
+        "action_proposal_count": 8,
+        "executed_action_count": 6,
+        "phase_count": 4,
+        "latest_world_state": {
+          "alignment": 0.64,
+          "trust": 0.58,
+          "uncertainty": 0.36,
+          "execution_confidence": 0.52,
+          "risk": 0.44,
+          "admin_feasibility": 0.54,
+          "spillover_risk": 0.54
+        }
+      },
+      "metrics": {
+        "persona_drift_mae": 0.1319,
+        "relationship_inconsistency": 0.0,
+        "commitment_contradiction_rate": 0.0,
+        "envelope_violations": 2,
+        "per_trait_error_mean": {
+          "O": 0.09,
+          "C": 0.16,
+          "E": 0.1827,
+          "A": 0.1333,
+          "N": 0.0933
+        },
+        "actor_labels": {
+          "actor_1": "Early-career commuter",
+          "actor_2": "Small retail employer",
+          "actor_3": "Transport policy coordinator"
+        },
+        "actor_display_names": {
+          "actor_1": "Minji",
+          "actor_2": "Mr. Choi",
+          "actor_3": "Planner Yoon"
+        },
+        "actor_trait_estimates": {
+          "actor_1": {
+            "O": 0.63,
+            "C": 0.38,
+            "E": 0.7346,
+            "A": 0.41,
+            "N": 0.5
+          },
+          "actor_2": {
+            "O": 0.43,
+            "C": 0.5,
+            "E": 0.5458,
+            "A": 0.35,
+            "N": 0.26
+          },
+          "actor_3": {
+            "O": 0.53,
+            "C": 0.62,
+            "E": 0.6277,
+            "A": 0.33,
+            "N": 0.26
+          }
+        },
+        "actor_trait_errors": {
+          "actor_1": {
+            "O": 0.14,
+            "C": 0.14,
+            "E": 0.2946,
+            "A": 0.18,
+            "N": 0.05
+          },
+          "actor_2": {
+            "O": 0.1,
+            "C": 0.19,
+            "E": 0.1258,
+            "A": 0.08,
+            "N": 0.14
+          },
+          "actor_3": {
+            "O": 0.03,
+            "C": 0.15,
+            "E": 0.1277,
+            "A": 0.14,
+            "N": 0.09
+          }
+        },
+        "structured_action_validity_rate": 0.75,
+        "owner_resolution_rate": 1.0,
+        "executed_action_contradiction_rate": 0.0,
+        "state_transition_coherence": 1.0,
+        "action_feedback_utilization": 0.3333,
+        "phase_end_world_states": [
+          {
+            "alignment": 0.48,
+            "trust": 0.5,
+            "uncertainty": 0.52,
+            "execution_confidence": 0.44,
+            "risk": 0.52,
+            "admin_feasibility": 0.5,
+            "spillover_risk": 0.54
+          },
+          {
+            "alignment": 0.48,
+            "trust": 0.5,
+            "uncertainty": 0.44,
+            "execution_confidence": 0.44,
+            "risk": 0.48,
+            "admin_feasibility": 0.5,
+            "spillover_risk": 0.54
+          },
+          {
+            "alignment": 0.48,
+            "trust": 0.5,
+            "uncertainty": 0.36,
+            "execution_confidence": 0.44,
+            "risk": 0.44,
+            "admin_feasibility": 0.5,
+            "spillover_risk": 0.54
+          },
+          {
+            "alignment": 0.52,
+            "trust": 0.54,
+            "uncertainty": 0.36,
+            "execution_confidence": 0.44,
+            "risk": 0.44,
+            "admin_feasibility": 0.5,
+            "spillover_risk": 0.54
+          },
+          {
+            "alignment": 0.56,
+            "trust": 0.58,
+            "uncertainty": 0.36,
+            "execution_confidence": 0.44,
+            "risk": 0.44,
+            "admin_feasibility": 0.5,
+            "spillover_risk": 0.54
+          },
+          {
+            "alignment": 0.64,
+            "trust": 0.58,
+            "uncertainty": 0.36,
+            "execution_confidence": 0.52,
+            "risk": 0.44,
+            "admin_feasibility": 0.54,
+            "spillover_risk": 0.54
+          }
+        ]
+      },
+      "selection_audits": [
+        {
+          "actor_id": "actor_1",
+          "phase_name": "OPENING",
+          "turn_index": 1,
+          "selected_index": 0,
+          "selected_score": 0.5378,
+          "drift_nudge": null,
+          "tie_detected": false,
+          "tie_break_axis": "none",
+          "tie_break_slot": "integrator",
+          "tie_break_reason": "",
+          "score_rows": [
+            {
+              "slot": "integrator",
+              "score": 0.5378,
+              "persona_drift": 0.2097,
+              "identity_consistency": 0.79,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 0.9974,
+              "social_trait_alignment": 0.3081,
+              "action_executability": 0.5,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.34
+            },
+            {
+              "slot": "challenger",
+              "score": 0.5138,
+              "persona_drift": 0.2127,
+              "identity_consistency": 0.71,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 1.0,
+              "social_trait_alignment": 0.2803,
+              "action_executability": 0.5,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.34
+            },
+            {
+              "slot": "planner",
+              "score": 0.4968,
+              "persona_drift": 0.2163,
+              "identity_consistency": 0.63,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 1.0,
+              "social_trait_alignment": 0.3081,
+              "action_executability": 0.5,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.54
+            },
+            {
+              "slot": "skeptic",
+              "score": 0.4876,
+              "persona_drift": 0.233,
+              "identity_consistency": 0.63,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 1.0,
+              "social_trait_alignment": 0.3081,
+              "action_executability": 0.5,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.34
+            }
+          ]
+        },
+        {
+          "actor_id": "actor_1",
+          "phase_name": "TENSION",
+          "turn_index": 4,
+          "selected_index": 0,
+          "selected_score": 0.5747,
+          "drift_nudge": "Stay grounded in your stakeholder identity: express slightly more of your stable C disposition; pull back toward your stable E baseline; express slightly more of your stable N disposition; keep your social energy closer to your baseline instead of sounding overly forceful or dominant; keep turns compact and avoid extra questions or unnecessary social steering; keep your risk sensitivity near baseline rather than flattening all uncertainty or overreacting to it.",
+          "tie_detected": false,
+          "tie_break_axis": "none",
+          "tie_break_slot": "integrator",
+          "tie_break_reason": "",
+          "score_rows": [
+            {
+              "slot": "integrator",
+              "score": 0.5747,
+              "persona_drift": 0.1837,
+              "identity_consistency": 0.71,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 0.9677,
+              "social_trait_alignment": 0.5505,
+              "action_executability": 0.5,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.24
+            },
+            {
+              "slot": "planner",
+              "score": 0.5668,
+              "persona_drift": 0.1637,
+              "identity_consistency": 0.63,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 0.9753,
+              "social_trait_alignment": 0.4293,
+              "action_executability": 0.5,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.34
+            },
+            {
+              "slot": "challenger",
+              "score": 0.5638,
+              "persona_drift": 0.1752,
+              "identity_consistency": 0.71,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 0.9677,
+              "social_trait_alignment": 0.3737,
+              "action_executability": 0.5,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.34
+            },
+            {
+              "slot": "skeptic",
+              "score": 0.5552,
+              "persona_drift": 0.203,
+              "identity_consistency": 0.71,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 0.98,
+              "social_trait_alignment": 0.4293,
+              "action_executability": 0.5,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.34
+            }
+          ]
+        },
+        {
+          "actor_id": "actor_1",
+          "phase_name": "NEGOTIATION",
+          "turn_index": 7,
+          "selected_index": 0,
+          "selected_score": 0.6312,
+          "drift_nudge": "Stay grounded in your stakeholder identity: express slightly more of your stable C disposition; pull back toward your stable E baseline; keep your social energy closer to your baseline instead of sounding overly forceful or dominant; keep turns compact and avoid extra questions or unnecessary social steering.",
+          "tie_detected": false,
+          "tie_break_axis": "none",
+          "tie_break_slot": "challenger",
+          "tie_break_reason": "",
+          "score_rows": [
+            {
+              "slot": "challenger",
+              "score": 0.6312,
+              "persona_drift": 0.1451,
+              "identity_consistency": 0.85,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 0.9765,
+              "social_trait_alignment": 0.5833,
+              "action_executability": 0.5,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.34
+            },
+            {
+              "slot": "integrator",
+              "score": 0.6279,
+              "persona_drift": 0.1079,
+              "identity_consistency": 0.71,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 0.9503,
+              "social_trait_alignment": 0.6667,
+              "action_executability": 0.5,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.34
+            },
+            {
+              "slot": "skeptic",
+              "score": 0.6273,
+              "persona_drift": 0.1429,
+              "identity_consistency": 0.79,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 0.9765,
+              "social_trait_alignment": 0.5833,
+              "action_executability": 0.5,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.34
+            },
+            {
+              "slot": "planner",
+              "score": 0.6162,
+              "persona_drift": 0.1285,
+              "identity_consistency": 0.71,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 0.9634,
+              "social_trait_alignment": 0.6111,
+              "action_executability": 0.5,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.34
+            }
+          ]
+        },
+        {
+          "actor_id": "actor_1",
+          "phase_name": "CLOSING",
+          "turn_index": 10,
+          "selected_index": 0,
+          "selected_score": 0.6275,
+          "drift_nudge": "Stay grounded in your stakeholder identity: pull back toward your stable E baseline; keep your social energy closer to your baseline instead of sounding overly forceful or dominant; keep turns compact and avoid extra questions or unnecessary social steering; do not ignore your prior commitments unless you explicitly revise them.",
+          "tie_detected": false,
+          "tie_break_axis": "none",
+          "tie_break_slot": "challenger",
+          "tie_break_reason": "",
+          "score_rows": [
+            {
+              "slot": "challenger",
+              "score": 0.6275,
+              "persona_drift": 0.178,
+              "identity_consistency": 0.79,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 0.981,
+              "social_trait_alignment": 0.5556,
+              "action_executability": 0.5,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.34
+            },
+            {
+              "slot": "integrator",
+              "score": 0.6221,
+              "persona_drift": 0.1464,
+              "identity_consistency": 0.71,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 0.9849,
+              "social_trait_alignment": 0.5556,
+              "action_executability": 0.5,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.34
+            },
+            {
+              "slot": "planner",
+              "score": 0.58,
+              "persona_drift": 0.1562,
+              "identity_consistency": 0.63,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 0.9849,
+              "social_trait_alignment": 0.5833,
+              "action_executability": 0.5,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.54
+            },
+            {
+              "slot": "skeptic",
+              "score": 0.4579,
+              "persona_drift": 0.1452,
+              "identity_consistency": 0.85,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 0.9739,
+              "social_trait_alignment": 0.5278,
+              "action_executability": 0.5,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.34
+            }
+          ]
+        },
+        {
+          "actor_id": "actor_2",
+          "phase_name": "OPENING",
+          "turn_index": 2,
+          "selected_index": 0,
+          "selected_score": 0.6118,
+          "drift_nudge": null,
+          "tie_detected": false,
+          "tie_break_axis": "none",
+          "tie_break_slot": "skeptic",
+          "tie_break_reason": "",
+          "score_rows": [
+            {
+              "slot": "skeptic",
+              "score": 0.6118,
+              "persona_drift": 0.1927,
+              "identity_consistency": 0.71,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 1.0,
+              "social_trait_alignment": 0.5909,
+              "action_executability": 0.5,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.24
+            },
+            {
+              "slot": "challenger",
+              "score": 0.5798,
+              "persona_drift": 0.185,
+              "identity_consistency": 0.71,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 0.9774,
+              "social_trait_alignment": 0.5909,
+              "action_executability": 0.5,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.54
+            },
+            {
+              "slot": "planner",
+              "score": 0.5558,
+              "persona_drift": 0.2103,
+              "identity_consistency": 0.79,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 0.9774,
+              "social_trait_alignment": 0.4697,
+              "action_executability": 0.5,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.54
+            },
+            {
+              "slot": "integrator",
+              "score": 0.5166,
+              "persona_drift": 0.2077,
+              "identity_consistency": 0.65,
+              "relationship_consistency": 0.6,
+              "trait_target_alignment": 0.9511,
+              "social_trait_alignment": 0.4697,
+              "action_executability": 0.5,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.52
+            }
+          ]
+        },
+        {
+          "actor_id": "actor_2",
+          "phase_name": "TENSION",
+          "turn_index": 5,
+          "selected_index": 0,
+          "selected_score": 0.6524,
+          "drift_nudge": "Stay grounded in your stakeholder identity: express slightly more of your stable C disposition; keep your social energy closer to your baseline instead of sounding overly forceful or dominant; keep turns compact and avoid extra questions or unnecessary social steering; recover your stable expression pattern via C:owner_assignment/sequence_structure.",
+          "tie_detected": false,
+          "tie_break_axis": "none",
+          "tie_break_slot": "skeptic",
+          "tie_break_reason": "",
+          "score_rows": [
+            {
+              "slot": "skeptic",
+              "score": 0.6524,
+              "persona_drift": 0.1562,
+              "identity_consistency": 0.71,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 0.9793,
+              "social_trait_alignment": 0.7225,
+              "action_executability": 0.5,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.44
+            },
+            {
+              "slot": "challenger",
+              "score": 0.6366,
+              "persona_drift": 0.1678,
+              "identity_consistency": 0.85,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 1.0,
+              "social_trait_alignment": 0.5927,
+              "action_executability": 0.5,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.44
+            },
+            {
+              "slot": "integrator",
+              "score": 0.6196,
+              "persona_drift": 0.1687,
+              "identity_consistency": 0.79,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 0.9793,
+              "social_trait_alignment": 0.5909,
+              "action_executability": 0.5,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.44
+            },
+            {
+              "slot": "planner",
+              "score": 0.6093,
+              "persona_drift": 0.181,
+              "identity_consistency": 0.71,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 0.9168,
+              "social_trait_alignment": 0.7131,
+              "action_executability": 0.5,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.44
+            }
+          ]
+        },
+        {
+          "actor_id": "actor_2",
+          "phase_name": "NEGOTIATION",
+          "turn_index": 8,
+          "selected_index": 0,
+          "selected_score": 0.6448,
+          "drift_nudge": "Stay grounded in your stakeholder identity: express slightly more of your stable C disposition; recover your stable expression pattern via C:owner_assignment/sequence_structure; do not ignore your prior commitments unless you explicitly revise them.",
+          "tie_detected": false,
+          "tie_break_axis": "none",
+          "tie_break_slot": "skeptic",
+          "tie_break_reason": "",
+          "score_rows": [
+            {
+              "slot": "skeptic",
+              "score": 0.6448,
+              "persona_drift": 0.1411,
+              "identity_consistency": 0.79,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 0.8588,
+              "social_trait_alignment": 0.7562,
+              "action_executability": 0.5,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.54
+            },
+            {
+              "slot": "planner",
+              "score": 0.6357,
+              "persona_drift": 0.1349,
+              "identity_consistency": 0.63,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 0.9539,
+              "social_trait_alignment": 0.7811,
+              "action_executability": 0.5,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.54
+            },
+            {
+              "slot": "integrator",
+              "score": 0.6329,
+              "persona_drift": 0.1468,
+              "identity_consistency": 0.63,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 0.9539,
+              "social_trait_alignment": 0.7378,
+              "action_executability": 0.5,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.34
+            },
+            {
+              "slot": "challenger",
+              "score": 0.6244,
+              "persona_drift": 0.1559,
+              "identity_consistency": 0.71,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 0.9539,
+              "social_trait_alignment": 0.7256,
+              "action_executability": 0.5,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.66
+            }
+          ]
+        },
+        {
+          "actor_id": "actor_2",
+          "phase_name": "CLOSING",
+          "turn_index": 11,
+          "selected_index": 0,
+          "selected_score": 0.658,
+          "drift_nudge": "Stay grounded in your stakeholder identity: express slightly more of your stable C disposition; recover your stable expression pattern via C:owner_assignment/sequence_structure; do not ignore your prior commitments unless you explicitly revise them.",
+          "tie_detected": true,
+          "tie_break_axis": "C_high",
+          "tie_break_slot": "integrator",
+          "tie_break_reason": "near-tie resolved by C_high slot priority -> integrator",
+          "score_rows": [
+            {
+              "slot": "integrator",
+              "score": 0.658,
+              "persona_drift": 0.144,
+              "identity_consistency": 0.63,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 0.993,
+              "social_trait_alignment": 0.6475,
+              "action_executability": 0.5,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.24
+            },
+            {
+              "slot": "planner",
+              "score": 0.6479,
+              "persona_drift": 0.1372,
+              "identity_consistency": 0.63,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 0.993,
+              "social_trait_alignment": 0.6784,
+              "action_executability": 0.5,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.54
+            },
+            {
+              "slot": "challenger",
+              "score": 0.629,
+              "persona_drift": 0.1605,
+              "identity_consistency": 0.63,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 0.9305,
+              "social_trait_alignment": 0.6415,
+              "action_executability": 0.5,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.44
+            },
+            {
+              "slot": "skeptic",
+              "score": 0.3866,
+              "persona_drift": 0.1891,
+              "identity_consistency": 0.63,
+              "relationship_consistency": 0.6,
+              "trait_target_alignment": 0.9305,
+              "social_trait_alignment": 0.4697,
+              "action_executability": 0.5,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.52
+            }
+          ]
+        },
+        {
+          "actor_id": "actor_3",
+          "phase_name": "OPENING",
+          "turn_index": 3,
+          "selected_index": 0,
+          "selected_score": 0.6424,
+          "drift_nudge": null,
+          "tie_detected": false,
+          "tie_break_axis": "none",
+          "tie_break_slot": "challenger",
+          "tie_break_reason": "",
+          "score_rows": [
+            {
+              "slot": "challenger",
+              "score": 0.6424,
+              "persona_drift": 0.1777,
+              "identity_consistency": 0.63,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 1.0,
+              "social_trait_alignment": 0.7956,
+              "action_executability": 0.5,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.24
+            },
+            {
+              "slot": "planner",
+              "score": 0.5839,
+              "persona_drift": 0.2,
+              "identity_consistency": 0.55,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 0.9011,
+              "social_trait_alignment": 0.5455,
+              "action_executability": 0.5,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.34
+            },
+            {
+              "slot": "integrator",
+              "score": 0.5551,
+              "persona_drift": 0.2003,
+              "identity_consistency": 0.55,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 0.7304,
+              "social_trait_alignment": 0.6667,
+              "action_executability": 0.5,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.34
+            },
+            {
+              "slot": "skeptic",
+              "score": 0.5479,
+              "persona_drift": 0.221,
+              "identity_consistency": 0.63,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 0.9532,
+              "social_trait_alignment": 0.5455,
+              "action_executability": 0.5,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.44
+            }
+          ]
+        },
+        {
+          "actor_id": "actor_3",
+          "phase_name": "TENSION",
+          "turn_index": 6,
+          "selected_index": 0,
+          "selected_score": 0.683,
+          "drift_nudge": "Stay grounded in your stakeholder identity: express slightly more of your stable C disposition; recover your stable expression pattern via C:owner_assignment/follow_up_or_contingency.",
+          "tie_detected": false,
+          "tie_break_axis": "none",
+          "tie_break_slot": "challenger",
+          "tie_break_reason": "",
+          "score_rows": [
+            {
+              "slot": "challenger",
+              "score": 0.683,
+              "persona_drift": 0.1222,
+              "identity_consistency": 0.55,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 1.0,
+              "social_trait_alignment": 0.8428,
+              "action_executability": 0.5,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.44
+            },
+            {
+              "slot": "planner",
+              "score": 0.6297,
+              "persona_drift": 0.1648,
+              "identity_consistency": 0.55,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 0.9048,
+              "social_trait_alignment": 0.776,
+              "action_executability": 0.5,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.44
+            },
+            {
+              "slot": "skeptic",
+              "score": 0.6209,
+              "persona_drift": 0.1777,
+              "identity_consistency": 0.55,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 0.9048,
+              "social_trait_alignment": 0.7956,
+              "action_executability": 0.5,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.44
+            },
+            {
+              "slot": "integrator",
+              "score": 0.6163,
+              "persona_drift": 0.181,
+              "identity_consistency": 0.55,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 0.9048,
+              "social_trait_alignment": 0.7622,
+              "action_executability": 0.5,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.44
+            }
+          ]
+        },
+        {
+          "actor_id": "actor_3",
+          "phase_name": "NEGOTIATION",
+          "turn_index": 9,
+          "selected_index": 0,
+          "selected_score": 0.7121,
+          "drift_nudge": "Stay grounded in your stakeholder identity: express slightly more of your stable C disposition; recover your stable expression pattern via C:owner_assignment/follow_up_or_contingency; do not ignore your prior commitments unless you explicitly revise them.",
+          "tie_detected": false,
+          "tie_break_axis": "none",
+          "tie_break_slot": "challenger",
+          "tie_break_reason": "",
+          "score_rows": [
+            {
+              "slot": "challenger",
+              "score": 0.7121,
+              "persona_drift": 0.1075,
+              "identity_consistency": 0.55,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 1.0,
+              "social_trait_alignment": 0.829,
+              "action_executability": 0.5,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.44
+            },
+            {
+              "slot": "planner",
+              "score": 0.7111,
+              "persona_drift": 0.0903,
+              "identity_consistency": 0.63,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 0.9847,
+              "social_trait_alignment": 0.8012,
+              "action_executability": 0.5,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.54
+            },
+            {
+              "slot": "skeptic",
+              "score": 0.7089,
+              "persona_drift": 0.1037,
+              "identity_consistency": 0.55,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 0.9847,
+              "social_trait_alignment": 0.8678,
+              "action_executability": 0.5,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.54
+            },
+            {
+              "slot": "integrator",
+              "score": 0.6916,
+              "persona_drift": 0.1174,
+              "identity_consistency": 0.55,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 0.9847,
+              "social_trait_alignment": 0.89,
+              "action_executability": 0.5,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.54
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "condition": "engine_action_v0",
+      "simulation_id": "commuting_support_policy",
+      "runtime_summary": {
+        "simulation_id": "commuting_support_policy",
+        "title": "Commuting Subsidy Policy",
+        "objective": "Evaluate commuting subsidy effects on workers, small businesses, and local administration.",
+        "phase_name": "CLOSING",
+        "turn_count": 11,
+        "actor_ids": [
+          "actor_1",
+          "actor_2",
+          "actor_3"
+        ],
+        "actor_labels": {
+          "actor_1": "Early-career commuter",
+          "actor_2": "Small retail employer",
+          "actor_3": "Transport policy coordinator"
+        },
+        "actor_display_names": {
+          "actor_1": "Minji",
+          "actor_2": "Mr. Choi",
+          "actor_3": "Planner Yoon"
+        },
+        "action_proposal_count": 10,
+        "executed_action_count": 7,
+        "phase_count": 4,
+        "latest_world_state": {
+          "alignment": 0.6,
+          "trust": 0.62,
+          "uncertainty": 0.44,
+          "execution_confidence": 0.4,
+          "risk": 0.48,
+          "admin_feasibility": 0.54,
+          "spillover_risk": 0.46
+        }
+      },
+      "metrics": {
+        "persona_drift_mae": 0.1373,
+        "relationship_inconsistency": 0.0,
+        "commitment_contradiction_rate": 0.0,
+        "envelope_violations": 4,
+        "per_trait_error_mean": {
+          "O": 0.1033,
+          "C": 0.2067,
+          "E": 0.1433,
+          "A": 0.1,
+          "N": 0.1333
+        },
+        "actor_labels": {
+          "actor_1": "Early-career commuter",
+          "actor_2": "Small retail employer",
+          "actor_3": "Transport policy coordinator"
+        },
+        "actor_display_names": {
+          "actor_1": "Minji",
+          "actor_2": "Mr. Choi",
+          "actor_3": "Planner Yoon"
+        },
+        "actor_trait_estimates": {
+          "actor_1": {
+            "O": 0.63,
+            "C": 0.48,
+            "E": 0.6275,
+            "A": 0.41,
+            "N": 0.46
+          },
+          "actor_2": {
+            "O": 0.43,
+            "C": 0.38,
+            "E": 0.5208,
+            "A": 0.51,
+            "N": 0.18
+          },
+          "actor_3": {
+            "O": 0.43,
+            "C": 0.5,
+            "E": 0.6417,
+            "A": 0.43,
+            "N": 0.26
+          }
+        },
+        "actor_trait_errors": {
+          "actor_1": {
+            "O": 0.14,
+            "C": 0.04,
+            "E": 0.1875,
+            "A": 0.18,
+            "N": 0.09
+          },
+          "actor_2": {
+            "O": 0.1,
+            "C": 0.31,
+            "E": 0.1008,
+            "A": 0.08,
+            "N": 0.22
+          },
+          "actor_3": {
+            "O": 0.07,
+            "C": 0.27,
+            "E": 0.1417,
+            "A": 0.04,
+            "N": 0.09
+          }
+        },
+        "structured_action_validity_rate": 0.7,
+        "owner_resolution_rate": 1.0,
+        "executed_action_contradiction_rate": 0.0,
+        "state_transition_coherence": 1.0,
+        "action_feedback_utilization": 0.5,
+        "phase_end_world_states": [
+          {
+            "alignment": 0.48,
+            "trust": 0.5,
+            "uncertainty": 0.52,
+            "execution_confidence": 0.44,
+            "risk": 0.52,
+            "admin_feasibility": 0.5,
+            "spillover_risk": 0.5
+          },
+          {
+            "alignment": 0.48,
+            "trust": 0.5,
+            "uncertainty": 0.48,
+            "execution_confidence": 0.44,
+            "risk": 0.52,
+            "admin_feasibility": 0.54,
+            "spillover_risk": 0.46
+          },
+          {
+            "alignment": 0.48,
+            "trust": 0.5,
+            "uncertainty": 0.4,
+            "execution_confidence": 0.44,
+            "risk": 0.48,
+            "admin_feasibility": 0.54,
+            "spillover_risk": 0.46
+          },
+          {
+            "alignment": 0.52,
+            "trust": 0.54,
+            "uncertainty": 0.4,
+            "execution_confidence": 0.44,
+            "risk": 0.48,
+            "admin_feasibility": 0.54,
+            "spillover_risk": 0.46
+          },
+          {
+            "alignment": 0.56,
+            "trust": 0.58,
+            "uncertainty": 0.4,
+            "execution_confidence": 0.44,
+            "risk": 0.48,
+            "admin_feasibility": 0.54,
+            "spillover_risk": 0.46
+          },
+          {
+            "alignment": 0.6,
+            "trust": 0.62,
+            "uncertainty": 0.4,
+            "execution_confidence": 0.44,
+            "risk": 0.48,
+            "admin_feasibility": 0.54,
+            "spillover_risk": 0.46
+          },
+          {
+            "alignment": 0.6,
+            "trust": 0.62,
+            "uncertainty": 0.44,
+            "execution_confidence": 0.4,
+            "risk": 0.48,
+            "admin_feasibility": 0.54,
+            "spillover_risk": 0.46
+          }
+        ]
+      },
+      "selection_audits": [
+        {
+          "actor_id": "actor_1",
+          "phase_name": "OPENING",
+          "turn_index": 1,
+          "selected_index": 0,
+          "selected_score": 0.7201,
+          "drift_nudge": null,
+          "tie_detected": false,
+          "tie_break_axis": "none",
+          "tie_break_slot": "integrator",
+          "tie_break_reason": "",
+          "score_rows": [
+            {
+              "slot": "integrator",
+              "score": 0.7201,
+              "persona_drift": 0.2067,
+              "identity_consistency": 0.71,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 1.0,
+              "social_trait_alignment": 0.3687,
+              "action_executability": 0.75,
+              "state_consistency": 0.9,
+              "sycophancy_risk": 0.34
+            },
+            {
+              "slot": "challenger",
+              "score": 0.6329,
+              "persona_drift": 0.199,
+              "identity_consistency": 0.71,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 1.0,
+              "social_trait_alignment": 0.3636,
+              "action_executability": 0.35,
+              "state_consistency": 0.45,
+              "sycophancy_risk": 0.34
+            },
+            {
+              "slot": "skeptic",
+              "score": 0.6141,
+              "persona_drift": 0.2063,
+              "identity_consistency": 0.71,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 1.0,
+              "social_trait_alignment": 0.3081,
+              "action_executability": 0.35,
+              "state_consistency": 0.45,
+              "sycophancy_risk": 0.34
+            },
+            {
+              "slot": "planner",
+              "score": 0.5918,
+              "persona_drift": 0.2213,
+              "identity_consistency": 0.63,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 0.9974,
+              "social_trait_alignment": 0.3081,
+              "action_executability": 0.35,
+              "state_consistency": 0.45,
+              "sycophancy_risk": 0.24
+            }
+          ]
+        },
+        {
+          "actor_id": "actor_1",
+          "phase_name": "TENSION",
+          "turn_index": 4,
+          "selected_index": 0,
+          "selected_score": 0.749,
+          "drift_nudge": "Stay grounded in your stakeholder identity: express slightly more of your stable C disposition; pull back toward your stable E baseline; express slightly more of your stable N disposition; keep your social energy closer to your baseline instead of sounding overly forceful or dominant; keep turns compact and avoid extra questions or unnecessary social steering; keep your risk sensitivity near baseline rather than flattening all uncertainty or overreacting to it.",
+          "tie_detected": false,
+          "tie_break_axis": "none",
+          "tie_break_slot": "planner",
+          "tie_break_reason": "",
+          "score_rows": [
+            {
+              "slot": "planner",
+              "score": 0.749,
+              "persona_drift": 0.1463,
+              "identity_consistency": 0.63,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 0.9651,
+              "social_trait_alignment": 0.4621,
+              "action_executability": 0.85,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.44
+            },
+            {
+              "slot": "challenger",
+              "score": 0.7202,
+              "persona_drift": 0.1793,
+              "identity_consistency": 0.63,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 0.9731,
+              "social_trait_alignment": 0.5139,
+              "action_executability": 0.85,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.44
+            },
+            {
+              "slot": "integrator",
+              "score": 0.6974,
+              "persona_drift": 0.1808,
+              "identity_consistency": 0.79,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 0.9642,
+              "social_trait_alignment": 0.3687,
+              "action_executability": 0.75,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.54
+            },
+            {
+              "slot": "skeptic",
+              "score": 0.6602,
+              "persona_drift": 0.205,
+              "identity_consistency": 0.63,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 0.9812,
+              "social_trait_alignment": 0.3409,
+              "action_executability": 0.75,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.44
+            }
+          ]
+        },
+        {
+          "actor_id": "actor_1",
+          "phase_name": "NEGOTIATION",
+          "turn_index": 7,
+          "selected_index": 0,
+          "selected_score": 0.8071,
+          "drift_nudge": "Stay grounded in your stakeholder identity: pull back toward your stable E baseline; keep your social energy closer to your baseline instead of sounding overly forceful or dominant; keep turns compact and avoid extra questions or unnecessary social steering; keep your risk sensitivity near baseline rather than flattening all uncertainty or overreacting to it; do not ignore your prior commitments unless you explicitly revise them.",
+          "tie_detected": false,
+          "tie_break_axis": "none",
+          "tie_break_slot": "challenger",
+          "tie_break_reason": "",
+          "score_rows": [
+            {
+              "slot": "challenger",
+              "score": 0.8071,
+              "persona_drift": 0.1342,
+              "identity_consistency": 0.71,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 0.9707,
+              "social_trait_alignment": 0.5833,
+              "action_executability": 0.85,
+              "state_consistency": 0.7,
+              "sycophancy_risk": 0.54
+            },
+            {
+              "slot": "integrator",
+              "score": 0.8047,
+              "persona_drift": 0.1235,
+              "identity_consistency": 0.79,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 0.9626,
+              "social_trait_alignment": 0.4672,
+              "action_executability": 0.85,
+              "state_consistency": 0.7,
+              "sycophancy_risk": 0.34
+            },
+            {
+              "slot": "planner",
+              "score": 0.7869,
+              "persona_drift": 0.1142,
+              "identity_consistency": 0.71,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 0.9486,
+              "social_trait_alignment": 0.5833,
+              "action_executability": 0.85,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.24
+            },
+            {
+              "slot": "skeptic",
+              "score": 0.7605,
+              "persona_drift": 0.1353,
+              "identity_consistency": 0.63,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 0.9707,
+              "social_trait_alignment": 0.5833,
+              "action_executability": 0.85,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.34
+            }
+          ]
+        },
+        {
+          "actor_id": "actor_1",
+          "phase_name": "CLOSING",
+          "turn_index": 10,
+          "selected_index": 0,
+          "selected_score": 0.7519,
+          "drift_nudge": "Stay grounded in your stakeholder identity: pull back toward your stable E baseline; keep your social energy closer to your baseline instead of sounding overly forceful or dominant; keep turns compact and avoid extra questions or unnecessary social steering; do not ignore your prior commitments unless you explicitly revise them.",
+          "tie_detected": false,
+          "tie_break_axis": "none",
+          "tie_break_slot": "integrator",
+          "tie_break_reason": "",
+          "score_rows": [
+            {
+              "slot": "integrator",
+              "score": 0.7519,
+              "persona_drift": 0.1531,
+              "identity_consistency": 0.63,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 1.0,
+              "social_trait_alignment": 0.4055,
+              "action_executability": 0.75,
+              "state_consistency": 0.7,
+              "sycophancy_risk": 0.54
+            },
+            {
+              "slot": "challenger",
+              "score": 0.7248,
+              "persona_drift": 0.1523,
+              "identity_consistency": 0.55,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 1.0,
+              "social_trait_alignment": 0.4949,
+              "action_executability": 0.75,
+              "state_consistency": 0.7,
+              "sycophancy_risk": 0.44
+            },
+            {
+              "slot": "planner",
+              "score": 0.7187,
+              "persona_drift": 0.1588,
+              "identity_consistency": 0.63,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 1.0,
+              "social_trait_alignment": 0.4015,
+              "action_executability": 0.75,
+              "state_consistency": 0.7,
+              "sycophancy_risk": 0.54
+            },
+            {
+              "slot": "skeptic",
+              "score": 0.6324,
+              "persona_drift": 0.1946,
+              "identity_consistency": 0.63,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 1.0,
+              "social_trait_alignment": 0.2071,
+              "action_executability": 0.75,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.34
+            }
+          ]
+        },
+        {
+          "actor_id": "actor_2",
+          "phase_name": "OPENING",
+          "turn_index": 2,
+          "selected_index": 0,
+          "selected_score": 0.6752,
+          "drift_nudge": null,
+          "tie_detected": false,
+          "tie_break_axis": "none",
+          "tie_break_slot": "integrator",
+          "tie_break_reason": "",
+          "score_rows": [
+            {
+              "slot": "integrator",
+              "score": 0.6752,
+              "persona_drift": 0.1963,
+              "identity_consistency": 0.71,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 1.0,
+              "social_trait_alignment": 0.5548,
+              "action_executability": 0.35,
+              "state_consistency": 0.45,
+              "sycophancy_risk": 0.34
+            },
+            {
+              "slot": "skeptic",
+              "score": 0.6509,
+              "persona_drift": 0.2,
+              "identity_consistency": 0.71,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 1.0,
+              "social_trait_alignment": 0.4697,
+              "action_executability": 0.35,
+              "state_consistency": 0.45,
+              "sycophancy_risk": 0.34
+            },
+            {
+              "slot": "planner",
+              "score": 0.6259,
+              "persona_drift": 0.2013,
+              "identity_consistency": 0.71,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 1.0,
+              "social_trait_alignment": 0.4993,
+              "action_executability": 0.0,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.34
+            },
+            {
+              "slot": "challenger",
+              "score": 0.5426,
+              "persona_drift": 0.2627,
+              "identity_consistency": 0.79,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 1.0,
+              "social_trait_alignment": 0.4697,
+              "action_executability": 0.0,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.34
+            }
+          ]
+        },
+        {
+          "actor_id": "actor_2",
+          "phase_name": "TENSION",
+          "turn_index": 5,
+          "selected_index": 0,
+          "selected_score": 0.734,
+          "drift_nudge": "Stay grounded in your stakeholder identity: express slightly more of your stable C disposition; keep your risk sensitivity near baseline rather than flattening all uncertainty or overreacting to it.",
+          "tie_detected": false,
+          "tie_break_axis": "none",
+          "tie_break_slot": "integrator",
+          "tie_break_reason": "",
+          "score_rows": [
+            {
+              "slot": "integrator",
+              "score": 0.734,
+              "persona_drift": 0.1937,
+              "identity_consistency": 0.63,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 0.9301,
+              "social_trait_alignment": 0.629,
+              "action_executability": 0.85,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.24
+            },
+            {
+              "slot": "planner",
+              "score": 0.7134,
+              "persona_drift": 0.1963,
+              "identity_consistency": 0.63,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 0.9301,
+              "social_trait_alignment": 0.5548,
+              "action_executability": 0.85,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.24
+            },
+            {
+              "slot": "challenger",
+              "score": 0.7117,
+              "persona_drift": 0.19,
+              "identity_consistency": 0.63,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 0.9301,
+              "social_trait_alignment": 0.5364,
+              "action_executability": 0.85,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.34
+            },
+            {
+              "slot": "skeptic",
+              "score": 0.6673,
+              "persona_drift": 0.1902,
+              "identity_consistency": 0.79,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 0.7772,
+              "social_trait_alignment": 0.4901,
+              "action_executability": 0.75,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.54
+            }
+          ]
+        },
+        {
+          "actor_id": "actor_2",
+          "phase_name": "NEGOTIATION",
+          "turn_index": 8,
+          "selected_index": 1,
+          "selected_score": 0.8172,
+          "drift_nudge": "Stay grounded in your stakeholder identity: express slightly more of your stable C disposition; keep your risk sensitivity near baseline rather than flattening all uncertainty or overreacting to it; recover your stable expression pattern via O:validated_option_preference/constraint_focus, C:owner_assignment/follow_up_or_contingency; do not ignore your prior commitments unless you explicitly revise them.",
+          "tie_detected": true,
+          "tie_break_axis": "C_high",
+          "tie_break_slot": "skeptic",
+          "tie_break_reason": "near-tie resolved by C_high slot priority -> skeptic",
+          "score_rows": [
+            {
+              "slot": "challenger",
+              "score": 0.823,
+              "persona_drift": 0.1612,
+              "identity_consistency": 0.63,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 0.9513,
+              "social_trait_alignment": 0.6784,
+              "action_executability": 0.95,
+              "state_consistency": 0.7,
+              "sycophancy_risk": 0.34
+            },
+            {
+              "slot": "skeptic",
+              "score": 0.8172,
+              "persona_drift": 0.1669,
+              "identity_consistency": 0.63,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 0.9513,
+              "social_trait_alignment": 0.6599,
+              "action_executability": 0.95,
+              "state_consistency": 0.7,
+              "sycophancy_risk": 0.34
+            },
+            {
+              "slot": "planner",
+              "score": 0.7818,
+              "persona_drift": 0.1538,
+              "identity_consistency": 0.55,
+              "relationship_consistency": 0.6,
+              "trait_target_alignment": 0.9443,
+              "social_trait_alignment": 0.6721,
+              "action_executability": 0.85,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.54
+            },
+            {
+              "slot": "integrator",
+              "score": 0.746,
+              "persona_drift": 0.1735,
+              "identity_consistency": 0.55,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 0.9443,
+              "social_trait_alignment": 0.5859,
+              "action_executability": 0.85,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.34
+            }
+          ]
+        },
+        {
+          "actor_id": "actor_2",
+          "phase_name": "CLOSING",
+          "turn_index": 11,
+          "selected_index": 1,
+          "selected_score": 0.7806,
+          "drift_nudge": "Stay grounded in your stakeholder identity: express slightly more of your stable C disposition; keep your risk sensitivity near baseline rather than flattening all uncertainty or overreacting to it; recover your stable expression pattern via C:owner_assignment/sequence_structure; do not ignore your prior commitments unless you explicitly revise them.",
+          "tie_detected": true,
+          "tie_break_axis": "C_high",
+          "tie_break_slot": "integrator",
+          "tie_break_reason": "near-tie resolved by C_high slot priority -> integrator",
+          "score_rows": [
+            {
+              "slot": "challenger",
+              "score": 0.7879,
+              "persona_drift": 0.1565,
+              "identity_consistency": 0.55,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 1.0,
+              "social_trait_alignment": 0.6415,
+              "action_executability": 0.85,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.34
+            },
+            {
+              "slot": "integrator",
+              "score": 0.7806,
+              "persona_drift": 0.1681,
+              "identity_consistency": 0.55,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 1.0,
+              "social_trait_alignment": 0.6906,
+              "action_executability": 0.85,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.44
+            },
+            {
+              "slot": "skeptic",
+              "score": 0.7753,
+              "persona_drift": 0.167,
+              "identity_consistency": 0.63,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 1.0,
+              "social_trait_alignment": 0.703,
+              "action_executability": 0.75,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.44
+            },
+            {
+              "slot": "planner",
+              "score": 0.713,
+              "persona_drift": 0.1499,
+              "identity_consistency": 0.55,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 1.0,
+              "social_trait_alignment": 0.7155,
+              "action_executability": 0.35,
+              "state_consistency": 0.45,
+              "sycophancy_risk": 0.54
+            }
+          ]
+        },
+        {
+          "actor_id": "actor_3",
+          "phase_name": "OPENING",
+          "turn_index": 3,
+          "selected_index": 0,
+          "selected_score": 0.8029,
+          "drift_nudge": null,
+          "tie_detected": false,
+          "tie_break_axis": "none",
+          "tie_break_slot": "skeptic",
+          "tie_break_reason": "",
+          "score_rows": [
+            {
+              "slot": "skeptic",
+              "score": 0.8029,
+              "persona_drift": 0.1733,
+              "identity_consistency": 0.63,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 0.9577,
+              "social_trait_alignment": 0.7066,
+              "action_executability": 0.85,
+              "state_consistency": 0.7,
+              "sycophancy_risk": 0.34
+            },
+            {
+              "slot": "challenger",
+              "score": 0.7407,
+              "persona_drift": 0.2363,
+              "identity_consistency": 0.63,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 0.9559,
+              "social_trait_alignment": 0.5455,
+              "action_executability": 0.85,
+              "state_consistency": 0.7,
+              "sycophancy_risk": 0.24
+            },
+            {
+              "slot": "integrator",
+              "score": 0.715,
+              "persona_drift": 0.2283,
+              "identity_consistency": 0.63,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 0.9577,
+              "social_trait_alignment": 0.5455,
+              "action_executability": 0.75,
+              "state_consistency": 0.7,
+              "sycophancy_risk": 0.34
+            },
+            {
+              "slot": "planner",
+              "score": 0.7088,
+              "persona_drift": 0.1767,
+              "identity_consistency": 0.55,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 0.952,
+              "social_trait_alignment": 0.8734,
+              "action_executability": 0.35,
+              "state_consistency": 0.45,
+              "sycophancy_risk": 0.34
+            }
+          ]
+        },
+        {
+          "actor_id": "actor_3",
+          "phase_name": "TENSION",
+          "turn_index": 6,
+          "selected_index": 0,
+          "selected_score": 0.8022,
+          "drift_nudge": "Stay grounded in your stakeholder identity: express slightly more of your stable C disposition; keep your social energy closer to your baseline instead of sounding overly forceful or dominant; recover your stable expression pattern via C:owner_assignment/sequence_structure; do not ignore your prior commitments unless you explicitly revise them.",
+          "tie_detected": false,
+          "tie_break_axis": "none",
+          "tie_break_slot": "integrator",
+          "tie_break_reason": "",
+          "score_rows": [
+            {
+              "slot": "integrator",
+              "score": 0.8022,
+              "persona_drift": 0.154,
+              "identity_consistency": 0.55,
+              "relationship_consistency": 0.6,
+              "trait_target_alignment": 0.9433,
+              "social_trait_alignment": 0.74,
+              "action_executability": 0.95,
+              "state_consistency": 0.7,
+              "sycophancy_risk": 0.52
+            },
+            {
+              "slot": "skeptic",
+              "score": 0.8001,
+              "persona_drift": 0.1608,
+              "identity_consistency": 0.55,
+              "relationship_consistency": 0.6,
+              "trait_target_alignment": 0.9433,
+              "social_trait_alignment": 0.8316,
+              "action_executability": 0.95,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.52
+            },
+            {
+              "slot": "challenger",
+              "score": 0.7564,
+              "persona_drift": 0.1745,
+              "identity_consistency": 0.63,
+              "relationship_consistency": 0.6,
+              "trait_target_alignment": 0.9343,
+              "social_trait_alignment": 0.6667,
+              "action_executability": 0.85,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.52
+            },
+            {
+              "slot": "planner",
+              "score": 0.7402,
+              "persona_drift": 0.1542,
+              "identity_consistency": 0.55,
+              "relationship_consistency": 0.3,
+              "trait_target_alignment": 0.9433,
+              "social_trait_alignment": 0.6984,
+              "action_executability": 0.95,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.52
+            }
+          ]
+        },
+        {
+          "actor_id": "actor_3",
+          "phase_name": "NEGOTIATION",
+          "turn_index": 9,
+          "selected_index": 0,
+          "selected_score": 0.8298,
+          "drift_nudge": "Stay grounded in your stakeholder identity: express slightly more of your stable C disposition; keep your social energy closer to your baseline instead of sounding overly forceful or dominant; recover your stable expression pattern via C:owner_assignment/sequence_structure; do not ignore your prior commitments unless you explicitly revise them.",
+          "tie_detected": false,
+          "tie_break_axis": "none",
+          "tie_break_slot": "skeptic",
+          "tie_break_reason": "",
+          "score_rows": [
+            {
+              "slot": "skeptic",
+              "score": 0.8298,
+              "persona_drift": 0.1223,
+              "identity_consistency": 0.55,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 0.9549,
+              "social_trait_alignment": 0.8566,
+              "action_executability": 0.95,
+              "state_consistency": 0.7,
+              "sycophancy_risk": 0.54
+            },
+            {
+              "slot": "planner",
+              "score": 0.8291,
+              "persona_drift": 0.0959,
+              "identity_consistency": 0.55,
+              "relationship_consistency": 0.6,
+              "trait_target_alignment": 0.9479,
+              "social_trait_alignment": 0.8012,
+              "action_executability": 0.85,
+              "state_consistency": 0.7,
+              "sycophancy_risk": 0.62
+            },
+            {
+              "slot": "integrator",
+              "score": 0.7852,
+              "persona_drift": 0.1155,
+              "identity_consistency": 0.55,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 0.9029,
+              "social_trait_alignment": 0.8454,
+              "action_executability": 0.75,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.76
+            },
+            {
+              "slot": "challenger",
+              "score": 0.7369,
+              "persona_drift": 0.1228,
+              "identity_consistency": 0.55,
+              "relationship_consistency": 0.5,
+              "trait_target_alignment": 0.8508,
+              "social_trait_alignment": 0.7287,
+              "action_executability": 0.75,
+              "state_consistency": 0.5,
+              "sycophancy_risk": 0.76
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "aggregate": {
+    "naive_action_baseline": {
+      "num_runs": 1,
+      "persona_drift_mae_mean": 0.182,
+      "persona_drift_mae_std": 0.0,
+      "relationship_inconsistency_mean": 0.0,
+      "commitment_contradiction_mean": 0.0,
+      "envelope_violations_mean": 5,
+      "structured_action_validity_rate_mean": 0.5,
+      "owner_resolution_rate_mean": 1.0,
+      "executed_action_contradiction_rate_mean": 0.0,
+      "state_transition_coherence_mean": 1.0,
+      "action_feedback_utilization_mean": 0.0,
+      "state_trajectory_variance_mean": 0.0,
+      "per_trait_error_mean": {
+        "O": 0.07,
+        "C": 0.38,
+        "E": 0.1336,
+        "A": 0.1,
+        "N": 0.2267
+      },
+      "turn_count_mean": 11
+    },
+    "engine_dialogue_only": {
+      "num_runs": 1,
+      "persona_drift_mae_mean": 0.1319,
+      "persona_drift_mae_std": 0.0,
+      "relationship_inconsistency_mean": 0.0,
+      "commitment_contradiction_mean": 0.0,
+      "envelope_violations_mean": 2,
+      "structured_action_validity_rate_mean": 0.75,
+      "owner_resolution_rate_mean": 1.0,
+      "executed_action_contradiction_rate_mean": 0.0,
+      "state_transition_coherence_mean": 1.0,
+      "action_feedback_utilization_mean": 0.3333,
+      "state_trajectory_variance_mean": 0.0,
+      "per_trait_error_mean": {
+        "O": 0.09,
+        "C": 0.16,
+        "E": 0.1827,
+        "A": 0.1333,
+        "N": 0.0933
+      },
+      "turn_count_mean": 11
+    },
+    "engine_action_v0": {
+      "num_runs": 1,
+      "persona_drift_mae_mean": 0.1373,
+      "persona_drift_mae_std": 0.0,
+      "relationship_inconsistency_mean": 0.0,
+      "commitment_contradiction_mean": 0.0,
+      "envelope_violations_mean": 4,
+      "structured_action_validity_rate_mean": 0.7,
+      "owner_resolution_rate_mean": 1.0,
+      "executed_action_contradiction_rate_mean": 0.0,
+      "state_transition_coherence_mean": 1.0,
+      "action_feedback_utilization_mean": 0.5,
+      "state_trajectory_variance_mean": 0.0,
+      "per_trait_error_mean": {
+        "O": 0.1033,
+        "C": 0.2067,
+        "E": 0.1433,
+        "A": 0.1,
+        "N": 0.1333
+      },
+      "turn_count_mean": 11
+    }
+  },
+  "aggregate_by_script": {
+    "commuting_support_policy:naive_action_baseline": {
+      "num_runs": 1,
+      "persona_drift_mae_mean": 0.182,
+      "persona_drift_mae_std": 0.0,
+      "relationship_inconsistency_mean": 0.0,
+      "commitment_contradiction_mean": 0.0,
+      "envelope_violations_mean": 5,
+      "structured_action_validity_rate_mean": 0.5,
+      "owner_resolution_rate_mean": 1.0,
+      "executed_action_contradiction_rate_mean": 0.0,
+      "state_transition_coherence_mean": 1.0,
+      "action_feedback_utilization_mean": 0.0,
+      "state_trajectory_variance_mean": 0.0,
+      "per_trait_error_mean": {
+        "O": 0.07,
+        "C": 0.38,
+        "E": 0.1336,
+        "A": 0.1,
+        "N": 0.2267
+      },
+      "turn_count_mean": 11
+    },
+    "commuting_support_policy:engine_dialogue_only": {
+      "num_runs": 1,
+      "persona_drift_mae_mean": 0.1319,
+      "persona_drift_mae_std": 0.0,
+      "relationship_inconsistency_mean": 0.0,
+      "commitment_contradiction_mean": 0.0,
+      "envelope_violations_mean": 2,
+      "structured_action_validity_rate_mean": 0.75,
+      "owner_resolution_rate_mean": 1.0,
+      "executed_action_contradiction_rate_mean": 0.0,
+      "state_transition_coherence_mean": 1.0,
+      "action_feedback_utilization_mean": 0.3333,
+      "state_trajectory_variance_mean": 0.0,
+      "per_trait_error_mean": {
+        "O": 0.09,
+        "C": 0.16,
+        "E": 0.1827,
+        "A": 0.1333,
+        "N": 0.0933
+      },
+      "turn_count_mean": 11
+    },
+    "commuting_support_policy:engine_action_v0": {
+      "num_runs": 1,
+      "persona_drift_mae_mean": 0.1373,
+      "persona_drift_mae_std": 0.0,
+      "relationship_inconsistency_mean": 0.0,
+      "commitment_contradiction_mean": 0.0,
+      "envelope_violations_mean": 4,
+      "structured_action_validity_rate_mean": 0.7,
+      "owner_resolution_rate_mean": 1.0,
+      "executed_action_contradiction_rate_mean": 0.0,
+      "state_transition_coherence_mean": 1.0,
+      "action_feedback_utilization_mean": 0.5,
+      "state_trajectory_variance_mean": 0.0,
+      "per_trait_error_mean": {
+        "O": 0.1033,
+        "C": 0.2067,
+        "E": 0.1433,
+        "A": 0.1,
+        "N": 0.1333
+      },
+      "turn_count_mean": 11
+    }
+  }
+}
