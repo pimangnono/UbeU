@@ -1,4 +1,4 @@
-"""Pre-injected policy simulation scripts for MVP benchmarking."""
+"""Pre-injected MVP simulation scripts for benchmarking."""
 
 from __future__ import annotations
 
@@ -170,6 +170,130 @@ _MVP_POLICY_SCRIPTS = [
                 "description": "A notice suggests reimbursements may be delayed by two weeks during rollout.",
                 "trigger_phase": "TENSION",
             }
+        ],
+    },
+    {
+        "simulation_id": "new_product_launch",
+        "title": "New Product Launch Pressure Test",
+        "objective": "Stress-test launch readiness, messaging alignment, and operational risk under deadline pressure.",
+        "brief": (
+            "A company plans to launch a new consumer AI product in three weeks. Product, marketing, and operations "
+            "leaders must decide whether to keep the date, narrow the scope, or delay. Stakeholders should surface "
+            "brand upside, launch risk, execution bottlenecks, and who owns mitigation."
+        ),
+        "stakeholders": [
+            {
+                "actor_id": "actor_1",
+                "display_name": "Daeun",
+                "role": "Product launch lead",
+                "identity_core": {"function": "product", "seniority": "director", "company_stage": "growth"},
+                "personality_prior": {"O": 0.61, "C": 0.58, "E": 0.46, "A": 0.49, "N": 0.44},
+                "incentives": ["credible launch", "clear feature positioning"],
+                "concerns": ["scope creep", "unreliable demo experience"],
+                "communication_style": {"tone": "focused", "brevity": "moderate"},
+            },
+            {
+                "actor_id": "actor_2",
+                "display_name": "Mina",
+                "role": "Marketing lead",
+                "identity_core": {"function": "marketing", "seniority": "head", "company_stage": "growth"},
+                "personality_prior": {"O": 0.68, "C": 0.47, "E": 0.64, "A": 0.55, "N": 0.49},
+                "incentives": ["category impact", "strong launch narrative"],
+                "concerns": ["weak differentiation", "last-minute positioning changes"],
+                "communication_style": {"tone": "energetic", "brevity": "moderate"},
+            },
+            {
+                "actor_id": "actor_3",
+                "display_name": "Victor",
+                "role": "Operations and reliability lead",
+                "identity_core": {"function": "ops", "seniority": "director", "company_stage": "growth"},
+                "personality_prior": {"O": 0.32, "C": 0.81, "E": 0.37, "A": 0.41, "N": 0.38},
+                "incentives": ["stable rollout", "supportable launch load"],
+                "concerns": ["incident risk", "on-call overload"],
+                "communication_style": {"tone": "plainspoken", "brevity": "moderate"},
+            },
+        ],
+        "phases": [
+            {"name": "OPENING", "goal": "Clarify why the launch matters and what success means", "style": "neutral", "max_turns": 3, "cues": ["launch_goal", "success_metric"]},
+            {"name": "TENSION", "goal": "Expose readiness gaps and go-to-market conflict", "style": "disagreement", "max_turns": 3, "cues": ["deadline_pressure", "readiness_risk", "brand_tradeoff"]},
+            {"name": "NEGOTIATION", "goal": "Force a realistic launch decision and mitigation plan", "style": "consensus", "max_turns": 3, "cues": ["scope_cut", "owner", "fallback"]},
+            {"name": "CLOSING", "goal": "Lock the final call, owners, and unresolved risks", "style": "neutral", "max_turns": 2, "cues": ["commitment", "residual_risk"]},
+        ],
+        "world_events": [
+            {
+                "event_id": "evt_qa_regression",
+                "title": "QA regression report",
+                "description": "QA reports a regression in the core onboarding flow that appears in the latest release candidate.",
+                "trigger_phase": "TENSION",
+            },
+            {
+                "event_id": "evt_press_leak",
+                "title": "Press leak",
+                "description": "A trade publication publishes an early article that sets expectations higher than the current product can support.",
+                "trigger_phase": "NEGOTIATION",
+            },
+        ],
+    },
+    {
+        "simulation_id": "post_merger_integration",
+        "title": "Post-Merger Integration Pressure Test",
+        "objective": "Stress-test trust, retention, and integration decisions after an acquisition announcement.",
+        "brief": (
+            "A larger company has acquired a smaller startup. Leaders now need to decide how aggressively to integrate "
+            "teams, systems, and brand while retaining key people. Stakeholders should surface trust gaps, culture risk, "
+            "retention pressure, and integration tradeoffs."
+        ),
+        "stakeholders": [
+            {
+                "actor_id": "actor_1",
+                "display_name": "Arjun",
+                "role": "Acquirer strategy lead",
+                "identity_core": {"function": "strategy", "seniority": "VP", "company_type": "acquirer"},
+                "personality_prior": {"O": 0.52, "C": 0.74, "E": 0.51, "A": 0.43, "N": 0.36},
+                "incentives": ["captured synergies", "fast operating alignment"],
+                "concerns": ["integration drift", "missed board targets"],
+                "communication_style": {"tone": "structured", "brevity": "moderate"},
+            },
+            {
+                "actor_id": "actor_2",
+                "display_name": "Soojin",
+                "role": "Acquired company founder",
+                "identity_core": {"function": "founder", "seniority": "CEO", "company_type": "acquired"},
+                "personality_prior": {"O": 0.69, "C": 0.44, "E": 0.58, "A": 0.38, "N": 0.54},
+                "incentives": ["team retention", "product autonomy"],
+                "concerns": ["culture loss", "talent exits"],
+                "communication_style": {"tone": "direct", "brevity": "moderate"},
+            },
+            {
+                "actor_id": "actor_3",
+                "display_name": "Elena",
+                "role": "People and integration lead",
+                "identity_core": {"function": "people", "seniority": "director", "company_type": "integration"},
+                "personality_prior": {"O": 0.47, "C": 0.76, "E": 0.48, "A": 0.64, "N": 0.47},
+                "incentives": ["retention stability", "clear operating model"],
+                "concerns": ["trust erosion", "role ambiguity"],
+                "communication_style": {"tone": "calm", "brevity": "moderate"},
+            },
+        ],
+        "phases": [
+            {"name": "OPENING", "goal": "Clarify what must be preserved and what must change", "style": "neutral", "max_turns": 3, "cues": ["integration_goal", "retention_priority"]},
+            {"name": "TENSION", "goal": "Surface trust gaps and control conflicts", "style": "disagreement", "max_turns": 3, "cues": ["trust", "autonomy", "retention_risk"]},
+            {"name": "NEGOTIATION", "goal": "Choose an operating model and ownership plan", "style": "consensus", "max_turns": 3, "cues": ["operating_model", "owner", "sequencing"]},
+            {"name": "CLOSING", "goal": "Record the integration stance and unresolved people risks", "style": "neutral", "max_turns": 2, "cues": ["summary", "people_risk"]},
+        ],
+        "world_events": [
+            {
+                "event_id": "evt_retention_signal",
+                "title": "Retention risk signal",
+                "description": "Two senior engineers privately signal they may leave if the acquired team loses roadmap autonomy this quarter.",
+                "trigger_phase": "TENSION",
+            },
+            {
+                "event_id": "evt_board_pressure",
+                "title": "Board pressure note",
+                "description": "The board asks for a visible integration milestone before the next earnings call.",
+                "trigger_phase": "NEGOTIATION",
+            },
         ],
     },
 ]

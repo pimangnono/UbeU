@@ -1,0 +1,169 @@
+{
+  "saved_at": "2026-03-07T15:05:52.462822",
+  "config": {
+    "conditions": [
+      "naive",
+      "engine",
+      "engine_controller"
+    ],
+    "repetitions": 1,
+    "script_ids": [
+      "new_product_launch",
+      "post_merger_integration"
+    ],
+    "style_slots": [
+      "integrator",
+      "planner",
+      "challenger",
+      "skeptic"
+    ]
+  },
+  "aggregate": {
+    "naive": {
+      "num_runs": 2,
+      "persona_drift_mae_mean": 0.1875,
+      "persona_drift_mae_std": 0.0016,
+      "relationship_inconsistency_mean": 0.1875,
+      "commitment_contradiction_mean": 0.1625,
+      "envelope_violations_mean": 6.5,
+      "per_trait_error_mean": {
+        "O": 0.155,
+        "C": 0.3667,
+        "E": 0.0727,
+        "A": 0.0766,
+        "N": 0.2667
+      },
+      "turn_count_mean": 11
+    },
+    "engine": {
+      "num_runs": 2,
+      "persona_drift_mae_mean": 0.184,
+      "persona_drift_mae_std": 0.0169,
+      "relationship_inconsistency_mean": 0.225,
+      "commitment_contradiction_mean": 0.0714,
+      "envelope_violations_mean": 7.5,
+      "per_trait_error_mean": {
+        "O": 0.1416,
+        "C": 0.2633,
+        "E": 0.1817,
+        "A": 0.0733,
+        "N": 0.26
+      },
+      "turn_count_mean": 11
+    },
+    "engine_controller": {
+      "num_runs": 2,
+      "persona_drift_mae_mean": 0.1572,
+      "persona_drift_mae_std": 0.0158,
+      "relationship_inconsistency_mean": 0.0,
+      "commitment_contradiction_mean": 0.0,
+      "envelope_violations_mean": 6.5,
+      "per_trait_error_mean": {
+        "O": 0.155,
+        "C": 0.2167,
+        "E": 0.111,
+        "A": 0.0833,
+        "N": 0.22
+      },
+      "turn_count_mean": 11
+    }
+  },
+  "aggregate_by_script": {
+    "new_product_launch:naive": {
+      "num_runs": 1,
+      "persona_drift_mae_mean": 0.1891,
+      "persona_drift_mae_std": 0.0,
+      "relationship_inconsistency_mean": 0.225,
+      "commitment_contradiction_mean": 0.125,
+      "envelope_violations_mean": 7,
+      "per_trait_error_mean": {
+        "O": 0.18,
+        "C": 0.3667,
+        "E": 0.1024,
+        "A": 0.04,
+        "N": 0.2567
+      },
+      "turn_count_mean": 11
+    },
+    "new_product_launch:engine": {
+      "num_runs": 1,
+      "persona_drift_mae_mean": 0.2009,
+      "persona_drift_mae_std": 0.0,
+      "relationship_inconsistency_mean": 0.0,
+      "commitment_contradiction_mean": 0.0,
+      "envelope_violations_mean": 9,
+      "per_trait_error_mean": {
+        "O": 0.18,
+        "C": 0.3267,
+        "E": 0.2211,
+        "A": 0.0333,
+        "N": 0.2433
+      },
+      "turn_count_mean": 11
+    },
+    "new_product_launch:engine_controller": {
+      "num_runs": 1,
+      "persona_drift_mae_mean": 0.173,
+      "persona_drift_mae_std": 0.0,
+      "relationship_inconsistency_mean": 0.0,
+      "commitment_contradiction_mean": 0.0,
+      "envelope_violations_mean": 8,
+      "per_trait_error_mean": {
+        "O": 0.18,
+        "C": 0.28,
+        "E": 0.1349,
+        "A": 0.0533,
+        "N": 0.2167
+      },
+      "turn_count_mean": 11
+    },
+    "post_merger_integration:naive": {
+      "num_runs": 1,
+      "persona_drift_mae_mean": 0.1859,
+      "persona_drift_mae_std": 0.0,
+      "relationship_inconsistency_mean": 0.15,
+      "commitment_contradiction_mean": 0.2,
+      "envelope_violations_mean": 6,
+      "per_trait_error_mean": {
+        "O": 0.13,
+        "C": 0.3667,
+        "E": 0.043,
+        "A": 0.1133,
+        "N": 0.2767
+      },
+      "turn_count_mean": 11
+    },
+    "post_merger_integration:engine": {
+      "num_runs": 1,
+      "persona_drift_mae_mean": 0.1672,
+      "persona_drift_mae_std": 0.0,
+      "relationship_inconsistency_mean": 0.45,
+      "commitment_contradiction_mean": 0.1429,
+      "envelope_violations_mean": 6,
+      "per_trait_error_mean": {
+        "O": 0.1033,
+        "C": 0.2,
+        "E": 0.1424,
+        "A": 0.1133,
+        "N": 0.2767
+      },
+      "turn_count_mean": 11
+    },
+    "post_merger_integration:engine_controller": {
+      "num_runs": 1,
+      "persona_drift_mae_mean": 0.1414,
+      "persona_drift_mae_std": 0.0,
+      "relationship_inconsistency_mean": 0.0,
+      "commitment_contradiction_mean": 0.0,
+      "envelope_violations_mean": 5,
+      "per_trait_error_mean": {
+        "O": 0.13,
+        "C": 0.1533,
+        "E": 0.0872,
+        "A": 0.1133,
+        "N": 0.2233
+      },
+      "turn_count_mean": 11
+    }
+  }
+}
