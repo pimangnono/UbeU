@@ -5,8 +5,21 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass, field
 from typing import Any
 
+from .action_layer import ACTION_TYPES, DEFAULT_LOCAL_STATE_KEYS
 
 TRAIT_KEYS = ("O", "C", "E", "A", "N")
+DEFAULT_GLOBAL_WORLD_STATE_KEYS = (
+    "alignment",
+    "trust",
+    "uncertainty",
+    "execution_confidence",
+    "risk",
+)
+DEFAULT_STATE_VISIBILITY_RULES = {
+    "global_keys": ["alignment", "uncertainty", "risk"],
+    "local_keys": ["trust", "execution_confidence", "alignment"],
+    "max_recent_actions": 2,
+}
 
 
 def _clip_trait(value: float) -> float:
@@ -158,10 +171,32 @@ class SimulationScript:
     stakeholders: list[StakeholderActorSpec]
     phases: list[SimulationPhase]
     world_events: list[WorldEvent] = field(default_factory=list)
+    world_state_schema: list[str] = field(default_factory=list)
+    initial_world_state: dict[str, float] = field(default_factory=dict)
+    allowed_action_types: list[str] = field(default_factory=list)
+    transition_rules: dict[str, dict[str, Any]] = field(default_factory=dict)
+    state_visibility_rules: dict[str, Any] = field(default_factory=dict)
     metadata: dict[str, Any] = field(default_factory=dict)
     evaluation_targets: list[str] = field(default_factory=list)
 
     def __post_init__(self):
+        if not self.world_state_schema:
+            self.world_state_schema = list(DEFAULT_GLOBAL_WORLD_STATE_KEYS)
+        else:
+            self.world_state_schema = list(dict.fromkeys(self.world_state_schema))
+        if not self.initial_world_state:
+            self.initial_world_state = {key: 0.5 for key in self.world_state_schema}
+        else:
+            self.initial_world_state = {
+                key: _clip_trait(self.initial_world_state.get(key, 0.5))
+                for key in self.world_state_schema
+            }
+        if not self.allowed_action_types:
+            self.allowed_action_types = []
+        else:
+            self.allowed_action_types = list(dict.fromkeys(self.allowed_action_types))
+        if not self.state_visibility_rules:
+            self.state_visibility_rules = dict(DEFAULT_STATE_VISIBILITY_RULES)
         self.validate()
 
     @classmethod
@@ -183,6 +218,14 @@ class SimulationScript:
                 WorldEvent.from_dict(event)
                 for event in data.get("world_events", [])
             ],
+            world_state_schema=list(data.get("world_state_schema", [])),
+            initial_world_state=dict(data.get("initial_world_state", {})),
+            allowed_action_types=list(data.get("allowed_action_types", [])),
+            transition_rules={
+                phase_name: dict(rules)
+                for phase_name, rules in dict(data.get("transition_rules", {})).items()
+            },
+            state_visibility_rules=dict(data.get("state_visibility_rules", {})),
             metadata=dict(data.get("metadata", {})),
             evaluation_targets=list(data.get("evaluation_targets", [])),
         )
@@ -196,6 +239,11 @@ class SimulationScript:
             "stakeholders": [actor.to_dict() for actor in self.stakeholders],
             "phases": [phase.to_dict() for phase in self.phases],
             "world_events": [event.to_dict() for event in self.world_events],
+            "world_state_schema": list(self.world_state_schema),
+            "initial_world_state": dict(self.initial_world_state),
+            "allowed_action_types": list(self.allowed_action_types),
+            "transition_rules": dict(self.transition_rules),
+            "state_visibility_rules": dict(self.state_visibility_rules),
             "metadata": dict(self.metadata),
             "evaluation_targets": list(self.evaluation_targets),
         }
@@ -226,6 +274,13 @@ class SimulationScript:
     def actor_analysis_label_map(self) -> dict[str, str]:
         return {actor.actor_id: actor.analysis_label for actor in self.stakeholders}
 
+    @property
+    def local_state_keys(self) -> list[str]:
+        return list(dict.fromkeys(self.state_visibility_rules.get("local_keys", DEFAULT_LOCAL_STATE_KEYS)))
+
+    def transition_rule_for(self, phase_name: str, action_type: str) -> dict[str, Any]:
+        return dict(self.transition_rules.get(phase_name, {}).get(action_type, {}))
+
     def validate(self):
         if not self.stakeholders:
             raise ValueError("SimulationScript requires at least one stakeholder")
@@ -247,3 +302,34 @@ class SimulationScript:
                     raise ValueError(
                         f"World event {event.event_id} references unknown actor_id {actor_id}"
                     )
+
+        invalid_action_types = sorted(set(self.allowed_action_types).difference(ACTION_TYPES))
+        if invalid_action_types:
+            raise ValueError(
+                f"SimulationScript allowed_action_types contains unknown entries: {', '.join(invalid_action_types)}"
+            )
+
+        if not set(DEFAULT_GLOBAL_WORLD_STATE_KEYS).issubset(set(self.world_state_schema)):
+            raise ValueError(
+                "SimulationScript world_state_schema must include all default global state keys"
+            )
+
+        for key, value in self.initial_world_state.items():
+            if key not in self.world_state_schema:
+                raise ValueError(f"Initial world state key {key} is not in world_state_schema")
+            if not 0.0 <= float(value) <= 1.0:
+                raise ValueError(f"Initial world state value for {key} must be within [0, 1]")
+
+        for phase_name, rules in self.transition_rules.items():
+            if phase_name not in {phase.name for phase in self.phases}:
+                raise ValueError(f"Transition rules reference unknown phase {phase_name}")
+            for action_type, rule in rules.items():
+                if action_type not in self.allowed_action_types:
+                    raise ValueError(
+                        f"Transition rule {phase_name}:{action_type} uses an action not in allowed_action_types"
+                    )
+                for state_key in rule.get("global_deltas", {}):
+                    if state_key not in self.world_state_schema:
+                        raise ValueError(
+                            f"Transition rule {phase_name}:{action_type} references unknown global state key {state_key}"
+                        )

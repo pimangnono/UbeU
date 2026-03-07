@@ -1,6 +1,16 @@
 """Foundations for the product-oriented stakeholder simulation engine."""
 
 from .ablation import ALL_BENCHMARK_CONDITIONS, SimulationAblationConfig, resolve_benchmark_condition
+from .action_layer import (
+    ACTION_TYPES,
+    ActionProposal,
+    ExecutedAction,
+    TransitionRule,
+    WorldStateSnapshot,
+    apply_transition_rule,
+    arbitrate_phase_actions,
+    compile_action_proposal,
+)
 from .actor import StakeholderActor
 from .benchmark import SimulationBenchmarkRunner, aggregate_benchmark_runs, run_benchmark_sync
 from .controller import PersonaStateController
@@ -25,15 +35,24 @@ from .state_ledger import (
     RelationshipEdge,
     SimulationStateLedger,
 )
+from .state_store import GraphStateStore, InMemoryStateStore, StateStore
 
 __all__ = [
     "ActorDynamicState",
     "ALL_BENCHMARK_CONDITIONS",
+    "ACTION_TYPES",
     "EventExposure",
     "LedgerTurn",
+    "ActionProposal",
     "BenchmarkRunMetrics",
     "build_benchmark_report",
     "build_stakeholder_simulation_graph",
+    "compile_action_proposal",
+    "apply_transition_rule",
+    "arbitrate_phase_actions",
+    "ExecutedAction",
+    "WorldStateSnapshot",
+    "TransitionRule",
     "PersonaStateController",
     "RelationshipEdge",
     "SimulationPhase",
@@ -45,6 +64,9 @@ __all__ = [
     "StakeholderActor",
     "StakeholderActorSpec",
     "StakeholderSimulationRuntime",
+    "StateStore",
+    "InMemoryStateStore",
+    "GraphStateStore",
     "WorldEvent",
     "aggregate_benchmark_runs",
     "compute_runtime_metrics",

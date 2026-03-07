@@ -89,6 +89,7 @@ def test_simulation_script_builds_default_personality_envelopes():
     assert len(script.phases) == 2
     assert script.get_actor("actor_1").personality_envelope["O"] == (0.44, 0.8)
     assert script.actor_analysis_label_map["actor_2"] == "Adjacent local merchant"
+    assert script.world_state_schema[:5] == ["alignment", "trust", "uncertainty", "execution_confidence", "risk"]
 
 
 def test_state_ledger_tracks_commitments_and_relationships():
@@ -162,6 +163,7 @@ def test_runtime_scaffold_bootstraps_actor_symmetric_context():
     assert context["phase"]["name"] == "OPENING"
     assert context["turns"][0].speaker_name == "Jiho"
     assert runtime.to_runtime_summary()["actor_labels"]["actor_3"] == "Program administrator"
+    assert runtime.ledger.latest_world_state().global_state["alignment"] == 0.5
 
 
 def test_stakeholder_actor_omits_extended_ledger_context_when_ablated():

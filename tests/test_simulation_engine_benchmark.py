@@ -183,6 +183,14 @@ def test_resolve_benchmark_condition_maps_ablation_modes():
     assert config.use_banded_target_matching is True
 
 
+def test_resolve_benchmark_condition_maps_action_modes():
+    base, config = resolve_benchmark_condition("engine_action_v0")
+
+    assert base == "engine_controller"
+    assert config.use_action_layer is True
+    assert config.use_action_aware_scoring is True
+
+
 def test_benchmark_runner_executes_with_monkeypatched_generation(monkeypatch):
     async def _fake_generate_response(
         self,

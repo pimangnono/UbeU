@@ -71,6 +71,9 @@ def build_benchmark_report(results: dict[str, Any]) -> str:
 
     naive = aggregate.get("naive")
     controlled = aggregate.get("engine_controller")
+    if not (naive and controlled):
+        naive = aggregate.get("naive_action_baseline")
+        controlled = aggregate.get("engine_action_v0")
     if naive and controlled:
         lines.extend(_format_delta_block(naive, controlled))
 
@@ -103,6 +106,12 @@ def _format_summary_block(label: str, summary: dict[str, Any]) -> list[str]:
         f"- Relationship inconsistency: {summary.get('relationship_inconsistency_mean', 0.0):.4f}",
         f"- Commitment contradiction: {summary.get('commitment_contradiction_mean', 0.0):.4f}",
         f"- Envelope violations: {summary.get('envelope_violations_mean', 0.0):.4f}",
+        f"- Structured action validity: {summary.get('structured_action_validity_rate_mean', 0.0):.4f}",
+        f"- Owner resolution rate: {summary.get('owner_resolution_rate_mean', 0.0):.4f}",
+        f"- Executed action contradiction: {summary.get('executed_action_contradiction_rate_mean', 0.0):.4f}",
+        f"- State transition coherence: {summary.get('state_transition_coherence_mean', 0.0):.4f}",
+        f"- Action feedback utilization: {summary.get('action_feedback_utilization_mean', 0.0):.4f}",
+        f"- State trajectory variance: {summary.get('state_trajectory_variance_mean', 0.0):.4f}",
         f"- Mean turns: {summary.get('turn_count_mean', 0.0):.2f}",
         "",
     ]
@@ -121,6 +130,18 @@ def _format_delta_block(naive: dict[str, Any], controlled: dict[str, Any]) -> li
         controlled.get("commitment_contradiction_mean", 0.0) - naive.get("commitment_contradiction_mean", 0.0),
         4,
     )
+    action_validity_delta = round(
+        controlled.get("structured_action_validity_rate_mean", 0.0) - naive.get("structured_action_validity_rate_mean", 0.0),
+        4,
+    )
+    action_contradiction_delta = round(
+        controlled.get("executed_action_contradiction_rate_mean", 0.0) - naive.get("executed_action_contradiction_rate_mean", 0.0),
+        4,
+    )
+    trajectory_delta = round(
+        controlled.get("state_trajectory_variance_mean", 0.0) - naive.get("state_trajectory_variance_mean", 0.0),
+        4,
+    )
     trait_errors_naive = naive.get("per_trait_error_mean", {})
     trait_errors_controlled = controlled.get("per_trait_error_mean", {})
     trait_delta_line = ", ".join(
@@ -130,9 +151,12 @@ def _format_delta_block(naive: dict[str, Any], controlled: dict[str, Any]) -> li
 
     return [
         "",
-        "## Engine vs Naive",
-        f"- Persona drift delta (`engine_controller - naive`): {drift_delta:+.4f}",
+        "## Controlled Engine vs Baseline",
+        f"- Persona drift delta (`controlled - baseline`): {drift_delta:+.4f}",
         f"- Per-trait error delta: {trait_delta_line}",
         f"- Relationship inconsistency delta: {relation_delta:+.4f}",
         f"- Commitment contradiction delta: {commitment_delta:+.4f}",
+        f"- Structured action validity delta: {action_validity_delta:+.4f}",
+        f"- Executed action contradiction delta: {action_contradiction_delta:+.4f}",
+        f"- State trajectory variance delta: {trajectory_delta:+.4f}",
     ]

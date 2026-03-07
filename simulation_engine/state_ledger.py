@@ -7,6 +7,13 @@ from typing import Any, Optional
 
 from experiment.memory_backend import Commitment, extract_commitments
 
+from .action_layer import (
+    ActionProposal,
+    ExecutedAction,
+    WorldStateSnapshot,
+    build_phase_feedback,
+    default_local_state,
+)
 from .script import SimulationScript
 
 
@@ -145,8 +152,21 @@ class SimulationStateLedger:
         self.relationships: dict[tuple[str, str], RelationshipEdge] = {}
         self.event_exposures: list[EventExposure] = []
         self.relationship_events: list[dict[str, Any]] = []
+        self.action_proposals: list[ActionProposal] = []
+        self.executed_actions: list[ExecutedAction] = []
+        self.world_state_history: list[WorldStateSnapshot] = []
+        self.phase_state_feedback: dict[str, dict[str, dict[str, Any]]] = {}
 
         actor_ids = script.actor_ids
+        self.world_state_history.append(
+            WorldStateSnapshot(
+                phase_name="BOOTSTRAP",
+                turn_index=0,
+                global_state=dict(script.initial_world_state),
+                local_state_by_actor=default_local_state(actor_ids),
+                executed_action_ids=[],
+            )
+        )
         for actor_id in actor_ids:
             trust_map = {
                 other_id: 0.5
@@ -417,6 +437,85 @@ class SimulationStateLedger:
                 visible.append(turn)
         return visible[-max_turns:]
 
+    def append_action_proposal(self, proposal: ActionProposal | None) -> ActionProposal | None:
+        if proposal is None:
+            return None
+        self.action_proposals.append(proposal)
+        return proposal
+
+    def update_action_proposal_status(
+        self,
+        proposal_id: str,
+        *,
+        status: str,
+        rejection_reason: str | None = None,
+    ) -> ActionProposal | None:
+        for proposal in self.action_proposals:
+            if proposal.proposal_id == proposal_id:
+                proposal.status = status
+                proposal.rejection_reason = rejection_reason
+                return proposal
+        return None
+
+    def phase_action_proposals(self, phase_name: str) -> list[ActionProposal]:
+        return [proposal for proposal in self.action_proposals if proposal.phase_name == phase_name]
+
+    def apply_executed_action(
+        self,
+        executed_action: ExecutedAction,
+        world_snapshot: WorldStateSnapshot,
+    ) -> ExecutedAction:
+        self.executed_actions.append(executed_action)
+        self.world_state_history.append(world_snapshot)
+        proposal = self.update_action_proposal_status(executed_action.proposal_id, status="executed")
+        if proposal and proposal.commitment_id:
+            self.resolve_commitment(proposal.actor_id, proposal.commitment_id)
+        return executed_action
+
+    def latest_world_state(self) -> WorldStateSnapshot:
+        return self.world_state_history[-1]
+
+    def latest_phase_feedback(self, actor_id: str) -> dict[str, Any]:
+        if not self.phase_state_feedback:
+            return {}
+        last_phase_name = list(self.phase_state_feedback.keys())[-1]
+        return dict(self.phase_state_feedback.get(last_phase_name, {}).get(actor_id, {}))
+
+    def unresolved_action_proposals_for(self, actor_id: str) -> list[dict[str, Any]]:
+        rows = [
+            proposal.to_dict()
+            for proposal in self.action_proposals
+            if proposal.actor_id == actor_id and proposal.status in {"proposed", "approved"}
+        ]
+        return rows[-4:]
+
+    def visible_state_summary_for(self, actor_id: str) -> dict[str, Any]:
+        latest_world = self.latest_world_state()
+        feedback = self.latest_phase_feedback(actor_id)
+        recent_actions = [
+            action.to_dict()
+            for action in self.executed_actions
+            if action.owner_actor_id == actor_id or action.target_actor_id == actor_id
+        ][-2:]
+        return {
+            "global_state": dict(latest_world.global_state),
+            "local_state": dict(latest_world.local_state_by_actor.get(actor_id, {})),
+            "phase_feedback": feedback,
+            "recent_executed_actions": recent_actions,
+            "unresolved_actions": self.unresolved_action_proposals_for(actor_id),
+        }
+
+    def record_phase_feedback(
+        self,
+        phase_name: str,
+        executed_actions: list[ExecutedAction],
+        world_snapshot: WorldStateSnapshot,
+    ):
+        self.phase_state_feedback[phase_name] = {
+            actor_id: build_phase_feedback(world_snapshot, executed_actions, actor_id)
+            for actor_id in self.script.actor_ids
+        }
+
     def get_open_commitments(self, actor_id: str) -> list[Commitment]:
         return [
             commitment
@@ -442,4 +541,13 @@ class SimulationStateLedger:
                 for exposure in self.event_exposures
                 if actor_id in exposure.actor_ids
             ][-5:],
+            "world_state": dict(self.latest_world_state().global_state),
+            "local_state": dict(self.latest_world_state().local_state_by_actor.get(actor_id, {})),
+            "phase_feedback": self.latest_phase_feedback(actor_id),
+            "recent_executed_actions": [
+                action.to_dict()
+                for action in self.executed_actions
+                if action.owner_actor_id == actor_id or action.target_actor_id == actor_id
+            ][-2:],
+            "unresolved_actions": self.unresolved_action_proposals_for(actor_id),
         }

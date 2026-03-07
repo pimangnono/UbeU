@@ -12,10 +12,17 @@ from .ablation import (
     BenchmarkCondition,
     resolve_benchmark_condition,
 )
+from .action_layer import apply_transition_rule, arbitrate_phase_actions, compile_action_proposal
 from .controller import PersonaStateController
 from .graph_runner import StakeholderSimulationGraphRunner
 from .manual_scripts import load_mvp_policy_scripts
-from .metrics import BenchmarkRunMetrics, compute_runtime_metrics, estimate_actor_traits_from_turns, persona_drift_mae
+from .metrics import (
+    BenchmarkRunMetrics,
+    aggregate_phase_end_state_variance,
+    compute_runtime_metrics,
+    estimate_actor_traits_from_turns,
+    persona_drift_mae,
+)
 from .runtime import StakeholderSimulationRuntime
 
 DEFAULT_STYLE_SLOTS = ["integrator", "planner", "challenger", "skeptic"]
@@ -166,6 +173,14 @@ class SimulationBenchmarkRunner:
                             actor_snapshot=context["snapshot"],
                             phase=phase,
                             policy_plan=policy_plan,
+                            action_context={
+                                "script": runtime.script,
+                                "valid_target_keys": list(runtime.script.world_state_schema),
+                                "allowed_action_types": list(runtime.script.allowed_action_types),
+                                "global_state": dict(runtime.ledger.latest_world_state().global_state),
+                                "turn_index": runtime.turn_index + 1,
+                                "use_action_aware_scoring": bool(ablation_config.use_action_aware_scoring),
+                            },
                         )
                         selection = controller.select_candidate(
                             scored_candidates=scored,
@@ -197,6 +212,19 @@ class SimulationBenchmarkRunner:
                     content=text,
                     metadata=selected_meta,
                 )
+                if ablation_config.use_action_layer:
+                    proposal = await compile_action_proposal(
+                        self.gen_client,
+                        script=runtime.script,
+                        actor_id=actor_id,
+                        actor_name_map=actor_name_map,
+                        phase_name=phase.name,
+                        turn_index=runtime.turn_index,
+                        selected_text=text,
+                        policy_plan=selected_meta.get("policy_plan", {}),
+                        actor_snapshot=context["snapshot"],
+                    )
+                    runtime.ledger.append_action_proposal(proposal)
 
                 if base_condition != "engine_controller":
                     inferred_traits = estimate_actor_traits_from_turns(
@@ -209,6 +237,44 @@ class SimulationBenchmarkRunner:
                         rolling_trait_estimate=inferred_traits,
                         drift_score=persona_drift_mae(actor.actor_spec.personality_prior, inferred_traits),
                     )
+
+            if ablation_config.use_action_layer:
+                approved, rejected = arbitrate_phase_actions(
+                    runtime.script,
+                    phase.name,
+                    runtime.ledger.phase_action_proposals(phase.name),
+                )
+                for proposal in approved:
+                    runtime.ledger.update_action_proposal_status(proposal.proposal_id, status="approved")
+                for proposal in rejected:
+                    runtime.ledger.update_action_proposal_status(
+                        proposal.proposal_id,
+                        status="rejected",
+                        rejection_reason=proposal.rejection_reason,
+                    )
+                current_snapshot = runtime.ledger.latest_world_state()
+                executed_rows = []
+                for proposal in approved:
+                    executed, next_snapshot, rejection_reason = apply_transition_rule(
+                        runtime.script,
+                        proposal,
+                        current_snapshot,
+                    )
+                    if executed is None or next_snapshot is None:
+                        runtime.ledger.update_action_proposal_status(
+                            proposal.proposal_id,
+                            status="rejected",
+                            rejection_reason=rejection_reason or "transition_failed",
+                        )
+                        continue
+                    runtime.ledger.apply_executed_action(executed, next_snapshot)
+                    current_snapshot = next_snapshot
+                    executed_rows.append(executed)
+                runtime.ledger.record_phase_feedback(
+                    phase.name,
+                    executed_rows,
+                    runtime.ledger.latest_world_state(),
+                )
 
             runtime.advance_phase()
 
@@ -299,6 +365,12 @@ def _summarize_rows(rows: list[BenchmarkRunResult]) -> dict[str, Any]:
         )
         for trait in ("O", "C", "E", "A", "N")
     }
+    action_validity = [row.metrics.structured_action_validity_rate for row in rows]
+    owner_resolution = [row.metrics.owner_resolution_rate for row in rows]
+    action_contradiction = [row.metrics.executed_action_contradiction_rate for row in rows]
+    transition_coherence = [row.metrics.state_transition_coherence for row in rows]
+    feedback_utilization = [row.metrics.action_feedback_utilization for row in rows]
+    trajectory_variance = aggregate_phase_end_state_variance([row.metrics for row in rows])
 
     return {
         "num_runs": len(rows),
@@ -307,6 +379,12 @@ def _summarize_rows(rows: list[BenchmarkRunResult]) -> dict[str, Any]:
         "relationship_inconsistency_mean": round(mean(relation_values), 4),
         "commitment_contradiction_mean": round(mean(commitment_values), 4),
         "envelope_violations_mean": round(mean(envelope_values), 4),
+        "structured_action_validity_rate_mean": round(mean(action_validity), 4),
+        "owner_resolution_rate_mean": round(mean(owner_resolution), 4),
+        "executed_action_contradiction_rate_mean": round(mean(action_contradiction), 4),
+        "state_transition_coherence_mean": round(mean(transition_coherence), 4),
+        "action_feedback_utilization_mean": round(mean(feedback_utilization), 4),
+        "state_trajectory_variance_mean": trajectory_variance,
         "per_trait_error_mean": per_trait_error_mean,
         "turn_count_mean": round(mean(turn_counts), 2),
     }
