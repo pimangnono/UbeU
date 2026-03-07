@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import copy
+
 from .script import SimulationScript
 
 
@@ -299,9 +301,335 @@ _MVP_POLICY_SCRIPTS = [
 ]
 
 
+def _policy_action_spec() -> dict[str, object]:
+    schema = [
+        "alignment",
+        "trust",
+        "uncertainty",
+        "execution_confidence",
+        "risk",
+        "admin_feasibility",
+        "spillover_risk",
+    ]
+    return {
+        "world_state_schema": schema,
+        "initial_world_state": {
+            "alignment": 0.48,
+            "trust": 0.50,
+            "uncertainty": 0.56,
+            "execution_confidence": 0.44,
+            "risk": 0.52,
+            "admin_feasibility": 0.46,
+            "spillover_risk": 0.54,
+        },
+        "allowed_action_types": [
+            "assign_owner",
+            "request_evidence",
+            "publish_update",
+            "narrow_scope",
+            "pilot",
+            "defer_decision",
+        ],
+        "state_visibility_rules": {
+            "global_keys": ["alignment", "uncertainty", "risk"],
+            "local_keys": ["trust", "execution_confidence", "alignment"],
+            "max_recent_actions": 2,
+        },
+        "transition_rules": {
+            "OPENING": {
+                "request_evidence": {
+                    "global_deltas": {"uncertainty": -0.04, "admin_feasibility": 0.04},
+                    "owner_local_deltas": {"execution_confidence": 0.04},
+                    "feedback_template": "Evidence request clarifies early implementation questions.",
+                },
+                "publish_update": {
+                    "global_deltas": {"trust": 0.04, "alignment": 0.04},
+                    "owner_local_deltas": {"trust": 0.04},
+                    "feedback_template": "A public clarification improves initial alignment.",
+                },
+            },
+            "TENSION": {
+                "request_evidence": {
+                    "global_deltas": {"uncertainty": -0.08, "risk": -0.04},
+                    "owner_local_deltas": {"execution_confidence": 0.04},
+                    "feedback_template": "Evidence gathering reduces uncertainty during the conflict phase.",
+                },
+                "narrow_scope": {
+                    "global_deltas": {"risk": -0.08, "spillover_risk": -0.08, "alignment": 0.04},
+                    "owner_local_deltas": {"execution_confidence": 0.08},
+                    "feedback_template": "A narrower rollout reduces spillover risk.",
+                },
+                "pilot": {
+                    "global_deltas": {"uncertainty": -0.04, "admin_feasibility": 0.04, "spillover_risk": -0.04},
+                    "owner_local_deltas": {"execution_confidence": 0.04},
+                    "feedback_template": "A pilot contains uncertainty without forcing a full commitment.",
+                },
+                "defer_decision": {
+                    "global_deltas": {"uncertainty": 0.04, "alignment": -0.04},
+                    "owner_local_deltas": {"risk": 0.04},
+                    "feedback_template": "Deferral protects the actor short term but keeps uncertainty elevated.",
+                },
+            },
+            "NEGOTIATION": {
+                "assign_owner": {
+                    "global_deltas": {"execution_confidence": 0.08, "alignment": 0.08, "admin_feasibility": 0.04},
+                    "owner_local_deltas": {"execution_confidence": 0.08},
+                    "feedback_template": "Named ownership increases coordination confidence.",
+                },
+                "pilot": {
+                    "global_deltas": {"uncertainty": -0.08, "spillover_risk": -0.04},
+                    "owner_local_deltas": {"execution_confidence": 0.04},
+                    "feedback_template": "A bounded pilot creates a lower-risk compromise.",
+                },
+                "narrow_scope": {
+                    "global_deltas": {"risk": -0.04, "spillover_risk": -0.08, "execution_confidence": 0.04},
+                    "owner_local_deltas": {"execution_confidence": 0.08},
+                    "feedback_template": "Scope reduction improves feasibility and lowers risk.",
+                },
+                "publish_update": {
+                    "global_deltas": {"trust": 0.04, "alignment": 0.04},
+                    "owner_local_deltas": {"trust": 0.04},
+                    "feedback_template": "Publishing the negotiation stance improves stakeholder trust.",
+                },
+            },
+            "CLOSING": {
+                "assign_owner": {
+                    "global_deltas": {"execution_confidence": 0.08, "alignment": 0.04},
+                    "owner_local_deltas": {"execution_confidence": 0.08},
+                    "feedback_template": "Closing ownership decisions strengthen execution confidence.",
+                },
+                "publish_update": {
+                    "global_deltas": {"trust": 0.08, "alignment": 0.08, "uncertainty": -0.04},
+                    "owner_local_deltas": {"trust": 0.04},
+                    "feedback_template": "A closing update improves trust and reduces residual uncertainty.",
+                },
+                "defer_decision": {
+                    "global_deltas": {"uncertainty": 0.04, "execution_confidence": -0.04},
+                    "owner_local_deltas": {"risk": 0.04},
+                    "feedback_template": "An unresolved closing decision preserves uncertainty.",
+                },
+            },
+        },
+    }
+
+
+def _launch_action_spec() -> dict[str, object]:
+    schema = [
+        "alignment",
+        "trust",
+        "uncertainty",
+        "execution_confidence",
+        "risk",
+        "launch_readiness",
+        "message_alignment",
+        "incident_risk",
+    ]
+    return {
+        "world_state_schema": schema,
+        "initial_world_state": {
+            "alignment": 0.46,
+            "trust": 0.51,
+            "uncertainty": 0.55,
+            "execution_confidence": 0.45,
+            "risk": 0.56,
+            "launch_readiness": 0.47,
+            "message_alignment": 0.50,
+            "incident_risk": 0.58,
+        },
+        "allowed_action_types": [
+            "assign_owner",
+            "request_evidence",
+            "publish_update",
+            "narrow_scope",
+            "pilot",
+            "commit_resource",
+            "defer_decision",
+        ],
+        "state_visibility_rules": {
+            "global_keys": ["alignment", "uncertainty", "risk", "launch_readiness"],
+            "local_keys": ["trust", "execution_confidence", "alignment"],
+            "max_recent_actions": 2,
+        },
+        "transition_rules": {
+            "OPENING": {
+                "publish_update": {
+                    "global_deltas": {"alignment": 0.04, "message_alignment": 0.08},
+                    "owner_local_deltas": {"trust": 0.04},
+                },
+                "request_evidence": {
+                    "global_deltas": {"uncertainty": -0.04, "launch_readiness": 0.04},
+                    "owner_local_deltas": {"execution_confidence": 0.04},
+                },
+            },
+            "TENSION": {
+                "narrow_scope": {
+                    "global_deltas": {"incident_risk": -0.12, "risk": -0.08, "launch_readiness": 0.08},
+                    "owner_local_deltas": {"execution_confidence": 0.08},
+                },
+                "request_evidence": {
+                    "global_deltas": {"uncertainty": -0.08, "incident_risk": -0.04},
+                    "owner_local_deltas": {"execution_confidence": 0.04},
+                },
+                "defer_decision": {
+                    "global_deltas": {"risk": -0.04, "launch_readiness": -0.08, "uncertainty": 0.04},
+                    "owner_local_deltas": {"risk": -0.04},
+                },
+            },
+            "NEGOTIATION": {
+                "assign_owner": {
+                    "global_deltas": {"execution_confidence": 0.08, "alignment": 0.08, "launch_readiness": 0.04},
+                    "owner_local_deltas": {"execution_confidence": 0.08},
+                },
+                "commit_resource": {
+                    "global_deltas": {"launch_readiness": 0.08, "execution_confidence": 0.08, "risk": -0.04},
+                    "owner_local_deltas": {"execution_confidence": 0.08},
+                },
+                "pilot": {
+                    "global_deltas": {"incident_risk": -0.08, "uncertainty": -0.04, "launch_readiness": 0.04},
+                    "owner_local_deltas": {"execution_confidence": 0.04},
+                },
+                "publish_update": {
+                    "global_deltas": {"message_alignment": 0.08, "trust": 0.04},
+                    "owner_local_deltas": {"trust": 0.04},
+                },
+            },
+            "CLOSING": {
+                "assign_owner": {
+                    "global_deltas": {"execution_confidence": 0.08, "alignment": 0.04},
+                    "owner_local_deltas": {"execution_confidence": 0.08},
+                },
+                "publish_update": {
+                    "global_deltas": {"message_alignment": 0.08, "trust": 0.08, "uncertainty": -0.04},
+                    "owner_local_deltas": {"trust": 0.04},
+                },
+                "defer_decision": {
+                    "global_deltas": {"launch_readiness": -0.08, "uncertainty": 0.04},
+                    "owner_local_deltas": {"risk": 0.04},
+                },
+            },
+        },
+    }
+
+
+def _pmi_action_spec() -> dict[str, object]:
+    schema = [
+        "alignment",
+        "trust",
+        "uncertainty",
+        "execution_confidence",
+        "risk",
+        "retention_risk",
+        "autonomy_confidence",
+        "integration_clarity",
+    ]
+    return {
+        "world_state_schema": schema,
+        "initial_world_state": {
+            "alignment": 0.43,
+            "trust": 0.47,
+            "uncertainty": 0.58,
+            "execution_confidence": 0.42,
+            "risk": 0.55,
+            "retention_risk": 0.59,
+            "autonomy_confidence": 0.44,
+            "integration_clarity": 0.40,
+        },
+        "allowed_action_types": [
+            "assign_owner",
+            "request_evidence",
+            "publish_update",
+            "pilot",
+            "defer_decision",
+            "preserve_autonomy",
+        ],
+        "state_visibility_rules": {
+            "global_keys": ["alignment", "trust", "uncertainty", "retention_risk"],
+            "local_keys": ["trust", "execution_confidence", "alignment"],
+            "max_recent_actions": 2,
+        },
+        "transition_rules": {
+            "OPENING": {
+                "publish_update": {
+                    "global_deltas": {"trust": 0.04, "alignment": 0.04},
+                    "owner_local_deltas": {"trust": 0.04},
+                },
+                "request_evidence": {
+                    "global_deltas": {"uncertainty": -0.04, "integration_clarity": 0.04},
+                    "owner_local_deltas": {"execution_confidence": 0.04},
+                },
+            },
+            "TENSION": {
+                "preserve_autonomy": {
+                    "global_deltas": {"trust": 0.08, "autonomy_confidence": 0.12, "retention_risk": -0.08},
+                    "owner_local_deltas": {"trust": 0.08},
+                    "target_local_deltas": {"trust": 0.04},
+                },
+                "request_evidence": {
+                    "global_deltas": {"uncertainty": -0.08, "integration_clarity": 0.04},
+                    "owner_local_deltas": {"execution_confidence": 0.04},
+                },
+                "defer_decision": {
+                    "global_deltas": {"retention_risk": 0.08, "uncertainty": 0.04},
+                    "owner_local_deltas": {"risk": 0.04},
+                },
+            },
+            "NEGOTIATION": {
+                "assign_owner": {
+                    "global_deltas": {"integration_clarity": 0.12, "execution_confidence": 0.08, "alignment": 0.04},
+                    "owner_local_deltas": {"execution_confidence": 0.08},
+                },
+                "pilot": {
+                    "global_deltas": {"uncertainty": -0.04, "risk": -0.04, "integration_clarity": 0.08},
+                    "owner_local_deltas": {"execution_confidence": 0.04},
+                },
+                "preserve_autonomy": {
+                    "global_deltas": {"autonomy_confidence": 0.08, "trust": 0.04, "retention_risk": -0.04},
+                    "owner_local_deltas": {"trust": 0.04},
+                },
+                "publish_update": {
+                    "global_deltas": {"trust": 0.08, "alignment": 0.04},
+                    "owner_local_deltas": {"trust": 0.04},
+                },
+            },
+            "CLOSING": {
+                "assign_owner": {
+                    "global_deltas": {"integration_clarity": 0.08, "execution_confidence": 0.08},
+                    "owner_local_deltas": {"execution_confidence": 0.08},
+                },
+                "publish_update": {
+                    "global_deltas": {"trust": 0.08, "uncertainty": -0.04, "alignment": 0.04},
+                    "owner_local_deltas": {"trust": 0.04},
+                },
+                "preserve_autonomy": {
+                    "global_deltas": {"autonomy_confidence": 0.08, "retention_risk": -0.04},
+                    "owner_local_deltas": {"trust": 0.04},
+                },
+            },
+        },
+    }
+
+
+def _augment_with_action_layer_spec(item: dict[str, object]) -> dict[str, object]:
+    payload = copy.deepcopy(item)
+    simulation_id = str(payload["simulation_id"])
+    if simulation_id in {
+        "youth_employment_policy",
+        "housing_support_policy",
+        "commuting_support_policy",
+    }:
+        payload.update(_policy_action_spec())
+    elif simulation_id == "new_product_launch":
+        payload.update(_launch_action_spec())
+    elif simulation_id == "post_merger_integration":
+        payload.update(_pmi_action_spec())
+    else:
+        raise ValueError(f"Unknown MVP script id for action-layer augmentation: {simulation_id}")
+    return payload
+
+
 def load_mvp_policy_scripts() -> list[SimulationScript]:
     """Return the pre-injected scripts used for MVP benchmarking."""
-    return [SimulationScript.from_dict(item) for item in _MVP_POLICY_SCRIPTS]
+    return [SimulationScript.from_dict(_augment_with_action_layer_spec(item)) for item in _MVP_POLICY_SCRIPTS]
 
 
 def load_mvp_policy_script_map() -> dict[str, SimulationScript]:

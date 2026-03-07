@@ -13,6 +13,11 @@ from experiment.memory_backend import (
     score_relationship_consistency,
 )
 
+from .action_layer import (
+    heuristic_action_executability_score,
+    heuristic_action_proposal,
+    heuristic_state_consistency_score,
+)
 from .ablation import DEFAULT_ABLATION_CONFIG, SimulationAblationConfig
 from .metrics import estimate_actor_traits_from_turns, persona_drift_mae, trait_absolute_errors
 from .runtime import RuntimeTurnView
@@ -320,6 +325,7 @@ class PersonaStateController:
         actor_snapshot: dict[str, Any],
         phase: SimulationPhase,
         policy_plan: dict | None = None,
+        action_context: dict[str, Any] | None = None,
     ) -> list[dict[str, Any]]:
         scored: list[dict[str, Any]] = []
         commitments = [
@@ -392,6 +398,32 @@ class PersonaStateController:
                 trait_error_map=trait_error_map,
                 opportunity_scores=opportunity_scores,
             )
+            if action_context and action_context.get("use_action_aware_scoring"):
+                action_proposal = heuristic_action_proposal(
+                    script=action_context["script"],
+                    actor_id=self.actor_spec.actor_id,
+                    actor_name_map=self.actor_name_map,
+                    phase_name=phase.name,
+                    turn_index=action_context.get("turn_index", 1),
+                    selected_text=text,
+                    policy_plan=policy_plan or {},
+                )
+                action_executability = heuristic_action_executability_score(
+                    text=text,
+                    valid_target_keys=list(action_context.get("valid_target_keys", [])),
+                    allowed_action_types=list(action_context.get("allowed_action_types", [])),
+                )
+                state_consistency = heuristic_state_consistency_score(
+                    text=text,
+                    action_type=action_proposal.action_type if action_proposal else None,
+                    target_key=action_proposal.target_key if action_proposal else None,
+                    global_state=action_context.get("global_state", {}),
+                    phase_name=phase.name,
+                )
+            else:
+                action_proposal = None
+                action_executability = 0.5
+                state_consistency = 0.5
 
             total = (
                 0.18 * identity_consistency
@@ -403,6 +435,8 @@ class PersonaStateController:
                 + 0.09 * situational_adequacy
                 + 0.04 * interaction_progress
                 + 0.02 * policy_match
+                + (0.10 * action_executability if action_context and action_context.get("use_action_aware_scoring") else 0.0)
+                + (0.10 * state_consistency if action_context and action_context.get("use_action_aware_scoring") else 0.0)
                 - 0.18 * contradiction_penalty
                 - 0.12 * envelope_penalty
                 - 0.08 * sycophancy_risk
@@ -430,6 +464,9 @@ class PersonaStateController:
                 "social_trait_details": social_trait_details,
                 "expressive_stability_penalty": round(expressive_stability_penalty, 4),
                 "expressive_stability_details": expressive_stability_details,
+                "action_executability": round(action_executability, 4),
+                "state_consistency": round(state_consistency, 4),
+                "action_hint": action_proposal.to_dict() if action_proposal else None,
                 "trait_error_map": trait_error_map,
                 "opportunity_scores": dict(opportunity_scores),
                 "redundancy_penalty": round(redundancy_penalty, 4),
@@ -512,6 +549,8 @@ class PersonaStateController:
                     "relationship_consistency": row["relationship_consistency"],
                     "trait_target_alignment": row.get("trait_target_alignment"),
                     "social_trait_alignment": row.get("social_trait_alignment"),
+                    "action_executability": row.get("action_executability"),
+                    "state_consistency": row.get("state_consistency"),
                     "sycophancy_risk": row.get("sycophancy_risk"),
                 }
                 for row in scored_candidates

@@ -33,5 +33,11 @@ class StakeholderGraphState(TypedDict, total=False):
     selected_candidate: dict[str, Any]
     selected_candidate_text: str
     selected_meta: dict[str, Any]
+    selected_action_proposal: dict[str, Any] | None
+    approved_phase_actions: list[dict[str, Any]]
+    rejected_phase_actions: list[dict[str, Any]]
+    executed_phase_actions: list[dict[str, Any]]
+    phase_feedback: dict[str, Any]
+    phase_boundary_reached: bool
 
     result: dict[str, Any]

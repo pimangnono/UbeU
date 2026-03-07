@@ -208,6 +208,11 @@ class StakeholderActor:
         commitments = actor_snapshot.get("open_commitments", [])
         relationships = actor_snapshot.get("relationships", [])
         event_exposures = actor_snapshot.get("recent_event_exposures", [])
+        world_state = actor_snapshot.get("world_state", {})
+        local_state = actor_snapshot.get("local_state", {})
+        phase_feedback = actor_snapshot.get("phase_feedback", {})
+        recent_actions = actor_snapshot.get("recent_executed_actions", [])
+        unresolved_actions = actor_snapshot.get("unresolved_actions", [])
         rolling_traits = actor_state.get("rolling_trait_estimate", {})
         drift_score = actor_state.get("drift_score", 0.0)
         trait_drift_map = actor_state.get("trait_drift_map", {})
@@ -230,6 +235,27 @@ class StakeholderActor:
             exposure.get("event_title") or exposure.get("event_id", "")
             for exposure in event_exposures[-3:]
         ) or "none"
+        world_state_summary = ", ".join(
+            f"{key}={value:.2f}"
+            for key, value in world_state.items()
+        ) or "none"
+        local_state_summary = ", ".join(
+            f"{key}={value:.2f}"
+            for key, value in local_state.items()
+        ) or "none"
+        recent_action_summary = ", ".join(
+            f"{item.get('action_type')}({item.get('target_key')})"
+            for item in recent_actions[:2]
+        ) or "none"
+        unresolved_action_summary = ", ".join(
+            f"{item.get('action_type')}->{item.get('target_key')}"
+            for item in unresolved_actions[:2]
+        ) or "none"
+        phase_feedback_lines = "; ".join(
+            str(value)
+            for value in phase_feedback.values()
+            if value
+        ) or "none"
 
         if not self.ablation_config.use_extended_ledger_context:
             return (
@@ -237,7 +263,9 @@ class StakeholderActor:
                 f"stress={stress:.2f}; "
                 f"open_commitments={commitment_summary}; "
                 f"relationships={relationship_summary}; "
-                f"recent_event_exposures={exposure_summary}."
+                f"recent_event_exposures={exposure_summary}; "
+                f"world_state={world_state_summary}; "
+                f"recent_actions={recent_action_summary}."
             )
 
         trait_summary = ", ".join(
@@ -265,8 +293,58 @@ class StakeholderActor:
             f"unfulfilled_persona_acts={missing_act_summary}; "
             f"open_commitments={commitment_summary}; "
             f"relationships={relationship_summary}; "
-            f"recent_event_exposures={exposure_summary}."
+            f"recent_event_exposures={exposure_summary}; "
+            f"world_state={world_state_summary}; "
+            f"local_state={local_state_summary}; "
+            f"recent_actions={recent_action_summary}; "
+            f"unresolved_actions={unresolved_action_summary}; "
+            f"phase_feedback={phase_feedback_lines}."
         )
+
+    def _augment_policy_plan(
+        self,
+        policy_plan: dict[str, Any],
+        actor_snapshot: Optional[dict[str, Any]],
+        phase_name: Optional[str],
+        phase_cues: Optional[list[str]],
+    ) -> dict[str, Any]:
+        plan = dict(policy_plan or {})
+        cues = [cue.lower() for cue in (phase_cues or [])]
+        world_state = dict((actor_snapshot or {}).get("world_state", {}))
+        if "action_intent" not in plan:
+            if "owner" in cues or plan.get("planning_depth") == "owner_deadline":
+                plan["action_intent"] = "assign_owner"
+            elif "evidence" in " ".join(cues) or "uncertainty" in cues:
+                plan["action_intent"] = "request_evidence"
+            elif "autonomy" in cues:
+                plan["action_intent"] = "preserve_autonomy"
+            elif "scope" in " ".join(cues) or "mitigation" in cues:
+                plan["action_intent"] = "narrow_scope"
+            else:
+                plan["action_intent"] = "publish_update"
+        if "target_state_key" not in plan:
+            if "autonomy" in cues:
+                plan["target_state_key"] = "autonomy_confidence"
+            elif "readiness" in cues:
+                plan["target_state_key"] = "launch_readiness"
+            elif "spillover" in cues:
+                plan["target_state_key"] = "spillover_risk"
+            elif "coordination" in cues or plan.get("planning_depth") == "owner_deadline":
+                plan["target_state_key"] = "execution_confidence"
+            else:
+                plan["target_state_key"] = max(world_state, key=world_state.get, default="alignment")
+        if "commitment_strength" not in plan:
+            plan["commitment_strength"] = "high" if plan.get("planning_depth") == "owner_deadline" else "medium"
+        if "expected_state_effect" not in plan:
+            target_key = plan.get("target_state_key")
+            current_value = float(world_state.get(target_key, 0.5)) if target_key else 0.5
+            if plan.get("action_intent") in {"request_evidence", "narrow_scope", "defer_decision"}:
+                plan["expected_state_effect"] = "decrease" if current_value >= 0.5 else "stabilize"
+            else:
+                plan["expected_state_effect"] = "increase" if current_value <= 0.5 else "stabilize"
+        if phase_name and "deadline_phase" not in plan:
+            plan["deadline_phase"] = phase_name
+        return plan
 
     async def generate_policy_plan(
         self,
@@ -277,13 +355,14 @@ class StakeholderActor:
         target_traits: Optional[list[str]] = None,
     ) -> dict:
         scenario_brief = self.world_brief + self.build_state_context(actor_snapshot)
-        return await self._delegate.generate_policy_plan(
+        policy_plan = await self._delegate.generate_policy_plan(
             turns=turns,
             scenario_brief=scenario_brief,
             phase_name=phase_name,
             phase_cues=phase_cues,
             target_traits=target_traits,
         )
+        return self._augment_policy_plan(policy_plan, actor_snapshot, phase_name, phase_cues)
 
     async def generate_response(
         self,

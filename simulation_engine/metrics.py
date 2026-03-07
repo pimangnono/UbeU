@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from statistics import pvariance
 from typing import Any
 
 from experiment.behavioral_features import extract_features
@@ -176,6 +177,105 @@ def commitment_contradiction_rate(runtime: StakeholderSimulationRuntime) -> floa
     return round(contradictions / max(eligible_turns, 1), 4)
 
 
+def structured_action_validity_rate(runtime: StakeholderSimulationRuntime) -> float:
+    action_bearing = [proposal for proposal in runtime.ledger.action_proposals if proposal.action_bearing]
+    if not action_bearing:
+        return 0.0
+    valid = [
+        proposal for proposal in action_bearing
+        if proposal.status in {"proposed", "approved", "executed"}
+        and proposal.rejection_reason is None
+        and proposal.action_type
+        and proposal.target_key
+    ]
+    return round(len(valid) / len(action_bearing), 4)
+
+
+def owner_resolution_rate(runtime: StakeholderSimulationRuntime) -> float:
+    executed = runtime.ledger.executed_actions
+    if not executed:
+        return 0.0
+    resolved = [action for action in executed if action.owner_actor_id]
+    return round(len(resolved) / len(executed), 4)
+
+
+def executed_action_contradiction_rate(runtime: StakeholderSimulationRuntime) -> float:
+    executed = runtime.ledger.executed_actions
+    if len(executed) < 2:
+        return 0.0
+    by_actor_target: dict[tuple[str, str], list[dict[str, float]]] = {}
+    proposal_map = {proposal.proposal_id: proposal for proposal in runtime.ledger.action_proposals}
+    for action in executed:
+        proposal = proposal_map.get(action.proposal_id)
+        actor_id = proposal.actor_id if proposal else action.owner_actor_id or "unknown"
+        by_actor_target.setdefault((actor_id, action.target_key), []).append(action.applied_delta)
+    contradictions = 0
+    comparable = 0
+    for deltas in by_actor_target.values():
+        if len(deltas) < 2:
+            continue
+        comparable += len(deltas) - 1
+        for prior, current in zip(deltas, deltas[1:]):
+            shared_keys = set(prior).intersection(current)
+            if any(prior[key] * current[key] < 0 for key in shared_keys if abs(prior[key]) >= 0.04 and abs(current[key]) >= 0.04):
+                contradictions += 1
+    return round(contradictions / max(comparable, 1), 4)
+
+
+def state_transition_coherence(runtime: StakeholderSimulationRuntime) -> float:
+    executed = runtime.ledger.executed_actions
+    if not executed:
+        return 0.0
+    return round(sum(action.coherence_score for action in executed) / len(executed), 4)
+
+
+def action_feedback_utilization(runtime: StakeholderSimulationRuntime) -> float:
+    feedback = runtime.ledger.phase_state_feedback
+    if not feedback:
+        return 0.0
+    opportunities = 0
+    hits = 0
+    phase_by_name = {phase.name: phase for phase in runtime.script.phases}
+    for idx, phase in enumerate(runtime.script.phases[1:], start=1):
+        previous_phase = runtime.script.phases[idx - 1].name
+        feedback_rows = feedback.get(previous_phase, {})
+        if not feedback_rows:
+            continue
+        opportunities += 1
+        phase_turns = [turn for turn in runtime.ledger.turns if turn.phase_name == phase.name]
+        feedback_tokens = " ".join(
+            row.get("last_actions_line", "") + " " + row.get("world_state_line", "")
+            for row in feedback_rows.values()
+        ).lower()
+        if any(
+            token and token in turn.content.lower()
+            for turn in phase_turns[: min(2, phase_by_name[phase.name].max_turns)]
+            for token in (
+                "owner",
+                "update",
+                "evidence",
+                "autonomy",
+                "scope",
+                "pilot",
+                "risk",
+                "alignment",
+                "readiness",
+                "retention",
+            )
+            if token in feedback_tokens
+        ):
+            hits += 1
+    return round(hits / max(opportunities, 1), 4)
+
+
+def phase_end_world_states(runtime: StakeholderSimulationRuntime) -> list[dict[str, float]]:
+    return [
+        dict(snapshot.global_state)
+        for snapshot in runtime.ledger.world_state_history
+        if snapshot.phase_name != "BOOTSTRAP"
+    ]
+
+
 @dataclass
 class BenchmarkRunMetrics:
     persona_drift_mae: float
@@ -187,6 +287,12 @@ class BenchmarkRunMetrics:
     actor_display_names: dict[str, str]
     actor_trait_estimates: dict[str, dict[str, float]]
     actor_trait_errors: dict[str, dict[str, float]]
+    structured_action_validity_rate: float = 0.0
+    owner_resolution_rate: float = 0.0
+    executed_action_contradiction_rate: float = 0.0
+    state_transition_coherence: float = 0.0
+    action_feedback_utilization: float = 0.0
+    phase_end_world_states: list[dict[str, float]] | None = None
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -199,6 +305,12 @@ class BenchmarkRunMetrics:
             "actor_display_names": self.actor_display_names,
             "actor_trait_estimates": self.actor_trait_estimates,
             "actor_trait_errors": self.actor_trait_errors,
+            "structured_action_validity_rate": self.structured_action_validity_rate,
+            "owner_resolution_rate": self.owner_resolution_rate,
+            "executed_action_contradiction_rate": self.executed_action_contradiction_rate,
+            "state_transition_coherence": self.state_transition_coherence,
+            "action_feedback_utilization": self.action_feedback_utilization,
+            "phase_end_world_states": self.phase_end_world_states or [],
         }
 
 
@@ -233,4 +345,34 @@ def compute_runtime_metrics(runtime: StakeholderSimulationRuntime) -> BenchmarkR
         actor_display_names=dict(runtime.script.actor_display_name_map),
         actor_trait_estimates=actor_trait_estimates,
         actor_trait_errors=actor_trait_errors,
+        structured_action_validity_rate=structured_action_validity_rate(runtime),
+        owner_resolution_rate=owner_resolution_rate(runtime),
+        executed_action_contradiction_rate=executed_action_contradiction_rate(runtime),
+        state_transition_coherence=state_transition_coherence(runtime),
+        action_feedback_utilization=action_feedback_utilization(runtime),
+        phase_end_world_states=phase_end_world_states(runtime),
     )
+
+
+def aggregate_phase_end_state_variance(rows: list[BenchmarkRunMetrics]) -> float:
+    trajectories = [row.phase_end_world_states or [] for row in rows]
+    if not trajectories or not trajectories[0]:
+        return 0.0
+    shared_phase_count = min(len(items) for items in trajectories)
+    if shared_phase_count == 0:
+        return 0.0
+    variances: list[float] = []
+    for phase_index in range(shared_phase_count):
+        state_keys = set()
+        for trajectory in trajectories:
+            state_keys.update(trajectory[phase_index].keys())
+        for state_key in state_keys:
+            values = [
+                float(trajectory[phase_index].get(state_key, 0.5))
+                for trajectory in trajectories
+            ]
+            if len(values) > 1:
+                variances.append(pvariance(values))
+    if not variances:
+        return 0.0
+    return round(sum(variances) / len(variances), 4)

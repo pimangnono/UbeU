@@ -75,7 +75,7 @@ def test_reporting_writes_json_and_markdown(tmp_path):
     assert report_path.exists()
     report_text = report_path.read_text()
     assert "Simulation Benchmark Report" in report_text
-    assert "Engine vs Naive" in report_text
+    assert "Controlled Engine vs Baseline" in report_text
     assert "Per-trait absolute error" in report_text
 
 

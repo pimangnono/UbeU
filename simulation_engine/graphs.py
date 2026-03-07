@@ -7,6 +7,11 @@ from typing import Any
 from langgraph.graph import END, START, StateGraph
 
 from .ablation import DEFAULT_ABLATION_CONFIG
+from .action_layer import (
+    apply_transition_rule,
+    arbitrate_phase_actions,
+    compile_action_proposal,
+)
 from .controller import PersonaStateController
 from .graph_state import StakeholderGraphState
 from .metrics import compute_runtime_metrics, estimate_actor_traits_from_turns, persona_drift_mae
@@ -50,6 +55,12 @@ class StakeholderSimulationNodes:
             "selected_candidate": {},
             "selected_candidate_text": "",
             "selected_meta": {},
+            "selected_action_proposal": None,
+            "approved_phase_actions": [],
+            "rejected_phase_actions": [],
+            "executed_phase_actions": [],
+            "phase_feedback": {},
+            "phase_boundary_reached": False,
         }
 
     def route_turn_loop(self, state: StakeholderGraphState) -> str:
@@ -94,6 +105,7 @@ class StakeholderSimulationNodes:
             "selected_candidate": {},
             "selected_candidate_text": "",
             "selected_meta": {},
+            "selected_action_proposal": None,
         }
 
     def route_generation_mode(self, state: StakeholderGraphState) -> str:
@@ -106,14 +118,14 @@ class StakeholderSimulationNodes:
         text = await actor.generate_response(
             turns=state["actor_context"]["turns"],
             phase_style=phase.style,
-            actor_snapshot=None,
+            actor_snapshot=state["actor_context"]["snapshot"] if state["ablation_config"].use_action_layer else None,
             phase_name=phase.name,
             phase_cues=phase.cues,
         )
         return {
             "selected_candidate": {"text": text},
             "selected_candidate_text": text,
-            "selected_meta": {"mode": "naive"},
+            "selected_meta": {"mode": state["condition"]},
         }
 
     async def plan_policy(self, state: StakeholderGraphState) -> dict[str, Any]:
@@ -164,7 +176,7 @@ class StakeholderSimulationNodes:
             "selected_candidate": selected,
             "selected_candidate_text": selected["text"],
             "selected_meta": {
-                "mode": "engine_first_candidate",
+                "mode": state["condition"],
                 "policy_plan": state["policy_plan"],
                 "slot": selected.get("slot"),
             },
@@ -174,12 +186,21 @@ class StakeholderSimulationNodes:
         runtime = state["runtime"]
         controller = state["controllers"][state["active_actor_id"]]
         phase = runtime.current_phase
+        action_context = {
+            "script": runtime.script,
+            "valid_target_keys": list(runtime.script.world_state_schema),
+            "allowed_action_types": list(runtime.script.allowed_action_types),
+            "global_state": dict(runtime.ledger.latest_world_state().global_state),
+            "turn_index": runtime.turn_index + 1,
+            "use_action_aware_scoring": bool(state["ablation_config"].use_action_aware_scoring),
+        }
         scored = controller.score_candidate_pool(
             candidate_pool=state["candidate_pool"],
             visible_turns=state["actor_context"]["turns"],
             actor_snapshot=state["actor_context"]["snapshot"],
             phase=phase,
             policy_plan=state["policy_plan"],
+            action_context=action_context,
         )
         return {"scored_candidates": scored}
 
@@ -208,10 +229,11 @@ class StakeholderSimulationNodes:
             "selected_candidate": selected,
             "selected_candidate_text": selected["text"],
             "selected_meta": {
-                "mode": "engine_controller",
+                "mode": state["condition"],
                 "policy_plan": state["policy_plan"],
                 "audit": selection["audit"],
                 "slot": selected.get("slot"),
+                "action_hint": selected.get("action_hint"),
             },
         }
 
@@ -237,13 +259,121 @@ class StakeholderSimulationNodes:
             )
         return {"last_turn_index": turn.turn_index}
 
+    async def compile_action_proposal(self, state: StakeholderGraphState) -> dict[str, Any]:
+        runtime = state["runtime"]
+        if not state["ablation_config"].use_action_layer:
+            return {"selected_action_proposal": None}
+        proposal = await compile_action_proposal(
+            state["gen_client"],
+            script=runtime.script,
+            actor_id=state["active_actor_id"],
+            actor_name_map=state["actor_name_map"],
+            phase_name=runtime.current_phase.name,
+            turn_index=state["last_turn_index"],
+            selected_text=state["selected_candidate_text"],
+            policy_plan=state.get("policy_plan", {}),
+            actor_snapshot=state["actor_context"]["snapshot"],
+        )
+        return {
+            "selected_action_proposal": proposal.to_dict() if proposal else None,
+            "selected_meta": {
+                **state.get("selected_meta", {}),
+                "action_compilation": proposal.to_dict() if proposal else None,
+            },
+        }
+
+    async def record_action_proposal(self, state: StakeholderGraphState) -> dict[str, Any]:
+        runtime = state["runtime"]
+        payload = state.get("selected_action_proposal")
+        if not payload:
+            return {"selected_action_proposal": None}
+        from .action_layer import ActionProposal
+
+        runtime.ledger.append_action_proposal(ActionProposal(**payload))
+        return {"selected_action_proposal": payload}
+
+    def route_phase_boundary(self, state: StakeholderGraphState) -> str:
+        runtime = state["runtime"]
+        phase_turn_index = state.get("phase_turn_index", 0) + 1
+        boundary = phase_turn_index >= runtime.current_phase.max_turns
+        if boundary and state["ablation_config"].use_action_layer:
+            return "arbiter_phase_actions"
+        return "advance_simulation"
+
+    async def arbiter_phase_actions(self, state: StakeholderGraphState) -> dict[str, Any]:
+        runtime = state["runtime"]
+        approved, rejected = arbitrate_phase_actions(
+            runtime.script,
+            runtime.current_phase.name,
+            runtime.ledger.phase_action_proposals(runtime.current_phase.name),
+        )
+        for proposal in approved:
+            runtime.ledger.update_action_proposal_status(proposal.proposal_id, status="approved")
+        for proposal in rejected:
+            runtime.ledger.update_action_proposal_status(
+                proposal.proposal_id,
+                status="rejected",
+                rejection_reason=proposal.rejection_reason,
+            )
+        return {
+            "approved_phase_actions": [proposal.to_dict() for proposal in approved],
+            "rejected_phase_actions": [proposal.to_dict() for proposal in rejected],
+        }
+
+    async def apply_state_transitions(self, state: StakeholderGraphState) -> dict[str, Any]:
+        runtime = state["runtime"]
+        from .action_layer import ActionProposal
+
+        current_snapshot = runtime.ledger.latest_world_state()
+        executed_rows = []
+        for payload in state.get("approved_phase_actions", []):
+            proposal = ActionProposal(**payload)
+            executed, next_snapshot, rejection_reason = apply_transition_rule(
+                runtime.script,
+                proposal,
+                current_snapshot,
+            )
+            if executed is None or next_snapshot is None:
+                runtime.ledger.update_action_proposal_status(
+                    proposal.proposal_id,
+                    status="rejected",
+                    rejection_reason=rejection_reason or "transition_failed",
+                )
+                continue
+            runtime.ledger.apply_executed_action(executed, next_snapshot)
+            current_snapshot = next_snapshot
+            executed_rows.append(executed)
+        return {
+            "executed_phase_actions": [row.to_dict() for row in executed_rows],
+        }
+
+    async def summarize_state_feedback(self, state: StakeholderGraphState) -> dict[str, Any]:
+        runtime = state["runtime"]
+        if not state.get("executed_phase_actions"):
+            return {"phase_feedback": {}}
+        from .action_layer import ExecutedAction
+
+        executed_rows = [ExecutedAction(**payload) for payload in state["executed_phase_actions"]]
+        runtime.ledger.record_phase_feedback(
+            runtime.current_phase.name,
+            executed_rows,
+            runtime.ledger.latest_world_state(),
+        )
+        return {
+            "phase_feedback": {
+                actor_id: runtime.ledger.latest_phase_feedback(actor_id)
+                for actor_id in runtime.script.actor_ids
+            }
+        }
+
     async def advance_simulation(self, state: StakeholderGraphState) -> dict[str, Any]:
         runtime = state["runtime"]
         phase_turn_index = state.get("phase_turn_index", 0) + 1
         current_phase = runtime.current_phase
         simulation_complete = False
+        phase_boundary = phase_turn_index >= current_phase.max_turns
 
-        if phase_turn_index >= current_phase.max_turns:
+        if phase_boundary:
             if runtime.phase_index >= len(runtime.script.phases) - 1:
                 simulation_complete = True
             else:
@@ -253,6 +383,7 @@ class StakeholderSimulationNodes:
         return {
             "phase_turn_index": phase_turn_index,
             "simulation_complete": simulation_complete,
+            "phase_boundary_reached": phase_boundary,
         }
 
     async def finalize_run(self, state: StakeholderGraphState) -> dict[str, Any]:
@@ -288,6 +419,11 @@ def build_stakeholder_simulation_graph():
     graph.add_node("score_candidate_pool", nodes.score_candidate_pool)
     graph.add_node("select_scored_candidate", nodes.select_scored_candidate)
     graph.add_node("commit_turn", nodes.commit_turn)
+    graph.add_node("compile_action_proposal", nodes.compile_action_proposal)
+    graph.add_node("record_action_proposal", nodes.record_action_proposal)
+    graph.add_node("arbiter_phase_actions", nodes.arbiter_phase_actions)
+    graph.add_node("apply_state_transitions", nodes.apply_state_transitions)
+    graph.add_node("summarize_state_feedback", nodes.summarize_state_feedback)
     graph.add_node("advance_simulation", nodes.advance_simulation)
     graph.add_node("finalize_run", nodes.finalize_run)
 
@@ -322,7 +458,19 @@ def build_stakeholder_simulation_graph():
     graph.add_edge("select_first_candidate", "commit_turn")
     graph.add_edge("score_candidate_pool", "select_scored_candidate")
     graph.add_edge("select_scored_candidate", "commit_turn")
-    graph.add_edge("commit_turn", "advance_simulation")
+    graph.add_edge("commit_turn", "compile_action_proposal")
+    graph.add_edge("compile_action_proposal", "record_action_proposal")
+    graph.add_conditional_edges(
+        "record_action_proposal",
+        nodes.route_phase_boundary,
+        {
+            "arbiter_phase_actions": "arbiter_phase_actions",
+            "advance_simulation": "advance_simulation",
+        },
+    )
+    graph.add_edge("arbiter_phase_actions", "apply_state_transitions")
+    graph.add_edge("apply_state_transitions", "summarize_state_feedback")
+    graph.add_edge("summarize_state_feedback", "advance_simulation")
     graph.add_conditional_edges(
         "advance_simulation",
         nodes.route_turn_loop,

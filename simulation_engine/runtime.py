@@ -9,6 +9,7 @@ from .actor import StakeholderActor
 from .ablation import DEFAULT_ABLATION_CONFIG, SimulationAblationConfig
 from .script import SimulationPhase, SimulationScript
 from .state_ledger import SimulationStateLedger
+from .state_store import InMemoryStateStore
 
 
 @dataclass
@@ -40,7 +41,8 @@ class StakeholderSimulationRuntime:
         self.script = script
         self.gen_client = gen_client
         self.ablation_config = ablation_config or DEFAULT_ABLATION_CONFIG
-        self.ledger = SimulationStateLedger(script)
+        self.state_store = InMemoryStateStore(SimulationStateLedger(script))
+        self.ledger = self.state_store.ledger
         self.actors = {
             actor.actor_id: StakeholderActor(
                 client=gen_client,
@@ -152,6 +154,7 @@ class StakeholderSimulationRuntime:
             self.phase_index += 1
 
     def to_runtime_summary(self) -> dict[str, Any]:
+        latest_world = self.ledger.latest_world_state()
         return {
             "simulation_id": self.script.simulation_id,
             "title": self.script.title,
@@ -161,4 +164,8 @@ class StakeholderSimulationRuntime:
             "actor_ids": list(self.actors.keys()),
             "actor_labels": dict(self.script.actor_analysis_label_map),
             "actor_display_names": dict(self.script.actor_display_name_map),
+            "action_proposal_count": len(self.ledger.action_proposals),
+            "executed_action_count": len(self.ledger.executed_actions),
+            "phase_count": len(self.script.phases),
+            "latest_world_state": dict(latest_world.global_state),
         }
