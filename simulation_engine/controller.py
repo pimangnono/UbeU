@@ -14,11 +14,14 @@ from experiment.memory_backend import (
 )
 
 from .action_layer import (
+    action_plan_alignment_score,
     heuristic_action_executability_score,
     heuristic_action_proposal,
     heuristic_state_consistency_score,
+    normalize_planned_action_artifact,
 )
 from .ablation import DEFAULT_ABLATION_CONFIG, SimulationAblationConfig
+from .action_priors import action_role_fit_score, infer_role_action_prior
 from .metrics import estimate_actor_traits_from_turns, persona_drift_mae, trait_absolute_errors
 from .runtime import RuntimeTurnView
 from .script import SimulationPhase, StakeholderActorSpec
@@ -399,6 +402,24 @@ class PersonaStateController:
                 opportunity_scores=opportunity_scores,
             )
             if action_context and action_context.get("use_action_aware_scoring"):
+                planned_action_artifact = normalize_planned_action_artifact(
+                    script=action_context["script"],
+                    actor_id=self.actor_spec.actor_id,
+                    phase_name=phase.name,
+                    policy_plan=policy_plan or {},
+                    planned_action_artifact=(policy_plan or {}).get("action_plan"),
+                    valid_target_keys=list(action_context.get("valid_target_keys", [])),
+                    allowed_action_types=list(action_context.get("allowed_action_types", [])),
+                )
+                action_role_prior = infer_role_action_prior(
+                    role=self.actor_spec.role,
+                    incentives=list(self.actor_spec.incentives),
+                    concerns=list(self.actor_spec.concerns),
+                    phase_name=phase.name,
+                    phase_cues=phase.cues,
+                    allowed_action_types=list(action_context.get("allowed_action_types", [])),
+                    valid_target_keys=list(action_context.get("valid_target_keys", [])),
+                )
                 action_proposal = heuristic_action_proposal(
                     script=action_context["script"],
                     actor_id=self.actor_spec.actor_id,
@@ -407,6 +428,9 @@ class PersonaStateController:
                     turn_index=action_context.get("turn_index", 1),
                     selected_text=text,
                     policy_plan=policy_plan or {},
+                    planned_action_artifact=planned_action_artifact.to_dict() if planned_action_artifact else None,
+                    valid_target_keys=list(action_context.get("valid_target_keys", [])),
+                    allowed_action_types=list(action_context.get("allowed_action_types", [])),
                 )
                 action_executability = heuristic_action_executability_score(
                     text=text,
@@ -420,10 +444,40 @@ class PersonaStateController:
                     global_state=action_context.get("global_state", {}),
                     phase_name=phase.name,
                 )
+                action_plan_alignment, action_plan_alignment_details = action_plan_alignment_score(
+                    planned_action_artifact.to_dict() if planned_action_artifact else None,
+                    action_proposal.to_dict() if action_proposal else None,
+                )
+                action_role_fit, action_role_fit_details = action_role_fit_score(
+                    action_type=(
+                        action_proposal.action_type
+                        if action_proposal
+                        else (planned_action_artifact.action_type if planned_action_artifact else None)
+                    ),
+                    target_key=(
+                        action_proposal.target_key
+                        if action_proposal
+                        else (planned_action_artifact.target_key if planned_action_artifact else None)
+                    ),
+                    prior=action_role_prior,
+                )
+                action_weight_multiplier = 1.0 if planned_action_artifact else 0.2
             else:
+                planned_action_artifact = None
                 action_proposal = None
                 action_executability = 0.5
                 state_consistency = 0.5
+                action_plan_alignment = 0.5
+                action_role_fit = 0.5
+                action_role_fit_details = {
+                    "available": False,
+                    "reason": "action_aware_scoring_disabled",
+                }
+                action_weight_multiplier = 0.0
+                action_plan_alignment_details = {
+                    "available": False,
+                    "reason": "action_aware_scoring_disabled",
+                }
 
             total = (
                 0.18 * identity_consistency
@@ -435,14 +489,17 @@ class PersonaStateController:
                 + 0.09 * situational_adequacy
                 + 0.04 * interaction_progress
                 + 0.02 * policy_match
-                + (0.10 * action_executability if action_context and action_context.get("use_action_aware_scoring") else 0.0)
-                + (0.10 * state_consistency if action_context and action_context.get("use_action_aware_scoring") else 0.0)
+                + (0.10 * action_executability * action_weight_multiplier if action_context and action_context.get("use_action_aware_scoring") else 0.0)
+                + (0.10 * state_consistency * action_weight_multiplier if action_context and action_context.get("use_action_aware_scoring") else 0.0)
+                + (0.10 * action_plan_alignment * action_weight_multiplier if action_context and action_context.get("use_action_aware_scoring") else 0.0)
+                + (0.12 * action_role_fit * action_weight_multiplier if action_context and action_context.get("use_action_aware_scoring") else 0.0)
                 - 0.18 * contradiction_penalty
                 - 0.12 * envelope_penalty
                 - 0.08 * sycophancy_risk
                 - 0.10 * expressive_stability_penalty
                 - 0.07 * redundancy_penalty
                 - 0.07 * genericity_penalty
+                - (0.04 * (1.0 - action_executability) * action_weight_multiplier if action_context and action_context.get("use_action_aware_scoring") else 0.0)
             )
             total = round(max(0.0, min(1.0, total)), 4)
 
@@ -466,7 +523,13 @@ class PersonaStateController:
                 "expressive_stability_details": expressive_stability_details,
                 "action_executability": round(action_executability, 4),
                 "state_consistency": round(state_consistency, 4),
+                "action_plan_alignment": round(action_plan_alignment, 4),
+                "action_plan_alignment_details": action_plan_alignment_details,
+                "action_role_fit": round(action_role_fit, 4),
+                "action_role_fit_details": action_role_fit_details,
+                "action_weight_multiplier": round(action_weight_multiplier, 4),
                 "action_hint": action_proposal.to_dict() if action_proposal else None,
+                "planned_action_artifact": planned_action_artifact.to_dict() if planned_action_artifact else None,
                 "trait_error_map": trait_error_map,
                 "opportunity_scores": dict(opportunity_scores),
                 "redundancy_penalty": round(redundancy_penalty, 4),

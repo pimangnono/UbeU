@@ -7,6 +7,7 @@ from typing import Any, Optional
 from experiment.candidate_agent import ExperimentCandidateAgent
 
 from .ablation import DEFAULT_ABLATION_CONFIG, SimulationAblationConfig
+from .action_priors import infer_role_action_prior
 from .script import StakeholderActorSpec
 
 
@@ -307,12 +308,34 @@ class StakeholderActor:
         actor_snapshot: Optional[dict[str, Any]],
         phase_name: Optional[str],
         phase_cues: Optional[list[str]],
+        allowed_action_types: Optional[list[str]] = None,
+        valid_target_keys: Optional[list[str]] = None,
     ) -> dict[str, Any]:
         plan = dict(policy_plan or {})
         cues = [cue.lower() for cue in (phase_cues or [])]
         world_state = dict((actor_snapshot or {}).get("world_state", {}))
+        role_prior = infer_role_action_prior(
+            role=self.actor_spec.role,
+            incentives=list(self.actor_spec.incentives),
+            concerns=list(self.actor_spec.concerns),
+            phase_name=phase_name or "UNKNOWN",
+            phase_cues=phase_cues or [],
+            allowed_action_types=list(allowed_action_types or [] or [
+                "assign_owner",
+                "request_evidence",
+                "publish_update",
+                "narrow_scope",
+                "pilot",
+                "commit_resource",
+                "defer_decision",
+                "preserve_autonomy",
+            ]),
+            valid_target_keys=list(valid_target_keys or world_state.keys()),
+        )
         if "action_intent" not in plan:
-            if "owner" in cues or plan.get("planning_depth") == "owner_deadline":
+            if role_prior.preferred_action_types:
+                plan["action_intent"] = role_prior.preferred_action_types[0]
+            elif "owner" in cues or plan.get("planning_depth") == "owner_deadline":
                 plan["action_intent"] = "assign_owner"
             elif "evidence" in " ".join(cues) or "uncertainty" in cues:
                 plan["action_intent"] = "request_evidence"
@@ -323,7 +346,9 @@ class StakeholderActor:
             else:
                 plan["action_intent"] = "publish_update"
         if "target_state_key" not in plan:
-            if "autonomy" in cues:
+            if role_prior.preferred_target_keys:
+                plan["target_state_key"] = role_prior.preferred_target_keys[0]
+            elif "autonomy" in cues:
                 plan["target_state_key"] = "autonomy_confidence"
             elif "readiness" in cues:
                 plan["target_state_key"] = "launch_readiness"
@@ -344,6 +369,27 @@ class StakeholderActor:
                 plan["expected_state_effect"] = "increase" if current_value <= 0.5 else "stabilize"
         if phase_name and "deadline_phase" not in plan:
             plan["deadline_phase"] = phase_name
+        if "action_plan" not in plan:
+            owner_actor_id = None
+            if plan.get("action_intent") in {"assign_owner", "publish_update", "commit_resource"}:
+                owner_actor_id = self.actor_id
+            plan["action_plan"] = {
+                "action_type": plan.get("action_intent"),
+                "target_key": plan.get("target_state_key"),
+                "target_actor_id": None,
+                "owner_actor_id": owner_actor_id,
+                "deadline_phase": plan.get("deadline_phase"),
+                "strength": plan.get("commitment_strength"),
+                "expected_state_effect": plan.get("expected_state_effect"),
+                "confidence": 0.78 if plan.get("commitment_strength") == "high" else 0.64,
+                "rationale": (
+                    f"{plan.get('stance', 'unknown')} / "
+                    f"{plan.get('goal_mode', 'unknown')} / "
+                    f"{plan.get('planning_depth', 'unknown')} / "
+                    f"{','.join(role_prior.rationale[:2]) or 'role:generic'}"
+                ),
+                "source": "policy_plan",
+            }
         return plan
 
     async def generate_policy_plan(
@@ -353,6 +399,8 @@ class StakeholderActor:
         phase_name: Optional[str] = None,
         phase_cues: Optional[list[str]] = None,
         target_traits: Optional[list[str]] = None,
+        allowed_action_types: Optional[list[str]] = None,
+        valid_target_keys: Optional[list[str]] = None,
     ) -> dict:
         scenario_brief = self.world_brief + self.build_state_context(actor_snapshot)
         policy_plan = await self._delegate.generate_policy_plan(
@@ -362,7 +410,14 @@ class StakeholderActor:
             phase_cues=phase_cues,
             target_traits=target_traits,
         )
-        return self._augment_policy_plan(policy_plan, actor_snapshot, phase_name, phase_cues)
+        return self._augment_policy_plan(
+            policy_plan,
+            actor_snapshot,
+            phase_name,
+            phase_cues,
+            allowed_action_types=allowed_action_types,
+            valid_target_keys=valid_target_keys,
+        )
 
     async def generate_response(
         self,

@@ -214,6 +214,7 @@ def test_benchmark_runner_executes_with_monkeypatched_generation(monkeypatch):
         phase_name=None,
         phase_cues=None,
         target_traits=None,
+        **kwargs,
     ):
         return {
             "stance": "synthesize",

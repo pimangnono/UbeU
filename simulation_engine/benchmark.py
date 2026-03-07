@@ -12,7 +12,13 @@ from .ablation import (
     BenchmarkCondition,
     resolve_benchmark_condition,
 )
-from .action_layer import apply_transition_rule, arbitrate_phase_actions, compile_action_proposal
+from .action_layer import (
+    action_plan_alignment_score,
+    apply_transition_rule,
+    arbitrate_phase_actions,
+    compile_action_proposal,
+    normalize_planned_action_artifact,
+)
 from .controller import PersonaStateController
 from .graph_runner import StakeholderSimulationGraphRunner
 from .manual_scripts import load_mvp_policy_scripts
@@ -147,6 +153,17 @@ class SimulationBenchmarkRunner:
                         actor_snapshot=context["snapshot"] if base_condition != "naive" else None,
                         phase_name=phase.name,
                         phase_cues=phase.cues,
+                        allowed_action_types=list(runtime.script.allowed_action_types_for_phase(phase.name)),
+                        valid_target_keys=list(runtime.script.target_keys_for_phase(phase.name)),
+                    )
+                    planned_action_artifact = normalize_planned_action_artifact(
+                        script=runtime.script,
+                        actor_id=actor_id,
+                        phase_name=phase.name,
+                        policy_plan=policy_plan,
+                        planned_action_artifact=policy_plan.get("action_plan"),
+                        valid_target_keys=list(runtime.script.target_keys_for_phase(phase.name)),
+                        allowed_action_types=list(runtime.script.allowed_action_types_for_phase(phase.name)),
                     )
                     pool = await actor.generate_candidate_pool_styles(
                         turns=context["turns"],
@@ -164,6 +181,7 @@ class SimulationBenchmarkRunner:
                             "mode": "engine_first_candidate",
                             "policy_plan": policy_plan,
                             "slot": selected["slot"],
+                            "planned_action_artifact": planned_action_artifact.to_dict() if planned_action_artifact else None,
                         }
                         text = selected["text"]
                     else:
@@ -175,8 +193,8 @@ class SimulationBenchmarkRunner:
                             policy_plan=policy_plan,
                             action_context={
                                 "script": runtime.script,
-                                "valid_target_keys": list(runtime.script.world_state_schema),
-                                "allowed_action_types": list(runtime.script.allowed_action_types),
+                                "valid_target_keys": list(runtime.script.target_keys_for_phase(phase.name)),
+                                "allowed_action_types": list(runtime.script.allowed_action_types_for_phase(phase.name)),
                                 "global_state": dict(runtime.ledger.latest_world_state().global_state),
                                 "turn_index": runtime.turn_index + 1,
                                 "use_action_aware_scoring": bool(ablation_config.use_action_aware_scoring),
@@ -194,6 +212,9 @@ class SimulationBenchmarkRunner:
                             "policy_plan": policy_plan,
                             "audit": selection["audit"],
                             "slot": selected.get("slot"),
+                            "action_hint": selected.get("action_hint"),
+                            "planned_action_artifact": selected.get("planned_action_artifact") or (planned_action_artifact.to_dict() if planned_action_artifact else None),
+                            "action_plan_alignment": selected.get("action_plan_alignment"),
                         }
                         text = selected["text"]
                         runtime.ledger.apply_state_delta(
@@ -223,6 +244,33 @@ class SimulationBenchmarkRunner:
                         selected_text=text,
                         policy_plan=selected_meta.get("policy_plan", {}),
                         actor_snapshot=context["snapshot"],
+                        planned_action_artifact=selected_meta.get("planned_action_artifact"),
+                        seed_action_hint=selected_meta.get("action_hint"),
+                    )
+                    trace_id = f"{runtime.script.simulation_id}:{actor_id}:{phase.name}:{runtime.turn_index}"
+                    alignment_score, alignment_details = action_plan_alignment_score(
+                        selected_meta.get("planned_action_artifact"),
+                        proposal.to_dict() if proposal else selected_meta.get("action_hint"),
+                    )
+                    runtime.ledger.upsert_action_audit(
+                        trace_id,
+                        {
+                            "trace_id": trace_id,
+                            "proposal_id": proposal.proposal_id if proposal else trace_id,
+                            "actor_id": actor_id,
+                            "phase_name": phase.name,
+                            "turn_index": runtime.turn_index,
+                            "planned_action_artifact": selected_meta.get("planned_action_artifact"),
+                            "selected_action_hint": selected_meta.get("action_hint"),
+                            "compiled_proposal": proposal.to_dict() if proposal else None,
+                            "compiler_source": proposal.compiler_source if proposal else "none",
+                            "compile_status": proposal.status if proposal else "no_action",
+                            "compile_rejection_reason": proposal.rejection_reason if proposal else "no_action_detected",
+                            "validation_trace": list(proposal.validation_trace) if proposal else [],
+                            "action_plan_alignment": alignment_score,
+                            "action_plan_alignment_details": alignment_details,
+                            "selected_text_excerpt": text[:180],
+                        },
                     )
                     runtime.ledger.append_action_proposal(proposal)
 
@@ -246,11 +294,21 @@ class SimulationBenchmarkRunner:
                 )
                 for proposal in approved:
                     runtime.ledger.update_action_proposal_status(proposal.proposal_id, status="approved")
+                    runtime.ledger.update_action_audit(
+                        proposal.proposal_id,
+                        arbitration_status="approved",
+                        arbitration_reason=None,
+                    )
                 for proposal in rejected:
                     runtime.ledger.update_action_proposal_status(
                         proposal.proposal_id,
                         status="rejected",
                         rejection_reason=proposal.rejection_reason,
+                    )
+                    runtime.ledger.update_action_audit(
+                        proposal.proposal_id,
+                        arbitration_status="rejected",
+                        arbitration_reason=proposal.rejection_reason,
                     )
                 current_snapshot = runtime.ledger.latest_world_state()
                 executed_rows = []
@@ -266,8 +324,21 @@ class SimulationBenchmarkRunner:
                             status="rejected",
                             rejection_reason=rejection_reason or "transition_failed",
                         )
+                        runtime.ledger.update_action_audit(
+                            proposal.proposal_id,
+                            execution_status="rejected",
+                            execution_rejection_reason=rejection_reason or "transition_failed",
+                        )
                         continue
                     runtime.ledger.apply_executed_action(executed, next_snapshot)
+                    runtime.ledger.update_action_audit(
+                        proposal.proposal_id,
+                        execution_status="executed",
+                        execution_rejection_reason=None,
+                        executed_action=executed.to_dict(),
+                        pre_state=dict(current_snapshot.global_state),
+                        post_state=dict(next_snapshot.global_state),
+                    )
                     current_snapshot = next_snapshot
                     executed_rows.append(executed)
                 runtime.ledger.record_phase_feedback(
@@ -370,6 +441,8 @@ def _summarize_rows(rows: list[BenchmarkRunResult]) -> dict[str, Any]:
     action_contradiction = [row.metrics.executed_action_contradiction_rate for row in rows]
     transition_coherence = [row.metrics.state_transition_coherence for row in rows]
     feedback_utilization = [row.metrics.action_feedback_utilization for row in rows]
+    action_plan_alignment = [row.metrics.action_plan_alignment_mean for row in rows]
+    planned_action_coverage = [row.metrics.planned_action_coverage_rate for row in rows]
     trajectory_variance = aggregate_phase_end_state_variance([row.metrics for row in rows])
 
     return {
@@ -384,6 +457,8 @@ def _summarize_rows(rows: list[BenchmarkRunResult]) -> dict[str, Any]:
         "executed_action_contradiction_rate_mean": round(mean(action_contradiction), 4),
         "state_transition_coherence_mean": round(mean(transition_coherence), 4),
         "action_feedback_utilization_mean": round(mean(feedback_utilization), 4),
+        "action_plan_alignment_mean": round(mean(action_plan_alignment), 4),
+        "planned_action_coverage_rate_mean": round(mean(planned_action_coverage), 4),
         "state_trajectory_variance_mean": trajectory_variance,
         "per_trait_error_mean": per_trait_error_mean,
         "turn_count_mean": round(mean(turn_counts), 2),

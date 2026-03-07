@@ -100,6 +100,25 @@ class ActionProposal:
     rejection_reason: str | None = None
     action_bearing: bool = False
     compiler_source: str = "none"
+    raw_payload: dict[str, Any] = field(default_factory=dict)
+    validation_trace: list[str] = field(default_factory=list)
+
+    def to_dict(self) -> dict[str, Any]:
+        return asdict(self)
+
+
+@dataclass
+class PlannedActionArtifact:
+    action_type: str | None
+    target_key: str | None
+    target_actor_id: str | None = None
+    owner_actor_id: str | None = None
+    deadline_phase: str | None = None
+    strength: str = "medium"
+    confidence: float = 0.0
+    expected_state_effect: str | None = None
+    rationale: str = ""
+    source: str = "policy_plan"
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
@@ -160,6 +179,24 @@ def action_family(action_type: str | None) -> str:
     return ACTION_FAMILIES.get(action_type, action_type)
 
 
+def commitment_strength_to_band(value: str | None) -> str:
+    lowered = (value or "").lower()
+    if lowered in {"high", "strong"}:
+        return "high"
+    if lowered in {"low", "light"}:
+        return "low"
+    return "medium"
+
+
+def commitment_strength_to_confidence(value: str | None) -> float:
+    band = commitment_strength_to_band(value)
+    if band == "high":
+        return 0.78
+    if band == "low":
+        return 0.52
+    return 0.64
+
+
 def _first_matching_action_type(text: str) -> str | None:
     lowered = text.lower()
     for action_type, patterns in ACTION_CUE_PATTERNS.items():
@@ -171,7 +208,9 @@ def _first_matching_action_type(text: str) -> str | None:
 def _first_matching_target_key(text: str, valid_target_keys: list[str]) -> str | None:
     lowered = text.lower()
     for target_key in valid_target_keys:
-        if target_key.lower() in lowered:
+        normalized_key = target_key.lower()
+        natural_key = normalized_key.replace("_", " ")
+        if normalized_key in lowered or natural_key in lowered:
             return target_key
     for target_key, patterns in ACTION_STATE_HINTS.items():
         if target_key not in valid_target_keys:
@@ -221,16 +260,20 @@ def heuristic_action_executability_score(
     valid_target_keys: list[str],
     allowed_action_types: list[str],
 ) -> float:
+    if not detect_action_bearing_turn(text):
+        return 0.0
     action_type = _first_matching_action_type(text)
     if not action_type or action_type not in allowed_action_types:
-        return 0.0 if detect_action_bearing_turn(text) else 0.35
-    score = 0.55
+        return 0.0
+    score = 0.35
     target_key = _first_matching_target_key(text, valid_target_keys)
     if target_key:
+        score += 0.25
+    if any(token in text.lower() for token in ("owner", "assign", "will ", "i will", "we will", "by ")):
         score += 0.2
-    if "owner" in text.lower() or "by " in text.lower():
+    if any(token in text.lower() for token in ("timeline", "deadline", "next step", "this week", "today", "tomorrow")):
         score += 0.1
-    if any(token in text.lower() for token in ("timeline", "deadline", "next step")):
+    if any(token in text.lower() for token in ("update", "evidence", "pilot", "scope", "autonomy", "resource")):
         score += 0.1
     return clip_unit(score)
 
@@ -279,9 +322,94 @@ async def compile_action_proposal(
     selected_text: str,
     policy_plan: dict[str, Any] | None,
     actor_snapshot: dict[str, Any] | None,
+    planned_action_artifact: dict[str, Any] | None = None,
+    seed_action_hint: dict[str, Any] | None = None,
 ) -> ActionProposal | None:
-    allowed_action_types = list(script.allowed_action_types)
-    valid_target_keys = list(script.world_state_schema)
+    allowed_action_types = list(script.allowed_action_types_for_phase(phase_name))
+    valid_target_keys = list(script.target_keys_for_phase(phase_name))
+    normalized_plan = normalize_planned_action_artifact(
+        script=script,
+        actor_id=actor_id,
+        phase_name=phase_name,
+        policy_plan=policy_plan or {},
+        planned_action_artifact=planned_action_artifact,
+        valid_target_keys=valid_target_keys,
+        allowed_action_types=allowed_action_types,
+    )
+    proposal_id = f"{script.simulation_id}:{actor_id}:{phase_name}:{turn_index}"
+    if normalized_plan:
+        plan_payload = normalized_plan.to_dict()
+        owner_actor_id = normalized_plan.owner_actor_id
+        if not owner_actor_id and seed_action_hint and seed_action_hint.get("owner_actor_id") in script.actor_ids:
+            owner_actor_id = seed_action_hint.get("owner_actor_id")
+        target_actor_id = normalized_plan.target_actor_id
+        if not target_actor_id and seed_action_hint and seed_action_hint.get("target_actor_id") in script.actor_ids:
+            target_actor_id = seed_action_hint.get("target_actor_id")
+        planned = ActionProposal(
+            proposal_id=proposal_id,
+            actor_id=actor_id,
+            phase_name=phase_name,
+            turn_index=turn_index,
+            action_type=normalized_plan.action_type,
+            target_key=normalized_plan.target_key,
+            target_actor_id=target_actor_id,
+            owner_actor_id=owner_actor_id,
+            deadline_phase=normalized_plan.deadline_phase,
+            strength=normalized_plan.strength,
+            confidence=normalized_plan.confidence,
+            evidence_text=selected_text[:160],
+            status="proposed",
+            action_bearing=True,
+            compiler_source="planned_action",
+            raw_payload={
+                "planned_action_artifact": plan_payload,
+                "selected_action_hint": dict(seed_action_hint or {}),
+                "policy_action_intent": (policy_plan or {}).get("action_intent"),
+                "policy_target_state_key": (policy_plan or {}).get("target_state_key"),
+            },
+        )
+        planned = validate_action_proposal(
+            script,
+            planned,
+            phase_name=phase_name,
+            valid_target_keys=valid_target_keys,
+            allowed_action_types=allowed_action_types,
+        )
+        if planned and planned.status == "proposed":
+            return planned
+    if seed_action_hint:
+        seeded = ActionProposal(
+            proposal_id=proposal_id,
+            actor_id=actor_id,
+            phase_name=phase_name,
+            turn_index=turn_index,
+            action_type=seed_action_hint.get("action_type"),
+            target_key=seed_action_hint.get("target_key"),
+            target_actor_id=seed_action_hint.get("target_actor_id"),
+            owner_actor_id=seed_action_hint.get("owner_actor_id"),
+            deadline_phase=seed_action_hint.get("deadline_phase"),
+            strength=(seed_action_hint.get("strength") or "medium"),
+            confidence=float(seed_action_hint.get("confidence") or 0.0),
+            evidence_text=seed_action_hint.get("evidence_text") or selected_text[:160],
+            status="proposed",
+            action_bearing=bool(seed_action_hint.get("action_bearing", True)),
+            compiler_source="selection_hint",
+            raw_payload={
+                **dict(seed_action_hint),
+                "planned_action_artifact": normalized_plan.to_dict() if normalized_plan else {},
+                "policy_action_intent": (policy_plan or {}).get("action_intent"),
+                "policy_target_state_key": (policy_plan or {}).get("target_state_key"),
+            },
+        )
+        seeded = validate_action_proposal(
+            script,
+            seeded,
+            phase_name=phase_name,
+            valid_target_keys=valid_target_keys,
+            allowed_action_types=allowed_action_types,
+        )
+        if seeded and seeded.status == "proposed":
+            return seeded
     heuristic = heuristic_action_proposal(
         script=script,
         actor_id=actor_id,
@@ -290,6 +418,9 @@ async def compile_action_proposal(
         turn_index=turn_index,
         selected_text=selected_text,
         policy_plan=policy_plan or {},
+        planned_action_artifact=normalized_plan.to_dict() if normalized_plan else None,
+        valid_target_keys=valid_target_keys,
+        allowed_action_types=allowed_action_types,
     )
     if heuristic and heuristic.status == "proposed":
         return heuristic
@@ -321,7 +452,7 @@ async def compile_action_proposal(
         )
         payload = parse_json_payload(raw)
         proposal = ActionProposal(
-            proposal_id=f"{script.simulation_id}:{actor_id}:{phase_name}:{turn_index}",
+            proposal_id=proposal_id,
             actor_id=actor_id,
             phase_name=phase_name,
             turn_index=turn_index,
@@ -336,8 +467,21 @@ async def compile_action_proposal(
             status="proposed",
             action_bearing=True,
             compiler_source="llm",
+            raw_payload={
+                **payload,
+                "planned_action_artifact": normalized_plan.to_dict() if normalized_plan else {},
+                "selected_action_hint": dict(seed_action_hint or {}),
+                "policy_action_intent": (policy_plan or {}).get("action_intent"),
+                "policy_target_state_key": (policy_plan or {}).get("target_state_key"),
+            },
         )
-        return validate_action_proposal(script, proposal)
+        return validate_action_proposal(
+            script,
+            proposal,
+            phase_name=phase_name,
+            valid_target_keys=valid_target_keys,
+            allowed_action_types=allowed_action_types,
+        )
     except Exception:
         return heuristic
 
@@ -361,17 +505,30 @@ def heuristic_action_proposal(
     turn_index: int,
     selected_text: str,
     policy_plan: dict[str, Any],
+    planned_action_artifact: dict[str, Any] | None = None,
+    valid_target_keys: list[str] | None = None,
+    allowed_action_types: list[str] | None = None,
 ) -> ActionProposal | None:
     action_bearing = detect_action_bearing_turn(selected_text)
     if not action_bearing:
         return None
+    valid_target_keys = list(valid_target_keys or script.world_state_schema)
+    allowed_action_types = list(allowed_action_types or script.allowed_action_types)
     action_type = _first_matching_action_type(selected_text)
     if not action_type:
-        action_type = _fallback_action_from_policy_plan(policy_plan, script.allowed_action_types)
+        action_type = _fallback_action_from_policy_plan(
+            planned_action_artifact or policy_plan,
+            allowed_action_types,
+        )
+    elif action_type not in allowed_action_types:
+        action_type = _fallback_action_from_policy_plan(
+            planned_action_artifact or policy_plan,
+            allowed_action_types,
+        )
     target_key = (
         policy_plan.get("target_state_key")
-        if policy_plan.get("target_state_key") in script.world_state_schema
-        else _first_matching_target_key(selected_text, list(script.world_state_schema))
+        if policy_plan.get("target_state_key") in valid_target_keys
+        else _first_matching_target_key(selected_text, valid_target_keys)
     )
     target_actor_id = _first_matching_actor(selected_text, actor_name_map)
     proposal = ActionProposal(
@@ -390,12 +547,29 @@ def heuristic_action_proposal(
         status="proposed",
         action_bearing=True,
         compiler_source="heuristic",
+        raw_payload={
+            "policy_action_intent": policy_plan.get("action_intent"),
+            "policy_target_state_key": policy_plan.get("target_state_key"),
+            "planned_action_artifact": dict(planned_action_artifact or {}),
+        },
     )
-    return validate_action_proposal(script, proposal)
+    return validate_action_proposal(
+        script,
+        proposal,
+        phase_name=phase_name,
+        valid_target_keys=valid_target_keys,
+        allowed_action_types=allowed_action_types,
+    )
 
 
 def _fallback_action_from_policy_plan(policy_plan: dict[str, Any], allowed_action_types: list[str]) -> str | None:
-    action_intent = (policy_plan.get("action_intent") or "").lower()
+    action_intent = (
+        policy_plan.get("action_type")
+        or policy_plan.get("action_intent")
+        or policy_plan.get("planned_action", {}).get("action_type")
+        or policy_plan.get("planned_action_artifact", {}).get("action_type")
+        or ""
+    ).lower()
     mapping = {
         "assign_owner": "assign_owner",
         "evidence": "request_evidence",
@@ -409,19 +583,116 @@ def _fallback_action_from_policy_plan(policy_plan: dict[str, Any], allowed_actio
     for token, action_type in mapping.items():
         if token in action_intent and action_type in allowed_action_types:
             return action_type
-    return allowed_action_types[0] if allowed_action_types else None
+    return None
 
 
-def validate_action_proposal(script, proposal: ActionProposal | None) -> ActionProposal | None:
+def normalize_planned_action_artifact(
+    *,
+    script,
+    actor_id: str,
+    phase_name: str,
+    policy_plan: dict[str, Any],
+    planned_action_artifact: dict[str, Any] | None,
+    valid_target_keys: list[str],
+    allowed_action_types: list[str],
+) -> PlannedActionArtifact | None:
+    source = dict(planned_action_artifact or policy_plan.get("action_plan") or {})
+    action_type = source.get("action_type") or policy_plan.get("action_intent")
+    target_key = source.get("target_key") or policy_plan.get("target_state_key")
+    if action_type not in allowed_action_types or target_key not in valid_target_keys:
+        return None
+    owner_actor_id = source.get("owner_actor_id")
+    if not owner_actor_id and action_type in {"assign_owner", "publish_update", "commit_resource"}:
+        owner_actor_id = actor_id
+    strength = commitment_strength_to_band(
+        source.get("strength") or policy_plan.get("commitment_strength")
+    )
+    confidence = float(
+        source.get("confidence")
+        if source.get("confidence") is not None
+        else commitment_strength_to_confidence(policy_plan.get("commitment_strength"))
+    )
+    return PlannedActionArtifact(
+        action_type=action_type,
+        target_key=target_key,
+        target_actor_id=source.get("target_actor_id"),
+        owner_actor_id=owner_actor_id,
+        deadline_phase=source.get("deadline_phase") or policy_plan.get("deadline_phase") or phase_name,
+        strength=strength,
+        confidence=clip_unit(confidence),
+        expected_state_effect=source.get("expected_state_effect") or policy_plan.get("expected_state_effect"),
+        rationale=source.get("rationale")
+        or f"{policy_plan.get('stance', 'unknown')}:{policy_plan.get('goal_mode', 'unknown')}",
+        source=source.get("source", "policy_plan"),
+    )
+
+
+def action_plan_alignment_score(
+    planned_action: dict[str, Any] | None,
+    candidate_action: dict[str, Any] | None,
+) -> tuple[float, dict[str, Any]]:
+    if not planned_action:
+        return 0.5, {"available": False, "reason": "no_planned_action"}
+    if not candidate_action:
+        return 0.25, {"available": True, "reason": "no_candidate_action"}
+
+    score = 0.2
+    details = {
+        "planned_action_type": planned_action.get("action_type"),
+        "candidate_action_type": candidate_action.get("action_type"),
+        "planned_target_key": planned_action.get("target_key"),
+        "candidate_target_key": candidate_action.get("target_key"),
+    }
+    if planned_action.get("action_type") == candidate_action.get("action_type"):
+        score += 0.45
+    if planned_action.get("target_key") == candidate_action.get("target_key"):
+        score += 0.25
+    planned_owner = planned_action.get("owner_actor_id")
+    candidate_owner = candidate_action.get("owner_actor_id")
+    if planned_owner and candidate_owner and planned_owner == candidate_owner:
+        score += 0.1
+    planned_deadline = planned_action.get("deadline_phase")
+    candidate_deadline = candidate_action.get("deadline_phase")
+    if planned_deadline and candidate_deadline and planned_deadline == candidate_deadline:
+        score += 0.05
+    return clip_unit(score), details
+
+
+def validate_action_proposal(
+    script,
+    proposal: ActionProposal | None,
+    *,
+    phase_name: str | None = None,
+    valid_target_keys: list[str] | None = None,
+    allowed_action_types: list[str] | None = None,
+) -> ActionProposal | None:
     if proposal is None:
         return None
     if not proposal.action_bearing:
         return None
-    if proposal.action_type not in script.allowed_action_types:
+    phase_name = phase_name or proposal.phase_name
+    valid_target_keys = list(valid_target_keys or script.target_keys_for_phase(phase_name))
+    allowed_action_types = list(allowed_action_types or script.allowed_action_types_for_phase(phase_name))
+    proposal.validation_trace = list(proposal.validation_trace)
+
+    if proposal.action_type not in allowed_action_types:
+        repaired = _fallback_action_from_policy_plan(proposal.raw_payload, allowed_action_types)
+        if repaired:
+            proposal.action_type = repaired
+            proposal.validation_trace.append("repaired_action_type_from_fallback")
+    if proposal.action_type not in allowed_action_types:
         proposal.status = "rejected"
         proposal.rejection_reason = "invalid_action_type"
         return proposal
-    if proposal.target_key not in script.world_state_schema:
+    if proposal.target_key not in valid_target_keys:
+        policy_target = proposal.raw_payload.get("policy_target_state_key") if proposal.raw_payload else None
+        if policy_target in valid_target_keys:
+            proposal.target_key = policy_target
+            proposal.validation_trace.append("repaired_target_from_policy")
+        elif len(valid_target_keys) == 1:
+            proposal.target_key = valid_target_keys[0]
+            proposal.validation_trace.append("repaired_target_single_phase_key")
+    if proposal.target_key not in valid_target_keys:
         proposal.status = "rejected"
         proposal.rejection_reason = "invalid_target_key"
         return proposal
@@ -429,6 +700,9 @@ def validate_action_proposal(script, proposal: ActionProposal | None) -> ActionP
         proposal.status = "rejected"
         proposal.rejection_reason = "invalid_owner_actor"
         return proposal
+    if not proposal.owner_actor_id and proposal.action_type in {"assign_owner", "publish_update", "commit_resource"}:
+        proposal.owner_actor_id = proposal.actor_id
+        proposal.validation_trace.append("repaired_owner_from_actor")
     if proposal.target_actor_id and proposal.target_actor_id not in script.actor_ids:
         proposal.status = "rejected"
         proposal.rejection_reason = "invalid_target_actor"

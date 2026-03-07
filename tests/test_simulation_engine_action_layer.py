@@ -12,6 +12,7 @@ from simulation_engine import (
     compile_action_proposal,
     load_mvp_policy_scripts,
 )
+from simulation_engine.action_layer import _fallback_action_from_policy_plan, action_plan_alignment_score
 
 
 class _DummyClient:
@@ -29,8 +30,81 @@ def test_compile_action_proposal_uses_heuristic_fallback():
             phase_name="NEGOTIATION",
             turn_index=4,
             selected_text="I will assign an owner and narrow scope to improve launch readiness before we ship.",
-            policy_plan={"action_intent": "assign_owner", "target_state_key": "launch_readiness"},
+                policy_plan={},
+                actor_snapshot={"actor_state": {"goals": ["credible launch"]}},
+            )
+        )
+
+    assert proposal is not None
+    assert proposal.status == "proposed"
+    assert proposal.action_type == "assign_owner"
+    assert proposal.target_key == "launch_readiness"
+    assert proposal.compiler_source == "heuristic"
+
+
+def test_compile_action_proposal_prefers_valid_seed_action_hint():
+    script = load_mvp_policy_scripts()[4]  # PMI
+    proposal = asyncio.run(
+        compile_action_proposal(
+            _DummyClient(),
+            script=script,
+            actor_id="actor_1",
+            actor_name_map=script.actor_display_name_map,
+            phase_name="NEGOTIATION",
+            turn_index=4,
+            selected_text="We should preserve autonomy while naming one integration owner.",
+                policy_plan={},
+                actor_snapshot={"actor_state": {"goals": ["retain trust"]}},
+                seed_action_hint={
+                    "action_type": "assign_owner",
+                "target_key": "integration_clarity",
+                "owner_actor_id": "actor_1",
+                "confidence": 0.81,
+                "evidence_text": "Assign an integration owner.",
+                "action_bearing": True,
+            },
+        )
+    )
+
+    assert proposal is not None
+    assert proposal.status == "proposed"
+    assert proposal.action_type == "assign_owner"
+    assert proposal.target_key == "integration_clarity"
+    assert proposal.compiler_source == "selection_hint"
+
+
+def test_compile_action_proposal_prefers_planned_action_artifact_over_seed():
+    script = load_mvp_policy_scripts()[3]  # new_product_launch
+    proposal = asyncio.run(
+        compile_action_proposal(
+            _DummyClient(),
+            script=script,
+            actor_id="actor_1",
+            actor_name_map=script.actor_display_name_map,
+            phase_name="NEGOTIATION",
+            turn_index=4,
+            selected_text="We should assign an owner and publish a clear update.",
+            policy_plan={
+                "action_intent": "assign_owner",
+                "target_state_key": "launch_readiness",
+                "commitment_strength": "high",
+                "deadline_phase": "NEGOTIATION",
+            },
             actor_snapshot={"actor_state": {"goals": ["credible launch"]}},
+            planned_action_artifact={
+                "action_type": "assign_owner",
+                "target_key": "launch_readiness",
+                "owner_actor_id": "actor_1",
+                "deadline_phase": "NEGOTIATION",
+                "strength": "high",
+            },
+            seed_action_hint={
+                "action_type": "publish_update",
+                "target_key": "message_alignment",
+                "owner_actor_id": "actor_1",
+                "confidence": 0.61,
+                "action_bearing": True,
+            },
         )
     )
 
@@ -38,7 +112,27 @@ def test_compile_action_proposal_uses_heuristic_fallback():
     assert proposal.status == "proposed"
     assert proposal.action_type == "assign_owner"
     assert proposal.target_key == "launch_readiness"
-    assert proposal.compiler_source == "heuristic"
+    assert proposal.compiler_source == "planned_action"
+
+
+def test_fallback_action_from_policy_plan_does_not_default_to_first_allowed():
+    assert _fallback_action_from_policy_plan({"action_intent": "unknown_move"}, ["assign_owner", "request_evidence"]) is None
+
+
+def test_action_plan_alignment_score_rewards_matching_action_and_target():
+    score, details = action_plan_alignment_score(
+        {"action_type": "assign_owner", "target_key": "execution_confidence", "owner_actor_id": "actor_1"},
+        {"action_type": "assign_owner", "target_key": "execution_confidence", "owner_actor_id": "actor_1"},
+    )
+    assert score > 0.8
+    assert details["planned_action_type"] == "assign_owner"
+
+
+def test_phase_specific_action_and_target_keys_are_narrowed():
+    script = load_mvp_policy_scripts()[3]  # new_product_launch
+
+    assert set(script.allowed_action_types_for_phase("OPENING")) == {"publish_update", "request_evidence"}
+    assert set(script.target_keys_for_phase("OPENING")) == {"alignment", "message_alignment", "uncertainty", "launch_readiness"}
 
 
 def test_arbitrate_phase_actions_keeps_latest_same_family_and_rejects_conflict():
@@ -131,6 +225,7 @@ def test_graph_runner_executes_engine_action_v0_path(monkeypatch):
         phase_name=None,
         phase_cues=None,
         target_traits=None,
+        **kwargs,
     ):
         return {
             "stance": "synthesize",
@@ -176,5 +271,9 @@ def test_graph_runner_executes_engine_action_v0_path(monkeypatch):
 
     assert result["condition"] == "engine_action_v0"
     assert result["runtime_summary"]["executed_action_count"] > 0
+    assert result["runtime_summary"]["action_proposals"]
+    assert result["runtime_summary"]["action_audits"]
+    assert "action_status_counts" in result["runtime_summary"]
+    assert result["metrics"].action_plan_alignment_mean >= 0.0
     assert result["metrics"].structured_action_validity_rate > 0.0
     assert result["metrics"].state_transition_coherence > 0.0

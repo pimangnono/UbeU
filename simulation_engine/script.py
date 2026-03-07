@@ -281,6 +281,23 @@ class SimulationScript:
     def transition_rule_for(self, phase_name: str, action_type: str) -> dict[str, Any]:
         return dict(self.transition_rules.get(phase_name, {}).get(action_type, {}))
 
+    def allowed_action_types_for_phase(self, phase_name: str) -> list[str]:
+        phase_rules = self.transition_rules.get(phase_name, {})
+        if not phase_rules:
+            return list(self.allowed_action_types)
+        phase_actions = list(phase_rules.keys())
+        ordered = [action for action in self.allowed_action_types if action in phase_actions]
+        return ordered or phase_actions
+
+    def target_keys_for_phase(self, phase_name: str) -> list[str]:
+        phase_rules = self.transition_rules.get(phase_name, {})
+        keys: list[str] = []
+        for rule in phase_rules.values():
+            for state_key in dict(rule.get("global_deltas", {})).keys():
+                if state_key not in keys:
+                    keys.append(state_key)
+        return keys or list(self.world_state_schema)
+
     def validate(self):
         if not self.stakeholders:
             raise ValueError("SimulationScript requires at least one stakeholder")

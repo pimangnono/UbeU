@@ -28,12 +28,14 @@ class StakeholderGraphState(TypedDict, total=False):
     drift_nudge: Optional[str]
 
     policy_plan: dict[str, Any]
+    planned_action_artifact: dict[str, Any] | None
     candidate_pool: list[dict[str, Any]]
     scored_candidates: list[dict[str, Any]]
     selected_candidate: dict[str, Any]
     selected_candidate_text: str
     selected_meta: dict[str, Any]
     selected_action_proposal: dict[str, Any] | None
+    selected_action_audit: dict[str, Any] | None
     approved_phase_actions: list[dict[str, Any]]
     rejected_phase_actions: list[dict[str, Any]]
     executed_phase_actions: list[dict[str, Any]]

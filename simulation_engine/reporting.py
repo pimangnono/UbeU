@@ -111,6 +111,8 @@ def _format_summary_block(label: str, summary: dict[str, Any]) -> list[str]:
         f"- Executed action contradiction: {summary.get('executed_action_contradiction_rate_mean', 0.0):.4f}",
         f"- State transition coherence: {summary.get('state_transition_coherence_mean', 0.0):.4f}",
         f"- Action feedback utilization: {summary.get('action_feedback_utilization_mean', 0.0):.4f}",
+        f"- Action-plan alignment: {summary.get('action_plan_alignment_mean', 0.0):.4f}",
+        f"- Planned action coverage: {summary.get('planned_action_coverage_rate_mean', 0.0):.4f}",
         f"- State trajectory variance: {summary.get('state_trajectory_variance_mean', 0.0):.4f}",
         f"- Mean turns: {summary.get('turn_count_mean', 0.0):.2f}",
         "",
@@ -138,6 +140,10 @@ def _format_delta_block(naive: dict[str, Any], controlled: dict[str, Any]) -> li
         controlled.get("executed_action_contradiction_rate_mean", 0.0) - naive.get("executed_action_contradiction_rate_mean", 0.0),
         4,
     )
+    action_plan_alignment_delta = round(
+        controlled.get("action_plan_alignment_mean", 0.0) - naive.get("action_plan_alignment_mean", 0.0),
+        4,
+    )
     trajectory_delta = round(
         controlled.get("state_trajectory_variance_mean", 0.0) - naive.get("state_trajectory_variance_mean", 0.0),
         4,
@@ -158,5 +164,6 @@ def _format_delta_block(naive: dict[str, Any], controlled: dict[str, Any]) -> li
         f"- Commitment contradiction delta: {commitment_delta:+.4f}",
         f"- Structured action validity delta: {action_validity_delta:+.4f}",
         f"- Executed action contradiction delta: {action_contradiction_delta:+.4f}",
+        f"- Action-plan alignment delta: {action_plan_alignment_delta:+.4f}",
         f"- State trajectory variance delta: {trajectory_delta:+.4f}",
     ]

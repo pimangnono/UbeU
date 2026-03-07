@@ -19,6 +19,7 @@ def test_graph_runner_executes_engine_controller_path(monkeypatch):
         phase_name=None,
         phase_cues=None,
         target_traits=None,
+        **kwargs,
     ):
         return {
             "stance": "synthesize",
@@ -75,6 +76,7 @@ def test_graph_runner_executes_ablation_condition(monkeypatch):
         phase_name=None,
         phase_cues=None,
         target_traits=None,
+        **kwargs,
     ):
         return {
             "stance": "synthesize",

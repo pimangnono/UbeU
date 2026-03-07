@@ -1,0 +1,241 @@
+{
+  "saved_at": "2026-03-08T00:48:25.503034",
+  "config": {
+    "conditions": [
+      "naive_action_baseline",
+      "engine_dialogue_only",
+      "engine_action_v0"
+    ],
+    "repetitions": 1,
+    "script_ids": [
+      "commuting_support_policy",
+      "new_product_launch"
+    ],
+    "style_slots": [
+      "integrator",
+      "planner",
+      "challenger",
+      "skeptic"
+    ]
+  },
+  "aggregate": {
+    "naive_action_baseline": {
+      "num_runs": 2,
+      "persona_drift_mae_mean": 0.1684,
+      "persona_drift_mae_std": 0.0072,
+      "relationship_inconsistency_mean": 0.075,
+      "commitment_contradiction_mean": 0.1714,
+      "envelope_violations_mean": 7,
+      "structured_action_validity_rate_mean": 1.0,
+      "owner_resolution_rate_mean": 1.0,
+      "executed_action_contradiction_rate_mean": 0.0,
+      "state_transition_coherence_mean": 1.0,
+      "action_feedback_utilization_mean": 0.1666,
+      "action_plan_alignment_mean": 0.0,
+      "planned_action_coverage_rate_mean": 0.0,
+      "state_trajectory_variance_mean": 0.0003,
+      "per_trait_error_mean": {
+        "O": 0.1283,
+        "C": 0.2666,
+        "E": 0.1456,
+        "A": 0.0933,
+        "N": 0.2084
+      },
+      "turn_count_mean": 11
+    },
+    "engine_dialogue_only": {
+      "num_runs": 2,
+      "persona_drift_mae_mean": 0.1682,
+      "persona_drift_mae_std": 0.0028,
+      "relationship_inconsistency_mean": 0.0,
+      "commitment_contradiction_mean": 0.0,
+      "envelope_violations_mean": 7.5,
+      "structured_action_validity_rate_mean": 1.0,
+      "owner_resolution_rate_mean": 1.0,
+      "executed_action_contradiction_rate_mean": 0.0,
+      "state_transition_coherence_mean": 1.0,
+      "action_feedback_utilization_mean": 0.3333,
+      "action_plan_alignment_mean": 0.9659,
+      "planned_action_coverage_rate_mean": 1.0,
+      "state_trajectory_variance_mean": 0.003,
+      "per_trait_error_mean": {
+        "O": 0.1183,
+        "C": 0.22,
+        "E": 0.2143,
+        "A": 0.06,
+        "N": 0.2283
+      },
+      "turn_count_mean": 11
+    },
+    "engine_action_v0": {
+      "num_runs": 2,
+      "persona_drift_mae_mean": 0.1731,
+      "persona_drift_mae_std": 0.0295,
+      "relationship_inconsistency_mean": 0.0,
+      "commitment_contradiction_mean": 0.0625,
+      "envelope_violations_mean": 6.5,
+      "structured_action_validity_rate_mean": 1.0,
+      "owner_resolution_rate_mean": 1.0,
+      "executed_action_contradiction_rate_mean": 0.0,
+      "state_transition_coherence_mean": 1.0,
+      "action_feedback_utilization_mean": 0.3333,
+      "action_plan_alignment_mean": 0.9659,
+      "planned_action_coverage_rate_mean": 1.0,
+      "state_trajectory_variance_mean": 0.003,
+      "per_trait_error_mean": {
+        "O": 0.1216,
+        "C": 0.2434,
+        "E": 0.2155,
+        "A": 0.07,
+        "N": 0.215
+      },
+      "turn_count_mean": 11
+    }
+  },
+  "aggregate_by_script": {
+    "commuting_support_policy:naive_action_baseline": {
+      "num_runs": 1,
+      "persona_drift_mae_mean": 0.1612,
+      "persona_drift_mae_std": 0.0,
+      "relationship_inconsistency_mean": 0.0,
+      "commitment_contradiction_mean": 0.2,
+      "envelope_violations_mean": 6,
+      "structured_action_validity_rate_mean": 1.0,
+      "owner_resolution_rate_mean": 1.0,
+      "executed_action_contradiction_rate_mean": 0.0,
+      "state_transition_coherence_mean": 1.0,
+      "action_feedback_utilization_mean": 0.0,
+      "action_plan_alignment_mean": 0.0,
+      "planned_action_coverage_rate_mean": 0.0,
+      "state_trajectory_variance_mean": 0.0,
+      "per_trait_error_mean": {
+        "O": 0.0767,
+        "C": 0.2733,
+        "E": 0.1361,
+        "A": 0.12,
+        "N": 0.2
+      },
+      "turn_count_mean": 11
+    },
+    "commuting_support_policy:engine_dialogue_only": {
+      "num_runs": 1,
+      "persona_drift_mae_mean": 0.1654,
+      "persona_drift_mae_std": 0.0,
+      "relationship_inconsistency_mean": 0.0,
+      "commitment_contradiction_mean": 0.0,
+      "envelope_violations_mean": 7,
+      "structured_action_validity_rate_mean": 1.0,
+      "owner_resolution_rate_mean": 1.0,
+      "executed_action_contradiction_rate_mean": 0.0,
+      "state_transition_coherence_mean": 1.0,
+      "action_feedback_utilization_mean": 0.0,
+      "action_plan_alignment_mean": 0.9636,
+      "planned_action_coverage_rate_mean": 1.0,
+      "state_trajectory_variance_mean": 0.0,
+      "per_trait_error_mean": {
+        "O": 0.0567,
+        "C": 0.22,
+        "E": 0.2239,
+        "A": 0.1,
+        "N": 0.2267
+      },
+      "turn_count_mean": 11
+    },
+    "commuting_support_policy:engine_action_v0": {
+      "num_runs": 1,
+      "persona_drift_mae_mean": 0.1437,
+      "persona_drift_mae_std": 0.0,
+      "relationship_inconsistency_mean": 0.0,
+      "commitment_contradiction_mean": 0.0,
+      "envelope_violations_mean": 5,
+      "structured_action_validity_rate_mean": 1.0,
+      "owner_resolution_rate_mean": 1.0,
+      "executed_action_contradiction_rate_mean": 0.0,
+      "state_transition_coherence_mean": 1.0,
+      "action_feedback_utilization_mean": 0.0,
+      "action_plan_alignment_mean": 0.9636,
+      "planned_action_coverage_rate_mean": 1.0,
+      "state_trajectory_variance_mean": 0.0,
+      "per_trait_error_mean": {
+        "O": 0.0633,
+        "C": 0.2,
+        "E": 0.1883,
+        "A": 0.0933,
+        "N": 0.1733
+      },
+      "turn_count_mean": 11
+    },
+    "new_product_launch:naive_action_baseline": {
+      "num_runs": 1,
+      "persona_drift_mae_mean": 0.1757,
+      "persona_drift_mae_std": 0.0,
+      "relationship_inconsistency_mean": 0.15,
+      "commitment_contradiction_mean": 0.1429,
+      "envelope_violations_mean": 8,
+      "structured_action_validity_rate_mean": 1.0,
+      "owner_resolution_rate_mean": 1.0,
+      "executed_action_contradiction_rate_mean": 0.0,
+      "state_transition_coherence_mean": 1.0,
+      "action_feedback_utilization_mean": 0.3333,
+      "action_plan_alignment_mean": 0.0,
+      "planned_action_coverage_rate_mean": 0.0,
+      "state_trajectory_variance_mean": 0.0,
+      "per_trait_error_mean": {
+        "O": 0.18,
+        "C": 0.26,
+        "E": 0.155,
+        "A": 0.0667,
+        "N": 0.2167
+      },
+      "turn_count_mean": 11
+    },
+    "new_product_launch:engine_dialogue_only": {
+      "num_runs": 1,
+      "persona_drift_mae_mean": 0.171,
+      "persona_drift_mae_std": 0.0,
+      "relationship_inconsistency_mean": 0.0,
+      "commitment_contradiction_mean": 0.0,
+      "envelope_violations_mean": 8,
+      "structured_action_validity_rate_mean": 1.0,
+      "owner_resolution_rate_mean": 1.0,
+      "executed_action_contradiction_rate_mean": 0.0,
+      "state_transition_coherence_mean": 1.0,
+      "action_feedback_utilization_mean": 0.6667,
+      "action_plan_alignment_mean": 0.9682,
+      "planned_action_coverage_rate_mean": 1.0,
+      "state_trajectory_variance_mean": 0.0,
+      "per_trait_error_mean": {
+        "O": 0.18,
+        "C": 0.22,
+        "E": 0.2048,
+        "A": 0.02,
+        "N": 0.23
+      },
+      "turn_count_mean": 11
+    },
+    "new_product_launch:engine_action_v0": {
+      "num_runs": 1,
+      "persona_drift_mae_mean": 0.2026,
+      "persona_drift_mae_std": 0.0,
+      "relationship_inconsistency_mean": 0.0,
+      "commitment_contradiction_mean": 0.125,
+      "envelope_violations_mean": 8,
+      "structured_action_validity_rate_mean": 1.0,
+      "owner_resolution_rate_mean": 1.0,
+      "executed_action_contradiction_rate_mean": 0.0,
+      "state_transition_coherence_mean": 1.0,
+      "action_feedback_utilization_mean": 0.6667,
+      "action_plan_alignment_mean": 0.9682,
+      "planned_action_coverage_rate_mean": 1.0,
+      "state_trajectory_variance_mean": 0.0,
+      "per_trait_error_mean": {
+        "O": 0.18,
+        "C": 0.2867,
+        "E": 0.2428,
+        "A": 0.0467,
+        "N": 0.2567
+      },
+      "turn_count_mean": 11
+    }
+  }
+}

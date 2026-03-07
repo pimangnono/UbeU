@@ -155,6 +155,14 @@ class StakeholderSimulationRuntime:
 
     def to_runtime_summary(self) -> dict[str, Any]:
         latest_world = self.ledger.latest_world_state()
+        action_status_counts: dict[str, int] = {}
+        action_rejection_reason_counts: dict[str, int] = {}
+        for proposal in self.ledger.action_proposals:
+            action_status_counts[proposal.status] = action_status_counts.get(proposal.status, 0) + 1
+            if proposal.rejection_reason:
+                action_rejection_reason_counts[proposal.rejection_reason] = (
+                    action_rejection_reason_counts.get(proposal.rejection_reason, 0) + 1
+                )
         return {
             "simulation_id": self.script.simulation_id,
             "title": self.script.title,
@@ -168,4 +176,11 @@ class StakeholderSimulationRuntime:
             "executed_action_count": len(self.ledger.executed_actions),
             "phase_count": len(self.script.phases),
             "latest_world_state": dict(latest_world.global_state),
+            "action_status_counts": action_status_counts,
+            "action_rejection_reason_counts": action_rejection_reason_counts,
+            "action_proposals": [proposal.to_dict() for proposal in self.ledger.action_proposals],
+            "executed_actions": [action.to_dict() for action in self.ledger.executed_actions],
+            "action_audits": self.ledger.ordered_action_audits(),
+            "world_state_history": [snapshot.to_dict() for snapshot in self.ledger.world_state_history],
+            "phase_state_feedback": dict(self.ledger.phase_state_feedback),
         }
