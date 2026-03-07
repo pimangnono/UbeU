@@ -14,6 +14,7 @@ Usage:
     python -m experiment.run_experiment --audit-overlap        # Overlap audit only
     python -m experiment.run_experiment --bcfc-v5-mini         # BCFC v5 mini (12 sessions)
     python -m experiment.run_experiment --bcfc-v5-langgraph-mini  # BCFC v5 LangGraph mini (12 sessions)
+    python -m experiment.run_experiment --simulation-benchmark-mvp  # Stakeholder simulation MVP benchmark
 """
 
 import argparse
@@ -616,6 +617,33 @@ async def run_bcfc_v5_langgraph_mini(
     return await runner.run_all()
 
 
+async def run_simulation_benchmark(
+    output_dir: str = "simulation_engine/results_mvp_benchmark",
+    conditions: list[str] | None = None,
+    repetitions: int = 3,
+    script_ids: list[str] | None = None,
+):
+    """Run the stakeholder-simulation MVP benchmark and persist outputs."""
+    gen_client, _ = create_clients()
+    from simulation_engine import SimulationBenchmarkRunner, save_benchmark_outputs
+
+    runner = SimulationBenchmarkRunner(gen_client=gen_client)
+    results = await runner.run_suite(
+        conditions=conditions,
+        repetitions=repetitions,
+        script_ids=script_ids,
+    )
+    output_paths = save_benchmark_outputs(results, output_dir)
+    return {
+        "output_dir": output_dir,
+        "output_paths": output_paths,
+        "aggregate": results["aggregate"],
+        "aggregate_by_script": results["aggregate_by_script"],
+        "config": results["config"],
+        "total_runs": len(results["runs"]),
+    }
+
+
 def run_analysis(results_dir: str = "experiment/results"):
     """Run statistical analysis on completed experiment results."""
     from experiment.analysis import run_full_analysis
@@ -657,6 +685,8 @@ def run_contract_invariants():
 
 
 def main():
+    from simulation_engine import ALL_BENCHMARK_CONDITIONS
+
     parser = argparse.ArgumentParser(description="Behavioral Fidelity Experiment (V5.1 + BCFC)")
     parser.add_argument("--pilot", action="store_true", help="Run pilot (4 sessions)")
     parser.add_argument("--pilot-v5", action="store_true", help="Run V5.1 pilot (12 sessions)")
@@ -668,10 +698,30 @@ def main():
     parser.add_argument("--bcfc-v4-mini", action="store_true", help="Run BCFC v4 mini experiment (9 sessions)")
     parser.add_argument("--bcfc-v5-mini", action="store_true", help="Run BCFC v5 mini experiment (12 sessions)")
     parser.add_argument("--bcfc-v5-langgraph-mini", action="store_true", help="Run BCFC v5 LangGraph mini experiment (12 sessions)")
+    parser.add_argument("--simulation-benchmark-mvp", action="store_true", help="Run the stakeholder simulation MVP benchmark")
     parser.add_argument("--analyze", action="store_true", help="Run analysis only")
     parser.add_argument("--temporal", action="store_true", help="Run temporal analysis only")
     parser.add_argument("--audit-overlap", action="store_true", help="Run overlap audit only")
     parser.add_argument("--validate-contracts", action="store_true", help="Validate contract range invariants")
+    parser.add_argument(
+        "--benchmark-conditions",
+        nargs="+",
+        choices=ALL_BENCHMARK_CONDITIONS,
+        default=None,
+        help="Benchmark conditions to run for the stakeholder simulation benchmark",
+    )
+    parser.add_argument(
+        "--benchmark-repetitions",
+        type=int,
+        default=3,
+        help="Repetitions per script/condition for the stakeholder simulation benchmark",
+    )
+    parser.add_argument(
+        "--benchmark-scripts",
+        nargs="+",
+        default=None,
+        help="Subset of simulation script ids to run for the stakeholder simulation benchmark",
+    )
     parser.add_argument("--output-dir", type=str, default=None, help="Output directory")
 
     args = parser.parse_args()
@@ -696,6 +746,24 @@ def main():
         results_dir = args.output_dir or "experiment/results"
         print("Running temporal decay analysis...")
         run_temporal(results_dir)
+        return
+
+    if args.simulation_benchmark_mvp:
+        output_dir = args.output_dir or "simulation_engine/results_mvp_benchmark"
+        print("Running stakeholder simulation MVP benchmark...")
+        summary = asyncio.run(
+            run_simulation_benchmark(
+                output_dir=output_dir,
+                conditions=args.benchmark_conditions,
+                repetitions=args.benchmark_repetitions,
+                script_ids=args.benchmark_scripts,
+            )
+        )
+        print(f"Benchmark outputs saved to {summary['output_dir']}")
+        print(f"  Runs JSON: {summary['output_paths']['runs']}")
+        print(f"  Aggregate JSON: {summary['output_paths']['aggregate']}")
+        print(f"  Report: {summary['output_paths']['report']}")
+        print(f"\nFinal summary: {summary}")
         return
 
     if args.bcfc_pilot:
