@@ -183,6 +183,8 @@ class BenchmarkRunMetrics:
     commitment_contradiction_rate: float
     envelope_violations: int
     per_trait_error_mean: dict[str, float]
+    actor_labels: dict[str, str]
+    actor_display_names: dict[str, str]
     actor_trait_estimates: dict[str, dict[str, float]]
     actor_trait_errors: dict[str, dict[str, float]]
 
@@ -193,6 +195,8 @@ class BenchmarkRunMetrics:
             "commitment_contradiction_rate": self.commitment_contradiction_rate,
             "envelope_violations": self.envelope_violations,
             "per_trait_error_mean": self.per_trait_error_mean,
+            "actor_labels": self.actor_labels,
+            "actor_display_names": self.actor_display_names,
             "actor_trait_estimates": self.actor_trait_estimates,
             "actor_trait_errors": self.actor_trait_errors,
         }
@@ -225,6 +229,8 @@ def compute_runtime_metrics(runtime: StakeholderSimulationRuntime) -> BenchmarkR
             trait: round(sum(values) / max(len(values), 1), 4)
             for trait, values in per_trait_buckets.items()
         },
+        actor_labels=dict(runtime.script.actor_analysis_label_map),
+        actor_display_names=dict(runtime.script.actor_display_name_map),
         actor_trait_estimates=actor_trait_estimates,
         actor_trait_errors=actor_trait_errors,
     )

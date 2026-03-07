@@ -159,4 +159,6 @@ class StakeholderSimulationRuntime:
             "phase_name": self.current_phase.name,
             "turn_count": len(self.ledger.turns),
             "actor_ids": list(self.actors.keys()),
+            "actor_labels": dict(self.script.actor_analysis_label_map),
+            "actor_display_names": dict(self.script.actor_display_name_map),
         }

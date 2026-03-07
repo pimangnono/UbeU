@@ -256,4 +256,6 @@ def test_benchmark_runner_executes_with_monkeypatched_generation(monkeypatch):
     assert ablated_result.condition == "engine_controller_no_tie_routing"
     assert controlled_result.selection_audits
     assert ablated_result.selection_audits
-    assert "persona_drift_mae" in controlled_result.metrics.to_dict()
+    metrics_payload = controlled_result.metrics.to_dict()
+    assert "persona_drift_mae" in metrics_payload
+    assert metrics_payload["actor_labels"]["actor_1"] == "Primary affected youth worker"
