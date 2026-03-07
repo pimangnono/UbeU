@@ -81,6 +81,11 @@ class StakeholderActorSpec:
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
 
+    @property
+    def analysis_label(self) -> str:
+        """Return the role-first label used in reports and benchmark outputs."""
+        return self.role
+
 
 @dataclass
 class SimulationPhase:
@@ -208,6 +213,18 @@ class SimulationScript:
             return self.actor_map[actor_id]
         except KeyError as exc:
             raise KeyError(f"Unknown actor_id: {actor_id}") from exc
+
+    @property
+    def actor_role_map(self) -> dict[str, str]:
+        return {actor.actor_id: actor.role for actor in self.stakeholders}
+
+    @property
+    def actor_display_name_map(self) -> dict[str, str]:
+        return {actor.actor_id: actor.display_name for actor in self.stakeholders}
+
+    @property
+    def actor_analysis_label_map(self) -> dict[str, str]:
+        return {actor.actor_id: actor.analysis_label for actor in self.stakeholders}
 
     def validate(self):
         if not self.stakeholders:
