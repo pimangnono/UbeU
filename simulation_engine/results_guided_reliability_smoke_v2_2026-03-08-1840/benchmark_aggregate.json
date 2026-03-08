@@ -1,5 +1,5 @@
 {
-  "saved_at": "2026-03-08T19:48:00.907634",
+  "saved_at": "2026-03-08T19:54:50.988362",
   "config": {
     "conditions": [
       "naive_action_baseline",
@@ -52,20 +52,20 @@
       "turn_count_mean": 11
     },
     "engine_dialogue_only": {
-      "num_runs": 5,
+      "num_runs": 6,
       "clean_run_count": 0,
-      "contaminated_run_count": 5,
-      "persona_drift_mae_mean": 0.1684,
-      "persona_drift_mae_std": 0.0073,
+      "contaminated_run_count": 6,
+      "persona_drift_mae_mean": 0.1699,
+      "persona_drift_mae_std": 0.0075,
       "relationship_inconsistency_mean": 0.0,
       "commitment_contradiction_mean": 0.0,
-      "envelope_violations_mean": 5.4,
-      "structured_action_validity_rate_mean": 0.8,
+      "envelope_violations_mean": 5.5,
+      "structured_action_validity_rate_mean": 0.75,
       "owner_resolution_rate_mean": 1.0,
       "executed_action_contradiction_rate_mean": 0.0,
       "state_transition_coherence_mean": 1.0,
       "action_feedback_utilization_mean": 0.0,
-      "action_plan_alignment_mean": 0.9627,
+      "action_plan_alignment_mean": 0.9636,
       "planned_action_coverage_rate_mean": 1.0,
       "action_family_convergence_rate_mean": 0.625,
       "role_action_diversity_score_mean": 0.5833,
@@ -74,13 +74,13 @@
       "fallback_type_rate_mean": {
         "empty_pool_fallback": 1.0
       },
-      "state_trajectory_variance_mean": 0.001,
+      "state_trajectory_variance_mean": 0.0011,
       "per_trait_error_mean": {
-        "O": 0.16,
-        "C": 0.4307,
-        "E": 0.1254,
-        "A": 0.0733,
-        "N": 0.0527
+        "O": 0.155,
+        "C": 0.4334,
+        "E": 0.1278,
+        "A": 0.0766,
+        "N": 0.0567
       },
       "turn_count_mean": 11
     }
@@ -186,9 +186,9 @@
       "turn_count_mean": 11
     },
     "post_merger_integration:engine_dialogue_only": {
-      "num_runs": 2,
+      "num_runs": 3,
       "clean_run_count": 0,
-      "contaminated_run_count": 2,
+      "contaminated_run_count": 3,
       "persona_drift_mae_mean": 0.1773,
       "persona_drift_mae_std": 0.0,
       "relationship_inconsistency_mean": 0.0,
@@ -254,20 +254,20 @@
       "turn_count_mean": 11
     },
     "guided:engine_dialogue_only": {
-      "num_runs": 5,
+      "num_runs": 6,
       "clean_run_count": 0,
-      "contaminated_run_count": 5,
-      "persona_drift_mae_mean": 0.1684,
-      "persona_drift_mae_std": 0.0073,
+      "contaminated_run_count": 6,
+      "persona_drift_mae_mean": 0.1699,
+      "persona_drift_mae_std": 0.0075,
       "relationship_inconsistency_mean": 0.0,
       "commitment_contradiction_mean": 0.0,
-      "envelope_violations_mean": 5.4,
-      "structured_action_validity_rate_mean": 0.8,
+      "envelope_violations_mean": 5.5,
+      "structured_action_validity_rate_mean": 0.75,
       "owner_resolution_rate_mean": 1.0,
       "executed_action_contradiction_rate_mean": 0.0,
       "state_transition_coherence_mean": 1.0,
       "action_feedback_utilization_mean": 0.0,
-      "action_plan_alignment_mean": 0.9627,
+      "action_plan_alignment_mean": 0.9636,
       "planned_action_coverage_rate_mean": 1.0,
       "action_family_convergence_rate_mean": 0.625,
       "role_action_diversity_score_mean": 0.5833,
@@ -276,13 +276,13 @@
       "fallback_type_rate_mean": {
         "empty_pool_fallback": 1.0
       },
-      "state_trajectory_variance_mean": 0.001,
+      "state_trajectory_variance_mean": 0.0011,
       "per_trait_error_mean": {
-        "O": 0.16,
-        "C": 0.4307,
-        "E": 0.1254,
-        "A": 0.0733,
-        "N": 0.0527
+        "O": 0.155,
+        "C": 0.4334,
+        "E": 0.1278,
+        "A": 0.0766,
+        "N": 0.0567
       },
       "turn_count_mean": 11
     }
@@ -388,9 +388,9 @@
       "turn_count_mean": 11
     },
     "integration_trust:engine_dialogue_only": {
-      "num_runs": 2,
+      "num_runs": 3,
       "clean_run_count": 0,
-      "contaminated_run_count": 2,
+      "contaminated_run_count": 3,
       "persona_drift_mae_mean": 0.1773,
       "persona_drift_mae_std": 0.0,
       "relationship_inconsistency_mean": 0.0,

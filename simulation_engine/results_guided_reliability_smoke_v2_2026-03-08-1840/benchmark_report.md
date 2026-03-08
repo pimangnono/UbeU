@@ -1,37 +1,37 @@
 # Simulation Benchmark Report
 
 ## Suite Config
-- Total runs: 11
+- Total runs: 12
 - Conditions: naive_action_baseline, engine_dialogue_only
 - Script ids: new_product_launch, post_merger_integration
 - Repetitions per condition: 3
 
 ## Condition Summary
 ### engine_dialogue_only
-- Runs: 5
+- Runs: 6
 - Clean runs: 0
-- Contaminated runs: 5
-- Persona drift MAE: 0.1684 (+/- 0.0073)
-- Clean persona drift MAE: 0.1684
-- Per-trait absolute error: O 0.1600, C 0.4307, E 0.1254, A 0.0733, N 0.0527
+- Contaminated runs: 6
+- Persona drift MAE: 0.1699 (+/- 0.0075)
+- Clean persona drift MAE: 0.1699
+- Per-trait absolute error: O 0.1550, C 0.4334, E 0.1278, A 0.0766, N 0.0567
 - Relationship inconsistency: 0.0000
 - Commitment contradiction: 0.0000
 - Clean commitment contradiction: 0.0000
-- Envelope violations: 5.4000
-- Clean envelope violations: 5.4000
-- Structured action validity: 0.8000
+- Envelope violations: 5.5000
+- Clean envelope violations: 5.5000
+- Structured action validity: 0.7500
 - Owner resolution rate: 1.0000
 - Executed action contradiction: 0.0000
 - State transition coherence: 1.0000
 - Action feedback utilization: 0.0000
-- Action-plan alignment: 0.9627
+- Action-plan alignment: 0.9636
 - Planned action coverage: 1.0000
 - Action family convergence: 0.6250
 - Role action diversity: 0.5833
 - Negotiation uniqueness: 0.3333
 - Fallback utterance rate: 1.0000
 - Fallback taxonomy: empty_pool_fallback 1.0000
-- State trajectory variance: 0.0010
+- State trajectory variance: 0.0011
 - Mean turns: 11.00
 
 ### naive_action_baseline
@@ -123,9 +123,9 @@
 - Mean turns: 11.00
 
 ### post_merger_integration:engine_dialogue_only
-- Runs: 2
+- Runs: 3
 - Clean runs: 0
-- Contaminated runs: 2
+- Contaminated runs: 3
 - Persona drift MAE: 0.1773 (+/- 0.0000)
 - Clean persona drift MAE: 0.1773
 - Per-trait absolute error: O 0.1300, C 0.4467, E 0.1400, A 0.0933, N 0.0767
@@ -179,30 +179,30 @@
 
 ## Mode Summary
 ### guided:engine_dialogue_only
-- Runs: 5
+- Runs: 6
 - Clean runs: 0
-- Contaminated runs: 5
-- Persona drift MAE: 0.1684 (+/- 0.0073)
-- Clean persona drift MAE: 0.1684
-- Per-trait absolute error: O 0.1600, C 0.4307, E 0.1254, A 0.0733, N 0.0527
+- Contaminated runs: 6
+- Persona drift MAE: 0.1699 (+/- 0.0075)
+- Clean persona drift MAE: 0.1699
+- Per-trait absolute error: O 0.1550, C 0.4334, E 0.1278, A 0.0766, N 0.0567
 - Relationship inconsistency: 0.0000
 - Commitment contradiction: 0.0000
 - Clean commitment contradiction: 0.0000
-- Envelope violations: 5.4000
-- Clean envelope violations: 5.4000
-- Structured action validity: 0.8000
+- Envelope violations: 5.5000
+- Clean envelope violations: 5.5000
+- Structured action validity: 0.7500
 - Owner resolution rate: 1.0000
 - Executed action contradiction: 0.0000
 - State transition coherence: 1.0000
 - Action feedback utilization: 0.0000
-- Action-plan alignment: 0.9627
+- Action-plan alignment: 0.9636
 - Planned action coverage: 1.0000
 - Action family convergence: 0.6250
 - Role action diversity: 0.5833
 - Negotiation uniqueness: 0.3333
 - Fallback utterance rate: 1.0000
 - Fallback taxonomy: empty_pool_fallback 1.0000
-- State trajectory variance: 0.0010
+- State trajectory variance: 0.0011
 - Mean turns: 11.00
 
 ### guided:naive_action_baseline
@@ -235,9 +235,9 @@
 
 ## Family Summary
 ### integration_trust:engine_dialogue_only
-- Runs: 2
+- Runs: 3
 - Clean runs: 0
-- Contaminated runs: 2
+- Contaminated runs: 3
 - Persona drift MAE: 0.1773 (+/- 0.0000)
 - Clean persona drift MAE: 0.1773
 - Per-trait absolute error: O 0.1300, C 0.4467, E 0.1400, A 0.0933, N 0.0767

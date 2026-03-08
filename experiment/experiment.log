@@ -3235,3 +3235,20 @@
 2026-03-08 19:53:39,993 [WARNING] experiment.candidate_agent: policy_plan generation attempt 3/4 failed with transient error: Connection error.. Retrying in 3.4s.
 2026-03-08 19:53:46,265 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: Connection error.. Retrying in 1.1s.
 2026-03-08 19:53:48,638 [WARNING] experiment.candidate_agent: candidate_response generation attempt 2/4 failed with transient error: Connection error.. Retrying in 2.3s.
+2026-03-08 19:53:52,317 [WARNING] experiment.candidate_agent: candidate_response generation attempt 3/4 failed with transient error: Connection error.. Retrying in 4.8s.
+2026-03-08 19:53:58,436 [ERROR] experiment.candidate_agent: Candidate generation failed: Connection error.
+2026-03-08 19:53:59,819 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: Connection error.. Retrying in 0.9s.
+2026-03-08 19:54:01,822 [WARNING] experiment.candidate_agent: candidate_response generation attempt 2/4 failed with transient error: Connection error.. Retrying in 2.3s.
+2026-03-08 19:54:05,401 [WARNING] experiment.candidate_agent: candidate_response generation attempt 3/4 failed with transient error: Connection error.. Retrying in 4.4s.
+2026-03-08 19:54:11,196 [ERROR] experiment.candidate_agent: Candidate generation failed: Connection error.
+2026-03-08 19:54:12,515 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/4 failed with transient error: Connection error.. Retrying in 1.1s.
+2026-03-08 19:54:14,984 [WARNING] experiment.candidate_agent: policy_plan generation attempt 2/4 failed with transient error: Connection error.. Retrying in 2.4s.
+2026-03-08 19:54:18,747 [WARNING] experiment.candidate_agent: policy_plan generation attempt 3/4 failed with transient error: Connection error.. Retrying in 4.1s.
+2026-03-08 19:54:25,590 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: Connection error.. Retrying in 1.0s.
+2026-03-08 19:54:27,941 [WARNING] experiment.candidate_agent: candidate_response generation attempt 2/4 failed with transient error: Connection error.. Retrying in 2.4s.
+2026-03-08 19:54:31,625 [WARNING] experiment.candidate_agent: candidate_response generation attempt 3/4 failed with transient error: Connection error.. Retrying in 4.1s.
+2026-03-08 19:54:37,073 [ERROR] experiment.candidate_agent: Candidate generation failed: Connection error.
+2026-03-08 19:54:38,408 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: Connection error.. Retrying in 1.1s.
+2026-03-08 19:54:40,850 [WARNING] experiment.candidate_agent: candidate_response generation attempt 2/4 failed with transient error: Connection error.. Retrying in 2.5s.
+2026-03-08 19:54:44,711 [WARNING] experiment.candidate_agent: candidate_response generation attempt 3/4 failed with transient error: Connection error.. Retrying in 4.8s.
+2026-03-08 19:54:50,917 [ERROR] experiment.candidate_agent: Candidate generation failed: Connection error.
