@@ -27,21 +27,35 @@ def _sample_results():
         "aggregate": {
             "naive": {
                 "num_runs": 2,
+                "clean_run_count": 1,
+                "contaminated_run_count": 1,
                 "persona_drift_mae_mean": 0.21,
+                "clean_persona_drift_mae_mean": 0.18,
                 "persona_drift_mae_std": 0.03,
                 "relationship_inconsistency_mean": 0.10,
                 "commitment_contradiction_mean": 0.05,
+                "clean_commitment_contradiction_mean": 0.02,
                 "envelope_violations_mean": 1.0,
+                "clean_envelope_violations_mean": 0.0,
+                "fallback_utterance_rate_mean": 0.50,
+                "fallback_type_rate_mean": {"timeout_fallback": 0.25, "empty_pool_fallback": 0.25},
                 "per_trait_error_mean": {"O": 0.08, "C": 0.34, "E": 0.22, "A": 0.07, "N": 0.18},
                 "turn_count_mean": 11.0,
             },
             "engine_controller": {
                 "num_runs": 2,
+                "clean_run_count": 2,
+                "contaminated_run_count": 0,
                 "persona_drift_mae_mean": 0.12,
+                "clean_persona_drift_mae_mean": 0.12,
                 "persona_drift_mae_std": 0.01,
                 "relationship_inconsistency_mean": 0.04,
                 "commitment_contradiction_mean": 0.01,
+                "clean_commitment_contradiction_mean": 0.01,
                 "envelope_violations_mean": 0.0,
+                "clean_envelope_violations_mean": 0.0,
+                "fallback_utterance_rate_mean": 0.10,
+                "fallback_type_rate_mean": {"timeout_fallback": 0.10},
                 "per_trait_error_mean": {"O": 0.07, "C": 0.20, "E": 0.16, "A": 0.06, "N": 0.11},
                 "turn_count_mean": 11.0,
             },
@@ -49,11 +63,18 @@ def _sample_results():
         "aggregate_by_script": {
             "policy_alpha:naive": {
                 "num_runs": 2,
+                "clean_run_count": 1,
+                "contaminated_run_count": 1,
                 "persona_drift_mae_mean": 0.21,
+                "clean_persona_drift_mae_mean": 0.18,
                 "persona_drift_mae_std": 0.03,
                 "relationship_inconsistency_mean": 0.10,
                 "commitment_contradiction_mean": 0.05,
+                "clean_commitment_contradiction_mean": 0.02,
                 "envelope_violations_mean": 1.0,
+                "clean_envelope_violations_mean": 0.0,
+                "fallback_utterance_rate_mean": 0.50,
+                "fallback_type_rate_mean": {"timeout_fallback": 0.25, "empty_pool_fallback": 0.25},
                 "per_trait_error_mean": {"O": 0.08, "C": 0.34, "E": 0.22, "A": 0.07, "N": 0.18},
                 "turn_count_mean": 11.0,
             }
@@ -77,6 +98,7 @@ def test_reporting_writes_json_and_markdown(tmp_path):
     assert "Simulation Benchmark Report" in report_text
     assert "Controlled Engine vs Baseline" in report_text
     assert "Per-trait absolute error" in report_text
+    assert "Fallback utterance rate" in report_text
 
 
 def test_build_benchmark_report_includes_script_summary():
@@ -85,6 +107,7 @@ def test_build_benchmark_report_includes_script_summary():
     assert "policy_alpha:naive" in report
     assert "Persona drift delta" in report
     assert "Per-trait error delta" in report
+    assert "Reliability Warnings" in report
 
 
 def test_main_routes_simulation_benchmark_flag(monkeypatch, capsys):

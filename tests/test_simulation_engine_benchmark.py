@@ -1,10 +1,12 @@
 import asyncio
+import json
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from simulation_engine import PersonaStateController, SimulationBenchmarkRunner, load_mvp_policy_scripts
+from simulation_engine.metrics import BenchmarkRunMetrics
 from simulation_engine.ablation import SimulationAblationConfig, resolve_benchmark_condition
 
 
@@ -234,6 +236,7 @@ def test_benchmark_runner_executes_with_monkeypatched_generation(monkeypatch):
         constraint_suffix=None,
         policy_plan=None,
         enable_trait_execution=False,
+        **kwargs,
     ):
         return [
             {"slot": "generic", "text": "We should think carefully and get more information."},
@@ -267,4 +270,82 @@ def test_benchmark_runner_executes_with_monkeypatched_generation(monkeypatch):
     assert ablated_result.selection_audits
     metrics_payload = controlled_result.metrics.to_dict()
     assert "persona_drift_mae" in metrics_payload
+    assert "fallback_utterance_rate" in metrics_payload
+    assert "fallback_type_rates" in metrics_payload
     assert metrics_payload["actor_labels"]["actor_1"] == "Primary affected youth worker"
+
+
+def test_benchmark_runner_resumes_from_checkpoint(monkeypatch, tmp_path):
+    script = load_mvp_policy_scripts()[0]
+    conditions = ["naive_action_baseline"]
+    style_slots = ["integrator", "planner", "challenger", "skeptic"]
+    checkpoint_dir = tmp_path / "checkpoint"
+    checkpoint_dir.mkdir(parents=True, exist_ok=True)
+
+    prior_metrics = BenchmarkRunMetrics(
+        persona_drift_mae=0.11,
+        relationship_inconsistency=0.0,
+        commitment_contradiction_rate=0.0,
+        envelope_violations=1,
+        per_trait_error_mean={"O": 0.1, "C": 0.1, "E": 0.1, "A": 0.1, "N": 0.1},
+        actor_labels={"actor_1": "A"},
+        actor_display_names={"actor_1": "A"},
+        actor_trait_estimates={"actor_1": {"O": 0.1, "C": 0.1, "E": 0.1, "A": 0.1, "N": 0.1}},
+        actor_trait_errors={"actor_1": {"O": 0.0, "C": 0.0, "E": 0.0, "A": 0.0, "N": 0.0}},
+    )
+    prior_run = {
+        "condition": "naive_action_baseline",
+        "simulation_id": script.simulation_id,
+        "runtime_summary": {"simulation_id": script.simulation_id, "turn_count": 11},
+        "metrics": prior_metrics.to_dict(),
+        "selection_audits": [],
+    }
+    (checkpoint_dir / "benchmark_runs.json").write_text(
+        json.dumps(
+            {
+                "config": {
+                    "conditions": conditions,
+                    "repetitions": 2,
+                    "script_ids": [script.simulation_id],
+                    "style_slots": style_slots,
+                },
+                "runs": [prior_run],
+            }
+        )
+    )
+
+    call_counter = {"count": 0}
+
+    async def _fake_run_single(_script, condition):
+        call_counter["count"] += 1
+        assert condition == "naive_action_baseline"
+        return type(
+            "Result",
+            (),
+            {
+                "to_dict": lambda self: prior_run,
+                "condition": condition,
+                "simulation_id": _script.simulation_id,
+                "runtime_summary": {"simulation_id": _script.simulation_id, "turn_count": 11},
+                "metrics": prior_metrics,
+                "selection_audits": [],
+            },
+        )()
+
+    monkeypatch.setattr("simulation_engine.benchmark.load_mvp_policy_scripts", lambda: [script])
+    runner = SimulationBenchmarkRunner(gen_client=_DummyClient(), style_slots=style_slots)
+    monkeypatch.setattr(runner, "run_single", _fake_run_single)
+
+    results = asyncio.run(
+        runner.run_suite(
+            conditions=conditions,
+            repetitions=2,
+            script_ids=[script.simulation_id],
+            checkpoint_dir=str(checkpoint_dir),
+        )
+    )
+
+    assert call_counter["count"] == 1
+    assert len(results["runs"]) == 2
+    assert "clean_run_count" in results["aggregate"]["naive_action_baseline"]
+    assert "contaminated_run_count" in results["aggregate"]["naive_action_baseline"]

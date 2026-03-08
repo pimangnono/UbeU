@@ -990,6 +990,9 @@ def _phase_action_policies(simulation_id: str) -> dict[str, dict[str, object]]:
             "family_cap": 1,
             "max_actions_per_phase": 1,
             "sparsity_threshold": 0.66,
+            "style_slot_limit": 3,
+            "pool_max_concurrency": 2,
+            "planner_cache": True,
         },
         "TENSION": {
             "action_mode": "shadow",
@@ -1001,6 +1004,9 @@ def _phase_action_policies(simulation_id: str) -> dict[str, dict[str, object]]:
             "family_cap": 1,
             "max_actions_per_phase": 2,
             "sparsity_threshold": 0.70,
+            "style_slot_limit": 3,
+            "pool_max_concurrency": 2,
+            "planner_cache": False,
         },
         "NEGOTIATION": {
             "action_mode": "execute",
@@ -1012,6 +1018,9 @@ def _phase_action_policies(simulation_id: str) -> dict[str, dict[str, object]]:
             "family_cap": 1,
             "max_actions_per_phase": 3,
             "sparsity_threshold": 0.76,
+            "style_slot_limit": 4,
+            "pool_max_concurrency": 2,
+            "planner_cache": False,
         },
         "CLOSING": {
             "action_mode": "execute",
@@ -1023,6 +1032,9 @@ def _phase_action_policies(simulation_id: str) -> dict[str, dict[str, object]]:
             "family_cap": 1,
             "max_actions_per_phase": 2,
             "sparsity_threshold": 0.64,
+            "style_slot_limit": 2,
+            "pool_max_concurrency": 1,
+            "planner_cache": True,
         },
     }
     if simulation_id == "new_product_launch":
@@ -1030,42 +1042,67 @@ def _phase_action_policies(simulation_id: str) -> dict[str, dict[str, object]]:
             "max_actions_per_phase": 2,
             "sparsity_threshold": 0.82,
             "duplicate_penalty": 0.30,
+            "style_slot_limit": 2,
+            "pool_max_concurrency": 1,
         })
         policies["TENSION"].update({
             "max_actions_per_phase": 1,
             "sparsity_threshold": 0.76,
+            "style_slot_limit": 2,
+            "pool_max_concurrency": 1,
         })
     elif simulation_id == "post_merger_integration":
         policies["NEGOTIATION"].update({
             "max_actions_per_phase": 2,
             "sparsity_threshold": 0.80,
             "duplicate_penalty": 0.28,
+            "style_slot_limit": 2,
+            "pool_max_concurrency": 1,
         })
         policies["CLOSING"].update({
             "max_actions_per_phase": 1,
             "sparsity_threshold": 0.72,
+            "style_slot_limit": 2,
+            "pool_max_concurrency": 1,
         })
     elif simulation_id in {"brand_crisis_response", "resource_reallocation_crunch"}:
         policies["OPENING"].update({
+            "action_mode": "shadow",
             "diversity_required": True,
-            "duplicate_penalty": 0.02,
-            "uniqueness_bonus": 0.10,
-            "family_cap": 2,
-            "sparsity_threshold": 0.54,
-        })
-        policies["TENSION"].update({
-            "diversity_required": True,
-            "duplicate_penalty": 0.06,
+            "duplicate_penalty": 0.10,
             "uniqueness_bonus": 0.12,
             "family_cap": 2,
-            "sparsity_threshold": 0.58,
+            "sparsity_threshold": 0.52,
+            "style_slot_limit": 4,
+        })
+        policies["TENSION"].update({
+            "action_mode": "shadow",
+            "diversity_required": True,
+            "duplicate_penalty": 0.10,
+            "uniqueness_bonus": 0.12,
+            "family_cap": 2,
+            "sparsity_threshold": 0.52,
+            "style_slot_limit": 4,
         })
         policies["NEGOTIATION"].update({
+            "action_mode": "execute",
+            "duplicate_penalty": 0.24,
+            "uniqueness_bonus": 0.30,
+            "family_cap": 1,
+            "max_same_family_per_phase": 1,
+            "max_actions_per_phase": 2,
+            "sparsity_threshold": 0.55,
+            "style_slot_limit": 4,
+        })
+        policies["CLOSING"].update({
+            "action_mode": "shadow",
+            "diversity_required": True,
             "duplicate_penalty": 0.10,
-            "uniqueness_bonus": 0.20,
+            "uniqueness_bonus": 0.12,
             "family_cap": 2,
-            "max_actions_per_phase": 3,
-            "sparsity_threshold": 0.64,
+            "max_actions_per_phase": 1,
+            "sparsity_threshold": 0.52,
+            "style_slot_limit": 4,
         })
     return policies
 

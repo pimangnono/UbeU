@@ -6,6 +6,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from simulation_engine.action_layer import ActionProposal
 from simulation_engine.metrics import (
     action_family_convergence_rate,
+    fallback_type_rates,
+    fallback_utterance_rate,
     negotiation_uniqueness_rate,
     relationship_inconsistency_rate,
     role_action_diversity_score,
@@ -141,3 +143,39 @@ def test_action_family_metrics_detect_phase_convergence():
     assert action_family_convergence_rate(runtime) == 1.0
     assert role_action_diversity_score(runtime) == round(1 / 3, 4)
     assert negotiation_uniqueness_rate(runtime) == round(1 / 3, 4)
+
+
+def test_fallback_utterance_rate_detects_generation_fallback():
+    runtime = StakeholderSimulationRuntime.from_dict(
+        _sample_script_dict(),
+        gen_client=_DummyClient(),
+    )
+    runtime.append_actor_turn(
+        actor_id="actor_1",
+        content="I think we should consider all the options before deciding.",
+    )
+    runtime.append_actor_turn(
+        actor_id="actor_2",
+        content="Let's assign an owner and move this forward.",
+    )
+
+    assert fallback_utterance_rate(runtime) == 0.5
+
+
+def test_fallback_type_rates_reads_generation_metadata():
+    runtime = StakeholderSimulationRuntime.from_dict(
+        _sample_script_dict(),
+        gen_client=_DummyClient(),
+    )
+    runtime.append_actor_turn(
+        actor_id="actor_1",
+        content="I think we should consider all the options before deciding.",
+        metadata={"generation_meta": {"used_fallback": True, "fallback_type": "timeout_fallback"}},
+    )
+    runtime.append_actor_turn(
+        actor_id="actor_2",
+        content="Let's assign an owner and move this forward.",
+    )
+
+    assert fallback_utterance_rate(runtime) == 0.5
+    assert fallback_type_rates(runtime) == {"timeout_fallback": 0.5}

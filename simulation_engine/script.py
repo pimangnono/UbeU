@@ -324,18 +324,28 @@ class SimulationScript:
             "action_mode": "execute" if phase_name in {"NEGOTIATION", "CLOSING"} else "shadow",
             "allow_no_action": True,
             "family_cap": 1 if phase_name == "NEGOTIATION" else 2,
+            "max_same_family_per_phase": 1 if phase_name == "NEGOTIATION" else 2,
             "max_actions_per_phase": 3 if phase_name == "NEGOTIATION" else 2,
             "sparsity_threshold": 0.7 if phase_name == "NEGOTIATION" else 0.62,
+            "style_slot_limit": 4,
+            "pool_max_concurrency": 2,
+            "planner_cache": False,
         }
         if self.is_exploratory_mode:
             default_policy.update({
                 "diversity_required": True,
-                "duplicate_penalty": 0.08 if phase_name == "NEGOTIATION" else 0.04,
-                "uniqueness_bonus": 0.20 if phase_name == "NEGOTIATION" else 0.10,
-                "family_cap": 2 if phase_name == "NEGOTIATION" else 3,
-                "max_actions_per_phase": 3 if phase_name == "NEGOTIATION" else 2,
-                "sparsity_threshold": 0.62 if phase_name == "NEGOTIATION" else 0.56,
+                "duplicate_penalty": 0.24 if phase_name == "NEGOTIATION" else 0.10,
+                "uniqueness_bonus": 0.30 if phase_name == "NEGOTIATION" else 0.12,
+                "family_cap": 1 if phase_name == "NEGOTIATION" else 2,
+                "max_same_family_per_phase": 1 if phase_name == "NEGOTIATION" else 2,
+                "max_actions_per_phase": 2 if phase_name == "NEGOTIATION" else 2,
+                "sparsity_threshold": 0.55 if phase_name == "NEGOTIATION" else 0.52,
+                "style_slot_limit": 3 if phase_name == "NEGOTIATION" else 4,
             })
+            if phase_name in {"OPENING", "TENSION", "CLOSING"}:
+                default_policy["action_mode"] = "shadow"
+            else:
+                default_policy["action_mode"] = "execute"
         metadata_policy = (
             dict(self.metadata.get("phase_action_policies", {})).get(phase_name, {})
             if isinstance(self.metadata, dict)
@@ -343,6 +353,19 @@ class SimulationScript:
         )
         default_policy.update(dict(metadata_policy or {}))
         return default_policy
+
+    def style_slots_for_phase(self, phase_name: str, base_slots: list[str]) -> list[str]:
+        policy = self.phase_action_policy(phase_name)
+        limit = max(1, int(policy.get("style_slot_limit", len(base_slots))))
+        return list(base_slots[:limit])
+
+    def pool_max_concurrency_for_phase(self, phase_name: str, default: int = 2) -> int:
+        policy = self.phase_action_policy(phase_name)
+        return max(1, int(policy.get("pool_max_concurrency", default)))
+
+    def planner_cache_enabled_for_phase(self, phase_name: str) -> bool:
+        policy = self.phase_action_policy(phase_name)
+        return bool(policy.get("planner_cache", False))
 
     def actor_action_preferences(self, actor_id: str, phase_name: str) -> dict[str, Any]:
         if not isinstance(self.metadata, dict):

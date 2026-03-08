@@ -20,6 +20,9 @@ RELATION_SENTIMENT_SCORE = {
     "neutral": 0.0,
     "positive": 1.0,
 }
+GENERATION_FALLBACK_UTTERANCES = {
+    "I think we should consider all the options before deciding.",
+}
 
 
 def _clip_unit(value: float) -> float:
@@ -343,6 +346,38 @@ def negotiation_uniqueness_rate(runtime: StakeholderSimulationRuntime) -> float:
     return round(unique_count / max(len(families), 1), 4)
 
 
+def fallback_utterance_rate(runtime: StakeholderSimulationRuntime) -> float:
+    turns = runtime.ledger.turns
+    if not turns:
+        return 0.0
+    fallback_count = sum(
+        1
+        for turn in turns
+        if (
+            bool(dict(turn.metadata.get("generation_meta", {})).get("used_fallback"))
+            or turn.content.strip() in GENERATION_FALLBACK_UTTERANCES
+        )
+    )
+    return round(fallback_count / len(turns), 4)
+
+
+def fallback_type_rates(runtime: StakeholderSimulationRuntime) -> dict[str, float]:
+    turns = runtime.ledger.turns
+    if not turns:
+        return {}
+    fallback_counts: dict[str, int] = {}
+    for turn in turns:
+        generation_meta = dict(turn.metadata.get("generation_meta", {}))
+        if not generation_meta.get("used_fallback"):
+            continue
+        fallback_type = str(generation_meta.get("fallback_type") or "unknown_fallback")
+        fallback_counts[fallback_type] = fallback_counts.get(fallback_type, 0) + 1
+    return {
+        key: round(value / len(turns), 4)
+        for key, value in sorted(fallback_counts.items())
+    }
+
+
 def phase_end_world_states(runtime: StakeholderSimulationRuntime) -> list[dict[str, float]]:
     return [
         dict(snapshot.global_state)
@@ -372,6 +407,8 @@ class BenchmarkRunMetrics:
     action_family_convergence_rate: float = 0.0
     role_action_diversity_score: float = 0.0
     negotiation_uniqueness_rate: float = 0.0
+    fallback_utterance_rate: float = 0.0
+    fallback_type_rates: dict[str, float] | None = None
     phase_end_world_states: list[dict[str, float]] | None = None
 
     def to_dict(self) -> dict[str, Any]:
@@ -395,6 +432,8 @@ class BenchmarkRunMetrics:
             "action_family_convergence_rate": self.action_family_convergence_rate,
             "role_action_diversity_score": self.role_action_diversity_score,
             "negotiation_uniqueness_rate": self.negotiation_uniqueness_rate,
+            "fallback_utterance_rate": self.fallback_utterance_rate,
+            "fallback_type_rates": self.fallback_type_rates or {},
             "phase_end_world_states": self.phase_end_world_states or [],
         }
 
@@ -440,6 +479,8 @@ def compute_runtime_metrics(runtime: StakeholderSimulationRuntime) -> BenchmarkR
         action_family_convergence_rate=action_family_convergence_rate(runtime),
         role_action_diversity_score=role_action_diversity_score(runtime),
         negotiation_uniqueness_rate=negotiation_uniqueness_rate(runtime),
+        fallback_utterance_rate=fallback_utterance_rate(runtime),
+        fallback_type_rates=fallback_type_rates(runtime),
         phase_end_world_states=phase_end_world_states(runtime),
     )
 

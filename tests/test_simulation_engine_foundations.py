@@ -226,3 +226,29 @@ def test_manual_scripts_expose_mode_and_family_metadata():
     assert scripts["brand_crisis_response"].scenario_family == "brand_crisis"
     assert scripts["resource_reallocation_crunch"].simulation_mode == "exploratory"
     assert scripts["resource_reallocation_crunch"].outcome_spec["fixed_ending"] is False
+
+
+def test_exploratory_mode_uses_shadow_policy_outside_negotiation():
+    scripts = {script.simulation_id: script for script in load_mvp_policy_scripts()}
+    exploratory = scripts["brand_crisis_response"]
+
+    assert exploratory.phase_action_policy("OPENING")["action_mode"] == "shadow"
+    assert exploratory.phase_action_policy("TENSION")["action_mode"] == "shadow"
+    assert exploratory.phase_action_policy("NEGOTIATION")["action_mode"] == "execute"
+    assert exploratory.phase_action_policy("CLOSING")["action_mode"] == "shadow"
+    assert exploratory.phase_action_policy("NEGOTIATION")["family_cap"] == 1
+    assert exploratory.phase_action_policy("NEGOTIATION")["uniqueness_bonus"] >= 0.3
+
+
+def test_stakeholder_actor_prompt_reflects_simulation_mode():
+    script = SimulationScript.from_dict(_sample_script_dict())
+    actor = StakeholderActor(
+        client=_DummyClient(),
+        actor_spec=script.get_actor("actor_1"),
+        world_brief=script.brief,
+        simulation_mode="exploratory",
+        outcome_spec={"fixed_ending": False},
+    )
+
+    assert "This is an exploratory simulation." in actor.system_prompt
+    assert "Do not force agreement or premature closure" in actor.system_prompt

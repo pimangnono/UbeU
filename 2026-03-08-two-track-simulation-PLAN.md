@@ -193,3 +193,27 @@ guided와 exploratory 둘 다 최소 signal이 나오면,
 - dynamic builder layer를 지금 바로 구현하지 않는다
 
 이것들은 `mode/family contract`와 exploratory benchmark가 안정된 뒤의 문제다.
+
+## Implementation Status (2026-03-08)
+
+이번 구현 단계에서 실제로 반영한 것은 아래다.
+
+- `guided reliability`
+  - fallback taxonomy 분리
+    - `timeout_fallback`
+    - `retry_exhausted_fallback`
+    - `non_transient_fallback`
+    - `empty_pool_fallback`
+  - benchmark aggregate에 `clean_run_count`, `contaminated_run_count`, clean-only summary 추가
+  - hotspot family에서 phase별 `style_slot_limit`, `pool_max_concurrency`, `planner_cache`를 script metadata로 제어
+  - candidate pool은 fallback slot이 있어도 surviving candidate가 있으면 계속 진행
+- `exploratory diversity`
+  - `phase_action_policies`와 `actor_action_preferences`를 script metadata로 승격
+  - exploratory negotiation에서 `family_cap`, `max_same_family_per_phase`, `uniqueness_bonus`, `duplicate_penalty`를 metadata로 제어
+  - action arbitration이 family cap과 actor preference를 실제 승인 단계에 반영
+
+이 선택은 두 방향을 따른다.
+- guided는 contamination gate를 먼저 통과시키는 쪽
+- exploratory는 same-phase convergence를 승인 단계에서 줄이는 쪽
+
+이건 adaptive communication/compute와 explicit role differentiation을 강화하는 방향으로, [Wang et al., 2025](https://aclanthology.org/2025.emnlp-main.584/), [Wang et al., 2025](https://aclanthology.org/2025.acl-long.1170/), [Zeng et al., 2025](https://aclanthology.org/2025.naacl-long.475/), [Li et al., 2025](https://aclanthology.org/2025.acl-long.1105/)와 정합적이다.

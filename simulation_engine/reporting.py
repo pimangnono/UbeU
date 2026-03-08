@@ -72,6 +72,19 @@ def build_benchmark_report(results: dict[str, Any]) -> str:
     else:
         for condition, summary in sorted(aggregate.items()):
             lines.extend(_format_summary_block(condition, summary))
+    contaminated = [
+        (condition, summary.get("fallback_utterance_rate_mean", 0.0))
+        for condition, summary in sorted(aggregate.items())
+        if summary.get("fallback_utterance_rate_mean", 0.0) >= 0.30
+    ]
+    if contaminated:
+        lines.extend([
+            "",
+            "## Reliability Warnings",
+            "- Fallback utterance contamination detected; treat persona/fidelity deltas as non-decisive until rerun.",
+        ])
+        for condition, rate in contaminated:
+            lines.append(f"- {condition}: fallback utterance rate {rate:.4f}")
 
     naive = aggregate.get("naive")
     controlled = aggregate.get("engine_controller")
@@ -126,14 +139,23 @@ def _format_summary_block(label: str, summary: dict[str, Any]) -> list[str]:
             f"{trait} {trait_errors.get(trait, 0.0):.4f}"
             for trait in ("O", "C", "E", "A", "N")
         )
+    fallback_type_line = ", ".join(
+        f"{key} {value:.4f}"
+        for key, value in sorted((summary.get("fallback_type_rate_mean") or {}).items())
+    ) or "n/a"
     return [
         f"### {label}",
         f"- Runs: {summary.get('num_runs', 0)}",
+        f"- Clean runs: {summary.get('clean_run_count', 0)}",
+        f"- Contaminated runs: {summary.get('contaminated_run_count', 0)}",
         f"- Persona drift MAE: {summary.get('persona_drift_mae_mean', 0.0):.4f} (+/- {summary.get('persona_drift_mae_std', 0.0):.4f})",
+        f"- Clean persona drift MAE: {summary.get('clean_persona_drift_mae_mean', summary.get('persona_drift_mae_mean', 0.0)):.4f}",
         f"- Per-trait absolute error: {trait_line}",
         f"- Relationship inconsistency: {summary.get('relationship_inconsistency_mean', 0.0):.4f}",
         f"- Commitment contradiction: {summary.get('commitment_contradiction_mean', 0.0):.4f}",
+        f"- Clean commitment contradiction: {summary.get('clean_commitment_contradiction_mean', summary.get('commitment_contradiction_mean', 0.0)):.4f}",
         f"- Envelope violations: {summary.get('envelope_violations_mean', 0.0):.4f}",
+        f"- Clean envelope violations: {summary.get('clean_envelope_violations_mean', summary.get('envelope_violations_mean', 0.0)):.4f}",
         f"- Structured action validity: {summary.get('structured_action_validity_rate_mean', 0.0):.4f}",
         f"- Owner resolution rate: {summary.get('owner_resolution_rate_mean', 0.0):.4f}",
         f"- Executed action contradiction: {summary.get('executed_action_contradiction_rate_mean', 0.0):.4f}",
@@ -144,6 +166,8 @@ def _format_summary_block(label: str, summary: dict[str, Any]) -> list[str]:
         f"- Action family convergence: {summary.get('action_family_convergence_rate_mean', 0.0):.4f}",
         f"- Role action diversity: {summary.get('role_action_diversity_score_mean', 0.0):.4f}",
         f"- Negotiation uniqueness: {summary.get('negotiation_uniqueness_rate_mean', 0.0):.4f}",
+        f"- Fallback utterance rate: {summary.get('fallback_utterance_rate_mean', 0.0):.4f}",
+        f"- Fallback taxonomy: {fallback_type_line}",
         f"- State trajectory variance: {summary.get('state_trajectory_variance_mean', 0.0):.4f}",
         f"- Mean turns: {summary.get('turn_count_mean', 0.0):.2f}",
         "",
@@ -187,6 +211,10 @@ def _format_delta_block(naive: dict[str, Any], controlled: dict[str, Any], title
         controlled.get("negotiation_uniqueness_rate_mean", 0.0) - naive.get("negotiation_uniqueness_rate_mean", 0.0),
         4,
     )
+    fallback_delta = round(
+        controlled.get("fallback_utterance_rate_mean", 0.0) - naive.get("fallback_utterance_rate_mean", 0.0),
+        4,
+    )
     trajectory_delta = round(
         controlled.get("state_trajectory_variance_mean", 0.0) - naive.get("state_trajectory_variance_mean", 0.0),
         4,
@@ -211,5 +239,6 @@ def _format_delta_block(naive: dict[str, Any], controlled: dict[str, Any], title
         f"- Action family convergence delta: {action_family_convergence_delta:+.4f}",
         f"- Role action diversity delta: {role_action_diversity_delta:+.4f}",
         f"- Negotiation uniqueness delta: {negotiation_uniqueness_delta:+.4f}",
+        f"- Fallback utterance delta: {fallback_delta:+.4f}",
         f"- State trajectory variance delta: {trajectory_delta:+.4f}",
     ]
