@@ -48,6 +48,8 @@ class StakeholderSimulationRuntime:
                 client=gen_client,
                 actor_spec=actor,
                 world_brief=script.brief,
+                simulation_mode=script.simulation_mode,
+                outcome_spec=script.outcome_spec,
                 ablation_config=self.ablation_config,
             )
             for actor in script.stakeholders
@@ -157,12 +159,34 @@ class StakeholderSimulationRuntime:
         latest_world = self.ledger.latest_world_state()
         action_status_counts: dict[str, int] = {}
         action_rejection_reason_counts: dict[str, int] = {}
+        fallback_counts: dict[str, int] = {}
+        phase_action_family_histogram: dict[str, dict[str, int]] = {}
+        actor_action_family_sequences: dict[str, list[str]] = {actor_id: [] for actor_id in self.script.actor_ids}
         for proposal in self.ledger.action_proposals:
             action_status_counts[proposal.status] = action_status_counts.get(proposal.status, 0) + 1
             if proposal.rejection_reason:
                 action_rejection_reason_counts[proposal.rejection_reason] = (
                     action_rejection_reason_counts.get(proposal.rejection_reason, 0) + 1
                 )
+        for turn in self.ledger.turns:
+            generation_meta = dict(turn.metadata.get("generation_meta", {}))
+            if generation_meta.get("used_fallback"):
+                fallback_type = str(generation_meta.get("fallback_type") or "unknown_fallback")
+                fallback_counts[fallback_type] = fallback_counts.get(fallback_type, 0) + 1
+        for audit in self.ledger.ordered_action_audits():
+            phase_name = str(audit.get("phase_name", "unknown"))
+            actor_id = str(audit.get("actor_id", "unknown"))
+            family = str(
+                audit.get("compiled_action_family")
+                or audit.get("selected_action_family")
+                or audit.get("planned_action_family")
+                or "none"
+            )
+            phase_action_family_histogram.setdefault(phase_name, {})
+            phase_action_family_histogram[phase_name][family] = (
+                phase_action_family_histogram[phase_name].get(family, 0) + 1
+            )
+            actor_action_family_sequences.setdefault(actor_id, []).append(family)
         return {
             "simulation_id": self.script.simulation_id,
             "title": self.script.title,
@@ -181,9 +205,12 @@ class StakeholderSimulationRuntime:
             "latest_world_state": dict(latest_world.global_state),
             "action_status_counts": action_status_counts,
             "action_rejection_reason_counts": action_rejection_reason_counts,
+            "fallback_counts": fallback_counts,
             "action_proposals": [proposal.to_dict() for proposal in self.ledger.action_proposals],
             "executed_actions": [action.to_dict() for action in self.ledger.executed_actions],
             "action_audits": self.ledger.ordered_action_audits(),
+            "phase_action_family_histogram": phase_action_family_histogram,
+            "actor_action_family_sequences": actor_action_family_sequences,
             "world_state_history": [snapshot.to_dict() for snapshot in self.ledger.world_state_history],
             "phase_state_feedback": dict(self.ledger.phase_state_feedback),
         }

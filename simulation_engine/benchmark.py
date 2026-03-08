@@ -133,16 +133,21 @@ class SimulationBenchmarkRunner:
                 actor_id = runtime.select_next_actor_round_robin()
                 actor = runtime.actors[actor_id]
                 context = runtime.actor_context(actor_id, max_turns=8)
+                phase_action_policy = runtime.script.phase_action_policy(phase.name)
 
                 if base_condition == "naive":
-                    text = await actor.generate_response(
+                    response_payload = await actor.generate_response_payload(
                         turns=context["turns"],
                         phase_style=phase.style,
                         actor_snapshot=None,
                         phase_name=phase.name,
                         phase_cues=phase.cues,
                     )
-                    selected_meta = {"mode": "naive"}
+                    text = response_payload["text"]
+                    selected_meta = {
+                        "mode": "naive",
+                        "generation_meta": dict(response_payload.get("generation_meta", {})),
+                    }
                 else:
                     controller = controllers[actor_id]
                     drift_nudge = (
@@ -159,6 +164,7 @@ class SimulationBenchmarkRunner:
                         allowed_action_types=list(runtime.script.allowed_action_types_for_phase(phase.name)),
                         valid_target_keys=list(runtime.script.target_keys_for_phase(phase.name)),
                         actor_action_preferences=runtime.script.actor_action_preferences(actor_id, phase.name),
+                        use_cache=runtime.script.planner_cache_enabled_for_phase(phase.name),
                     )
                     planned_action_artifact = normalize_planned_action_artifact(
                         script=runtime.script,
@@ -172,12 +178,16 @@ class SimulationBenchmarkRunner:
                     pool = await actor.generate_candidate_pool_styles(
                         turns=context["turns"],
                         phase_style=phase.style,
-                        style_slots=self.style_slots,
+                        style_slots=runtime.script.style_slots_for_phase(phase.name, self.style_slots),
                         actor_snapshot=context["snapshot"] if base_condition != "naive" else None,
                         phase_name=phase.name,
                         phase_cues=phase.cues,
                         policy_plan=policy_plan,
                         enable_trait_execution=(base_condition == "engine_controller"),
+                        max_concurrency_override=runtime.script.pool_max_concurrency_for_phase(
+                            phase.name,
+                            default=2,
+                        ),
                     )
                     if base_condition == "engine":
                         selected = pool[0]
@@ -186,10 +196,10 @@ class SimulationBenchmarkRunner:
                             "policy_plan": policy_plan,
                             "slot": selected["slot"],
                             "planned_action_artifact": planned_action_artifact.to_dict() if planned_action_artifact else None,
+                            "generation_meta": dict(selected.get("generation_meta", {})),
                         }
                         text = selected["text"]
                     else:
-                        phase_action_policy = runtime.script.phase_action_policy(phase.name)
                         scored = controller.score_candidate_pool(
                             candidate_pool=pool,
                             visible_turns=context["turns"],
@@ -234,6 +244,7 @@ class SimulationBenchmarkRunner:
                             "action_hint": selected.get("action_hint"),
                             "planned_action_artifact": selected.get("planned_action_artifact") or (planned_action_artifact.to_dict() if planned_action_artifact else None),
                             "action_plan_alignment": selected.get("action_plan_alignment"),
+                            "generation_meta": dict(selected.get("generation_meta", {})),
                         }
                         text = selected["text"]
                         runtime.ledger.apply_state_delta(
@@ -412,12 +423,40 @@ class SimulationBenchmarkRunner:
         total_runs = len(scripts) * len(conditions) * repetitions
         completed_runs = 0
         checkpoint_path = Path(checkpoint_dir) if checkpoint_dir else None
+        existing_run_counts: dict[tuple[str, str], int] = {}
         if checkpoint_path is not None:
             checkpoint_path.mkdir(parents=True, exist_ok=True)
+            run_results, existing_run_counts = _load_checkpoint_results(
+                checkpoint_path=checkpoint_path,
+                scripts=scripts,
+                conditions=conditions,
+                repetitions=repetitions,
+                style_slots=self.style_slots,
+            )
+            completed_runs = len(run_results)
+            if completed_runs:
+                print(
+                    f"[benchmark] resumed from checkpoint: {completed_runs}/{total_runs} runs already completed",
+                    flush=True,
+                )
+                with open(checkpoint_path / "progress.json", "w") as handle:
+                    json.dump(
+                        {
+                            "completed_runs": completed_runs,
+                            "total_runs": total_runs,
+                            "last_script_id": run_results[-1].simulation_id,
+                            "last_condition": run_results[-1].condition,
+                        },
+                        handle,
+                        indent=2,
+                    )
 
         for script in scripts:
             for condition in conditions:
-                for _ in range(repetitions):
+                already_done = existing_run_counts.get((script.simulation_id, condition), 0)
+                for rep_idx in range(repetitions):
+                    if rep_idx < already_done:
+                        continue
                     run_results.append(await self.run_single(script, condition))
                     completed_runs += 1
                     print(
@@ -529,10 +568,26 @@ def _summarize_rows(rows: list[BenchmarkRunResult]) -> dict[str, Any]:
     action_family_convergence = [row.metrics.action_family_convergence_rate for row in rows]
     role_action_diversity = [row.metrics.role_action_diversity_score for row in rows]
     negotiation_uniqueness = [row.metrics.negotiation_uniqueness_rate for row in rows]
+    fallback_rates = [row.metrics.fallback_utterance_rate for row in rows]
+    fallback_type_keys = sorted(
+        {
+            key
+            for row in rows
+            for key in (row.metrics.fallback_type_rates or {}).keys()
+        }
+    )
+    fallback_type_rate_mean = {
+        key: round(mean((row.metrics.fallback_type_rates or {}).get(key, 0.0) for row in rows), 4)
+        for key in fallback_type_keys
+    }
+    clean_rows = [row for row in rows if row.metrics.fallback_utterance_rate < 0.30]
+    contaminated_rows = [row for row in rows if row.metrics.fallback_utterance_rate >= 0.30]
     trajectory_variance = aggregate_phase_end_state_variance([row.metrics for row in rows])
 
-    return {
+    summary = {
         "num_runs": len(rows),
+        "clean_run_count": len(clean_rows),
+        "contaminated_run_count": len(contaminated_rows),
         "persona_drift_mae_mean": round(mean(drift_values), 4),
         "persona_drift_mae_std": round(pstdev(drift_values), 4) if len(drift_values) > 1 else 0.0,
         "relationship_inconsistency_mean": round(mean(relation_values), 4),
@@ -548,10 +603,26 @@ def _summarize_rows(rows: list[BenchmarkRunResult]) -> dict[str, Any]:
         "action_family_convergence_rate_mean": round(mean(action_family_convergence), 4),
         "role_action_diversity_score_mean": round(mean(role_action_diversity), 4),
         "negotiation_uniqueness_rate_mean": round(mean(negotiation_uniqueness), 4),
+        "fallback_utterance_rate_mean": round(mean(fallback_rates), 4),
+        "fallback_type_rate_mean": fallback_type_rate_mean,
         "state_trajectory_variance_mean": trajectory_variance,
         "per_trait_error_mean": per_trait_error_mean,
         "turn_count_mean": round(mean(turn_counts), 2),
     }
+    if clean_rows:
+        summary["clean_persona_drift_mae_mean"] = round(
+            mean(row.metrics.persona_drift_mae for row in clean_rows),
+            4,
+        )
+        summary["clean_envelope_violations_mean"] = round(
+            mean(row.metrics.envelope_violations for row in clean_rows),
+            4,
+        )
+        summary["clean_commitment_contradiction_mean"] = round(
+            mean(row.metrics.commitment_contradiction_rate for row in clean_rows),
+            4,
+        )
+    return summary
 
 
 def run_benchmark_sync(
@@ -567,3 +638,64 @@ def run_benchmark_sync(
             script_ids=script_ids,
         )
     )
+
+
+def _load_checkpoint_results(
+    checkpoint_path: Path,
+    scripts: list[Any],
+    conditions: list[str],
+    repetitions: int,
+    style_slots: list[str],
+) -> tuple[list[BenchmarkRunResult], dict[tuple[str, str], int]]:
+    runs_path = checkpoint_path / "benchmark_runs.json"
+    if not runs_path.exists():
+        return [], {}
+
+    try:
+        payload = json.loads(runs_path.read_text())
+    except json.JSONDecodeError:
+        return [], {}
+
+    expected_script_ids = [script.simulation_id for script in scripts]
+    expected_config = {
+        "conditions": conditions,
+        "repetitions": repetitions,
+        "script_ids": expected_script_ids,
+        "style_slots": list(style_slots),
+    }
+    existing_config = payload.get("config", {})
+    if existing_config != expected_config:
+        print("[benchmark] checkpoint config mismatch; starting a fresh run", flush=True)
+        return [], {}
+
+    run_results: list[BenchmarkRunResult] = []
+    run_counts: dict[tuple[str, str], int] = {}
+    valid_script_ids = set(expected_script_ids)
+    valid_conditions = set(conditions)
+    for row in payload.get("runs", []):
+        simulation_id = row.get("simulation_id")
+        condition = row.get("condition")
+        if simulation_id not in valid_script_ids or condition not in valid_conditions:
+            continue
+        key = (simulation_id, condition)
+        if run_counts.get(key, 0) >= repetitions:
+            continue
+        metrics_data = row.get("metrics")
+        runtime_summary = row.get("runtime_summary")
+        if not isinstance(metrics_data, dict) or not isinstance(runtime_summary, dict):
+            continue
+        try:
+            metrics = BenchmarkRunMetrics(**metrics_data)
+        except TypeError:
+            continue
+        run_results.append(
+            BenchmarkRunResult(
+                condition=condition,
+                simulation_id=simulation_id,
+                runtime_summary=runtime_summary,
+                metrics=metrics,
+                selection_audits=row.get("selection_audits", []),
+            )
+        )
+        run_counts[key] = run_counts.get(key, 0) + 1
+    return run_results, run_counts

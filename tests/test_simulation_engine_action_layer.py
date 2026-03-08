@@ -219,6 +219,54 @@ def test_arbitrate_phase_actions_keeps_latest_same_family_and_rejects_conflict()
     assert any(row.rejection_reason == "conflict" for row in rejected)
 
 
+def test_arbitrate_phase_actions_enforces_family_cap_with_actor_preferences():
+    script = load_mvp_policy_scripts()[5]  # brand_crisis_response
+    first = ActionProposal(
+        proposal_id="c1",
+        actor_id="actor_1",
+        phase_name="NEGOTIATION",
+        turn_index=5,
+        action_type="publish_update",
+        target_key="alignment",
+        owner_actor_id="actor_1",
+        confidence=0.71,
+        evidence_text="We should publish a public update.",
+        action_bearing=True,
+    )
+    second = ActionProposal(
+        proposal_id="c2",
+        actor_id="actor_2",
+        phase_name="NEGOTIATION",
+        turn_index=6,
+        action_type="publish_update",
+        target_key="alignment",
+        owner_actor_id="actor_2",
+        confidence=0.83,
+        evidence_text="Legal wants a tightly scoped update.",
+        action_bearing=True,
+    )
+    third = ActionProposal(
+        proposal_id="c3",
+        actor_id="actor_3",
+        phase_name="NEGOTIATION",
+        turn_index=7,
+        action_type="request_evidence",
+        target_key="risk",
+        confidence=0.62,
+        evidence_text="We still need evidence from support operations.",
+        action_bearing=True,
+    )
+
+    approved, rejected = arbitrate_phase_actions(script, "NEGOTIATION", [first, second, third])
+
+    approved_ids = {row.proposal_id for row in approved}
+    rejected_ids = {row.proposal_id for row in rejected}
+
+    assert approved_ids == {"c1", "c3"}
+    assert "c2" in rejected_ids
+    assert any(row.rejection_reason == "family_cap" for row in rejected)
+
+
 def test_apply_transition_rule_updates_world_state():
     script = load_mvp_policy_scripts()[2]  # commuting_support_policy
     snapshot = script.initial_world_state
@@ -289,6 +337,7 @@ def test_graph_runner_executes_engine_action_v0_path(monkeypatch):
         constraint_suffix=None,
         policy_plan=None,
         enable_trait_execution=False,
+        **kwargs,
     ):
         return [
             {"slot": "generic", "text": "We should think carefully."},

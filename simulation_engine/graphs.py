@@ -122,17 +122,21 @@ class StakeholderSimulationNodes:
         runtime = state["runtime"]
         actor = runtime.actors[state["active_actor_id"]]
         phase = runtime.current_phase
-        text = await actor.generate_response(
+        response_payload = await actor.generate_response_payload(
             turns=state["actor_context"]["turns"],
             phase_style=phase.style,
             actor_snapshot=state["actor_context"]["snapshot"] if state["ablation_config"].use_action_layer else None,
             phase_name=phase.name,
             phase_cues=phase.cues,
         )
+        text = response_payload["text"]
         return {
             "selected_candidate": {"text": text},
             "selected_candidate_text": text,
-            "selected_meta": {"mode": state["condition"]},
+            "selected_meta": {
+                "mode": state["condition"],
+                "generation_meta": dict(response_payload.get("generation_meta", {})),
+            },
         }
 
     async def plan_policy(self, state: StakeholderGraphState) -> dict[str, Any]:
@@ -155,6 +159,7 @@ class StakeholderSimulationNodes:
             allowed_action_types=list(runtime.script.allowed_action_types_for_phase(phase.name)),
             valid_target_keys=list(runtime.script.target_keys_for_phase(phase.name)),
             actor_action_preferences=runtime.script.actor_action_preferences(state["active_actor_id"], phase.name),
+            use_cache=runtime.script.planner_cache_enabled_for_phase(phase.name),
         )
         planned_action_artifact = normalize_planned_action_artifact(
             script=runtime.script,
@@ -178,12 +183,16 @@ class StakeholderSimulationNodes:
         pool = await actor.generate_candidate_pool_styles(
             turns=state["actor_context"]["turns"],
             phase_style=phase.style,
-            style_slots=state["style_slots"],
+            style_slots=runtime.script.style_slots_for_phase(phase.name, state["style_slots"]),
             actor_snapshot=state["actor_context"]["snapshot"],
             phase_name=phase.name,
             phase_cues=phase.cues,
             policy_plan=state["policy_plan"],
             enable_trait_execution=(state["base_condition"] == "engine_controller"),
+            max_concurrency_override=runtime.script.pool_max_concurrency_for_phase(
+                phase.name,
+                default=2,
+            ),
         )
         return {"candidate_pool": pool}
 
@@ -200,6 +209,7 @@ class StakeholderSimulationNodes:
                 "policy_plan": state["policy_plan"],
                 "slot": selected.get("slot"),
                 "planned_action_artifact": state.get("planned_action_artifact"),
+                "generation_meta": dict(selected.get("generation_meta", {})),
             },
         }
 
@@ -271,6 +281,7 @@ class StakeholderSimulationNodes:
                 "action_hint": selected.get("action_hint"),
                 "planned_action_artifact": selected.get("planned_action_artifact") or state.get("planned_action_artifact"),
                 "action_plan_alignment": selected.get("action_plan_alignment"),
+                "generation_meta": dict(selected.get("generation_meta", {})),
             },
         }
 

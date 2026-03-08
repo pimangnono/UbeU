@@ -822,6 +822,17 @@ def validate_action_proposal(
 def arbitrate_phase_actions(script, phase_name: str, proposals: list[ActionProposal]) -> tuple[list[ActionProposal], list[ActionProposal]]:
     if not proposals:
         return [], []
+    phase_policy = script.phase_action_policy(phase_name)
+    family_cap = max(
+        1,
+        int(
+            phase_policy.get(
+                "max_same_family_per_phase",
+                phase_policy.get("family_cap", len(proposals) or 1),
+            )
+        ),
+    )
+    max_actions = max(1, int(phase_policy.get("max_actions_per_phase", len(proposals) or 1)))
     candidates = [proposal for proposal in proposals if proposal.status == "proposed"]
     rejected: list[ActionProposal] = []
     deduped: dict[tuple[str, str], ActionProposal] = {}
@@ -868,9 +879,80 @@ def arbitrate_phase_actions(script, phase_name: str, proposals: list[ActionPropo
             rejected.append(loser)
             consumed.add(loser.proposal_id)
 
+    approved = _apply_phase_family_caps(
+        script=script,
+        phase_name=phase_name,
+        approved=approved,
+        rejected=rejected,
+        family_cap=family_cap,
+        max_actions=max_actions,
+    )
+
     for proposal in approved:
         proposal.rejection_reason = None
     return approved, rejected
+
+
+def _apply_phase_family_caps(
+    *,
+    script,
+    phase_name: str,
+    approved: list[ActionProposal],
+    rejected: list[ActionProposal],
+    family_cap: int,
+    max_actions: int,
+) -> list[ActionProposal]:
+    if not approved:
+        return approved
+
+    by_family: dict[str, list[ActionProposal]] = {}
+    for proposal in approved:
+        by_family.setdefault(action_family(proposal.action_type), []).append(proposal)
+
+    surviving: list[ActionProposal] = []
+    for family, items in by_family.items():
+        ranked = sorted(
+            items,
+            key=lambda proposal: _proposal_diversity_priority_key(script, phase_name, proposal),
+            reverse=True,
+        )
+        surviving.extend(ranked[:family_cap])
+        for proposal in ranked[family_cap:]:
+            proposal.status = "rejected"
+            proposal.rejection_reason = "family_cap"
+            rejected.append(proposal)
+
+    ranked_survivors = sorted(
+        surviving,
+        key=lambda proposal: _proposal_diversity_priority_key(script, phase_name, proposal),
+        reverse=True,
+    )
+    kept = ranked_survivors[:max_actions]
+    for proposal in ranked_survivors[max_actions:]:
+        proposal.status = "rejected"
+        proposal.rejection_reason = "phase_action_limit"
+        rejected.append(proposal)
+    return kept
+
+
+def _proposal_diversity_priority_key(script, phase_name: str, proposal: ActionProposal) -> tuple[int, int, float, int]:
+    preferences = script.actor_action_preferences(proposal.actor_id, phase_name)
+    family = action_family(proposal.action_type)
+    primary = set(preferences.get("primary_families", []) or [])
+    secondary = set(preferences.get("secondary_families", []) or [])
+    avoid = set(preferences.get("avoid_families", []) or [])
+
+    if family in primary:
+        family_rank = 2
+    elif family in secondary:
+        family_rank = 1
+    elif family in avoid:
+        family_rank = -1
+    else:
+        family_rank = 0
+
+    explicit_count = int(bool(proposal.owner_actor_id)) + int(bool(proposal.deadline_phase))
+    return (family_rank, explicit_count, proposal.confidence, proposal.turn_index)
 
 
 def _actions_conflict(left: ActionProposal, right: ActionProposal) -> bool:
