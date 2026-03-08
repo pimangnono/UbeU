@@ -101,6 +101,42 @@ def test_reporting_writes_json_and_markdown(tmp_path):
     assert "Fallback utterance rate" in report_text
 
 
+def test_reporting_defaults_to_compact_runs_payload(tmp_path, monkeypatch):
+    monkeypatch.delenv("SIM_BENCHMARK_RUNS_MODE", raising=False)
+    results = _sample_results()
+    results["runs"][0]["runtime_summary"] = {
+        "turn_count": 11,
+        "action_proposals": [{"id": "a1"}],
+        "executed_actions": [{"id": "e1"}],
+        "action_audits": [{"id": "x"}],
+        "world_state_history": [{"phase": "OPENING"}],
+        "latest_world_state": {"alignment": 0.5},
+    }
+
+    output_paths = save_benchmark_outputs(results, tmp_path)
+    payload = __import__("json").loads(Path(output_paths["runs"]).read_text())
+
+    assert payload["mode"] == "compact"
+    compact_summary = payload["runs"][0]["runtime_summary"]
+    assert "action_proposals" not in compact_summary
+    assert compact_summary["action_proposal_count"] == 1
+    assert compact_summary["executed_action_count"] == 1
+    assert compact_summary["action_audit_count"] == 1
+    assert compact_summary["world_state_history_count"] == 1
+
+
+def test_reporting_can_omit_runs_payload(tmp_path, monkeypatch):
+    monkeypatch.setenv("SIM_BENCHMARK_RUNS_MODE", "none")
+    results = _sample_results()
+
+    output_paths = save_benchmark_outputs(results, tmp_path)
+    payload = __import__("json").loads(Path(output_paths["runs"]).read_text())
+
+    assert payload["runs_omitted"] is True
+    assert payload["mode"] == "none"
+    assert payload["run_count"] == 1
+
+
 def test_build_benchmark_report_includes_script_summary():
     report = build_benchmark_report(_sample_results())
 
