@@ -9,6 +9,7 @@ from simulation_engine import (
     SimulationStateLedger,
     StakeholderActor,
     StakeholderSimulationRuntime,
+    load_mvp_policy_scripts,
 )
 
 
@@ -198,3 +199,16 @@ def test_stakeholder_actor_omits_extended_ledger_context_when_ablated():
     assert "drift_score=" not in state_context
     assert "trait_drift_map=" not in state_context
     assert "sycophancy_risk=" not in state_context
+
+
+def test_manual_scripts_expose_phase_action_policy_and_actor_preferences():
+    scripts = {script.simulation_id: script for script in load_mvp_policy_scripts()}
+    launch = scripts["new_product_launch"]
+
+    negotiation_policy = launch.phase_action_policy("NEGOTIATION")
+    ops_preferences = launch.actor_action_preferences("actor_3", "NEGOTIATION")
+
+    assert negotiation_policy["diversity_required"] is True
+    assert negotiation_policy["duplicate_penalty"] >= 0.2
+    assert "evidence" in ops_preferences["primary_families"]
+    assert "communication" in ops_preferences["avoid_families"]

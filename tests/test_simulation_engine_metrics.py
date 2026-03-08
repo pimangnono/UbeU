@@ -3,7 +3,13 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from simulation_engine.metrics import relationship_inconsistency_rate
+from simulation_engine.action_layer import ActionProposal
+from simulation_engine.metrics import (
+    action_family_convergence_rate,
+    negotiation_uniqueness_rate,
+    relationship_inconsistency_rate,
+    role_action_diversity_score,
+)
 from simulation_engine.runtime import StakeholderSimulationRuntime
 
 
@@ -63,3 +69,75 @@ def test_relationship_inconsistency_rate_detects_sentiment_swings():
     )
 
     assert relationship_inconsistency_rate(runtime) > 0.0
+
+
+def test_action_family_metrics_detect_phase_convergence():
+    runtime = StakeholderSimulationRuntime.from_dict(
+        {
+            **_sample_script_dict(),
+            "phases": [
+                {"name": "NEGOTIATION", "goal": "Choose a path", "style": "consensus", "max_turns": 3},
+            ],
+            "allowed_action_types": ["assign_owner", "request_evidence", "publish_update", "pilot"],
+            "transition_rules": {
+                "NEGOTIATION": {
+                    "assign_owner": {"global_deltas": {"execution_confidence": 0.08}},
+                    "request_evidence": {"global_deltas": {"uncertainty": -0.08}},
+                    "publish_update": {"global_deltas": {"alignment": 0.08}},
+                    "pilot": {"global_deltas": {"risk": -0.08}},
+                }
+            },
+        },
+        gen_client=_DummyClient(),
+    )
+    runtime.ledger.append_action_proposal(
+        ActionProposal(
+            proposal_id="p1",
+            actor_id="actor_1",
+            phase_name="NEGOTIATION",
+            turn_index=1,
+            action_type="pilot",
+            target_key="risk",
+            action_bearing=True,
+            status="proposed",
+        )
+    )
+    runtime.ledger.append_action_proposal(
+        ActionProposal(
+            proposal_id="p2",
+            actor_id="actor_2",
+            phase_name="NEGOTIATION",
+            turn_index=2,
+            action_type="pilot",
+            target_key="risk",
+            action_bearing=True,
+            status="proposed",
+        )
+    )
+    runtime.ledger.append_action_proposal(
+        ActionProposal(
+            proposal_id="p3",
+            actor_id="actor_1",
+            phase_name="NEGOTIATION",
+            turn_index=1,
+            action_type="pilot",
+            target_key="risk",
+            action_bearing=True,
+            status="proposed",
+        )
+    )
+    for idx, actor_id in enumerate(["actor_1", "actor_2", "actor_1"], start=1):
+        runtime.ledger.upsert_action_audit(
+            f"t{idx}",
+            {
+                "trace_id": f"t{idx}",
+                "actor_id": actor_id,
+                "phase_name": "NEGOTIATION",
+                "turn_index": idx,
+                "compiled_proposal": {"action_type": "pilot", "target_key": "risk"},
+            },
+        )
+
+    assert action_family_convergence_rate(runtime) == 1.0
+    assert role_action_diversity_score(runtime) == round(1 / 3, 4)
+    assert negotiation_uniqueness_rate(runtime) == round(1 / 3, 4)

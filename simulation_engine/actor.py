@@ -7,7 +7,7 @@ from typing import Any, Optional
 from experiment.candidate_agent import ExperimentCandidateAgent
 
 from .ablation import DEFAULT_ABLATION_CONFIG, SimulationAblationConfig
-from .action_priors import infer_role_action_prior
+from .action_priors import apply_actor_action_preferences, infer_role_action_prior
 from .script import StakeholderActorSpec
 
 
@@ -310,6 +310,7 @@ class StakeholderActor:
         phase_cues: Optional[list[str]],
         allowed_action_types: Optional[list[str]] = None,
         valid_target_keys: Optional[list[str]] = None,
+        actor_action_preferences: Optional[dict[str, Any]] = None,
     ) -> dict[str, Any]:
         plan = dict(policy_plan or {})
         cues = [cue.lower() for cue in (phase_cues or [])]
@@ -320,6 +321,21 @@ class StakeholderActor:
             concerns=list(self.actor_spec.concerns),
             phase_name=phase_name or "UNKNOWN",
             phase_cues=phase_cues or [],
+            allowed_action_types=list(allowed_action_types or [] or [
+                "assign_owner",
+                "request_evidence",
+                "publish_update",
+                "narrow_scope",
+                "pilot",
+                "commit_resource",
+                "defer_decision",
+                "preserve_autonomy",
+            ]),
+            valid_target_keys=list(valid_target_keys or world_state.keys()),
+        )
+        role_prior = apply_actor_action_preferences(
+            prior=role_prior,
+            preferences=actor_action_preferences,
             allowed_action_types=list(allowed_action_types or [] or [
                 "assign_owner",
                 "request_evidence",
@@ -401,6 +417,7 @@ class StakeholderActor:
         target_traits: Optional[list[str]] = None,
         allowed_action_types: Optional[list[str]] = None,
         valid_target_keys: Optional[list[str]] = None,
+        actor_action_preferences: Optional[dict[str, Any]] = None,
     ) -> dict:
         scenario_brief = self.world_brief + self.build_state_context(actor_snapshot)
         policy_plan = await self._delegate.generate_policy_plan(
@@ -417,6 +434,7 @@ class StakeholderActor:
             phase_cues,
             allowed_action_types=allowed_action_types,
             valid_target_keys=valid_target_keys,
+            actor_action_preferences=actor_action_preferences,
         )
 
     async def generate_response(

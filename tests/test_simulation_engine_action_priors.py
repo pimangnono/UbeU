@@ -3,7 +3,11 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from simulation_engine.action_priors import action_role_fit_score, infer_role_action_prior
+from simulation_engine.action_priors import (
+    action_role_fit_score,
+    apply_actor_action_preferences,
+    infer_role_action_prior,
+)
 
 
 def test_marketing_role_prior_prefers_publish_update_and_message_alignment():
@@ -58,3 +62,41 @@ def test_action_role_fit_rewards_role_appropriate_action():
     )
 
     assert fit_score > weak_score
+
+
+def test_actor_action_preferences_override_role_prior_with_phase_specific_families():
+    prior = infer_role_action_prior(
+        role="Product launch lead",
+        incentives=["Ship a credible launch"],
+        concerns=["Slipping timeline"],
+        phase_name="NEGOTIATION",
+        phase_cues=["owner", "fallback"],
+        allowed_action_types=["assign_owner", "publish_update", "request_evidence", "commit_resource"],
+        valid_target_keys=["execution_confidence", "launch_readiness", "alignment"],
+    )
+    adjusted = apply_actor_action_preferences(
+        prior=prior,
+        preferences={
+            "primary_families": ["ownership", "resourcing"],
+            "secondary_families": ["scope"],
+            "avoid_families": ["evidence"],
+            "state_priority_keys": ["execution_confidence", "launch_readiness"],
+        },
+        allowed_action_types=["assign_owner", "publish_update", "request_evidence", "commit_resource"],
+        valid_target_keys=["execution_confidence", "launch_readiness", "alignment"],
+    )
+
+    fit_score, _ = action_role_fit_score(
+        action_type="assign_owner",
+        target_key="execution_confidence",
+        prior=adjusted,
+    )
+    avoid_score, _ = action_role_fit_score(
+        action_type="request_evidence",
+        target_key="alignment",
+        prior=adjusted,
+    )
+
+    assert "ownership" in adjusted.primary_families
+    assert "evidence" in adjusted.avoid_families
+    assert fit_score > avoid_score

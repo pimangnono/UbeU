@@ -6,6 +6,7 @@ based on a personality system prompt. Used by BatchRunner to simulate candidates
 with specific OCEAN profiles.
 """
 
+import asyncio
 import logging
 import re
 from typing import Optional, TYPE_CHECKING
@@ -185,17 +186,17 @@ Respond as {self.candidate_name} in this discussion. Keep your response natural,
 
         Uses the same prompt and settings for each sample.
         """
-        candidates: list[str] = []
-        for _ in range(n):
-            text = await self.generate_response(
+        tasks = [
+            self.generate_response(
                 turns=turns,
                 scenario_brief=scenario_brief,
                 phase_style=phase_style,
                 constraint_suffix=constraint_suffix,
                 enable_trait_execution=enable_trait_execution,
             )
-            candidates.append(text)
-        return candidates
+            for _ in range(n)
+        ]
+        return list(await asyncio.gather(*tasks))
 
     async def generate_policy_plan(
         self,
@@ -297,21 +298,24 @@ Return JSON only."""
                 phase_cues=phase_cues,
                 target_traits=target_traits,
             )
-        outputs: list[dict] = []
-        for slot in style_slots:
-            directive = slot
-            text = await self.generate_response(
+        tasks = [
+            self.generate_response(
                 turns=turns,
                 scenario_brief=scenario_brief,
                 phase_style=phase_style,
                 constraint_suffix=constraint_suffix,
-                style_directive=directive,
+                style_directive=slot,
                 policy_plan=policy_plan,
                 phase_name=phase_name,
                 phase_cues=phase_cues,
                 target_traits=target_traits,
                 enable_trait_execution=enable_trait_execution,
             )
+            for slot in style_slots
+        ]
+        texts = await asyncio.gather(*tasks)
+        outputs: list[dict] = []
+        for slot, text in zip(style_slots, texts):
             outputs.append({
                 "slot": slot,
                 "text": text,

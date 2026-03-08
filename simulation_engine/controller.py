@@ -14,6 +14,7 @@ from experiment.memory_backend import (
 )
 
 from .action_layer import (
+    action_family,
     action_plan_alignment_score,
     heuristic_action_executability_score,
     heuristic_action_proposal,
@@ -21,7 +22,12 @@ from .action_layer import (
     normalize_planned_action_artifact,
 )
 from .ablation import DEFAULT_ABLATION_CONFIG, SimulationAblationConfig
-from .action_priors import action_role_fit_score, infer_role_action_prior
+from .action_priors import (
+    action_activation_score,
+    action_role_fit_score,
+    apply_actor_action_preferences,
+    infer_role_action_prior,
+)
 from .metrics import estimate_actor_traits_from_turns, persona_drift_mae, trait_absolute_errors
 from .runtime import RuntimeTurnView
 from .script import SimulationPhase, StakeholderActorSpec
@@ -321,6 +327,174 @@ class PersonaStateController:
             return None
         return "Stay grounded in your stakeholder identity: " + "; ".join(notes) + "."
 
+    def _phase_action_duplication_penalty(
+        self,
+        *,
+        action_type: str | None,
+        prior,
+        action_context: dict[str, Any],
+    ) -> tuple[float, dict[str, Any]]:
+        if not action_type:
+            return 0.0, {"available": False, "reason": "no_action_type"}
+        family = action_family(action_type)
+        phase_policy = dict(action_context.get("phase_action_policy", {}))
+        family_counts = dict(action_context.get("phase_action_family_counts", {}))
+        duplicates = int(family_counts.get(family, 0))
+        if duplicates <= 0:
+            return 0.0, {"available": True, "family": family, "duplicates": 0}
+
+        penalty = float(phase_policy.get("duplicate_penalty", 0.12)) * min(duplicates, 2)
+        if family in getattr(prior, "primary_families", []):
+            penalty *= 0.45
+        elif family in getattr(prior, "secondary_families", []):
+            penalty *= 0.7
+        if family in getattr(prior, "avoid_families", []):
+            penalty += 0.12
+
+        return min(1.0, round(penalty, 4)), {
+            "available": True,
+            "family": family,
+            "duplicates": duplicates,
+            "phase_action_family_counts": family_counts,
+        }
+
+    def _role_action_uniqueness_score(
+        self,
+        *,
+        action_type: str | None,
+        prior,
+        action_context: dict[str, Any],
+    ) -> tuple[float, dict[str, Any]]:
+        if not action_type:
+            return 0.5, {"available": False, "reason": "no_action_type"}
+        family = action_family(action_type)
+        phase_policy = dict(action_context.get("phase_action_policy", {}))
+        family_counts = dict(action_context.get("phase_action_family_counts", {}))
+        duplicates = int(family_counts.get(family, 0))
+        score = 0.35
+        if family in getattr(prior, "primary_families", []):
+            score += 0.30
+        elif family in getattr(prior, "secondary_families", []):
+            score += 0.18
+        if family in getattr(prior, "avoid_families", []):
+            score -= 0.28
+        if duplicates == 0:
+            score += float(phase_policy.get("uniqueness_bonus", 0.08))
+        elif phase_policy.get("diversity_required"):
+            score -= 0.16
+        return max(0.0, min(1.0, round(score, 4))), {
+            "available": True,
+            "family": family,
+            "duplicates": duplicates,
+            "primary_families": getattr(prior, "primary_families", []),
+            "secondary_families": getattr(prior, "secondary_families", []),
+            "avoid_families": getattr(prior, "avoid_families", []),
+        }
+
+    def _actor_local_state_fit(
+        self,
+        *,
+        action_type: str | None,
+        target_key: str | None,
+        prior,
+        action_context: dict[str, Any],
+    ) -> tuple[float, dict[str, Any]]:
+        if not action_type or not target_key:
+            return 0.5, {"available": False, "reason": "missing_action_or_target"}
+        local_state = dict(action_context.get("local_state", {}))
+        global_state = dict(action_context.get("global_state", {}))
+        state_value = float(local_state.get(target_key, global_state.get(target_key, 0.5)))
+        score = 0.35
+        priority_keys = list(getattr(prior, "state_priority_keys", []))
+        if target_key in priority_keys[:2]:
+            score += 0.28
+        elif target_key in priority_keys:
+            score += 0.16
+
+        reduce_keys = {"risk", "incident_risk", "uncertainty", "spillover_risk", "retention_risk"}
+        increase_keys = {
+            "execution_confidence",
+            "alignment",
+            "launch_readiness",
+            "message_alignment",
+            "integration_clarity",
+            "autonomy_confidence",
+            "admin_feasibility",
+            "trust",
+        }
+        if target_key in reduce_keys and state_value >= 0.55:
+            score += 0.22
+        elif target_key in increase_keys and state_value <= 0.55:
+            score += 0.22
+        elif target_key in priority_keys:
+            score += 0.06
+
+        return max(0.0, min(1.0, round(score, 4))), {
+            "available": True,
+            "target_key": target_key,
+            "state_value": round(state_value, 4),
+            "state_priority_keys": priority_keys,
+        }
+
+    def _action_sparsity_penalty(
+        self,
+        *,
+        action_type: str | None,
+        target_key: str | None,
+        prior,
+        action_context: dict[str, Any],
+    ) -> tuple[float, dict[str, Any]]:
+        if not action_type or not target_key:
+            return 0.0, {"available": False, "reason": "missing_action_or_target"}
+        phase_action_policy = dict(action_context.get("phase_action_policy", {}))
+        activation_score, activation_details = action_activation_score(
+            action_type=action_type,
+            target_key=target_key,
+            prior=prior,
+            phase_action_policy=phase_action_policy,
+            phase_action_family_counts=dict(action_context.get("phase_action_family_counts", {})),
+            local_state=dict(action_context.get("local_state", {})),
+            global_state=dict(action_context.get("global_state", {})),
+        )
+        threshold = float(phase_action_policy.get("sparsity_threshold", 0.62))
+        if activation_score >= threshold:
+            return 0.0, {
+                "available": True,
+                "triggered": False,
+                "activation_score": activation_score,
+                "threshold": threshold,
+                **activation_details,
+            }
+        penalty = min(1.0, round(threshold - activation_score, 4))
+        return penalty, {
+            "available": True,
+            "triggered": True,
+            "activation_score": activation_score,
+            "threshold": threshold,
+            **activation_details,
+        }
+
+    def _convergence_backoff(
+        self,
+        *,
+        duplication_penalty: float,
+        action_plan_alignment: float,
+        action_context: dict[str, Any],
+    ) -> tuple[float, dict[str, Any]]:
+        threshold = float(dict(action_context.get("phase_action_policy", {})).get("convergence_backoff_threshold", 0.95))
+        if duplication_penalty <= 0.0 or action_plan_alignment < threshold:
+            return 0.0, {
+                "available": True,
+                "threshold": threshold,
+                "triggered": False,
+            }
+        penalty = min(1.0, round(duplication_penalty * action_plan_alignment, 4))
+        return penalty, {
+            "available": True,
+            "threshold": threshold,
+            "triggered": True,
+        }
+
     def score_candidate_pool(
         self,
         candidate_pool: list[dict[str, Any]],
@@ -420,6 +594,12 @@ class PersonaStateController:
                     allowed_action_types=list(action_context.get("allowed_action_types", [])),
                     valid_target_keys=list(action_context.get("valid_target_keys", [])),
                 )
+                action_role_prior = apply_actor_action_preferences(
+                    prior=action_role_prior,
+                    preferences=action_context.get("actor_action_preferences"),
+                    allowed_action_types=list(action_context.get("allowed_action_types", [])),
+                    valid_target_keys=list(action_context.get("valid_target_keys", [])),
+                )
                 action_proposal = heuristic_action_proposal(
                     script=action_context["script"],
                     actor_id=self.actor_spec.actor_id,
@@ -461,7 +641,60 @@ class PersonaStateController:
                     ),
                     prior=action_role_prior,
                 )
+                phase_action_duplication_penalty, duplication_details = self._phase_action_duplication_penalty(
+                    action_type=(
+                        action_proposal.action_type
+                        if action_proposal
+                        else (planned_action_artifact.action_type if planned_action_artifact else None)
+                    ),
+                    prior=action_role_prior,
+                    action_context=action_context,
+                )
+                role_action_uniqueness, role_action_uniqueness_details = self._role_action_uniqueness_score(
+                    action_type=(
+                        action_proposal.action_type
+                        if action_proposal
+                        else (planned_action_artifact.action_type if planned_action_artifact else None)
+                    ),
+                    prior=action_role_prior,
+                    action_context=action_context,
+                )
+                actor_local_state_fit, actor_local_state_fit_details = self._actor_local_state_fit(
+                    action_type=(
+                        action_proposal.action_type
+                        if action_proposal
+                        else (planned_action_artifact.action_type if planned_action_artifact else None)
+                    ),
+                    target_key=(
+                        action_proposal.target_key
+                        if action_proposal
+                        else (planned_action_artifact.target_key if planned_action_artifact else None)
+                    ),
+                    prior=action_role_prior,
+                    action_context=action_context,
+                )
+                action_sparsity_penalty, action_sparsity_details = self._action_sparsity_penalty(
+                    action_type=(
+                        action_proposal.action_type
+                        if action_proposal
+                        else (planned_action_artifact.action_type if planned_action_artifact else None)
+                    ),
+                    target_key=(
+                        action_proposal.target_key
+                        if action_proposal
+                        else (planned_action_artifact.target_key if planned_action_artifact else None)
+                    ),
+                    prior=action_role_prior,
+                    action_context=action_context,
+                )
+                convergence_backoff, convergence_backoff_details = self._convergence_backoff(
+                    duplication_penalty=phase_action_duplication_penalty,
+                    action_plan_alignment=action_plan_alignment,
+                    action_context=action_context,
+                )
                 action_weight_multiplier = 1.0 if planned_action_artifact else 0.2
+                if action_sparsity_penalty > 0.0:
+                    action_weight_multiplier *= 0.35
             else:
                 planned_action_artifact = None
                 action_proposal = None
@@ -473,6 +706,16 @@ class PersonaStateController:
                     "available": False,
                     "reason": "action_aware_scoring_disabled",
                 }
+                phase_action_duplication_penalty = 0.0
+                duplication_details = {"available": False, "reason": "action_aware_scoring_disabled"}
+                role_action_uniqueness = 0.5
+                role_action_uniqueness_details = {"available": False, "reason": "action_aware_scoring_disabled"}
+                actor_local_state_fit = 0.5
+                actor_local_state_fit_details = {"available": False, "reason": "action_aware_scoring_disabled"}
+                action_sparsity_penalty = 0.0
+                action_sparsity_details = {"available": False, "reason": "action_aware_scoring_disabled"}
+                convergence_backoff = 0.0
+                convergence_backoff_details = {"available": False, "reason": "action_aware_scoring_disabled"}
                 action_weight_multiplier = 0.0
                 action_plan_alignment_details = {
                     "available": False,
@@ -493,12 +736,17 @@ class PersonaStateController:
                 + (0.10 * state_consistency * action_weight_multiplier if action_context and action_context.get("use_action_aware_scoring") else 0.0)
                 + (0.10 * action_plan_alignment * action_weight_multiplier if action_context and action_context.get("use_action_aware_scoring") else 0.0)
                 + (0.12 * action_role_fit * action_weight_multiplier if action_context and action_context.get("use_action_aware_scoring") else 0.0)
+                + (0.10 * role_action_uniqueness * action_weight_multiplier if action_context and action_context.get("use_action_aware_scoring") else 0.0)
+                + (0.08 * actor_local_state_fit * action_weight_multiplier if action_context and action_context.get("use_action_aware_scoring") else 0.0)
                 - 0.18 * contradiction_penalty
                 - 0.12 * envelope_penalty
                 - 0.08 * sycophancy_risk
                 - 0.10 * expressive_stability_penalty
                 - 0.07 * redundancy_penalty
                 - 0.07 * genericity_penalty
+                - (0.12 * phase_action_duplication_penalty * action_weight_multiplier if action_context and action_context.get("use_action_aware_scoring") else 0.0)
+                - (0.16 * action_sparsity_penalty if action_context and action_context.get("use_action_aware_scoring") else 0.0)
+                - (0.08 * convergence_backoff * action_weight_multiplier if action_context and action_context.get("use_action_aware_scoring") else 0.0)
                 - (0.04 * (1.0 - action_executability) * action_weight_multiplier if action_context and action_context.get("use_action_aware_scoring") else 0.0)
             )
             total = round(max(0.0, min(1.0, total)), 4)
@@ -527,6 +775,16 @@ class PersonaStateController:
                 "action_plan_alignment_details": action_plan_alignment_details,
                 "action_role_fit": round(action_role_fit, 4),
                 "action_role_fit_details": action_role_fit_details,
+                "phase_action_duplication_penalty": round(phase_action_duplication_penalty, 4),
+                "phase_action_duplication_details": duplication_details,
+                "role_action_uniqueness": round(role_action_uniqueness, 4),
+                "role_action_uniqueness_details": role_action_uniqueness_details,
+                "actor_local_state_fit": round(actor_local_state_fit, 4),
+                "actor_local_state_fit_details": actor_local_state_fit_details,
+                "action_sparsity_penalty": round(action_sparsity_penalty, 4),
+                "action_sparsity_details": action_sparsity_details,
+                "convergence_backoff": round(convergence_backoff, 4),
+                "convergence_backoff_details": convergence_backoff_details,
                 "action_weight_multiplier": round(action_weight_multiplier, 4),
                 "action_hint": action_proposal.to_dict() if action_proposal else None,
                 "planned_action_artifact": planned_action_artifact.to_dict() if planned_action_artifact else None,
@@ -614,6 +872,8 @@ class PersonaStateController:
                     "social_trait_alignment": row.get("social_trait_alignment"),
                     "action_executability": row.get("action_executability"),
                     "state_consistency": row.get("state_consistency"),
+                    "role_action_uniqueness": row.get("role_action_uniqueness"),
+                    "phase_action_duplication_penalty": row.get("phase_action_duplication_penalty"),
                     "sycophancy_risk": row.get("sycophancy_risk"),
                 }
                 for row in scored_candidates

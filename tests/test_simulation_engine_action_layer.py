@@ -133,6 +133,46 @@ def test_phase_specific_action_and_target_keys_are_narrowed():
 
     assert set(script.allowed_action_types_for_phase("OPENING")) == {"publish_update", "request_evidence"}
     assert set(script.target_keys_for_phase("OPENING")) == {"alignment", "message_alignment", "uncertainty", "launch_readiness"}
+    assert script.phase_action_policy("NEGOTIATION")["family_cap"] == 1
+    assert script.phase_action_policy("NEGOTIATION")["max_actions_per_phase"] == 2
+
+
+def test_compile_action_proposal_can_be_suppressed_by_sparse_action_gate():
+    script = load_mvp_policy_scripts()[3]  # new_product_launch
+    proposal = asyncio.run(
+        compile_action_proposal(
+            _DummyClient(),
+            script=script,
+            actor_id="actor_2",
+            actor_name_map=script.actor_display_name_map,
+            phase_name="NEGOTIATION",
+            turn_index=5,
+            selected_text="I'll assign an owner so we can move forward.",
+            policy_plan={
+                "action_intent": "assign_owner",
+                "target_state_key": "execution_confidence",
+                "commitment_strength": "high",
+            },
+            actor_snapshot={
+                "local_state": {"message_alignment": 0.42, "trust": 0.51},
+                "world_state": {"execution_confidence": 0.46, "alignment": 0.49},
+            },
+            planned_action_artifact={
+                "action_type": "assign_owner",
+                "target_key": "execution_confidence",
+                "owner_actor_id": "actor_2",
+                "strength": "high",
+            },
+            actor_action_preferences=script.actor_action_preferences("actor_2", "NEGOTIATION"),
+            phase_action_policy=script.phase_action_policy("NEGOTIATION"),
+            phase_action_family_counts={"ownership": 1, "communication": 1},
+        )
+    )
+
+    assert proposal is not None
+    assert proposal.status == "rejected"
+    assert proposal.rejection_reason == "sparse_action_gate"
+    assert proposal.compiler_source == "planned_action"
 
 
 def test_arbitrate_phase_actions_keeps_latest_same_family_and_rejects_conflict():

@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 import asyncio
+import json
 from dataclasses import dataclass
+from pathlib import Path
 from statistics import mean, pstdev
 from typing import Any
 
@@ -30,6 +32,7 @@ from .metrics import (
     persona_drift_mae,
 )
 from .runtime import StakeholderSimulationRuntime
+from .reporting import save_benchmark_outputs
 
 DEFAULT_STYLE_SLOTS = ["integrator", "planner", "challenger", "skeptic"]
 
@@ -155,6 +158,7 @@ class SimulationBenchmarkRunner:
                         phase_cues=phase.cues,
                         allowed_action_types=list(runtime.script.allowed_action_types_for_phase(phase.name)),
                         valid_target_keys=list(runtime.script.target_keys_for_phase(phase.name)),
+                        actor_action_preferences=runtime.script.actor_action_preferences(actor_id, phase.name),
                     )
                     planned_action_artifact = normalize_planned_action_artifact(
                         script=runtime.script,
@@ -185,6 +189,7 @@ class SimulationBenchmarkRunner:
                         }
                         text = selected["text"]
                     else:
+                        phase_action_policy = runtime.script.phase_action_policy(phase.name)
                         scored = controller.score_candidate_pool(
                             candidate_pool=pool,
                             visible_turns=context["turns"],
@@ -196,8 +201,22 @@ class SimulationBenchmarkRunner:
                                 "valid_target_keys": list(runtime.script.target_keys_for_phase(phase.name)),
                                 "allowed_action_types": list(runtime.script.allowed_action_types_for_phase(phase.name)),
                                 "global_state": dict(runtime.ledger.latest_world_state().global_state),
+                                "local_state": dict(context["snapshot"].get("local_state", {})),
+                                "phase_action_policy": runtime.script.phase_action_policy(phase.name),
+                                "actor_action_preferences": runtime.script.actor_action_preferences(actor_id, phase.name),
+                                "phase_action_family_counts": runtime.ledger.phase_action_family_counts(
+                                    phase.name,
+                                    exclude_actor_id=actor_id,
+                                ),
+                                "phase_actor_action_families": runtime.ledger.phase_actor_action_families(
+                                    phase.name,
+                                    exclude_actor_id=actor_id,
+                                ),
                                 "turn_index": runtime.turn_index + 1,
-                                "use_action_aware_scoring": bool(ablation_config.use_action_aware_scoring),
+                                "use_action_aware_scoring": bool(
+                                    ablation_config.use_action_aware_scoring
+                                    and phase_action_policy.get("action_mode", "execute") == "execute"
+                                ),
                             },
                         )
                         selection = controller.select_candidate(
@@ -234,6 +253,7 @@ class SimulationBenchmarkRunner:
                     metadata=selected_meta,
                 )
                 if ablation_config.use_action_layer:
+                    phase_action_policy = runtime.script.phase_action_policy(phase.name)
                     proposal = await compile_action_proposal(
                         self.gen_client,
                         script=runtime.script,
@@ -246,6 +266,12 @@ class SimulationBenchmarkRunner:
                         actor_snapshot=context["snapshot"],
                         planned_action_artifact=selected_meta.get("planned_action_artifact"),
                         seed_action_hint=selected_meta.get("action_hint"),
+                        actor_action_preferences=runtime.script.actor_action_preferences(actor_id, phase.name),
+                        phase_action_policy=runtime.script.phase_action_policy(phase.name),
+                        phase_action_family_counts=runtime.ledger.phase_action_family_counts(
+                            phase.name,
+                            exclude_actor_id=actor_id,
+                        ),
                     )
                     trace_id = f"{runtime.script.simulation_id}:{actor_id}:{phase.name}:{runtime.turn_index}"
                     alignment_score, alignment_details = action_plan_alignment_score(
@@ -272,7 +298,8 @@ class SimulationBenchmarkRunner:
                             "selected_text_excerpt": text[:180],
                         },
                     )
-                    runtime.ledger.append_action_proposal(proposal)
+                    if phase_action_policy.get("action_mode", "execute") == "execute":
+                        runtime.ledger.append_action_proposal(proposal)
 
                 if base_condition != "engine_controller":
                     inferred_traits = estimate_actor_traits_from_turns(
@@ -286,7 +313,7 @@ class SimulationBenchmarkRunner:
                         drift_score=persona_drift_mae(actor.actor_spec.personality_prior, inferred_traits),
                     )
 
-            if ablation_config.use_action_layer:
+            if ablation_config.use_action_layer and runtime.script.phase_action_policy(phase.name).get("action_mode", "execute") == "execute":
                 approved, rejected = arbitrate_phase_actions(
                     runtime.script,
                     phase.name,
@@ -367,6 +394,7 @@ class SimulationBenchmarkRunner:
         conditions: list[BenchmarkCondition] | None = None,
         repetitions: int = 1,
         script_ids: list[str] | None = None,
+        checkpoint_dir: str | None = None,
     ) -> dict[str, Any]:
         conditions = conditions or ["naive", "engine", "engine_controller"]
         invalid = sorted(set(conditions).difference(ALL_BENCHMARK_CONDITIONS))
@@ -381,10 +409,43 @@ class SimulationBenchmarkRunner:
                 raise ValueError(f"Unknown simulation script ids: {', '.join(missing)}")
 
         run_results: list[BenchmarkRunResult] = []
+        total_runs = len(scripts) * len(conditions) * repetitions
+        completed_runs = 0
+        checkpoint_path = Path(checkpoint_dir) if checkpoint_dir else None
+        if checkpoint_path is not None:
+            checkpoint_path.mkdir(parents=True, exist_ok=True)
+
         for script in scripts:
             for condition in conditions:
                 for _ in range(repetitions):
                     run_results.append(await self.run_single(script, condition))
+                    completed_runs += 1
+                    print(
+                        f"[benchmark] completed {completed_runs}/{total_runs}: "
+                        f"{script.simulation_id} | {condition}",
+                        flush=True,
+                    )
+                    partial_results = {
+                        "config": {
+                            "conditions": conditions,
+                            "repetitions": repetitions,
+                            "script_ids": [item.simulation_id for item in scripts],
+                            "style_slots": list(self.style_slots),
+                        },
+                        "runs": [result.to_dict() for result in run_results],
+                        "aggregate": aggregate_benchmark_runs(run_results),
+                        "aggregate_by_script": aggregate_benchmark_runs_by_script(run_results),
+                    }
+                    if checkpoint_path is not None:
+                        save_benchmark_outputs(partial_results, checkpoint_path)
+                        progress_payload = {
+                            "completed_runs": completed_runs,
+                            "total_runs": total_runs,
+                            "last_script_id": script.simulation_id,
+                            "last_condition": condition,
+                        }
+                        with open(checkpoint_path / "progress.json", "w") as handle:
+                            json.dump(progress_payload, handle, indent=2)
 
         return {
             "config": {
@@ -443,6 +504,9 @@ def _summarize_rows(rows: list[BenchmarkRunResult]) -> dict[str, Any]:
     feedback_utilization = [row.metrics.action_feedback_utilization for row in rows]
     action_plan_alignment = [row.metrics.action_plan_alignment_mean for row in rows]
     planned_action_coverage = [row.metrics.planned_action_coverage_rate for row in rows]
+    action_family_convergence = [row.metrics.action_family_convergence_rate for row in rows]
+    role_action_diversity = [row.metrics.role_action_diversity_score for row in rows]
+    negotiation_uniqueness = [row.metrics.negotiation_uniqueness_rate for row in rows]
     trajectory_variance = aggregate_phase_end_state_variance([row.metrics for row in rows])
 
     return {
@@ -459,6 +523,9 @@ def _summarize_rows(rows: list[BenchmarkRunResult]) -> dict[str, Any]:
         "action_feedback_utilization_mean": round(mean(feedback_utilization), 4),
         "action_plan_alignment_mean": round(mean(action_plan_alignment), 4),
         "planned_action_coverage_rate_mean": round(mean(planned_action_coverage), 4),
+        "action_family_convergence_rate_mean": round(mean(action_family_convergence), 4),
+        "role_action_diversity_score_mean": round(mean(role_action_diversity), 4),
+        "negotiation_uniqueness_rate_mean": round(mean(negotiation_uniqueness), 4),
         "state_trajectory_variance_mean": trajectory_variance,
         "per_trait_error_mean": per_trait_error_mean,
         "turn_count_mean": round(mean(turn_counts), 2),

@@ -11,6 +11,7 @@ from .action_layer import (
     ActionProposal,
     ExecutedAction,
     WorldStateSnapshot,
+    action_family,
     build_phase_feedback,
     default_local_state,
 )
@@ -484,6 +485,40 @@ class SimulationStateLedger:
 
     def phase_action_proposals(self, phase_name: str) -> list[ActionProposal]:
         return [proposal for proposal in self.action_proposals if proposal.phase_name == phase_name]
+
+    def phase_action_family_counts(
+        self,
+        phase_name: str,
+        *,
+        exclude_actor_id: str | None = None,
+    ) -> dict[str, int]:
+        counts: dict[str, int] = {}
+        for proposal in self.phase_action_proposals(phase_name):
+            if proposal.status not in {"proposed", "approved", "executed"}:
+                continue
+            if exclude_actor_id and proposal.actor_id == exclude_actor_id:
+                continue
+            family = action_family(proposal.action_type)
+            counts[family] = counts.get(family, 0) + 1
+        return counts
+
+    def phase_actor_action_families(
+        self,
+        phase_name: str,
+        *,
+        exclude_actor_id: str | None = None,
+    ) -> dict[str, list[str]]:
+        actor_families: dict[str, list[str]] = {}
+        for proposal in self.phase_action_proposals(phase_name):
+            if proposal.status not in {"proposed", "approved", "executed"}:
+                continue
+            if exclude_actor_id and proposal.actor_id == exclude_actor_id:
+                continue
+            actor_families.setdefault(proposal.actor_id, [])
+            family = action_family(proposal.action_type)
+            if family not in actor_families[proposal.actor_id]:
+                actor_families[proposal.actor_id].append(family)
+        return actor_families
 
     def apply_executed_action(
         self,

@@ -4,6 +4,20 @@ from __future__ import annotations
 
 from dataclasses import asdict, dataclass
 
+from .action_layer import action_family
+
+REDUCE_KEYS = {"risk", "incident_risk", "uncertainty", "spillover_risk", "retention_risk"}
+INCREASE_KEYS = {
+    "execution_confidence",
+    "alignment",
+    "launch_readiness",
+    "message_alignment",
+    "integration_clarity",
+    "autonomy_confidence",
+    "admin_feasibility",
+    "trust",
+}
+
 
 def _dedupe_keep_order(items: list[str]) -> list[str]:
     seen: set[str] = set()
@@ -16,10 +30,18 @@ def _dedupe_keep_order(items: list[str]) -> list[str]:
     return ordered
 
 
+def _clip_unit(value: float) -> float:
+    return max(0.0, min(1.0, round(float(value), 4)))
+
+
 @dataclass
 class RoleActionPrior:
     preferred_action_types: list[str]
     preferred_target_keys: list[str]
+    primary_families: list[str]
+    secondary_families: list[str]
+    avoid_families: list[str]
+    state_priority_keys: list[str]
     rationale: list[str]
 
     def to_dict(self) -> dict[str, object]:
@@ -100,9 +122,82 @@ def infer_role_action_prior(
         if target in valid_target_keys
     ]
 
+    families = _dedupe_keep_order(
+        action_family(item)
+        for item in preferred_actions
+    )
     return RoleActionPrior(
         preferred_action_types=preferred_actions,
         preferred_target_keys=preferred_targets,
+        primary_families=families[:2],
+        secondary_families=families[2:4],
+        avoid_families=[],
+        state_priority_keys=preferred_targets[:3],
+        rationale=rationale,
+    )
+
+
+def apply_actor_action_preferences(
+    *,
+    prior: RoleActionPrior,
+    preferences: dict[str, object] | None,
+    allowed_action_types: list[str],
+    valid_target_keys: list[str],
+) -> RoleActionPrior:
+    if not preferences:
+        return prior
+
+    preferred_action_types = _dedupe_keep_order(
+        [
+            *[
+                action
+                for action in list(preferences.get("preferred_action_types", []))
+                if action in allowed_action_types
+            ],
+            *prior.preferred_action_types,
+        ]
+    )
+    preferred_target_keys = _dedupe_keep_order(
+        [
+            *[
+                key
+                for key in list(preferences.get("preferred_target_keys", []))
+                if key in valid_target_keys
+            ],
+            *prior.preferred_target_keys,
+        ]
+    )
+    primary_families = _dedupe_keep_order(
+        list(preferences.get("primary_families", [])) + prior.primary_families
+    )
+    secondary_families = _dedupe_keep_order(
+        list(preferences.get("secondary_families", [])) + prior.secondary_families
+    )
+    avoid_families = _dedupe_keep_order(
+        list(preferences.get("avoid_families", [])) + prior.avoid_families
+    )
+    state_priority_keys = _dedupe_keep_order(
+        [
+            *[
+                key
+                for key in list(preferences.get("state_priority_keys", []))
+                if key in valid_target_keys
+            ],
+            *prior.state_priority_keys,
+        ]
+    )
+
+    rationale = list(prior.rationale)
+    if preferences:
+        rationale.append("metadata:actor_action_preferences")
+
+    return RoleActionPrior(
+        preferred_action_types=preferred_action_types,
+        preferred_target_keys=preferred_target_keys,
+        primary_families=primary_families,
+        secondary_families=secondary_families,
+        avoid_families=avoid_families,
+        state_priority_keys=state_priority_keys,
         rationale=rationale,
     )
 
@@ -121,9 +216,14 @@ def action_role_fit_score(
             "reason": "no_action",
             "preferred_action_types": prior.preferred_action_types,
             "preferred_target_keys": prior.preferred_target_keys,
+            "primary_families": prior.primary_families,
+            "secondary_families": prior.secondary_families,
+            "avoid_families": prior.avoid_families,
+            "state_priority_keys": prior.state_priority_keys,
         }
 
     score = 0.2
+    family = action_family(action_type)
     if action_type in prior.preferred_action_types[:1]:
         score += 0.45
     elif action_type in prior.preferred_action_types[:3]:
@@ -131,14 +231,93 @@ def action_role_fit_score(
     elif action_type in prior.preferred_action_types:
         score += 0.15
 
+    if family in prior.primary_families:
+        score += 0.18
+    elif family in prior.secondary_families:
+        score += 0.1
+    elif family in prior.avoid_families:
+        score -= 0.18
+
     if target_key in prior.preferred_target_keys[:2]:
         score += 0.25
     elif target_key in prior.preferred_target_keys:
         score += 0.12
 
+    if target_key in prior.state_priority_keys[:2]:
+        score += 0.14
+    elif target_key in prior.state_priority_keys:
+        score += 0.08
+
     return min(1.0, round(score, 4)), {
         "available": True,
         "preferred_action_types": prior.preferred_action_types,
         "preferred_target_keys": prior.preferred_target_keys,
+        "primary_families": prior.primary_families,
+        "secondary_families": prior.secondary_families,
+        "avoid_families": prior.avoid_families,
+        "state_priority_keys": prior.state_priority_keys,
         "rationale": prior.rationale,
+    }
+
+
+def action_activation_score(
+    *,
+    action_type: str | None,
+    target_key: str | None,
+    prior: RoleActionPrior,
+    phase_action_policy: dict[str, object] | None,
+    phase_action_family_counts: dict[str, int] | None,
+    local_state: dict[str, float] | None,
+    global_state: dict[str, float] | None,
+) -> tuple[float, dict[str, object]]:
+    if not action_type or not target_key:
+        return 0.0, {"available": False, "reason": "missing_action_or_target"}
+
+    role_fit, role_fit_details = action_role_fit_score(
+        action_type=action_type,
+        target_key=target_key,
+        prior=prior,
+    )
+    policy = dict(phase_action_policy or {})
+    family_counts = dict(phase_action_family_counts or {})
+    family = action_family(action_type)
+    duplicates = int(family_counts.get(family, 0))
+    family_cap = int(policy.get("family_cap", 2))
+    max_actions_per_phase = int(policy.get("max_actions_per_phase", 3))
+    total_actions = int(sum(family_counts.values()))
+    state_value = float((local_state or {}).get(target_key, (global_state or {}).get(target_key, 0.5)))
+
+    score = 0.18 + 0.42 * role_fit
+    if family in prior.primary_families:
+        score += 0.12
+    elif family in prior.secondary_families:
+        score += 0.06
+    if family in prior.avoid_families:
+        score -= 0.20
+
+    if target_key in prior.state_priority_keys[:2]:
+        score += 0.12
+    elif target_key in prior.state_priority_keys:
+        score += 0.06
+
+    if target_key in REDUCE_KEYS and state_value >= 0.55:
+        score += 0.14
+    elif target_key in INCREASE_KEYS and state_value <= 0.55:
+        score += 0.14
+
+    if duplicates >= family_cap:
+        score -= 0.30 if family not in prior.primary_families else 0.12
+    if total_actions >= max_actions_per_phase:
+        score -= 0.24 if family not in prior.primary_families else 0.10
+
+    return _clip_unit(score), {
+        "available": True,
+        "family": family,
+        "duplicates": duplicates,
+        "family_cap": family_cap,
+        "total_actions": total_actions,
+        "max_actions_per_phase": max_actions_per_phase,
+        "state_value": round(state_value, 4),
+        "role_fit": role_fit,
+        "role_fit_details": role_fit_details,
     }

@@ -9,6 +9,7 @@ from typing import Any
 from experiment.behavioral_features import extract_features
 from experiment.memory_backend import Commitment, detect_commitment_contradiction
 
+from .action_layer import action_family
 from .runtime import RuntimeTurnView, StakeholderSimulationRuntime
 from .script import StakeholderActorSpec
 
@@ -290,6 +291,58 @@ def planned_action_coverage_rate(runtime: StakeholderSimulationRuntime) -> float
     return round(len(with_plan) / len(audits), 4)
 
 
+def _phase_action_family_rows(runtime: StakeholderSimulationRuntime) -> dict[str, list[tuple[str, str]]]:
+    rows: dict[str, list[tuple[str, str]]] = {}
+    for audit in runtime.ledger.ordered_action_audits():
+        payload = audit.get("compiled_proposal") or audit.get("selected_action_hint") or audit.get("planned_action_artifact") or {}
+        action_type = payload.get("action_type")
+        actor_id = audit.get("actor_id")
+        phase_name = audit.get("phase_name")
+        if not action_type or not actor_id or not phase_name:
+            continue
+        rows.setdefault(phase_name, []).append((actor_id, action_family(action_type)))
+    return rows
+
+
+def action_family_convergence_rate(runtime: StakeholderSimulationRuntime) -> float:
+    phase_rows = _phase_action_family_rows(runtime)
+    if not phase_rows:
+        return 0.0
+    scores: list[float] = []
+    for families in phase_rows.values():
+        if len(families) < 2:
+            continue
+        unique_count = len({family for _, family in families})
+        duplicates = len(families) - unique_count
+        scores.append(duplicates / max(len(families) - 1, 1))
+    if not scores:
+        return 0.0
+    return round(sum(scores) / len(scores), 4)
+
+
+def role_action_diversity_score(runtime: StakeholderSimulationRuntime) -> float:
+    phase_rows = _phase_action_family_rows(runtime)
+    if not phase_rows:
+        return 0.0
+    scores: list[float] = []
+    for families in phase_rows.values():
+        if not families:
+            continue
+        unique_count = len({family for _, family in families})
+        scores.append(unique_count / max(len(families), 1))
+    if not scores:
+        return 0.0
+    return round(sum(scores) / len(scores), 4)
+
+
+def negotiation_uniqueness_rate(runtime: StakeholderSimulationRuntime) -> float:
+    families = _phase_action_family_rows(runtime).get("NEGOTIATION", [])
+    if not families:
+        return 0.0
+    unique_count = len({family for _, family in families})
+    return round(unique_count / max(len(families), 1), 4)
+
+
 def phase_end_world_states(runtime: StakeholderSimulationRuntime) -> list[dict[str, float]]:
     return [
         dict(snapshot.global_state)
@@ -316,6 +369,9 @@ class BenchmarkRunMetrics:
     action_feedback_utilization: float = 0.0
     action_plan_alignment_mean: float = 0.0
     planned_action_coverage_rate: float = 0.0
+    action_family_convergence_rate: float = 0.0
+    role_action_diversity_score: float = 0.0
+    negotiation_uniqueness_rate: float = 0.0
     phase_end_world_states: list[dict[str, float]] | None = None
 
     def to_dict(self) -> dict[str, Any]:
@@ -336,6 +392,9 @@ class BenchmarkRunMetrics:
             "action_feedback_utilization": self.action_feedback_utilization,
             "action_plan_alignment_mean": self.action_plan_alignment_mean,
             "planned_action_coverage_rate": self.planned_action_coverage_rate,
+            "action_family_convergence_rate": self.action_family_convergence_rate,
+            "role_action_diversity_score": self.role_action_diversity_score,
+            "negotiation_uniqueness_rate": self.negotiation_uniqueness_rate,
             "phase_end_world_states": self.phase_end_world_states or [],
         }
 
@@ -378,6 +437,9 @@ def compute_runtime_metrics(runtime: StakeholderSimulationRuntime) -> BenchmarkR
         action_feedback_utilization=action_feedback_utilization(runtime),
         action_plan_alignment_mean=action_plan_alignment_mean(runtime),
         planned_action_coverage_rate=planned_action_coverage_rate(runtime),
+        action_family_convergence_rate=action_family_convergence_rate(runtime),
+        role_action_diversity_score=role_action_diversity_score(runtime),
+        negotiation_uniqueness_rate=negotiation_uniqueness_rate(runtime),
         phase_end_world_states=phase_end_world_states(runtime),
     )
 

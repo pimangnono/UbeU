@@ -298,6 +298,40 @@ class SimulationScript:
                     keys.append(state_key)
         return keys or list(self.world_state_schema)
 
+    def phase_action_policy(self, phase_name: str) -> dict[str, Any]:
+        default_policy = {
+            "diversity_required": phase_name == "NEGOTIATION",
+            "duplicate_penalty": 0.18 if phase_name == "NEGOTIATION" else 0.08,
+            "uniqueness_bonus": 0.14 if phase_name == "NEGOTIATION" else 0.06,
+            "convergence_backoff_threshold": 0.9 if phase_name == "NEGOTIATION" else 0.95,
+            "action_mode": "execute" if phase_name in {"NEGOTIATION", "CLOSING"} else "shadow",
+            "allow_no_action": True,
+            "family_cap": 1 if phase_name == "NEGOTIATION" else 2,
+            "max_actions_per_phase": 3 if phase_name == "NEGOTIATION" else 2,
+            "sparsity_threshold": 0.7 if phase_name == "NEGOTIATION" else 0.62,
+        }
+        metadata_policy = (
+            dict(self.metadata.get("phase_action_policies", {})).get(phase_name, {})
+            if isinstance(self.metadata, dict)
+            else {}
+        )
+        default_policy.update(dict(metadata_policy or {}))
+        return default_policy
+
+    def actor_action_preferences(self, actor_id: str, phase_name: str) -> dict[str, Any]:
+        if not isinstance(self.metadata, dict):
+            return {}
+        all_preferences = dict(self.metadata.get("actor_action_preferences", {}))
+        actor_preferences = dict(all_preferences.get(actor_id, {}))
+        merged: dict[str, Any] = {}
+        default_preferences = actor_preferences.get("default", {})
+        if isinstance(default_preferences, dict):
+            merged.update(default_preferences)
+        phase_preferences = actor_preferences.get(phase_name, {})
+        if isinstance(phase_preferences, dict):
+            merged.update(phase_preferences)
+        return merged
+
     def validate(self):
         if not self.stakeholders:
             raise ValueError("SimulationScript requires at least one stakeholder")
@@ -350,3 +384,8 @@ class SimulationScript:
                         raise ValueError(
                             f"Transition rule {phase_name}:{action_type} references unknown global state key {state_key}"
                         )
+
+        actor_preferences = dict(self.metadata.get("actor_action_preferences", {})) if isinstance(self.metadata, dict) else {}
+        for actor_id in actor_preferences:
+            if actor_id not in actor_ids:
+                raise ValueError(f"Actor action preferences reference unknown actor_id {actor_id}")

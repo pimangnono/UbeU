@@ -324,9 +324,57 @@ async def compile_action_proposal(
     actor_snapshot: dict[str, Any] | None,
     planned_action_artifact: dict[str, Any] | None = None,
     seed_action_hint: dict[str, Any] | None = None,
+    actor_action_preferences: dict[str, Any] | None = None,
+    phase_action_policy: dict[str, Any] | None = None,
+    phase_action_family_counts: dict[str, int] | None = None,
 ) -> ActionProposal | None:
+    from .action_priors import (
+        action_activation_score,
+        apply_actor_action_preferences,
+        infer_role_action_prior,
+    )
+
     allowed_action_types = list(script.allowed_action_types_for_phase(phase_name))
     valid_target_keys = list(script.target_keys_for_phase(phase_name))
+    phase_action_policy = dict(phase_action_policy or script.phase_action_policy(phase_name))
+    phase_action_family_counts = dict(phase_action_family_counts or {})
+    actor_spec = script.get_actor(actor_id)
+    role_prior = infer_role_action_prior(
+        role=actor_spec.role,
+        incentives=list(actor_spec.incentives),
+        concerns=list(actor_spec.concerns),
+        phase_name=phase_name,
+        phase_cues=list(next((phase.cues for phase in script.phases if phase.name == phase_name), [])),
+        allowed_action_types=allowed_action_types,
+        valid_target_keys=valid_target_keys,
+    )
+    role_prior = apply_actor_action_preferences(
+        prior=role_prior,
+        preferences=actor_action_preferences,
+        allowed_action_types=allowed_action_types,
+        valid_target_keys=valid_target_keys,
+    )
+
+    def sparse_gate(action_type: str | None, target_key: str | None) -> tuple[bool, dict[str, Any]]:
+        if not phase_action_policy.get("allow_no_action", True):
+            return True, {"available": False, "reason": "no_sparse_policy"}
+        activation_score, details = action_activation_score(
+            action_type=action_type,
+            target_key=target_key,
+            prior=role_prior,
+            phase_action_policy=phase_action_policy,
+            phase_action_family_counts=phase_action_family_counts,
+            local_state=dict((actor_snapshot or {}).get("local_state", {})),
+            global_state=dict((actor_snapshot or {}).get("world_state", {})),
+        )
+        threshold = float(phase_action_policy.get("sparsity_threshold", 0.62))
+        details = {
+            **details,
+            "activation_score": activation_score,
+            "threshold": threshold,
+        }
+        return activation_score >= threshold, details
+
     normalized_plan = normalize_planned_action_artifact(
         script=script,
         actor_id=actor_id,
@@ -338,6 +386,22 @@ async def compile_action_proposal(
     )
     proposal_id = f"{script.simulation_id}:{actor_id}:{phase_name}:{turn_index}"
     if normalized_plan:
+        allowed, gate_details = sparse_gate(normalized_plan.action_type, normalized_plan.target_key)
+        if not allowed:
+            return ActionProposal(
+                proposal_id=proposal_id,
+                actor_id=actor_id,
+                phase_name=phase_name,
+                turn_index=turn_index,
+                action_type=normalized_plan.action_type,
+                target_key=normalized_plan.target_key,
+                status="rejected",
+                rejection_reason="sparse_action_gate",
+                action_bearing=False,
+                compiler_source="planned_action",
+                raw_payload={"sparse_gate": gate_details},
+                validation_trace=["sparse_action_gate"],
+            )
         plan_payload = normalized_plan.to_dict()
         owner_actor_id = normalized_plan.owner_actor_id
         if not owner_actor_id and seed_action_hint and seed_action_hint.get("owner_actor_id") in script.actor_ids:
@@ -378,6 +442,25 @@ async def compile_action_proposal(
         if planned and planned.status == "proposed":
             return planned
     if seed_action_hint:
+        allowed, gate_details = sparse_gate(
+            seed_action_hint.get("action_type"),
+            seed_action_hint.get("target_key"),
+        )
+        if not allowed:
+            return ActionProposal(
+                proposal_id=proposal_id,
+                actor_id=actor_id,
+                phase_name=phase_name,
+                turn_index=turn_index,
+                action_type=seed_action_hint.get("action_type"),
+                target_key=seed_action_hint.get("target_key"),
+                status="rejected",
+                rejection_reason="sparse_action_gate",
+                action_bearing=False,
+                compiler_source="selection_hint",
+                raw_payload={"sparse_gate": gate_details, **dict(seed_action_hint)},
+                validation_trace=["sparse_action_gate"],
+            )
         seeded = ActionProposal(
             proposal_id=proposal_id,
             actor_id=actor_id,
@@ -423,6 +506,14 @@ async def compile_action_proposal(
         allowed_action_types=allowed_action_types,
     )
     if heuristic and heuristic.status == "proposed":
+        allowed, gate_details = sparse_gate(heuristic.action_type, heuristic.target_key)
+        if not allowed:
+            heuristic.status = "rejected"
+            heuristic.rejection_reason = "sparse_action_gate"
+            heuristic.action_bearing = False
+            heuristic.raw_payload = {**dict(heuristic.raw_payload), "sparse_gate": gate_details}
+            heuristic.validation_trace = list(heuristic.validation_trace) + ["sparse_action_gate"]
+            return heuristic
         return heuristic
     if not detect_action_bearing_turn(selected_text):
         return None
@@ -475,13 +566,22 @@ async def compile_action_proposal(
                 "policy_target_state_key": (policy_plan or {}).get("target_state_key"),
             },
         )
-        return validate_action_proposal(
+        proposal = validate_action_proposal(
             script,
             proposal,
             phase_name=phase_name,
             valid_target_keys=valid_target_keys,
             allowed_action_types=allowed_action_types,
         )
+        if proposal and proposal.status == "proposed":
+            allowed, gate_details = sparse_gate(proposal.action_type, proposal.target_key)
+            if not allowed:
+                proposal.status = "rejected"
+                proposal.rejection_reason = "sparse_action_gate"
+                proposal.action_bearing = False
+                proposal.raw_payload = {**dict(proposal.raw_payload), "sparse_gate": gate_details}
+                proposal.validation_trace = list(proposal.validation_trace) + ["sparse_action_gate"]
+        return proposal
     except Exception:
         return heuristic
 

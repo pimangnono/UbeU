@@ -1,0 +1,6 @@
+{
+  "completed_runs": 9,
+  "total_runs": 30,
+  "last_script_id": "housing_support_policy",
+  "last_condition": "naive_action_baseline"
+}

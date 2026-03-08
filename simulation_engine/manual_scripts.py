@@ -609,6 +609,258 @@ def _pmi_action_spec() -> dict[str, object]:
     }
 
 
+def _phase_action_policies(simulation_id: str) -> dict[str, dict[str, object]]:
+    policies = {
+        "OPENING": {
+            "action_mode": "shadow",
+            "diversity_required": False,
+            "duplicate_penalty": 0.04,
+            "uniqueness_bonus": 0.04,
+            "convergence_backoff_threshold": 0.97,
+            "allow_no_action": True,
+            "family_cap": 1,
+            "max_actions_per_phase": 1,
+            "sparsity_threshold": 0.66,
+        },
+        "TENSION": {
+            "action_mode": "shadow",
+            "diversity_required": True,
+            "duplicate_penalty": 0.14,
+            "uniqueness_bonus": 0.10,
+            "convergence_backoff_threshold": 0.93,
+            "allow_no_action": True,
+            "family_cap": 1,
+            "max_actions_per_phase": 2,
+            "sparsity_threshold": 0.70,
+        },
+        "NEGOTIATION": {
+            "action_mode": "execute",
+            "diversity_required": True,
+            "duplicate_penalty": 0.24,
+            "uniqueness_bonus": 0.18,
+            "convergence_backoff_threshold": 0.90,
+            "allow_no_action": True,
+            "family_cap": 1,
+            "max_actions_per_phase": 3,
+            "sparsity_threshold": 0.76,
+        },
+        "CLOSING": {
+            "action_mode": "execute",
+            "diversity_required": False,
+            "duplicate_penalty": 0.08,
+            "uniqueness_bonus": 0.06,
+            "convergence_backoff_threshold": 0.95,
+            "allow_no_action": True,
+            "family_cap": 1,
+            "max_actions_per_phase": 2,
+            "sparsity_threshold": 0.64,
+        },
+    }
+    if simulation_id == "new_product_launch":
+        policies["NEGOTIATION"].update({
+            "max_actions_per_phase": 2,
+            "sparsity_threshold": 0.82,
+            "duplicate_penalty": 0.30,
+        })
+        policies["TENSION"].update({
+            "max_actions_per_phase": 1,
+            "sparsity_threshold": 0.76,
+        })
+    elif simulation_id == "post_merger_integration":
+        policies["NEGOTIATION"].update({
+            "max_actions_per_phase": 2,
+            "sparsity_threshold": 0.80,
+            "duplicate_penalty": 0.28,
+        })
+        policies["CLOSING"].update({
+            "max_actions_per_phase": 1,
+            "sparsity_threshold": 0.72,
+        })
+    return policies
+
+
+def _default_pref(
+    *,
+    primary_families: list[str],
+    secondary_families: list[str],
+    state_priority_keys: list[str],
+    avoid_families: list[str] | None = None,
+    preferred_action_types: list[str] | None = None,
+    preferred_target_keys: list[str] | None = None,
+) -> dict[str, object]:
+    return {
+        "primary_families": primary_families,
+        "secondary_families": secondary_families,
+        "avoid_families": avoid_families or [],
+        "state_priority_keys": state_priority_keys,
+        "preferred_action_types": preferred_action_types or [],
+        "preferred_target_keys": preferred_target_keys or [],
+    }
+
+
+def _actor_action_preferences(simulation_id: str) -> dict[str, dict[str, dict[str, object]]]:
+    if simulation_id == "youth_employment_policy":
+        return {
+            "actor_1": {
+                "default": _default_pref(
+                    primary_families=["evidence", "governance"],
+                    secondary_families=["communication", "scope"],
+                    state_priority_keys=["uncertainty", "trust", "spillover_risk"],
+                ),
+                "NEGOTIATION": _default_pref(
+                    primary_families=["scope", "communication"],
+                    secondary_families=["evidence"],
+                    state_priority_keys=["risk", "trust", "alignment"],
+                    avoid_families=["ownership"],
+                ),
+            },
+            "actor_2": {
+                "default": _default_pref(
+                    primary_families=["evidence", "scope"],
+                    secondary_families=["communication"],
+                    state_priority_keys=["spillover_risk", "uncertainty", "risk"],
+                ),
+            },
+            "actor_3": {
+                "default": _default_pref(
+                    primary_families=["ownership", "communication"],
+                    secondary_families=["evidence"],
+                    state_priority_keys=["execution_confidence", "admin_feasibility", "alignment"],
+                ),
+            },
+        }
+    if simulation_id == "housing_support_policy":
+        return {
+            "actor_1": {
+                "default": _default_pref(
+                    primary_families=["communication", "evidence"],
+                    secondary_families=["scope"],
+                    state_priority_keys=["trust", "uncertainty", "alignment"],
+                ),
+            },
+            "actor_2": {
+                "default": _default_pref(
+                    primary_families=["governance", "evidence"],
+                    secondary_families=["timing"],
+                    state_priority_keys=["risk", "spillover_risk", "trust"],
+                    avoid_families=["ownership"],
+                ),
+                "NEGOTIATION": _default_pref(
+                    primary_families=["evidence", "governance"],
+                    secondary_families=["timing"],
+                    state_priority_keys=["risk", "spillover_risk", "trust"],
+                    avoid_families=["ownership", "resourcing"],
+                ),
+            },
+            "actor_3": {
+                "default": _default_pref(
+                    primary_families=["ownership", "communication"],
+                    secondary_families=["evidence"],
+                    state_priority_keys=["execution_confidence", "admin_feasibility", "alignment"],
+                ),
+            },
+        }
+    if simulation_id == "commuting_support_policy":
+        return {
+            "actor_1": {
+                "default": _default_pref(
+                    primary_families=["evidence", "communication"],
+                    secondary_families=["scope"],
+                    state_priority_keys=["trust", "uncertainty", "risk"],
+                    avoid_families=["ownership"],
+                ),
+            },
+            "actor_2": {
+                "default": _default_pref(
+                    primary_families=["evidence", "scope"],
+                    secondary_families=["communication"],
+                    state_priority_keys=["risk", "uncertainty", "alignment"],
+                ),
+            },
+            "actor_3": {
+                "default": _default_pref(
+                    primary_families=["ownership", "communication"],
+                    secondary_families=["evidence"],
+                    state_priority_keys=["execution_confidence", "alignment", "trust"],
+                ),
+            },
+        }
+    if simulation_id == "new_product_launch":
+        return {
+            "actor_1": {
+                "default": _default_pref(
+                    primary_families=["ownership", "resourcing"],
+                    secondary_families=["scope", "communication"],
+                    state_priority_keys=["launch_readiness", "execution_confidence", "alignment"],
+                ),
+                "NEGOTIATION": _default_pref(
+                    primary_families=["ownership", "resourcing"],
+                    secondary_families=["scope"],
+                    state_priority_keys=["execution_confidence", "launch_readiness", "alignment"],
+                    avoid_families=["evidence"],
+                ),
+            },
+            "actor_2": {
+                "default": _default_pref(
+                    primary_families=["communication", "scope"],
+                    secondary_families=["resourcing"],
+                    state_priority_keys=["message_alignment", "trust", "launch_readiness"],
+                ),
+                "NEGOTIATION": _default_pref(
+                    primary_families=["communication", "scope"],
+                    secondary_families=["timing"],
+                    state_priority_keys=["message_alignment", "trust", "alignment"],
+                    avoid_families=["evidence"],
+                ),
+            },
+            "actor_3": {
+                "default": _default_pref(
+                    primary_families=["evidence", "scope"],
+                    secondary_families=["timing"],
+                    state_priority_keys=["risk", "incident_risk", "uncertainty"],
+                ),
+                "NEGOTIATION": _default_pref(
+                    primary_families=["evidence", "scope"],
+                    secondary_families=["timing"],
+                    state_priority_keys=["risk", "incident_risk", "uncertainty"],
+                    avoid_families=["communication", "ownership"],
+                ),
+            },
+        }
+    if simulation_id == "post_merger_integration":
+        return {
+            "actor_1": {
+                "default": _default_pref(
+                    primary_families=["ownership", "communication"],
+                    secondary_families=["resourcing"],
+                    state_priority_keys=["integration_clarity", "execution_confidence", "alignment"],
+                ),
+            },
+            "actor_2": {
+                "default": _default_pref(
+                    primary_families=["governance", "communication"],
+                    secondary_families=["timing"],
+                    state_priority_keys=["autonomy_confidence", "trust", "retention_risk"],
+                    avoid_families=["ownership"],
+                ),
+                "NEGOTIATION": _default_pref(
+                    primary_families=["governance", "communication"],
+                    secondary_families=["timing"],
+                    state_priority_keys=["autonomy_confidence", "trust", "retention_risk"],
+                    avoid_families=["ownership", "resourcing"],
+                ),
+            },
+            "actor_3": {
+                "default": _default_pref(
+                    primary_families=["communication", "ownership"],
+                    secondary_families=["evidence"],
+                    state_priority_keys=["trust", "retention_risk", "integration_clarity"],
+                ),
+            },
+        }
+    return {}
+
+
 def _augment_with_action_layer_spec(item: dict[str, object]) -> dict[str, object]:
     payload = copy.deepcopy(item)
     simulation_id = str(payload["simulation_id"])
@@ -624,6 +876,11 @@ def _augment_with_action_layer_spec(item: dict[str, object]) -> dict[str, object
         payload.update(_pmi_action_spec())
     else:
         raise ValueError(f"Unknown MVP script id for action-layer augmentation: {simulation_id}")
+    payload["metadata"] = {
+        **dict(payload.get("metadata", {})),
+        "phase_action_policies": _phase_action_policies(simulation_id),
+        "actor_action_preferences": _actor_action_preferences(simulation_id),
+    }
     return payload
 
 
