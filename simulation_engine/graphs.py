@@ -9,6 +9,7 @@ from langgraph.graph import END, START, StateGraph
 from .ablation import DEFAULT_ABLATION_CONFIG
 from .action_layer import (
     apply_transition_rule,
+    action_family,
     action_plan_alignment_score,
     arbitrate_phase_actions,
     compile_action_proposal,
@@ -153,6 +154,7 @@ class StakeholderSimulationNodes:
             phase_cues=phase.cues,
             allowed_action_types=list(runtime.script.allowed_action_types_for_phase(phase.name)),
             valid_target_keys=list(runtime.script.target_keys_for_phase(phase.name)),
+            actor_action_preferences=runtime.script.actor_action_preferences(state["active_actor_id"], phase.name),
         )
         planned_action_artifact = normalize_planned_action_artifact(
             script=runtime.script,
@@ -210,8 +212,22 @@ class StakeholderSimulationNodes:
             "valid_target_keys": list(runtime.script.target_keys_for_phase(phase.name)),
             "allowed_action_types": list(runtime.script.allowed_action_types_for_phase(phase.name)),
             "global_state": dict(runtime.ledger.latest_world_state().global_state),
+            "local_state": dict(state["actor_context"]["snapshot"].get("local_state", {})),
+            "phase_action_policy": runtime.script.phase_action_policy(phase.name),
+            "actor_action_preferences": runtime.script.actor_action_preferences(state["active_actor_id"], phase.name),
+            "phase_action_family_counts": runtime.ledger.phase_action_family_counts(
+                phase.name,
+                exclude_actor_id=state["active_actor_id"],
+            ),
+            "phase_actor_action_families": runtime.ledger.phase_actor_action_families(
+                phase.name,
+                exclude_actor_id=state["active_actor_id"],
+            ),
             "turn_index": runtime.turn_index + 1,
-            "use_action_aware_scoring": bool(state["ablation_config"].use_action_aware_scoring),
+            "use_action_aware_scoring": bool(
+                state["ablation_config"].use_action_aware_scoring
+                and runtime.script.phase_action_policy(phase.name).get("action_mode", "execute") == "execute"
+            ),
         }
         scored = controller.score_candidate_pool(
             candidate_pool=state["candidate_pool"],
@@ -296,6 +312,15 @@ class StakeholderSimulationNodes:
             actor_snapshot=state["actor_context"]["snapshot"],
             planned_action_artifact=state.get("planned_action_artifact"),
             seed_action_hint=state.get("selected_meta", {}).get("action_hint"),
+            actor_action_preferences=runtime.script.actor_action_preferences(
+                state["active_actor_id"],
+                runtime.current_phase.name,
+            ),
+            phase_action_policy=runtime.script.phase_action_policy(runtime.current_phase.name),
+            phase_action_family_counts=runtime.ledger.phase_action_family_counts(
+                runtime.current_phase.name,
+                exclude_actor_id=state["active_actor_id"],
+            ),
         )
         trace_id = f"{runtime.script.simulation_id}:{state['active_actor_id']}:{runtime.current_phase.name}:{state['last_turn_index']}"
         selected_action_hint = state.get("selected_meta", {}).get("action_hint")
@@ -320,6 +345,13 @@ class StakeholderSimulationNodes:
             "validation_trace": list(proposal.validation_trace) if proposal else [],
             "action_plan_alignment": alignment_score,
             "action_plan_alignment_details": alignment_details,
+            "planned_action_family": action_family((planned_action_artifact or {}).get("action_type")),
+            "selected_action_family": action_family((selected_action_hint or {}).get("action_type")),
+            "compiled_action_family": action_family((compiled_payload or {}).get("action_type")),
+            "phase_action_family_counts_before_compile": runtime.ledger.phase_action_family_counts(
+                runtime.current_phase.name,
+                exclude_actor_id=state["active_actor_id"],
+            ),
             "selected_text_excerpt": state["selected_candidate_text"][:180],
         }
         return {
@@ -342,14 +374,19 @@ class StakeholderSimulationNodes:
             return {"selected_action_proposal": None, "selected_action_audit": audit}
         from .action_layer import ActionProposal
 
-        runtime.ledger.append_action_proposal(ActionProposal(**payload))
+        if runtime.script.phase_action_policy(runtime.current_phase.name).get("action_mode", "execute") == "execute":
+            runtime.ledger.append_action_proposal(ActionProposal(**payload))
         return {"selected_action_proposal": payload, "selected_action_audit": audit}
 
     def route_phase_boundary(self, state: StakeholderGraphState) -> str:
         runtime = state["runtime"]
         phase_turn_index = state.get("phase_turn_index", 0) + 1
         boundary = phase_turn_index >= runtime.current_phase.max_turns
-        if boundary and state["ablation_config"].use_action_layer:
+        if (
+            boundary
+            and state["ablation_config"].use_action_layer
+            and runtime.script.phase_action_policy(runtime.current_phase.name).get("action_mode", "execute") == "execute"
+        ):
             return "arbiter_phase_actions"
         return "advance_simulation"
 

@@ -1,0 +1,162 @@
+{
+  "saved_at": "2026-03-08T09:36:01.482846",
+  "config": {
+    "conditions": [
+      "naive_action_baseline",
+      "engine_dialogue_only"
+    ],
+    "repetitions": 3,
+    "script_ids": [
+      "youth_employment_policy",
+      "housing_support_policy",
+      "commuting_support_policy",
+      "new_product_launch",
+      "post_merger_integration"
+    ],
+    "style_slots": [
+      "integrator",
+      "planner",
+      "challenger",
+      "skeptic"
+    ]
+  },
+  "aggregate": {
+    "naive_action_baseline": {
+      "num_runs": 6,
+      "persona_drift_mae_mean": 0.1996,
+      "persona_drift_mae_std": 0.0135,
+      "relationship_inconsistency_mean": 0.075,
+      "commitment_contradiction_mean": 0.075,
+      "envelope_violations_mean": 7.5,
+      "structured_action_validity_rate_mean": 0.7778,
+      "owner_resolution_rate_mean": 0.8333,
+      "executed_action_contradiction_rate_mean": 0.0,
+      "state_transition_coherence_mean": 0.8333,
+      "action_feedback_utilization_mean": 0.3333,
+      "action_plan_alignment_mean": 0.0,
+      "planned_action_coverage_rate_mean": 0.0,
+      "action_family_convergence_rate_mean": 0.25,
+      "role_action_diversity_score_mean": 0.9444,
+      "negotiation_uniqueness_rate_mean": 0.6667,
+      "state_trajectory_variance_mean": 0.0,
+      "per_trait_error_mean": {
+        "O": 0.0922,
+        "C": 0.4083,
+        "E": 0.1759,
+        "A": 0.09,
+        "N": 0.2317
+      },
+      "turn_count_mean": 11
+    },
+    "engine_dialogue_only": {
+      "num_runs": 3,
+      "persona_drift_mae_mean": 0.1764,
+      "persona_drift_mae_std": 0.0145,
+      "relationship_inconsistency_mean": 0.0,
+      "commitment_contradiction_mean": 0.0,
+      "envelope_violations_mean": 7.3333,
+      "structured_action_validity_rate_mean": 1.0,
+      "owner_resolution_rate_mean": 1.0,
+      "executed_action_contradiction_rate_mean": 0.0,
+      "state_transition_coherence_mean": 1.0,
+      "action_feedback_utilization_mean": 0.6667,
+      "action_plan_alignment_mean": 0.9636,
+      "planned_action_coverage_rate_mean": 1.0,
+      "action_family_convergence_rate_mean": 1.0,
+      "role_action_diversity_score_mean": 0.375,
+      "negotiation_uniqueness_rate_mean": 0.3333,
+      "state_trajectory_variance_mean": 0.0,
+      "per_trait_error_mean": {
+        "O": 0.1,
+        "C": 0.2889,
+        "E": 0.1819,
+        "A": 0.0567,
+        "N": 0.2544
+      },
+      "turn_count_mean": 11
+    }
+  },
+  "aggregate_by_script": {
+    "youth_employment_policy:naive_action_baseline": {
+      "num_runs": 3,
+      "persona_drift_mae_mean": 0.1887,
+      "persona_drift_mae_std": 0.0064,
+      "relationship_inconsistency_mean": 0.0,
+      "commitment_contradiction_mean": 0.15,
+      "envelope_violations_mean": 7.6667,
+      "structured_action_validity_rate_mean": 0.8889,
+      "owner_resolution_rate_mean": 1.0,
+      "executed_action_contradiction_rate_mean": 0.0,
+      "state_transition_coherence_mean": 1.0,
+      "action_feedback_utilization_mean": 0.3333,
+      "action_plan_alignment_mean": 0.0,
+      "planned_action_coverage_rate_mean": 0.0,
+      "action_family_convergence_rate_mean": 0.1667,
+      "role_action_diversity_score_mean": 0.9444,
+      "negotiation_uniqueness_rate_mean": 0.3333,
+      "state_trajectory_variance_mean": 0.0008,
+      "per_trait_error_mean": {
+        "O": 0.0978,
+        "C": 0.3533,
+        "E": 0.1766,
+        "A": 0.07,
+        "N": 0.2456
+      },
+      "turn_count_mean": 11
+    },
+    "youth_employment_policy:engine_dialogue_only": {
+      "num_runs": 3,
+      "persona_drift_mae_mean": 0.1764,
+      "persona_drift_mae_std": 0.0145,
+      "relationship_inconsistency_mean": 0.0,
+      "commitment_contradiction_mean": 0.0,
+      "envelope_violations_mean": 7.3333,
+      "structured_action_validity_rate_mean": 1.0,
+      "owner_resolution_rate_mean": 1.0,
+      "executed_action_contradiction_rate_mean": 0.0,
+      "state_transition_coherence_mean": 1.0,
+      "action_feedback_utilization_mean": 0.6667,
+      "action_plan_alignment_mean": 0.9636,
+      "planned_action_coverage_rate_mean": 1.0,
+      "action_family_convergence_rate_mean": 1.0,
+      "role_action_diversity_score_mean": 0.375,
+      "negotiation_uniqueness_rate_mean": 0.3333,
+      "state_trajectory_variance_mean": 0.0,
+      "per_trait_error_mean": {
+        "O": 0.1,
+        "C": 0.2889,
+        "E": 0.1819,
+        "A": 0.0567,
+        "N": 0.2544
+      },
+      "turn_count_mean": 11
+    },
+    "housing_support_policy:naive_action_baseline": {
+      "num_runs": 3,
+      "persona_drift_mae_mean": 0.2106,
+      "persona_drift_mae_std": 0.009,
+      "relationship_inconsistency_mean": 0.15,
+      "commitment_contradiction_mean": 0.0,
+      "envelope_violations_mean": 7.3333,
+      "structured_action_validity_rate_mean": 0.6667,
+      "owner_resolution_rate_mean": 0.6667,
+      "executed_action_contradiction_rate_mean": 0.0,
+      "state_transition_coherence_mean": 0.6667,
+      "action_feedback_utilization_mean": 0.3333,
+      "action_plan_alignment_mean": 0.0,
+      "planned_action_coverage_rate_mean": 0.0,
+      "action_family_convergence_rate_mean": 0.3333,
+      "role_action_diversity_score_mean": 0.9444,
+      "negotiation_uniqueness_rate_mean": 1.0,
+      "state_trajectory_variance_mean": 0.0,
+      "per_trait_error_mean": {
+        "O": 0.0867,
+        "C": 0.4633,
+        "E": 0.1752,
+        "A": 0.11,
+        "N": 0.2178
+      },
+      "turn_count_mean": 11
+    }
+  }
+}

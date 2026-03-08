@@ -635,6 +635,7 @@ async def run_simulation_benchmark(
         conditions=conditions,
         repetitions=repetitions,
         script_ids=script_ids,
+        checkpoint_dir=output_dir,
     )
     output_paths = save_benchmark_outputs(results, output_dir)
     return {

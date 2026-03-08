@@ -76,6 +76,10 @@ def build_benchmark_report(results: dict[str, Any]) -> str:
         controlled = aggregate.get("engine_action_v0")
     if naive and controlled:
         lines.extend(_format_delta_block(naive, controlled))
+    dialogue_only = aggregate.get("engine_dialogue_only")
+    engine_action = aggregate.get("engine_action_v0")
+    if dialogue_only and engine_action:
+        lines.extend(_format_delta_block(dialogue_only, engine_action, title="## Action Engine vs Dialogue-Only"))
 
     lines.extend([
         "",
@@ -113,13 +117,16 @@ def _format_summary_block(label: str, summary: dict[str, Any]) -> list[str]:
         f"- Action feedback utilization: {summary.get('action_feedback_utilization_mean', 0.0):.4f}",
         f"- Action-plan alignment: {summary.get('action_plan_alignment_mean', 0.0):.4f}",
         f"- Planned action coverage: {summary.get('planned_action_coverage_rate_mean', 0.0):.4f}",
+        f"- Action family convergence: {summary.get('action_family_convergence_rate_mean', 0.0):.4f}",
+        f"- Role action diversity: {summary.get('role_action_diversity_score_mean', 0.0):.4f}",
+        f"- Negotiation uniqueness: {summary.get('negotiation_uniqueness_rate_mean', 0.0):.4f}",
         f"- State trajectory variance: {summary.get('state_trajectory_variance_mean', 0.0):.4f}",
         f"- Mean turns: {summary.get('turn_count_mean', 0.0):.2f}",
         "",
     ]
 
 
-def _format_delta_block(naive: dict[str, Any], controlled: dict[str, Any]) -> list[str]:
+def _format_delta_block(naive: dict[str, Any], controlled: dict[str, Any], title: str = "## Controlled Engine vs Baseline") -> list[str]:
     drift_delta = round(
         controlled.get("persona_drift_mae_mean", 0.0) - naive.get("persona_drift_mae_mean", 0.0),
         4,
@@ -144,6 +151,18 @@ def _format_delta_block(naive: dict[str, Any], controlled: dict[str, Any]) -> li
         controlled.get("action_plan_alignment_mean", 0.0) - naive.get("action_plan_alignment_mean", 0.0),
         4,
     )
+    action_family_convergence_delta = round(
+        controlled.get("action_family_convergence_rate_mean", 0.0) - naive.get("action_family_convergence_rate_mean", 0.0),
+        4,
+    )
+    role_action_diversity_delta = round(
+        controlled.get("role_action_diversity_score_mean", 0.0) - naive.get("role_action_diversity_score_mean", 0.0),
+        4,
+    )
+    negotiation_uniqueness_delta = round(
+        controlled.get("negotiation_uniqueness_rate_mean", 0.0) - naive.get("negotiation_uniqueness_rate_mean", 0.0),
+        4,
+    )
     trajectory_delta = round(
         controlled.get("state_trajectory_variance_mean", 0.0) - naive.get("state_trajectory_variance_mean", 0.0),
         4,
@@ -157,7 +176,7 @@ def _format_delta_block(naive: dict[str, Any], controlled: dict[str, Any]) -> li
 
     return [
         "",
-        "## Controlled Engine vs Baseline",
+        title,
         f"- Persona drift delta (`controlled - baseline`): {drift_delta:+.4f}",
         f"- Per-trait error delta: {trait_delta_line}",
         f"- Relationship inconsistency delta: {relation_delta:+.4f}",
@@ -165,5 +184,8 @@ def _format_delta_block(naive: dict[str, Any], controlled: dict[str, Any]) -> li
         f"- Structured action validity delta: {action_validity_delta:+.4f}",
         f"- Executed action contradiction delta: {action_contradiction_delta:+.4f}",
         f"- Action-plan alignment delta: {action_plan_alignment_delta:+.4f}",
+        f"- Action family convergence delta: {action_family_convergence_delta:+.4f}",
+        f"- Role action diversity delta: {role_action_diversity_delta:+.4f}",
+        f"- Negotiation uniqueness delta: {negotiation_uniqueness_delta:+.4f}",
         f"- State trajectory variance delta: {trajectory_delta:+.4f}",
     ]

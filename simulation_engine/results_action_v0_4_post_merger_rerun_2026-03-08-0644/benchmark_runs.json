@@ -1,0 +1,1254 @@
+{
+  "config": {
+    "conditions": [
+      "naive_action_baseline",
+      "engine_dialogue_only",
+      "engine_action_v0"
+    ],
+    "repetitions": 3,
+    "script_ids": [
+      "post_merger_integration"
+    ],
+    "style_slots": [
+      "integrator",
+      "planner",
+      "challenger",
+      "skeptic"
+    ]
+  },
+  "runs": [
+    {
+      "condition": "naive_action_baseline",
+      "simulation_id": "post_merger_integration",
+      "runtime_summary": {
+        "simulation_id": "post_merger_integration",
+        "title": "Post-Merger Integration Pressure Test",
+        "objective": "Stress-test trust, retention, and integration decisions after an acquisition announcement.",
+        "phase_name": "CLOSING",
+        "turn_count": 11,
+        "actor_ids": [
+          "actor_1",
+          "actor_2",
+          "actor_3"
+        ],
+        "actor_labels": {
+          "actor_1": "Acquirer strategy lead",
+          "actor_2": "Acquired company founder",
+          "actor_3": "People and integration lead"
+        },
+        "actor_display_names": {
+          "actor_1": "Arjun",
+          "actor_2": "Soojin",
+          "actor_3": "Elena"
+        },
+        "action_proposal_count": 4,
+        "executed_action_count": 2,
+        "phase_count": 4,
+        "latest_world_state": {
+          "alignment": 0.47,
+          "trust": 0.55,
+          "uncertainty": 0.58,
+          "execution_confidence": 0.5,
+          "risk": 0.55,
+          "retention_risk": 0.51,
+          "autonomy_confidence": 0.56,
+          "integration_clarity": 0.52
+        },
+        "action_status_counts": {
+          "rejected": 2,
+          "executed": 2
+        },
+        "action_rejection_reason_counts": {
+          "invalid_action_type": 2
+        },
+        "action_proposals": [
+          {
+            "proposal_id": "post_merger_integration:actor_1:OPENING:1",
+            "actor_id": "actor_1",
+            "phase_name": "OPENING",
+            "turn_index": 1,
+            "action_type": null,
+            "target_key": "integration_clarity",
+            "target_actor_id": null,
+            "owner_actor_id": null,
+            "deadline_phase": null,
+            "strength": "medium",
+            "confidence": 0.63,
+            "evidence_text": "Let's focus first on clarifying our integration priorities\u2014are we optimizing for speed to capture synergies, or preserving autonomy to retain key talent? That d",
+            "commitment_id": null,
+            "status": "rejected",
+            "rejection_reason": "invalid_action_type",
+            "action_bearing": true,
+            "compiler_source": "heuristic",
+            "raw_payload": {
+              "policy_action_intent": null,
+              "policy_target_state_key": null,
+              "planned_action_artifact": {}
+            },
+            "validation_trace": []
+          },
+          {
+            "proposal_id": "post_merger_integration:actor_2:OPENING:2",
+            "actor_id": "actor_2",
+            "phase_name": "OPENING",
+            "turn_index": 2,
+            "action_type": null,
+            "target_key": "trust",
+            "target_actor_id": null,
+            "owner_actor_id": null,
+            "deadline_phase": null,
+            "strength": "medium",
+            "confidence": 0.45,
+            "evidence_text": "Speed matters, but not at the cost of losing our best people. The product team needs enough autonomy to keep innovating\u2014that's why they joined us in the first p",
+            "commitment_id": null,
+            "status": "rejected",
+            "rejection_reason": "invalid_action_type",
+            "action_bearing": true,
+            "compiler_source": "heuristic",
+            "raw_payload": {
+              "policy_action_intent": null,
+              "policy_target_state_key": null,
+              "planned_action_artifact": {}
+            },
+            "validation_trace": []
+          },
+          {
+            "proposal_id": "post_merger_integration:actor_1:TENSION:4",
+            "actor_id": "actor_1",
+            "phase_name": "TENSION",
+            "turn_index": 4,
+            "action_type": "preserve_autonomy",
+            "target_key": "retention_risk",
+            "target_actor_id": "actor_2",
+            "owner_actor_id": null,
+            "deadline_phase": null,
+            "strength": "medium",
+            "confidence": 0.45,
+            "evidence_text": "Elena, retention metrics alone won't drive synergies\u2014we need hard deadlines for system consolidation. Soojin, if we preserve too much autonomy, we'll miss our b",
+            "commitment_id": null,
+            "status": "executed",
+            "rejection_reason": null,
+            "action_bearing": true,
+            "compiler_source": "heuristic",
+            "raw_payload": {
+              "policy_action_intent": null,
+              "policy_target_state_key": null,
+              "planned_action_artifact": {}
+            },
+            "validation_trace": []
+          },
+          {
+            "proposal_id": "post_merger_integration:actor_3:NEGOTIATION:9",
+            "actor_id": "actor_3",
+            "phase_name": "NEGOTIATION",
+            "turn_index": 9,
+            "action_type": "assign_owner",
+            "target_key": "trust",
+            "target_actor_id": null,
+            "owner_actor_id": "actor_3",
+            "deadline_phase": null,
+            "strength": "medium",
+            "confidence": 0.33,
+            "evidence_text": "Adding structured transition phases makes sense\u2014we could assign local integration leads from both companies to oversee knowledge transfer while maintaining clea",
+            "commitment_id": null,
+            "status": "executed",
+            "rejection_reason": null,
+            "action_bearing": true,
+            "compiler_source": "heuristic",
+            "raw_payload": {
+              "policy_action_intent": null,
+              "policy_target_state_key": null,
+              "planned_action_artifact": {}
+            },
+            "validation_trace": []
+          }
+        ],
+        "executed_actions": [
+          {
+            "proposal_id": "post_merger_integration:actor_1:TENSION:4",
+            "action_type": "preserve_autonomy",
+            "phase_name": "TENSION",
+            "owner_actor_id": "actor_1",
+            "target_key": "retention_risk",
+            "applied_delta": {
+              "trust": 0.08,
+              "autonomy_confidence": 0.12,
+              "retention_risk": -0.08
+            },
+            "pre_state": {
+              "global_state": {
+                "alignment": 0.43,
+                "trust": 0.47,
+                "uncertainty": 0.58,
+                "execution_confidence": 0.42,
+                "risk": 0.55,
+                "retention_risk": 0.59,
+                "autonomy_confidence": 0.44,
+                "integration_clarity": 0.4
+              },
+              "local_state_by_actor": {
+                "actor_1": {
+                  "trust": 0.5,
+                  "execution_confidence": 0.5,
+                  "alignment": 0.5,
+                  "risk": 0.5,
+                  "uncertainty": 0.5
+                },
+                "actor_2": {
+                  "trust": 0.5,
+                  "execution_confidence": 0.5,
+                  "alignment": 0.5,
+                  "risk": 0.5,
+                  "uncertainty": 0.5
+                },
+                "actor_3": {
+                  "trust": 0.5,
+                  "execution_confidence": 0.5,
+                  "alignment": 0.5,
+                  "risk": 0.5,
+                  "uncertainty": 0.5
+                }
+              }
+            },
+            "post_state": {
+              "global_state": {
+                "alignment": 0.43,
+                "trust": 0.55,
+                "uncertainty": 0.58,
+                "execution_confidence": 0.42,
+                "risk": 0.55,
+                "retention_risk": 0.51,
+                "autonomy_confidence": 0.56,
+                "integration_clarity": 0.4
+              },
+              "local_state_by_actor": {
+                "actor_1": {
+                  "trust": 0.58,
+                  "execution_confidence": 0.5,
+                  "alignment": 0.5,
+                  "risk": 0.5,
+                  "uncertainty": 0.5
+                },
+                "actor_2": {
+                  "trust": 0.54,
+                  "execution_confidence": 0.5,
+                  "alignment": 0.5,
+                  "risk": 0.5,
+                  "uncertainty": 0.5
+                },
+                "actor_3": {
+                  "trust": 0.5,
+                  "execution_confidence": 0.5,
+                  "alignment": 0.5,
+                  "risk": 0.5,
+                  "uncertainty": 0.5
+                }
+              }
+            },
+            "target_actor_id": "actor_2",
+            "coherence_score": 1.0,
+            "contradiction_flag": false
+          },
+          {
+            "proposal_id": "post_merger_integration:actor_3:NEGOTIATION:9",
+            "action_type": "assign_owner",
+            "phase_name": "NEGOTIATION",
+            "owner_actor_id": "actor_3",
+            "target_key": "trust",
+            "applied_delta": {
+              "integration_clarity": 0.12,
+              "execution_confidence": 0.08,
+              "alignment": 0.04
+            },
+            "pre_state": {
+              "global_state": {
+                "alignment": 0.43,
+                "trust": 0.55,
+                "uncertainty": 0.58,
+                "execution_confidence": 0.42,
+                "risk": 0.55,
+                "retention_risk": 0.51,
+                "autonomy_confidence": 0.56,
+                "integration_clarity": 0.4
+              },
+              "local_state_by_actor": {
+                "actor_1": {
+                  "trust": 0.58,
+                  "execution_confidence": 0.5,
+                  "alignment": 0.5,
+                  "risk": 0.5,
+                  "uncertainty": 0.5
+                },
+                "actor_2": {
+                  "trust": 0.54,
+                  "execution_confidence": 0.5,
+                  "alignment": 0.5,
+                  "risk": 0.5,
+                  "uncertainty": 0.5
+                },
+                "actor_3": {
+                  "trust": 0.5,
+                  "execution_confidence": 0.5,
+                  "alignment": 0.5,
+                  "risk": 0.5,
+                  "uncertainty": 0.5
+                }
+              }
+            },
+            "post_state": {
+              "global_state": {
+                "alignment": 0.47,
+                "trust": 0.55,
+                "uncertainty": 0.58,
+                "execution_confidence": 0.5,
+                "risk": 0.55,
+                "retention_risk": 0.51,
+                "autonomy_confidence": 0.56,
+                "integration_clarity": 0.52
+              },
+              "local_state_by_actor": {
+                "actor_1": {
+                  "trust": 0.58,
+                  "execution_confidence": 0.5,
+                  "alignment": 0.5,
+                  "risk": 0.5,
+                  "uncertainty": 0.5
+                },
+                "actor_2": {
+                  "trust": 0.54,
+                  "execution_confidence": 0.5,
+                  "alignment": 0.5,
+                  "risk": 0.5,
+                  "uncertainty": 0.5
+                },
+                "actor_3": {
+                  "trust": 0.5,
+                  "execution_confidence": 0.58,
+                  "alignment": 0.5,
+                  "risk": 0.5,
+                  "uncertainty": 0.5
+                }
+              }
+            },
+            "target_actor_id": null,
+            "coherence_score": 1.0,
+            "contradiction_flag": false
+          }
+        ],
+        "action_audits": [
+          {
+            "trace_id": "post_merger_integration:actor_1:OPENING:1",
+            "proposal_id": "post_merger_integration:actor_1:OPENING:1",
+            "actor_id": "actor_1",
+            "phase_name": "OPENING",
+            "turn_index": 1,
+            "planned_action_artifact": null,
+            "selected_action_hint": null,
+            "compiled_proposal": {
+              "proposal_id": "post_merger_integration:actor_1:OPENING:1",
+              "actor_id": "actor_1",
+              "phase_name": "OPENING",
+              "turn_index": 1,
+              "action_type": null,
+              "target_key": "integration_clarity",
+              "target_actor_id": null,
+              "owner_actor_id": null,
+              "deadline_phase": null,
+              "strength": "medium",
+              "confidence": 0.63,
+              "evidence_text": "Let's focus first on clarifying our integration priorities\u2014are we optimizing for speed to capture synergies, or preserving autonomy to retain key talent? That d",
+              "commitment_id": null,
+              "status": "rejected",
+              "rejection_reason": "invalid_action_type",
+              "action_bearing": true,
+              "compiler_source": "heuristic",
+              "raw_payload": {
+                "policy_action_intent": null,
+                "policy_target_state_key": null,
+                "planned_action_artifact": {}
+              },
+              "validation_trace": []
+            },
+            "compiler_source": "heuristic",
+            "compile_status": "rejected",
+            "compile_rejection_reason": "invalid_action_type",
+            "validation_trace": [],
+            "action_plan_alignment": 0.5,
+            "action_plan_alignment_details": {
+              "available": false,
+              "reason": "no_planned_action"
+            },
+            "planned_action_family": "none",
+            "selected_action_family": "none",
+            "compiled_action_family": "none",
+            "phase_action_family_counts_before_compile": {},
+            "selected_text_excerpt": "Let's focus first on clarifying our integration priorities\u2014are we optimizing for speed to capture synergies, or preserving autonomy to retain key talent? That decision will shape h"
+          },
+          {
+            "trace_id": "post_merger_integration:actor_2:OPENING:2",
+            "proposal_id": "post_merger_integration:actor_2:OPENING:2",
+            "actor_id": "actor_2",
+            "phase_name": "OPENING",
+            "turn_index": 2,
+            "planned_action_artifact": null,
+            "selected_action_hint": null,
+            "compiled_proposal": {
+              "proposal_id": "post_merger_integration:actor_2:OPENING:2",
+              "actor_id": "actor_2",
+              "phase_name": "OPENING",
+              "turn_index": 2,
+              "action_type": null,
+              "target_key": "trust",
+              "target_actor_id": null,
+              "owner_actor_id": null,
+              "deadline_phase": null,
+              "strength": "medium",
+              "confidence": 0.45,
+              "evidence_text": "Speed matters, but not at the cost of losing our best people. The product team needs enough autonomy to keep innovating\u2014that's why they joined us in the first p",
+              "commitment_id": null,
+              "status": "rejected",
+              "rejection_reason": "invalid_action_type",
+              "action_bearing": true,
+              "compiler_source": "heuristic",
+              "raw_payload": {
+                "policy_action_intent": null,
+                "policy_target_state_key": null,
+                "planned_action_artifact": {}
+              },
+              "validation_trace": []
+            },
+            "compiler_source": "heuristic",
+            "compile_status": "rejected",
+            "compile_rejection_reason": "invalid_action_type",
+            "validation_trace": [],
+            "action_plan_alignment": 0.5,
+            "action_plan_alignment_details": {
+              "available": false,
+              "reason": "no_planned_action"
+            },
+            "planned_action_family": "none",
+            "selected_action_family": "none",
+            "compiled_action_family": "none",
+            "phase_action_family_counts_before_compile": {},
+            "selected_text_excerpt": "Speed matters, but not at the cost of losing our best people. The product team needs enough autonomy to keep innovating\u2014that's why they joined us in the first place. Push too hard "
+          },
+          {
+            "trace_id": "post_merger_integration:actor_3:OPENING:3",
+            "proposal_id": "post_merger_integration:actor_3:OPENING:3",
+            "actor_id": "actor_3",
+            "phase_name": "OPENING",
+            "turn_index": 3,
+            "planned_action_artifact": null,
+            "selected_action_hint": null,
+            "compiled_proposal": null,
+            "compiler_source": "none",
+            "compile_status": "no_action",
+            "compile_rejection_reason": "no_action_detected",
+            "validation_trace": [],
+            "action_plan_alignment": 0.5,
+            "action_plan_alignment_details": {
+              "available": false,
+              "reason": "no_planned_action"
+            },
+            "planned_action_family": "none",
+            "selected_action_family": "none",
+            "compiled_action_family": "none",
+            "phase_action_family_counts_before_compile": {},
+            "selected_text_excerpt": "We should establish clear retention metrics alongside integration timelines\u2014that way we're measuring both speed and stability. The operating model needs to specify which decisions "
+          },
+          {
+            "trace_id": "post_merger_integration:actor_1:TENSION:4",
+            "proposal_id": "post_merger_integration:actor_1:TENSION:4",
+            "actor_id": "actor_1",
+            "phase_name": "TENSION",
+            "turn_index": 4,
+            "planned_action_artifact": null,
+            "selected_action_hint": null,
+            "compiled_proposal": {
+              "proposal_id": "post_merger_integration:actor_1:TENSION:4",
+              "actor_id": "actor_1",
+              "phase_name": "TENSION",
+              "turn_index": 4,
+              "action_type": "preserve_autonomy",
+              "target_key": "retention_risk",
+              "target_actor_id": "actor_2",
+              "owner_actor_id": null,
+              "deadline_phase": null,
+              "strength": "medium",
+              "confidence": 0.45,
+              "evidence_text": "Elena, retention metrics alone won't drive synergies\u2014we need hard deadlines for system consolidation. Soojin, if we preserve too much autonomy, we'll miss our b",
+              "commitment_id": null,
+              "status": "proposed",
+              "rejection_reason": null,
+              "action_bearing": true,
+              "compiler_source": "heuristic",
+              "raw_payload": {
+                "policy_action_intent": null,
+                "policy_target_state_key": null,
+                "planned_action_artifact": {}
+              },
+              "validation_trace": []
+            },
+            "compiler_source": "heuristic",
+            "compile_status": "proposed",
+            "compile_rejection_reason": null,
+            "validation_trace": [],
+            "action_plan_alignment": 0.5,
+            "action_plan_alignment_details": {
+              "available": false,
+              "reason": "no_planned_action"
+            },
+            "planned_action_family": "none",
+            "selected_action_family": "none",
+            "compiled_action_family": "governance",
+            "phase_action_family_counts_before_compile": {},
+            "selected_text_excerpt": "Elena, retention metrics alone won't drive synergies\u2014we need hard deadlines for system consolidation. Soojin, if we preserve too much autonomy, we'll miss our board-mandated effici",
+            "arbitration_status": "approved",
+            "arbitration_reason": null,
+            "execution_status": "executed",
+            "execution_rejection_reason": null,
+            "executed_action": {
+              "proposal_id": "post_merger_integration:actor_1:TENSION:4",
+              "action_type": "preserve_autonomy",
+              "phase_name": "TENSION",
+              "owner_actor_id": "actor_1",
+              "target_key": "retention_risk",
+              "applied_delta": {
+                "trust": 0.08,
+                "autonomy_confidence": 0.12,
+                "retention_risk": -0.08
+              },
+              "pre_state": {
+                "global_state": {
+                  "alignment": 0.43,
+                  "trust": 0.47,
+                  "uncertainty": 0.58,
+                  "execution_confidence": 0.42,
+                  "risk": 0.55,
+                  "retention_risk": 0.59,
+                  "autonomy_confidence": 0.44,
+                  "integration_clarity": 0.4
+                },
+                "local_state_by_actor": {
+                  "actor_1": {
+                    "trust": 0.5,
+                    "execution_confidence": 0.5,
+                    "alignment": 0.5,
+                    "risk": 0.5,
+                    "uncertainty": 0.5
+                  },
+                  "actor_2": {
+                    "trust": 0.5,
+                    "execution_confidence": 0.5,
+                    "alignment": 0.5,
+                    "risk": 0.5,
+                    "uncertainty": 0.5
+                  },
+                  "actor_3": {
+                    "trust": 0.5,
+                    "execution_confidence": 0.5,
+                    "alignment": 0.5,
+                    "risk": 0.5,
+                    "uncertainty": 0.5
+                  }
+                }
+              },
+              "post_state": {
+                "global_state": {
+                  "alignment": 0.43,
+                  "trust": 0.55,
+                  "uncertainty": 0.58,
+                  "execution_confidence": 0.42,
+                  "risk": 0.55,
+                  "retention_risk": 0.51,
+                  "autonomy_confidence": 0.56,
+                  "integration_clarity": 0.4
+                },
+                "local_state_by_actor": {
+                  "actor_1": {
+                    "trust": 0.58,
+                    "execution_confidence": 0.5,
+                    "alignment": 0.5,
+                    "risk": 0.5,
+                    "uncertainty": 0.5
+                  },
+                  "actor_2": {
+                    "trust": 0.54,
+                    "execution_confidence": 0.5,
+                    "alignment": 0.5,
+                    "risk": 0.5,
+                    "uncertainty": 0.5
+                  },
+                  "actor_3": {
+                    "trust": 0.5,
+                    "execution_confidence": 0.5,
+                    "alignment": 0.5,
+                    "risk": 0.5,
+                    "uncertainty": 0.5
+                  }
+                }
+              },
+              "target_actor_id": "actor_2",
+              "coherence_score": 1.0,
+              "contradiction_flag": false
+            },
+            "pre_state": {
+              "alignment": 0.43,
+              "trust": 0.47,
+              "uncertainty": 0.58,
+              "execution_confidence": 0.42,
+              "risk": 0.55,
+              "retention_risk": 0.59,
+              "autonomy_confidence": 0.44,
+              "integration_clarity": 0.4
+            },
+            "post_state": {
+              "alignment": 0.43,
+              "trust": 0.55,
+              "uncertainty": 0.58,
+              "execution_confidence": 0.42,
+              "risk": 0.55,
+              "retention_risk": 0.51,
+              "autonomy_confidence": 0.56,
+              "integration_clarity": 0.4
+            }
+          },
+          {
+            "trace_id": "post_merger_integration:actor_2:TENSION:5",
+            "proposal_id": "post_merger_integration:actor_2:TENSION:5",
+            "actor_id": "actor_2",
+            "phase_name": "TENSION",
+            "turn_index": 5,
+            "planned_action_artifact": null,
+            "selected_action_hint": null,
+            "compiled_proposal": null,
+            "compiler_source": "none",
+            "compile_status": "no_action",
+            "compile_rejection_reason": "no_action_detected",
+            "validation_trace": [],
+            "action_plan_alignment": 0.5,
+            "action_plan_alignment_details": {
+              "available": false,
+              "reason": "no_planned_action"
+            },
+            "planned_action_family": "none",
+            "selected_action_family": "none",
+            "compiled_action_family": "none",
+            "phase_action_family_counts_before_compile": {
+              "governance": 1
+            },
+            "selected_text_excerpt": "Twelve months is reckless\u2014that timeline guarantees we'll hemorrhage the engineers who built our core IP. Either extend it to 18 months with proper transition phases, or watch our a"
+          },
+          {
+            "trace_id": "post_merger_integration:actor_3:TENSION:6",
+            "proposal_id": "post_merger_integration:actor_3:TENSION:6",
+            "actor_id": "actor_3",
+            "phase_name": "TENSION",
+            "turn_index": 6,
+            "planned_action_artifact": null,
+            "selected_action_hint": null,
+            "compiled_proposal": null,
+            "compiler_source": "none",
+            "compile_status": "no_action",
+            "compile_rejection_reason": "no_action_detected",
+            "validation_trace": [],
+            "action_plan_alignment": 0.5,
+            "action_plan_alignment_details": {
+              "available": false,
+              "reason": "no_planned_action"
+            },
+            "planned_action_family": "none",
+            "selected_action_family": "none",
+            "compiled_action_family": "none",
+            "phase_action_family_counts_before_compile": {
+              "governance": 1
+            },
+            "selected_text_excerpt": "I think we should consider all the options before deciding."
+          },
+          {
+            "trace_id": "post_merger_integration:actor_1:NEGOTIATION:7",
+            "proposal_id": "post_merger_integration:actor_1:NEGOTIATION:7",
+            "actor_id": "actor_1",
+            "phase_name": "NEGOTIATION",
+            "turn_index": 7,
+            "planned_action_artifact": null,
+            "selected_action_hint": null,
+            "compiled_proposal": null,
+            "compiler_source": "none",
+            "compile_status": "no_action",
+            "compile_rejection_reason": "no_action_detected",
+            "validation_trace": [],
+            "action_plan_alignment": 0.5,
+            "action_plan_alignment_details": {
+              "available": false,
+              "reason": "no_planned_action"
+            },
+            "planned_action_family": "none",
+            "selected_action_family": "none",
+            "compiled_action_family": "none",
+            "phase_action_family_counts_before_compile": {},
+            "selected_text_excerpt": "Let's split the difference\u201414 months with system consolidation milestones every quarter, and we'll dedicate Elena's team to monitoring retention triggers at each phase. That balanc"
+          },
+          {
+            "trace_id": "post_merger_integration:actor_2:NEGOTIATION:8",
+            "proposal_id": "post_merger_integration:actor_2:NEGOTIATION:8",
+            "actor_id": "actor_2",
+            "phase_name": "NEGOTIATION",
+            "turn_index": 8,
+            "planned_action_artifact": null,
+            "selected_action_hint": null,
+            "compiled_proposal": null,
+            "compiler_source": "none",
+            "compile_status": "no_action",
+            "compile_rejection_reason": "no_action_detected",
+            "validation_trace": [],
+            "action_plan_alignment": 0.5,
+            "action_plan_alignment_details": {
+              "available": false,
+              "reason": "no_planned_action"
+            },
+            "planned_action_family": "none",
+            "selected_action_family": "none",
+            "compiled_action_family": "none",
+            "phase_action_family_counts_before_compile": {},
+            "selected_text_excerpt": "Fourteen months still feels rushed for the engineering teams\u2014let's make the first two quarters purely about knowledge transfer and co-development before any system consolidation be"
+          },
+          {
+            "trace_id": "post_merger_integration:actor_3:NEGOTIATION:9",
+            "proposal_id": "post_merger_integration:actor_3:NEGOTIATION:9",
+            "actor_id": "actor_3",
+            "phase_name": "NEGOTIATION",
+            "turn_index": 9,
+            "planned_action_artifact": null,
+            "selected_action_hint": null,
+            "compiled_proposal": {
+              "proposal_id": "post_merger_integration:actor_3:NEGOTIATION:9",
+              "actor_id": "actor_3",
+              "phase_name": "NEGOTIATION",
+              "turn_index": 9,
+              "action_type": "assign_owner",
+              "target_key": "trust",
+              "target_actor_id": null,
+              "owner_actor_id": "actor_3",
+              "deadline_phase": null,
+              "strength": "medium",
+              "confidence": 0.33,
+              "evidence_text": "Adding structured transition phases makes sense\u2014we could assign local integration leads from both companies to oversee knowledge transfer while maintaining clea",
+              "commitment_id": null,
+              "status": "proposed",
+              "rejection_reason": null,
+              "action_bearing": true,
+              "compiler_source": "heuristic",
+              "raw_payload": {
+                "policy_action_intent": null,
+                "policy_target_state_key": null,
+                "planned_action_artifact": {}
+              },
+              "validation_trace": []
+            },
+            "compiler_source": "heuristic",
+            "compile_status": "proposed",
+            "compile_rejection_reason": null,
+            "validation_trace": [],
+            "action_plan_alignment": 0.5,
+            "action_plan_alignment_details": {
+              "available": false,
+              "reason": "no_planned_action"
+            },
+            "planned_action_family": "none",
+            "selected_action_family": "none",
+            "compiled_action_family": "ownership",
+            "phase_action_family_counts_before_compile": {},
+            "selected_text_excerpt": "Adding structured transition phases makes sense\u2014we could assign local integration leads from both companies to oversee knowledge transfer while maintaining clear retention metrics.",
+            "arbitration_status": "approved",
+            "arbitration_reason": null,
+            "execution_status": "executed",
+            "execution_rejection_reason": null,
+            "executed_action": {
+              "proposal_id": "post_merger_integration:actor_3:NEGOTIATION:9",
+              "action_type": "assign_owner",
+              "phase_name": "NEGOTIATION",
+              "owner_actor_id": "actor_3",
+              "target_key": "trust",
+              "applied_delta": {
+                "integration_clarity": 0.12,
+                "execution_confidence": 0.08,
+                "alignment": 0.04
+              },
+              "pre_state": {
+                "global_state": {
+                  "alignment": 0.43,
+                  "trust": 0.55,
+                  "uncertainty": 0.58,
+                  "execution_confidence": 0.42,
+                  "risk": 0.55,
+                  "retention_risk": 0.51,
+                  "autonomy_confidence": 0.56,
+                  "integration_clarity": 0.4
+                },
+                "local_state_by_actor": {
+                  "actor_1": {
+                    "trust": 0.58,
+                    "execution_confidence": 0.5,
+                    "alignment": 0.5,
+                    "risk": 0.5,
+                    "uncertainty": 0.5
+                  },
+                  "actor_2": {
+                    "trust": 0.54,
+                    "execution_confidence": 0.5,
+                    "alignment": 0.5,
+                    "risk": 0.5,
+                    "uncertainty": 0.5
+                  },
+                  "actor_3": {
+                    "trust": 0.5,
+                    "execution_confidence": 0.5,
+                    "alignment": 0.5,
+                    "risk": 0.5,
+                    "uncertainty": 0.5
+                  }
+                }
+              },
+              "post_state": {
+                "global_state": {
+                  "alignment": 0.47,
+                  "trust": 0.55,
+                  "uncertainty": 0.58,
+                  "execution_confidence": 0.5,
+                  "risk": 0.55,
+                  "retention_risk": 0.51,
+                  "autonomy_confidence": 0.56,
+                  "integration_clarity": 0.52
+                },
+                "local_state_by_actor": {
+                  "actor_1": {
+                    "trust": 0.58,
+                    "execution_confidence": 0.5,
+                    "alignment": 0.5,
+                    "risk": 0.5,
+                    "uncertainty": 0.5
+                  },
+                  "actor_2": {
+                    "trust": 0.54,
+                    "execution_confidence": 0.5,
+                    "alignment": 0.5,
+                    "risk": 0.5,
+                    "uncertainty": 0.5
+                  },
+                  "actor_3": {
+                    "trust": 0.5,
+                    "execution_confidence": 0.58,
+                    "alignment": 0.5,
+                    "risk": 0.5,
+                    "uncertainty": 0.5
+                  }
+                }
+              },
+              "target_actor_id": null,
+              "coherence_score": 1.0,
+              "contradiction_flag": false
+            },
+            "pre_state": {
+              "alignment": 0.43,
+              "trust": 0.55,
+              "uncertainty": 0.58,
+              "execution_confidence": 0.42,
+              "risk": 0.55,
+              "retention_risk": 0.51,
+              "autonomy_confidence": 0.56,
+              "integration_clarity": 0.4
+            },
+            "post_state": {
+              "alignment": 0.47,
+              "trust": 0.55,
+              "uncertainty": 0.58,
+              "execution_confidence": 0.5,
+              "risk": 0.55,
+              "retention_risk": 0.51,
+              "autonomy_confidence": 0.56,
+              "integration_clarity": 0.52
+            }
+          },
+          {
+            "trace_id": "post_merger_integration:actor_1:CLOSING:10",
+            "proposal_id": "post_merger_integration:actor_1:CLOSING:10",
+            "actor_id": "actor_1",
+            "phase_name": "CLOSING",
+            "turn_index": 10,
+            "planned_action_artifact": null,
+            "selected_action_hint": null,
+            "compiled_proposal": null,
+            "compiler_source": "none",
+            "compile_status": "no_action",
+            "compile_rejection_reason": "no_action_detected",
+            "validation_trace": [],
+            "action_plan_alignment": 0.5,
+            "action_plan_alignment_details": {
+              "available": false,
+              "reason": "no_planned_action"
+            },
+            "planned_action_family": "none",
+            "selected_action_family": "none",
+            "compiled_action_family": "none",
+            "phase_action_family_counts_before_compile": {},
+            "selected_text_excerpt": "We'll lock in the 14-month timeline with phased milestones\u2014quarterly system consolidation starting Q3 and retention dashboards overseen by Elena's team. Soojin, your engineers get "
+          },
+          {
+            "trace_id": "post_merger_integration:actor_2:CLOSING:11",
+            "proposal_id": "post_merger_integration:actor_2:CLOSING:11",
+            "actor_id": "actor_2",
+            "phase_name": "CLOSING",
+            "turn_index": 11,
+            "planned_action_artifact": null,
+            "selected_action_hint": null,
+            "compiled_proposal": null,
+            "compiler_source": "none",
+            "compile_status": "no_action",
+            "compile_rejection_reason": "no_action_detected",
+            "validation_trace": [],
+            "action_plan_alignment": 0.5,
+            "action_plan_alignment_details": {
+              "available": false,
+              "reason": "no_planned_action"
+            },
+            "planned_action_family": "none",
+            "selected_action_family": "none",
+            "compiled_action_family": "none",
+            "phase_action_family_counts_before_compile": {},
+            "selected_text_excerpt": "Fine\u2014but if retention drops below 80% in the first two quarters, we revisit the consolidation timeline. My engineers won't stick around for a forced march."
+          }
+        ],
+        "world_state_history": [
+          {
+            "phase_name": "BOOTSTRAP",
+            "turn_index": 0,
+            "global_state": {
+              "alignment": 0.43,
+              "trust": 0.47,
+              "uncertainty": 0.58,
+              "execution_confidence": 0.42,
+              "risk": 0.55,
+              "retention_risk": 0.59,
+              "autonomy_confidence": 0.44,
+              "integration_clarity": 0.4
+            },
+            "local_state_by_actor": {
+              "actor_1": {
+                "trust": 0.5,
+                "execution_confidence": 0.5,
+                "alignment": 0.5,
+                "risk": 0.5,
+                "uncertainty": 0.5
+              },
+              "actor_2": {
+                "trust": 0.5,
+                "execution_confidence": 0.5,
+                "alignment": 0.5,
+                "risk": 0.5,
+                "uncertainty": 0.5
+              },
+              "actor_3": {
+                "trust": 0.5,
+                "execution_confidence": 0.5,
+                "alignment": 0.5,
+                "risk": 0.5,
+                "uncertainty": 0.5
+              }
+            },
+            "executed_action_ids": []
+          },
+          {
+            "phase_name": "TENSION",
+            "turn_index": 4,
+            "global_state": {
+              "alignment": 0.43,
+              "trust": 0.55,
+              "uncertainty": 0.58,
+              "execution_confidence": 0.42,
+              "risk": 0.55,
+              "retention_risk": 0.51,
+              "autonomy_confidence": 0.56,
+              "integration_clarity": 0.4
+            },
+            "local_state_by_actor": {
+              "actor_1": {
+                "trust": 0.58,
+                "execution_confidence": 0.5,
+                "alignment": 0.5,
+                "risk": 0.5,
+                "uncertainty": 0.5
+              },
+              "actor_2": {
+                "trust": 0.54,
+                "execution_confidence": 0.5,
+                "alignment": 0.5,
+                "risk": 0.5,
+                "uncertainty": 0.5
+              },
+              "actor_3": {
+                "trust": 0.5,
+                "execution_confidence": 0.5,
+                "alignment": 0.5,
+                "risk": 0.5,
+                "uncertainty": 0.5
+              }
+            },
+            "executed_action_ids": [
+              "post_merger_integration:actor_1:TENSION:4"
+            ]
+          },
+          {
+            "phase_name": "NEGOTIATION",
+            "turn_index": 9,
+            "global_state": {
+              "alignment": 0.47,
+              "trust": 0.55,
+              "uncertainty": 0.58,
+              "execution_confidence": 0.5,
+              "risk": 0.55,
+              "retention_risk": 0.51,
+              "autonomy_confidence": 0.56,
+              "integration_clarity": 0.52
+            },
+            "local_state_by_actor": {
+              "actor_1": {
+                "trust": 0.58,
+                "execution_confidence": 0.5,
+                "alignment": 0.5,
+                "risk": 0.5,
+                "uncertainty": 0.5
+              },
+              "actor_2": {
+                "trust": 0.54,
+                "execution_confidence": 0.5,
+                "alignment": 0.5,
+                "risk": 0.5,
+                "uncertainty": 0.5
+              },
+              "actor_3": {
+                "trust": 0.5,
+                "execution_confidence": 0.58,
+                "alignment": 0.5,
+                "risk": 0.5,
+                "uncertainty": 0.5
+              }
+            },
+            "executed_action_ids": [
+              "post_merger_integration:actor_1:TENSION:4",
+              "post_merger_integration:actor_3:NEGOTIATION:9"
+            ]
+          }
+        ],
+        "phase_state_feedback": {
+          "TENSION": {
+            "actor_1": {
+              "world_state_line": "world_state=alignment 0.43, uncertainty 0.58, risk 0.55",
+              "local_state_line": "your_local_state=trust 0.58, execution_confidence 0.50, alignment 0.50",
+              "last_actions_line": "last_actions=preserve_autonomy(retention_risk)",
+              "recent_action_ids": [
+                "post_merger_integration:actor_1:TENSION:4"
+              ]
+            },
+            "actor_2": {
+              "world_state_line": "world_state=alignment 0.43, uncertainty 0.58, risk 0.55",
+              "local_state_line": "your_local_state=trust 0.54, execution_confidence 0.50, alignment 0.50",
+              "last_actions_line": "last_actions=preserve_autonomy(retention_risk)",
+              "recent_action_ids": [
+                "post_merger_integration:actor_1:TENSION:4"
+              ]
+            },
+            "actor_3": {
+              "world_state_line": "world_state=alignment 0.43, uncertainty 0.58, risk 0.55",
+              "local_state_line": "your_local_state=trust 0.50, execution_confidence 0.50, alignment 0.50",
+              "last_actions_line": "last_actions=none",
+              "recent_action_ids": []
+            }
+          },
+          "NEGOTIATION": {
+            "actor_1": {
+              "world_state_line": "world_state=alignment 0.47, uncertainty 0.58, risk 0.55",
+              "local_state_line": "your_local_state=trust 0.58, execution_confidence 0.50, alignment 0.50",
+              "last_actions_line": "last_actions=none",
+              "recent_action_ids": []
+            },
+            "actor_2": {
+              "world_state_line": "world_state=alignment 0.47, uncertainty 0.58, risk 0.55",
+              "local_state_line": "your_local_state=trust 0.54, execution_confidence 0.50, alignment 0.50",
+              "last_actions_line": "last_actions=none",
+              "recent_action_ids": []
+            },
+            "actor_3": {
+              "world_state_line": "world_state=alignment 0.47, uncertainty 0.58, risk 0.55",
+              "local_state_line": "your_local_state=trust 0.50, execution_confidence 0.58, alignment 0.50",
+              "last_actions_line": "last_actions=assign_owner(trust)",
+              "recent_action_ids": [
+                "post_merger_integration:actor_3:NEGOTIATION:9"
+              ]
+            }
+          }
+        }
+      },
+      "metrics": {
+        "persona_drift_mae": 0.1567,
+        "relationship_inconsistency": 0.0,
+        "commitment_contradiction_rate": 0.25,
+        "envelope_violations": 5,
+        "per_trait_error_mean": {
+          "O": 0.1367,
+          "C": 0.3067,
+          "E": 0.0503,
+          "A": 0.04,
+          "N": 0.25
+        },
+        "actor_labels": {
+          "actor_1": "Acquirer strategy lead",
+          "actor_2": "Acquired company founder",
+          "actor_3": "People and integration lead"
+        },
+        "actor_display_names": {
+          "actor_1": "Arjun",
+          "actor_2": "Soojin",
+          "actor_3": "Elena"
+        },
+        "actor_trait_estimates": {
+          "actor_1": {
+            "O": 0.43,
+            "C": 0.38,
+            "E": 0.5696,
+            "A": 0.43,
+            "N": 0.18
+          },
+          "actor_2": {
+            "O": 0.43,
+            "C": 0.44,
+            "E": 0.5021,
+            "A": 0.41,
+            "N": 0.18
+          },
+          "actor_3": {
+            "O": 0.53,
+            "C": 0.2,
+            "E": 0.4667,
+            "A": 0.55,
+            "N": 0.26
+          }
+        },
+        "actor_trait_errors": {
+          "actor_1": {
+            "O": 0.09,
+            "C": 0.36,
+            "E": 0.0596,
+            "A": 0.0,
+            "N": 0.18
+          },
+          "actor_2": {
+            "O": 0.26,
+            "C": 0.0,
+            "E": 0.0779,
+            "A": 0.03,
+            "N": 0.36
+          },
+          "actor_3": {
+            "O": 0.06,
+            "C": 0.56,
+            "E": 0.0133,
+            "A": 0.09,
+            "N": 0.21
+          }
+        },
+        "structured_action_validity_rate": 0.5,
+        "owner_resolution_rate": 1.0,
+        "executed_action_contradiction_rate": 0.0,
+        "state_transition_coherence": 1.0,
+        "action_feedback_utilization": 0.5,
+        "action_plan_alignment_mean": 0.0,
+        "planned_action_coverage_rate": 0.0,
+        "action_family_convergence_rate": 0.0,
+        "role_action_diversity_score": 1.0,
+        "negotiation_uniqueness_rate": 1.0,
+        "phase_end_world_states": [
+          {
+            "alignment": 0.43,
+            "trust": 0.55,
+            "uncertainty": 0.58,
+            "execution_confidence": 0.42,
+            "risk": 0.55,
+            "retention_risk": 0.51,
+            "autonomy_confidence": 0.56,
+            "integration_clarity": 0.4
+          },
+          {
+            "alignment": 0.47,
+            "trust": 0.55,
+            "uncertainty": 0.58,
+            "execution_confidence": 0.5,
+            "risk": 0.55,
+            "retention_risk": 0.51,
+            "autonomy_confidence": 0.56,
+            "integration_clarity": 0.52
+          }
+        ]
+      },
+      "selection_audits": []
+    }
+  ],
+  "aggregate": {
+    "naive_action_baseline": {
+      "num_runs": 1,
+      "persona_drift_mae_mean": 0.1567,
+      "persona_drift_mae_std": 0.0,
+      "relationship_inconsistency_mean": 0.0,
+      "commitment_contradiction_mean": 0.25,
+      "envelope_violations_mean": 5,
+      "structured_action_validity_rate_mean": 0.5,
+      "owner_resolution_rate_mean": 1.0,
+      "executed_action_contradiction_rate_mean": 0.0,
+      "state_transition_coherence_mean": 1.0,
+      "action_feedback_utilization_mean": 0.5,
+      "action_plan_alignment_mean": 0.0,
+      "planned_action_coverage_rate_mean": 0.0,
+      "action_family_convergence_rate_mean": 0.0,
+      "role_action_diversity_score_mean": 1.0,
+      "negotiation_uniqueness_rate_mean": 1.0,
+      "state_trajectory_variance_mean": 0.0,
+      "per_trait_error_mean": {
+        "O": 0.1367,
+        "C": 0.3067,
+        "E": 0.0503,
+        "A": 0.04,
+        "N": 0.25
+      },
+      "turn_count_mean": 11
+    }
+  },
+  "aggregate_by_script": {
+    "post_merger_integration:naive_action_baseline": {
+      "num_runs": 1,
+      "persona_drift_mae_mean": 0.1567,
+      "persona_drift_mae_std": 0.0,
+      "relationship_inconsistency_mean": 0.0,
+      "commitment_contradiction_mean": 0.25,
+      "envelope_violations_mean": 5,
+      "structured_action_validity_rate_mean": 0.5,
+      "owner_resolution_rate_mean": 1.0,
+      "executed_action_contradiction_rate_mean": 0.0,
+      "state_transition_coherence_mean": 1.0,
+      "action_feedback_utilization_mean": 0.5,
+      "action_plan_alignment_mean": 0.0,
+      "planned_action_coverage_rate_mean": 0.0,
+      "action_family_convergence_rate_mean": 0.0,
+      "role_action_diversity_score_mean": 1.0,
+      "negotiation_uniqueness_rate_mean": 1.0,
+      "state_trajectory_variance_mean": 0.0,
+      "per_trait_error_mean": {
+        "O": 0.1367,
+        "C": 0.3067,
+        "E": 0.0503,
+        "A": 0.04,
+        "N": 0.25
+      },
+      "turn_count_mean": 11
+    }
+  }
+}

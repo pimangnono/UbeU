@@ -1,0 +1,78 @@
+{
+  "saved_at": "2026-03-08T07:55:49.529539",
+  "config": {
+    "conditions": [
+      "naive_action_baseline",
+      "engine_dialogue_only",
+      "engine_action_v0"
+    ],
+    "repetitions": 3,
+    "script_ids": [
+      "post_merger_integration"
+    ],
+    "style_slots": [
+      "integrator",
+      "planner",
+      "challenger",
+      "skeptic"
+    ]
+  },
+  "aggregate": {
+    "naive_action_baseline": {
+      "num_runs": 1,
+      "persona_drift_mae_mean": 0.1567,
+      "persona_drift_mae_std": 0.0,
+      "relationship_inconsistency_mean": 0.0,
+      "commitment_contradiction_mean": 0.25,
+      "envelope_violations_mean": 5,
+      "structured_action_validity_rate_mean": 0.5,
+      "owner_resolution_rate_mean": 1.0,
+      "executed_action_contradiction_rate_mean": 0.0,
+      "state_transition_coherence_mean": 1.0,
+      "action_feedback_utilization_mean": 0.5,
+      "action_plan_alignment_mean": 0.0,
+      "planned_action_coverage_rate_mean": 0.0,
+      "action_family_convergence_rate_mean": 0.0,
+      "role_action_diversity_score_mean": 1.0,
+      "negotiation_uniqueness_rate_mean": 1.0,
+      "state_trajectory_variance_mean": 0.0,
+      "per_trait_error_mean": {
+        "O": 0.1367,
+        "C": 0.3067,
+        "E": 0.0503,
+        "A": 0.04,
+        "N": 0.25
+      },
+      "turn_count_mean": 11
+    }
+  },
+  "aggregate_by_script": {
+    "post_merger_integration:naive_action_baseline": {
+      "num_runs": 1,
+      "persona_drift_mae_mean": 0.1567,
+      "persona_drift_mae_std": 0.0,
+      "relationship_inconsistency_mean": 0.0,
+      "commitment_contradiction_mean": 0.25,
+      "envelope_violations_mean": 5,
+      "structured_action_validity_rate_mean": 0.5,
+      "owner_resolution_rate_mean": 1.0,
+      "executed_action_contradiction_rate_mean": 0.0,
+      "state_transition_coherence_mean": 1.0,
+      "action_feedback_utilization_mean": 0.5,
+      "action_plan_alignment_mean": 0.0,
+      "planned_action_coverage_rate_mean": 0.0,
+      "action_family_convergence_rate_mean": 0.0,
+      "role_action_diversity_score_mean": 1.0,
+      "negotiation_uniqueness_rate_mean": 1.0,
+      "state_trajectory_variance_mean": 0.0,
+      "per_trait_error_mean": {
+        "O": 0.1367,
+        "C": 0.3067,
+        "E": 0.0503,
+        "A": 0.04,
+        "N": 0.25
+      },
+      "turn_count_mean": 11
+    }
+  }
+}
