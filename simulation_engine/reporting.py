@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import os
 from datetime import datetime
 from pathlib import Path
 from typing import Any
@@ -17,8 +18,10 @@ def save_benchmark_outputs(results: dict[str, Any], output_dir: str | Path) -> d
     aggregate_path = output_path / "benchmark_aggregate.json"
     report_path = output_path / "benchmark_report.md"
 
+    runs_mode = _benchmark_runs_mode()
+    runs_payload = _build_runs_payload(results, mode=runs_mode)
     with open(runs_path, "w") as f:
-        json.dump(results, f, indent=2, default=str)
+        json.dump(runs_payload, f, default=str, separators=(",", ":"))
 
     aggregate_payload = {
         "saved_at": datetime.now().isoformat(),
@@ -39,6 +42,88 @@ def save_benchmark_outputs(results: dict[str, Any], output_dir: str | Path) -> d
         "aggregate": str(aggregate_path),
         "report": str(report_path),
     }
+
+
+def _benchmark_runs_mode() -> str:
+    mode = os.getenv("SIM_BENCHMARK_RUNS_MODE", "compact").strip().lower()
+    if mode not in {"full", "compact", "none"}:
+        return "compact"
+    return mode
+
+
+def _build_runs_payload(results: dict[str, Any], mode: str) -> dict[str, Any]:
+    if mode == "full":
+        return results
+    if mode == "none":
+        return {
+            "config": results.get("config", {}),
+            "run_count": len(results.get("runs", [])),
+            "runs_omitted": True,
+            "mode": "none",
+        }
+    return _compact_results_payload(results)
+
+
+def _compact_results_payload(results: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "config": results.get("config", {}),
+        "runs": [_compact_run(run) for run in results.get("runs", [])],
+        "aggregate": results.get("aggregate", {}),
+        "aggregate_by_script": results.get("aggregate_by_script", {}),
+        "aggregate_by_mode": results.get("aggregate_by_mode", {}),
+        "aggregate_by_family": results.get("aggregate_by_family", {}),
+        "mode": "compact",
+    }
+
+
+def _compact_run(run: dict[str, Any]) -> dict[str, Any]:
+    compact = {
+        "condition": run.get("condition"),
+        "simulation_id": run.get("simulation_id"),
+        "metrics": run.get("metrics", {}),
+        "runtime_summary": _compact_runtime_summary(run.get("runtime_summary", {})),
+    }
+    selection_audits = run.get("selection_audits") or []
+    if selection_audits:
+        compact["selection_audits"] = selection_audits
+    return compact
+
+
+def _compact_runtime_summary(summary: dict[str, Any]) -> dict[str, Any]:
+    keep_direct = {
+        "simulation_id",
+        "simulation_mode",
+        "scenario_family",
+        "outcome_spec",
+        "turn_count",
+        "phase_order",
+        "actor_ids",
+        "actor_labels",
+        "actor_display_names",
+        "latest_world_state",
+        "action_status_counts",
+        "action_rejection_reason_counts",
+        "selection_hint_source_counts",
+        "fallback_utterance_count",
+        "fallback_utterance_rate",
+        "fallback_type_counts",
+        "action_family_sequence_by_actor",
+        "phase_action_family_histograms",
+    }
+    compact = {key: value for key, value in summary.items() if key in keep_direct}
+
+    if "action_proposals" in summary:
+        compact["action_proposal_count"] = len(summary.get("action_proposals") or [])
+    if "executed_actions" in summary:
+        compact["executed_action_count"] = len(summary.get("executed_actions") or [])
+    if "action_audits" in summary:
+        compact["action_audit_count"] = len(summary.get("action_audits") or [])
+    if "world_state_history" in summary:
+        compact["world_state_history_count"] = len(summary.get("world_state_history") or [])
+    if "phase_state_feedback" in summary:
+        compact["phase_state_feedback"] = summary.get("phase_state_feedback", {})
+
+    return compact
 
 
 def build_benchmark_report(results: dict[str, Any]) -> str:
