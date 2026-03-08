@@ -301,6 +301,129 @@ _MVP_POLICY_SCRIPTS = [
 ]
 
 
+_EXPLORATORY_PRESSURE_SCRIPTS = [
+    {
+        "simulation_id": "brand_crisis_response",
+        "title": "Brand Crisis Response Pressure Test",
+        "objective": "Explore reputational, legal, and community tradeoffs after a public product backlash.",
+        "brief": (
+            "A consumer brand faces an online backlash after a widely shared customer incident. The team must "
+            "decide how to acknowledge the issue, what to investigate, and how much of the response should be "
+            "public versus internal. The point is not to force one correct ending, but to observe how different "
+            "stakeholder priorities shape the response path."
+        ),
+        "stakeholders": [
+            {
+                "actor_id": "actor_1",
+                "display_name": "Avery",
+                "role": "Brand communications lead",
+                "identity_core": {"function": "communications", "seniority": "director"},
+                "personality_prior": {"O": 0.58, "C": 0.54, "E": 0.63, "A": 0.57, "N": 0.46},
+                "incentives": ["protect trust", "stabilize public narrative"],
+                "concerns": ["brand damage", "slow response"],
+            },
+            {
+                "actor_id": "actor_2",
+                "display_name": "Daniel",
+                "role": "Legal and risk lead",
+                "identity_core": {"function": "legal", "seniority": "director"},
+                "personality_prior": {"O": 0.33, "C": 0.82, "E": 0.34, "A": 0.39, "N": 0.37},
+                "incentives": ["limit legal exposure", "maintain process discipline"],
+                "concerns": ["premature admission", "regulatory scrutiny"],
+            },
+            {
+                "actor_id": "actor_3",
+                "display_name": "Leah",
+                "role": "Community operations lead",
+                "identity_core": {"function": "community", "seniority": "manager"},
+                "personality_prior": {"O": 0.49, "C": 0.63, "E": 0.52, "A": 0.64, "N": 0.53},
+                "incentives": ["reduce frontline escalation", "support affected users"],
+                "concerns": ["agent burnout", "unanswered customer harm"],
+            },
+        ],
+        "phases": [
+            {"name": "OPENING", "goal": "Frame what happened and what is uncertain", "style": "neutral", "max_turns": 3, "cues": ["incident_frame", "known_unknowns"]},
+            {"name": "TENSION", "goal": "Surface reputational, legal, and community pressure", "style": "disagreement", "max_turns": 3, "cues": ["reputation", "liability", "frontline_pressure"]},
+            {"name": "NEGOTIATION", "goal": "Test response paths without forcing a single fixed ending", "style": "consensus", "max_turns": 3, "cues": ["response_path", "ownership", "risk_tradeoff"]},
+            {"name": "CLOSING", "goal": "Record the response stance and unresolved risks", "style": "neutral", "max_turns": 2, "cues": ["summary", "residual_risk"]},
+        ],
+        "world_events": [
+            {
+                "event_id": "evt_viral_clip",
+                "title": "Viral clip spreads",
+                "description": "A short video of the customer incident spreads rapidly across multiple social platforms.",
+                "trigger_phase": "TENSION",
+            },
+            {
+                "event_id": "evt_regulator_inquiry",
+                "title": "Regulator inquiry",
+                "description": "A consumer protection regulator asks whether the company plans a formal corrective action.",
+                "trigger_phase": "NEGOTIATION",
+            },
+        ],
+    },
+    {
+        "simulation_id": "resource_reallocation_crunch",
+        "title": "Resource Reallocation Crunch",
+        "objective": "Explore how teams react when budget cuts force competing priorities into the open.",
+        "brief": (
+            "A company faces an unexpected budget cut and must rebalance roadmap commitments, support load, and "
+            "operational resilience. There is no fixed preferred ending; the goal is to observe how different "
+            "stakeholders trade off delivery, customer stability, and financial control under pressure."
+        ),
+        "stakeholders": [
+            {
+                "actor_id": "actor_1",
+                "display_name": "Iris",
+                "role": "Finance controller",
+                "identity_core": {"function": "finance", "seniority": "director"},
+                "personality_prior": {"O": 0.31, "C": 0.84, "E": 0.36, "A": 0.41, "N": 0.34},
+                "incentives": ["budget discipline", "predictable burn"],
+                "concerns": ["overcommitment", "late cost surprises"],
+            },
+            {
+                "actor_id": "actor_2",
+                "display_name": "Noah",
+                "role": "Product program lead",
+                "identity_core": {"function": "product", "seniority": "director"},
+                "personality_prior": {"O": 0.57, "C": 0.62, "E": 0.47, "A": 0.48, "N": 0.42},
+                "incentives": ["protect roadmap integrity", "keep critical delivery on track"],
+                "concerns": ["team thrash", "scope collapse"],
+            },
+            {
+                "actor_id": "actor_3",
+                "display_name": "Sara",
+                "role": "Customer success lead",
+                "identity_core": {"function": "customer_success", "seniority": "head"},
+                "personality_prior": {"O": 0.46, "C": 0.58, "E": 0.56, "A": 0.67, "N": 0.51},
+                "incentives": ["customer continuity", "service stability"],
+                "concerns": ["renewal risk", "support backlog"],
+            },
+        ],
+        "phases": [
+            {"name": "OPENING", "goal": "Clarify what changed and what is most exposed", "style": "neutral", "max_turns": 3, "cues": ["budget_shock", "exposure"]},
+            {"name": "TENSION", "goal": "Expose tradeoffs between savings, delivery, and customer impact", "style": "disagreement", "max_turns": 3, "cues": ["savings", "delivery_risk", "customer_risk"]},
+            {"name": "NEGOTIATION", "goal": "Test competing reallocation paths", "style": "consensus", "max_turns": 3, "cues": ["reprioritization", "ownership", "risk_tradeoff"]},
+            {"name": "CLOSING", "goal": "Capture chosen direction and unresolved pressure", "style": "neutral", "max_turns": 2, "cues": ["summary", "residual_exposure"]},
+        ],
+        "world_events": [
+            {
+                "event_id": "evt_budget_cut_notice",
+                "title": "Budget cut notice",
+                "description": "Finance confirms a 15% spend reduction target for the next quarter.",
+                "trigger_phase": "TENSION",
+            },
+            {
+                "event_id": "evt_customer_escalation",
+                "title": "Customer escalation",
+                "description": "A strategic customer escalates concerns about delayed commitments and support responsiveness.",
+                "trigger_phase": "NEGOTIATION",
+            },
+        ],
+    },
+]
+
+
 def _policy_action_spec() -> dict[str, object]:
     schema = [
         "alignment",
@@ -609,6 +732,252 @@ def _pmi_action_spec() -> dict[str, object]:
     }
 
 
+def _brand_crisis_action_spec() -> dict[str, object]:
+    schema = [
+        "alignment",
+        "trust",
+        "uncertainty",
+        "execution_confidence",
+        "risk",
+        "reputation_stability",
+        "legal_exposure",
+    ]
+    return {
+        "world_state_schema": schema,
+        "initial_world_state": {
+            "alignment": 0.42,
+            "trust": 0.46,
+            "uncertainty": 0.61,
+            "execution_confidence": 0.40,
+            "risk": 0.62,
+            "reputation_stability": 0.34,
+            "legal_exposure": 0.57,
+        },
+        "allowed_action_types": [
+            "assign_owner",
+            "request_evidence",
+            "publish_update",
+            "narrow_scope",
+            "defer_decision",
+            "commit_resource",
+        ],
+        "state_visibility_rules": {
+            "global_keys": ["alignment", "trust", "uncertainty", "risk", "reputation_stability"],
+            "local_keys": ["trust", "execution_confidence", "alignment"],
+            "max_recent_actions": 2,
+        },
+        "transition_rules": {
+            "OPENING": {
+                "request_evidence": {
+                    "global_deltas": {"uncertainty": -0.04, "legal_exposure": -0.04},
+                    "owner_local_deltas": {"execution_confidence": 0.04},
+                },
+                "publish_update": {
+                    "global_deltas": {"trust": 0.04, "reputation_stability": 0.04},
+                    "owner_local_deltas": {"trust": 0.04},
+                },
+            },
+            "TENSION": {
+                "request_evidence": {
+                    "global_deltas": {"uncertainty": -0.08, "legal_exposure": -0.04},
+                    "owner_local_deltas": {"execution_confidence": 0.04},
+                },
+                "publish_update": {
+                    "global_deltas": {"reputation_stability": 0.08, "trust": 0.04},
+                    "owner_local_deltas": {"trust": 0.04},
+                },
+                "narrow_scope": {
+                    "global_deltas": {"risk": -0.08, "legal_exposure": -0.04},
+                    "owner_local_deltas": {"execution_confidence": 0.04},
+                },
+            },
+            "NEGOTIATION": {
+                "assign_owner": {
+                    "global_deltas": {"execution_confidence": 0.08, "alignment": 0.04},
+                    "owner_local_deltas": {"execution_confidence": 0.08},
+                },
+                "publish_update": {
+                    "global_deltas": {"trust": 0.08, "reputation_stability": 0.08, "uncertainty": -0.04},
+                    "owner_local_deltas": {"trust": 0.04},
+                },
+                "commit_resource": {
+                    "global_deltas": {"execution_confidence": 0.08, "risk": -0.04, "reputation_stability": 0.04},
+                    "owner_local_deltas": {"execution_confidence": 0.04},
+                },
+                "defer_decision": {
+                    "global_deltas": {"uncertainty": 0.08, "reputation_stability": -0.04},
+                    "owner_local_deltas": {"risk": 0.04},
+                },
+            },
+            "CLOSING": {
+                "publish_update": {
+                    "global_deltas": {"trust": 0.08, "uncertainty": -0.04, "reputation_stability": 0.08},
+                    "owner_local_deltas": {"trust": 0.04},
+                },
+                "assign_owner": {
+                    "global_deltas": {"execution_confidence": 0.08, "alignment": 0.04},
+                    "owner_local_deltas": {"execution_confidence": 0.08},
+                },
+            },
+        },
+    }
+
+
+def _resource_reallocation_action_spec() -> dict[str, object]:
+    schema = [
+        "alignment",
+        "trust",
+        "uncertainty",
+        "execution_confidence",
+        "risk",
+        "budget_health",
+        "delivery_capacity",
+        "customer_risk",
+    ]
+    return {
+        "world_state_schema": schema,
+        "initial_world_state": {
+            "alignment": 0.45,
+            "trust": 0.49,
+            "uncertainty": 0.57,
+            "execution_confidence": 0.43,
+            "risk": 0.58,
+            "budget_health": 0.38,
+            "delivery_capacity": 0.47,
+            "customer_risk": 0.55,
+        },
+        "allowed_action_types": [
+            "assign_owner",
+            "request_evidence",
+            "publish_update",
+            "narrow_scope",
+            "commit_resource",
+            "defer_decision",
+        ],
+        "state_visibility_rules": {
+            "global_keys": ["alignment", "uncertainty", "risk", "budget_health", "customer_risk"],
+            "local_keys": ["trust", "execution_confidence", "alignment"],
+            "max_recent_actions": 2,
+        },
+        "transition_rules": {
+            "OPENING": {
+                "request_evidence": {
+                    "global_deltas": {"uncertainty": -0.04, "budget_health": 0.04},
+                    "owner_local_deltas": {"execution_confidence": 0.04},
+                },
+                "publish_update": {
+                    "global_deltas": {"alignment": 0.04, "trust": 0.04},
+                    "owner_local_deltas": {"trust": 0.04},
+                },
+            },
+            "TENSION": {
+                "narrow_scope": {
+                    "global_deltas": {"risk": -0.08, "delivery_capacity": 0.08, "customer_risk": -0.04},
+                    "owner_local_deltas": {"execution_confidence": 0.04},
+                },
+                "defer_decision": {
+                    "global_deltas": {"uncertainty": 0.04, "delivery_capacity": -0.04, "budget_health": 0.04},
+                    "owner_local_deltas": {"risk": 0.04},
+                },
+                "request_evidence": {
+                    "global_deltas": {"uncertainty": -0.08, "customer_risk": -0.04},
+                    "owner_local_deltas": {"execution_confidence": 0.04},
+                },
+            },
+            "NEGOTIATION": {
+                "assign_owner": {
+                    "global_deltas": {"execution_confidence": 0.08, "alignment": 0.04},
+                    "owner_local_deltas": {"execution_confidence": 0.08},
+                },
+                "commit_resource": {
+                    "global_deltas": {"delivery_capacity": 0.08, "budget_health": -0.08, "customer_risk": -0.04},
+                    "owner_local_deltas": {"execution_confidence": 0.04},
+                },
+                "narrow_scope": {
+                    "global_deltas": {"budget_health": 0.08, "risk": -0.04, "alignment": 0.04},
+                    "owner_local_deltas": {"execution_confidence": 0.04},
+                },
+                "publish_update": {
+                    "global_deltas": {"trust": 0.04, "alignment": 0.04},
+                    "owner_local_deltas": {"trust": 0.04},
+                },
+            },
+            "CLOSING": {
+                "assign_owner": {
+                    "global_deltas": {"execution_confidence": 0.08, "alignment": 0.04},
+                    "owner_local_deltas": {"execution_confidence": 0.08},
+                },
+                "publish_update": {
+                    "global_deltas": {"trust": 0.08, "uncertainty": -0.04},
+                    "owner_local_deltas": {"trust": 0.04},
+                },
+            },
+        },
+    }
+
+
+def _scenario_family(simulation_id: str) -> str:
+    if simulation_id in {
+        "youth_employment_policy",
+        "housing_support_policy",
+        "commuting_support_policy",
+    }:
+        return "policy_spillover"
+    if simulation_id == "new_product_launch":
+        return "launch_pressure"
+    if simulation_id == "post_merger_integration":
+        return "integration_trust"
+    if simulation_id == "brand_crisis_response":
+        return "brand_crisis"
+    if simulation_id == "resource_reallocation_crunch":
+        return "resource_scarcity"
+    return "generic"
+
+
+def _simulation_mode(simulation_id: str) -> str:
+    if simulation_id in {"brand_crisis_response", "resource_reallocation_crunch"}:
+        return "exploratory"
+    return "guided"
+
+
+def _outcome_spec(simulation_id: str) -> dict[str, object]:
+    if _simulation_mode(simulation_id) == "exploratory":
+        return {
+            "fixed_ending": False,
+            "target_end_state": {},
+            "evaluation_focus": ["trajectory_diversity", "persona_stability", "stakeholder_conflict_map"],
+        }
+    if simulation_id == "new_product_launch":
+        return {
+            "fixed_ending": True,
+            "target_end_state": {
+                "execution_confidence": "increase",
+                "launch_readiness": "increase",
+                "incident_risk": "decrease",
+            },
+            "evaluation_focus": ["action_coherence", "persona_stability", "owner_clarity"],
+        }
+    if simulation_id == "post_merger_integration":
+        return {
+            "fixed_ending": True,
+            "target_end_state": {
+                "integration_clarity": "increase",
+                "retention_risk": "decrease",
+                "trust": "increase",
+            },
+            "evaluation_focus": ["trust_preservation", "persona_stability", "coordination_clarity"],
+        }
+    return {
+        "fixed_ending": True,
+        "target_end_state": {
+            "alignment": "increase",
+            "uncertainty": "decrease",
+            "execution_confidence": "increase",
+        },
+        "evaluation_focus": ["persona_stability", "action_coherence", "spillover_control"],
+    }
+
+
 def _phase_action_policies(simulation_id: str) -> dict[str, dict[str, object]]:
     policies = {
         "OPENING": {
@@ -675,6 +1044,28 @@ def _phase_action_policies(simulation_id: str) -> dict[str, dict[str, object]]:
         policies["CLOSING"].update({
             "max_actions_per_phase": 1,
             "sparsity_threshold": 0.72,
+        })
+    elif simulation_id in {"brand_crisis_response", "resource_reallocation_crunch"}:
+        policies["OPENING"].update({
+            "diversity_required": True,
+            "duplicate_penalty": 0.02,
+            "uniqueness_bonus": 0.10,
+            "family_cap": 2,
+            "sparsity_threshold": 0.54,
+        })
+        policies["TENSION"].update({
+            "diversity_required": True,
+            "duplicate_penalty": 0.06,
+            "uniqueness_bonus": 0.12,
+            "family_cap": 2,
+            "sparsity_threshold": 0.58,
+        })
+        policies["NEGOTIATION"].update({
+            "duplicate_penalty": 0.10,
+            "uniqueness_bonus": 0.20,
+            "family_cap": 2,
+            "max_actions_per_phase": 3,
+            "sparsity_threshold": 0.64,
         })
     return policies
 
@@ -858,6 +1249,55 @@ def _actor_action_preferences(simulation_id: str) -> dict[str, dict[str, dict[st
                 ),
             },
         }
+    if simulation_id == "brand_crisis_response":
+        return {
+            "actor_1": {
+                "default": _default_pref(
+                    primary_families=["communication", "ownership"],
+                    secondary_families=["resourcing"],
+                    state_priority_keys=["reputation_stability", "trust", "alignment"],
+                ),
+            },
+            "actor_2": {
+                "default": _default_pref(
+                    primary_families=["evidence", "governance"],
+                    secondary_families=["scope"],
+                    state_priority_keys=["legal_exposure", "risk", "uncertainty"],
+                    avoid_families=["communication"],
+                ),
+            },
+            "actor_3": {
+                "default": _default_pref(
+                    primary_families=["communication", "scope"],
+                    secondary_families=["resourcing"],
+                    state_priority_keys=["trust", "risk", "execution_confidence"],
+                ),
+            },
+        }
+    if simulation_id == "resource_reallocation_crunch":
+        return {
+            "actor_1": {
+                "default": _default_pref(
+                    primary_families=["governance", "scope"],
+                    secondary_families=["evidence"],
+                    state_priority_keys=["budget_health", "risk", "uncertainty"],
+                ),
+            },
+            "actor_2": {
+                "default": _default_pref(
+                    primary_families=["ownership", "resourcing"],
+                    secondary_families=["scope"],
+                    state_priority_keys=["delivery_capacity", "execution_confidence", "alignment"],
+                ),
+            },
+            "actor_3": {
+                "default": _default_pref(
+                    primary_families=["communication", "evidence"],
+                    secondary_families=["resourcing"],
+                    state_priority_keys=["customer_risk", "trust", "alignment"],
+                ),
+            },
+        }
     return {}
 
 
@@ -874,8 +1314,15 @@ def _augment_with_action_layer_spec(item: dict[str, object]) -> dict[str, object
         payload.update(_launch_action_spec())
     elif simulation_id == "post_merger_integration":
         payload.update(_pmi_action_spec())
+    elif simulation_id == "brand_crisis_response":
+        payload.update(_brand_crisis_action_spec())
+    elif simulation_id == "resource_reallocation_crunch":
+        payload.update(_resource_reallocation_action_spec())
     else:
         raise ValueError(f"Unknown MVP script id for action-layer augmentation: {simulation_id}")
+    payload["scenario_family"] = _scenario_family(simulation_id)
+    payload["simulation_mode"] = _simulation_mode(simulation_id)
+    payload["outcome_spec"] = _outcome_spec(simulation_id)
     payload["metadata"] = {
         **dict(payload.get("metadata", {})),
         "phase_action_policies": _phase_action_policies(simulation_id),
@@ -886,7 +1333,8 @@ def _augment_with_action_layer_spec(item: dict[str, object]) -> dict[str, object
 
 def load_mvp_policy_scripts() -> list[SimulationScript]:
     """Return the pre-injected scripts used for MVP benchmarking."""
-    return [SimulationScript.from_dict(_augment_with_action_layer_spec(item)) for item in _MVP_POLICY_SCRIPTS]
+    items = _MVP_POLICY_SCRIPTS + _EXPLORATORY_PRESSURE_SCRIPTS
+    return [SimulationScript.from_dict(_augment_with_action_layer_spec(item)) for item in items]
 
 
 def load_mvp_policy_script_map() -> dict[str, SimulationScript]:

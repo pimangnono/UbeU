@@ -91,6 +91,8 @@ def test_simulation_script_builds_default_personality_envelopes():
     assert script.get_actor("actor_1").personality_envelope["O"] == (0.44, 0.8)
     assert script.actor_analysis_label_map["actor_2"] == "Adjacent local merchant"
     assert script.world_state_schema[:5] == ["alignment", "trust", "uncertainty", "execution_confidence", "risk"]
+    assert script.scenario_family == "generic"
+    assert script.simulation_mode == "guided"
 
 
 def test_state_ledger_tracks_commitments_and_relationships():
@@ -164,6 +166,7 @@ def test_runtime_scaffold_bootstraps_actor_symmetric_context():
     assert context["phase"]["name"] == "OPENING"
     assert context["turns"][0].speaker_name == "Jiho"
     assert runtime.to_runtime_summary()["actor_labels"]["actor_3"] == "Program administrator"
+    assert runtime.to_runtime_summary()["simulation_mode"] == "guided"
     assert runtime.ledger.latest_world_state().global_state["alignment"] == 0.5
 
 
@@ -212,3 +215,14 @@ def test_manual_scripts_expose_phase_action_policy_and_actor_preferences():
     assert negotiation_policy["duplicate_penalty"] >= 0.2
     assert "evidence" in ops_preferences["primary_families"]
     assert "communication" in ops_preferences["avoid_families"]
+
+
+def test_manual_scripts_expose_mode_and_family_metadata():
+    scripts = {script.simulation_id: script for script in load_mvp_policy_scripts()}
+
+    assert scripts["new_product_launch"].simulation_mode == "guided"
+    assert scripts["new_product_launch"].scenario_family == "launch_pressure"
+    assert scripts["brand_crisis_response"].simulation_mode == "exploratory"
+    assert scripts["brand_crisis_response"].scenario_family == "brand_crisis"
+    assert scripts["resource_reallocation_crunch"].simulation_mode == "exploratory"
+    assert scripts["resource_reallocation_crunch"].outcome_spec["fixed_ending"] is False

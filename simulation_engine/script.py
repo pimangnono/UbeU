@@ -170,6 +170,9 @@ class SimulationScript:
     brief: str
     stakeholders: list[StakeholderActorSpec]
     phases: list[SimulationPhase]
+    scenario_family: str = "generic"
+    simulation_mode: str = "guided"
+    outcome_spec: dict[str, Any] = field(default_factory=dict)
     world_events: list[WorldEvent] = field(default_factory=list)
     world_state_schema: list[str] = field(default_factory=list)
     initial_world_state: dict[str, float] = field(default_factory=dict)
@@ -214,6 +217,9 @@ class SimulationScript:
                 SimulationPhase.from_dict(phase)
                 for phase in data.get("phases", [])
             ],
+            scenario_family=data.get("scenario_family", "generic"),
+            simulation_mode=data.get("simulation_mode", "guided"),
+            outcome_spec=dict(data.get("outcome_spec", {})),
             world_events=[
                 WorldEvent.from_dict(event)
                 for event in data.get("world_events", [])
@@ -238,6 +244,9 @@ class SimulationScript:
             "brief": self.brief,
             "stakeholders": [actor.to_dict() for actor in self.stakeholders],
             "phases": [phase.to_dict() for phase in self.phases],
+            "scenario_family": self.scenario_family,
+            "simulation_mode": self.simulation_mode,
+            "outcome_spec": dict(self.outcome_spec),
             "world_events": [event.to_dict() for event in self.world_events],
             "world_state_schema": list(self.world_state_schema),
             "initial_world_state": dict(self.initial_world_state),
@@ -278,6 +287,14 @@ class SimulationScript:
     def local_state_keys(self) -> list[str]:
         return list(dict.fromkeys(self.state_visibility_rules.get("local_keys", DEFAULT_LOCAL_STATE_KEYS)))
 
+    @property
+    def is_guided_mode(self) -> bool:
+        return self.simulation_mode == "guided"
+
+    @property
+    def is_exploratory_mode(self) -> bool:
+        return self.simulation_mode == "exploratory"
+
     def transition_rule_for(self, phase_name: str, action_type: str) -> dict[str, Any]:
         return dict(self.transition_rules.get(phase_name, {}).get(action_type, {}))
 
@@ -310,6 +327,15 @@ class SimulationScript:
             "max_actions_per_phase": 3 if phase_name == "NEGOTIATION" else 2,
             "sparsity_threshold": 0.7 if phase_name == "NEGOTIATION" else 0.62,
         }
+        if self.is_exploratory_mode:
+            default_policy.update({
+                "diversity_required": True,
+                "duplicate_penalty": 0.08 if phase_name == "NEGOTIATION" else 0.04,
+                "uniqueness_bonus": 0.20 if phase_name == "NEGOTIATION" else 0.10,
+                "family_cap": 2 if phase_name == "NEGOTIATION" else 3,
+                "max_actions_per_phase": 3 if phase_name == "NEGOTIATION" else 2,
+                "sparsity_threshold": 0.62 if phase_name == "NEGOTIATION" else 0.56,
+            })
         metadata_policy = (
             dict(self.metadata.get("phase_action_policies", {})).get(phase_name, {})
             if isinstance(self.metadata, dict)
@@ -359,6 +385,8 @@ class SimulationScript:
             raise ValueError(
                 f"SimulationScript allowed_action_types contains unknown entries: {', '.join(invalid_action_types)}"
             )
+        if self.simulation_mode not in {"guided", "exploratory"}:
+            raise ValueError("SimulationScript simulation_mode must be 'guided' or 'exploratory'")
 
         if not set(DEFAULT_GLOBAL_WORLD_STATE_KEYS).issubset(set(self.world_state_schema)):
             raise ValueError(
