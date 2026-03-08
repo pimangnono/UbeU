@@ -435,6 +435,8 @@ class SimulationBenchmarkRunner:
                         "runs": [result.to_dict() for result in run_results],
                         "aggregate": aggregate_benchmark_runs(run_results),
                         "aggregate_by_script": aggregate_benchmark_runs_by_script(run_results),
+                        "aggregate_by_mode": aggregate_benchmark_runs_by_mode(run_results),
+                        "aggregate_by_family": aggregate_benchmark_runs_by_family(run_results),
                     }
                     if checkpoint_path is not None:
                         save_benchmark_outputs(partial_results, checkpoint_path)
@@ -457,6 +459,8 @@ class SimulationBenchmarkRunner:
             "runs": [result.to_dict() for result in run_results],
             "aggregate": aggregate_benchmark_runs(run_results),
             "aggregate_by_script": aggregate_benchmark_runs_by_script(run_results),
+            "aggregate_by_mode": aggregate_benchmark_runs_by_mode(run_results),
+            "aggregate_by_family": aggregate_benchmark_runs_by_family(run_results),
         }
 
 
@@ -474,6 +478,24 @@ def aggregate_benchmark_runs_by_script(run_results: list[BenchmarkRunResult]) ->
         key = f"{result.simulation_id}:{result.condition}"
         grouped.setdefault(key, []).append(result)
 
+    return _aggregate_grouped_runs(grouped)
+
+
+def aggregate_benchmark_runs_by_mode(run_results: list[BenchmarkRunResult]) -> dict[str, Any]:
+    grouped: dict[str, list[BenchmarkRunResult]] = {}
+    for result in run_results:
+        mode = str(result.runtime_summary.get("simulation_mode", "unknown"))
+        key = f"{mode}:{result.condition}"
+        grouped.setdefault(key, []).append(result)
+    return _aggregate_grouped_runs(grouped)
+
+
+def aggregate_benchmark_runs_by_family(run_results: list[BenchmarkRunResult]) -> dict[str, Any]:
+    grouped: dict[str, list[BenchmarkRunResult]] = {}
+    for result in run_results:
+        family = str(result.runtime_summary.get("scenario_family", "generic"))
+        key = f"{family}:{result.condition}"
+        grouped.setdefault(key, []).append(result)
     return _aggregate_grouped_runs(grouped)
 
 

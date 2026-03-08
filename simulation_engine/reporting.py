@@ -25,6 +25,8 @@ def save_benchmark_outputs(results: dict[str, Any], output_dir: str | Path) -> d
         "config": results.get("config", {}),
         "aggregate": results.get("aggregate", {}),
         "aggregate_by_script": results.get("aggregate_by_script", {}),
+        "aggregate_by_mode": results.get("aggregate_by_mode", {}),
+        "aggregate_by_family": results.get("aggregate_by_family", {}),
     }
     with open(aggregate_path, "w") as f:
         json.dump(aggregate_payload, f, indent=2, default=str)
@@ -44,6 +46,8 @@ def build_benchmark_report(results: dict[str, Any]) -> str:
     config = results.get("config", {})
     aggregate = results.get("aggregate", {})
     aggregate_by_script = results.get("aggregate_by_script", {})
+    aggregate_by_mode = results.get("aggregate_by_mode", {})
+    aggregate_by_family = results.get("aggregate_by_family", {})
     runs = results.get("runs", [])
 
     total_runs = len(runs)
@@ -90,6 +94,26 @@ def build_benchmark_report(results: dict[str, Any]) -> str:
     else:
         for script_condition, summary in sorted(aggregate_by_script.items()):
             lines.extend(_format_summary_block(script_condition, summary))
+
+    lines.extend([
+        "",
+        "## Mode Summary",
+    ])
+    if not aggregate_by_mode:
+        lines.append("- No mode-level aggregates were recorded.")
+    else:
+        for mode_condition, summary in sorted(aggregate_by_mode.items()):
+            lines.extend(_format_summary_block(mode_condition, summary))
+
+    lines.extend([
+        "",
+        "## Family Summary",
+    ])
+    if not aggregate_by_family:
+        lines.append("- No family-level aggregates were recorded.")
+    else:
+        for family_condition, summary in sorted(aggregate_by_family.items()):
+            lines.extend(_format_summary_block(family_condition, summary))
 
     return "\n".join(lines).strip() + "\n"
 
