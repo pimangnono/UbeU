@@ -99,10 +99,12 @@ class StakeholderSimulationNodes:
         runtime = state["runtime"]
         actor_id = runtime.select_next_actor_round_robin()
         actor = runtime.actors[actor_id]
+        actor_ctx = runtime.actor_context(actor_id, max_turns=8)
+        actor_ctx["snapshot"]["state_trajectory_summary"] = runtime.ledger.state_trajectory_summary()
         return {
             "active_actor_id": actor_id,
             "active_actor_name": actor.display_name,
-            "actor_context": runtime.actor_context(actor_id, max_turns=8),
+            "actor_context": actor_ctx,
             "drift_nudge": None,
             "policy_plan": {},
             "planned_action_artifact": None,
@@ -150,6 +152,16 @@ class StakeholderSimulationNodes:
             if state["base_condition"] == "engine_controller"
             else None
         )
+        if (
+            runtime.script.is_exploratory_mode
+            and runtime.ledger.trait_divergence_score() < 0.06
+            and len(runtime.ledger.turns) >= 4
+        ):
+            convergence_nudge = (
+                "The discussion is converging. Re-anchor to your unique stakeholder lens. "
+                "Surface a concern that hasn't been voiced yet."
+            )
+            drift_nudge = f"{drift_nudge} {convergence_nudge}" if drift_nudge else convergence_nudge
         actor.update_nudge(drift_nudge)
         policy_plan = await actor.generate_policy_plan(
             turns=state["actor_context"]["turns"],
@@ -180,20 +192,49 @@ class StakeholderSimulationNodes:
         runtime = state["runtime"]
         actor = runtime.actors[state["active_actor_id"]]
         phase = runtime.current_phase
-        pool = await actor.generate_candidate_pool_styles(
-            turns=state["actor_context"]["turns"],
-            phase_style=phase.style,
-            style_slots=runtime.script.style_slots_for_phase(phase.name, state["style_slots"]),
-            actor_snapshot=state["actor_context"]["snapshot"],
-            phase_name=phase.name,
-            phase_cues=phase.cues,
-            policy_plan=state["policy_plan"],
-            enable_trait_execution=(state["base_condition"] == "engine_controller"),
-            max_concurrency_override=runtime.script.pool_max_concurrency_for_phase(
+        policy_plan = dict(state["policy_plan"])
+        phase_policy = runtime.script.phase_action_policy(phase.name)
+        family_cap = int(phase_policy.get("family_cap", 2))
+        family_counts = runtime.ledger.phase_action_family_counts(
+            phase.name,
+            exclude_actor_id=state["active_actor_id"],
+        )
+        capped_families = [
+            family for family, count in family_counts.items()
+            if count >= family_cap
+        ]
+        if capped_families:
+            existing_avoid = list(policy_plan.get("_avoid_families", []))
+            merged_avoid = list(dict.fromkeys(existing_avoid + capped_families))
+            policy_plan["_avoid_families"] = merged_avoid
+            preferred = policy_plan.get("_preferred_action_types", [])
+            if preferred:
+                filtered = [
+                    a for a in preferred
+                    if action_family(a) not in capped_families
+                ]
+                policy_plan["_preferred_action_types"] = filtered if filtered else preferred
+        candidate_kwargs = {
+            "turns": state["actor_context"]["turns"],
+            "phase_style": phase.style,
+            "style_slots": runtime.script.style_slots_for_phase(phase.name, state["style_slots"]),
+            "actor_snapshot": state["actor_context"]["snapshot"],
+            "phase_name": phase.name,
+            "phase_cues": phase.cues,
+            "policy_plan": policy_plan,
+            "enable_trait_execution": (state["base_condition"] == "engine_controller"),
+            "max_concurrency_override": runtime.script.pool_max_concurrency_for_phase(
                 phase.name,
                 default=2,
             ),
-        )
+        }
+        try:
+            pool = await actor.generate_candidate_pool_styles(**candidate_kwargs)
+        except TypeError as exc:
+            if "max_concurrency_override" not in str(exc):
+                raise
+            candidate_kwargs.pop("max_concurrency_override", None)
+            pool = await actor.generate_candidate_pool_styles(**candidate_kwargs)
         return {"candidate_pool": pool}
 
     def route_selection_mode(self, state: StakeholderGraphState) -> str:
@@ -233,6 +274,10 @@ class StakeholderSimulationNodes:
                 phase.name,
                 exclude_actor_id=state["active_actor_id"],
             ),
+            "current_actor_phase_family_counts": runtime.ledger.phase_actor_action_family_counts(
+                phase.name,
+                state["active_actor_id"],
+            ),
             "turn_index": runtime.turn_index + 1,
             "use_action_aware_scoring": bool(
                 state["ablation_config"].use_action_aware_scoring
@@ -269,6 +314,9 @@ class StakeholderSimulationNodes:
             sycophancy_signals=selected.get("sycophancy_signals"),
             unfulfilled_persona_acts=selected.get("unfulfilled_persona_acts"),
             reflection=f"selected_score={selected.get('score', 0.0):.3f}",
+            turn_index=runtime.turn_index + 1,
+            phase_name=phase.name,
+            cause_type="candidate_selection",
         )
         return {
             "selected_candidate": selected,
@@ -294,6 +342,7 @@ class StakeholderSimulationNodes:
             content=state["selected_candidate_text"],
             metadata=state["selected_meta"],
         )
+        turn_trace_id = str(turn.metadata.get("turn_trace_id", ""))
         if state["base_condition"] != "engine_controller":
             inferred_traits = estimate_actor_traits_from_turns(
                 runtime.visible_turns_for_actor(actor_id, max_turns=999),
@@ -304,8 +353,11 @@ class StakeholderSimulationNodes:
                 last_inferred_traits=inferred_traits,
                 rolling_trait_estimate=inferred_traits,
                 drift_score=persona_drift_mae(actor.actor_spec.personality_prior, inferred_traits),
+                turn_index=runtime.turn_index,
+                phase_name=runtime.current_phase.name,
+                cause_type="post_turn_metric",
             )
-        return {"last_turn_index": turn.turn_index}
+        return {"last_turn_index": turn.turn_index, "turn_trace_id": turn_trace_id}
 
     async def compile_action_proposal(self, state: StakeholderGraphState) -> dict[str, Any]:
         runtime = state["runtime"]
@@ -343,6 +395,7 @@ class StakeholderSimulationNodes:
         )
         audit = {
             "trace_id": trace_id,
+            "turn_trace_id": state.get("turn_trace_id"),
             "proposal_id": proposal.proposal_id if proposal else trace_id,
             "actor_id": state["active_actor_id"],
             "phase_name": runtime.current_phase.name,

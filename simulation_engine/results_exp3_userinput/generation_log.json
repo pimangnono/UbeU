@@ -1,0 +1,21 @@
+[
+  {
+    "brief_id": "aws_to_gcp_migration",
+    "status": "error",
+    "error": ""
+  },
+  {
+    "brief_id": "open_source_core_product",
+    "status": "success",
+    "actors": 3,
+    "phases": 4,
+    "events": 2
+  },
+  {
+    "brief_id": "hospital_ai_diagnostics",
+    "status": "success",
+    "actors": 3,
+    "phases": 4,
+    "events": 2
+  }
+]

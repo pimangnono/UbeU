@@ -10,6 +10,8 @@ from simulation_engine.metrics import (
     fallback_utterance_rate,
     negotiation_uniqueness_rate,
     relationship_inconsistency_rate,
+    relationship_overshoot_rate,
+    relationship_shift_rate,
     role_action_diversity_score,
 )
 from simulation_engine.runtime import StakeholderSimulationRuntime
@@ -71,6 +73,8 @@ def test_relationship_inconsistency_rate_detects_sentiment_swings():
     )
 
     assert relationship_inconsistency_rate(runtime) > 0.0
+    assert relationship_shift_rate(runtime) > 0.0
+    assert relationship_overshoot_rate(runtime) > 0.0
 
 
 def test_action_family_metrics_detect_phase_convergence():

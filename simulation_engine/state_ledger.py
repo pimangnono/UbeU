@@ -153,6 +153,7 @@ class SimulationStateLedger:
         self.relationships: dict[tuple[str, str], RelationshipEdge] = {}
         self.event_exposures: list[EventExposure] = []
         self.relationship_events: list[dict[str, Any]] = []
+        self.actor_state_events: list[dict[str, Any]] = []
         self.action_proposals: list[ActionProposal] = []
         self.executed_actions: list[ExecutedAction] = []
         self.action_audits: dict[str, dict[str, Any]] = {}
@@ -219,9 +220,18 @@ class SimulationStateLedger:
             visible_to=list(visible_to) if visible_to else None,
             metadata=dict(metadata or {}),
         )
+        turn.metadata.setdefault(
+            "turn_trace_id",
+            f"{self.script.simulation_id}:{phase_name}:{turn.turn_index}:{actor_id}",
+        )
         self.turns.append(turn)
         self.add_commitments_from_text(actor_id, content, turn.turn_index, phase_name)
-        self.update_relationships_from_text(actor_id, content, turn.turn_index)
+        self.update_relationships_from_text(
+            actor_id,
+            content,
+            turn.turn_index,
+            turn_trace_id=str(turn.metadata.get("turn_trace_id", "")) or None,
+        )
         return turn
 
     def add_commitments_from_text(
@@ -269,8 +279,13 @@ class SimulationStateLedger:
         tension_delta: float,
         turn_index: int,
         evidence: str | None = None,
+        turn_trace_id: str | None = None,
+        cause_type: str = "text_reference",
     ):
         edge = self.relationships[(source_actor_id, target_actor_id)]
+        prior_sentiment = edge.sentiment
+        prior_trust = edge.trust
+        prior_tension = edge.tension
         edge.sentiment = sentiment
         edge.trust = _clip_unit(edge.trust + trust_delta)
         edge.tension = _clip_unit(edge.tension + tension_delta)
@@ -280,13 +295,21 @@ class SimulationStateLedger:
         self.relationship_events.append({
             "source_actor_id": source_actor_id,
             "target_actor_id": target_actor_id,
+            "prior_sentiment": prior_sentiment,
+            "new_sentiment": sentiment,
             "sentiment": sentiment,
+            "prior_trust": round(prior_trust, 4),
+            "new_trust": edge.trust,
             "trust": edge.trust,
+            "prior_tension": round(prior_tension, 4),
+            "new_tension": edge.tension,
             "tension": edge.tension,
             "trust_delta": round(trust_delta, 4),
             "tension_delta": round(tension_delta, 4),
             "turn_index": turn_index,
             "evidence": evidence or "",
+            "turn_trace_id": turn_trace_id,
+            "cause_type": cause_type,
         })
 
         actor_state = self.actor_states[source_actor_id]
@@ -298,6 +321,7 @@ class SimulationStateLedger:
         actor_id: str,
         content: str,
         turn_index: int,
+        turn_trace_id: str | None = None,
     ) -> list[RelationshipEdge]:
         lowered = content.lower()
         updates: list[RelationshipEdge] = []
@@ -348,6 +372,7 @@ class SimulationStateLedger:
                 tension_delta=tension_delta,
                 turn_index=turn_index,
                 evidence=content[:140],
+                turn_trace_id=turn_trace_id,
             )
             updates.append(self.relationships[(actor_id, target_actor_id)])
 
@@ -367,8 +392,26 @@ class SimulationStateLedger:
         sycophancy_signals: Optional[dict[str, int]] = None,
         unfulfilled_persona_acts: Optional[dict[str, list[str]]] = None,
         goals: Optional[list[str]] = None,
+        turn_index: Optional[int] = None,
+        phase_name: Optional[str] = None,
+        cause_type: str = "state_update",
     ):
         actor_state = self.actor_states[actor_id]
+        prior_state = {
+            "beliefs": dict(actor_state.beliefs),
+            "issue_salience": dict(actor_state.issue_salience),
+            "stress": actor_state.stress,
+            "last_inferred_traits": dict(actor_state.last_inferred_traits),
+            "rolling_trait_estimate": dict(actor_state.rolling_trait_estimate),
+            "drift_score": actor_state.drift_score,
+            "trait_drift_map": dict(actor_state.trait_drift_map),
+            "sycophancy_risk": actor_state.sycophancy_risk,
+            "unfulfilled_persona_acts": {
+                key: list(value)
+                for key, value in actor_state.unfulfilled_persona_acts.items()
+            },
+            "goals": list(actor_state.goals),
+        }
         if beliefs:
             actor_state.beliefs.update(beliefs)
         if issue_salience:
@@ -420,6 +463,14 @@ class SimulationStateLedger:
             }
         if goals is not None:
             actor_state.goals = list(goals)
+        self.actor_state_events.append({
+            "actor_id": actor_id,
+            "turn_index": turn_index if turn_index is not None else len(self.turns),
+            "phase_name": phase_name or (self.turns[-1].phase_name if self.turns else "BOOTSTRAP"),
+            "cause_type": cause_type,
+            "prior_state": prior_state,
+            "new_state": actor_state.to_dict(),
+        })
 
     def resolve_commitment(self, actor_id: str, commitment_id: str):
         for commitment in self.commitments_by_actor.get(actor_id, []):
@@ -520,6 +571,21 @@ class SimulationStateLedger:
                 actor_families[proposal.actor_id].append(family)
         return actor_families
 
+    def phase_actor_action_family_counts(
+        self,
+        phase_name: str,
+        actor_id: str,
+    ) -> dict[str, int]:
+        counts: dict[str, int] = {}
+        for proposal in self.phase_action_proposals(phase_name):
+            if proposal.actor_id != actor_id:
+                continue
+            if proposal.status not in {"proposed", "approved", "executed"}:
+                continue
+            family = action_family(proposal.action_type)
+            counts[family] = counts.get(family, 0) + 1
+        return counts
+
     def apply_executed_action(
         self,
         executed_action: ExecutedAction,
@@ -589,6 +655,45 @@ class SimulationStateLedger:
             for (source_actor_id, _), edge in self.relationships.items()
             if source_actor_id == actor_id
         ]
+
+    def state_trajectory_summary(self) -> str:
+        """Compare last 2 WorldStateSnapshot entries and produce a 1-2 sentence delta description."""
+        if len(self.world_state_history) < 2:
+            return ""
+        prev = self.world_state_history[-2]
+        curr = self.world_state_history[-1]
+        changes: list[str] = []
+        for key in curr.global_state:
+            prev_val = float(prev.global_state.get(key, 0.5))
+            curr_val = float(curr.global_state.get(key, 0.5))
+            delta = curr_val - prev_val
+            if abs(delta) >= 0.03:
+                direction = "rose" if delta > 0 else "fell"
+                changes.append(f"{key} {direction} {abs(delta):.2f}")
+        if not changes:
+            return ""
+        return f"Since last phase: {'; '.join(changes[:4])}."
+
+    def trait_divergence_score(self) -> float:
+        """Mean pairwise absolute difference between all actors' rolling trait estimates."""
+        actor_ids = list(self.actor_states.keys())
+        if len(actor_ids) < 2:
+            return 0.0
+        pair_diffs: list[float] = []
+        for i in range(len(actor_ids)):
+            for j in range(i + 1, len(actor_ids)):
+                traits_i = self.actor_states[actor_ids[i]].rolling_trait_estimate
+                traits_j = self.actor_states[actor_ids[j]].rolling_trait_estimate
+                if traits_i and traits_j:
+                    shared_traits = set(traits_i.keys()) & set(traits_j.keys())
+                    if shared_traits:
+                        diff = sum(
+                            abs(traits_i[t] - traits_j[t]) for t in shared_traits
+                        ) / len(shared_traits)
+                        pair_diffs.append(diff)
+        if not pair_diffs:
+            return 0.0
+        return round(sum(pair_diffs) / len(pair_diffs), 4)
 
     def snapshot_actor_context(self, actor_id: str, max_turns: int = 8) -> dict[str, Any]:
         return {

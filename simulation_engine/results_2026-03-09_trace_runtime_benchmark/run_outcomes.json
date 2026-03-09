@@ -1,0 +1,842 @@
+[
+  {
+    "run_id": "suite_ac60b7e4c4ea:guided:new_product_launch:engine_dialogue_only:1",
+    "suite_id": "suite_ac60b7e4c4ea",
+    "track_id": "guided",
+    "simulation_id": "new_product_launch",
+    "scenario_family": "launch_pressure",
+    "builder_trace_id": "manual:new_product_launch",
+    "clean_status": "clean",
+    "fallback_summary": {
+      "fallback_utterance_rate": 0.0,
+      "fallback_type_rates": {}
+    },
+    "headline_metrics": {
+      "persona_drift_mae": 0.1441,
+      "per_trait_error_mean": {
+        "O": 0.1467,
+        "C": 0.1473,
+        "E": 0.1166,
+        "A": 0.08,
+        "N": 0.23
+      },
+      "envelope_violations": 4,
+      "commitment_contradiction_rate": 0.0,
+      "relationship_shift_rate": 0.25,
+      "relationship_overshoot_rate": 0.45,
+      "action_family_convergence_rate": 0.625,
+      "role_action_diversity_score": 0.5833
+    },
+    "top_drivers": [
+      {
+        "metric": "envelope_violations",
+        "source_type": "persistent_envelope_breach",
+        "estimated_contribution": 5.0,
+        "supporting_trace_ids": [
+          "suite_ac60b7e4c4ea:guided:new_product_launch:engine_dialogue_only:1:new_product_launch:OPENING:1:actor_1",
+          "suite_ac60b7e4c4ea:guided:new_product_launch:engine_dialogue_only:1:new_product_launch:OPENING:2:actor_2",
+          "suite_ac60b7e4c4ea:guided:new_product_launch:engine_dialogue_only:1:new_product_launch:OPENING:3:actor_3"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "TENSION_duplicate_families",
+        "estimated_contribution": 2.0,
+        "supporting_trace_ids": [
+          "suite_ac60b7e4c4ea:guided:new_product_launch:engine_dialogue_only:1"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "NEGOTIATION_duplicate_families",
+        "estimated_contribution": 2.0,
+        "supporting_trace_ids": [
+          "suite_ac60b7e4c4ea:guided:new_product_launch:engine_dialogue_only:1"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "OPENING_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_ac60b7e4c4ea:guided:new_product_launch:engine_dialogue_only:1"
+        ]
+      },
+      {
+        "metric": "builder_completeness",
+        "source_type": "builder_complete",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "manual:new_product_launch"
+        ]
+      }
+    ],
+    "top_failures": [
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "TENSION_duplicate_families",
+        "estimated_contribution": 2.0,
+        "supporting_trace_ids": [
+          "suite_ac60b7e4c4ea:guided:new_product_launch:engine_dialogue_only:1"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "NEGOTIATION_duplicate_families",
+        "estimated_contribution": 2.0,
+        "supporting_trace_ids": [
+          "suite_ac60b7e4c4ea:guided:new_product_launch:engine_dialogue_only:1"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "OPENING_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_ac60b7e4c4ea:guided:new_product_launch:engine_dialogue_only:1"
+        ]
+      }
+    ],
+    "phase_refs": [
+      "suite_ac60b7e4c4ea:guided:new_product_launch:engine_dialogue_only:1:OPENING",
+      "suite_ac60b7e4c4ea:guided:new_product_launch:engine_dialogue_only:1:TENSION",
+      "suite_ac60b7e4c4ea:guided:new_product_launch:engine_dialogue_only:1:NEGOTIATION",
+      "suite_ac60b7e4c4ea:guided:new_product_launch:engine_dialogue_only:1:CLOSING"
+    ]
+  },
+  {
+    "run_id": "suite_ac60b7e4c4ea:guided:new_product_launch:engine_dialogue_only:2",
+    "suite_id": "suite_ac60b7e4c4ea",
+    "track_id": "guided",
+    "simulation_id": "new_product_launch",
+    "scenario_family": "launch_pressure",
+    "builder_trace_id": "manual:new_product_launch",
+    "clean_status": "clean",
+    "fallback_summary": {
+      "fallback_utterance_rate": 0.0,
+      "fallback_type_rates": {}
+    },
+    "headline_metrics": {
+      "persona_drift_mae": 0.1279,
+      "per_trait_error_mean": {
+        "O": 0.1133,
+        "C": 0.1767,
+        "E": 0.0863,
+        "A": 0.06,
+        "N": 0.2033
+      },
+      "envelope_violations": 3,
+      "commitment_contradiction_rate": 0.0,
+      "relationship_shift_rate": 0.184,
+      "relationship_overshoot_rate": 0.0,
+      "action_family_convergence_rate": 0.625,
+      "role_action_diversity_score": 0.5833
+    },
+    "top_drivers": [
+      {
+        "metric": "envelope_violations",
+        "source_type": "persistent_envelope_breach",
+        "estimated_contribution": 5.0,
+        "supporting_trace_ids": [
+          "suite_ac60b7e4c4ea:guided:new_product_launch:engine_dialogue_only:2:new_product_launch:OPENING:1:actor_1",
+          "suite_ac60b7e4c4ea:guided:new_product_launch:engine_dialogue_only:2:new_product_launch:OPENING:3:actor_3",
+          "suite_ac60b7e4c4ea:guided:new_product_launch:engine_dialogue_only:2:new_product_launch:TENSION:4:actor_1"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "TENSION_duplicate_families",
+        "estimated_contribution": 2.0,
+        "supporting_trace_ids": [
+          "suite_ac60b7e4c4ea:guided:new_product_launch:engine_dialogue_only:2"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "NEGOTIATION_duplicate_families",
+        "estimated_contribution": 2.0,
+        "supporting_trace_ids": [
+          "suite_ac60b7e4c4ea:guided:new_product_launch:engine_dialogue_only:2"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "OPENING_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_ac60b7e4c4ea:guided:new_product_launch:engine_dialogue_only:2"
+        ]
+      },
+      {
+        "metric": "builder_completeness",
+        "source_type": "builder_complete",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "manual:new_product_launch"
+        ]
+      }
+    ],
+    "top_failures": [
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "TENSION_duplicate_families",
+        "estimated_contribution": 2.0,
+        "supporting_trace_ids": [
+          "suite_ac60b7e4c4ea:guided:new_product_launch:engine_dialogue_only:2"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "NEGOTIATION_duplicate_families",
+        "estimated_contribution": 2.0,
+        "supporting_trace_ids": [
+          "suite_ac60b7e4c4ea:guided:new_product_launch:engine_dialogue_only:2"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "OPENING_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_ac60b7e4c4ea:guided:new_product_launch:engine_dialogue_only:2"
+        ]
+      }
+    ],
+    "phase_refs": [
+      "suite_ac60b7e4c4ea:guided:new_product_launch:engine_dialogue_only:2:OPENING",
+      "suite_ac60b7e4c4ea:guided:new_product_launch:engine_dialogue_only:2:TENSION",
+      "suite_ac60b7e4c4ea:guided:new_product_launch:engine_dialogue_only:2:NEGOTIATION",
+      "suite_ac60b7e4c4ea:guided:new_product_launch:engine_dialogue_only:2:CLOSING"
+    ]
+  },
+  {
+    "run_id": "suite_ac60b7e4c4ea:guided:post_merger_integration:engine_dialogue_only:1",
+    "suite_id": "suite_ac60b7e4c4ea",
+    "track_id": "guided",
+    "simulation_id": "post_merger_integration",
+    "scenario_family": "integration_trust",
+    "builder_trace_id": "manual:post_merger_integration",
+    "clean_status": "clean",
+    "fallback_summary": {
+      "fallback_utterance_rate": 0.0,
+      "fallback_type_rates": {}
+    },
+    "headline_metrics": {
+      "persona_drift_mae": 0.1331,
+      "per_trait_error_mean": {
+        "O": 0.13,
+        "C": 0.172,
+        "E": 0.06,
+        "A": 0.08,
+        "N": 0.2233
+      },
+      "envelope_violations": 6,
+      "commitment_contradiction_rate": 0.0,
+      "relationship_shift_rate": 0.233,
+      "relationship_overshoot_rate": 0.45,
+      "action_family_convergence_rate": 0.5,
+      "role_action_diversity_score": 0.6667
+    },
+    "top_drivers": [
+      {
+        "metric": "envelope_violations",
+        "source_type": "persistent_envelope_breach",
+        "estimated_contribution": 5.0,
+        "supporting_trace_ids": [
+          "suite_ac60b7e4c4ea:guided:post_merger_integration:engine_dialogue_only:1:post_merger_integration:OPENING:1:actor_1",
+          "suite_ac60b7e4c4ea:guided:post_merger_integration:engine_dialogue_only:1:post_merger_integration:OPENING:2:actor_2",
+          "suite_ac60b7e4c4ea:guided:post_merger_integration:engine_dialogue_only:1:post_merger_integration:OPENING:3:actor_3"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "TENSION_duplicate_families",
+        "estimated_contribution": 2.0,
+        "supporting_trace_ids": [
+          "suite_ac60b7e4c4ea:guided:post_merger_integration:engine_dialogue_only:1"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "OPENING_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_ac60b7e4c4ea:guided:post_merger_integration:engine_dialogue_only:1"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "NEGOTIATION_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_ac60b7e4c4ea:guided:post_merger_integration:engine_dialogue_only:1"
+        ]
+      },
+      {
+        "metric": "builder_completeness",
+        "source_type": "builder_complete",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "manual:post_merger_integration"
+        ]
+      }
+    ],
+    "top_failures": [
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "TENSION_duplicate_families",
+        "estimated_contribution": 2.0,
+        "supporting_trace_ids": [
+          "suite_ac60b7e4c4ea:guided:post_merger_integration:engine_dialogue_only:1"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "OPENING_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_ac60b7e4c4ea:guided:post_merger_integration:engine_dialogue_only:1"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "NEGOTIATION_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_ac60b7e4c4ea:guided:post_merger_integration:engine_dialogue_only:1"
+        ]
+      }
+    ],
+    "phase_refs": [
+      "suite_ac60b7e4c4ea:guided:post_merger_integration:engine_dialogue_only:1:OPENING",
+      "suite_ac60b7e4c4ea:guided:post_merger_integration:engine_dialogue_only:1:TENSION",
+      "suite_ac60b7e4c4ea:guided:post_merger_integration:engine_dialogue_only:1:NEGOTIATION",
+      "suite_ac60b7e4c4ea:guided:post_merger_integration:engine_dialogue_only:1:CLOSING"
+    ]
+  },
+  {
+    "run_id": "suite_ac60b7e4c4ea:guided:post_merger_integration:engine_dialogue_only:2",
+    "suite_id": "suite_ac60b7e4c4ea",
+    "track_id": "guided",
+    "simulation_id": "post_merger_integration",
+    "scenario_family": "integration_trust",
+    "builder_trace_id": "manual:post_merger_integration",
+    "clean_status": "clean",
+    "fallback_summary": {
+      "fallback_utterance_rate": 0.0,
+      "fallback_type_rates": {}
+    },
+    "headline_metrics": {
+      "persona_drift_mae": 0.1292,
+      "per_trait_error_mean": {
+        "O": 0.1367,
+        "C": 0.1467,
+        "E": 0.0595,
+        "A": 0.08,
+        "N": 0.2233
+      },
+      "envelope_violations": 4,
+      "commitment_contradiction_rate": 0.0,
+      "relationship_shift_rate": 0.215,
+      "relationship_overshoot_rate": 0.0,
+      "action_family_convergence_rate": 0.5,
+      "role_action_diversity_score": 0.6667
+    },
+    "top_drivers": [
+      {
+        "metric": "envelope_violations",
+        "source_type": "persistent_envelope_breach",
+        "estimated_contribution": 5.0,
+        "supporting_trace_ids": [
+          "suite_ac60b7e4c4ea:guided:post_merger_integration:engine_dialogue_only:2:post_merger_integration:OPENING:1:actor_1",
+          "suite_ac60b7e4c4ea:guided:post_merger_integration:engine_dialogue_only:2:post_merger_integration:OPENING:2:actor_2",
+          "suite_ac60b7e4c4ea:guided:post_merger_integration:engine_dialogue_only:2:post_merger_integration:OPENING:3:actor_3"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "TENSION_duplicate_families",
+        "estimated_contribution": 2.0,
+        "supporting_trace_ids": [
+          "suite_ac60b7e4c4ea:guided:post_merger_integration:engine_dialogue_only:2"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "OPENING_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_ac60b7e4c4ea:guided:post_merger_integration:engine_dialogue_only:2"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "NEGOTIATION_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_ac60b7e4c4ea:guided:post_merger_integration:engine_dialogue_only:2"
+        ]
+      },
+      {
+        "metric": "builder_completeness",
+        "source_type": "builder_complete",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "manual:post_merger_integration"
+        ]
+      }
+    ],
+    "top_failures": [
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "TENSION_duplicate_families",
+        "estimated_contribution": 2.0,
+        "supporting_trace_ids": [
+          "suite_ac60b7e4c4ea:guided:post_merger_integration:engine_dialogue_only:2"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "OPENING_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_ac60b7e4c4ea:guided:post_merger_integration:engine_dialogue_only:2"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "NEGOTIATION_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_ac60b7e4c4ea:guided:post_merger_integration:engine_dialogue_only:2"
+        ]
+      }
+    ],
+    "phase_refs": [
+      "suite_ac60b7e4c4ea:guided:post_merger_integration:engine_dialogue_only:2:OPENING",
+      "suite_ac60b7e4c4ea:guided:post_merger_integration:engine_dialogue_only:2:TENSION",
+      "suite_ac60b7e4c4ea:guided:post_merger_integration:engine_dialogue_only:2:NEGOTIATION",
+      "suite_ac60b7e4c4ea:guided:post_merger_integration:engine_dialogue_only:2:CLOSING"
+    ]
+  },
+  {
+    "run_id": "suite_ac60b7e4c4ea:exploratory:brand_crisis_response:engine_dialogue_only:1",
+    "suite_id": "suite_ac60b7e4c4ea",
+    "track_id": "exploratory",
+    "simulation_id": "brand_crisis_response",
+    "scenario_family": "brand_crisis",
+    "builder_trace_id": "manual:brand_crisis_response",
+    "clean_status": "clean",
+    "fallback_summary": {
+      "fallback_utterance_rate": 0.0,
+      "fallback_type_rates": {}
+    },
+    "headline_metrics": {
+      "persona_drift_mae": 0.1453,
+      "per_trait_error_mean": {
+        "O": 0.1033,
+        "C": 0.232,
+        "E": 0.0613,
+        "A": 0.11,
+        "N": 0.22
+      },
+      "envelope_violations": 5,
+      "commitment_contradiction_rate": 0.0,
+      "relationship_shift_rate": 0.21,
+      "relationship_overshoot_rate": 0.0,
+      "action_family_convergence_rate": 0.625,
+      "role_action_diversity_score": 0.625
+    },
+    "top_drivers": [
+      {
+        "metric": "envelope_violations",
+        "source_type": "persistent_envelope_breach",
+        "estimated_contribution": 5.0,
+        "supporting_trace_ids": [
+          "suite_ac60b7e4c4ea:exploratory:brand_crisis_response:engine_dialogue_only:1:brand_crisis_response:OPENING:1:actor_1",
+          "suite_ac60b7e4c4ea:exploratory:brand_crisis_response:engine_dialogue_only:1:brand_crisis_response:OPENING:2:actor_2",
+          "suite_ac60b7e4c4ea:exploratory:brand_crisis_response:engine_dialogue_only:1:brand_crisis_response:OPENING:3:actor_3"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "OPENING_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_ac60b7e4c4ea:exploratory:brand_crisis_response:engine_dialogue_only:1"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "TENSION_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_ac60b7e4c4ea:exploratory:brand_crisis_response:engine_dialogue_only:1"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "NEGOTIATION_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_ac60b7e4c4ea:exploratory:brand_crisis_response:engine_dialogue_only:1"
+        ]
+      },
+      {
+        "metric": "builder_completeness",
+        "source_type": "builder_complete",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "manual:brand_crisis_response"
+        ]
+      }
+    ],
+    "top_failures": [
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "OPENING_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_ac60b7e4c4ea:exploratory:brand_crisis_response:engine_dialogue_only:1"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "TENSION_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_ac60b7e4c4ea:exploratory:brand_crisis_response:engine_dialogue_only:1"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "NEGOTIATION_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_ac60b7e4c4ea:exploratory:brand_crisis_response:engine_dialogue_only:1"
+        ]
+      }
+    ],
+    "phase_refs": [
+      "suite_ac60b7e4c4ea:exploratory:brand_crisis_response:engine_dialogue_only:1:OPENING",
+      "suite_ac60b7e4c4ea:exploratory:brand_crisis_response:engine_dialogue_only:1:TENSION",
+      "suite_ac60b7e4c4ea:exploratory:brand_crisis_response:engine_dialogue_only:1:NEGOTIATION",
+      "suite_ac60b7e4c4ea:exploratory:brand_crisis_response:engine_dialogue_only:1:CLOSING"
+    ]
+  },
+  {
+    "run_id": "suite_ac60b7e4c4ea:exploratory:brand_crisis_response:engine_dialogue_only:2",
+    "suite_id": "suite_ac60b7e4c4ea",
+    "track_id": "exploratory",
+    "simulation_id": "brand_crisis_response",
+    "scenario_family": "brand_crisis",
+    "builder_trace_id": "manual:brand_crisis_response",
+    "clean_status": "clean",
+    "fallback_summary": {
+      "fallback_utterance_rate": 0.0,
+      "fallback_type_rates": {}
+    },
+    "headline_metrics": {
+      "persona_drift_mae": 0.1347,
+      "per_trait_error_mean": {
+        "O": 0.1033,
+        "C": 0.166,
+        "E": 0.0943,
+        "A": 0.0767,
+        "N": 0.2333
+      },
+      "envelope_violations": 5,
+      "commitment_contradiction_rate": 0.0,
+      "relationship_shift_rate": 0.24,
+      "relationship_overshoot_rate": 0.0,
+      "action_family_convergence_rate": 0.625,
+      "role_action_diversity_score": 0.625
+    },
+    "top_drivers": [
+      {
+        "metric": "envelope_violations",
+        "source_type": "persistent_envelope_breach",
+        "estimated_contribution": 5.0,
+        "supporting_trace_ids": [
+          "suite_ac60b7e4c4ea:exploratory:brand_crisis_response:engine_dialogue_only:2:brand_crisis_response:OPENING:1:actor_1",
+          "suite_ac60b7e4c4ea:exploratory:brand_crisis_response:engine_dialogue_only:2:brand_crisis_response:OPENING:2:actor_2",
+          "suite_ac60b7e4c4ea:exploratory:brand_crisis_response:engine_dialogue_only:2:brand_crisis_response:OPENING:3:actor_3"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "OPENING_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_ac60b7e4c4ea:exploratory:brand_crisis_response:engine_dialogue_only:2"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "TENSION_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_ac60b7e4c4ea:exploratory:brand_crisis_response:engine_dialogue_only:2"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "NEGOTIATION_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_ac60b7e4c4ea:exploratory:brand_crisis_response:engine_dialogue_only:2"
+        ]
+      },
+      {
+        "metric": "builder_completeness",
+        "source_type": "builder_complete",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "manual:brand_crisis_response"
+        ]
+      }
+    ],
+    "top_failures": [
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "OPENING_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_ac60b7e4c4ea:exploratory:brand_crisis_response:engine_dialogue_only:2"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "TENSION_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_ac60b7e4c4ea:exploratory:brand_crisis_response:engine_dialogue_only:2"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "NEGOTIATION_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_ac60b7e4c4ea:exploratory:brand_crisis_response:engine_dialogue_only:2"
+        ]
+      }
+    ],
+    "phase_refs": [
+      "suite_ac60b7e4c4ea:exploratory:brand_crisis_response:engine_dialogue_only:2:OPENING",
+      "suite_ac60b7e4c4ea:exploratory:brand_crisis_response:engine_dialogue_only:2:TENSION",
+      "suite_ac60b7e4c4ea:exploratory:brand_crisis_response:engine_dialogue_only:2:NEGOTIATION",
+      "suite_ac60b7e4c4ea:exploratory:brand_crisis_response:engine_dialogue_only:2:CLOSING"
+    ]
+  },
+  {
+    "run_id": "suite_ac60b7e4c4ea:exploratory:resource_reallocation_crunch:engine_dialogue_only:1",
+    "suite_id": "suite_ac60b7e4c4ea",
+    "track_id": "exploratory",
+    "simulation_id": "resource_reallocation_crunch",
+    "scenario_family": "resource_scarcity",
+    "builder_trace_id": "manual:resource_reallocation_crunch",
+    "clean_status": "clean",
+    "fallback_summary": {
+      "fallback_utterance_rate": 0.0,
+      "fallback_type_rates": {}
+    },
+    "headline_metrics": {
+      "persona_drift_mae": 0.1348,
+      "per_trait_error_mean": {
+        "O": 0.0967,
+        "C": 0.18,
+        "E": 0.0507,
+        "A": 0.1033,
+        "N": 0.2433
+      },
+      "envelope_violations": 5,
+      "commitment_contradiction_rate": 0.0,
+      "relationship_shift_rate": 0.21,
+      "relationship_overshoot_rate": 0.0,
+      "action_family_convergence_rate": 0.5,
+      "role_action_diversity_score": 0.6667
+    },
+    "top_drivers": [
+      {
+        "metric": "envelope_violations",
+        "source_type": "persistent_envelope_breach",
+        "estimated_contribution": 5.0,
+        "supporting_trace_ids": [
+          "suite_ac60b7e4c4ea:exploratory:resource_reallocation_crunch:engine_dialogue_only:1:resource_reallocation_crunch:OPENING:1:actor_1",
+          "suite_ac60b7e4c4ea:exploratory:resource_reallocation_crunch:engine_dialogue_only:1:resource_reallocation_crunch:OPENING:2:actor_2",
+          "suite_ac60b7e4c4ea:exploratory:resource_reallocation_crunch:engine_dialogue_only:1:resource_reallocation_crunch:OPENING:3:actor_3"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "TENSION_duplicate_families",
+        "estimated_contribution": 2.0,
+        "supporting_trace_ids": [
+          "suite_ac60b7e4c4ea:exploratory:resource_reallocation_crunch:engine_dialogue_only:1"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "OPENING_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_ac60b7e4c4ea:exploratory:resource_reallocation_crunch:engine_dialogue_only:1"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "NEGOTIATION_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_ac60b7e4c4ea:exploratory:resource_reallocation_crunch:engine_dialogue_only:1"
+        ]
+      },
+      {
+        "metric": "builder_completeness",
+        "source_type": "builder_complete",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "manual:resource_reallocation_crunch"
+        ]
+      }
+    ],
+    "top_failures": [
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "TENSION_duplicate_families",
+        "estimated_contribution": 2.0,
+        "supporting_trace_ids": [
+          "suite_ac60b7e4c4ea:exploratory:resource_reallocation_crunch:engine_dialogue_only:1"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "OPENING_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_ac60b7e4c4ea:exploratory:resource_reallocation_crunch:engine_dialogue_only:1"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "NEGOTIATION_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_ac60b7e4c4ea:exploratory:resource_reallocation_crunch:engine_dialogue_only:1"
+        ]
+      }
+    ],
+    "phase_refs": [
+      "suite_ac60b7e4c4ea:exploratory:resource_reallocation_crunch:engine_dialogue_only:1:OPENING",
+      "suite_ac60b7e4c4ea:exploratory:resource_reallocation_crunch:engine_dialogue_only:1:TENSION",
+      "suite_ac60b7e4c4ea:exploratory:resource_reallocation_crunch:engine_dialogue_only:1:NEGOTIATION",
+      "suite_ac60b7e4c4ea:exploratory:resource_reallocation_crunch:engine_dialogue_only:1:CLOSING"
+    ]
+  },
+  {
+    "run_id": "suite_ac60b7e4c4ea:exploratory:resource_reallocation_crunch:engine_dialogue_only:2",
+    "suite_id": "suite_ac60b7e4c4ea",
+    "track_id": "exploratory",
+    "simulation_id": "resource_reallocation_crunch",
+    "scenario_family": "resource_scarcity",
+    "builder_trace_id": "manual:resource_reallocation_crunch",
+    "clean_status": "clean",
+    "fallback_summary": {
+      "fallback_utterance_rate": 0.0,
+      "fallback_type_rates": {}
+    },
+    "headline_metrics": {
+      "persona_drift_mae": 0.1272,
+      "per_trait_error_mean": {
+        "O": 0.0967,
+        "C": 0.18,
+        "E": 0.046,
+        "A": 0.0967,
+        "N": 0.2167
+      },
+      "envelope_violations": 5,
+      "commitment_contradiction_rate": 0.0,
+      "relationship_shift_rate": 0.1844,
+      "relationship_overshoot_rate": 0.0,
+      "action_family_convergence_rate": 0.5,
+      "role_action_diversity_score": 0.6667
+    },
+    "top_drivers": [
+      {
+        "metric": "envelope_violations",
+        "source_type": "persistent_envelope_breach",
+        "estimated_contribution": 5.0,
+        "supporting_trace_ids": [
+          "suite_ac60b7e4c4ea:exploratory:resource_reallocation_crunch:engine_dialogue_only:2:resource_reallocation_crunch:OPENING:1:actor_1",
+          "suite_ac60b7e4c4ea:exploratory:resource_reallocation_crunch:engine_dialogue_only:2:resource_reallocation_crunch:OPENING:2:actor_2",
+          "suite_ac60b7e4c4ea:exploratory:resource_reallocation_crunch:engine_dialogue_only:2:resource_reallocation_crunch:OPENING:3:actor_3"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "TENSION_duplicate_families",
+        "estimated_contribution": 2.0,
+        "supporting_trace_ids": [
+          "suite_ac60b7e4c4ea:exploratory:resource_reallocation_crunch:engine_dialogue_only:2"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "OPENING_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_ac60b7e4c4ea:exploratory:resource_reallocation_crunch:engine_dialogue_only:2"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "NEGOTIATION_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_ac60b7e4c4ea:exploratory:resource_reallocation_crunch:engine_dialogue_only:2"
+        ]
+      },
+      {
+        "metric": "builder_completeness",
+        "source_type": "builder_complete",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "manual:resource_reallocation_crunch"
+        ]
+      }
+    ],
+    "top_failures": [
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "TENSION_duplicate_families",
+        "estimated_contribution": 2.0,
+        "supporting_trace_ids": [
+          "suite_ac60b7e4c4ea:exploratory:resource_reallocation_crunch:engine_dialogue_only:2"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "OPENING_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_ac60b7e4c4ea:exploratory:resource_reallocation_crunch:engine_dialogue_only:2"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "NEGOTIATION_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_ac60b7e4c4ea:exploratory:resource_reallocation_crunch:engine_dialogue_only:2"
+        ]
+      }
+    ],
+    "phase_refs": [
+      "suite_ac60b7e4c4ea:exploratory:resource_reallocation_crunch:engine_dialogue_only:2:OPENING",
+      "suite_ac60b7e4c4ea:exploratory:resource_reallocation_crunch:engine_dialogue_only:2:TENSION",
+      "suite_ac60b7e4c4ea:exploratory:resource_reallocation_crunch:engine_dialogue_only:2:NEGOTIATION",
+      "suite_ac60b7e4c4ea:exploratory:resource_reallocation_crunch:engine_dialogue_only:2:CLOSING"
+    ]
+  }
+]

@@ -1,0 +1,824 @@
+# Simulation Benchmark Report
+
+## Suite Config
+- Total runs: 56
+- Conditions: engine_dialogue_only, engine_dialogue_only_softmax
+- Script ids: youth_employment_policy, housing_support_policy, commuting_support_policy, new_product_launch, post_merger_integration, brand_crisis_response, resource_reallocation_crunch
+- Repetitions per condition: 4
+
+## Condition Summary
+### engine_dialogue_only
+- Runs: 28
+- Clean runs: 28
+- Contaminated runs: 0
+- Persona drift MAE: 0.1694 (+/- 0.0218)
+- Clean persona drift MAE: 0.1694
+- Per-trait absolute error: O 0.1038, C 0.2802, E 0.1687, A 0.0833, N 0.2109
+- Relationship inconsistency: 0.0460
+- Commitment contradiction: 0.0319
+- Clean commitment contradiction: 0.0319
+- Envelope violations: 6.0357
+- Clean envelope violations: 6.0357
+- Structured action validity: 0.8452
+- Owner resolution rate: 1.0000
+- Executed action contradiction: 0.0000
+- State transition coherence: 1.0000
+- Action feedback utilization: 0.3571
+- Action-plan alignment: 0.9591
+- Planned action coverage: 1.0000
+- Action family convergence: 0.7857
+- Role action diversity: 0.5000
+- Negotiation uniqueness: 0.2727
+- Fallback utterance rate: 0.0000
+- Fallback taxonomy: n/a
+- State trajectory variance: 0.0010
+- Mean turns: 11.00
+
+### engine_dialogue_only_softmax
+- Runs: 28
+- Clean runs: 28
+- Contaminated runs: 0
+- Persona drift MAE: 0.1909 (+/- 0.0240)
+- Clean persona drift MAE: 0.1909
+- Per-trait absolute error: O 0.1143, C 0.3148, E 0.2329, A 0.0838, N 0.2086
+- Relationship inconsistency: 0.0598
+- Commitment contradiction: 0.0432
+- Clean commitment contradiction: 0.0432
+- Envelope violations: 7.2857
+- Clean envelope violations: 7.2857
+- Structured action validity: 0.8452
+- Owner resolution rate: 1.0000
+- Executed action contradiction: 0.0000
+- State transition coherence: 1.0000
+- Action feedback utilization: 0.4286
+- Action-plan alignment: 0.9591
+- Planned action coverage: 1.0000
+- Action family convergence: 0.7857
+- Role action diversity: 0.5000
+- Negotiation uniqueness: 0.2727
+- Fallback utterance rate: 0.0000
+- Fallback taxonomy: n/a
+- State trajectory variance: 0.0010
+- Mean turns: 11.00
+
+
+## Script-Level Summary
+### brand_crisis_response:engine_dialogue_only
+- Runs: 4
+- Clean runs: 4
+- Contaminated runs: 0
+- Persona drift MAE: 0.1742 (+/- 0.0242)
+- Clean persona drift MAE: 0.1742
+- Per-trait absolute error: O 0.0766, C 0.2750, E 0.1610, A 0.1116, N 0.2466
+- Relationship inconsistency: 0.0000
+- Commitment contradiction: 0.1250
+- Clean commitment contradiction: 0.1250
+- Envelope violations: 7.2500
+- Clean envelope violations: 7.2500
+- Structured action validity: 1.0000
+- Owner resolution rate: 1.0000
+- Executed action contradiction: 0.0000
+- State transition coherence: 1.0000
+- Action feedback utilization: 1.0000
+- Action-plan alignment: 0.9636
+- Planned action coverage: 1.0000
+- Action family convergence: 0.7500
+- Role action diversity: 0.5417
+- Negotiation uniqueness: 0.2727
+- Fallback utterance rate: 0.0000
+- Fallback taxonomy: n/a
+- State trajectory variance: 0.0000
+- Mean turns: 11.00
+
+### brand_crisis_response:engine_dialogue_only_softmax
+- Runs: 4
+- Clean runs: 4
+- Contaminated runs: 0
+- Persona drift MAE: 0.2036 (+/- 0.0298)
+- Clean persona drift MAE: 0.2036
+- Per-trait absolute error: O 0.0733, C 0.2767, E 0.2967, A 0.1050, N 0.2666
+- Relationship inconsistency: 0.0000
+- Commitment contradiction: 0.0000
+- Clean commitment contradiction: 0.0000
+- Envelope violations: 8.0000
+- Clean envelope violations: 8.0000
+- Structured action validity: 1.0000
+- Owner resolution rate: 1.0000
+- Executed action contradiction: 0.0000
+- State transition coherence: 1.0000
+- Action feedback utilization: 1.0000
+- Action-plan alignment: 0.9636
+- Planned action coverage: 1.0000
+- Action family convergence: 0.7500
+- Role action diversity: 0.5417
+- Negotiation uniqueness: 0.2727
+- Fallback utterance rate: 0.0000
+- Fallback taxonomy: n/a
+- State trajectory variance: 0.0000
+- Mean turns: 11.00
+
+### commuting_support_policy:engine_dialogue_only
+- Runs: 4
+- Clean runs: 4
+- Contaminated runs: 0
+- Persona drift MAE: 0.1481 (+/- 0.0113)
+- Clean persona drift MAE: 0.1481
+- Per-trait absolute error: O 0.0950, C 0.2250, E 0.1886, A 0.0817, N 0.1500
+- Relationship inconsistency: 0.0000
+- Commitment contradiction: 0.0000
+- Clean commitment contradiction: 0.0000
+- Envelope violations: 4.7500
+- Clean envelope violations: 4.7500
+- Structured action validity: 1.0000
+- Owner resolution rate: 1.0000
+- Executed action contradiction: 0.0000
+- State transition coherence: 1.0000
+- Action feedback utilization: 0.0000
+- Action-plan alignment: 0.9500
+- Planned action coverage: 1.0000
+- Action family convergence: 0.8750
+- Role action diversity: 0.4583
+- Negotiation uniqueness: 0.1818
+- Fallback utterance rate: 0.0000
+- Fallback taxonomy: n/a
+- State trajectory variance: 0.0000
+- Mean turns: 11.00
+
+### commuting_support_policy:engine_dialogue_only_softmax
+- Runs: 4
+- Clean runs: 4
+- Contaminated runs: 0
+- Persona drift MAE: 0.1816 (+/- 0.0126)
+- Clean persona drift MAE: 0.1816
+- Per-trait absolute error: O 0.1083, C 0.3517, E 0.2232, A 0.0817, N 0.1433
+- Relationship inconsistency: 0.0000
+- Commitment contradiction: 0.1250
+- Clean commitment contradiction: 0.1250
+- Envelope violations: 6.7500
+- Clean envelope violations: 6.7500
+- Structured action validity: 1.0000
+- Owner resolution rate: 1.0000
+- Executed action contradiction: 0.0000
+- State transition coherence: 1.0000
+- Action feedback utilization: 0.0000
+- Action-plan alignment: 0.9500
+- Planned action coverage: 1.0000
+- Action family convergence: 0.8750
+- Role action diversity: 0.4583
+- Negotiation uniqueness: 0.1818
+- Fallback utterance rate: 0.0000
+- Fallback taxonomy: n/a
+- State trajectory variance: 0.0000
+- Mean turns: 11.00
+
+### housing_support_policy:engine_dialogue_only
+- Runs: 4
+- Clean runs: 4
+- Contaminated runs: 0
+- Persona drift MAE: 0.1721 (+/- 0.0222)
+- Clean persona drift MAE: 0.1721
+- Per-trait absolute error: O 0.0983, C 0.3317, E 0.2088, A 0.0683, N 0.1533
+- Relationship inconsistency: 0.0000
+- Commitment contradiction: 0.0000
+- Clean commitment contradiction: 0.0000
+- Envelope violations: 5.2500
+- Clean envelope violations: 5.2500
+- Structured action validity: 1.0000
+- Owner resolution rate: 1.0000
+- Executed action contradiction: 0.0000
+- State transition coherence: 1.0000
+- Action feedback utilization: 0.2500
+- Action-plan alignment: 0.9545
+- Planned action coverage: 1.0000
+- Action family convergence: 1.0000
+- Role action diversity: 0.3750
+- Negotiation uniqueness: 0.1818
+- Fallback utterance rate: 0.0000
+- Fallback taxonomy: n/a
+- State trajectory variance: 0.0000
+- Mean turns: 11.00
+
+### housing_support_policy:engine_dialogue_only_softmax
+- Runs: 4
+- Clean runs: 4
+- Contaminated runs: 0
+- Persona drift MAE: 0.2048 (+/- 0.0219)
+- Clean persona drift MAE: 0.2048
+- Per-trait absolute error: O 0.1316, C 0.4000, E 0.2458, A 0.1167, N 0.1300
+- Relationship inconsistency: 0.0000
+- Commitment contradiction: 0.0833
+- Clean commitment contradiction: 0.0833
+- Envelope violations: 7.2500
+- Clean envelope violations: 7.2500
+- Structured action validity: 1.0000
+- Owner resolution rate: 1.0000
+- Executed action contradiction: 0.0000
+- State transition coherence: 1.0000
+- Action feedback utilization: 0.5000
+- Action-plan alignment: 0.9545
+- Planned action coverage: 1.0000
+- Action family convergence: 1.0000
+- Role action diversity: 0.3750
+- Negotiation uniqueness: 0.1818
+- Fallback utterance rate: 0.0000
+- Fallback taxonomy: n/a
+- State trajectory variance: 0.0000
+- Mean turns: 11.00
+
+### new_product_launch:engine_dialogue_only
+- Runs: 4
+- Clean runs: 4
+- Contaminated runs: 0
+- Persona drift MAE: 0.1751 (+/- 0.0135)
+- Clean persona drift MAE: 0.1751
+- Per-trait absolute error: O 0.1633, C 0.2366, E 0.1785, A 0.0700, N 0.2267
+- Relationship inconsistency: 0.0281
+- Commitment contradiction: 0.0670
+- Clean commitment contradiction: 0.0670
+- Envelope violations: 6.5000
+- Clean envelope violations: 6.5000
+- Structured action validity: 1.0000
+- Owner resolution rate: 1.0000
+- Executed action contradiction: 0.0000
+- State transition coherence: 1.0000
+- Action feedback utilization: 0.0000
+- Action-plan alignment: 0.9545
+- Planned action coverage: 1.0000
+- Action family convergence: 0.6250
+- Role action diversity: 0.5833
+- Negotiation uniqueness: 0.3636
+- Fallback utterance rate: 0.0000
+- Fallback taxonomy: n/a
+- State trajectory variance: 0.0003
+- Mean turns: 11.00
+
+### new_product_launch:engine_dialogue_only_softmax
+- Runs: 4
+- Clean runs: 4
+- Contaminated runs: 0
+- Persona drift MAE: 0.1942 (+/- 0.0041)
+- Clean persona drift MAE: 0.1942
+- Per-trait absolute error: O 0.1583, C 0.3134, E 0.2245, A 0.0350, N 0.2400
+- Relationship inconsistency: 0.2250
+- Commitment contradiction: 0.0312
+- Clean commitment contradiction: 0.0312
+- Envelope violations: 8.0000
+- Clean envelope violations: 8.0000
+- Structured action validity: 1.0000
+- Owner resolution rate: 1.0000
+- Executed action contradiction: 0.0000
+- State transition coherence: 1.0000
+- Action feedback utilization: 0.0000
+- Action-plan alignment: 0.9545
+- Planned action coverage: 1.0000
+- Action family convergence: 0.6250
+- Role action diversity: 0.5833
+- Negotiation uniqueness: 0.3636
+- Fallback utterance rate: 0.0000
+- Fallback taxonomy: n/a
+- State trajectory variance: 0.0003
+- Mean turns: 11.00
+
+### post_merger_integration:engine_dialogue_only
+- Runs: 4
+- Clean runs: 4
+- Contaminated runs: 0
+- Persona drift MAE: 0.1759 (+/- 0.0158)
+- Clean persona drift MAE: 0.1759
+- Per-trait absolute error: O 0.1250, C 0.2916, E 0.1130, A 0.0900, N 0.2600
+- Relationship inconsistency: 0.1125
+- Commitment contradiction: 0.0000
+- Clean commitment contradiction: 0.0000
+- Envelope violations: 6.5000
+- Clean envelope violations: 6.5000
+- Structured action validity: 0.6667
+- Owner resolution rate: 1.0000
+- Executed action contradiction: 0.0000
+- State transition coherence: 1.0000
+- Action feedback utilization: 1.0000
+- Action-plan alignment: 0.9591
+- Planned action coverage: 1.0000
+- Action family convergence: 0.6250
+- Role action diversity: 0.5833
+- Negotiation uniqueness: 0.3636
+- Fallback utterance rate: 0.0000
+- Fallback taxonomy: n/a
+- State trajectory variance: 0.0000
+- Mean turns: 11.00
+
+### post_merger_integration:engine_dialogue_only_softmax
+- Runs: 4
+- Clean runs: 4
+- Contaminated runs: 0
+- Persona drift MAE: 0.1760 (+/- 0.0102)
+- Clean persona drift MAE: 0.1760
+- Per-trait absolute error: O 0.1367, C 0.2883, E 0.1316, A 0.0733, N 0.2500
+- Relationship inconsistency: 0.1375
+- Commitment contradiction: 0.0000
+- Clean commitment contradiction: 0.0000
+- Envelope violations: 7.0000
+- Clean envelope violations: 7.0000
+- Structured action validity: 0.6667
+- Owner resolution rate: 1.0000
+- Executed action contradiction: 0.0000
+- State transition coherence: 1.0000
+- Action feedback utilization: 0.5000
+- Action-plan alignment: 0.9591
+- Planned action coverage: 1.0000
+- Action family convergence: 0.6250
+- Role action diversity: 0.5833
+- Negotiation uniqueness: 0.3636
+- Fallback utterance rate: 0.0000
+- Fallback taxonomy: n/a
+- State trajectory variance: 0.0000
+- Mean turns: 11.00
+
+### resource_reallocation_crunch:engine_dialogue_only
+- Runs: 4
+- Clean runs: 4
+- Contaminated runs: 0
+- Persona drift MAE: 0.1552 (+/- 0.0120)
+- Clean persona drift MAE: 0.1552
+- Per-trait absolute error: O 0.0967, C 0.2167, E 0.1363, A 0.0967, N 0.2300
+- Relationship inconsistency: 0.1125
+- Commitment contradiction: 0.0312
+- Clean commitment contradiction: 0.0312
+- Envelope violations: 5.5000
+- Clean envelope violations: 5.5000
+- Structured action validity: 0.5000
+- Owner resolution rate: 1.0000
+- Executed action contradiction: 0.0000
+- State transition coherence: 1.0000
+- Action feedback utilization: 0.2500
+- Action-plan alignment: 0.9682
+- Planned action coverage: 1.0000
+- Action family convergence: 0.6250
+- Role action diversity: 0.5833
+- Negotiation uniqueness: 0.3636
+- Fallback utterance rate: 0.0000
+- Fallback taxonomy: n/a
+- State trajectory variance: 0.0000
+- Mean turns: 11.00
+
+### resource_reallocation_crunch:engine_dialogue_only_softmax
+- Runs: 4
+- Clean runs: 4
+- Contaminated runs: 0
+- Persona drift MAE: 0.1772 (+/- 0.0273)
+- Clean persona drift MAE: 0.1772
+- Per-trait absolute error: O 0.1084, C 0.2217, E 0.2393, A 0.0900, N 0.2267
+- Relationship inconsistency: 0.0000
+- Commitment contradiction: 0.0625
+- Clean commitment contradiction: 0.0625
+- Envelope violations: 6.2500
+- Clean envelope violations: 6.2500
+- Structured action validity: 0.5000
+- Owner resolution rate: 1.0000
+- Executed action contradiction: 0.0000
+- State transition coherence: 1.0000
+- Action feedback utilization: 1.0000
+- Action-plan alignment: 0.9682
+- Planned action coverage: 1.0000
+- Action family convergence: 0.6250
+- Role action diversity: 0.5833
+- Negotiation uniqueness: 0.3636
+- Fallback utterance rate: 0.0000
+- Fallback taxonomy: n/a
+- State trajectory variance: 0.0000
+- Mean turns: 11.00
+
+### youth_employment_policy:engine_dialogue_only
+- Runs: 4
+- Clean runs: 4
+- Contaminated runs: 0
+- Persona drift MAE: 0.1853 (+/- 0.0230)
+- Clean persona drift MAE: 0.1853
+- Per-trait absolute error: O 0.0717, C 0.3850, E 0.1946, A 0.0650, N 0.2100
+- Relationship inconsistency: 0.0688
+- Commitment contradiction: 0.0000
+- Clean commitment contradiction: 0.0000
+- Envelope violations: 6.5000
+- Clean envelope violations: 6.5000
+- Structured action validity: 0.7500
+- Owner resolution rate: 1.0000
+- Executed action contradiction: 0.0000
+- State transition coherence: 1.0000
+- Action feedback utilization: 0.0000
+- Action-plan alignment: 0.9636
+- Planned action coverage: 1.0000
+- Action family convergence: 1.0000
+- Role action diversity: 0.3750
+- Negotiation uniqueness: 0.1818
+- Fallback utterance rate: 0.0000
+- Fallback taxonomy: n/a
+- State trajectory variance: 0.0000
+- Mean turns: 11.00
+
+### youth_employment_policy:engine_dialogue_only_softmax
+- Runs: 4
+- Clean runs: 4
+- Contaminated runs: 0
+- Persona drift MAE: 0.1985 (+/- 0.0269)
+- Clean persona drift MAE: 0.1985
+- Per-trait absolute error: O 0.0834, C 0.3517, E 0.2691, A 0.0850, N 0.2033
+- Relationship inconsistency: 0.0563
+- Commitment contradiction: 0.0000
+- Clean commitment contradiction: 0.0000
+- Envelope violations: 7.7500
+- Clean envelope violations: 7.7500
+- Structured action validity: 0.7500
+- Owner resolution rate: 1.0000
+- Executed action contradiction: 0.0000
+- State transition coherence: 1.0000
+- Action feedback utilization: 0.0000
+- Action-plan alignment: 0.9636
+- Planned action coverage: 1.0000
+- Action family convergence: 1.0000
+- Role action diversity: 0.3750
+- Negotiation uniqueness: 0.1818
+- Fallback utterance rate: 0.0000
+- Fallback taxonomy: n/a
+- State trajectory variance: 0.0000
+- Mean turns: 11.00
+
+
+## Mode Summary
+### exploratory:engine_dialogue_only
+- Runs: 8
+- Clean runs: 8
+- Contaminated runs: 0
+- Persona drift MAE: 0.1647 (+/- 0.0213)
+- Clean persona drift MAE: 0.1647
+- Per-trait absolute error: O 0.0867, C 0.2458, E 0.1486, A 0.1042, N 0.2383
+- Relationship inconsistency: 0.0563
+- Commitment contradiction: 0.0781
+- Clean commitment contradiction: 0.0781
+- Envelope violations: 6.3750
+- Clean envelope violations: 6.3750
+- Structured action validity: 0.7500
+- Owner resolution rate: 1.0000
+- Executed action contradiction: 0.0000
+- State transition coherence: 1.0000
+- Action feedback utilization: 0.6250
+- Action-plan alignment: 0.9659
+- Planned action coverage: 1.0000
+- Action family convergence: 0.6875
+- Role action diversity: 0.5625
+- Negotiation uniqueness: 0.3181
+- Fallback utterance rate: 0.0000
+- Fallback taxonomy: n/a
+- State trajectory variance: 0.0017
+- Mean turns: 11.00
+
+### exploratory:engine_dialogue_only_softmax
+- Runs: 8
+- Clean runs: 8
+- Contaminated runs: 0
+- Persona drift MAE: 0.1904 (+/- 0.0315)
+- Clean persona drift MAE: 0.1904
+- Per-trait absolute error: O 0.0908, C 0.2491, E 0.2680, A 0.0975, N 0.2467
+- Relationship inconsistency: 0.0000
+- Commitment contradiction: 0.0312
+- Clean commitment contradiction: 0.0312
+- Envelope violations: 7.1250
+- Clean envelope violations: 7.1250
+- Structured action validity: 0.7500
+- Owner resolution rate: 1.0000
+- Executed action contradiction: 0.0000
+- State transition coherence: 1.0000
+- Action feedback utilization: 1.0000
+- Action-plan alignment: 0.9659
+- Planned action coverage: 1.0000
+- Action family convergence: 0.6875
+- Role action diversity: 0.5625
+- Negotiation uniqueness: 0.3181
+- Fallback utterance rate: 0.0000
+- Fallback taxonomy: n/a
+- State trajectory variance: 0.0017
+- Mean turns: 11.00
+
+### guided:engine_dialogue_only
+- Runs: 20
+- Clean runs: 20
+- Contaminated runs: 0
+- Persona drift MAE: 0.1713 (+/- 0.0217)
+- Clean persona drift MAE: 0.1713
+- Per-trait absolute error: O 0.1107, C 0.2940, E 0.1767, A 0.0750, N 0.2000
+- Relationship inconsistency: 0.0419
+- Commitment contradiction: 0.0134
+- Clean commitment contradiction: 0.0134
+- Envelope violations: 5.9000
+- Clean envelope violations: 5.9000
+- Structured action validity: 0.8833
+- Owner resolution rate: 1.0000
+- Executed action contradiction: 0.0000
+- State transition coherence: 1.0000
+- Action feedback utilization: 0.2500
+- Action-plan alignment: 0.9563
+- Planned action coverage: 1.0000
+- Action family convergence: 0.8250
+- Role action diversity: 0.4750
+- Negotiation uniqueness: 0.2545
+- Fallback utterance rate: 0.0000
+- Fallback taxonomy: n/a
+- State trajectory variance: 0.0009
+- Mean turns: 11.00
+
+### guided:engine_dialogue_only_softmax
+- Runs: 20
+- Clean runs: 20
+- Contaminated runs: 0
+- Persona drift MAE: 0.1910 (+/- 0.0203)
+- Clean persona drift MAE: 0.1910
+- Per-trait absolute error: O 0.1237, C 0.3410, E 0.2188, A 0.0783, N 0.1933
+- Relationship inconsistency: 0.0838
+- Commitment contradiction: 0.0479
+- Clean commitment contradiction: 0.0479
+- Envelope violations: 7.3500
+- Clean envelope violations: 7.3500
+- Structured action validity: 0.8833
+- Owner resolution rate: 1.0000
+- Executed action contradiction: 0.0000
+- State transition coherence: 1.0000
+- Action feedback utilization: 0.2000
+- Action-plan alignment: 0.9563
+- Planned action coverage: 1.0000
+- Action family convergence: 0.8250
+- Role action diversity: 0.4750
+- Negotiation uniqueness: 0.2545
+- Fallback utterance rate: 0.0000
+- Fallback taxonomy: n/a
+- State trajectory variance: 0.0009
+- Mean turns: 11.00
+
+
+## Family Summary
+### brand_crisis:engine_dialogue_only
+- Runs: 4
+- Clean runs: 4
+- Contaminated runs: 0
+- Persona drift MAE: 0.1742 (+/- 0.0242)
+- Clean persona drift MAE: 0.1742
+- Per-trait absolute error: O 0.0766, C 0.2750, E 0.1610, A 0.1116, N 0.2466
+- Relationship inconsistency: 0.0000
+- Commitment contradiction: 0.1250
+- Clean commitment contradiction: 0.1250
+- Envelope violations: 7.2500
+- Clean envelope violations: 7.2500
+- Structured action validity: 1.0000
+- Owner resolution rate: 1.0000
+- Executed action contradiction: 0.0000
+- State transition coherence: 1.0000
+- Action feedback utilization: 1.0000
+- Action-plan alignment: 0.9636
+- Planned action coverage: 1.0000
+- Action family convergence: 0.7500
+- Role action diversity: 0.5417
+- Negotiation uniqueness: 0.2727
+- Fallback utterance rate: 0.0000
+- Fallback taxonomy: n/a
+- State trajectory variance: 0.0000
+- Mean turns: 11.00
+
+### brand_crisis:engine_dialogue_only_softmax
+- Runs: 4
+- Clean runs: 4
+- Contaminated runs: 0
+- Persona drift MAE: 0.2036 (+/- 0.0298)
+- Clean persona drift MAE: 0.2036
+- Per-trait absolute error: O 0.0733, C 0.2767, E 0.2967, A 0.1050, N 0.2666
+- Relationship inconsistency: 0.0000
+- Commitment contradiction: 0.0000
+- Clean commitment contradiction: 0.0000
+- Envelope violations: 8.0000
+- Clean envelope violations: 8.0000
+- Structured action validity: 1.0000
+- Owner resolution rate: 1.0000
+- Executed action contradiction: 0.0000
+- State transition coherence: 1.0000
+- Action feedback utilization: 1.0000
+- Action-plan alignment: 0.9636
+- Planned action coverage: 1.0000
+- Action family convergence: 0.7500
+- Role action diversity: 0.5417
+- Negotiation uniqueness: 0.2727
+- Fallback utterance rate: 0.0000
+- Fallback taxonomy: n/a
+- State trajectory variance: 0.0000
+- Mean turns: 11.00
+
+### integration_trust:engine_dialogue_only
+- Runs: 4
+- Clean runs: 4
+- Contaminated runs: 0
+- Persona drift MAE: 0.1759 (+/- 0.0158)
+- Clean persona drift MAE: 0.1759
+- Per-trait absolute error: O 0.1250, C 0.2916, E 0.1130, A 0.0900, N 0.2600
+- Relationship inconsistency: 0.1125
+- Commitment contradiction: 0.0000
+- Clean commitment contradiction: 0.0000
+- Envelope violations: 6.5000
+- Clean envelope violations: 6.5000
+- Structured action validity: 0.6667
+- Owner resolution rate: 1.0000
+- Executed action contradiction: 0.0000
+- State transition coherence: 1.0000
+- Action feedback utilization: 1.0000
+- Action-plan alignment: 0.9591
+- Planned action coverage: 1.0000
+- Action family convergence: 0.6250
+- Role action diversity: 0.5833
+- Negotiation uniqueness: 0.3636
+- Fallback utterance rate: 0.0000
+- Fallback taxonomy: n/a
+- State trajectory variance: 0.0000
+- Mean turns: 11.00
+
+### integration_trust:engine_dialogue_only_softmax
+- Runs: 4
+- Clean runs: 4
+- Contaminated runs: 0
+- Persona drift MAE: 0.1760 (+/- 0.0102)
+- Clean persona drift MAE: 0.1760
+- Per-trait absolute error: O 0.1367, C 0.2883, E 0.1316, A 0.0733, N 0.2500
+- Relationship inconsistency: 0.1375
+- Commitment contradiction: 0.0000
+- Clean commitment contradiction: 0.0000
+- Envelope violations: 7.0000
+- Clean envelope violations: 7.0000
+- Structured action validity: 0.6667
+- Owner resolution rate: 1.0000
+- Executed action contradiction: 0.0000
+- State transition coherence: 1.0000
+- Action feedback utilization: 0.5000
+- Action-plan alignment: 0.9591
+- Planned action coverage: 1.0000
+- Action family convergence: 0.6250
+- Role action diversity: 0.5833
+- Negotiation uniqueness: 0.3636
+- Fallback utterance rate: 0.0000
+- Fallback taxonomy: n/a
+- State trajectory variance: 0.0000
+- Mean turns: 11.00
+
+### launch_pressure:engine_dialogue_only
+- Runs: 4
+- Clean runs: 4
+- Contaminated runs: 0
+- Persona drift MAE: 0.1751 (+/- 0.0135)
+- Clean persona drift MAE: 0.1751
+- Per-trait absolute error: O 0.1633, C 0.2366, E 0.1785, A 0.0700, N 0.2267
+- Relationship inconsistency: 0.0281
+- Commitment contradiction: 0.0670
+- Clean commitment contradiction: 0.0670
+- Envelope violations: 6.5000
+- Clean envelope violations: 6.5000
+- Structured action validity: 1.0000
+- Owner resolution rate: 1.0000
+- Executed action contradiction: 0.0000
+- State transition coherence: 1.0000
+- Action feedback utilization: 0.0000
+- Action-plan alignment: 0.9545
+- Planned action coverage: 1.0000
+- Action family convergence: 0.6250
+- Role action diversity: 0.5833
+- Negotiation uniqueness: 0.3636
+- Fallback utterance rate: 0.0000
+- Fallback taxonomy: n/a
+- State trajectory variance: 0.0003
+- Mean turns: 11.00
+
+### launch_pressure:engine_dialogue_only_softmax
+- Runs: 4
+- Clean runs: 4
+- Contaminated runs: 0
+- Persona drift MAE: 0.1942 (+/- 0.0041)
+- Clean persona drift MAE: 0.1942
+- Per-trait absolute error: O 0.1583, C 0.3134, E 0.2245, A 0.0350, N 0.2400
+- Relationship inconsistency: 0.2250
+- Commitment contradiction: 0.0312
+- Clean commitment contradiction: 0.0312
+- Envelope violations: 8.0000
+- Clean envelope violations: 8.0000
+- Structured action validity: 1.0000
+- Owner resolution rate: 1.0000
+- Executed action contradiction: 0.0000
+- State transition coherence: 1.0000
+- Action feedback utilization: 0.0000
+- Action-plan alignment: 0.9545
+- Planned action coverage: 1.0000
+- Action family convergence: 0.6250
+- Role action diversity: 0.5833
+- Negotiation uniqueness: 0.3636
+- Fallback utterance rate: 0.0000
+- Fallback taxonomy: n/a
+- State trajectory variance: 0.0003
+- Mean turns: 11.00
+
+### policy_spillover:engine_dialogue_only
+- Runs: 12
+- Clean runs: 12
+- Contaminated runs: 0
+- Persona drift MAE: 0.1685 (+/- 0.0249)
+- Clean persona drift MAE: 0.1685
+- Per-trait absolute error: O 0.0883, C 0.3139, E 0.1973, A 0.0717, N 0.1711
+- Relationship inconsistency: 0.0229
+- Commitment contradiction: 0.0000
+- Clean commitment contradiction: 0.0000
+- Envelope violations: 5.5000
+- Clean envelope violations: 5.5000
+- Structured action validity: 0.9167
+- Owner resolution rate: 1.0000
+- Executed action contradiction: 0.0000
+- State transition coherence: 1.0000
+- Action feedback utilization: 0.0833
+- Action-plan alignment: 0.9560
+- Planned action coverage: 1.0000
+- Action family convergence: 0.9583
+- Role action diversity: 0.4028
+- Negotiation uniqueness: 0.1818
+- Fallback utterance rate: 0.0000
+- Fallback taxonomy: n/a
+- State trajectory variance: 0.0002
+- Mean turns: 11.00
+
+### policy_spillover:engine_dialogue_only_softmax
+- Runs: 12
+- Clean runs: 12
+- Contaminated runs: 0
+- Persona drift MAE: 0.1950 (+/- 0.0234)
+- Clean persona drift MAE: 0.1950
+- Per-trait absolute error: O 0.1078, C 0.3678, E 0.2460, A 0.0945, N 0.1589
+- Relationship inconsistency: 0.0187
+- Commitment contradiction: 0.0694
+- Clean commitment contradiction: 0.0694
+- Envelope violations: 7.2500
+- Clean envelope violations: 7.2500
+- Structured action validity: 0.9167
+- Owner resolution rate: 1.0000
+- Executed action contradiction: 0.0000
+- State transition coherence: 1.0000
+- Action feedback utilization: 0.1667
+- Action-plan alignment: 0.9560
+- Planned action coverage: 1.0000
+- Action family convergence: 0.9583
+- Role action diversity: 0.4028
+- Negotiation uniqueness: 0.1818
+- Fallback utterance rate: 0.0000
+- Fallback taxonomy: n/a
+- State trajectory variance: 0.0002
+- Mean turns: 11.00
+
+### resource_scarcity:engine_dialogue_only
+- Runs: 4
+- Clean runs: 4
+- Contaminated runs: 0
+- Persona drift MAE: 0.1552 (+/- 0.0120)
+- Clean persona drift MAE: 0.1552
+- Per-trait absolute error: O 0.0967, C 0.2167, E 0.1363, A 0.0967, N 0.2300
+- Relationship inconsistency: 0.1125
+- Commitment contradiction: 0.0312
+- Clean commitment contradiction: 0.0312
+- Envelope violations: 5.5000
+- Clean envelope violations: 5.5000
+- Structured action validity: 0.5000
+- Owner resolution rate: 1.0000
+- Executed action contradiction: 0.0000
+- State transition coherence: 1.0000
+- Action feedback utilization: 0.2500
+- Action-plan alignment: 0.9682
+- Planned action coverage: 1.0000
+- Action family convergence: 0.6250
+- Role action diversity: 0.5833
+- Negotiation uniqueness: 0.3636
+- Fallback utterance rate: 0.0000
+- Fallback taxonomy: n/a
+- State trajectory variance: 0.0000
+- Mean turns: 11.00
+
+### resource_scarcity:engine_dialogue_only_softmax
+- Runs: 4
+- Clean runs: 4
+- Contaminated runs: 0
+- Persona drift MAE: 0.1772 (+/- 0.0273)
+- Clean persona drift MAE: 0.1772
+- Per-trait absolute error: O 0.1084, C 0.2217, E 0.2393, A 0.0900, N 0.2267
+- Relationship inconsistency: 0.0000
+- Commitment contradiction: 0.0625
+- Clean commitment contradiction: 0.0625
+- Envelope violations: 6.2500
+- Clean envelope violations: 6.2500
+- Structured action validity: 0.5000
+- Owner resolution rate: 1.0000
+- Executed action contradiction: 0.0000
+- State transition coherence: 1.0000
+- Action feedback utilization: 1.0000
+- Action-plan alignment: 0.9682
+- Planned action coverage: 1.0000
+- Action family convergence: 0.6250
+- Role action diversity: 0.5833
+- Negotiation uniqueness: 0.3636
+- Fallback utterance rate: 0.0000
+- Fallback taxonomy: n/a
+- State trajectory variance: 0.0000
+- Mean turns: 11.00

@@ -193,6 +193,24 @@ class StakeholderSimulationRuntime:
             "objective": self.script.objective,
             "scenario_family": self.script.scenario_family,
             "simulation_mode": self.script.simulation_mode,
+            "phase_order": [phase.name for phase in self.script.phases],
+            "builder_trace": dict(self.script.metadata.get("builder_trace", {})) if isinstance(self.script.metadata, dict) else {},
+            "metadata_completeness_score": (
+                dict(self.script.metadata).get("metadata_completeness_score")
+                if isinstance(self.script.metadata, dict)
+                else None
+            ),
+            "actor_personality_priors": {
+                actor.actor_id: dict(actor.personality_prior)
+                for actor in self.script.stakeholders
+            },
+            "actor_personality_envelopes": {
+                actor.actor_id: {
+                    trait: list(bounds)
+                    for trait, bounds in actor.personality_envelope.items()
+                }
+                for actor in self.script.stakeholders
+            },
             "outcome_spec": dict(self.script.outcome_spec),
             "phase_name": self.current_phase.name,
             "turn_count": len(self.ledger.turns),
@@ -206,11 +224,17 @@ class StakeholderSimulationRuntime:
             "action_status_counts": action_status_counts,
             "action_rejection_reason_counts": action_rejection_reason_counts,
             "fallback_counts": fallback_counts,
+            "turns": [turn.to_dict() for turn in self.ledger.turns],
+            "relationship_events": list(self.ledger.relationship_events),
+            "actor_state_events": list(self.ledger.actor_state_events),
             "action_proposals": [proposal.to_dict() for proposal in self.ledger.action_proposals],
             "executed_actions": [action.to_dict() for action in self.ledger.executed_actions],
             "action_audits": self.ledger.ordered_action_audits(),
             "phase_action_family_histogram": phase_action_family_histogram,
+            "phase_action_family_histograms": phase_action_family_histogram,
             "actor_action_family_sequences": actor_action_family_sequences,
+            "action_family_sequence_by_actor": actor_action_family_sequences,
             "world_state_history": [snapshot.to_dict() for snapshot in self.ledger.world_state_history],
             "phase_state_feedback": dict(self.ledger.phase_state_feedback),
+            "trace_refs": {},
         }

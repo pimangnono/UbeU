@@ -29,6 +29,26 @@ def _clip_unit(value: float) -> float:
     return max(0.0, min(1.0, round(float(value), 4)))
 
 
+def _c_feature_contribution(features) -> float:
+    """Raw conscientiousness feature contribution (planning, structure, refs, actions)."""
+    return (
+        0.08 * min(features.planning_count, 4)
+        + 0.10 * min(features.structure_marker_count, 3)
+        + 0.08 * min(features.reference_back_count, 3)
+        + 0.10 * min(features.action_item_count, 3)
+    )
+
+
+def _e_feature_contribution(features) -> float:
+    """Raw extraversion contribution prior to relative calibration."""
+    return (
+        min(features.avg_words_per_turn, 80.0) / 120.0
+        + 0.08 * min(features.name_mention_count, 3)
+        + 0.12 * min(features.question_ratio, 1.0)
+        + 0.10 * min(features.turn_initiation_ratio, 1.0)
+    )
+
+
 def estimate_actor_traits_from_turns(
     turns: list[RuntimeTurnView],
     actor_name: str,
@@ -42,20 +62,35 @@ def estimate_actor_traits_from_turns(
         + 0.10 * min(features.hypothetical_count, 3)
         + 0.90 * min(features.unique_word_ratio, 0.20)
     )
-    conscientiousness = _clip_unit(
-        0.20
-        + 0.08 * min(features.planning_count, 4)
-        + 0.10 * min(features.structure_marker_count, 3)
-        + 0.08 * min(features.reference_back_count, 3)
-        + 0.10 * min(features.action_item_count, 3)
-    )
-    extraversion = _clip_unit(
-        0.20
-        + min(features.avg_words_per_turn, 80.0) / 120.0
-        + 0.08 * min(features.name_mention_count, 3)
-        + 0.12 * min(features.question_ratio, 1.0)
-        + 0.10 * min(features.turn_initiation_ratio, 1.0)
-    )
+    # Dynamic C calibration: measure relative to conversation baseline.
+    # LLMs inherently produce structured output (planning words, structure markers),
+    # which inflates C estimates equally for all actors. By comparing against other
+    # speakers in the same conversation, the shared bias cancels out.
+    actor_c = _c_feature_contribution(features)
+    other_speakers = [name for name in {t.speaker_name for t in turns} if name != actor_name]
+    if other_speakers:
+        baseline = sum(
+            _c_feature_contribution(extract_features(turns=turns, candidate_name=s))
+            for s in other_speakers
+        ) / len(other_speakers)
+        conscientiousness = _clip_unit(0.50 + 0.55 * (actor_c - baseline))
+    else:
+        conscientiousness = _clip_unit(
+            0.12
+            + 0.06 * min(features.planning_count, 4)
+            + 0.05 * min(features.structure_marker_count, 3)
+            + 0.06 * min(features.reference_back_count, 3)
+            + 0.08 * min(features.action_item_count, 3)
+        )
+    actor_e = _e_feature_contribution(features)
+    if other_speakers:
+        e_baseline = sum(
+            _e_feature_contribution(extract_features(turns=turns, candidate_name=s))
+            for s in other_speakers
+        ) / len(other_speakers)
+        extraversion = _clip_unit(0.50 + 0.65 * (actor_e - e_baseline))
+    else:
+        extraversion = _clip_unit(0.20 + actor_e)
     agreeableness = _clip_unit(
         0.45
         + 0.10 * min(features.acknowledgment_count, 4)
@@ -78,6 +113,20 @@ def estimate_actor_traits_from_turns(
         "A": agreeableness,
         "N": neuroticism,
     }
+
+
+def estimate_actor_traits_from_recent_turns(
+    turns: list[RuntimeTurnView],
+    actor_name: str,
+    window: int = 4,
+) -> dict[str, float]:
+    """Estimate OCEAN expression from the most recent `window` turns only."""
+    actor_turns = [t for t in turns if t.speaker_name == actor_name]
+    recent = actor_turns[-window:] if len(actor_turns) > window else actor_turns
+    if not recent:
+        return {trait: 0.5 for trait in TRAIT_KEYS}
+    all_turns = [t for t in turns if t.turn_number <= recent[-1].turn_number and t.turn_number >= recent[0].turn_number]
+    return estimate_actor_traits_from_turns(all_turns, actor_name)
 
 
 def persona_drift_mae(
@@ -158,6 +207,68 @@ def relationship_inconsistency_rate(runtime: StakeholderSimulationRuntime) -> fl
     if not edge_scores:
         return 0.0
     return round(sum(edge_scores) / len(edge_scores), 4)
+
+
+def relationship_shift_rate(runtime: StakeholderSimulationRuntime) -> float:
+    events = [event for event in runtime.ledger.relationship_events]
+    if len(events) < 2:
+        return 0.0
+
+    by_edge: dict[tuple[str, str], list[dict[str, Any]]] = {}
+    for event in events:
+        key = (event["source_actor_id"], event["target_actor_id"])
+        by_edge.setdefault(key, []).append(event)
+
+    scores: list[float] = []
+    for edge_events in by_edge.values():
+        ordered = sorted(edge_events, key=lambda item: item["turn_index"])
+        for event in ordered:
+            score = 0.0
+            score_swing = abs(
+                RELATION_SENTIMENT_SCORE.get(event.get("new_sentiment"), 0.0)
+                - RELATION_SENTIMENT_SCORE.get(event.get("prior_sentiment"), 0.0)
+            )
+            trust_swing = abs(float(event.get("new_trust", 0.5)) - float(event.get("prior_trust", 0.5)))
+            tension_swing = abs(float(event.get("new_tension", 0.0)) - float(event.get("prior_tension", 0.0)))
+            if score_swing >= 0.3:
+                score += min(0.5, score_swing / 2.0)
+            if trust_swing >= 0.08:
+                score += min(0.25, trust_swing)
+            if tension_swing >= 0.08:
+                score += min(0.25, tension_swing)
+            if score > 0.0:
+                scores.append(min(1.0, score))
+    if not scores:
+        return 0.0
+    return round(sum(scores) / len(scores), 4)
+
+
+def relationship_overshoot_rate(runtime: StakeholderSimulationRuntime) -> float:
+    events = [event for event in runtime.ledger.relationship_events]
+    if not events:
+        return 0.0
+
+    scores: list[float] = []
+    for event in events:
+        prior_score = RELATION_SENTIMENT_SCORE.get(event.get("prior_sentiment"), 0.0)
+        current_score = RELATION_SENTIMENT_SCORE.get(event.get("new_sentiment"), 0.0)
+        score_swing = abs(current_score - prior_score)
+        trust_swing = abs(float(event.get("new_trust", 0.5)) - float(event.get("prior_trust", 0.5)))
+        tension_swing = abs(float(event.get("new_tension", 0.0)) - float(event.get("prior_tension", 0.0)))
+        score = 0.0
+        if (prior_score > 0.35 and current_score < -0.35) or (prior_score < -0.35 and current_score > 0.35):
+            score += 0.75
+        elif score_swing >= 0.7:
+            score += 0.45
+        if trust_swing >= 0.25:
+            score += min(0.3, trust_swing)
+        if tension_swing >= 0.25:
+            score += min(0.3, tension_swing)
+        if score > 0.0:
+            scores.append(min(1.0, score))
+    if not scores:
+        return 0.0
+    return round(sum(scores) / len(scores), 4)
 
 
 def commitment_contradiction_rate(runtime: StakeholderSimulationRuntime) -> float:
@@ -339,7 +450,10 @@ def role_action_diversity_score(runtime: StakeholderSimulationRuntime) -> float:
 
 
 def negotiation_uniqueness_rate(runtime: StakeholderSimulationRuntime) -> float:
-    families = _phase_action_family_rows(runtime).get("NEGOTIATION", [])
+    all_phase_rows = _phase_action_family_rows(runtime)
+    families: list[tuple[str, str]] = []
+    for phase_families in all_phase_rows.values():
+        families.extend(phase_families)
     if not families:
         return 0.0
     unique_count = len({family for _, family in families})
@@ -397,6 +511,8 @@ class BenchmarkRunMetrics:
     actor_display_names: dict[str, str]
     actor_trait_estimates: dict[str, dict[str, float]]
     actor_trait_errors: dict[str, dict[str, float]]
+    relationship_shift_rate: float = 0.0
+    relationship_overshoot_rate: float = 0.0
     structured_action_validity_rate: float = 0.0
     owner_resolution_rate: float = 0.0
     executed_action_contradiction_rate: float = 0.0
@@ -415,6 +531,8 @@ class BenchmarkRunMetrics:
         return {
             "persona_drift_mae": self.persona_drift_mae,
             "relationship_inconsistency": self.relationship_inconsistency,
+            "relationship_shift_rate": self.relationship_shift_rate,
+            "relationship_overshoot_rate": self.relationship_overshoot_rate,
             "commitment_contradiction_rate": self.commitment_contradiction_rate,
             "envelope_violations": self.envelope_violations,
             "per_trait_error_mean": self.per_trait_error_mean,
@@ -459,6 +577,8 @@ def compute_runtime_metrics(runtime: StakeholderSimulationRuntime) -> BenchmarkR
     return BenchmarkRunMetrics(
         persona_drift_mae=round(sum(drift_values) / max(len(drift_values), 1), 4),
         relationship_inconsistency=relationship_inconsistency_rate(runtime),
+        relationship_shift_rate=relationship_shift_rate(runtime),
+        relationship_overshoot_rate=relationship_overshoot_rate(runtime),
         commitment_contradiction_rate=commitment_contradiction_rate(runtime),
         envelope_violations=envelope_violations,
         per_trait_error_mean={
