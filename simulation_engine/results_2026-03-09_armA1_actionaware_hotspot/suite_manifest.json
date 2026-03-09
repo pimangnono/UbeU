@@ -1,0 +1,38 @@
+{
+  "saved_at": "2026-03-09T23:18:10.868479",
+  "suite_id": "suite_95e711d44645",
+  "config": {
+    "conditions": [
+      "engine_action_v0"
+    ],
+    "repetitions": 3,
+    "script_ids": [
+      "youth_employment_policy",
+      "housing_support_policy",
+      "commuting_support_policy",
+      "new_product_launch"
+    ],
+    "style_slots": [
+      "integrator",
+      "planner",
+      "challenger",
+      "skeptic"
+    ],
+    "suite_id": "suite_95e711d44645"
+  },
+  "total_runs": 12,
+  "trace_version": 1,
+  "files": {
+    "suite_manifest": "simulation_engine/results_2026-03-09_armA1_actionaware_hotspot/suite_manifest.json",
+    "track_outcomes": "simulation_engine/results_2026-03-09_armA1_actionaware_hotspot/track_outcomes.json",
+    "run_outcomes": "simulation_engine/results_2026-03-09_armA1_actionaware_hotspot/run_outcomes.json",
+    "builder_trace": "simulation_engine/results_2026-03-09_armA1_actionaware_hotspot/builder_trace.json",
+    "trace_events": "simulation_engine/results_2026-03-09_armA1_actionaware_hotspot/trace_events.jsonl",
+    "turn_decisions": "simulation_engine/results_2026-03-09_armA1_actionaware_hotspot/trace_views/turn_decisions.jsonl",
+    "candidate_scores": "simulation_engine/results_2026-03-09_armA1_actionaware_hotspot/trace_views/candidate_scores.jsonl",
+    "action_events": "simulation_engine/results_2026-03-09_armA1_actionaware_hotspot/trace_views/action_events.jsonl",
+    "world_state_deltas": "simulation_engine/results_2026-03-09_armA1_actionaware_hotspot/trace_views/world_state_deltas.jsonl",
+    "relationship_events": "simulation_engine/results_2026-03-09_armA1_actionaware_hotspot/trace_views/relationship_events.jsonl",
+    "metric_attributions": "simulation_engine/results_2026-03-09_armA1_actionaware_hotspot/trace_views/metric_attributions.jsonl"
+  }
+}

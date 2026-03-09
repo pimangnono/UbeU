@@ -520,6 +520,50 @@ class SimulationStateLedger:
             )
         ]
 
+    @staticmethod
+    def _action_family_from_audit(audit: dict[str, Any]) -> str:
+        return str(
+            audit.get("compiled_action_family")
+            or audit.get("selected_action_family")
+            or audit.get("planned_action_family")
+            or "none"
+        )
+
+    def phase_action_audit_family_counts(
+        self,
+        phase_name: str,
+        *,
+        exclude_actor_id: str | None = None,
+    ) -> dict[str, int]:
+        counts: dict[str, int] = {}
+        for audit in self.ordered_action_audits():
+            if str(audit.get("phase_name", "")) != phase_name:
+                continue
+            if exclude_actor_id and str(audit.get("actor_id", "")) == exclude_actor_id:
+                continue
+            family = self._action_family_from_audit(audit)
+            if family == "none":
+                continue
+            counts[family] = counts.get(family, 0) + 1
+        return counts
+
+    def phase_actor_action_audit_family_counts(
+        self,
+        phase_name: str,
+        actor_id: str,
+    ) -> dict[str, int]:
+        counts: dict[str, int] = {}
+        for audit in self.ordered_action_audits():
+            if str(audit.get("phase_name", "")) != phase_name:
+                continue
+            if str(audit.get("actor_id", "")) != actor_id:
+                continue
+            family = self._action_family_from_audit(audit)
+            if family == "none":
+                continue
+            counts[family] = counts.get(family, 0) + 1
+        return counts
+
     def update_action_proposal_status(
         self,
         proposal_id: str,

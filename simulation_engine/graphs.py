@@ -278,10 +278,22 @@ class StakeholderSimulationNodes:
                 phase.name,
                 state["active_actor_id"],
             ),
+            "phase_action_family_counts_for_guardrail": runtime.ledger.phase_action_audit_family_counts(
+                phase.name,
+                exclude_actor_id=state["active_actor_id"],
+            ),
+            "current_actor_phase_family_counts_for_guardrail": runtime.ledger.phase_actor_action_audit_family_counts(
+                phase.name,
+                state["active_actor_id"],
+            ),
             "turn_index": runtime.turn_index + 1,
             "use_action_aware_scoring": bool(
                 state["ablation_config"].use_action_aware_scoring
                 and runtime.script.phase_action_policy(phase.name).get("action_mode", "execute") == "execute"
+            ),
+            "use_dialogue_family_guardrail": bool(
+                state["ablation_config"].use_action_layer
+                and not state["ablation_config"].use_action_aware_scoring
             ),
         }
         scored = controller.score_candidate_pool(

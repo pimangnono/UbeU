@@ -8,6 +8,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from simulation_engine import PersonaStateController, SimulationBenchmarkRunner, load_mvp_policy_scripts
 from simulation_engine.metrics import BenchmarkRunMetrics
 from simulation_engine.ablation import SimulationAblationConfig, resolve_benchmark_condition
+from simulation_engine.state_ledger import SimulationStateLedger
 
 
 class _DummyClient:
@@ -191,6 +192,105 @@ def test_resolve_benchmark_condition_maps_action_modes():
     assert base == "engine_controller"
     assert config.use_action_layer is True
     assert config.use_action_aware_scoring is True
+
+
+def test_state_ledger_counts_action_audit_families():
+    script = load_mvp_policy_scripts()[0]
+    ledger = SimulationStateLedger(script)
+
+    ledger.upsert_action_audit(
+        "a1",
+        {
+            "phase_name": "OPENING",
+            "actor_id": "actor_1",
+            "turn_index": 1,
+            "planned_action_family": "evidence",
+        },
+    )
+    ledger.upsert_action_audit(
+        "a2",
+        {
+            "phase_name": "OPENING",
+            "actor_id": "actor_2",
+            "turn_index": 2,
+            "compiled_action_family": "communication",
+        },
+    )
+    ledger.upsert_action_audit(
+        "a3",
+        {
+            "phase_name": "OPENING",
+            "actor_id": "actor_1",
+            "turn_index": 3,
+            "compiled_action_family": "none",
+        },
+    )
+
+    assert ledger.phase_action_audit_family_counts("OPENING") == {
+        "evidence": 1,
+        "communication": 1,
+    }
+    assert ledger.phase_action_audit_family_counts("OPENING", exclude_actor_id="actor_1") == {
+        "communication": 1,
+    }
+    assert ledger.phase_actor_action_audit_family_counts("OPENING", "actor_1") == {
+        "evidence": 1,
+    }
+
+
+def test_persona_state_controller_applies_dialogue_family_guardrail_without_action_positive_terms():
+    script = load_mvp_policy_scripts()[0]
+    actor = script.get_actor("actor_1")
+    controller = PersonaStateController(
+        actor,
+        actor_name_map=script.actor_display_name_map,
+    )
+    phase = next(item for item in script.phases if item.name == "OPENING")
+    candidate_pool = [
+        {
+            "slot": "planner",
+            "text": "We should review what the rollout means before we lock anything in.",
+        }
+    ]
+    actor_snapshot = {
+        "actor_state": {"last_inferred_traits": dict(actor.personality_prior)},
+        "open_commitments": [],
+        "relationships": [],
+    }
+
+    scored = controller.score_candidate_pool(
+        candidate_pool=candidate_pool,
+        visible_turns=[],
+        actor_snapshot=actor_snapshot,
+        phase=phase,
+        policy_plan={
+            "action_intent": "request_evidence",
+            "target_state_key": "uncertainty",
+            "commitment_strength": "medium",
+        },
+        action_context={
+            "script": script,
+            "valid_target_keys": list(script.target_keys_for_phase("OPENING")),
+            "allowed_action_types": list(script.allowed_action_types_for_phase("OPENING")),
+            "global_state": dict(script.initial_world_state),
+            "local_state": {},
+            "phase_action_policy": script.phase_action_policy("OPENING"),
+            "actor_action_preferences": script.actor_action_preferences("actor_1", "OPENING"),
+            "phase_action_family_counts": {},
+            "phase_action_family_counts_for_guardrail": {"evidence": 1},
+            "current_actor_phase_family_counts": {},
+            "current_actor_phase_family_counts_for_guardrail": {},
+            "turn_index": 1,
+            "use_action_aware_scoring": False,
+            "use_dialogue_family_guardrail": True,
+        },
+    )
+
+    row = scored[0]
+    assert row["planned_action_artifact"]["action_type"] == "request_evidence"
+    assert row["phase_action_duplication_penalty"] > 0.0
+    assert row["penalty_components"]["phase_action_duplication_penalty"] < 0.0
+    assert row["score_components"]["action_executability"] == 0.0
 
 
 def test_benchmark_runner_executes_with_monkeypatched_generation(monkeypatch):

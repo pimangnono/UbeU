@@ -1,0 +1,41 @@
+{
+  "saved_at": "2026-03-09T22:35:59.596498",
+  "suite_id": "suite_eae056a5c126",
+  "config": {
+    "conditions": [
+      "engine_dialogue_only"
+    ],
+    "repetitions": 4,
+    "script_ids": [
+      "youth_employment_policy",
+      "housing_support_policy",
+      "commuting_support_policy",
+      "new_product_launch",
+      "post_merger_integration",
+      "brand_crisis_response",
+      "resource_reallocation_crunch"
+    ],
+    "style_slots": [
+      "integrator",
+      "planner",
+      "challenger",
+      "skeptic"
+    ],
+    "suite_id": "suite_eae056a5c126"
+  },
+  "total_runs": 28,
+  "trace_version": 1,
+  "files": {
+    "suite_manifest": "simulation_engine/results_2026-03-09_full_primary_armA/suite_manifest.json",
+    "track_outcomes": "simulation_engine/results_2026-03-09_full_primary_armA/track_outcomes.json",
+    "run_outcomes": "simulation_engine/results_2026-03-09_full_primary_armA/run_outcomes.json",
+    "builder_trace": "simulation_engine/results_2026-03-09_full_primary_armA/builder_trace.json",
+    "trace_events": "simulation_engine/results_2026-03-09_full_primary_armA/trace_events.jsonl",
+    "turn_decisions": "simulation_engine/results_2026-03-09_full_primary_armA/trace_views/turn_decisions.jsonl",
+    "candidate_scores": "simulation_engine/results_2026-03-09_full_primary_armA/trace_views/candidate_scores.jsonl",
+    "action_events": "simulation_engine/results_2026-03-09_full_primary_armA/trace_views/action_events.jsonl",
+    "world_state_deltas": "simulation_engine/results_2026-03-09_full_primary_armA/trace_views/world_state_deltas.jsonl",
+    "relationship_events": "simulation_engine/results_2026-03-09_full_primary_armA/trace_views/relationship_events.jsonl",
+    "metric_attributions": "simulation_engine/results_2026-03-09_full_primary_armA/trace_views/metric_attributions.jsonl"
+  }
+}

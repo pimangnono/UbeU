@@ -646,7 +646,10 @@ class PersonaStateController:
                 trait_error_map=trait_error_map,
                 opportunity_scores=opportunity_scores,
             )
-            if action_context and action_context.get("use_action_aware_scoring"):
+            planned_action_artifact = None
+            action_role_prior = None
+            dialogue_family_guardrail_active = False
+            if action_context and action_context.get("script"):
                 planned_action_artifact = normalize_planned_action_artifact(
                     script=action_context["script"],
                     actor_id=self.actor_spec.actor_id,
@@ -671,6 +674,10 @@ class PersonaStateController:
                     allowed_action_types=list(action_context.get("allowed_action_types", [])),
                     valid_target_keys=list(action_context.get("valid_target_keys", [])),
                 )
+                dialogue_family_guardrail_active = bool(
+                    action_context.get("use_dialogue_family_guardrail") and planned_action_artifact and action_role_prior
+                )
+            if action_context and action_context.get("use_action_aware_scoring"):
                 action_proposal = heuristic_action_proposal(
                     script=action_context["script"],
                     actor_id=self.actor_spec.actor_id,
@@ -776,7 +783,6 @@ class PersonaStateController:
                 if action_sparsity_penalty > 0.0:
                     action_weight_multiplier *= 0.35
             else:
-                planned_action_artifact = None
                 action_proposal = None
                 action_executability = 0.5
                 state_consistency = 0.5
@@ -786,16 +792,41 @@ class PersonaStateController:
                     "available": False,
                     "reason": "action_aware_scoring_disabled",
                 }
-                phase_action_duplication_penalty = 0.0
-                duplication_details = {"available": False, "reason": "action_aware_scoring_disabled"}
+                if dialogue_family_guardrail_active:
+                    guardrail_context = dict(action_context or {})
+                    guardrail_context["phase_action_family_counts"] = dict(
+                        action_context.get("phase_action_family_counts_for_guardrail")
+                        or action_context.get("phase_action_family_counts", {})
+                    )
+                    phase_action_duplication_penalty, duplication_details = self._phase_action_duplication_penalty(
+                        action_type=planned_action_artifact.action_type if planned_action_artifact else None,
+                        prior=action_role_prior,
+                        action_context=guardrail_context,
+                    )
+                    convergence_backoff, convergence_backoff_details = self._convergence_backoff(
+                        duplication_penalty=phase_action_duplication_penalty,
+                        action_plan_alignment=1.0 if planned_action_artifact else 0.0,
+                        action_context=guardrail_context,
+                    )
+                    duplication_details = {
+                        **duplication_details,
+                        "source": "dialogue_family_guardrail",
+                    }
+                    convergence_backoff_details = {
+                        **convergence_backoff_details,
+                        "source": "dialogue_family_guardrail",
+                    }
+                else:
+                    phase_action_duplication_penalty = 0.0
+                    duplication_details = {"available": False, "reason": "action_aware_scoring_disabled"}
+                    convergence_backoff = 0.0
+                    convergence_backoff_details = {"available": False, "reason": "action_aware_scoring_disabled"}
                 role_action_uniqueness = 0.5
                 role_action_uniqueness_details = {"available": False, "reason": "action_aware_scoring_disabled"}
                 actor_local_state_fit = 0.5
                 actor_local_state_fit_details = {"available": False, "reason": "action_aware_scoring_disabled"}
                 action_sparsity_penalty = 0.0
                 action_sparsity_details = {"available": False, "reason": "action_aware_scoring_disabled"}
-                convergence_backoff = 0.0
-                convergence_backoff_details = {"available": False, "reason": "action_aware_scoring_disabled"}
                 family_budget_penalty = 0.0
                 family_budget_details = {"available": False, "reason": "action_aware_scoring_disabled"}
                 action_weight_multiplier = 0.0
@@ -864,7 +895,7 @@ class PersonaStateController:
                 "phase_action_duplication_penalty": round(
                     -(0.15 * phase_action_duplication_penalty * action_weight_multiplier)
                     if action_context and action_context.get("use_action_aware_scoring")
-                    else 0.0,
+                    else (-(0.09 * phase_action_duplication_penalty) if dialogue_family_guardrail_active else 0.0),
                     4,
                 ),
                 "family_budget_penalty": round(
@@ -882,7 +913,7 @@ class PersonaStateController:
                 "convergence_backoff": round(
                     -(0.09 * convergence_backoff * action_weight_multiplier)
                     if action_context and action_context.get("use_action_aware_scoring")
-                    else 0.0,
+                    else (-(0.05 * convergence_backoff) if dialogue_family_guardrail_active else 0.0),
                     4,
                 ),
                 "action_executability_backoff": round(
