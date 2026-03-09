@@ -16,6 +16,7 @@ from .ablation import (
     resolve_benchmark_condition,
 )
 from .action_layer import (
+    action_family,
     action_plan_alignment_score,
     apply_transition_rule,
     arbitrate_phase_actions,
@@ -303,21 +304,32 @@ class SimulationBenchmarkRunner:
                                     phase.name,
                                     exclude_actor_id=actor_id,
                                 ),
-                                "phase_actor_action_families": runtime.ledger.phase_actor_action_families(
-                                    phase.name,
-                                    exclude_actor_id=actor_id,
-                                ),
-                                "current_actor_phase_family_counts": runtime.ledger.phase_actor_action_family_counts(
-                                    phase.name,
-                                    actor_id,
-                                ),
-                                "turn_index": runtime.turn_index + 1,
-                                "use_action_aware_scoring": bool(
-                                    ablation_config.use_action_aware_scoring
-                                    and phase_action_policy.get("action_mode", "execute") == "execute"
-                                ),
-                            },
-                        )
+                            "phase_actor_action_families": runtime.ledger.phase_actor_action_families(
+                                phase.name,
+                                exclude_actor_id=actor_id,
+                            ),
+                            "current_actor_phase_family_counts": runtime.ledger.phase_actor_action_family_counts(
+                                phase.name,
+                                actor_id,
+                            ),
+                            "phase_action_family_counts_for_guardrail": runtime.ledger.phase_action_audit_family_counts(
+                                phase.name,
+                                exclude_actor_id=actor_id,
+                            ),
+                            "current_actor_phase_family_counts_for_guardrail": runtime.ledger.phase_actor_action_audit_family_counts(
+                                phase.name,
+                                actor_id,
+                            ),
+                            "turn_index": runtime.turn_index + 1,
+                            "use_action_aware_scoring": bool(
+                                ablation_config.use_action_aware_scoring
+                                and phase_action_policy.get("action_mode", "execute") == "execute"
+                            ),
+                            "use_dialogue_family_guardrail": bool(
+                                ablation_config.use_action_layer and not ablation_config.use_action_aware_scoring
+                            ),
+                        },
+                    )
                         selection = controller.select_candidate(
                             scored_candidates=scored,
                             phase=phase,
@@ -400,6 +412,19 @@ class SimulationBenchmarkRunner:
                             "validation_trace": list(proposal.validation_trace) if proposal else [],
                             "action_plan_alignment": alignment_score,
                             "action_plan_alignment_details": alignment_details,
+                            "planned_action_family": action_family(
+                                (selected_meta.get("planned_action_artifact") or {}).get("action_type")
+                            ),
+                            "selected_action_family": action_family(
+                                (selected_meta.get("action_hint") or {}).get("action_type")
+                            ),
+                            "compiled_action_family": action_family(
+                                (proposal.to_dict() if proposal else {}).get("action_type")
+                            ),
+                            "phase_action_family_counts_before_compile": runtime.ledger.phase_action_family_counts(
+                                phase.name,
+                                exclude_actor_id=actor_id,
+                            ),
                             "selected_text_excerpt": text[:180],
                         },
                     )

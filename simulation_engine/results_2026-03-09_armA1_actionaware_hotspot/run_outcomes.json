@@ -1,0 +1,1262 @@
+[
+  {
+    "run_id": "suite_95e711d44645:guided:youth_employment_policy:engine_action_v0:1",
+    "suite_id": "suite_95e711d44645",
+    "track_id": "guided",
+    "simulation_id": "youth_employment_policy",
+    "scenario_family": "policy_spillover",
+    "builder_trace_id": "manual:youth_employment_policy",
+    "clean_status": "clean",
+    "fallback_summary": {
+      "fallback_utterance_rate": 0.0,
+      "fallback_type_rates": {}
+    },
+    "headline_metrics": {
+      "persona_drift_mae": 0.144,
+      "per_trait_error_mean": {
+        "O": 0.1533,
+        "C": 0.1733,
+        "E": 0.06,
+        "A": 0.1233,
+        "N": 0.21
+      },
+      "envelope_violations": 7,
+      "commitment_contradiction_rate": 0.0,
+      "relationship_shift_rate": 0.49,
+      "relationship_overshoot_rate": 0.45,
+      "action_family_convergence_rate": 0.875,
+      "role_action_diversity_score": 0.4583
+    },
+    "top_drivers": [
+      {
+        "metric": "envelope_violations",
+        "source_type": "persistent_envelope_breach",
+        "estimated_contribution": 5.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:youth_employment_policy:engine_action_v0:1:youth_employment_policy:OPENING:1:actor_1",
+          "suite_95e711d44645:guided:youth_employment_policy:engine_action_v0:1:youth_employment_policy:OPENING:2:actor_2",
+          "suite_95e711d44645:guided:youth_employment_policy:engine_action_v0:1:youth_employment_policy:OPENING:3:actor_3"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "OPENING_duplicate_families",
+        "estimated_contribution": 2.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:youth_employment_policy:engine_action_v0:1"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "TENSION_duplicate_families",
+        "estimated_contribution": 2.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:youth_employment_policy:engine_action_v0:1"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "NEGOTIATION_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:youth_employment_policy:engine_action_v0:1"
+        ]
+      },
+      {
+        "metric": "builder_completeness",
+        "source_type": "builder_complete",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "manual:youth_employment_policy"
+        ]
+      }
+    ],
+    "top_failures": [
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "OPENING_duplicate_families",
+        "estimated_contribution": 2.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:youth_employment_policy:engine_action_v0:1"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "TENSION_duplicate_families",
+        "estimated_contribution": 2.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:youth_employment_policy:engine_action_v0:1"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "NEGOTIATION_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:youth_employment_policy:engine_action_v0:1"
+        ]
+      }
+    ],
+    "phase_refs": [
+      "suite_95e711d44645:guided:youth_employment_policy:engine_action_v0:1:OPENING",
+      "suite_95e711d44645:guided:youth_employment_policy:engine_action_v0:1:TENSION",
+      "suite_95e711d44645:guided:youth_employment_policy:engine_action_v0:1:NEGOTIATION",
+      "suite_95e711d44645:guided:youth_employment_policy:engine_action_v0:1:CLOSING"
+    ]
+  },
+  {
+    "run_id": "suite_95e711d44645:guided:youth_employment_policy:engine_action_v0:2",
+    "suite_id": "suite_95e711d44645",
+    "track_id": "guided",
+    "simulation_id": "youth_employment_policy",
+    "scenario_family": "policy_spillover",
+    "builder_trace_id": "manual:youth_employment_policy",
+    "clean_status": "clean",
+    "fallback_summary": {
+      "fallback_utterance_rate": 0.0,
+      "fallback_type_rates": {}
+    },
+    "headline_metrics": {
+      "persona_drift_mae": 0.1261,
+      "per_trait_error_mean": {
+        "O": 0.16,
+        "C": 0.177,
+        "E": 0.0601,
+        "A": 0.0767,
+        "N": 0.1567
+      },
+      "envelope_violations": 3,
+      "commitment_contradiction_rate": 0.0,
+      "relationship_shift_rate": 0.165,
+      "relationship_overshoot_rate": 0.0,
+      "action_family_convergence_rate": 0.875,
+      "role_action_diversity_score": 0.4583
+    },
+    "top_drivers": [
+      {
+        "metric": "envelope_violations",
+        "source_type": "persistent_envelope_breach",
+        "estimated_contribution": 5.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:youth_employment_policy:engine_action_v0:2:youth_employment_policy:OPENING:1:actor_1",
+          "suite_95e711d44645:guided:youth_employment_policy:engine_action_v0:2:youth_employment_policy:OPENING:2:actor_2",
+          "suite_95e711d44645:guided:youth_employment_policy:engine_action_v0:2:youth_employment_policy:OPENING:3:actor_3"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "OPENING_duplicate_families",
+        "estimated_contribution": 2.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:youth_employment_policy:engine_action_v0:2"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "TENSION_duplicate_families",
+        "estimated_contribution": 2.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:youth_employment_policy:engine_action_v0:2"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "NEGOTIATION_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:youth_employment_policy:engine_action_v0:2"
+        ]
+      },
+      {
+        "metric": "builder_completeness",
+        "source_type": "builder_complete",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "manual:youth_employment_policy"
+        ]
+      }
+    ],
+    "top_failures": [
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "OPENING_duplicate_families",
+        "estimated_contribution": 2.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:youth_employment_policy:engine_action_v0:2"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "TENSION_duplicate_families",
+        "estimated_contribution": 2.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:youth_employment_policy:engine_action_v0:2"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "NEGOTIATION_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:youth_employment_policy:engine_action_v0:2"
+        ]
+      }
+    ],
+    "phase_refs": [
+      "suite_95e711d44645:guided:youth_employment_policy:engine_action_v0:2:OPENING",
+      "suite_95e711d44645:guided:youth_employment_policy:engine_action_v0:2:TENSION",
+      "suite_95e711d44645:guided:youth_employment_policy:engine_action_v0:2:NEGOTIATION",
+      "suite_95e711d44645:guided:youth_employment_policy:engine_action_v0:2:CLOSING"
+    ]
+  },
+  {
+    "run_id": "suite_95e711d44645:guided:youth_employment_policy:engine_action_v0:3",
+    "suite_id": "suite_95e711d44645",
+    "track_id": "guided",
+    "simulation_id": "youth_employment_policy",
+    "scenario_family": "policy_spillover",
+    "builder_trace_id": "manual:youth_employment_policy",
+    "clean_status": "clean",
+    "fallback_summary": {
+      "fallback_utterance_rate": 0.0,
+      "fallback_type_rates": {}
+    },
+    "headline_metrics": {
+      "persona_drift_mae": 0.1234,
+      "per_trait_error_mean": {
+        "O": 0.12,
+        "C": 0.177,
+        "E": 0.1133,
+        "A": 0.05,
+        "N": 0.1567
+      },
+      "envelope_violations": 5,
+      "commitment_contradiction_rate": 0.0,
+      "relationship_shift_rate": 0.2467,
+      "relationship_overshoot_rate": 0.0,
+      "action_family_convergence_rate": 0.875,
+      "role_action_diversity_score": 0.4583
+    },
+    "top_drivers": [
+      {
+        "metric": "envelope_violations",
+        "source_type": "persistent_envelope_breach",
+        "estimated_contribution": 5.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:youth_employment_policy:engine_action_v0:3:youth_employment_policy:OPENING:1:actor_1",
+          "suite_95e711d44645:guided:youth_employment_policy:engine_action_v0:3:youth_employment_policy:OPENING:2:actor_2",
+          "suite_95e711d44645:guided:youth_employment_policy:engine_action_v0:3:youth_employment_policy:TENSION:4:actor_1"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "OPENING_duplicate_families",
+        "estimated_contribution": 2.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:youth_employment_policy:engine_action_v0:3"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "TENSION_duplicate_families",
+        "estimated_contribution": 2.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:youth_employment_policy:engine_action_v0:3"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "NEGOTIATION_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:youth_employment_policy:engine_action_v0:3"
+        ]
+      },
+      {
+        "metric": "builder_completeness",
+        "source_type": "builder_complete",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "manual:youth_employment_policy"
+        ]
+      }
+    ],
+    "top_failures": [
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "OPENING_duplicate_families",
+        "estimated_contribution": 2.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:youth_employment_policy:engine_action_v0:3"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "TENSION_duplicate_families",
+        "estimated_contribution": 2.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:youth_employment_policy:engine_action_v0:3"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "NEGOTIATION_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:youth_employment_policy:engine_action_v0:3"
+        ]
+      }
+    ],
+    "phase_refs": [
+      "suite_95e711d44645:guided:youth_employment_policy:engine_action_v0:3:OPENING",
+      "suite_95e711d44645:guided:youth_employment_policy:engine_action_v0:3:TENSION",
+      "suite_95e711d44645:guided:youth_employment_policy:engine_action_v0:3:NEGOTIATION",
+      "suite_95e711d44645:guided:youth_employment_policy:engine_action_v0:3:CLOSING"
+    ]
+  },
+  {
+    "run_id": "suite_95e711d44645:guided:housing_support_policy:engine_action_v0:1",
+    "suite_id": "suite_95e711d44645",
+    "track_id": "guided",
+    "simulation_id": "housing_support_policy",
+    "scenario_family": "policy_spillover",
+    "builder_trace_id": "manual:housing_support_policy",
+    "clean_status": "clean",
+    "fallback_summary": {
+      "fallback_utterance_rate": 0.0,
+      "fallback_type_rates": {}
+    },
+    "headline_metrics": {
+      "persona_drift_mae": 0.1104,
+      "per_trait_error_mean": {
+        "O": 0.0467,
+        "C": 0.1753,
+        "E": 0.0734,
+        "A": 0.07,
+        "N": 0.1867
+      },
+      "envelope_violations": 4,
+      "commitment_contradiction_rate": 0.0,
+      "relationship_shift_rate": 0.28,
+      "relationship_overshoot_rate": 0.0,
+      "action_family_convergence_rate": 0.875,
+      "role_action_diversity_score": 0.4583
+    },
+    "top_drivers": [
+      {
+        "metric": "envelope_violations",
+        "source_type": "persistent_envelope_breach",
+        "estimated_contribution": 5.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:housing_support_policy:engine_action_v0:1:housing_support_policy:OPENING:1:actor_1",
+          "suite_95e711d44645:guided:housing_support_policy:engine_action_v0:1:housing_support_policy:OPENING:2:actor_2",
+          "suite_95e711d44645:guided:housing_support_policy:engine_action_v0:1:housing_support_policy:OPENING:3:actor_3"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "OPENING_duplicate_families",
+        "estimated_contribution": 2.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:housing_support_policy:engine_action_v0:1"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "TENSION_duplicate_families",
+        "estimated_contribution": 2.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:housing_support_policy:engine_action_v0:1"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "NEGOTIATION_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:housing_support_policy:engine_action_v0:1"
+        ]
+      },
+      {
+        "metric": "builder_completeness",
+        "source_type": "builder_complete",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "manual:housing_support_policy"
+        ]
+      }
+    ],
+    "top_failures": [
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "OPENING_duplicate_families",
+        "estimated_contribution": 2.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:housing_support_policy:engine_action_v0:1"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "TENSION_duplicate_families",
+        "estimated_contribution": 2.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:housing_support_policy:engine_action_v0:1"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "NEGOTIATION_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:housing_support_policy:engine_action_v0:1"
+        ]
+      }
+    ],
+    "phase_refs": [
+      "suite_95e711d44645:guided:housing_support_policy:engine_action_v0:1:OPENING",
+      "suite_95e711d44645:guided:housing_support_policy:engine_action_v0:1:TENSION",
+      "suite_95e711d44645:guided:housing_support_policy:engine_action_v0:1:NEGOTIATION",
+      "suite_95e711d44645:guided:housing_support_policy:engine_action_v0:1:CLOSING"
+    ]
+  },
+  {
+    "run_id": "suite_95e711d44645:guided:housing_support_policy:engine_action_v0:2",
+    "suite_id": "suite_95e711d44645",
+    "track_id": "guided",
+    "simulation_id": "housing_support_policy",
+    "scenario_family": "policy_spillover",
+    "builder_trace_id": "manual:housing_support_policy",
+    "clean_status": "clean",
+    "fallback_summary": {
+      "fallback_utterance_rate": 0.0,
+      "fallback_type_rates": {}
+    },
+    "headline_metrics": {
+      "persona_drift_mae": 0.1187,
+      "per_trait_error_mean": {
+        "O": 0.08,
+        "C": 0.1633,
+        "E": 0.0733,
+        "A": 0.1167,
+        "N": 0.16
+      },
+      "envelope_violations": 1,
+      "commitment_contradiction_rate": 0.0,
+      "relationship_shift_rate": 0.0,
+      "relationship_overshoot_rate": 0.0,
+      "action_family_convergence_rate": 0.875,
+      "role_action_diversity_score": 0.4583
+    },
+    "top_drivers": [
+      {
+        "metric": "envelope_violations",
+        "source_type": "persistent_envelope_breach",
+        "estimated_contribution": 5.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:housing_support_policy:engine_action_v0:2:housing_support_policy:OPENING:1:actor_1",
+          "suite_95e711d44645:guided:housing_support_policy:engine_action_v0:2:housing_support_policy:OPENING:2:actor_2",
+          "suite_95e711d44645:guided:housing_support_policy:engine_action_v0:2:housing_support_policy:OPENING:3:actor_3"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "OPENING_duplicate_families",
+        "estimated_contribution": 2.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:housing_support_policy:engine_action_v0:2"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "TENSION_duplicate_families",
+        "estimated_contribution": 2.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:housing_support_policy:engine_action_v0:2"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "NEGOTIATION_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:housing_support_policy:engine_action_v0:2"
+        ]
+      },
+      {
+        "metric": "builder_completeness",
+        "source_type": "builder_complete",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "manual:housing_support_policy"
+        ]
+      }
+    ],
+    "top_failures": [
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "OPENING_duplicate_families",
+        "estimated_contribution": 2.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:housing_support_policy:engine_action_v0:2"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "TENSION_duplicate_families",
+        "estimated_contribution": 2.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:housing_support_policy:engine_action_v0:2"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "NEGOTIATION_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:housing_support_policy:engine_action_v0:2"
+        ]
+      }
+    ],
+    "phase_refs": [
+      "suite_95e711d44645:guided:housing_support_policy:engine_action_v0:2:OPENING",
+      "suite_95e711d44645:guided:housing_support_policy:engine_action_v0:2:TENSION",
+      "suite_95e711d44645:guided:housing_support_policy:engine_action_v0:2:NEGOTIATION",
+      "suite_95e711d44645:guided:housing_support_policy:engine_action_v0:2:CLOSING"
+    ]
+  },
+  {
+    "run_id": "suite_95e711d44645:guided:housing_support_policy:engine_action_v0:3",
+    "suite_id": "suite_95e711d44645",
+    "track_id": "guided",
+    "simulation_id": "housing_support_policy",
+    "scenario_family": "policy_spillover",
+    "builder_trace_id": "manual:housing_support_policy",
+    "clean_status": "clean",
+    "fallback_summary": {
+      "fallback_utterance_rate": 0.0,
+      "fallback_type_rates": {}
+    },
+    "headline_metrics": {
+      "persona_drift_mae": 0.1093,
+      "per_trait_error_mean": {
+        "O": 0.08,
+        "C": 0.19,
+        "E": 0.0733,
+        "A": 0.03,
+        "N": 0.1733
+      },
+      "envelope_violations": 4,
+      "commitment_contradiction_rate": 0.0,
+      "relationship_shift_rate": 0.2033,
+      "relationship_overshoot_rate": 0.0,
+      "action_family_convergence_rate": 0.875,
+      "role_action_diversity_score": 0.4583
+    },
+    "top_drivers": [
+      {
+        "metric": "envelope_violations",
+        "source_type": "persistent_envelope_breach",
+        "estimated_contribution": 5.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:housing_support_policy:engine_action_v0:3:housing_support_policy:OPENING:1:actor_1",
+          "suite_95e711d44645:guided:housing_support_policy:engine_action_v0:3:housing_support_policy:OPENING:2:actor_2",
+          "suite_95e711d44645:guided:housing_support_policy:engine_action_v0:3:housing_support_policy:OPENING:3:actor_3"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "OPENING_duplicate_families",
+        "estimated_contribution": 2.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:housing_support_policy:engine_action_v0:3"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "TENSION_duplicate_families",
+        "estimated_contribution": 2.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:housing_support_policy:engine_action_v0:3"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "NEGOTIATION_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:housing_support_policy:engine_action_v0:3"
+        ]
+      },
+      {
+        "metric": "builder_completeness",
+        "source_type": "builder_complete",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "manual:housing_support_policy"
+        ]
+      }
+    ],
+    "top_failures": [
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "OPENING_duplicate_families",
+        "estimated_contribution": 2.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:housing_support_policy:engine_action_v0:3"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "TENSION_duplicate_families",
+        "estimated_contribution": 2.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:housing_support_policy:engine_action_v0:3"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "NEGOTIATION_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:housing_support_policy:engine_action_v0:3"
+        ]
+      }
+    ],
+    "phase_refs": [
+      "suite_95e711d44645:guided:housing_support_policy:engine_action_v0:3:OPENING",
+      "suite_95e711d44645:guided:housing_support_policy:engine_action_v0:3:TENSION",
+      "suite_95e711d44645:guided:housing_support_policy:engine_action_v0:3:NEGOTIATION",
+      "suite_95e711d44645:guided:housing_support_policy:engine_action_v0:3:CLOSING"
+    ]
+  },
+  {
+    "run_id": "suite_95e711d44645:guided:commuting_support_policy:engine_action_v0:1",
+    "suite_id": "suite_95e711d44645",
+    "track_id": "guided",
+    "simulation_id": "commuting_support_policy",
+    "scenario_family": "policy_spillover",
+    "builder_trace_id": "manual:commuting_support_policy",
+    "clean_status": "clean",
+    "fallback_summary": {
+      "fallback_utterance_rate": 0.0,
+      "fallback_type_rates": {}
+    },
+    "headline_metrics": {
+      "persona_drift_mae": 0.122,
+      "per_trait_error_mean": {
+        "O": 0.1233,
+        "C": 0.22,
+        "E": 0.0467,
+        "A": 0.0733,
+        "N": 0.1467
+      },
+      "envelope_violations": 3,
+      "commitment_contradiction_rate": 0.0,
+      "relationship_shift_rate": 0.1757,
+      "relationship_overshoot_rate": 0.0,
+      "action_family_convergence_rate": 0.75,
+      "role_action_diversity_score": 0.5417
+    },
+    "top_drivers": [
+      {
+        "metric": "envelope_violations",
+        "source_type": "persistent_envelope_breach",
+        "estimated_contribution": 5.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:commuting_support_policy:engine_action_v0:1:commuting_support_policy:OPENING:1:actor_1",
+          "suite_95e711d44645:guided:commuting_support_policy:engine_action_v0:1:commuting_support_policy:OPENING:2:actor_2",
+          "suite_95e711d44645:guided:commuting_support_policy:engine_action_v0:1:commuting_support_policy:OPENING:3:actor_3"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "TENSION_duplicate_families",
+        "estimated_contribution": 2.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:commuting_support_policy:engine_action_v0:1"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "OPENING_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:commuting_support_policy:engine_action_v0:1"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "NEGOTIATION_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:commuting_support_policy:engine_action_v0:1"
+        ]
+      },
+      {
+        "metric": "builder_completeness",
+        "source_type": "builder_complete",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "manual:commuting_support_policy"
+        ]
+      }
+    ],
+    "top_failures": [
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "TENSION_duplicate_families",
+        "estimated_contribution": 2.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:commuting_support_policy:engine_action_v0:1"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "OPENING_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:commuting_support_policy:engine_action_v0:1"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "NEGOTIATION_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:commuting_support_policy:engine_action_v0:1"
+        ]
+      }
+    ],
+    "phase_refs": [
+      "suite_95e711d44645:guided:commuting_support_policy:engine_action_v0:1:OPENING",
+      "suite_95e711d44645:guided:commuting_support_policy:engine_action_v0:1:TENSION",
+      "suite_95e711d44645:guided:commuting_support_policy:engine_action_v0:1:NEGOTIATION",
+      "suite_95e711d44645:guided:commuting_support_policy:engine_action_v0:1:CLOSING"
+    ]
+  },
+  {
+    "run_id": "suite_95e711d44645:guided:commuting_support_policy:engine_action_v0:2",
+    "suite_id": "suite_95e711d44645",
+    "track_id": "guided",
+    "simulation_id": "commuting_support_policy",
+    "scenario_family": "policy_spillover",
+    "builder_trace_id": "manual:commuting_support_policy",
+    "clean_status": "clean",
+    "fallback_summary": {
+      "fallback_utterance_rate": 0.0,
+      "fallback_type_rates": {}
+    },
+    "headline_metrics": {
+      "persona_drift_mae": 0.1073,
+      "per_trait_error_mean": {
+        "O": 0.1033,
+        "C": 0.16,
+        "E": 0.0467,
+        "A": 0.0533,
+        "N": 0.1733
+      },
+      "envelope_violations": 4,
+      "commitment_contradiction_rate": 0.0,
+      "relationship_shift_rate": 0.0,
+      "relationship_overshoot_rate": 0.0,
+      "action_family_convergence_rate": 0.75,
+      "role_action_diversity_score": 0.5417
+    },
+    "top_drivers": [
+      {
+        "metric": "envelope_violations",
+        "source_type": "persistent_envelope_breach",
+        "estimated_contribution": 5.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:commuting_support_policy:engine_action_v0:2:commuting_support_policy:OPENING:1:actor_1",
+          "suite_95e711d44645:guided:commuting_support_policy:engine_action_v0:2:commuting_support_policy:OPENING:2:actor_2",
+          "suite_95e711d44645:guided:commuting_support_policy:engine_action_v0:2:commuting_support_policy:OPENING:3:actor_3"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "TENSION_duplicate_families",
+        "estimated_contribution": 2.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:commuting_support_policy:engine_action_v0:2"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "OPENING_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:commuting_support_policy:engine_action_v0:2"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "NEGOTIATION_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:commuting_support_policy:engine_action_v0:2"
+        ]
+      },
+      {
+        "metric": "builder_completeness",
+        "source_type": "builder_complete",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "manual:commuting_support_policy"
+        ]
+      }
+    ],
+    "top_failures": [
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "TENSION_duplicate_families",
+        "estimated_contribution": 2.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:commuting_support_policy:engine_action_v0:2"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "OPENING_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:commuting_support_policy:engine_action_v0:2"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "NEGOTIATION_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:commuting_support_policy:engine_action_v0:2"
+        ]
+      }
+    ],
+    "phase_refs": [
+      "suite_95e711d44645:guided:commuting_support_policy:engine_action_v0:2:OPENING",
+      "suite_95e711d44645:guided:commuting_support_policy:engine_action_v0:2:TENSION",
+      "suite_95e711d44645:guided:commuting_support_policy:engine_action_v0:2:NEGOTIATION",
+      "suite_95e711d44645:guided:commuting_support_policy:engine_action_v0:2:CLOSING"
+    ]
+  },
+  {
+    "run_id": "suite_95e711d44645:guided:commuting_support_policy:engine_action_v0:3",
+    "suite_id": "suite_95e711d44645",
+    "track_id": "guided",
+    "simulation_id": "commuting_support_policy",
+    "scenario_family": "policy_spillover",
+    "builder_trace_id": "manual:commuting_support_policy",
+    "clean_status": "clean",
+    "fallback_summary": {
+      "fallback_utterance_rate": 0.0,
+      "fallback_type_rates": {}
+    },
+    "headline_metrics": {
+      "persona_drift_mae": 0.1151,
+      "per_trait_error_mean": {
+        "O": 0.1567,
+        "C": 0.16,
+        "E": 0.0655,
+        "A": 0.0733,
+        "N": 0.12
+      },
+      "envelope_violations": 3,
+      "commitment_contradiction_rate": 0.0,
+      "relationship_shift_rate": 0.19,
+      "relationship_overshoot_rate": 0.0,
+      "action_family_convergence_rate": 0.75,
+      "role_action_diversity_score": 0.5417
+    },
+    "top_drivers": [
+      {
+        "metric": "envelope_violations",
+        "source_type": "persistent_envelope_breach",
+        "estimated_contribution": 5.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:commuting_support_policy:engine_action_v0:3:commuting_support_policy:OPENING:1:actor_1",
+          "suite_95e711d44645:guided:commuting_support_policy:engine_action_v0:3:commuting_support_policy:OPENING:2:actor_2",
+          "suite_95e711d44645:guided:commuting_support_policy:engine_action_v0:3:commuting_support_policy:OPENING:3:actor_3"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "TENSION_duplicate_families",
+        "estimated_contribution": 2.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:commuting_support_policy:engine_action_v0:3"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "OPENING_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:commuting_support_policy:engine_action_v0:3"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "NEGOTIATION_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:commuting_support_policy:engine_action_v0:3"
+        ]
+      },
+      {
+        "metric": "builder_completeness",
+        "source_type": "builder_complete",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "manual:commuting_support_policy"
+        ]
+      }
+    ],
+    "top_failures": [
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "TENSION_duplicate_families",
+        "estimated_contribution": 2.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:commuting_support_policy:engine_action_v0:3"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "OPENING_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:commuting_support_policy:engine_action_v0:3"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "NEGOTIATION_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:commuting_support_policy:engine_action_v0:3"
+        ]
+      }
+    ],
+    "phase_refs": [
+      "suite_95e711d44645:guided:commuting_support_policy:engine_action_v0:3:OPENING",
+      "suite_95e711d44645:guided:commuting_support_policy:engine_action_v0:3:TENSION",
+      "suite_95e711d44645:guided:commuting_support_policy:engine_action_v0:3:NEGOTIATION",
+      "suite_95e711d44645:guided:commuting_support_policy:engine_action_v0:3:CLOSING"
+    ]
+  },
+  {
+    "run_id": "suite_95e711d44645:guided:new_product_launch:engine_action_v0:1",
+    "suite_id": "suite_95e711d44645",
+    "track_id": "guided",
+    "simulation_id": "new_product_launch",
+    "scenario_family": "launch_pressure",
+    "builder_trace_id": "manual:new_product_launch",
+    "clean_status": "clean",
+    "fallback_summary": {
+      "fallback_utterance_rate": 0.0,
+      "fallback_type_rates": {}
+    },
+    "headline_metrics": {
+      "persona_drift_mae": 0.1419,
+      "per_trait_error_mean": {
+        "O": 0.18,
+        "C": 0.12,
+        "E": 0.0795,
+        "A": 0.0733,
+        "N": 0.2567
+      },
+      "envelope_violations": 5,
+      "commitment_contradiction_rate": 0.1667,
+      "relationship_shift_rate": 0.24,
+      "relationship_overshoot_rate": 0.0,
+      "action_family_convergence_rate": 0.5,
+      "role_action_diversity_score": 0.6667
+    },
+    "top_drivers": [
+      {
+        "metric": "envelope_violations",
+        "source_type": "persistent_envelope_breach",
+        "estimated_contribution": 5.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:new_product_launch:engine_action_v0:1:new_product_launch:OPENING:1:actor_1",
+          "suite_95e711d44645:guided:new_product_launch:engine_action_v0:1:new_product_launch:OPENING:2:actor_2",
+          "suite_95e711d44645:guided:new_product_launch:engine_action_v0:1:new_product_launch:OPENING:3:actor_3"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "TENSION_duplicate_families",
+        "estimated_contribution": 2.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:new_product_launch:engine_action_v0:1"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "OPENING_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:new_product_launch:engine_action_v0:1"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "NEGOTIATION_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:new_product_launch:engine_action_v0:1"
+        ]
+      },
+      {
+        "metric": "builder_completeness",
+        "source_type": "builder_complete",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "manual:new_product_launch"
+        ]
+      }
+    ],
+    "top_failures": [
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "TENSION_duplicate_families",
+        "estimated_contribution": 2.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:new_product_launch:engine_action_v0:1"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "OPENING_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:new_product_launch:engine_action_v0:1"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "NEGOTIATION_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:new_product_launch:engine_action_v0:1"
+        ]
+      }
+    ],
+    "phase_refs": [
+      "suite_95e711d44645:guided:new_product_launch:engine_action_v0:1:OPENING",
+      "suite_95e711d44645:guided:new_product_launch:engine_action_v0:1:TENSION",
+      "suite_95e711d44645:guided:new_product_launch:engine_action_v0:1:NEGOTIATION",
+      "suite_95e711d44645:guided:new_product_launch:engine_action_v0:1:CLOSING"
+    ]
+  },
+  {
+    "run_id": "suite_95e711d44645:guided:new_product_launch:engine_action_v0:2",
+    "suite_id": "suite_95e711d44645",
+    "track_id": "guided",
+    "simulation_id": "new_product_launch",
+    "scenario_family": "launch_pressure",
+    "builder_trace_id": "manual:new_product_launch",
+    "clean_status": "clean",
+    "fallback_summary": {
+      "fallback_utterance_rate": 0.0,
+      "fallback_type_rates": {}
+    },
+    "headline_metrics": {
+      "persona_drift_mae": 0.1083,
+      "per_trait_error_mean": {
+        "O": 0.1133,
+        "C": 0.1453,
+        "E": 0.033,
+        "A": 0.06,
+        "N": 0.19
+      },
+      "envelope_violations": 3,
+      "commitment_contradiction_rate": 0.0,
+      "relationship_shift_rate": 0.1786,
+      "relationship_overshoot_rate": 0.0,
+      "action_family_convergence_rate": 0.5,
+      "role_action_diversity_score": 0.6667
+    },
+    "top_drivers": [
+      {
+        "metric": "envelope_violations",
+        "source_type": "persistent_envelope_breach",
+        "estimated_contribution": 5.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:new_product_launch:engine_action_v0:2:new_product_launch:OPENING:1:actor_1",
+          "suite_95e711d44645:guided:new_product_launch:engine_action_v0:2:new_product_launch:OPENING:2:actor_2",
+          "suite_95e711d44645:guided:new_product_launch:engine_action_v0:2:new_product_launch:OPENING:3:actor_3"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "TENSION_duplicate_families",
+        "estimated_contribution": 2.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:new_product_launch:engine_action_v0:2"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "OPENING_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:new_product_launch:engine_action_v0:2"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "NEGOTIATION_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:new_product_launch:engine_action_v0:2"
+        ]
+      },
+      {
+        "metric": "builder_completeness",
+        "source_type": "builder_complete",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "manual:new_product_launch"
+        ]
+      }
+    ],
+    "top_failures": [
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "TENSION_duplicate_families",
+        "estimated_contribution": 2.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:new_product_launch:engine_action_v0:2"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "OPENING_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:new_product_launch:engine_action_v0:2"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "NEGOTIATION_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:new_product_launch:engine_action_v0:2"
+        ]
+      }
+    ],
+    "phase_refs": [
+      "suite_95e711d44645:guided:new_product_launch:engine_action_v0:2:OPENING",
+      "suite_95e711d44645:guided:new_product_launch:engine_action_v0:2:TENSION",
+      "suite_95e711d44645:guided:new_product_launch:engine_action_v0:2:NEGOTIATION",
+      "suite_95e711d44645:guided:new_product_launch:engine_action_v0:2:CLOSING"
+    ]
+  },
+  {
+    "run_id": "suite_95e711d44645:guided:new_product_launch:engine_action_v0:3",
+    "suite_id": "suite_95e711d44645",
+    "track_id": "guided",
+    "simulation_id": "new_product_launch",
+    "scenario_family": "launch_pressure",
+    "builder_trace_id": "manual:new_product_launch",
+    "clean_status": "clean",
+    "fallback_summary": {
+      "fallback_utterance_rate": 0.0,
+      "fallback_type_rates": {}
+    },
+    "headline_metrics": {
+      "persona_drift_mae": 0.1267,
+      "per_trait_error_mean": {
+        "O": 0.1133,
+        "C": 0.1363,
+        "E": 0.0804,
+        "A": 0.06,
+        "N": 0.2433
+      },
+      "envelope_violations": 4,
+      "commitment_contradiction_rate": 0.0,
+      "relationship_shift_rate": 0.19,
+      "relationship_overshoot_rate": 0.0,
+      "action_family_convergence_rate": 0.5,
+      "role_action_diversity_score": 0.6667
+    },
+    "top_drivers": [
+      {
+        "metric": "envelope_violations",
+        "source_type": "persistent_envelope_breach",
+        "estimated_contribution": 5.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:new_product_launch:engine_action_v0:3:new_product_launch:OPENING:1:actor_1",
+          "suite_95e711d44645:guided:new_product_launch:engine_action_v0:3:new_product_launch:OPENING:2:actor_2",
+          "suite_95e711d44645:guided:new_product_launch:engine_action_v0:3:new_product_launch:OPENING:3:actor_3"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "TENSION_duplicate_families",
+        "estimated_contribution": 2.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:new_product_launch:engine_action_v0:3"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "OPENING_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:new_product_launch:engine_action_v0:3"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "NEGOTIATION_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:new_product_launch:engine_action_v0:3"
+        ]
+      },
+      {
+        "metric": "builder_completeness",
+        "source_type": "builder_complete",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "manual:new_product_launch"
+        ]
+      }
+    ],
+    "top_failures": [
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "TENSION_duplicate_families",
+        "estimated_contribution": 2.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:new_product_launch:engine_action_v0:3"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "OPENING_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:new_product_launch:engine_action_v0:3"
+        ]
+      },
+      {
+        "metric": "action_family_convergence_rate",
+        "source_type": "NEGOTIATION_duplicate_families",
+        "estimated_contribution": 1.0,
+        "supporting_trace_ids": [
+          "suite_95e711d44645:guided:new_product_launch:engine_action_v0:3"
+        ]
+      }
+    ],
+    "phase_refs": [
+      "suite_95e711d44645:guided:new_product_launch:engine_action_v0:3:OPENING",
+      "suite_95e711d44645:guided:new_product_launch:engine_action_v0:3:TENSION",
+      "suite_95e711d44645:guided:new_product_launch:engine_action_v0:3:NEGOTIATION",
+      "suite_95e711d44645:guided:new_product_launch:engine_action_v0:3:CLOSING"
+    ]
+  }
+]
