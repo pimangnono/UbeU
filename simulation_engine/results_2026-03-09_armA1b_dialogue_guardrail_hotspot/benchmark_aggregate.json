@@ -1,0 +1,822 @@
+{
+  "saved_at": "2026-03-09T23:59:50.872629",
+  "config": {
+    "conditions": [
+      "engine_dialogue_only"
+    ],
+    "repetitions": 3,
+    "script_ids": [
+      "youth_employment_policy",
+      "housing_support_policy",
+      "commuting_support_policy",
+      "new_product_launch"
+    ],
+    "style_slots": [
+      "integrator",
+      "planner",
+      "challenger",
+      "skeptic"
+    ],
+    "suite_id": "suite_d6ae0b140cd9"
+  },
+  "aggregate": {
+    "engine_dialogue_only": {
+      "num_runs": 12,
+      "clean_run_count": 12,
+      "contaminated_run_count": 0,
+      "persona_drift_mae_mean": 0.116,
+      "persona_drift_mae_std": 0.0119,
+      "relationship_inconsistency_mean": 0.0458,
+      "relationship_shift_rate_mean": 0.1701,
+      "relationship_overshoot_rate_mean": 0.0375,
+      "commitment_contradiction_mean": 0.0863,
+      "envelope_violations_mean": 3.25,
+      "structured_action_validity_rate_mean": 0.95,
+      "owner_resolution_rate_mean": 1.0,
+      "executed_action_contradiction_rate_mean": 0.0,
+      "state_transition_coherence_mean": 1.0,
+      "action_feedback_utilization_mean": 0.25,
+      "action_plan_alignment_mean": 0.9579,
+      "planned_action_coverage_rate_mean": 1.0,
+      "action_family_convergence_rate_mean": 0.75,
+      "role_action_diversity_score_mean": 0.5312,
+      "negotiation_uniqueness_rate_mean": 0.3181,
+      "fallback_utterance_rate_mean": 0.0076,
+      "fallback_type_rate_mean": {
+        "empty_pool_fallback": 0.0076
+      },
+      "state_trajectory_variance_mean": 0.0006,
+      "per_trait_error_mean": {
+        "O": 0.0958,
+        "C": 0.162,
+        "E": 0.0634,
+        "A": 0.0778,
+        "N": 0.1811
+      },
+      "turn_count_mean": 11,
+      "ci_95": {
+        "persona_drift_mae": [
+          0.1093,
+          0.1228
+        ],
+        "relationship_inconsistency": [
+          -0.0402,
+          0.1318
+        ],
+        "relationship_shift_rate": [
+          0.1029,
+          0.2372
+        ],
+        "relationship_overshoot_rate": [
+          -0.0329,
+          0.1079
+        ],
+        "commitment_contradiction": [
+          0.0024,
+          0.1702
+        ],
+        "envelope_violations": [
+          2.8417,
+          3.6583
+        ]
+      },
+      "ci_width": {
+        "persona_drift_mae": 0.0135,
+        "relationship_inconsistency": 0.172,
+        "relationship_shift_rate": 0.1343,
+        "relationship_overshoot_rate": 0.1408,
+        "commitment_contradiction": 0.1678,
+        "envelope_violations": 0.8166
+      },
+      "metric_confidence": {
+        "persona_drift_mae": "high",
+        "relationship_inconsistency": "medium",
+        "relationship_shift_rate": "medium",
+        "relationship_overshoot_rate": "medium",
+        "commitment_contradiction": "medium",
+        "envelope_violations": "medium"
+      },
+      "zero_variance_metrics": [],
+      "evidence_refs": [
+        "suite_d6ae0b140cd9:guided:youth_employment_policy:engine_dialogue_only:1",
+        "suite_d6ae0b140cd9:guided:youth_employment_policy:engine_dialogue_only:2",
+        "suite_d6ae0b140cd9:guided:youth_employment_policy:engine_dialogue_only:3",
+        "suite_d6ae0b140cd9:guided:housing_support_policy:engine_dialogue_only:1",
+        "suite_d6ae0b140cd9:guided:housing_support_policy:engine_dialogue_only:2",
+        "suite_d6ae0b140cd9:guided:housing_support_policy:engine_dialogue_only:3",
+        "suite_d6ae0b140cd9:guided:commuting_support_policy:engine_dialogue_only:1",
+        "suite_d6ae0b140cd9:guided:commuting_support_policy:engine_dialogue_only:2",
+        "suite_d6ae0b140cd9:guided:commuting_support_policy:engine_dialogue_only:3",
+        "suite_d6ae0b140cd9:guided:new_product_launch:engine_dialogue_only:1",
+        "suite_d6ae0b140cd9:guided:new_product_launch:engine_dialogue_only:2",
+        "suite_d6ae0b140cd9:guided:new_product_launch:engine_dialogue_only:3"
+      ],
+      "top_driver_refs": [
+        "suite_d6ae0b140cd9:guided:youth_employment_policy:engine_dialogue_only:1",
+        "suite_d6ae0b140cd9:guided:youth_employment_policy:engine_dialogue_only:2",
+        "suite_d6ae0b140cd9:guided:youth_employment_policy:engine_dialogue_only:3"
+      ],
+      "clean_persona_drift_mae_mean": 0.116,
+      "clean_envelope_violations_mean": 3.25,
+      "clean_commitment_contradiction_mean": 0.0863
+    }
+  },
+  "aggregate_by_script": {
+    "youth_employment_policy:engine_dialogue_only": {
+      "num_runs": 3,
+      "clean_run_count": 3,
+      "contaminated_run_count": 0,
+      "persona_drift_mae_mean": 0.1157,
+      "persona_drift_mae_std": 0.003,
+      "relationship_inconsistency_mean": 0.1833,
+      "relationship_shift_rate_mean": 0.2008,
+      "relationship_overshoot_rate_mean": 0.15,
+      "commitment_contradiction_mean": 0.0476,
+      "envelope_violations_mean": 3.3333,
+      "structured_action_validity_rate_mean": 0.8,
+      "owner_resolution_rate_mean": 1.0,
+      "executed_action_contradiction_rate_mean": 0.0,
+      "state_transition_coherence_mean": 1.0,
+      "action_feedback_utilization_mean": 0.3333,
+      "action_plan_alignment_mean": 0.9636,
+      "planned_action_coverage_rate_mean": 1.0,
+      "action_family_convergence_rate_mean": 0.875,
+      "role_action_diversity_score_mean": 0.4583,
+      "negotiation_uniqueness_rate_mean": 0.2727,
+      "fallback_utterance_rate_mean": 0.0303,
+      "fallback_type_rate_mean": {
+        "empty_pool_fallback": 0.0303
+      },
+      "state_trajectory_variance_mean": 0.0,
+      "per_trait_error_mean": {
+        "O": 0.0756,
+        "C": 0.1632,
+        "E": 0.0819,
+        "A": 0.0655,
+        "N": 0.1922
+      },
+      "turn_count_mean": 11,
+      "ci_95": {
+        "persona_drift_mae": [
+          0.1123,
+          0.1191
+        ],
+        "relationship_inconsistency": [
+          -0.1101,
+          0.4767
+        ],
+        "relationship_shift_rate": [
+          0.0049,
+          0.3967
+        ],
+        "relationship_overshoot_rate": [
+          -0.09,
+          0.39
+        ],
+        "commitment_contradiction": [
+          -0.0286,
+          0.1239
+        ],
+        "envelope_violations": [
+          2.7999,
+          3.8668
+        ]
+      },
+      "ci_width": {
+        "persona_drift_mae": 0.0068,
+        "relationship_inconsistency": 0.5868,
+        "relationship_shift_rate": 0.3918,
+        "relationship_overshoot_rate": 0.48,
+        "commitment_contradiction": 0.1525,
+        "envelope_violations": 1.0669
+      },
+      "metric_confidence": {
+        "persona_drift_mae": "high",
+        "relationship_inconsistency": "medium",
+        "relationship_shift_rate": "medium",
+        "relationship_overshoot_rate": "medium",
+        "commitment_contradiction": "medium",
+        "envelope_violations": "medium"
+      },
+      "zero_variance_metrics": [
+        "action_family_convergence",
+        "role_action_diversity",
+        "negotiation_uniqueness"
+      ],
+      "evidence_refs": [
+        "suite_d6ae0b140cd9:guided:youth_employment_policy:engine_dialogue_only:1",
+        "suite_d6ae0b140cd9:guided:youth_employment_policy:engine_dialogue_only:2",
+        "suite_d6ae0b140cd9:guided:youth_employment_policy:engine_dialogue_only:3"
+      ],
+      "top_driver_refs": [
+        "suite_d6ae0b140cd9:guided:youth_employment_policy:engine_dialogue_only:1",
+        "suite_d6ae0b140cd9:guided:youth_employment_policy:engine_dialogue_only:2",
+        "suite_d6ae0b140cd9:guided:youth_employment_policy:engine_dialogue_only:3"
+      ],
+      "clean_persona_drift_mae_mean": 0.1157,
+      "clean_envelope_violations_mean": 3.3333,
+      "clean_commitment_contradiction_mean": 0.0476
+    },
+    "housing_support_policy:engine_dialogue_only": {
+      "num_runs": 3,
+      "clean_run_count": 3,
+      "contaminated_run_count": 0,
+      "persona_drift_mae_mean": 0.1232,
+      "persona_drift_mae_std": 0.0136,
+      "relationship_inconsistency_mean": 0.0,
+      "relationship_shift_rate_mean": 0.1656,
+      "relationship_overshoot_rate_mean": 0.0,
+      "commitment_contradiction_mean": 0.25,
+      "envelope_violations_mean": 3.6667,
+      "structured_action_validity_rate_mean": 1.0,
+      "owner_resolution_rate_mean": 1.0,
+      "executed_action_contradiction_rate_mean": 0.0,
+      "state_transition_coherence_mean": 1.0,
+      "action_feedback_utilization_mean": 0.3333,
+      "action_plan_alignment_mean": 0.9591,
+      "planned_action_coverage_rate_mean": 1.0,
+      "action_family_convergence_rate_mean": 0.875,
+      "role_action_diversity_score_mean": 0.4583,
+      "negotiation_uniqueness_rate_mean": 0.2727,
+      "fallback_utterance_rate_mean": 0.0,
+      "fallback_type_rate_mean": {},
+      "state_trajectory_variance_mean": 0.0,
+      "per_trait_error_mean": {
+        "O": 0.0978,
+        "C": 0.1771,
+        "E": 0.0733,
+        "A": 0.0989,
+        "N": 0.1689
+      },
+      "turn_count_mean": 11,
+      "ci_95": {
+        "persona_drift_mae": [
+          0.1078,
+          0.1386
+        ],
+        "relationship_inconsistency": [
+          0.0,
+          0.0
+        ],
+        "relationship_shift_rate": [
+          0.0331,
+          0.2981
+        ],
+        "relationship_overshoot_rate": [
+          0.0,
+          0.0
+        ],
+        "commitment_contradiction": [
+          0.019,
+          0.481
+        ],
+        "envelope_violations": [
+          3.1332,
+          4.2001
+        ]
+      },
+      "ci_width": {
+        "persona_drift_mae": 0.0308,
+        "relationship_inconsistency": 0.0,
+        "relationship_shift_rate": 0.265,
+        "relationship_overshoot_rate": 0.0,
+        "commitment_contradiction": 0.462,
+        "envelope_violations": 1.0669
+      },
+      "metric_confidence": {
+        "persona_drift_mae": "high",
+        "relationship_inconsistency": "medium",
+        "relationship_shift_rate": "medium",
+        "relationship_overshoot_rate": "medium",
+        "commitment_contradiction": "medium",
+        "envelope_violations": "medium"
+      },
+      "zero_variance_metrics": [
+        "relationship_inconsistency",
+        "relationship_overshoot_rate",
+        "action_family_convergence",
+        "role_action_diversity",
+        "negotiation_uniqueness",
+        "fallback_utterance_rate"
+      ],
+      "evidence_refs": [
+        "suite_d6ae0b140cd9:guided:housing_support_policy:engine_dialogue_only:1",
+        "suite_d6ae0b140cd9:guided:housing_support_policy:engine_dialogue_only:2",
+        "suite_d6ae0b140cd9:guided:housing_support_policy:engine_dialogue_only:3"
+      ],
+      "top_driver_refs": [
+        "suite_d6ae0b140cd9:guided:housing_support_policy:engine_dialogue_only:1",
+        "suite_d6ae0b140cd9:guided:housing_support_policy:engine_dialogue_only:2",
+        "suite_d6ae0b140cd9:guided:housing_support_policy:engine_dialogue_only:3"
+      ],
+      "clean_persona_drift_mae_mean": 0.1232,
+      "clean_envelope_violations_mean": 3.6667,
+      "clean_commitment_contradiction_mean": 0.25
+    },
+    "commuting_support_policy:engine_dialogue_only": {
+      "num_runs": 3,
+      "clean_run_count": 3,
+      "contaminated_run_count": 0,
+      "persona_drift_mae_mean": 0.102,
+      "persona_drift_mae_std": 0.0034,
+      "relationship_inconsistency_mean": 0.0,
+      "relationship_shift_rate_mean": 0.1456,
+      "relationship_overshoot_rate_mean": 0.0,
+      "commitment_contradiction_mean": 0.0,
+      "envelope_violations_mean": 2.3333,
+      "structured_action_validity_rate_mean": 1.0,
+      "owner_resolution_rate_mean": 1.0,
+      "executed_action_contradiction_rate_mean": 0.0,
+      "state_transition_coherence_mean": 1.0,
+      "action_feedback_utilization_mean": 0.3333,
+      "action_plan_alignment_mean": 0.9545,
+      "planned_action_coverage_rate_mean": 1.0,
+      "action_family_convergence_rate_mean": 0.75,
+      "role_action_diversity_score_mean": 0.5417,
+      "negotiation_uniqueness_rate_mean": 0.2727,
+      "fallback_utterance_rate_mean": 0.0,
+      "fallback_type_rate_mean": {},
+      "state_trajectory_variance_mean": 0.0,
+      "per_trait_error_mean": {
+        "O": 0.0744,
+        "C": 0.1604,
+        "E": 0.0549,
+        "A": 0.0867,
+        "N": 0.1333
+      },
+      "turn_count_mean": 11,
+      "ci_95": {
+        "persona_drift_mae": [
+          0.0982,
+          0.1058
+        ],
+        "relationship_inconsistency": [
+          0.0,
+          0.0
+        ],
+        "relationship_shift_rate": [
+          0.0274,
+          0.2637
+        ],
+        "relationship_overshoot_rate": [
+          0.0,
+          0.0
+        ],
+        "commitment_contradiction": [
+          0.0,
+          0.0
+        ],
+        "envelope_violations": [
+          1.7999,
+          2.8668
+        ]
+      },
+      "ci_width": {
+        "persona_drift_mae": 0.0076,
+        "relationship_inconsistency": 0.0,
+        "relationship_shift_rate": 0.2363,
+        "relationship_overshoot_rate": 0.0,
+        "commitment_contradiction": 0.0,
+        "envelope_violations": 1.0669
+      },
+      "metric_confidence": {
+        "persona_drift_mae": "high",
+        "relationship_inconsistency": "medium",
+        "relationship_shift_rate": "medium",
+        "relationship_overshoot_rate": "medium",
+        "commitment_contradiction": "medium",
+        "envelope_violations": "medium"
+      },
+      "zero_variance_metrics": [
+        "relationship_inconsistency",
+        "relationship_overshoot_rate",
+        "commitment_contradiction",
+        "action_family_convergence",
+        "role_action_diversity",
+        "negotiation_uniqueness",
+        "fallback_utterance_rate"
+      ],
+      "evidence_refs": [
+        "suite_d6ae0b140cd9:guided:commuting_support_policy:engine_dialogue_only:1",
+        "suite_d6ae0b140cd9:guided:commuting_support_policy:engine_dialogue_only:2",
+        "suite_d6ae0b140cd9:guided:commuting_support_policy:engine_dialogue_only:3"
+      ],
+      "top_driver_refs": [
+        "suite_d6ae0b140cd9:guided:commuting_support_policy:engine_dialogue_only:1",
+        "suite_d6ae0b140cd9:guided:commuting_support_policy:engine_dialogue_only:2",
+        "suite_d6ae0b140cd9:guided:commuting_support_policy:engine_dialogue_only:3"
+      ],
+      "clean_persona_drift_mae_mean": 0.102,
+      "clean_envelope_violations_mean": 2.3333,
+      "clean_commitment_contradiction_mean": 0.0
+    },
+    "new_product_launch:engine_dialogue_only": {
+      "num_runs": 3,
+      "clean_run_count": 3,
+      "contaminated_run_count": 0,
+      "persona_drift_mae_mean": 0.1233,
+      "persona_drift_mae_std": 0.0076,
+      "relationship_inconsistency_mean": 0.0,
+      "relationship_shift_rate_mean": 0.1684,
+      "relationship_overshoot_rate_mean": 0.0,
+      "commitment_contradiction_mean": 0.0476,
+      "envelope_violations_mean": 3.6667,
+      "structured_action_validity_rate_mean": 1.0,
+      "owner_resolution_rate_mean": 1.0,
+      "executed_action_contradiction_rate_mean": 0.0,
+      "state_transition_coherence_mean": 1.0,
+      "action_feedback_utilization_mean": 0.0,
+      "action_plan_alignment_mean": 0.9545,
+      "planned_action_coverage_rate_mean": 1.0,
+      "action_family_convergence_rate_mean": 0.5,
+      "role_action_diversity_score_mean": 0.6667,
+      "negotiation_uniqueness_rate_mean": 0.4545,
+      "fallback_utterance_rate_mean": 0.0,
+      "fallback_type_rate_mean": {},
+      "state_trajectory_variance_mean": 0.0,
+      "per_trait_error_mean": {
+        "O": 0.1356,
+        "C": 0.1473,
+        "E": 0.0435,
+        "A": 0.06,
+        "N": 0.23
+      },
+      "turn_count_mean": 11,
+      "ci_95": {
+        "persona_drift_mae": [
+          0.1147,
+          0.1319
+        ],
+        "relationship_inconsistency": [
+          0.0,
+          0.0
+        ],
+        "relationship_shift_rate": [
+          0.1539,
+          0.1828
+        ],
+        "relationship_overshoot_rate": [
+          0.0,
+          0.0
+        ],
+        "commitment_contradiction": [
+          -0.0286,
+          0.1239
+        ],
+        "envelope_violations": [
+          3.1332,
+          4.2001
+        ]
+      },
+      "ci_width": {
+        "persona_drift_mae": 0.0172,
+        "relationship_inconsistency": 0.0,
+        "relationship_shift_rate": 0.0289,
+        "relationship_overshoot_rate": 0.0,
+        "commitment_contradiction": 0.1525,
+        "envelope_violations": 1.0669
+      },
+      "metric_confidence": {
+        "persona_drift_mae": "high",
+        "relationship_inconsistency": "medium",
+        "relationship_shift_rate": "medium",
+        "relationship_overshoot_rate": "medium",
+        "commitment_contradiction": "medium",
+        "envelope_violations": "medium"
+      },
+      "zero_variance_metrics": [
+        "relationship_inconsistency",
+        "relationship_overshoot_rate",
+        "action_family_convergence",
+        "role_action_diversity",
+        "negotiation_uniqueness",
+        "fallback_utterance_rate"
+      ],
+      "evidence_refs": [
+        "suite_d6ae0b140cd9:guided:new_product_launch:engine_dialogue_only:1",
+        "suite_d6ae0b140cd9:guided:new_product_launch:engine_dialogue_only:2",
+        "suite_d6ae0b140cd9:guided:new_product_launch:engine_dialogue_only:3"
+      ],
+      "top_driver_refs": [
+        "suite_d6ae0b140cd9:guided:new_product_launch:engine_dialogue_only:1",
+        "suite_d6ae0b140cd9:guided:new_product_launch:engine_dialogue_only:2",
+        "suite_d6ae0b140cd9:guided:new_product_launch:engine_dialogue_only:3"
+      ],
+      "clean_persona_drift_mae_mean": 0.1233,
+      "clean_envelope_violations_mean": 3.6667,
+      "clean_commitment_contradiction_mean": 0.0476
+    }
+  },
+  "aggregate_by_mode": {
+    "guided:engine_dialogue_only": {
+      "num_runs": 12,
+      "clean_run_count": 12,
+      "contaminated_run_count": 0,
+      "persona_drift_mae_mean": 0.116,
+      "persona_drift_mae_std": 0.0119,
+      "relationship_inconsistency_mean": 0.0458,
+      "relationship_shift_rate_mean": 0.1701,
+      "relationship_overshoot_rate_mean": 0.0375,
+      "commitment_contradiction_mean": 0.0863,
+      "envelope_violations_mean": 3.25,
+      "structured_action_validity_rate_mean": 0.95,
+      "owner_resolution_rate_mean": 1.0,
+      "executed_action_contradiction_rate_mean": 0.0,
+      "state_transition_coherence_mean": 1.0,
+      "action_feedback_utilization_mean": 0.25,
+      "action_plan_alignment_mean": 0.9579,
+      "planned_action_coverage_rate_mean": 1.0,
+      "action_family_convergence_rate_mean": 0.75,
+      "role_action_diversity_score_mean": 0.5312,
+      "negotiation_uniqueness_rate_mean": 0.3181,
+      "fallback_utterance_rate_mean": 0.0076,
+      "fallback_type_rate_mean": {
+        "empty_pool_fallback": 0.0076
+      },
+      "state_trajectory_variance_mean": 0.0006,
+      "per_trait_error_mean": {
+        "O": 0.0958,
+        "C": 0.162,
+        "E": 0.0634,
+        "A": 0.0778,
+        "N": 0.1811
+      },
+      "turn_count_mean": 11,
+      "ci_95": {
+        "persona_drift_mae": [
+          0.1093,
+          0.1228
+        ],
+        "relationship_inconsistency": [
+          -0.0402,
+          0.1318
+        ],
+        "relationship_shift_rate": [
+          0.1029,
+          0.2372
+        ],
+        "relationship_overshoot_rate": [
+          -0.0329,
+          0.1079
+        ],
+        "commitment_contradiction": [
+          0.0024,
+          0.1702
+        ],
+        "envelope_violations": [
+          2.8417,
+          3.6583
+        ]
+      },
+      "ci_width": {
+        "persona_drift_mae": 0.0135,
+        "relationship_inconsistency": 0.172,
+        "relationship_shift_rate": 0.1343,
+        "relationship_overshoot_rate": 0.1408,
+        "commitment_contradiction": 0.1678,
+        "envelope_violations": 0.8166
+      },
+      "metric_confidence": {
+        "persona_drift_mae": "high",
+        "relationship_inconsistency": "medium",
+        "relationship_shift_rate": "medium",
+        "relationship_overshoot_rate": "medium",
+        "commitment_contradiction": "medium",
+        "envelope_violations": "medium"
+      },
+      "zero_variance_metrics": [],
+      "evidence_refs": [
+        "suite_d6ae0b140cd9:guided:youth_employment_policy:engine_dialogue_only:1",
+        "suite_d6ae0b140cd9:guided:youth_employment_policy:engine_dialogue_only:2",
+        "suite_d6ae0b140cd9:guided:youth_employment_policy:engine_dialogue_only:3",
+        "suite_d6ae0b140cd9:guided:housing_support_policy:engine_dialogue_only:1",
+        "suite_d6ae0b140cd9:guided:housing_support_policy:engine_dialogue_only:2",
+        "suite_d6ae0b140cd9:guided:housing_support_policy:engine_dialogue_only:3",
+        "suite_d6ae0b140cd9:guided:commuting_support_policy:engine_dialogue_only:1",
+        "suite_d6ae0b140cd9:guided:commuting_support_policy:engine_dialogue_only:2",
+        "suite_d6ae0b140cd9:guided:commuting_support_policy:engine_dialogue_only:3",
+        "suite_d6ae0b140cd9:guided:new_product_launch:engine_dialogue_only:1",
+        "suite_d6ae0b140cd9:guided:new_product_launch:engine_dialogue_only:2",
+        "suite_d6ae0b140cd9:guided:new_product_launch:engine_dialogue_only:3"
+      ],
+      "top_driver_refs": [
+        "suite_d6ae0b140cd9:guided:youth_employment_policy:engine_dialogue_only:1",
+        "suite_d6ae0b140cd9:guided:youth_employment_policy:engine_dialogue_only:2",
+        "suite_d6ae0b140cd9:guided:youth_employment_policy:engine_dialogue_only:3"
+      ],
+      "clean_persona_drift_mae_mean": 0.116,
+      "clean_envelope_violations_mean": 3.25,
+      "clean_commitment_contradiction_mean": 0.0863
+    }
+  },
+  "aggregate_by_family": {
+    "policy_spillover:engine_dialogue_only": {
+      "num_runs": 9,
+      "clean_run_count": 9,
+      "contaminated_run_count": 0,
+      "persona_drift_mae_mean": 0.1136,
+      "persona_drift_mae_std": 0.0121,
+      "relationship_inconsistency_mean": 0.0611,
+      "relationship_shift_rate_mean": 0.1707,
+      "relationship_overshoot_rate_mean": 0.05,
+      "commitment_contradiction_mean": 0.0992,
+      "envelope_violations_mean": 3.1111,
+      "structured_action_validity_rate_mean": 0.9333,
+      "owner_resolution_rate_mean": 1.0,
+      "executed_action_contradiction_rate_mean": 0.0,
+      "state_transition_coherence_mean": 1.0,
+      "action_feedback_utilization_mean": 0.3333,
+      "action_plan_alignment_mean": 0.9591,
+      "planned_action_coverage_rate_mean": 1.0,
+      "action_family_convergence_rate_mean": 0.8333,
+      "role_action_diversity_score_mean": 0.4861,
+      "negotiation_uniqueness_rate_mean": 0.2727,
+      "fallback_utterance_rate_mean": 0.0101,
+      "fallback_type_rate_mean": {
+        "empty_pool_fallback": 0.0101
+      },
+      "state_trajectory_variance_mean": 0.0002,
+      "per_trait_error_mean": {
+        "O": 0.0826,
+        "C": 0.1669,
+        "E": 0.0701,
+        "A": 0.0837,
+        "N": 0.1648
+      },
+      "turn_count_mean": 11,
+      "ci_95": {
+        "persona_drift_mae": [
+          0.1057,
+          0.1215
+        ],
+        "relationship_inconsistency": [
+          -0.0518,
+          0.174
+        ],
+        "relationship_shift_rate": [
+          0.0813,
+          0.26
+        ],
+        "relationship_overshoot_rate": [
+          -0.0424,
+          0.1424
+        ],
+        "commitment_contradiction": [
+          -0.0084,
+          0.2069
+        ],
+        "envelope_violations": [
+          2.6296,
+          3.5926
+        ]
+      },
+      "ci_width": {
+        "persona_drift_mae": 0.0158,
+        "relationship_inconsistency": 0.2258,
+        "relationship_shift_rate": 0.1787,
+        "relationship_overshoot_rate": 0.1848,
+        "commitment_contradiction": 0.2153,
+        "envelope_violations": 0.963
+      },
+      "metric_confidence": {
+        "persona_drift_mae": "high",
+        "relationship_inconsistency": "medium",
+        "relationship_shift_rate": "medium",
+        "relationship_overshoot_rate": "medium",
+        "commitment_contradiction": "medium",
+        "envelope_violations": "medium"
+      },
+      "zero_variance_metrics": [
+        "negotiation_uniqueness"
+      ],
+      "evidence_refs": [
+        "suite_d6ae0b140cd9:guided:youth_employment_policy:engine_dialogue_only:1",
+        "suite_d6ae0b140cd9:guided:youth_employment_policy:engine_dialogue_only:2",
+        "suite_d6ae0b140cd9:guided:youth_employment_policy:engine_dialogue_only:3",
+        "suite_d6ae0b140cd9:guided:housing_support_policy:engine_dialogue_only:1",
+        "suite_d6ae0b140cd9:guided:housing_support_policy:engine_dialogue_only:2",
+        "suite_d6ae0b140cd9:guided:housing_support_policy:engine_dialogue_only:3",
+        "suite_d6ae0b140cd9:guided:commuting_support_policy:engine_dialogue_only:1",
+        "suite_d6ae0b140cd9:guided:commuting_support_policy:engine_dialogue_only:2",
+        "suite_d6ae0b140cd9:guided:commuting_support_policy:engine_dialogue_only:3"
+      ],
+      "top_driver_refs": [
+        "suite_d6ae0b140cd9:guided:youth_employment_policy:engine_dialogue_only:1",
+        "suite_d6ae0b140cd9:guided:youth_employment_policy:engine_dialogue_only:2",
+        "suite_d6ae0b140cd9:guided:youth_employment_policy:engine_dialogue_only:3"
+      ],
+      "clean_persona_drift_mae_mean": 0.1136,
+      "clean_envelope_violations_mean": 3.1111,
+      "clean_commitment_contradiction_mean": 0.0992
+    },
+    "launch_pressure:engine_dialogue_only": {
+      "num_runs": 3,
+      "clean_run_count": 3,
+      "contaminated_run_count": 0,
+      "persona_drift_mae_mean": 0.1233,
+      "persona_drift_mae_std": 0.0076,
+      "relationship_inconsistency_mean": 0.0,
+      "relationship_shift_rate_mean": 0.1684,
+      "relationship_overshoot_rate_mean": 0.0,
+      "commitment_contradiction_mean": 0.0476,
+      "envelope_violations_mean": 3.6667,
+      "structured_action_validity_rate_mean": 1.0,
+      "owner_resolution_rate_mean": 1.0,
+      "executed_action_contradiction_rate_mean": 0.0,
+      "state_transition_coherence_mean": 1.0,
+      "action_feedback_utilization_mean": 0.0,
+      "action_plan_alignment_mean": 0.9545,
+      "planned_action_coverage_rate_mean": 1.0,
+      "action_family_convergence_rate_mean": 0.5,
+      "role_action_diversity_score_mean": 0.6667,
+      "negotiation_uniqueness_rate_mean": 0.4545,
+      "fallback_utterance_rate_mean": 0.0,
+      "fallback_type_rate_mean": {},
+      "state_trajectory_variance_mean": 0.0,
+      "per_trait_error_mean": {
+        "O": 0.1356,
+        "C": 0.1473,
+        "E": 0.0435,
+        "A": 0.06,
+        "N": 0.23
+      },
+      "turn_count_mean": 11,
+      "ci_95": {
+        "persona_drift_mae": [
+          0.1147,
+          0.1319
+        ],
+        "relationship_inconsistency": [
+          0.0,
+          0.0
+        ],
+        "relationship_shift_rate": [
+          0.1539,
+          0.1828
+        ],
+        "relationship_overshoot_rate": [
+          0.0,
+          0.0
+        ],
+        "commitment_contradiction": [
+          -0.0286,
+          0.1239
+        ],
+        "envelope_violations": [
+          3.1332,
+          4.2001
+        ]
+      },
+      "ci_width": {
+        "persona_drift_mae": 0.0172,
+        "relationship_inconsistency": 0.0,
+        "relationship_shift_rate": 0.0289,
+        "relationship_overshoot_rate": 0.0,
+        "commitment_contradiction": 0.1525,
+        "envelope_violations": 1.0669
+      },
+      "metric_confidence": {
+        "persona_drift_mae": "high",
+        "relationship_inconsistency": "medium",
+        "relationship_shift_rate": "medium",
+        "relationship_overshoot_rate": "medium",
+        "commitment_contradiction": "medium",
+        "envelope_violations": "medium"
+      },
+      "zero_variance_metrics": [
+        "relationship_inconsistency",
+        "relationship_overshoot_rate",
+        "action_family_convergence",
+        "role_action_diversity",
+        "negotiation_uniqueness",
+        "fallback_utterance_rate"
+      ],
+      "evidence_refs": [
+        "suite_d6ae0b140cd9:guided:new_product_launch:engine_dialogue_only:1",
+        "suite_d6ae0b140cd9:guided:new_product_launch:engine_dialogue_only:2",
+        "suite_d6ae0b140cd9:guided:new_product_launch:engine_dialogue_only:3"
+      ],
+      "top_driver_refs": [
+        "suite_d6ae0b140cd9:guided:new_product_launch:engine_dialogue_only:1",
+        "suite_d6ae0b140cd9:guided:new_product_launch:engine_dialogue_only:2",
+        "suite_d6ae0b140cd9:guided:new_product_launch:engine_dialogue_only:3"
+      ],
+      "clean_persona_drift_mae_mean": 0.1233,
+      "clean_envelope_violations_mean": 3.6667,
+      "clean_commitment_contradiction_mean": 0.0476
+    }
+  },
+  "trace_bundle": {
+    "suite_manifest": "simulation_engine/results_2026-03-09_armA1b_dialogue_guardrail_hotspot/suite_manifest.json",
+    "track_outcomes": "simulation_engine/results_2026-03-09_armA1b_dialogue_guardrail_hotspot/track_outcomes.json",
+    "run_outcomes": "simulation_engine/results_2026-03-09_armA1b_dialogue_guardrail_hotspot/run_outcomes.json",
+    "builder_trace": "simulation_engine/results_2026-03-09_armA1b_dialogue_guardrail_hotspot/builder_trace.json",
+    "trace_events": "simulation_engine/results_2026-03-09_armA1b_dialogue_guardrail_hotspot/trace_events.jsonl",
+    "turn_decisions": "simulation_engine/results_2026-03-09_armA1b_dialogue_guardrail_hotspot/trace_views/turn_decisions.jsonl",
+    "candidate_scores": "simulation_engine/results_2026-03-09_armA1b_dialogue_guardrail_hotspot/trace_views/candidate_scores.jsonl",
+    "action_events": "simulation_engine/results_2026-03-09_armA1b_dialogue_guardrail_hotspot/trace_views/action_events.jsonl",
+    "world_state_deltas": "simulation_engine/results_2026-03-09_armA1b_dialogue_guardrail_hotspot/trace_views/world_state_deltas.jsonl",
+    "relationship_events": "simulation_engine/results_2026-03-09_armA1b_dialogue_guardrail_hotspot/trace_views/relationship_events.jsonl",
+    "metric_attributions": "simulation_engine/results_2026-03-09_armA1b_dialogue_guardrail_hotspot/trace_views/metric_attributions.jsonl"
+  }
+}
