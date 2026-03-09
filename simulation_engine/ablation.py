@@ -13,6 +13,7 @@ BenchmarkCondition = Literal[
     "engine_controller",
     "naive_action_baseline",
     "engine_dialogue_only",
+    "engine_dialogue_only_softmax",
     "engine_action_v0",
     "engine_controller_no_trait_poles",
     "engine_controller_no_banded_target_matching",
@@ -31,6 +32,7 @@ class SimulationAblationConfig:
     use_tie_routing: bool = True
     use_action_layer: bool = False
     use_action_aware_scoring: bool = False
+    use_softmax_sampling: bool = False
 
     def to_dict(self) -> dict[str, bool]:
         return asdict(self)
@@ -44,6 +46,7 @@ ALL_BENCHMARK_CONDITIONS: list[str] = [
     "engine_controller",
     "naive_action_baseline",
     "engine_dialogue_only",
+    "engine_dialogue_only_softmax",
     "engine_action_v0",
     "engine_controller_no_trait_poles",
     "engine_controller_no_banded_target_matching",
@@ -67,6 +70,10 @@ def resolve_benchmark_condition(
         "engine_dialogue_only": (
             "engine_controller",
             SimulationAblationConfig(use_action_layer=True),
+        ),
+        "engine_dialogue_only_softmax": (
+            "engine_controller",
+            SimulationAblationConfig(use_action_layer=True, use_softmax_sampling=True),
         ),
         "engine_action_v0": (
             "engine_controller",

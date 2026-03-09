@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import asyncio
 from typing import Any, Optional
 
 from experiment.candidate_agent import ExperimentCandidateAgent
@@ -9,6 +10,16 @@ from experiment.candidate_agent import ExperimentCandidateAgent
 from .ablation import DEFAULT_ABLATION_CONFIG, SimulationAblationConfig
 from .action_priors import apply_actor_action_preferences, infer_role_action_prior
 from .script import StakeholderActorSpec
+
+# Per-slot action vocabulary: each style slot gets distinct action types mapped to
+# different families, ensuring diversity at the generation level rather than selection.
+# Families: ownership, evidence, communication, scope, resourcing, timing, governance
+SLOT_ACTION_VOCABULARY: dict[str, list[str]] = {
+    "integrator": ["assign_owner", "commit_resource"],       # ownership, resourcing
+    "planner": ["publish_update", "narrow_scope"],           # communication, scope
+    "challenger": ["defer_decision", "preserve_autonomy"],   # timing, governance
+    "skeptic": ["request_evidence", "pilot"],                # evidence, scope-adjacent experimentation
+}
 
 
 def _trait_level(value: float) -> str:
@@ -78,6 +89,24 @@ class StakeholderActor:
             return (
                 f"When aligning or assigning next steps, mention the relevant stakeholder by name, such as {last_turn.speaker_name}, "
                 "so commitments and relationships stay explicit."
+            )
+        return ""
+
+    def _envelope_hint(self) -> str:
+        bounds = ", ".join(
+            f"{trait}[{low:.2f},{high:.2f}]"
+            for trait, (low, high) in self.actor_spec.personality_envelope.items()
+        )
+        return (
+            "Personality envelope reminder: stay within these expression bounds unless the situation truly "
+            f"forces a boundary test: {bounds}."
+        )
+
+    def _phase_specific_guidance(self, phase_name: Optional[str]) -> str:
+        if phase_name == "CLOSING":
+            return (
+                "Even while summarizing or closing, maintain your distinct stakeholder perspective. "
+                "Do not collapse into generic consensus language just to end the discussion neatly."
             )
         return ""
 
@@ -162,7 +191,10 @@ class StakeholderActor:
                 "- This is an exploratory simulation.\n"
                 "- Do not force agreement or premature closure just because an action can be named.\n"
                 "- It is acceptable to keep meaningful tension unresolved when that better fits your role.\n"
-                "- Prioritize your stakeholder lens, tradeoff framing, and authentic disagreement over neat convergence."
+                "- Prioritize your stakeholder lens, tradeoff framing, and authentic disagreement over neat convergence.\n"
+                "- When proposing concrete actions, use naturally: assign an owner, request evidence, "
+                "publish an update, narrow the scope, suggest a pilot, commit resources, defer a decision, "
+                "or preserve autonomy."
             )
         target_end_state = self.outcome_spec.get("target_end_state", {})
         target_summary = ", ".join(f"{k}:{v}" for k, v in target_end_state.items()) or "none specified"
@@ -265,6 +297,25 @@ class StakeholderActor:
             self._stable_snapshot_signature(actor_snapshot),
         )
 
+    def _persona_anchor(self, actor_snapshot: Optional[dict[str, Any]]) -> str:
+        """Build condensed persona anchor for re-injection after turn 6."""
+        visible_turns = (actor_snapshot or {}).get("visible_turns", [])
+        actor_turn_count = sum(
+            1 for t in visible_turns
+            if t.get("actor_id") == self.actor_id
+        )
+        if actor_turn_count <= 6:
+            return ""
+        o_val = self.actor_spec.personality_prior["O"]
+        c_val = self.actor_spec.personality_prior["C"]
+        o_desc = "explores alternatives" if o_val >= 0.55 else ("prefers validated options" if o_val <= 0.45 else "balanced openness")
+        c_desc = "pushes for structure and deadlines" if c_val >= 0.55 else ("prefers flexibility" if c_val <= 0.45 else "moderate structure")
+        incentives = ", ".join(self.actor_spec.incentives[:2]) or "none specified"
+        return (
+            f"\nReminder: You are {self.actor_spec.display_name}, {self.actor_spec.role}. "
+            f"Decision style: {o_desc}; {c_desc}. Core incentives: {incentives}."
+        )
+
     def build_state_context(self, actor_snapshot: Optional[dict[str, Any]]) -> str:
         """Build hidden planning context from the shared state ledger snapshot."""
         if not actor_snapshot:
@@ -325,9 +376,26 @@ class StakeholderActor:
             if value
         ) or "none"
 
+        persona_anchor = self._persona_anchor(actor_snapshot)
+        state_trajectory = actor_snapshot.get("state_trajectory_summary", "")
+        state_trajectory_line = f"\n{state_trajectory}" if state_trajectory else ""
+
+        first_concern = self.actor_spec.concerns[0] if self.actor_spec.concerns else "your core stakeholder interest"
+        self_question = (
+            f"\nBefore responding, consider: as {self.actor_spec.role} whose main concern is "
+            f"{first_concern}, what specific risk or opportunity does this moment create for you?"
+        )
+        implicit_goal_line = ""
+        if self.simulation_mode == "exploratory" and self.actor_spec.implicit_goals:
+            implicit_goal_line = f"\nYour private goal: {self.actor_spec.implicit_goals[0]}"
+
         if not self.ablation_config.use_extended_ledger_context:
             return (
-                "\nHidden actor-state context: "
+                persona_anchor
+                + self_question
+                + implicit_goal_line
+                + state_trajectory_line
+                + "\nHidden actor-state context: "
                 f"stress={stress:.2f}; "
                 f"open_commitments={commitment_summary}; "
                 f"relationships={relationship_summary}; "
@@ -350,7 +418,11 @@ class StakeholderActor:
         goals_summary = ", ".join(goals[:3]) or "none"
 
         return (
-            "\nHidden actor-state context: "
+            persona_anchor
+            + self_question
+            + implicit_goal_line
+            + state_trajectory_line
+            + "\nHidden actor-state context: "
             f"stress={stress:.2f}; "
             f"beliefs={belief_summary}; "
             f"goals={goals_summary}; "
@@ -452,6 +524,31 @@ class StakeholderActor:
                 plan["expected_state_effect"] = "increase" if current_value <= 0.5 else "stabilize"
         if phase_name and "deadline_phase" not in plan:
             plan["deadline_phase"] = phase_name
+        plan["_preferred_action_types"] = list(role_prior.preferred_action_types)
+        if phase_name == "NEGOTIATION":
+            negotiation_tactic_profiles = [
+                ["assign_owner", "commit_resource"],
+                ["request_evidence", "pilot"],
+                ["narrow_scope", "defer_decision"],
+                ["commit_resource", "publish_update"],
+            ]
+            tactic_seed = hash(self.actor_id + (phase_name or "")) % len(negotiation_tactic_profiles)
+            tactic_actions = negotiation_tactic_profiles[tactic_seed]
+            seeded_preferred = [
+                a for a in tactic_actions
+                if a in (allowed_action_types or [])
+            ] + plan.get("_preferred_action_types", [])
+            seen: set[str] = set()
+            deduped: list[str] = []
+            for a in seeded_preferred:
+                if a not in seen:
+                    seen.add(a)
+                    deduped.append(a)
+            plan["_preferred_action_types"] = deduped
+            if "action_intent" in plan and tactic_actions:
+                valid_tactic = [a for a in tactic_actions if a in (allowed_action_types or [])]
+                if valid_tactic:
+                    plan["action_intent"] = valid_tactic[0]
         if "action_plan" not in plan:
             owner_actor_id = None
             if plan.get("action_intent") in {"assign_owner", "publish_update", "commit_resource"}:
@@ -538,6 +635,10 @@ class StakeholderActor:
         interaction_constraint = self._interaction_constraint(turns, phase_style)
         if interaction_constraint:
             hidden_context += "\n" + interaction_constraint
+        hidden_context += "\n" + self._envelope_hint()
+        phase_specific = self._phase_specific_guidance(phase_name)
+        if phase_specific:
+            hidden_context += "\n" + phase_specific
         if constraint_suffix:
             hidden_context += "\n" + constraint_suffix.strip()
         scenario_brief = self.world_brief + hidden_context
@@ -603,9 +704,52 @@ class StakeholderActor:
         interaction_constraint = self._interaction_constraint(turns, phase_style)
         if interaction_constraint:
             hidden_context += "\n" + interaction_constraint
+        hidden_context += "\n" + self._envelope_hint()
+        phase_specific = self._phase_specific_guidance(phase_name)
+        if phase_specific:
+            hidden_context += "\n" + phase_specific
         if constraint_suffix:
             hidden_context += "\n" + constraint_suffix.strip()
         scenario_brief = self.world_brief + hidden_context
+
+        preferred_action_types = (policy_plan or {}).get("_preferred_action_types", [])
+        if len(style_slots) > 1:
+            concurrency = max_concurrency_override or 2
+            semaphore = asyncio.Semaphore(concurrency)
+
+            async def _generate_slot(slot_index: int, slot: str) -> list[dict]:
+                async with semaphore:
+                    slot_plan = dict(policy_plan or {})
+                    # Per-slot action vocabulary rotation: each style slot gets
+                    # distinct action types from different families to ensure
+                    # diversity at the generation level.
+                    slot_vocab = SLOT_ACTION_VOCABULARY.get(slot)
+                    if slot_vocab:
+                        slot_plan["action_intent"] = slot_vocab[0]
+                        slot_plan["_preferred_action_types"] = list(slot_vocab)
+                    elif preferred_action_types:
+                        slot_plan["action_intent"] = preferred_action_types[
+                            slot_index % len(preferred_action_types)
+                        ]
+                    return await self._delegate.generate_candidate_pool_styles(
+                        turns=turns,
+                        scenario_brief=scenario_brief,
+                        phase_style=phase_style,
+                        style_slots=[slot],
+                        phase_name=phase_name,
+                        phase_cues=phase_cues,
+                        target_traits=target_traits,
+                        constraint_suffix=None,
+                        policy_plan=slot_plan,
+                        enable_trait_execution=enable_trait_execution,
+                        max_concurrency_override=1,
+                    )
+
+            all_results = await asyncio.gather(
+                *[_generate_slot(i, slot) for i, slot in enumerate(style_slots)]
+            )
+            return [item for sublist in all_results for item in sublist]
+
         return await self._delegate.generate_candidate_pool_styles(
             turns=turns,
             scenario_brief=scenario_brief,

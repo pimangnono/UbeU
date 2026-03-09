@@ -321,6 +321,7 @@ _EXPLORATORY_PRESSURE_SCRIPTS = [
                 "personality_prior": {"O": 0.58, "C": 0.54, "E": 0.63, "A": 0.57, "N": 0.46},
                 "incentives": ["protect trust", "stabilize public narrative"],
                 "concerns": ["brand damage", "slow response"],
+                "implicit_goals": ["maintain team credibility even if it means pushing back on legal's timeline"],
             },
             {
                 "actor_id": "actor_2",
@@ -330,6 +331,7 @@ _EXPLORATORY_PRESSURE_SCRIPTS = [
                 "personality_prior": {"O": 0.33, "C": 0.82, "E": 0.34, "A": 0.39, "N": 0.37},
                 "incentives": ["limit legal exposure", "maintain process discipline"],
                 "concerns": ["premature admission", "regulatory scrutiny"],
+                "implicit_goals": ["ensure no public statement is issued without legal sign-off regardless of brand pressure"],
             },
             {
                 "actor_id": "actor_3",
@@ -339,6 +341,7 @@ _EXPLORATORY_PRESSURE_SCRIPTS = [
                 "personality_prior": {"O": 0.49, "C": 0.63, "E": 0.52, "A": 0.64, "N": 0.53},
                 "incentives": ["reduce frontline escalation", "support affected users"],
                 "concerns": ["agent burnout", "unanswered customer harm"],
+                "implicit_goals": ["secure additional headcount for the support team by demonstrating crisis severity"],
             },
         ],
         "phases": [
@@ -360,6 +363,20 @@ _EXPLORATORY_PRESSURE_SCRIPTS = [
                 "description": "A consumer protection regulator asks whether the company plans a formal corrective action.",
                 "trigger_phase": "NEGOTIATION",
             },
+            {
+                "event_id": "evt_private_legal_memo",
+                "title": "Internal legal risk assessment",
+                "description": "An internal memo estimates potential liability at $2-5M if the incident is classified as a product defect rather than user error.",
+                "trigger_phase": "TENSION",
+                "affected_actor_ids": ["actor_2"],
+            },
+            {
+                "event_id": "evt_private_support_data",
+                "title": "Support queue spike",
+                "description": "Community support data shows a 340% increase in related tickets in the last 48 hours, with average response time exceeding SLA by 6 hours.",
+                "trigger_phase": "NEGOTIATION",
+                "affected_actor_ids": ["actor_3"],
+            },
         ],
     },
     {
@@ -380,6 +397,7 @@ _EXPLORATORY_PRESSURE_SCRIPTS = [
                 "personality_prior": {"O": 0.31, "C": 0.84, "E": 0.36, "A": 0.41, "N": 0.34},
                 "incentives": ["budget discipline", "predictable burn"],
                 "concerns": ["overcommitment", "late cost surprises"],
+                "implicit_goals": ["demonstrate cost control to the CFO before the quarterly review"],
             },
             {
                 "actor_id": "actor_2",
@@ -389,6 +407,7 @@ _EXPLORATORY_PRESSURE_SCRIPTS = [
                 "personality_prior": {"O": 0.57, "C": 0.62, "E": 0.47, "A": 0.48, "N": 0.42},
                 "incentives": ["protect roadmap integrity", "keep critical delivery on track"],
                 "concerns": ["team thrash", "scope collapse"],
+                "implicit_goals": ["shield the core product team from reallocation even if other teams absorb cuts"],
             },
             {
                 "actor_id": "actor_3",
@@ -398,6 +417,7 @@ _EXPLORATORY_PRESSURE_SCRIPTS = [
                 "personality_prior": {"O": 0.46, "C": 0.58, "E": 0.56, "A": 0.67, "N": 0.51},
                 "incentives": ["customer continuity", "service stability"],
                 "concerns": ["renewal risk", "support backlog"],
+                "implicit_goals": ["use the budget crisis to escalate a long-standing request for dedicated support tooling"],
             },
         ],
         "phases": [
@@ -418,6 +438,20 @@ _EXPLORATORY_PRESSURE_SCRIPTS = [
                 "title": "Customer escalation",
                 "description": "A strategic customer escalates concerns about delayed commitments and support responsiveness.",
                 "trigger_phase": "NEGOTIATION",
+            },
+            {
+                "event_id": "evt_private_budget_detail",
+                "title": "Confidential budget breakdown",
+                "description": "Finance internal analysis shows that 60% of the overspend originates from the product team's contractor costs, not from customer success or infrastructure.",
+                "trigger_phase": "TENSION",
+                "affected_actor_ids": ["actor_1"],
+            },
+            {
+                "event_id": "evt_private_renewal_risk",
+                "title": "Renewal pipeline warning",
+                "description": "Customer success CRM data shows three enterprise renewals worth $1.8M combined are flagged as at-risk due to recent service degradation.",
+                "trigger_phase": "NEGOTIATION",
+                "affected_actor_ids": ["actor_3"],
             },
         ],
     },
@@ -997,13 +1031,13 @@ def _phase_action_policies(simulation_id: str) -> dict[str, dict[str, object]]:
         "TENSION": {
             "action_mode": "shadow",
             "diversity_required": True,
-            "duplicate_penalty": 0.14,
+            "duplicate_penalty": 0.20,
             "uniqueness_bonus": 0.10,
             "convergence_backoff_threshold": 0.93,
             "allow_no_action": True,
             "family_cap": 1,
             "max_actions_per_phase": 2,
-            "sparsity_threshold": 0.70,
+            "sparsity_threshold": 0.76,
             "style_slot_limit": 3,
             "pool_max_concurrency": 2,
             "planner_cache": False,
@@ -1011,13 +1045,13 @@ def _phase_action_policies(simulation_id: str) -> dict[str, dict[str, object]]:
         "NEGOTIATION": {
             "action_mode": "execute",
             "diversity_required": True,
-            "duplicate_penalty": 0.24,
+            "duplicate_penalty": 0.32,
             "uniqueness_bonus": 0.18,
             "convergence_backoff_threshold": 0.90,
             "allow_no_action": True,
             "family_cap": 1,
             "max_actions_per_phase": 3,
-            "sparsity_threshold": 0.76,
+            "sparsity_threshold": 0.82,
             "style_slot_limit": 4,
             "pool_max_concurrency": 2,
             "planner_cache": False,
@@ -1025,13 +1059,13 @@ def _phase_action_policies(simulation_id: str) -> dict[str, dict[str, object]]:
         "CLOSING": {
             "action_mode": "execute",
             "diversity_required": False,
-            "duplicate_penalty": 0.08,
+            "duplicate_penalty": 0.14,
             "uniqueness_bonus": 0.06,
             "convergence_backoff_threshold": 0.95,
             "allow_no_action": True,
             "family_cap": 1,
             "max_actions_per_phase": 2,
-            "sparsity_threshold": 0.64,
+            "sparsity_threshold": 0.70,
             "style_slot_limit": 2,
             "pool_max_concurrency": 1,
             "planner_cache": True,
@@ -1040,28 +1074,28 @@ def _phase_action_policies(simulation_id: str) -> dict[str, dict[str, object]]:
     if simulation_id == "new_product_launch":
         policies["NEGOTIATION"].update({
             "max_actions_per_phase": 2,
-            "sparsity_threshold": 0.82,
-            "duplicate_penalty": 0.30,
+            "sparsity_threshold": 0.88,
+            "duplicate_penalty": 0.38,
             "style_slot_limit": 2,
             "pool_max_concurrency": 1,
         })
         policies["TENSION"].update({
             "max_actions_per_phase": 1,
-            "sparsity_threshold": 0.76,
+            "sparsity_threshold": 0.82,
             "style_slot_limit": 2,
             "pool_max_concurrency": 1,
         })
     elif simulation_id == "post_merger_integration":
         policies["NEGOTIATION"].update({
             "max_actions_per_phase": 2,
-            "sparsity_threshold": 0.80,
-            "duplicate_penalty": 0.28,
+            "sparsity_threshold": 0.86,
+            "duplicate_penalty": 0.36,
             "style_slot_limit": 2,
             "pool_max_concurrency": 1,
         })
         policies["CLOSING"].update({
             "max_actions_per_phase": 1,
-            "sparsity_threshold": 0.72,
+            "sparsity_threshold": 0.78,
             "style_slot_limit": 2,
             "pool_max_concurrency": 1,
         })
@@ -1069,7 +1103,7 @@ def _phase_action_policies(simulation_id: str) -> dict[str, dict[str, object]]:
         policies["OPENING"].update({
             "action_mode": "shadow",
             "diversity_required": True,
-            "duplicate_penalty": 0.10,
+            "duplicate_penalty": 0.16,
             "uniqueness_bonus": 0.12,
             "family_cap": 2,
             "sparsity_threshold": 0.52,
@@ -1078,7 +1112,7 @@ def _phase_action_policies(simulation_id: str) -> dict[str, dict[str, object]]:
         policies["TENSION"].update({
             "action_mode": "shadow",
             "diversity_required": True,
-            "duplicate_penalty": 0.10,
+            "duplicate_penalty": 0.16,
             "uniqueness_bonus": 0.12,
             "family_cap": 2,
             "sparsity_threshold": 0.52,
@@ -1086,7 +1120,7 @@ def _phase_action_policies(simulation_id: str) -> dict[str, dict[str, object]]:
         })
         policies["NEGOTIATION"].update({
             "action_mode": "execute",
-            "duplicate_penalty": 0.24,
+            "duplicate_penalty": 0.32,
             "uniqueness_bonus": 0.30,
             "family_cap": 1,
             "max_same_family_per_phase": 1,
@@ -1097,7 +1131,7 @@ def _phase_action_policies(simulation_id: str) -> dict[str, dict[str, object]]:
         policies["CLOSING"].update({
             "action_mode": "shadow",
             "diversity_required": True,
-            "duplicate_penalty": 0.10,
+            "duplicate_penalty": 0.16,
             "uniqueness_bonus": 0.12,
             "family_cap": 2,
             "max_actions_per_phase": 1,

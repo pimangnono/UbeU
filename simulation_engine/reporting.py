@@ -8,6 +8,8 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
+from .traceability import build_trace_bundle
+
 
 def save_benchmark_outputs(results: dict[str, Any], output_dir: str | Path) -> dict[str, str]:
     """Persist benchmark suite results and a concise markdown report."""
@@ -17,6 +19,7 @@ def save_benchmark_outputs(results: dict[str, Any], output_dir: str | Path) -> d
     runs_path = output_path / "benchmark_runs.json"
     aggregate_path = output_path / "benchmark_aggregate.json"
     report_path = output_path / "benchmark_report.md"
+    trace_paths = build_trace_bundle(results, output_path)
 
     runs_mode = _benchmark_runs_mode()
     runs_payload = _build_runs_payload(results, mode=runs_mode)
@@ -30,6 +33,7 @@ def save_benchmark_outputs(results: dict[str, Any], output_dir: str | Path) -> d
         "aggregate_by_script": results.get("aggregate_by_script", {}),
         "aggregate_by_mode": results.get("aggregate_by_mode", {}),
         "aggregate_by_family": results.get("aggregate_by_family", {}),
+        "trace_bundle": trace_paths,
     }
     with open(aggregate_path, "w") as f:
         json.dump(aggregate_payload, f, indent=2, default=str)
@@ -41,6 +45,7 @@ def save_benchmark_outputs(results: dict[str, Any], output_dir: str | Path) -> d
         "runs": str(runs_path),
         "aggregate": str(aggregate_path),
         "report": str(report_path),
+        **trace_paths,
     }
 
 
@@ -80,6 +85,11 @@ def _compact_run(run: dict[str, Any]) -> dict[str, Any]:
     compact = {
         "condition": run.get("condition"),
         "simulation_id": run.get("simulation_id"),
+        "suite_id": run.get("suite_id"),
+        "track_id": run.get("track_id"),
+        "run_id": run.get("run_id"),
+        "builder_trace_ref": run.get("builder_trace_ref"),
+        "trace_bundle_path": run.get("trace_bundle_path"),
         "metrics": run.get("metrics", {}),
         "runtime_summary": _compact_runtime_summary(run.get("runtime_summary", {})),
     }
@@ -107,8 +117,16 @@ def _compact_runtime_summary(summary: dict[str, Any]) -> dict[str, Any]:
         "fallback_utterance_count",
         "fallback_utterance_rate",
         "fallback_type_counts",
+        "fallback_counts",
         "action_family_sequence_by_actor",
+        "actor_action_family_sequences",
         "phase_action_family_histograms",
+        "phase_action_family_histogram",
+        "builder_trace",
+        "metadata_completeness_score",
+        "trace_refs",
+        "phase_count",
+        "phase_order",
     }
     compact = {key: value for key, value in summary.items() if key in keep_direct}
 
@@ -122,6 +140,12 @@ def _compact_runtime_summary(summary: dict[str, Any]) -> dict[str, Any]:
         compact["world_state_history_count"] = len(summary.get("world_state_history") or [])
     if "phase_state_feedback" in summary:
         compact["phase_state_feedback"] = summary.get("phase_state_feedback", {})
+    if "turns" in summary:
+        compact["turn_count"] = len(summary.get("turns") or []) or compact.get("turn_count", 0)
+    if "relationship_events" in summary:
+        compact["relationship_event_count"] = len(summary.get("relationship_events") or [])
+    if "actor_state_events" in summary:
+        compact["actor_state_event_count"] = len(summary.get("actor_state_events") or [])
 
     return compact
 
@@ -228,7 +252,7 @@ def _format_summary_block(label: str, summary: dict[str, Any]) -> list[str]:
         f"{key} {value:.4f}"
         for key, value in sorted((summary.get("fallback_type_rate_mean") or {}).items())
     ) or "n/a"
-    return [
+    rows = [
         f"### {label}",
         f"- Runs: {summary.get('num_runs', 0)}",
         f"- Clean runs: {summary.get('clean_run_count', 0)}",
@@ -237,6 +261,8 @@ def _format_summary_block(label: str, summary: dict[str, Any]) -> list[str]:
         f"- Clean persona drift MAE: {summary.get('clean_persona_drift_mae_mean', summary.get('persona_drift_mae_mean', 0.0)):.4f}",
         f"- Per-trait absolute error: {trait_line}",
         f"- Relationship inconsistency: {summary.get('relationship_inconsistency_mean', 0.0):.4f}",
+        f"- Relationship shift rate: {summary.get('relationship_shift_rate_mean', 0.0):.4f}",
+        f"- Relationship overshoot rate: {summary.get('relationship_overshoot_rate_mean', 0.0):.4f}",
         f"- Commitment contradiction: {summary.get('commitment_contradiction_mean', 0.0):.4f}",
         f"- Clean commitment contradiction: {summary.get('clean_commitment_contradiction_mean', summary.get('commitment_contradiction_mean', 0.0)):.4f}",
         f"- Envelope violations: {summary.get('envelope_violations_mean', 0.0):.4f}",
@@ -255,8 +281,13 @@ def _format_summary_block(label: str, summary: dict[str, Any]) -> list[str]:
         f"- Fallback taxonomy: {fallback_type_line}",
         f"- State trajectory variance: {summary.get('state_trajectory_variance_mean', 0.0):.4f}",
         f"- Mean turns: {summary.get('turn_count_mean', 0.0):.2f}",
+        f"- Persona drift 95% CI: {summary.get('ci_95', {}).get('persona_drift_mae', [0.0, 0.0])}",
         "",
     ]
+    if summary.get("zero_variance_metrics"):
+        rows.append(f"- Zero-variance metrics: {', '.join(summary.get('zero_variance_metrics', []))}")
+        rows.append("")
+    return rows
 
 
 def _format_delta_block(naive: dict[str, Any], controlled: dict[str, Any], title: str = "## Controlled Engine vs Baseline") -> list[str]:

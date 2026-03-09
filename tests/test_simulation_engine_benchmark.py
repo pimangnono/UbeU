@@ -292,6 +292,8 @@ def test_benchmark_runner_resumes_from_checkpoint(monkeypatch, tmp_path):
         actor_display_names={"actor_1": "A"},
         actor_trait_estimates={"actor_1": {"O": 0.1, "C": 0.1, "E": 0.1, "A": 0.1, "N": 0.1}},
         actor_trait_errors={"actor_1": {"O": 0.0, "C": 0.0, "E": 0.0, "A": 0.0, "N": 0.0}},
+        relationship_shift_rate=0.0,
+        relationship_overshoot_rate=0.0,
     )
     prior_run = {
         "condition": "naive_action_baseline",
@@ -349,3 +351,5 @@ def test_benchmark_runner_resumes_from_checkpoint(monkeypatch, tmp_path):
     assert len(results["runs"]) == 2
     assert "clean_run_count" in results["aggregate"]["naive_action_baseline"]
     assert "contaminated_run_count" in results["aggregate"]["naive_action_baseline"]
+    assert all(run["suite_id"] for run in results["runs"])
+    assert all(run["run_id"] for run in results["runs"])

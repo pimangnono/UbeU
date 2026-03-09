@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import math
 import re
 from dataclasses import dataclass, field
 from typing import Any
@@ -28,7 +29,12 @@ from .action_priors import (
     apply_actor_action_preferences,
     infer_role_action_prior,
 )
-from .metrics import estimate_actor_traits_from_turns, persona_drift_mae, trait_absolute_errors
+from .metrics import (
+    estimate_actor_traits_from_turns,
+    estimate_actor_traits_from_recent_turns,
+    persona_drift_mae,
+    trait_absolute_errors,
+)
 from .runtime import RuntimeTurnView
 from .script import SimulationPhase, StakeholderActorSpec
 
@@ -233,6 +239,10 @@ class ControllerAudit:
     turn_index: int
     selected_index: int
     selected_score: float
+    selected_slot: str = ""
+    selected_text_excerpt: str = ""
+    selected_top_positive_drivers: list[dict[str, float]] = field(default_factory=list)
+    selected_top_negative_drivers: list[dict[str, float]] = field(default_factory=list)
     drift_nudge: str | None = None
     tie_detected: bool = False
     tie_break_axis: str = "none"
@@ -247,6 +257,10 @@ class ControllerAudit:
             "turn_index": self.turn_index,
             "selected_index": self.selected_index,
             "selected_score": self.selected_score,
+            "selected_slot": self.selected_slot,
+            "selected_text_excerpt": self.selected_text_excerpt,
+            "selected_top_positive_drivers": self.selected_top_positive_drivers,
+            "selected_top_negative_drivers": self.selected_top_negative_drivers,
             "drift_nudge": self.drift_nudge,
             "tie_detected": self.tie_detected,
             "tie_break_axis": self.tie_break_axis,
@@ -495,6 +509,54 @@ class PersonaStateController:
             "triggered": True,
         }
 
+    def _family_budget_penalty(
+        self,
+        *,
+        action_type: str | None,
+        prior,
+        action_context: dict[str, Any],
+    ) -> tuple[float, dict[str, Any]]:
+        if not action_type:
+            return 0.0, {"available": False, "reason": "no_action_type"}
+        family = action_family(action_type)
+        current_counts = dict(action_context.get("current_actor_phase_family_counts", {}))
+        used = int(current_counts.get(family, 0))
+        phase_policy = dict(action_context.get("phase_action_policy", {}))
+        max_same = max(1, int(phase_policy.get("max_same_family_per_phase", 1)))
+        if used < max_same:
+            return 0.0, {
+                "available": True,
+                "family": family,
+                "used_count": used,
+                "max_same_family_per_phase": max_same,
+                "triggered": False,
+            }
+        overflow = (used - max_same) + 1
+        penalty = 0.16 * overflow
+        if family in getattr(prior, "primary_families", []):
+            penalty *= 0.75
+        elif family in getattr(prior, "secondary_families", []):
+            penalty *= 0.9
+        return min(1.0, round(penalty, 4)), {
+            "available": True,
+            "family": family,
+            "used_count": used,
+            "max_same_family_per_phase": max_same,
+            "triggered": True,
+        }
+
+    @staticmethod
+    def _top_component_drivers(components: dict[str, float], *, top_n: int = 3) -> list[dict[str, float]]:
+        ranked = sorted(
+            ((name, value) for name, value in components.items() if abs(value) > 0.0),
+            key=lambda item: abs(item[1]),
+            reverse=True,
+        )
+        return [
+            {"name": name, "value": round(value, 4)}
+            for name, value in ranked[:top_n]
+        ]
+
     def score_candidate_pool(
         self,
         candidate_pool: list[dict[str, Any]],
@@ -532,6 +594,15 @@ class PersonaStateController:
             inferred_traits = estimate_actor_traits_from_turns(extended_turns, self.actor_spec.display_name)
             drift = persona_drift_mae(self.actor_spec.personality_prior, inferred_traits)
             trait_error_map = trait_absolute_errors(self.actor_spec.personality_prior, inferred_traits)
+            recent_traits = estimate_actor_traits_from_recent_turns(
+                extended_turns, self.actor_spec.display_name, window=4
+            )
+            recent_drift_penalty = 0.0
+            if any(
+                abs(recent_traits[t] - inferred_traits.get(t, 0.5)) > 0.10
+                for t in ("O", "C", "E", "A", "N")
+            ):
+                recent_drift_penalty = 0.06
             envelope_penalty = self._envelope_penalty(inferred_traits)
             identity_consistency = self._identity_consistency_score(text)
             commitment_continuity = score_commitment_continuity(text, commitments)
@@ -692,6 +763,15 @@ class PersonaStateController:
                     action_plan_alignment=action_plan_alignment,
                     action_context=action_context,
                 )
+                family_budget_penalty, family_budget_details = self._family_budget_penalty(
+                    action_type=(
+                        action_proposal.action_type
+                        if action_proposal
+                        else (planned_action_artifact.action_type if planned_action_artifact else None)
+                    ),
+                    prior=action_role_prior,
+                    action_context=action_context,
+                )
                 action_weight_multiplier = 1.0 if planned_action_artifact else 0.2
                 if action_sparsity_penalty > 0.0:
                     action_weight_multiplier *= 0.35
@@ -716,38 +796,107 @@ class PersonaStateController:
                 action_sparsity_details = {"available": False, "reason": "action_aware_scoring_disabled"}
                 convergence_backoff = 0.0
                 convergence_backoff_details = {"available": False, "reason": "action_aware_scoring_disabled"}
+                family_budget_penalty = 0.0
+                family_budget_details = {"available": False, "reason": "action_aware_scoring_disabled"}
                 action_weight_multiplier = 0.0
                 action_plan_alignment_details = {
                     "available": False,
                     "reason": "action_aware_scoring_disabled",
                 }
 
+            weighted_positive = {
+                "identity_consistency": round(0.16 * identity_consistency, 4),
+                "persona_consistency": round(0.17 * (1.0 - drift), 4),
+                "trait_target_alignment": round(
+                    0.14 * trait_target_alignment if self.ablation_config.use_banded_target_matching else 0.0,
+                    4,
+                ),
+                "social_trait_alignment": round(0.16 * social_trait_alignment, 4),
+                "relationship_consistency": round(0.10 * relationship_consistency, 4),
+                "commitment_continuity": round(0.10 * commitment_continuity, 4),
+                "situational_adequacy": round(0.09 * situational_adequacy, 4),
+                "interaction_progress": round(0.04 * interaction_progress, 4),
+                "policy_match": round(0.02 * policy_match, 4),
+                "action_executability": round(
+                    0.10 * action_executability * action_weight_multiplier
+                    if action_context and action_context.get("use_action_aware_scoring")
+                    else 0.0,
+                    4,
+                ),
+                "state_consistency": round(
+                    0.10 * state_consistency * action_weight_multiplier
+                    if action_context and action_context.get("use_action_aware_scoring")
+                    else 0.0,
+                    4,
+                ),
+                "action_plan_alignment": round(
+                    0.10 * action_plan_alignment * action_weight_multiplier
+                    if action_context and action_context.get("use_action_aware_scoring")
+                    else 0.0,
+                    4,
+                ),
+                "action_role_fit": round(
+                    0.12 * action_role_fit * action_weight_multiplier
+                    if action_context and action_context.get("use_action_aware_scoring")
+                    else 0.0,
+                    4,
+                ),
+                "role_action_uniqueness": round(
+                    0.13 * role_action_uniqueness * action_weight_multiplier
+                    if action_context and action_context.get("use_action_aware_scoring")
+                    else 0.0,
+                    4,
+                ),
+                "actor_local_state_fit": round(
+                    0.08 * actor_local_state_fit * action_weight_multiplier
+                    if action_context and action_context.get("use_action_aware_scoring")
+                    else 0.0,
+                    4,
+                ),
+            }
+            weighted_negative = {
+                "contradiction_penalty": round(-0.18 * contradiction_penalty, 4),
+                "envelope_penalty": round(-0.18 * envelope_penalty, 4),
+                "sycophancy_risk": round(-0.08 * sycophancy_risk, 4),
+                "expressive_stability_penalty": round(-0.10 * expressive_stability_penalty, 4),
+                "redundancy_penalty": round(-0.07 * redundancy_penalty, 4),
+                "genericity_penalty": round(-0.07 * genericity_penalty, 4),
+                "phase_action_duplication_penalty": round(
+                    -(0.15 * phase_action_duplication_penalty * action_weight_multiplier)
+                    if action_context and action_context.get("use_action_aware_scoring")
+                    else 0.0,
+                    4,
+                ),
+                "family_budget_penalty": round(
+                    -(0.12 * family_budget_penalty * action_weight_multiplier)
+                    if action_context and action_context.get("use_action_aware_scoring")
+                    else 0.0,
+                    4,
+                ),
+                "action_sparsity_penalty": round(
+                    -(0.16 * action_sparsity_penalty)
+                    if action_context and action_context.get("use_action_aware_scoring")
+                    else 0.0,
+                    4,
+                ),
+                "convergence_backoff": round(
+                    -(0.09 * convergence_backoff * action_weight_multiplier)
+                    if action_context and action_context.get("use_action_aware_scoring")
+                    else 0.0,
+                    4,
+                ),
+                "action_executability_backoff": round(
+                    -(0.04 * (1.0 - action_executability) * action_weight_multiplier)
+                    if action_context and action_context.get("use_action_aware_scoring")
+                    else 0.0,
+                    4,
+                ),
+                "recent_drift_penalty": round(-recent_drift_penalty, 4),
+            }
+
             total = (
-                0.18 * identity_consistency
-                + 0.18 * (1.0 - drift)
-                + (0.14 * trait_target_alignment if self.ablation_config.use_banded_target_matching else 0.0)
-                + 0.16 * social_trait_alignment
-                + 0.10 * relationship_consistency
-                + 0.10 * commitment_continuity
-                + 0.09 * situational_adequacy
-                + 0.04 * interaction_progress
-                + 0.02 * policy_match
-                + (0.10 * action_executability * action_weight_multiplier if action_context and action_context.get("use_action_aware_scoring") else 0.0)
-                + (0.10 * state_consistency * action_weight_multiplier if action_context and action_context.get("use_action_aware_scoring") else 0.0)
-                + (0.10 * action_plan_alignment * action_weight_multiplier if action_context and action_context.get("use_action_aware_scoring") else 0.0)
-                + (0.12 * action_role_fit * action_weight_multiplier if action_context and action_context.get("use_action_aware_scoring") else 0.0)
-                + (0.10 * role_action_uniqueness * action_weight_multiplier if action_context and action_context.get("use_action_aware_scoring") else 0.0)
-                + (0.08 * actor_local_state_fit * action_weight_multiplier if action_context and action_context.get("use_action_aware_scoring") else 0.0)
-                - 0.18 * contradiction_penalty
-                - 0.12 * envelope_penalty
-                - 0.08 * sycophancy_risk
-                - 0.10 * expressive_stability_penalty
-                - 0.07 * redundancy_penalty
-                - 0.07 * genericity_penalty
-                - (0.12 * phase_action_duplication_penalty * action_weight_multiplier if action_context and action_context.get("use_action_aware_scoring") else 0.0)
-                - (0.16 * action_sparsity_penalty if action_context and action_context.get("use_action_aware_scoring") else 0.0)
-                - (0.08 * convergence_backoff * action_weight_multiplier if action_context and action_context.get("use_action_aware_scoring") else 0.0)
-                - (0.04 * (1.0 - action_executability) * action_weight_multiplier if action_context and action_context.get("use_action_aware_scoring") else 0.0)
+                sum(weighted_positive.values())
+                + sum(weighted_negative.values())
             )
             total = round(max(0.0, min(1.0, total)), 4)
 
@@ -785,6 +934,8 @@ class PersonaStateController:
                 "action_sparsity_details": action_sparsity_details,
                 "convergence_backoff": round(convergence_backoff, 4),
                 "convergence_backoff_details": convergence_backoff_details,
+                "family_budget_penalty": round(family_budget_penalty, 4),
+                "family_budget_details": family_budget_details,
                 "action_weight_multiplier": round(action_weight_multiplier, 4),
                 "action_hint": action_proposal.to_dict() if action_proposal else None,
                 "planned_action_artifact": planned_action_artifact.to_dict() if planned_action_artifact else None,
@@ -797,6 +948,12 @@ class PersonaStateController:
                 "sycophancy_signals": sycophancy_signals,
                 "unfulfilled_persona_acts": unfulfilled_persona_acts,
                 "inferred_traits": inferred_traits,
+                "recent_traits": recent_traits,
+                "recent_drift_penalty": round(recent_drift_penalty, 4),
+                "score_components": weighted_positive,
+                "penalty_components": weighted_negative,
+                "top_positive_drivers": self._top_component_drivers(weighted_positive),
+                "top_negative_drivers": self._top_component_drivers(weighted_negative),
             })
 
         return sorted(scored, key=lambda item: item["score"], reverse=True)
@@ -819,6 +976,10 @@ class PersonaStateController:
                 turn_index=turn_index,
                 selected_index=-1,
                 selected_score=0.0,
+                selected_slot="",
+                selected_text_excerpt="",
+                selected_top_positive_drivers=[],
+                selected_top_negative_drivers=[],
                 drift_nudge=drift_nudge,
                 score_rows=[],
             )
@@ -830,6 +991,26 @@ class PersonaStateController:
         tie_break_axis = "none"
         tie_break_reason = ""
         tie_break_slot = scored_candidates[0].get("slot", "")
+        softmax_sampled = False
+
+        if self.ablation_config.use_softmax_sampling and len(scored_candidates) > 1:
+            tau = 0.12
+            scores = [c["score"] for c in scored_candidates]
+            max_s = max(scores)
+            exp_weights = [math.exp((s - max_s) / tau) for s in scores]
+            total_w = sum(exp_weights)
+            probs = [w / total_w for w in exp_weights]
+            seed_str = f"{self.actor_spec.actor_id}_{phase.name}_{turn_index}"
+            seed = hash(seed_str) % (2**31)
+            cumulative = 0.0
+            threshold = (seed % 10000) / 10000.0
+            for i, p in enumerate(probs):
+                cumulative += p
+                if cumulative >= threshold:
+                    selected_index = i
+                    break
+            softmax_sampled = True
+            tie_break_reason = f"softmax_tau={tau}_seed={seed}"
 
         near_tie = [
             (idx, row)
@@ -837,7 +1018,8 @@ class PersonaStateController:
             if abs(row["score"] - scored_candidates[0]["score"]) <= TIE_DELTA
         ]
         if (
-            self.ablation_config.use_tie_routing
+            not softmax_sampled
+            and self.ablation_config.use_tie_routing
             and len(near_tie) > 1
             and self._should_apply_tie_break(near_tie)
         ):
@@ -856,6 +1038,10 @@ class PersonaStateController:
             turn_index=turn_index,
             selected_index=selected_index,
             selected_score=selected["score"],
+            selected_slot=str(selected.get("slot", "")),
+            selected_text_excerpt=(selected.get("text", "") or "")[:160],
+            selected_top_positive_drivers=list(selected.get("top_positive_drivers") or []),
+            selected_top_negative_drivers=list(selected.get("top_negative_drivers") or []),
             drift_nudge=drift_nudge,
             tie_detected=tie_detected,
             tie_break_axis=tie_break_axis,
@@ -874,7 +1060,21 @@ class PersonaStateController:
                     "state_consistency": row.get("state_consistency"),
                     "role_action_uniqueness": row.get("role_action_uniqueness"),
                     "phase_action_duplication_penalty": row.get("phase_action_duplication_penalty"),
+                    "family_budget_penalty": row.get("family_budget_penalty"),
                     "sycophancy_risk": row.get("sycophancy_risk"),
+                    "text_excerpt": (row.get("text", "") or "")[:160],
+                    "inferred_traits": row.get("inferred_traits"),
+                    "trait_error_map": row.get("trait_error_map"),
+                    "action_hint": row.get("action_hint"),
+                    "planned_action_artifact": row.get("planned_action_artifact"),
+                    "compiled_action_family": action_family(
+                        ((row.get("action_hint") or {}).get("action_type"))
+                        or ((row.get("planned_action_artifact") or {}).get("action_type"))
+                    ),
+                    "score_components": row.get("score_components"),
+                    "penalty_components": row.get("penalty_components"),
+                    "top_positive_drivers": row.get("top_positive_drivers"),
+                    "top_negative_drivers": row.get("top_negative_drivers"),
                 }
                 for row in scored_candidates
             ],
@@ -1210,9 +1410,11 @@ class PersonaStateController:
         for trait, value in inferred_traits.items():
             low, high = self.actor_spec.personality_envelope[trait]
             if value < low:
-                penalty += low - value
+                overshoot = low - value
+                penalty += overshoot + overshoot ** 2
             elif value > high:
-                penalty += value - high
+                overshoot = value - high
+                penalty += overshoot + overshoot ** 2
         return min(1.0, penalty)
 
     def _situational_adequacy_score(

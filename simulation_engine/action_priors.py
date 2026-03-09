@@ -126,12 +126,19 @@ def infer_role_action_prior(
         action_family(item)
         for item in preferred_actions
     )
+    primary = families[:2]
+    secondary = families[2:4]
+    included = set(primary + secondary)
+    all_possible_families = _dedupe_keep_order(
+        action_family(action) for action in allowed_action_types
+    )
+    computed_avoid = [f for f in all_possible_families if f not in included]
     return RoleActionPrior(
         preferred_action_types=preferred_actions,
         preferred_target_keys=preferred_targets,
-        primary_families=families[:2],
-        secondary_families=families[2:4],
-        avoid_families=[],
+        primary_families=primary,
+        secondary_families=secondary,
+        avoid_families=computed_avoid,
         state_priority_keys=preferred_targets[:3],
         rationale=rationale,
     )

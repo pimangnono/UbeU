@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import asyncio
+import hashlib
 import json
 from dataclasses import dataclass
 from pathlib import Path
@@ -24,6 +25,7 @@ from .action_layer import (
 from .controller import PersonaStateController
 from .graph_runner import StakeholderSimulationGraphRunner
 from .manual_scripts import load_mvp_policy_scripts
+from .script import SimulationScript
 from .metrics import (
     BenchmarkRunMetrics,
     aggregate_phase_end_state_variance,
@@ -44,6 +46,12 @@ class BenchmarkRunResult:
     runtime_summary: dict[str, Any]
     metrics: BenchmarkRunMetrics
     selection_audits: list[dict[str, Any]]
+    suite_id: str = ""
+    track_id: str = ""
+    run_id: str = ""
+    repetition_index: int = 0
+    trace_bundle_path: str = ""
+    builder_trace_ref: str = ""
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -52,7 +60,77 @@ class BenchmarkRunResult:
             "runtime_summary": self.runtime_summary,
             "metrics": self.metrics.to_dict(),
             "selection_audits": self.selection_audits,
+            "suite_id": self.suite_id,
+            "track_id": self.track_id,
+            "run_id": self.run_id,
+            "repetition_index": self.repetition_index,
+            "trace_bundle_path": self.trace_bundle_path,
+            "builder_trace_ref": self.builder_trace_ref,
         }
+
+
+def _suite_id_for_config(config: dict[str, Any]) -> str:
+    canonical = json.dumps(
+        {
+            "conditions": list(config.get("conditions", [])),
+            "repetitions": int(config.get("repetitions", 1)),
+            "script_ids": list(config.get("script_ids", [])),
+            "style_slots": list(config.get("style_slots", [])),
+        },
+        sort_keys=True,
+        separators=(",", ":"),
+    )
+    digest = hashlib.sha1(canonical.encode("utf-8")).hexdigest()[:12]
+    return f"suite_{digest}"
+
+
+def _decorate_run_identity(
+    result: BenchmarkRunResult,
+    *,
+    suite_id: str,
+    repetition_index: int,
+) -> BenchmarkRunResult:
+    track_id = str(result.runtime_summary.get("simulation_mode", "unknown"))
+    run_id = f"{suite_id}:{track_id}:{result.simulation_id}:{result.condition}:{repetition_index}"
+    builder_trace_ref = str(
+        dict(result.runtime_summary.get("builder_trace", {})).get("builder_trace_id")
+        or f"manual:{result.simulation_id}"
+    )
+    result.suite_id = suite_id
+    result.track_id = track_id
+    result.run_id = run_id
+    result.repetition_index = repetition_index
+    result.builder_trace_ref = builder_trace_ref
+    result.runtime_summary["suite_id"] = suite_id
+    result.runtime_summary["track_id"] = track_id
+    result.runtime_summary["run_id"] = run_id
+    result.runtime_summary["repetition_index"] = repetition_index
+    result.runtime_summary["builder_trace_ref"] = builder_trace_ref
+    return result
+
+
+def _serialize_run_result(result: BenchmarkRunResult) -> dict[str, Any]:
+    payload = dict(result.to_dict())
+    suite_id = str(getattr(result, "suite_id", "") or "")
+    track_id = str(getattr(result, "track_id", "") or "")
+    run_id = str(getattr(result, "run_id", "") or "")
+    repetition_index = int(getattr(result, "repetition_index", 0) or 0)
+    trace_bundle_path = str(getattr(result, "trace_bundle_path", "") or "")
+    builder_trace_ref = str(getattr(result, "builder_trace_ref", "") or "")
+    payload["suite_id"] = suite_id
+    payload["track_id"] = track_id
+    payload["run_id"] = run_id
+    payload["repetition_index"] = repetition_index
+    payload["trace_bundle_path"] = trace_bundle_path
+    payload["builder_trace_ref"] = builder_trace_ref
+    runtime_summary = dict(payload.get("runtime_summary", {}))
+    runtime_summary["suite_id"] = suite_id
+    runtime_summary["track_id"] = track_id
+    runtime_summary["run_id"] = run_id
+    runtime_summary["repetition_index"] = repetition_index
+    runtime_summary["builder_trace_ref"] = builder_trace_ref
+    payload["runtime_summary"] = runtime_summary
+    return payload
 
 
 class SimulationBenchmarkRunner:
@@ -175,20 +253,27 @@ class SimulationBenchmarkRunner:
                         valid_target_keys=list(runtime.script.target_keys_for_phase(phase.name)),
                         allowed_action_types=list(runtime.script.allowed_action_types_for_phase(phase.name)),
                     )
-                    pool = await actor.generate_candidate_pool_styles(
-                        turns=context["turns"],
-                        phase_style=phase.style,
-                        style_slots=runtime.script.style_slots_for_phase(phase.name, self.style_slots),
-                        actor_snapshot=context["snapshot"] if base_condition != "naive" else None,
-                        phase_name=phase.name,
-                        phase_cues=phase.cues,
-                        policy_plan=policy_plan,
-                        enable_trait_execution=(base_condition == "engine_controller"),
-                        max_concurrency_override=runtime.script.pool_max_concurrency_for_phase(
+                    candidate_kwargs = {
+                        "turns": context["turns"],
+                        "phase_style": phase.style,
+                        "style_slots": runtime.script.style_slots_for_phase(phase.name, self.style_slots),
+                        "actor_snapshot": context["snapshot"] if base_condition != "naive" else None,
+                        "phase_name": phase.name,
+                        "phase_cues": phase.cues,
+                        "policy_plan": policy_plan,
+                        "enable_trait_execution": (base_condition == "engine_controller"),
+                        "max_concurrency_override": runtime.script.pool_max_concurrency_for_phase(
                             phase.name,
                             default=2,
                         ),
-                    )
+                    }
+                    try:
+                        pool = await actor.generate_candidate_pool_styles(**candidate_kwargs)
+                    except TypeError as exc:
+                        if "max_concurrency_override" not in str(exc):
+                            raise
+                        candidate_kwargs.pop("max_concurrency_override", None)
+                        pool = await actor.generate_candidate_pool_styles(**candidate_kwargs)
                     if base_condition == "engine":
                         selected = pool[0]
                         selected_meta = {
@@ -221,6 +306,10 @@ class SimulationBenchmarkRunner:
                                 "phase_actor_action_families": runtime.ledger.phase_actor_action_families(
                                     phase.name,
                                     exclude_actor_id=actor_id,
+                                ),
+                                "current_actor_phase_family_counts": runtime.ledger.phase_actor_action_family_counts(
+                                    phase.name,
+                                    actor_id,
                                 ),
                                 "turn_index": runtime.turn_index + 1,
                                 "use_action_aware_scoring": bool(
@@ -256,6 +345,9 @@ class SimulationBenchmarkRunner:
                             sycophancy_signals=selected.get("sycophancy_signals"),
                             unfulfilled_persona_acts=selected.get("unfulfilled_persona_acts"),
                             reflection=f"selected_score={selected.get('score', 0.0):.3f}",
+                            turn_index=runtime.turn_index + 1,
+                            phase_name=phase.name,
+                            cause_type="candidate_selection",
                         )
 
                 runtime.append_actor_turn(
@@ -263,6 +355,7 @@ class SimulationBenchmarkRunner:
                     content=text,
                     metadata=selected_meta,
                 )
+                turn_trace_id = str(runtime.ledger.turns[-1].metadata.get("turn_trace_id", ""))
                 if ablation_config.use_action_layer:
                     phase_action_policy = runtime.script.phase_action_policy(phase.name)
                     proposal = await compile_action_proposal(
@@ -293,6 +386,7 @@ class SimulationBenchmarkRunner:
                         trace_id,
                         {
                             "trace_id": trace_id,
+                            "turn_trace_id": turn_trace_id,
                             "proposal_id": proposal.proposal_id if proposal else trace_id,
                             "actor_id": actor_id,
                             "phase_name": phase.name,
@@ -322,6 +416,9 @@ class SimulationBenchmarkRunner:
                         last_inferred_traits=inferred_traits,
                         rolling_trait_estimate=inferred_traits,
                         drift_score=persona_drift_mae(actor.actor_spec.personality_prior, inferred_traits),
+                        turn_index=runtime.turn_index,
+                        phase_name=phase.name,
+                        cause_type="post_turn_metric",
                     )
 
             if ablation_config.use_action_layer and runtime.script.phase_action_policy(phase.name).get("action_mode", "execute") == "execute":
@@ -406,12 +503,14 @@ class SimulationBenchmarkRunner:
         repetitions: int = 1,
         script_ids: list[str] | None = None,
         checkpoint_dir: str | None = None,
+        scripts: list[SimulationScript] | None = None,
     ) -> dict[str, Any]:
         conditions = conditions or ["naive", "engine", "engine_controller"]
         invalid = sorted(set(conditions).difference(ALL_BENCHMARK_CONDITIONS))
         if invalid:
             raise ValueError(f"Unknown benchmark conditions: {', '.join(invalid)}")
-        scripts = load_mvp_policy_scripts()
+        if scripts is None:
+            scripts = load_mvp_policy_scripts()
         if script_ids:
             allowed = set(script_ids)
             scripts = [script for script in scripts if script.simulation_id in allowed]
@@ -422,6 +521,13 @@ class SimulationBenchmarkRunner:
         run_results: list[BenchmarkRunResult] = []
         total_runs = len(scripts) * len(conditions) * repetitions
         completed_runs = 0
+        config = {
+            "conditions": conditions,
+            "repetitions": repetitions,
+            "script_ids": [script.simulation_id for script in scripts],
+            "style_slots": list(self.style_slots),
+        }
+        suite_id = _suite_id_for_config(config)
         checkpoint_path = Path(checkpoint_dir) if checkpoint_dir else None
         existing_run_counts: dict[tuple[str, str], int] = {}
         if checkpoint_path is not None:
@@ -433,6 +539,15 @@ class SimulationBenchmarkRunner:
                 repetitions=repetitions,
                 style_slots=self.style_slots,
             )
+            counter: dict[tuple[str, str], int] = {}
+            decorated_runs: list[BenchmarkRunResult] = []
+            for row in run_results:
+                key = (row.simulation_id, row.condition)
+                counter[key] = counter.get(key, 0) + 1
+                decorated_runs.append(
+                    _decorate_run_identity(row, suite_id=suite_id, repetition_index=counter[key])
+                )
+            run_results = decorated_runs
             completed_runs = len(run_results)
             if completed_runs:
                 print(
@@ -457,7 +572,13 @@ class SimulationBenchmarkRunner:
                 for rep_idx in range(repetitions):
                     if rep_idx < already_done:
                         continue
-                    run_results.append(await self.run_single(script, condition))
+                    run_result = await self.run_single(script, condition)
+                    run_result = _decorate_run_identity(
+                        run_result,
+                        suite_id=suite_id,
+                        repetition_index=rep_idx + 1,
+                    )
+                    run_results.append(run_result)
                     completed_runs += 1
                     print(
                         f"[benchmark] completed {completed_runs}/{total_runs}: "
@@ -465,13 +586,9 @@ class SimulationBenchmarkRunner:
                         flush=True,
                     )
                     partial_results = {
-                        "config": {
-                            "conditions": conditions,
-                            "repetitions": repetitions,
-                            "script_ids": [item.simulation_id for item in scripts],
-                            "style_slots": list(self.style_slots),
-                        },
-                        "runs": [result.to_dict() for result in run_results],
+                        "config": {**config, "suite_id": suite_id},
+                        "suite_id": suite_id,
+                        "runs": [_serialize_run_result(result) for result in run_results],
                         "aggregate": aggregate_benchmark_runs(run_results),
                         "aggregate_by_script": aggregate_benchmark_runs_by_script(run_results),
                         "aggregate_by_mode": aggregate_benchmark_runs_by_mode(run_results),
@@ -489,13 +606,9 @@ class SimulationBenchmarkRunner:
                             json.dump(progress_payload, handle, indent=2)
 
         return {
-            "config": {
-                "conditions": conditions,
-                "repetitions": repetitions,
-                "script_ids": [script.simulation_id for script in scripts],
-                "style_slots": list(self.style_slots),
-            },
-            "runs": [result.to_dict() for result in run_results],
+            "config": {**config, "suite_id": suite_id},
+            "suite_id": suite_id,
+            "runs": [_serialize_run_result(result) for result in run_results],
             "aggregate": aggregate_benchmark_runs(run_results),
             "aggregate_by_script": aggregate_benchmark_runs_by_script(run_results),
             "aggregate_by_mode": aggregate_benchmark_runs_by_mode(run_results),
@@ -548,6 +661,8 @@ def _aggregate_grouped_runs(grouped: dict[str, list[BenchmarkRunResult]]) -> dic
 def _summarize_rows(rows: list[BenchmarkRunResult]) -> dict[str, Any]:
     drift_values = [row.metrics.persona_drift_mae for row in rows]
     relation_values = [row.metrics.relationship_inconsistency for row in rows]
+    relation_shift_values = [row.metrics.relationship_shift_rate for row in rows]
+    relation_overshoot_values = [row.metrics.relationship_overshoot_rate for row in rows]
     commitment_values = [row.metrics.commitment_contradiction_rate for row in rows]
     envelope_values = [row.metrics.envelope_violations for row in rows]
     turn_counts = [row.runtime_summary["turn_count"] for row in rows]
@@ -583,6 +698,32 @@ def _summarize_rows(rows: list[BenchmarkRunResult]) -> dict[str, Any]:
     clean_rows = [row for row in rows if row.metrics.fallback_utterance_rate < 0.30]
     contaminated_rows = [row for row in rows if row.metrics.fallback_utterance_rate >= 0.30]
     trajectory_variance = aggregate_phase_end_state_variance([row.metrics for row in rows])
+    zero_variance_metrics = [
+        name
+        for name, values in {
+            "persona_drift_mae": drift_values,
+            "relationship_inconsistency": relation_values,
+            "relationship_shift_rate": relation_shift_values,
+            "relationship_overshoot_rate": relation_overshoot_values,
+            "commitment_contradiction": commitment_values,
+            "envelope_violations": envelope_values,
+            "action_family_convergence": action_family_convergence,
+            "role_action_diversity": role_action_diversity,
+            "negotiation_uniqueness": negotiation_uniqueness,
+            "fallback_utterance_rate": fallback_rates,
+        }.items()
+        if len(values) > 1 and pstdev(values) == 0.0
+    ]
+
+    def _mean_ci(values: list[float]) -> list[float]:
+        if not values:
+            return [0.0, 0.0]
+        mean_value = mean(values)
+        if len(values) == 1:
+            return [round(mean_value, 4), round(mean_value, 4)]
+        spread = pstdev(values)
+        margin = 1.96 * (spread / (len(values) ** 0.5))
+        return [round(mean_value - margin, 4), round(mean_value + margin, 4)]
 
     summary = {
         "num_runs": len(rows),
@@ -591,6 +732,8 @@ def _summarize_rows(rows: list[BenchmarkRunResult]) -> dict[str, Any]:
         "persona_drift_mae_mean": round(mean(drift_values), 4),
         "persona_drift_mae_std": round(pstdev(drift_values), 4) if len(drift_values) > 1 else 0.0,
         "relationship_inconsistency_mean": round(mean(relation_values), 4),
+        "relationship_shift_rate_mean": round(mean(relation_shift_values), 4),
+        "relationship_overshoot_rate_mean": round(mean(relation_overshoot_values), 4),
         "commitment_contradiction_mean": round(mean(commitment_values), 4),
         "envelope_violations_mean": round(mean(envelope_values), 4),
         "structured_action_validity_rate_mean": round(mean(action_validity), 4),
@@ -608,6 +751,33 @@ def _summarize_rows(rows: list[BenchmarkRunResult]) -> dict[str, Any]:
         "state_trajectory_variance_mean": trajectory_variance,
         "per_trait_error_mean": per_trait_error_mean,
         "turn_count_mean": round(mean(turn_counts), 2),
+        "ci_95": {
+            "persona_drift_mae": _mean_ci(drift_values),
+            "relationship_inconsistency": _mean_ci(relation_values),
+            "relationship_shift_rate": _mean_ci(relation_shift_values),
+            "relationship_overshoot_rate": _mean_ci(relation_overshoot_values),
+            "commitment_contradiction": _mean_ci(commitment_values),
+            "envelope_violations": _mean_ci([float(value) for value in envelope_values]),
+        },
+        "ci_width": {
+            "persona_drift_mae": round(_mean_ci(drift_values)[1] - _mean_ci(drift_values)[0], 4),
+            "relationship_inconsistency": round(_mean_ci(relation_values)[1] - _mean_ci(relation_values)[0], 4),
+            "relationship_shift_rate": round(_mean_ci(relation_shift_values)[1] - _mean_ci(relation_shift_values)[0], 4),
+            "relationship_overshoot_rate": round(_mean_ci(relation_overshoot_values)[1] - _mean_ci(relation_overshoot_values)[0], 4),
+            "commitment_contradiction": round(_mean_ci(commitment_values)[1] - _mean_ci(commitment_values)[0], 4),
+            "envelope_violations": round(_mean_ci([float(value) for value in envelope_values])[1] - _mean_ci([float(value) for value in envelope_values])[0], 4),
+        },
+        "metric_confidence": {
+            "persona_drift_mae": "high",
+            "relationship_inconsistency": "medium",
+            "relationship_shift_rate": "medium",
+            "relationship_overshoot_rate": "medium",
+            "commitment_contradiction": "medium",
+            "envelope_violations": "medium",
+        },
+        "zero_variance_metrics": zero_variance_metrics,
+        "evidence_refs": [row.run_id for row in rows],
+        "top_driver_refs": [row.run_id for row in rows[: min(3, len(rows))]],
     }
     if clean_rows:
         summary["clean_persona_drift_mae_mean"] = round(
@@ -663,7 +833,12 @@ def _load_checkpoint_results(
         "script_ids": expected_script_ids,
         "style_slots": list(style_slots),
     }
-    existing_config = payload.get("config", {})
+    existing_config = {
+        "conditions": list(dict(payload.get("config", {})).get("conditions", [])),
+        "repetitions": int(dict(payload.get("config", {})).get("repetitions", 0)),
+        "script_ids": list(dict(payload.get("config", {})).get("script_ids", [])),
+        "style_slots": list(dict(payload.get("config", {})).get("style_slots", [])),
+    }
     if existing_config != expected_config:
         print("[benchmark] checkpoint config mismatch; starting a fresh run", flush=True)
         return [], {}
@@ -695,6 +870,12 @@ def _load_checkpoint_results(
                 runtime_summary=runtime_summary,
                 metrics=metrics,
                 selection_audits=row.get("selection_audits", []),
+                suite_id=str(row.get("suite_id") or ""),
+                track_id=str(row.get("track_id") or ""),
+                run_id=str(row.get("run_id") or ""),
+                repetition_index=int(row.get("repetition_index") or 0),
+                trace_bundle_path=str(row.get("trace_bundle_path") or ""),
+                builder_trace_ref=str(row.get("builder_trace_ref") or ""),
             )
         )
         run_counts[key] = run_counts.get(key, 0) + 1

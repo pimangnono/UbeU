@@ -63,6 +63,7 @@ class StakeholderActorSpec:
     experience_summary: str = ""
     salient_memories: list[str] = field(default_factory=list)
     private_context: dict[str, Any] = field(default_factory=dict)
+    implicit_goals: list[str] = field(default_factory=list)
 
     def __post_init__(self):
         self.personality_prior = normalize_personality_vector(self.personality_prior)
@@ -89,6 +90,7 @@ class StakeholderActorSpec:
             experience_summary=data.get("experience_summary", ""),
             salient_memories=list(data.get("salient_memories", [])),
             private_context=dict(data.get("private_context", {})),
+            implicit_goals=list(data.get("implicit_goals", [])),
         )
 
     def to_dict(self) -> dict[str, Any]:
@@ -318,7 +320,7 @@ class SimulationScript:
     def phase_action_policy(self, phase_name: str) -> dict[str, Any]:
         default_policy = {
             "diversity_required": phase_name == "NEGOTIATION",
-            "duplicate_penalty": 0.18 if phase_name == "NEGOTIATION" else 0.08,
+            "duplicate_penalty": 0.28 if phase_name == "NEGOTIATION" else 0.14,
             "uniqueness_bonus": 0.14 if phase_name == "NEGOTIATION" else 0.06,
             "convergence_backoff_threshold": 0.9 if phase_name == "NEGOTIATION" else 0.95,
             "action_mode": "execute" if phase_name in {"NEGOTIATION", "CLOSING"} else "shadow",
@@ -326,7 +328,7 @@ class SimulationScript:
             "family_cap": 1 if phase_name == "NEGOTIATION" else 2,
             "max_same_family_per_phase": 1 if phase_name == "NEGOTIATION" else 2,
             "max_actions_per_phase": 3 if phase_name == "NEGOTIATION" else 2,
-            "sparsity_threshold": 0.7 if phase_name == "NEGOTIATION" else 0.62,
+            "sparsity_threshold": 0.76 if phase_name == "NEGOTIATION" else 0.68,
             "style_slot_limit": 4,
             "pool_max_concurrency": 2,
             "planner_cache": False,
@@ -334,7 +336,7 @@ class SimulationScript:
         if self.is_exploratory_mode:
             default_policy.update({
                 "diversity_required": True,
-                "duplicate_penalty": 0.24 if phase_name == "NEGOTIATION" else 0.10,
+                "duplicate_penalty": 0.32 if phase_name == "NEGOTIATION" else 0.16,
                 "uniqueness_bonus": 0.30 if phase_name == "NEGOTIATION" else 0.12,
                 "family_cap": 1 if phase_name == "NEGOTIATION" else 2,
                 "max_same_family_per_phase": 1 if phase_name == "NEGOTIATION" else 2,
