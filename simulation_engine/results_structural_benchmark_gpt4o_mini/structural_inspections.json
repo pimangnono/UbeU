@@ -1,0 +1,3251 @@
+[
+  {
+    "simulation_id": "australia_robodebt_10actor",
+    "structural_profile": {
+      "polarity": "collaborative",
+      "pressure": "high",
+      "initial_tension": 0.08,
+      "sycophancy_threshold": 0.55,
+      "trust_decay_boost": 1.0,
+      "tension_floor_base": 0.0
+    },
+    "actor_count": 10,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.5,
+      "execution_confidence": 0.5,
+      "risk": 0.5,
+      "public_trust": 0.4,
+      "system_rigidity": 0.8,
+      "human_harm": 0.6
+    },
+    "pair_conflicts": [
+      {
+        "actors": [
+          "Aisha",
+          "Uncle Ray"
+        ],
+        "conflict_words": [
+          "systemic"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Minister Harris",
+          "Linda"
+        ],
+        "conflict_words": [
+          "scrutiny"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Tom",
+          "Marcus"
+        ],
+        "conflict_words": [
+          "public"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Marcus",
+          "Uncle Ray"
+        ],
+        "conflict_words": [
+          "protection"
+        ],
+        "severity": 1
+      }
+    ],
+    "tension_floor_estimates": {
+      "Aisha vs Uncle Ray": 0.018,
+      "Minister Harris vs Linda": 0.018,
+      "Tom vs Marcus": 0.018,
+      "Marcus vs Uncle Ray": 0.018
+    }
+  },
+  {
+    "simulation_id": "australia_robodebt_3actor",
+    "structural_profile": {
+      "polarity": "collaborative",
+      "pressure": "medium",
+      "initial_tension": 0.04,
+      "sycophancy_threshold": 0.55,
+      "trust_decay_boost": 1.0,
+      "tension_floor_base": 0.0
+    },
+    "actor_count": 3,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.5,
+      "execution_confidence": 0.5,
+      "risk": 0.5,
+      "public_trust": 0.3,
+      "legal_risk": 0.6,
+      "media_scrutiny": 0.4
+    },
+    "pair_conflicts": [],
+    "tension_floor_estimates": {}
+  },
+  {
+    "simulation_id": "australia_robodebt_5actor",
+    "structural_profile": {
+      "polarity": "collaborative",
+      "pressure": "high",
+      "initial_tension": 0.08,
+      "sycophancy_threshold": 0.55,
+      "trust_decay_boost": 1.0,
+      "tension_floor_base": 0.0
+    },
+    "actor_count": 5,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.5,
+      "execution_confidence": 0.5,
+      "risk": 0.5,
+      "public_trust": 0.3,
+      "system_liability": 0.5,
+      "victim_support": 0.4
+    },
+    "pair_conflicts": [],
+    "tension_floor_estimates": {}
+  },
+  {
+    "simulation_id": "boeing_737max_return_10actor",
+    "structural_profile": {
+      "polarity": "collaborative",
+      "pressure": "high",
+      "initial_tension": 0.08,
+      "sycophancy_threshold": 0.55,
+      "trust_decay_boost": 1.0,
+      "tension_floor_base": 0.0
+    },
+    "actor_count": 10,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.5,
+      "execution_confidence": 0.5,
+      "risk": 0.5,
+      "public_trust": 0.3,
+      "financial_stress": 0.7,
+      "safety_confidence": 0.4,
+      "regulatory_alignment": 0.5
+    },
+    "pair_conflicts": [
+      {
+        "actors": [
+          "Pilots' Union Chair",
+          "Flight Attendant Union Rep"
+        ],
+        "conflict_words": [
+          "preparedness"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Insurance Underwriter",
+          "Boeing PR Director"
+        ],
+        "conflict_words": [
+          "liability"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Boeing PR Director",
+          "Flight Attendant Union Rep"
+        ],
+        "conflict_words": [
+          "safety"
+        ],
+        "severity": 1
+      }
+    ],
+    "tension_floor_estimates": {
+      "Pilots' Union Chair vs Flight Attendant Union Rep": 0.018,
+      "Insurance Underwriter vs Boeing PR Director": 0.018,
+      "Boeing PR Director vs Flight Attendant Union Rep": 0.018
+    }
+  },
+  {
+    "simulation_id": "boeing_737max_return_3actor",
+    "structural_profile": {
+      "polarity": "collaborative",
+      "pressure": "medium",
+      "initial_tension": 0.04,
+      "sycophancy_threshold": 0.55,
+      "trust_decay_boost": 1.0,
+      "tension_floor_base": 0.0
+    },
+    "actor_count": 3,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.5,
+      "execution_confidence": 0.5,
+      "risk": 0.5,
+      "safety_confidence": 0.3,
+      "financial_impact": 0.8,
+      "regulatory_approval": 0.2
+    },
+    "pair_conflicts": [
+      {
+        "actors": [
+          "Regional Airline CEO",
+          "Pilots' Union Safety Chair"
+        ],
+        "conflict_words": [
+          "safety"
+        ],
+        "severity": 1
+      }
+    ],
+    "tension_floor_estimates": {
+      "Regional Airline CEO vs Pilots' Union Safety Chair": 0.06
+    }
+  },
+  {
+    "simulation_id": "boeing_737max_return_5actor",
+    "structural_profile": {
+      "polarity": "collaborative",
+      "pressure": "high",
+      "initial_tension": 0.08,
+      "sycophancy_threshold": 0.55,
+      "trust_decay_boost": 1.0,
+      "tension_floor_base": 0.0
+    },
+    "actor_count": 5,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.5,
+      "execution_confidence": 0.5,
+      "risk": 0.5,
+      "public_trust": 0.3,
+      "financial_impact": 0.8,
+      "safety_confidence": 0.4,
+      "regulatory_pressure": 0.6
+    },
+    "pair_conflicts": [
+      {
+        "actors": [
+          "James",
+          "Director Wilkins"
+        ],
+        "conflict_words": [
+          "regulatory",
+          "public"
+        ],
+        "severity": 2
+      },
+      {
+        "actors": [
+          "Mr. Adhikari",
+          "Director Wilkins"
+        ],
+        "conflict_words": [
+          "regulatory"
+        ],
+        "severity": 1
+      }
+    ],
+    "tension_floor_estimates": {
+      "James vs Director Wilkins": 0.072,
+      "Mr. Adhikari vs Director Wilkins": 0.036
+    }
+  },
+  {
+    "simulation_id": "california_ab5_gig_classification_10actor",
+    "structural_profile": {
+      "polarity": "collaborative",
+      "pressure": "high",
+      "initial_tension": 0.08,
+      "sycophancy_threshold": 0.55,
+      "trust_decay_boost": 1.0,
+      "tension_floor_base": 0.0
+    },
+    "actor_count": 10,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.7,
+      "execution_confidence": 0.5,
+      "risk": 0.6,
+      "flexibility": 0.8,
+      "cost": 0.4
+    },
+    "pair_conflicts": [
+      {
+        "actors": [
+          "Maria",
+          "Sarah"
+        ],
+        "conflict_words": [
+          "flexibility"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Carlos",
+          "James"
+        ],
+        "conflict_words": [
+          "employment"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Carlos",
+          "Anna"
+        ],
+        "conflict_words": [
+          "benefits"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Lisa",
+          "Tom"
+        ],
+        "conflict_words": [
+          "delivery"
+        ],
+        "severity": 1
+      }
+    ],
+    "tension_floor_estimates": {
+      "Maria vs Sarah": 0.018,
+      "Carlos vs James": 0.018,
+      "Carlos vs Anna": 0.018,
+      "Lisa vs Tom": 0.018
+    }
+  },
+  {
+    "simulation_id": "california_ab5_gig_classification_3actor",
+    "structural_profile": {
+      "polarity": "collaborative",
+      "pressure": "medium",
+      "initial_tension": 0.04,
+      "sycophancy_threshold": 0.55,
+      "trust_decay_boost": 1.0,
+      "tension_floor_base": 0.0
+    },
+    "actor_count": 3,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.5,
+      "execution_confidence": 0.5,
+      "risk": 0.5,
+      "worker_protections": 0.3,
+      "schedule_flexibility": 0.8,
+      "platform_profitability": 0.6
+    },
+    "pair_conflicts": [
+      {
+        "actors": [
+          "James",
+          "Lena"
+        ],
+        "conflict_words": [
+          "workers"
+        ],
+        "severity": 2
+      }
+    ],
+    "tension_floor_estimates": {
+      "James vs Lena": 0.12
+    }
+  },
+  {
+    "simulation_id": "california_ab5_gig_classification_5actor",
+    "structural_profile": {
+      "polarity": "collaborative",
+      "pressure": "high",
+      "initial_tension": 0.08,
+      "sycophancy_threshold": 0.55,
+      "trust_decay_boost": 1.0,
+      "tension_floor_base": 0.0
+    },
+    "actor_count": 5,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.5,
+      "execution_confidence": 0.5,
+      "risk": 0.5,
+      "worker_protections": 0.3,
+      "schedule_flexibility": 0.8,
+      "business_costs": 0.5
+    },
+    "pair_conflicts": [],
+    "tension_floor_estimates": {}
+  },
+  {
+    "simulation_id": "eu_gdpr_implementation_10actor",
+    "structural_profile": {
+      "polarity": "collaborative",
+      "pressure": "high",
+      "initial_tension": 0.08,
+      "sycophancy_threshold": 0.55,
+      "trust_decay_boost": 1.0,
+      "tension_floor_base": 0.0
+    },
+    "actor_count": 10,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.5,
+      "execution_confidence": 0.5,
+      "risk": 0.5,
+      "compliance_progress": 0.2,
+      "business_risk": 0.7,
+      "technical_debt": 0.5,
+      "public_trust": 0.6
+    },
+    "pair_conflicts": [
+      {
+        "actors": [
+          "Lena",
+          "Sophie"
+        ],
+        "conflict_words": [
+          "market"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Dr. Vogel",
+          "Markus"
+        ],
+        "conflict_words": [
+          "data"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "G\u00fcnther",
+          "Rafal"
+        ],
+        "conflict_words": [
+          "solutions"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Markus",
+          "Rafal"
+        ],
+        "conflict_words": [
+          "data"
+        ],
+        "severity": 1
+      }
+    ],
+    "tension_floor_estimates": {
+      "Lena vs Sophie": 0.018,
+      "Dr. Vogel vs Markus": 0.018,
+      "G\u00fcnther vs Rafal": 0.018,
+      "Markus vs Rafal": 0.018
+    }
+  },
+  {
+    "simulation_id": "eu_gdpr_implementation_3actor",
+    "structural_profile": {
+      "polarity": "collaborative",
+      "pressure": "medium",
+      "initial_tension": 0.04,
+      "sycophancy_threshold": 0.55,
+      "trust_decay_boost": 1.0,
+      "tension_floor_base": 0.0
+    },
+    "actor_count": 3,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.5,
+      "execution_confidence": 0.5,
+      "risk": 0.5,
+      "compliance_cost": 0.8,
+      "enforcement_pressure": 0.6,
+      "technical_feasibility": 0.4
+    },
+    "pair_conflicts": [],
+    "tension_floor_estimates": {}
+  },
+  {
+    "simulation_id": "eu_gdpr_implementation_5actor",
+    "structural_profile": {
+      "polarity": "collaborative",
+      "pressure": "high",
+      "initial_tension": 0.08,
+      "sycophancy_threshold": 0.55,
+      "trust_decay_boost": 1.0,
+      "tension_floor_base": 0.0
+    },
+    "actor_count": 5,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.5,
+      "execution_confidence": 0.5,
+      "risk": 0.5,
+      "compliance_cost": 0.7,
+      "enforcement_strictness": 0.4,
+      "data_utility": 0.6,
+      "public_trust": 0.5
+    },
+    "pair_conflicts": [
+      {
+        "actors": [
+          "Lena",
+          "Marco"
+        ],
+        "conflict_words": [
+          "compliance"
+        ],
+        "severity": 1
+      }
+    ],
+    "tension_floor_estimates": {
+      "Lena vs Marco": 0.036
+    }
+  },
+  {
+    "simulation_id": "flint_water_crisis_10actor",
+    "structural_profile": {
+      "polarity": "collaborative",
+      "pressure": "high",
+      "initial_tension": 0.08,
+      "sycophancy_threshold": 0.55,
+      "trust_decay_boost": 1.0,
+      "tension_floor_base": 0.0
+    },
+    "actor_count": 10,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.5,
+      "execution_confidence": 0.5,
+      "risk": 0.5,
+      "public_trust": 0.6,
+      "scientific_certainty": 0.3,
+      "fiscal_constraint": 0.8,
+      "political_risk": 0.4
+    },
+    "pair_conflicts": [
+      {
+        "actors": [
+          "Dr. Hanna",
+          "Janice"
+        ],
+        "conflict_words": [
+          "political"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Dr. Hanna",
+          "Pastor James"
+        ],
+        "conflict_words": [
+          "emergency"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Dr. Hanna",
+          "Governor Snyder"
+        ],
+        "conflict_words": [
+          "political"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Dr. Hanna",
+          "Dr. Wells"
+        ],
+        "conflict_words": [
+          "scientific"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Dr. Hanna",
+          "Mrs. Clark"
+        ],
+        "conflict_words": [
+          "children's"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Miguel",
+          "Governor Snyder"
+        ],
+        "conflict_words": [
+          "liability"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Janice",
+          "Tyrone"
+        ],
+        "conflict_words": [
+          "political"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Governor Snyder",
+          "Tyrone"
+        ],
+        "conflict_words": [
+          "political"
+        ],
+        "severity": 1
+      }
+    ],
+    "tension_floor_estimates": {
+      "Dr. Hanna vs Janice": 0.018,
+      "Dr. Hanna vs Pastor James": 0.018,
+      "Dr. Hanna vs Governor Snyder": 0.018,
+      "Dr. Hanna vs Dr. Wells": 0.018,
+      "Dr. Hanna vs Mrs. Clark": 0.018,
+      "Miguel vs Governor Snyder": 0.018,
+      "Janice vs Tyrone": 0.018,
+      "Governor Snyder vs Tyrone": 0.018
+    }
+  },
+  {
+    "simulation_id": "flint_water_crisis_3actor",
+    "structural_profile": {
+      "polarity": "collaborative",
+      "pressure": "medium",
+      "initial_tension": 0.04,
+      "sycophancy_threshold": 0.55,
+      "trust_decay_boost": 1.0,
+      "tension_floor_base": 0.0
+    },
+    "actor_count": 3,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.5,
+      "execution_confidence": 0.5,
+      "risk": 0.5,
+      "public_trust": 0.6,
+      "crisis_visibility": 0.2,
+      "bureaucratic_inertia": 0.8
+    },
+    "pair_conflicts": [],
+    "tension_floor_estimates": {}
+  },
+  {
+    "simulation_id": "flint_water_crisis_5actor",
+    "structural_profile": {
+      "polarity": "collaborative",
+      "pressure": "high",
+      "initial_tension": 0.08,
+      "sycophancy_threshold": 0.55,
+      "trust_decay_boost": 1.0,
+      "tension_floor_base": 0.0
+    },
+    "actor_count": 5,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.5,
+      "execution_confidence": 0.5,
+      "risk": 0.5,
+      "public_trust": 0.4,
+      "health_risk": 0.8,
+      "financial_pressure": 0.7,
+      "bureaucratic_resistance": 0.9
+    },
+    "pair_conflicts": [
+      {
+        "actors": [
+          "Mike",
+          "Lisa"
+        ],
+        "conflict_words": [
+          "liability",
+          "public"
+        ],
+        "severity": 2
+      },
+      {
+        "actors": [
+          "Dr. Hanna",
+          "Mike"
+        ],
+        "conflict_words": [
+          "damage"
+        ],
+        "severity": 1
+      }
+    ],
+    "tension_floor_estimates": {
+      "Dr. Hanna vs Mike": 0.036,
+      "Mike vs Lisa": 0.072
+    }
+  },
+  {
+    "simulation_id": "ftx_collapse_10actor",
+    "structural_profile": {
+      "polarity": "collaborative",
+      "pressure": "high",
+      "initial_tension": 0.08,
+      "sycophancy_threshold": 0.55,
+      "trust_decay_boost": 1.0,
+      "tension_floor_base": 0.0
+    },
+    "actor_count": 10,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.5,
+      "execution_confidence": 0.5,
+      "risk": 0.5,
+      "creditor_recovery_likelihood": 0.2,
+      "regulatory_scrutiny": 0.8,
+      "public_trust": 0.1,
+      "legal_complexity": 0.9,
+      "market_impact": 0.7
+    },
+    "pair_conflicts": [
+      {
+        "actors": [
+          "Marcus",
+          "Sarah"
+        ],
+        "conflict_words": [
+          "legal"
+        ],
+        "severity": 2
+      },
+      {
+        "actors": [
+          "Marcus",
+          "Ms. Rodriguez"
+        ],
+        "conflict_words": [
+          "legal"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Marcus",
+          "David"
+        ],
+        "conflict_words": [
+          "legal"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Marcus",
+          "Lisa"
+        ],
+        "conflict_words": [
+          "legal"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Marcus",
+          "Mr. Williams"
+        ],
+        "conflict_words": [
+          "legal"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Dr. Chen",
+          "Ms. Rodriguez"
+        ],
+        "conflict_words": [
+          "reputation"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Dr. Chen",
+          "Mr. Williams"
+        ],
+        "conflict_words": [
+          "professional"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Ms. Rodriguez",
+          "Officer Thompson"
+        ],
+        "conflict_words": [
+          "reputation"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Ms. Rodriguez",
+          "Sarah"
+        ],
+        "conflict_words": [
+          "legal"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Ms. Rodriguez",
+          "David"
+        ],
+        "conflict_words": [
+          "reputation"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Ms. Rodriguez",
+          "Lisa"
+        ],
+        "conflict_words": [
+          "reputation"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Ms. Rodriguez",
+          "Mr. Williams"
+        ],
+        "conflict_words": [
+          "reputation"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Officer Thompson",
+          "Rep. Johnson"
+        ],
+        "conflict_words": [
+          "regulatory"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Sarah",
+          "David"
+        ],
+        "conflict_words": [
+          "legal"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Sarah",
+          "Lisa"
+        ],
+        "conflict_words": [
+          "legal"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Sarah",
+          "Mr. Williams"
+        ],
+        "conflict_words": [
+          "legal"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Lisa",
+          "Mr. Williams"
+        ],
+        "conflict_words": [
+          "professional"
+        ],
+        "severity": 1
+      }
+    ],
+    "tension_floor_estimates": {
+      "Marcus vs Ms. Rodriguez": 0.018,
+      "Marcus vs Sarah": 0.036,
+      "Marcus vs David": 0.018,
+      "Marcus vs Lisa": 0.018,
+      "Marcus vs Mr. Williams": 0.018,
+      "Dr. Chen vs Ms. Rodriguez": 0.018,
+      "Dr. Chen vs Mr. Williams": 0.018,
+      "Ms. Rodriguez vs Officer Thompson": 0.018,
+      "Ms. Rodriguez vs Sarah": 0.018,
+      "Ms. Rodriguez vs David": 0.018,
+      "Ms. Rodriguez vs Lisa": 0.018,
+      "Ms. Rodriguez vs Mr. Williams": 0.018,
+      "Officer Thompson vs Rep. Johnson": 0.018,
+      "Sarah vs David": 0.018,
+      "Sarah vs Lisa": 0.018,
+      "Sarah vs Mr. Williams": 0.018,
+      "Lisa vs Mr. Williams": 0.018
+    }
+  },
+  {
+    "simulation_id": "ftx_collapse_3actor",
+    "structural_profile": {
+      "polarity": "collaborative",
+      "pressure": "medium",
+      "initial_tension": 0.04,
+      "sycophancy_threshold": 0.55,
+      "trust_decay_boost": 1.0,
+      "tension_floor_base": 0.0
+    },
+    "actor_count": 3,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.5,
+      "execution_confidence": 0.5,
+      "risk": 0.5,
+      "fund_recovery_likelihood": 0.2,
+      "legal_liability": 0.7,
+      "public_trust": 0.3
+    },
+    "pair_conflicts": [],
+    "tension_floor_estimates": {}
+  },
+  {
+    "simulation_id": "ftx_collapse_5actor",
+    "structural_profile": {
+      "polarity": "collaborative",
+      "pressure": "high",
+      "initial_tension": 0.08,
+      "sycophancy_threshold": 0.55,
+      "trust_decay_boost": 1.0,
+      "tension_floor_base": 0.0
+    },
+    "actor_count": 5,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.5,
+      "execution_confidence": 0.5,
+      "risk": 0.5,
+      "customer_recovery_estimate": 0.1,
+      "regulatory_scrutiny": 0.7,
+      "market_contagion": 0.4
+    },
+    "pair_conflicts": [],
+    "tension_floor_estimates": {}
+  },
+  {
+    "simulation_id": "fukushima_nuclear_restart_10actor",
+    "structural_profile": {
+      "polarity": "collaborative",
+      "pressure": "high",
+      "initial_tension": 0.08,
+      "sycophancy_threshold": 0.55,
+      "trust_decay_boost": 1.0,
+      "tension_floor_base": 0.0
+    },
+    "actor_count": 10,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.5,
+      "execution_confidence": 0.5,
+      "risk": 0.5,
+      "public_trust": 0.3,
+      "economic_stress": 0.8,
+      "safety_confidence": 0.4
+    },
+    "pair_conflicts": [
+      {
+        "actors": [
+          "Dr. Tanaka",
+          "Mr. Yamamoto"
+        ],
+        "conflict_words": [
+          "safety"
+        ],
+        "severity": 1
+      }
+    ],
+    "tension_floor_estimates": {
+      "Dr. Tanaka vs Mr. Yamamoto": 0.018
+    }
+  },
+  {
+    "simulation_id": "fukushima_nuclear_restart_3actor",
+    "structural_profile": {
+      "polarity": "collaborative",
+      "pressure": "medium",
+      "initial_tension": 0.04,
+      "sycophancy_threshold": 0.55,
+      "trust_decay_boost": 1.0,
+      "tension_floor_base": 0.0
+    },
+    "actor_count": 3,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.5,
+      "execution_confidence": 0.5,
+      "risk": 0.5,
+      "public_trust": 0.3,
+      "economic_stability": 0.4,
+      "safety_certainty": 0.6
+    },
+    "pair_conflicts": [],
+    "tension_floor_estimates": {}
+  },
+  {
+    "simulation_id": "fukushima_nuclear_restart_5actor",
+    "structural_profile": {
+      "polarity": "collaborative",
+      "pressure": "high",
+      "initial_tension": 0.08,
+      "sycophancy_threshold": 0.55,
+      "trust_decay_boost": 1.0,
+      "tension_floor_base": 0.0
+    },
+    "actor_count": 5,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.5,
+      "execution_confidence": 0.5,
+      "risk": 0.5,
+      "public_trust": 0.3,
+      "economic_viability": 0.2,
+      "safety_certainty": 0.5
+    },
+    "pair_conflicts": [
+      {
+        "actors": [
+          "Aiko",
+          "Dr. Sato"
+        ],
+        "conflict_words": [
+          "risk"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Kenji",
+          "Dr. Sato"
+        ],
+        "conflict_words": [
+          "health"
+        ],
+        "severity": 1
+      }
+    ],
+    "tension_floor_estimates": {
+      "Aiko vs Dr. Sato": 0.036,
+      "Kenji vs Dr. Sato": 0.036
+    }
+  },
+  {
+    "simulation_id": "japan_intern_training_reform_10actor",
+    "structural_profile": {
+      "polarity": "collaborative",
+      "pressure": "high",
+      "initial_tension": 0.08,
+      "sycophancy_threshold": 0.55,
+      "trust_decay_boost": 1.0,
+      "tension_floor_base": 0.0
+    },
+    "actor_count": 10,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.5,
+      "execution_confidence": 0.5,
+      "risk": 0.5,
+      "public_trust": 0.3,
+      "economic_risk": 0.7,
+      "reform_scope": 0.5
+    },
+    "pair_conflicts": [
+      {
+        "actors": [
+          "Sato",
+          "Yamada"
+        ],
+        "conflict_words": [
+          "media"
+        ],
+        "severity": 1
+      }
+    ],
+    "tension_floor_estimates": {
+      "Sato vs Yamada": 0.018
+    }
+  },
+  {
+    "simulation_id": "japan_intern_training_reform_3actor",
+    "structural_profile": {
+      "polarity": "collaborative",
+      "pressure": "medium",
+      "initial_tension": 0.04,
+      "sycophancy_threshold": 0.55,
+      "trust_decay_boost": 1.0,
+      "tension_floor_base": 0.0
+    },
+    "actor_count": 3,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.5,
+      "execution_confidence": 0.5,
+      "risk": 0.5,
+      "public_outrage": 0.7,
+      "economic_pressure": 0.6,
+      "legal_risk": 0.4
+    },
+    "pair_conflicts": [],
+    "tension_floor_estimates": {}
+  },
+  {
+    "simulation_id": "japan_intern_training_reform_5actor",
+    "structural_profile": {
+      "polarity": "collaborative",
+      "pressure": "high",
+      "initial_tension": 0.08,
+      "sycophancy_threshold": 0.55,
+      "trust_decay_boost": 1.0,
+      "tension_floor_base": 0.0
+    },
+    "actor_count": 5,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.5,
+      "execution_confidence": 0.5,
+      "risk": 0.5,
+      "public_trust": 0.3,
+      "economic_impact": 0.7,
+      "worker_protections": 0.2
+    },
+    "pair_conflicts": [
+      {
+        "actors": [
+          "Minh",
+          "Tanaka"
+        ],
+        "conflict_words": [
+          "interns"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Sato",
+          "Kobayashi"
+        ],
+        "conflict_words": [
+          "oversight"
+        ],
+        "severity": 1
+      }
+    ],
+    "tension_floor_estimates": {
+      "Minh vs Tanaka": 0.036,
+      "Sato vs Kobayashi": 0.036
+    }
+  },
+  {
+    "simulation_id": "microsoft_activision_merger_10actor",
+    "structural_profile": {
+      "polarity": "collaborative",
+      "pressure": "high",
+      "initial_tension": 0.08,
+      "sycophancy_threshold": 0.55,
+      "trust_decay_boost": 1.0,
+      "tension_floor_base": 0.0
+    },
+    "actor_count": 10,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.5,
+      "execution_confidence": 0.5,
+      "risk": 0.5,
+      "market_competition": 0.3,
+      "creative_freedom": 0.7,
+      "platform_exclusivity": 0.4,
+      "technical_integration": 0.2
+    },
+    "pair_conflicts": [
+      {
+        "actors": [
+          "Priya",
+          "Naomi"
+        ],
+        "conflict_words": [
+          "integration"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Priya",
+          "Aisha"
+        ],
+        "conflict_words": [
+          "integration"
+        ],
+        "severity": 1
+      }
+    ],
+    "tension_floor_estimates": {
+      "Priya vs Naomi": 0.018,
+      "Priya vs Aisha": 0.018
+    }
+  },
+  {
+    "simulation_id": "microsoft_activision_merger_3actor",
+    "structural_profile": {
+      "polarity": "collaborative",
+      "pressure": "medium",
+      "initial_tension": 0.04,
+      "sycophancy_threshold": 0.55,
+      "trust_decay_boost": 1.0,
+      "tension_floor_base": 0.0
+    },
+    "actor_count": 3,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.5,
+      "execution_confidence": 0.5,
+      "risk": 0.5,
+      "creative_autonomy": 0.4,
+      "platform_access": 0.3,
+      "technical_integration": 0.6
+    },
+    "pair_conflicts": [
+      {
+        "actors": [
+          "Elena",
+          "Raj"
+        ],
+        "conflict_words": [
+          "of"
+        ],
+        "severity": 1
+      }
+    ],
+    "tension_floor_estimates": {
+      "Elena vs Raj": 0.06
+    }
+  },
+  {
+    "simulation_id": "microsoft_activision_merger_5actor",
+    "structural_profile": {
+      "polarity": "collaborative",
+      "pressure": "high",
+      "initial_tension": 0.08,
+      "sycophancy_threshold": 0.55,
+      "trust_decay_boost": 1.0,
+      "tension_floor_base": 0.0
+    },
+    "actor_count": 5,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.5,
+      "execution_confidence": 0.5,
+      "risk": 0.5,
+      "market_competition": 0.3,
+      "creative_autonomy": 0.7,
+      "technical_integration": 0.2
+    },
+    "pair_conflicts": [
+      {
+        "actors": [
+          "Esports CEO",
+          "Indie Dev"
+        ],
+        "conflict_words": [
+          "platform"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Cloud Architect",
+          "Regulator"
+        ],
+        "conflict_words": [
+          "integration"
+        ],
+        "severity": 1
+      }
+    ],
+    "tension_floor_estimates": {
+      "Esports CEO vs Indie Dev": 0.036,
+      "Cloud Architect vs Regulator": 0.036
+    }
+  },
+  {
+    "simulation_id": "netflix_password_crackdown_10actor",
+    "structural_profile": {
+      "polarity": "collaborative",
+      "pressure": "high",
+      "initial_tension": 0.08,
+      "sycophancy_threshold": 0.55,
+      "trust_decay_boost": 1.0,
+      "tension_floor_base": 0.0
+    },
+    "actor_count": 10,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.5,
+      "execution_confidence": 0.5,
+      "risk": 0.5,
+      "subscriber_sentiment": 0.3,
+      "workaround_adoption": 0.6,
+      "competitor_aggressiveness": 0.7
+    },
+    "pair_conflicts": [
+      {
+        "actors": [
+          "Raj",
+          "Mika"
+        ],
+        "conflict_words": [
+          "churn",
+          "content"
+        ],
+        "severity": 2
+      },
+      {
+        "actors": [
+          "Jessica",
+          "Sophie"
+        ],
+        "conflict_words": [
+          "legal"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Mika",
+          "Alex"
+        ],
+        "conflict_words": [
+          "demand"
+        ],
+        "severity": 1
+      }
+    ],
+    "tension_floor_estimates": {
+      "Jessica vs Sophie": 0.018,
+      "Raj vs Mika": 0.036,
+      "Mika vs Alex": 0.018
+    }
+  },
+  {
+    "simulation_id": "netflix_password_crackdown_3actor",
+    "structural_profile": {
+      "polarity": "collaborative",
+      "pressure": "medium",
+      "initial_tension": 0.04,
+      "sycophancy_threshold": 0.55,
+      "trust_decay_boost": 1.0,
+      "tension_floor_base": 0.0
+    },
+    "actor_count": 3,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.5,
+      "execution_confidence": 0.5,
+      "risk": 0.5,
+      "subscriber_sentiment": 0.4,
+      "content_leverage": 0.7,
+      "competitive_intensity": 0.6
+    },
+    "pair_conflicts": [],
+    "tension_floor_estimates": {}
+  },
+  {
+    "simulation_id": "netflix_password_crackdown_5actor",
+    "structural_profile": {
+      "polarity": "collaborative",
+      "pressure": "high",
+      "initial_tension": 0.08,
+      "sycophancy_threshold": 0.55,
+      "trust_decay_boost": 1.0,
+      "tension_floor_base": 0.0
+    },
+    "actor_count": 5,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.5,
+      "execution_confidence": 0.5,
+      "risk": 0.5,
+      "subscriber_churn": 0.7,
+      "workaround_adoption": 0.3,
+      "public_sentiment": 0.4
+    },
+    "pair_conflicts": [
+      {
+        "actors": [
+          "Alex",
+          "Morgan"
+        ],
+        "conflict_words": [
+          "detection"
+        ],
+        "severity": 1
+      }
+    ],
+    "tension_floor_estimates": {
+      "Alex vs Morgan": 0.036
+    }
+  },
+  {
+    "simulation_id": "nyc_congestion_pricing_10actor",
+    "structural_profile": {
+      "polarity": "collaborative",
+      "pressure": "high",
+      "initial_tension": 0.08,
+      "sycophancy_threshold": 0.55,
+      "trust_decay_boost": 1.0,
+      "tension_floor_base": 0.0
+    },
+    "actor_count": 10,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.5,
+      "execution_confidence": 0.5,
+      "risk": 0.5,
+      "revenue_secured": 0.2,
+      "public_approval": 0.4,
+      "implementation_risk": 0.8
+    },
+    "pair_conflicts": [],
+    "tension_floor_estimates": {}
+  },
+  {
+    "simulation_id": "nyc_congestion_pricing_3actor",
+    "structural_profile": {
+      "polarity": "collaborative",
+      "pressure": "medium",
+      "initial_tension": 0.04,
+      "sycophancy_threshold": 0.55,
+      "trust_decay_boost": 1.0,
+      "tension_floor_base": 0.0
+    },
+    "actor_count": 3,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.5,
+      "execution_confidence": 0.5,
+      "risk": 0.5,
+      "public_support": 0.4,
+      "funding_certainty": 0.2,
+      "economic_impact": 0.7
+    },
+    "pair_conflicts": [
+      {
+        "actors": [
+          "Carlos",
+          "Marcus"
+        ],
+        "conflict_words": [
+          "costs"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Priya",
+          "Marcus"
+        ],
+        "conflict_words": [
+          "traffic"
+        ],
+        "severity": 1
+      }
+    ],
+    "tension_floor_estimates": {
+      "Carlos vs Marcus": 0.06,
+      "Priya vs Marcus": 0.06
+    }
+  },
+  {
+    "simulation_id": "nyc_congestion_pricing_5actor",
+    "structural_profile": {
+      "polarity": "collaborative",
+      "pressure": "high",
+      "initial_tension": 0.08,
+      "sycophancy_threshold": 0.55,
+      "trust_decay_boost": 1.0,
+      "tension_floor_base": 0.0
+    },
+    "actor_count": 5,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.5,
+      "execution_confidence": 0.5,
+      "risk": 0.5,
+      "public_support": 0.4,
+      "implementation_risk": 0.7,
+      "revenue_certainty": 0.3
+    },
+    "pair_conflicts": [
+      {
+        "actors": [
+          "Carlos",
+          "Dr. Reynolds"
+        ],
+        "conflict_words": [
+          "burden"
+        ],
+        "severity": 1
+      }
+    ],
+    "tension_floor_estimates": {
+      "Carlos vs Dr. Reynolds": 0.036
+    }
+  },
+  {
+    "simulation_id": "peloton_demand_cliff_10actor",
+    "structural_profile": {
+      "polarity": "collaborative",
+      "pressure": "high",
+      "initial_tension": 0.08,
+      "sycophancy_threshold": 0.55,
+      "trust_decay_boost": 1.0,
+      "tension_floor_base": 0.0
+    },
+    "actor_count": 10,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.5,
+      "execution_confidence": 0.5,
+      "risk": 0.5,
+      "inventory_pressure": 0.8,
+      "talent_risk": 0.6,
+      "acquisition_interest": 0.4
+    },
+    "pair_conflicts": [
+      {
+        "actors": [
+          "Jian",
+          "Maria"
+        ],
+        "conflict_words": [
+          "inventory"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Olivia",
+          "Carl"
+        ],
+        "conflict_words": [
+          "brand"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Olivia",
+          "Daniel"
+        ],
+        "conflict_words": [
+          "brand"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Raj",
+          "Maria"
+        ],
+        "conflict_words": [
+          "costs"
+        ],
+        "severity": 1
+      }
+    ],
+    "tension_floor_estimates": {
+      "Jian vs Maria": 0.018,
+      "Olivia vs Carl": 0.018,
+      "Olivia vs Daniel": 0.018,
+      "Raj vs Maria": 0.018
+    }
+  },
+  {
+    "simulation_id": "peloton_demand_cliff_3actor",
+    "structural_profile": {
+      "polarity": "collaborative",
+      "pressure": "medium",
+      "initial_tension": 0.04,
+      "sycophancy_threshold": 0.55,
+      "trust_decay_boost": 1.0,
+      "tension_floor_base": 0.0
+    },
+    "actor_count": 3,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.5,
+      "execution_confidence": 0.5,
+      "risk": 0.5,
+      "inventory_overhang": 0.8,
+      "workforce_morale": 0.3,
+      "acquisition_interest": 0.5
+    },
+    "pair_conflicts": [
+      {
+        "actors": [
+          "Jamal",
+          "Naomi"
+        ],
+        "conflict_words": [
+          "brand"
+        ],
+        "severity": 1
+      }
+    ],
+    "tension_floor_estimates": {
+      "Jamal vs Naomi": 0.06
+    }
+  },
+  {
+    "simulation_id": "peloton_demand_cliff_5actor",
+    "structural_profile": {
+      "polarity": "collaborative",
+      "pressure": "high",
+      "initial_tension": 0.08,
+      "sycophancy_threshold": 0.55,
+      "trust_decay_boost": 1.0,
+      "tension_floor_base": 0.0
+    },
+    "actor_count": 5,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.5,
+      "execution_confidence": 0.5,
+      "risk": 0.5,
+      "inventory_overhang": 0.8,
+      "talent_attrition_risk": 0.6,
+      "acquisition_interest": 0.4,
+      "operational_cash": 0.3
+    },
+    "pair_conflicts": [
+      {
+        "actors": [
+          "Wei",
+          "Raj"
+        ],
+        "conflict_words": [
+          "inventory",
+          "costs"
+        ],
+        "severity": 2
+      }
+    ],
+    "tension_floor_estimates": {
+      "Wei vs Raj": 0.072
+    }
+  },
+  {
+    "simulation_id": "sf_homelessness_policy_10actor",
+    "structural_profile": {
+      "polarity": "collaborative",
+      "pressure": "high",
+      "initial_tension": 0.08,
+      "sycophancy_threshold": 0.55,
+      "trust_decay_boost": 1.0,
+      "tension_floor_base": 0.0
+    },
+    "actor_count": 10,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.5,
+      "execution_confidence": 0.5,
+      "risk": 0.5,
+      "public_support": 0.4,
+      "service_efficacy": 0.3,
+      "street_conditions": 0.2,
+      "fiscal_health": 0.6
+    },
+    "pair_conflicts": [
+      {
+        "actors": [
+          "Raj",
+          "Mrs. Wong"
+        ],
+        "conflict_words": [
+          "tax",
+          "safety"
+        ],
+        "severity": 2
+      },
+      {
+        "actors": [
+          "Marcus",
+          "Raj"
+        ],
+        "conflict_words": [
+          "tax"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Marcus",
+          "Mrs. Wong"
+        ],
+        "conflict_words": [
+          "safety"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Teresa",
+          "Councilmember Lee"
+        ],
+        "conflict_words": [
+          "policy"
+        ],
+        "severity": 1
+      }
+    ],
+    "tension_floor_estimates": {
+      "Marcus vs Raj": 0.018,
+      "Marcus vs Mrs. Wong": 0.018,
+      "Teresa vs Councilmember Lee": 0.018,
+      "Raj vs Mrs. Wong": 0.036
+    }
+  },
+  {
+    "simulation_id": "sf_homelessness_policy_3actor",
+    "structural_profile": {
+      "polarity": "collaborative",
+      "pressure": "medium",
+      "initial_tension": 0.04,
+      "sycophancy_threshold": 0.55,
+      "trust_decay_boost": 1.0,
+      "tension_floor_base": 0.0
+    },
+    "actor_count": 3,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.5,
+      "execution_confidence": 0.5,
+      "risk": 0.5,
+      "public_safety": 0.3,
+      "trust_in_system": 0.5,
+      "fiscal_sustainability": 0.4
+    },
+    "pair_conflicts": [],
+    "tension_floor_estimates": {}
+  },
+  {
+    "simulation_id": "sf_homelessness_policy_5actor",
+    "structural_profile": {
+      "polarity": "collaborative",
+      "pressure": "high",
+      "initial_tension": 0.08,
+      "sycophancy_threshold": 0.55,
+      "trust_decay_boost": 1.0,
+      "tension_floor_base": 0.0
+    },
+    "actor_count": 5,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.5,
+      "execution_confidence": 0.5,
+      "risk": 0.5,
+      "public_safety": 0.3,
+      "service_access": 0.5,
+      "business_viability": 0.2,
+      "trust_in_system": 0.4,
+      "budget_utilization": 0.6
+    },
+    "pair_conflicts": [],
+    "tension_floor_estimates": {}
+  },
+  {
+    "simulation_id": "singapore_hdb_waittime_crisis_10actor",
+    "structural_profile": {
+      "polarity": "collaborative",
+      "pressure": "high",
+      "initial_tension": 0.08,
+      "sycophancy_threshold": 0.55,
+      "trust_decay_boost": 1.0,
+      "tension_floor_base": 0.0
+    },
+    "actor_count": 10,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.5,
+      "execution_confidence": 0.5,
+      "risk": 0.5,
+      "housing_supply": 0.3,
+      "public_trust": 0.5,
+      "construction_capacity": 0.4,
+      "family_planning_stress": 0.8
+    },
+    "pair_conflicts": [],
+    "tension_floor_estimates": {}
+  },
+  {
+    "simulation_id": "singapore_hdb_waittime_crisis_3actor",
+    "structural_profile": {
+      "polarity": "collaborative",
+      "pressure": "medium",
+      "initial_tension": 0.04,
+      "sycophancy_threshold": 0.55,
+      "trust_decay_boost": 1.0,
+      "tension_floor_base": 0.0
+    },
+    "actor_count": 3,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.5,
+      "execution_confidence": 0.5,
+      "risk": 0.5,
+      "housing_supply": 0.3,
+      "public_anger": 0.7,
+      "labor_availability": 0.4
+    },
+    "pair_conflicts": [
+      {
+        "actors": [
+          "Mr. Tan",
+          "Mdm. Lim"
+        ],
+        "conflict_words": [
+          "for"
+        ],
+        "severity": 1
+      }
+    ],
+    "tension_floor_estimates": {
+      "Mr. Tan vs Mdm. Lim": 0.06
+    }
+  },
+  {
+    "simulation_id": "singapore_hdb_waittime_crisis_5actor",
+    "structural_profile": {
+      "polarity": "collaborative",
+      "pressure": "high",
+      "initial_tension": 0.08,
+      "sycophancy_threshold": 0.55,
+      "trust_decay_boost": 1.0,
+      "tension_floor_base": 0.0
+    },
+    "actor_count": 5,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.5,
+      "execution_confidence": 0.5,
+      "risk": 0.5,
+      "housing_supply": 0.3,
+      "labor_capacity": 0.4,
+      "public_anger": 0.8,
+      "policy_flexibility": 0.5
+    },
+    "pair_conflicts": [
+      {
+        "actors": [
+          "Mei Ling",
+          "Ah Ma"
+        ],
+        "conflict_words": [
+          "for"
+        ],
+        "severity": 1
+      }
+    ],
+    "tension_floor_estimates": {
+      "Mei Ling vs Ah Ma": 0.036
+    }
+  },
+  {
+    "simulation_id": "starbucks_unionization_10actor",
+    "structural_profile": {
+      "polarity": "collaborative",
+      "pressure": "high",
+      "initial_tension": 0.08,
+      "sycophancy_threshold": 0.55,
+      "trust_decay_boost": 1.0,
+      "tension_floor_base": 0.0
+    },
+    "actor_count": 10,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.5,
+      "execution_confidence": 0.5,
+      "risk": 0.5,
+      "public_support": 0.5,
+      "legal_risk": 0.3,
+      "worker_solidarity": 0.6,
+      "brand_damage": 0.2,
+      "store_profitability": 0.7
+    },
+    "pair_conflicts": [
+      {
+        "actors": [
+          "Alex",
+          "Riley"
+        ],
+        "conflict_words": [
+          "legal"
+        ],
+        "severity": 1
+      }
+    ],
+    "tension_floor_estimates": {
+      "Alex vs Riley": 0.018
+    }
+  },
+  {
+    "simulation_id": "starbucks_unionization_3actor",
+    "structural_profile": {
+      "polarity": "fragmented",
+      "pressure": "medium",
+      "initial_tension": 0.12,
+      "sycophancy_threshold": 0.48,
+      "trust_decay_boost": 1.2,
+      "tension_floor_base": 0.06
+    },
+    "actor_count": 3,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.5,
+      "execution_confidence": 0.5,
+      "risk": 0.5,
+      "worker_morale": 0.3,
+      "corporate_pressure": 0.7,
+      "community_support": 0.5
+    },
+    "pair_conflicts": [
+      {
+        "actors": [
+          "Alex",
+          "Morgan"
+        ],
+        "conflict_words": [
+          "corporate",
+          "staff"
+        ],
+        "severity": 2
+      }
+    ],
+    "tension_floor_estimates": {
+      "Alex vs Morgan": 0.18
+    }
+  },
+  {
+    "simulation_id": "starbucks_unionization_5actor",
+    "structural_profile": {
+      "polarity": "collaborative",
+      "pressure": "high",
+      "initial_tension": 0.08,
+      "sycophancy_threshold": 0.55,
+      "trust_decay_boost": 1.0,
+      "tension_floor_base": 0.0
+    },
+    "actor_count": 5,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.5,
+      "execution_confidence": 0.5,
+      "risk": 0.5,
+      "public_sentiment": 0.4,
+      "union_support": 0.6,
+      "corporate_pressure": 0.7
+    },
+    "pair_conflicts": [],
+    "tension_floor_estimates": {}
+  },
+  {
+    "simulation_id": "svb_bank_run_10actor",
+    "structural_profile": {
+      "polarity": "collaborative",
+      "pressure": "high",
+      "initial_tension": 0.08,
+      "sycophancy_threshold": 0.55,
+      "trust_decay_boost": 1.0,
+      "tension_floor_base": 0.0
+    },
+    "actor_count": 10,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.5,
+      "execution_confidence": 0.5,
+      "risk": 0.5,
+      "liquidity_crisis": 0.8,
+      "public_trust": 0.4,
+      "regulatory_aggression": 0.3,
+      "vc_coordination": 0.6
+    },
+    "pair_conflicts": [
+      {
+        "actors": [
+          "Jordan",
+          "Riley"
+        ],
+        "conflict_words": [
+          "liability"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Jordan",
+          "Drew"
+        ],
+        "conflict_words": [
+          "liability"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Taylor",
+          "Morgan"
+        ],
+        "conflict_words": [
+          "pressure"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Casey",
+          "Morgan"
+        ],
+        "conflict_words": [
+          "industry"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Riley",
+          "Blair"
+        ],
+        "conflict_words": [
+          "liability"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Drew",
+          "Blair"
+        ],
+        "conflict_words": [
+          "liability"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Drew",
+          "Quinn"
+        ],
+        "conflict_words": [
+          "cash"
+        ],
+        "severity": 1
+      }
+    ],
+    "tension_floor_estimates": {
+      "Jordan vs Riley": 0.018,
+      "Jordan vs Drew": 0.018,
+      "Taylor vs Morgan": 0.018,
+      "Casey vs Morgan": 0.018,
+      "Riley vs Blair": 0.018,
+      "Drew vs Blair": 0.018,
+      "Drew vs Quinn": 0.018
+    }
+  },
+  {
+    "simulation_id": "svb_bank_run_3actor",
+    "structural_profile": {
+      "polarity": "collaborative",
+      "pressure": "medium",
+      "initial_tension": 0.04,
+      "sycophancy_threshold": 0.55,
+      "trust_decay_boost": 1.0,
+      "tension_floor_base": 0.0
+    },
+    "actor_count": 3,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.5,
+      "execution_confidence": 0.5,
+      "risk": 0.5,
+      "liquidity_shortfall": 0.8,
+      "regulatory_urgency": 0.6,
+      "public_panic": 0.4
+    },
+    "pair_conflicts": [],
+    "tension_floor_estimates": {}
+  },
+  {
+    "simulation_id": "svb_bank_run_5actor",
+    "structural_profile": {
+      "polarity": "collaborative",
+      "pressure": "high",
+      "initial_tension": 0.08,
+      "sycophancy_threshold": 0.55,
+      "trust_decay_boost": 1.0,
+      "tension_floor_base": 0.0
+    },
+    "actor_count": 5,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.5,
+      "execution_confidence": 0.5,
+      "risk": 0.5,
+      "systemic_risk": 0.7,
+      "liquidity_available": 0.2,
+      "public_trust": 0.4,
+      "regulatory_pressure": 0.6,
+      "time_remaining": 0.3
+    },
+    "pair_conflicts": [
+      {
+        "actors": [
+          "Alex",
+          "Casey"
+        ],
+        "conflict_words": [
+          "funding"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Jordan",
+          "Riley"
+        ],
+        "conflict_words": [
+          "personal"
+        ],
+        "severity": 1
+      }
+    ],
+    "tension_floor_estimates": {
+      "Alex vs Casey": 0.036,
+      "Jordan vs Riley": 0.036
+    }
+  },
+  {
+    "simulation_id": "theranos_whistleblower_10actor",
+    "structural_profile": {
+      "polarity": "collaborative",
+      "pressure": "high",
+      "initial_tension": 0.08,
+      "sycophancy_threshold": 0.55,
+      "trust_decay_boost": 1.0,
+      "tension_floor_base": 0.0
+    },
+    "actor_count": 10,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.5,
+      "execution_confidence": 0.5,
+      "risk": 0.5,
+      "public_trust": 0.3,
+      "legal_risk": 0.7,
+      "patient_harm": 0.8
+    },
+    "pair_conflicts": [
+      {
+        "actors": [
+          "Dr. Chen",
+          "Dr. Park"
+        ],
+        "conflict_words": [
+          "reputation",
+          "patient"
+        ],
+        "severity": 2
+      },
+      {
+        "actors": [
+          "Ethan",
+          "Dr. Chen"
+        ],
+        "conflict_words": [
+          "legal"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Ethan",
+          "Maria"
+        ],
+        "conflict_words": [
+          "consequences"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Ethan",
+          "Sarah"
+        ],
+        "conflict_words": [
+          "legal"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Ethan",
+          "Linda"
+        ],
+        "conflict_words": [
+          "legal"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Dr. Chen",
+          "Sarah"
+        ],
+        "conflict_words": [
+          "professional"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Dr. Chen",
+          "Mr. Lawson"
+        ],
+        "conflict_words": [
+          "liability"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Dr. Chen",
+          "Tyler"
+        ],
+        "conflict_words": [
+          "liability"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Maria",
+          "Greg"
+        ],
+        "conflict_words": [
+          "health"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Sarah",
+          "Dr. Park"
+        ],
+        "conflict_words": [
+          "professional"
+        ],
+        "severity": 1
+      }
+    ],
+    "tension_floor_estimates": {
+      "Ethan vs Dr. Chen": 0.018,
+      "Ethan vs Maria": 0.018,
+      "Ethan vs Sarah": 0.018,
+      "Ethan vs Linda": 0.018,
+      "Dr. Chen vs Sarah": 0.018,
+      "Dr. Chen vs Mr. Lawson": 0.018,
+      "Dr. Chen vs Dr. Park": 0.036,
+      "Dr. Chen vs Tyler": 0.018,
+      "Maria vs Greg": 0.018,
+      "Sarah vs Dr. Park": 0.018
+    }
+  },
+  {
+    "simulation_id": "theranos_whistleblower_3actor",
+    "structural_profile": {
+      "polarity": "collaborative",
+      "pressure": "medium",
+      "initial_tension": 0.04,
+      "sycophancy_threshold": 0.55,
+      "trust_decay_boost": 1.0,
+      "tension_floor_base": 0.0
+    },
+    "actor_count": 3,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.5,
+      "execution_confidence": 0.5,
+      "risk": 0.5,
+      "public_trust": 0.3,
+      "legal_risk": 0.7,
+      "patient_safety": 0.4
+    },
+    "pair_conflicts": [
+      {
+        "actors": [
+          "Ethan",
+          "Dr. Patel"
+        ],
+        "conflict_words": [
+          "legal"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Ethan",
+          "Sarah"
+        ],
+        "conflict_words": [
+          "from"
+        ],
+        "severity": 1
+      }
+    ],
+    "tension_floor_estimates": {
+      "Ethan vs Dr. Patel": 0.06,
+      "Ethan vs Sarah": 0.06
+    }
+  },
+  {
+    "simulation_id": "theranos_whistleblower_5actor",
+    "structural_profile": {
+      "polarity": "collaborative",
+      "pressure": "high",
+      "initial_tension": 0.08,
+      "sycophancy_threshold": 0.55,
+      "trust_decay_boost": 1.0,
+      "tension_floor_base": 0.0
+    },
+    "actor_count": 5,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.5,
+      "execution_confidence": 0.5,
+      "risk": 0.5,
+      "legal_risk": 0.5,
+      "patient_harm": 0.7,
+      "public_exposure": 0.2
+    },
+    "pair_conflicts": [
+      {
+        "actors": [
+          "Erika",
+          "Tyler"
+        ],
+        "conflict_words": [
+          "liability",
+          "criminal"
+        ],
+        "severity": 2
+      },
+      {
+        "actors": [
+          "Erika",
+          "Dr. Chaudhry"
+        ],
+        "conflict_words": [
+          "liability"
+        ],
+        "severity": 1
+      }
+    ],
+    "tension_floor_estimates": {
+      "Erika vs Dr. Chaudhry": 0.036,
+      "Erika vs Tyler": 0.072
+    }
+  },
+  {
+    "simulation_id": "uk_post_office_horizon_10actor",
+    "structural_profile": {
+      "polarity": "collaborative",
+      "pressure": "high",
+      "initial_tension": 0.08,
+      "sycophancy_threshold": 0.55,
+      "trust_decay_boost": 1.0,
+      "tension_floor_base": 0.0
+    },
+    "actor_count": 10,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.5,
+      "execution_confidence": 0.5,
+      "risk": 0.5,
+      "public_trust": 0.2,
+      "legal_risk": 0.4,
+      "media_attention": 0.5,
+      "worker_solidarity": 0.3
+    },
+    "pair_conflicts": [
+      {
+        "actors": [
+          "Joanne",
+          "Gareth"
+        ],
+        "conflict_words": [
+          "media"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Raj",
+          "Kev"
+        ],
+        "conflict_words": [
+          "legal"
+        ],
+        "severity": 1
+      }
+    ],
+    "tension_floor_estimates": {
+      "Joanne vs Gareth": 0.018,
+      "Raj vs Kev": 0.018
+    }
+  },
+  {
+    "simulation_id": "uk_post_office_horizon_3actor",
+    "structural_profile": {
+      "polarity": "collaborative",
+      "pressure": "medium",
+      "initial_tension": 0.04,
+      "sycophancy_threshold": 0.55,
+      "trust_decay_boost": 1.0,
+      "tension_floor_base": 0.0
+    },
+    "actor_count": 3,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.5,
+      "execution_confidence": 0.5,
+      "risk": 0.5,
+      "public_trust": 0.2,
+      "legal_risk": 0.5,
+      "financial_liability": 0.3
+    },
+    "pair_conflicts": [
+      {
+        "actors": [
+          "Raj",
+          "Margaret"
+        ],
+        "conflict_words": [
+          "personal"
+        ],
+        "severity": 1
+      }
+    ],
+    "tension_floor_estimates": {
+      "Raj vs Margaret": 0.06
+    }
+  },
+  {
+    "simulation_id": "uk_post_office_horizon_5actor",
+    "structural_profile": {
+      "polarity": "collaborative",
+      "pressure": "high",
+      "initial_tension": 0.08,
+      "sycophancy_threshold": 0.55,
+      "trust_decay_boost": 1.0,
+      "tension_floor_base": 0.0
+    },
+    "actor_count": 5,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.5,
+      "execution_confidence": 0.5,
+      "risk": 0.5,
+      "public_trust": 0.2,
+      "financial_liability": 0.8,
+      "systemic_reform": 0.1
+    },
+    "pair_conflicts": [],
+    "tension_floor_estimates": {}
+  },
+  {
+    "simulation_id": "wework_ipo_collapse_10actor",
+    "structural_profile": {
+      "polarity": "collaborative",
+      "pressure": "high",
+      "initial_tension": 0.08,
+      "sycophancy_threshold": 0.55,
+      "trust_decay_boost": 1.0,
+      "tension_floor_base": 0.0
+    },
+    "actor_count": 10,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.5,
+      "execution_confidence": 0.5,
+      "risk": 0.5,
+      "valuation_confidence": 0.2,
+      "lease_enforceability": 0.7,
+      "workforce_stability": 0.3
+    },
+    "pair_conflicts": [
+      {
+        "actors": [
+          "WeWork Lawyer",
+          "Building Landlord"
+        ],
+        "conflict_words": [
+          "lease"
+        ],
+        "severity": 1
+      }
+    ],
+    "tension_floor_estimates": {
+      "WeWork Lawyer vs Building Landlord": 0.018
+    }
+  },
+  {
+    "simulation_id": "wework_ipo_collapse_3actor",
+    "structural_profile": {
+      "polarity": "collaborative",
+      "pressure": "medium",
+      "initial_tension": 0.04,
+      "sycophancy_threshold": 0.55,
+      "trust_decay_boost": 1.0,
+      "tension_floor_base": 0.0
+    },
+    "actor_count": 3,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.5,
+      "execution_confidence": 0.5,
+      "risk": 0.5,
+      "financial_exposure": 0.8,
+      "reputational_risk": 0.7,
+      "employee_morale": 0.3
+    },
+    "pair_conflicts": [],
+    "tension_floor_estimates": {}
+  },
+  {
+    "simulation_id": "wework_ipo_collapse_5actor",
+    "structural_profile": {
+      "polarity": "collaborative",
+      "pressure": "high",
+      "initial_tension": 0.08,
+      "sycophancy_threshold": 0.55,
+      "trust_decay_boost": 1.0,
+      "tension_floor_base": 0.0
+    },
+    "actor_count": 5,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.5,
+      "execution_confidence": 0.5,
+      "risk": 0.5,
+      "financial_stability": 0.2,
+      "legal_risk": 0.7,
+      "member_trust": 0.4,
+      "operational_continuity": 0.5,
+      "reputational_damage": 0.8
+    },
+    "pair_conflicts": [
+      {
+        "actors": [
+          "Janet",
+          "Elena"
+        ],
+        "conflict_words": [
+          "operational"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Marcus",
+          "David"
+        ],
+        "conflict_words": [
+          "transition"
+        ],
+        "severity": 1
+      }
+    ],
+    "tension_floor_estimates": {
+      "Janet vs Elena": 0.036,
+      "Marcus vs David": 0.036
+    }
+  },
+  {
+    "simulation_id": "zoom_return_to_office_10actor",
+    "structural_profile": {
+      "polarity": "collaborative",
+      "pressure": "high",
+      "initial_tension": 0.08,
+      "sycophancy_threshold": 0.55,
+      "trust_decay_boost": 1.0,
+      "tension_floor_base": 0.0
+    },
+    "actor_count": 10,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.5,
+      "execution_confidence": 0.5,
+      "risk": 0.5,
+      "policy_rigidity": 0.7,
+      "talent_retention_risk": 0.4,
+      "real_estate_loss": 0.8,
+      "productivity_score": 0.6
+    },
+    "pair_conflicts": [
+      {
+        "actors": [
+          "Jamie",
+          "Tom"
+        ],
+        "conflict_words": [
+          "productivity"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Rahul",
+          "Ming"
+        ],
+        "conflict_words": [
+          "engineer"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Lisa",
+          "Elena"
+        ],
+        "conflict_words": [
+          "office"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Carlos",
+          "Tom"
+        ],
+        "conflict_words": [
+          "talent"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Priya",
+          "Tom"
+        ],
+        "conflict_words": [
+          "talent"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Priya",
+          "Daniel"
+        ],
+        "conflict_words": [
+          "policy"
+        ],
+        "severity": 1
+      },
+      {
+        "actors": [
+          "Ming",
+          "Daniel"
+        ],
+        "conflict_words": [
+          "policy"
+        ],
+        "severity": 1
+      }
+    ],
+    "tension_floor_estimates": {
+      "Jamie vs Tom": 0.018,
+      "Rahul vs Ming": 0.018,
+      "Lisa vs Elena": 0.018,
+      "Carlos vs Tom": 0.018,
+      "Priya vs Tom": 0.018,
+      "Priya vs Daniel": 0.018,
+      "Ming vs Daniel": 0.018
+    }
+  },
+  {
+    "simulation_id": "zoom_return_to_office_3actor",
+    "structural_profile": {
+      "polarity": "collaborative",
+      "pressure": "medium",
+      "initial_tension": 0.04,
+      "sycophancy_threshold": 0.55,
+      "trust_decay_boost": 1.0,
+      "tension_floor_base": 0.0
+    },
+    "actor_count": 3,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.5,
+      "execution_confidence": 0.5,
+      "risk": 0.5,
+      "talent_retention_risk": 0.6,
+      "policy_flexibility": 0.3,
+      "competitor_opportunity": 0.7
+    },
+    "pair_conflicts": [],
+    "tension_floor_estimates": {}
+  },
+  {
+    "simulation_id": "zoom_return_to_office_5actor",
+    "structural_profile": {
+      "polarity": "collaborative",
+      "pressure": "high",
+      "initial_tension": 0.08,
+      "sycophancy_threshold": 0.55,
+      "trust_decay_boost": 1.0,
+      "tension_floor_base": 0.0
+    },
+    "actor_count": 5,
+    "phase_count": 4,
+    "phase_styles": [
+      "neutral",
+      "disagreement",
+      "consensus",
+      "neutral"
+    ],
+    "initial_world_state": {
+      "alignment": 0.5,
+      "trust": 0.5,
+      "uncertainty": 0.5,
+      "execution_confidence": 0.5,
+      "risk": 0.5,
+      "talent_retention": 0.5,
+      "legal_risk": 0.3,
+      "facility_utilization": 0.8
+    },
+    "pair_conflicts": [
+      {
+        "actors": [
+          "Jordan",
+          "Avery"
+        ],
+        "conflict_words": [
+          "culture"
+        ],
+        "severity": 1
+      }
+    ],
+    "tension_floor_estimates": {
+      "Jordan vs Avery": 0.036
+    }
+  }
+]

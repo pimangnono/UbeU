@@ -1,0 +1,860 @@
+{
+  "simulation_id": "singapore_hdb_waittime_crisis_5actor",
+  "title": "Singapore HDB BTO Wait Time Crisis",
+  "objective": "Simulate stakeholder negotiations addressing public housing delays affecting marriage timelines, labor shortages, and resale market challenges.",
+  "brief": "Singapore HDB public housing BTO wait time crisis (2020-2023). Build-To-Order flat wait times ballooned from 3 to 5+ years due to COVID construction delays and supply chain disruptions, forcing couples to delay marriage and family planning. Stakeholders: a young couple in their late 20s who have delayed marriage for 3 years waiting for their BTO flat, a construction workers' union representative facing severe labor shortages after migrant worker dormitory lockdowns, an elderly flat owner who cannot downsize because resale market rules changed and prices surged, and an urban planner proposing satellite town expansion to increase supply.",
+  "stakeholders": [
+    {
+      "actor_id": "actor_1",
+      "display_name": "Jia Wei",
+      "role": "Young professional awaiting BTO flat",
+      "identity_core": {
+        "position": "First-time homebuyer",
+        "domain": "Finance sector"
+      },
+      "personality_prior": {
+        "O": 0.7,
+        "C": 0.8,
+        "E": 0.5,
+        "A": 0.6,
+        "N": 0.4
+      },
+      "personality_envelope": {
+        "O": [
+          0.52,
+          0.88
+        ],
+        "C": [
+          0.62,
+          0.98
+        ],
+        "E": [
+          0.32,
+          0.68
+        ],
+        "A": [
+          0.42,
+          0.78
+        ],
+        "N": [
+          0.22,
+          0.58
+        ]
+      },
+      "incentives": [
+        "Start family soon",
+        "Financial stability"
+      ],
+      "concerns": [
+        "Aging out of eligibility quotas",
+        "Wedding deposits expiring"
+      ],
+      "communication_style": {
+        "tone": "frustrated",
+        "brevity": "moderate"
+      },
+      "experience_summary": "",
+      "salient_memories": [],
+      "private_context": {},
+      "implicit_goals": []
+    },
+    {
+      "actor_id": "actor_2",
+      "display_name": "Mei Ling",
+      "role": "Jia Wei's fianc\u00e9e",
+      "identity_core": {
+        "position": "Healthcare worker",
+        "domain": "Public hospital"
+      },
+      "personality_prior": {
+        "O": 0.5,
+        "C": 0.9,
+        "E": 0.3,
+        "A": 0.7,
+        "N": 0.6
+      },
+      "personality_envelope": {
+        "O": [
+          0.32,
+          0.68
+        ],
+        "C": [
+          0.72,
+          1.0
+        ],
+        "E": [
+          0.12,
+          0.48
+        ],
+        "A": [
+          0.52,
+          0.88
+        ],
+        "N": [
+          0.42,
+          0.78
+        ]
+      },
+      "incentives": [
+        "Secure housing before turning 30",
+        "Parental pressure relief"
+      ],
+      "concerns": [
+        "Biological clock for children",
+        "Rental costs draining savings"
+      ],
+      "communication_style": {
+        "tone": "anxious",
+        "brevity": "detailed"
+      },
+      "experience_summary": "",
+      "salient_memories": [],
+      "private_context": {},
+      "implicit_goals": []
+    },
+    {
+      "actor_id": "actor_3",
+      "display_name": "Rahim",
+      "role": "Construction union leader",
+      "identity_core": {
+        "position": "Secretary-General",
+        "domain": "Building and Construction Trade Union"
+      },
+      "personality_prior": {
+        "O": 0.3,
+        "C": 0.6,
+        "E": 0.8,
+        "A": 0.4,
+        "N": 0.2
+      },
+      "personality_envelope": {
+        "O": [
+          0.12,
+          0.48
+        ],
+        "C": [
+          0.42,
+          0.78
+        ],
+        "E": [
+          0.62,
+          0.98
+        ],
+        "A": [
+          0.22,
+          0.58
+        ],
+        "N": [
+          0.02,
+          0.38
+        ]
+      },
+      "incentives": [
+        "Worker safety guarantees",
+        "Overtime pay increases"
+      ],
+      "concerns": [
+        "Foreign worker quota restrictions",
+        "Project penalty clauses"
+      ],
+      "communication_style": {
+        "tone": "assertive",
+        "brevity": "moderate"
+      },
+      "experience_summary": "",
+      "salient_memories": [],
+      "private_context": {},
+      "implicit_goals": []
+    },
+    {
+      "actor_id": "actor_4",
+      "display_name": "Ah Ma",
+      "role": "Elderly flat owner",
+      "identity_core": {
+        "position": "Retiree",
+        "domain": "Community volunteer"
+      },
+      "personality_prior": {
+        "O": 0.2,
+        "C": 0.7,
+        "E": 0.4,
+        "A": 0.9,
+        "N": 0.3
+      },
+      "personality_envelope": {
+        "O": [
+          0.02,
+          0.38
+        ],
+        "C": [
+          0.52,
+          0.88
+        ],
+        "E": [
+          0.22,
+          0.58
+        ],
+        "A": [
+          0.72,
+          1.0
+        ],
+        "N": [
+          0.12,
+          0.48
+        ]
+      },
+      "incentives": [
+        "Downsize for retirement funds",
+        "Stay near family"
+      ],
+      "concerns": [
+        "15-month resale waiting period",
+        "Cash-over-valuation premiums"
+      ],
+      "communication_style": {
+        "tone": "pleading",
+        "brevity": "verbose"
+      },
+      "experience_summary": "",
+      "salient_memories": [],
+      "private_context": {},
+      "implicit_goals": []
+    },
+    {
+      "actor_id": "actor_5",
+      "display_name": "Dr. Tan",
+      "role": "URA urban planner",
+      "identity_core": {
+        "position": "Senior Director",
+        "domain": "Strategic Planning"
+      },
+      "personality_prior": {
+        "O": 0.8,
+        "C": 0.9,
+        "E": 0.6,
+        "A": 0.5,
+        "N": 0.1
+      },
+      "personality_envelope": {
+        "O": [
+          0.62,
+          0.98
+        ],
+        "C": [
+          0.72,
+          1.0
+        ],
+        "E": [
+          0.42,
+          0.78
+        ],
+        "A": [
+          0.32,
+          0.68
+        ],
+        "N": [
+          0.0,
+          0.28
+        ]
+      },
+      "incentives": [
+        "Satellite town viability",
+        "Policy legacy building"
+      ],
+      "concerns": [
+        "Land reclamation costs",
+        "Transport infrastructure lag"
+      ],
+      "communication_style": {
+        "tone": "analytical",
+        "brevity": "detailed"
+      },
+      "experience_summary": "",
+      "salient_memories": [],
+      "private_context": {},
+      "implicit_goals": []
+    }
+  ],
+  "phases": [
+    {
+      "name": "OPENING",
+      "goal": "Establish personal impacts of delays",
+      "style": "neutral",
+      "max_turns": 4,
+      "cues": [
+        "Describe your housing situation",
+        "State top priority"
+      ],
+      "target_actor_ids": [],
+      "visibility": "public",
+      "description": ""
+    },
+    {
+      "name": "TENSION",
+      "goal": "Surface conflicting needs",
+      "style": "disagreement",
+      "max_turns": 4,
+      "cues": [
+        "What's unfair about current policies?",
+        "Who bears responsibility?"
+      ],
+      "target_actor_ids": [],
+      "visibility": "public",
+      "description": ""
+    },
+    {
+      "name": "NEGOTIATION",
+      "goal": "Propose compromise solutions",
+      "style": "consensus",
+      "max_turns": 4,
+      "cues": [
+        "What could you concede?",
+        "Novel policy ideas"
+      ],
+      "target_actor_ids": [],
+      "visibility": "public",
+      "description": ""
+    },
+    {
+      "name": "CLOSING",
+      "goal": "Identify actionable next steps",
+      "style": "neutral",
+      "max_turns": 2,
+      "cues": [
+        "Concrete commitments",
+        "Follow-up timeline"
+      ],
+      "target_actor_ids": [],
+      "visibility": "public",
+      "description": ""
+    }
+  ],
+  "scenario_family": "public_policy_crisis",
+  "simulation_mode": "guided",
+  "outcome_spec": {
+    "fixed_ending": true,
+    "target_end_state": {
+      "alignment": "increase",
+      "uncertainty": "decrease"
+    },
+    "evaluation_focus": [
+      "persona_stability",
+      "action_coherence"
+    ]
+  },
+  "world_events": [
+    {
+      "event_id": "evt_1",
+      "title": "New COVID Variant Outbreak",
+      "description": "Fresh lockdowns halt construction sites for 6 weeks",
+      "trigger_phase": "TENSION",
+      "trigger_turn": null,
+      "visibility": "public",
+      "affected_actor_ids": [],
+      "metadata": {}
+    },
+    {
+      "event_id": "evt_2",
+      "title": "Birth Rate Report",
+      "description": "National statistics show record-low fertility rates",
+      "trigger_phase": "NEGOTIATION",
+      "trigger_turn": null,
+      "visibility": "public",
+      "affected_actor_ids": [],
+      "metadata": {}
+    }
+  ],
+  "world_state_schema": [
+    "alignment",
+    "trust",
+    "uncertainty",
+    "execution_confidence",
+    "risk",
+    "housing_supply",
+    "labor_capacity",
+    "public_anger",
+    "policy_flexibility"
+  ],
+  "initial_world_state": {
+    "alignment": 0.5,
+    "trust": 0.5,
+    "uncertainty": 0.5,
+    "execution_confidence": 0.5,
+    "risk": 0.5,
+    "housing_supply": 0.3,
+    "labor_capacity": 0.4,
+    "public_anger": 0.8,
+    "policy_flexibility": 0.5
+  },
+  "allowed_action_types": [
+    "assign_owner",
+    "request_evidence",
+    "publish_update",
+    "narrow_scope",
+    "pilot",
+    "commit_resource",
+    "defer_decision",
+    "preserve_autonomy"
+  ],
+  "transition_rules": {
+    "OPENING": {
+      "request_evidence": {
+        "global_deltas": {
+          "public_anger": 0.05
+        },
+        "owner_local_deltas": {
+          "execution_confidence": -0.1
+        },
+        "target_local_deltas": {},
+        "feedback_template": "Emotional appeals increase public pressure"
+      },
+      "publish_update": {
+        "global_deltas": {
+          "trust": 0.08,
+          "alignment": 0.08
+        },
+        "owner_local_deltas": {
+          "trust": 0.04
+        },
+        "target_local_deltas": {
+          "trust": 0.04
+        },
+        "feedback_template": "communication action shifts the visible state."
+      }
+    },
+    "TENSION": {
+      "request_evidence": {
+        "global_deltas": {
+          "uncertainty": -0.08,
+          "risk": -0.08
+        },
+        "owner_local_deltas": {
+          "execution_confidence": 0.04
+        },
+        "target_local_deltas": {},
+        "feedback_template": "evidence action shifts the visible state."
+      },
+      "narrow_scope": {
+        "global_deltas": {
+          "risk": -0.08,
+          "uncertainty": -0.08
+        },
+        "owner_local_deltas": {
+          "trust": 0.04
+        },
+        "target_local_deltas": {},
+        "feedback_template": "scope action shifts the visible state."
+      },
+      "pilot": {
+        "global_deltas": {
+          "uncertainty": -0.08,
+          "risk": -0.08
+        },
+        "owner_local_deltas": {
+          "execution_confidence": 0.04
+        },
+        "target_local_deltas": {},
+        "feedback_template": "scope action shifts the visible state."
+      },
+      "defer_decision": {
+        "global_deltas": {
+          "uncertainty": -0.08
+        },
+        "owner_local_deltas": {
+          "trust": 0.04
+        },
+        "target_local_deltas": {},
+        "feedback_template": "timing action shifts the visible state."
+      },
+      "preserve_autonomy": {
+        "global_deltas": {
+          "trust": 0.08
+        },
+        "owner_local_deltas": {
+          "trust": 0.04
+        },
+        "target_local_deltas": {
+          "trust": 0.04
+        },
+        "feedback_template": "governance action shifts the visible state."
+      }
+    },
+    "NEGOTIATION": {
+      "assign_owner": {
+        "global_deltas": {
+          "execution_confidence": 0.08,
+          "alignment": 0.08
+        },
+        "owner_local_deltas": {
+          "execution_confidence": 0.04
+        },
+        "target_local_deltas": {},
+        "feedback_template": "ownership action shifts the visible state."
+      },
+      "pilot": {
+        "global_deltas": {
+          "uncertainty": -0.08,
+          "risk": -0.08
+        },
+        "owner_local_deltas": {
+          "execution_confidence": 0.04
+        },
+        "target_local_deltas": {},
+        "feedback_template": "scope action shifts the visible state."
+      },
+      "publish_update": {
+        "global_deltas": {
+          "trust": 0.08,
+          "alignment": 0.08
+        },
+        "owner_local_deltas": {
+          "trust": 0.04
+        },
+        "target_local_deltas": {
+          "trust": 0.04
+        },
+        "feedback_template": "communication action shifts the visible state."
+      },
+      "commit_resource": {
+        "global_deltas": {
+          "execution_confidence": 0.08
+        },
+        "owner_local_deltas": {
+          "execution_confidence": 0.04
+        },
+        "target_local_deltas": {},
+        "feedback_template": "resourcing action shifts the visible state."
+      },
+      "preserve_autonomy": {
+        "global_deltas": {
+          "trust": 0.08
+        },
+        "owner_local_deltas": {
+          "trust": 0.04
+        },
+        "target_local_deltas": {
+          "trust": 0.04
+        },
+        "feedback_template": "governance action shifts the visible state."
+      },
+      "narrow_scope": {
+        "global_deltas": {
+          "risk": -0.08,
+          "uncertainty": -0.08
+        },
+        "owner_local_deltas": {
+          "trust": 0.04
+        },
+        "target_local_deltas": {},
+        "feedback_template": "scope action shifts the visible state."
+      }
+    },
+    "CLOSING": {
+      "assign_owner": {
+        "global_deltas": {
+          "execution_confidence": 0.08,
+          "alignment": 0.08
+        },
+        "owner_local_deltas": {
+          "execution_confidence": 0.04
+        },
+        "target_local_deltas": {},
+        "feedback_template": "ownership action shifts the visible state."
+      },
+      "publish_update": {
+        "global_deltas": {
+          "trust": 0.08,
+          "alignment": 0.08
+        },
+        "owner_local_deltas": {
+          "trust": 0.04
+        },
+        "target_local_deltas": {
+          "trust": 0.04
+        },
+        "feedback_template": "communication action shifts the visible state."
+      },
+      "defer_decision": {
+        "global_deltas": {
+          "uncertainty": -0.08
+        },
+        "owner_local_deltas": {
+          "trust": 0.04
+        },
+        "target_local_deltas": {},
+        "feedback_template": "timing action shifts the visible state."
+      }
+    }
+  },
+  "state_visibility_rules": {
+    "global_keys": [
+      "housing_supply",
+      "public_anger"
+    ],
+    "local_keys": [
+      "trust",
+      "policy_acceptance"
+    ],
+    "max_recent_actions": 2
+  },
+  "metadata": {
+    "phase_action_policies": {
+      "OPENING": {
+        "action_mode": "shadow",
+        "diversity_required": false,
+        "duplicate_penalty": 0.16,
+        "uniqueness_bonus": 0.08,
+        "convergence_backoff_threshold": 0.95,
+        "allow_no_action": true,
+        "family_cap": 2,
+        "max_same_family_per_phase": 2,
+        "max_actions_per_phase": 2,
+        "sparsity_threshold": 0.68,
+        "style_slot_limit": 3,
+        "pool_max_concurrency": 2,
+        "planner_cache": true
+      },
+      "TENSION": {
+        "action_mode": "direct",
+        "diversity_required": true,
+        "duplicate_penalty": 0.16,
+        "uniqueness_bonus": 0.08,
+        "convergence_backoff_threshold": 0.95,
+        "allow_no_action": true,
+        "family_cap": 2,
+        "max_same_family_per_phase": 2,
+        "max_actions_per_phase": 2,
+        "sparsity_threshold": 0.68,
+        "style_slot_limit": 3,
+        "pool_max_concurrency": 2,
+        "planner_cache": false
+      },
+      "NEGOTIATION": {
+        "action_mode": "execute",
+        "diversity_required": true,
+        "duplicate_penalty": 0.32,
+        "uniqueness_bonus": 0.18,
+        "convergence_backoff_threshold": 0.9,
+        "allow_no_action": true,
+        "family_cap": 1,
+        "max_same_family_per_phase": 1,
+        "max_actions_per_phase": 3,
+        "sparsity_threshold": 0.82,
+        "style_slot_limit": 4,
+        "pool_max_concurrency": 2,
+        "planner_cache": false
+      },
+      "CLOSING": {
+        "action_mode": "execute",
+        "diversity_required": false,
+        "duplicate_penalty": 0.16,
+        "uniqueness_bonus": 0.08,
+        "convergence_backoff_threshold": 0.95,
+        "allow_no_action": true,
+        "family_cap": 2,
+        "max_same_family_per_phase": 2,
+        "max_actions_per_phase": 2,
+        "sparsity_threshold": 0.68,
+        "style_slot_limit": 3,
+        "pool_max_concurrency": 1,
+        "planner_cache": true
+      }
+    },
+    "actor_action_preferences": {
+      "actor_1": {
+        "default": {
+          "primary_families": [
+            "evidence",
+            "communication"
+          ],
+          "secondary_families": [
+            "scope",
+            "ownership"
+          ],
+          "avoid_families": [],
+          "state_priority_keys": [
+            "execution_confidence",
+            "alignment",
+            "trust"
+          ],
+          "preferred_action_types": [],
+          "preferred_target_keys": [
+            "execution_confidence",
+            "alignment"
+          ]
+        }
+      },
+      "actor_2": {
+        "default": {
+          "primary_families": [
+            "evidence",
+            "communication"
+          ],
+          "secondary_families": [
+            "scope",
+            "ownership"
+          ],
+          "avoid_families": [],
+          "state_priority_keys": [
+            "execution_confidence",
+            "alignment",
+            "trust"
+          ],
+          "preferred_action_types": [],
+          "preferred_target_keys": [
+            "execution_confidence",
+            "alignment"
+          ]
+        }
+      },
+      "actor_3": {
+        "default": {
+          "primary_families": [
+            "labor"
+          ]
+        }
+      },
+      "actor_4": {
+        "default": {
+          "primary_families": [
+            "evidence",
+            "communication"
+          ],
+          "secondary_families": [
+            "scope",
+            "ownership"
+          ],
+          "avoid_families": [],
+          "state_priority_keys": [
+            "execution_confidence",
+            "alignment",
+            "trust"
+          ],
+          "preferred_action_types": [],
+          "preferred_target_keys": [
+            "execution_confidence",
+            "alignment"
+          ]
+        }
+      },
+      "actor_5": {
+        "default": {
+          "primary_families": [
+            "policy"
+          ]
+        }
+      }
+    },
+    "metadata_completeness_score": 1.0,
+    "missing_contract_fields": [],
+    "builder_trace": {
+      "builder_trace_id": "builder:singapore_hdb_waittime_crisis_5actor",
+      "brief_id": "singapore_hdb_waittime_crisis_5actor",
+      "builder_version": "brief_builder_v2",
+      "generation_attempts": 2,
+      "scenario_family": "public_policy_crisis",
+      "input_understanding": {
+        "brief_excerpt": "Singapore HDB public housing BTO wait time crisis (2020-2023). Build-To-Order flat wait times ballooned from 3 to 5+ years due to COVID construction delays and supply chain disruptions, forcing couple",
+        "detected_keywords": [],
+        "simulation_mode": "guided"
+      },
+      "stakeholder_extraction": [
+        {
+          "actor_id": "actor_1",
+          "display_name": "Jia Wei",
+          "role": "Young professional awaiting BTO flat"
+        },
+        {
+          "actor_id": "actor_2",
+          "display_name": "Mei Ling",
+          "role": "Jia Wei's fianc\u00e9e"
+        },
+        {
+          "actor_id": "actor_3",
+          "display_name": "Rahim",
+          "role": "Construction union leader"
+        },
+        {
+          "actor_id": "actor_4",
+          "display_name": "Ah Ma",
+          "role": "Elderly flat owner"
+        },
+        {
+          "actor_id": "actor_5",
+          "display_name": "Dr. Tan",
+          "role": "URA urban planner"
+        }
+      ],
+      "stakeholder_expansion": [],
+      "phase_template_selection": {
+        "phase_names": [
+          "OPENING",
+          "TENSION",
+          "NEGOTIATION",
+          "CLOSING"
+        ],
+        "phase_count": 4
+      },
+      "world_state_schema_selection": {
+        "world_state_schema": [
+          "alignment",
+          "trust",
+          "uncertainty",
+          "execution_confidence",
+          "risk",
+          "housing_supply",
+          "labor_capacity",
+          "public_anger",
+          "policy_flexibility"
+        ]
+      },
+      "allowed_action_types_selection": {
+        "allowed_action_types": [
+          "assign_owner",
+          "request_evidence",
+          "publish_update",
+          "narrow_scope",
+          "pilot",
+          "commit_resource",
+          "defer_decision",
+          "preserve_autonomy"
+        ]
+      },
+      "transition_rules_selection": {
+        "phase_rule_counts": {
+          "OPENING": 2,
+          "TENSION": 5,
+          "NEGOTIATION": 6,
+          "CLOSING": 3
+        }
+      },
+      "phase_action_policies_generation": {
+        "TENSION": {
+          "action_mode": "direct"
+        }
+      },
+      "actor_action_preferences_generation": {
+        "actor_5": {
+          "default": {
+            "primary_families": [
+              "policy"
+            ]
+          }
+        },
+        "actor_3": {
+          "default": {
+            "primary_families": [
+              "labor"
+            ]
+          }
+        }
+      },
+      "metadata_completeness_score": 1.0,
+      "missing_contract_fields": []
+    }
+  },
+  "evaluation_targets": [
+    "persona_stability",
+    "action_coherence"
+  ]
+}

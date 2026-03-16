@@ -1,0 +1,1273 @@
+{
+  "simulation_id": "fukushima_nuclear_restart_10actor",
+  "title": "Fukushima Reactor Restart Debate",
+  "objective": "Simulate the complex decision-making around restarting nuclear reactors in post-disaster Fukushima, balancing safety concerns, economic needs, and community trust.",
+  "brief": "Japan's Fukushima-area nuclear reactor restart debate (2012-present). After the 2011 meltdown, all 54 reactors were shut down. Gradual restarts began against fierce local opposition, while Japan struggled with energy costs and climate goals. Stakeholders: a fishing cooperative leader whose catch was banned for years and whose livelihood depends on public perception of local seafood safety, a TEPCO safety retrofit engineer implementing new post-Fukushima standards who believes the upgrades are genuinely sufficient, an evacuee still in temporary housing 10+ years later who cannot return to their contaminated hometown, and a local mayor facing town depopulation without the nuclear plant jobs and tax revenue that sustained the community for decades.",
+  "stakeholders": [
+    {
+      "actor_id": "actor_1",
+      "display_name": "Haruto",
+      "role": "Fishing Cooperative Leader",
+      "identity_core": {
+        "position": "Local Industry",
+        "domain": "Seafood"
+      },
+      "personality_prior": {
+        "O": 0.3,
+        "C": 0.8,
+        "E": 0.5,
+        "A": 0.6,
+        "N": 0.7
+      },
+      "personality_envelope": {
+        "O": [
+          0.12,
+          0.48
+        ],
+        "C": [
+          0.62,
+          0.98
+        ],
+        "E": [
+          0.32,
+          0.68
+        ],
+        "A": [
+          0.42,
+          0.78
+        ],
+        "N": [
+          0.52,
+          0.88
+        ]
+      },
+      "incentives": [
+        "Restore seafood market trust",
+        "Compensation for losses"
+      ],
+      "concerns": [
+        "Radiation stigma",
+        "Future bans"
+      ],
+      "communication_style": {
+        "tone": "passionate",
+        "brevity": "moderate"
+      },
+      "experience_summary": "",
+      "salient_memories": [],
+      "private_context": {},
+      "implicit_goals": []
+    },
+    {
+      "actor_id": "actor_2",
+      "display_name": "Dr. Tanaka",
+      "role": "TEPCO Safety Engineer",
+      "identity_core": {
+        "position": "Technical",
+        "domain": "Nuclear"
+      },
+      "personality_prior": {
+        "O": 0.5,
+        "C": 0.9,
+        "E": 0.4,
+        "A": 0.3,
+        "N": 0.2
+      },
+      "personality_envelope": {
+        "O": [
+          0.32,
+          0.68
+        ],
+        "C": [
+          0.72,
+          1.0
+        ],
+        "E": [
+          0.22,
+          0.58
+        ],
+        "A": [
+          0.12,
+          0.48
+        ],
+        "N": [
+          0.02,
+          0.38
+        ]
+      },
+      "incentives": [
+        "Prove safety upgrades",
+        "Career validation"
+      ],
+      "concerns": [
+        "Public distrust",
+        "Regulatory hurdles"
+      ],
+      "communication_style": {
+        "tone": "technical",
+        "brevity": "high"
+      },
+      "experience_summary": "",
+      "salient_memories": [],
+      "private_context": {},
+      "implicit_goals": []
+    },
+    {
+      "actor_id": "actor_3",
+      "display_name": "Mrs. Sato",
+      "role": "Evacuee",
+      "identity_core": {
+        "position": "Civilian",
+        "domain": "Displacement"
+      },
+      "personality_prior": {
+        "O": 0.2,
+        "C": 0.4,
+        "E": 0.3,
+        "A": 0.5,
+        "N": 0.9
+      },
+      "personality_envelope": {
+        "O": [
+          0.02,
+          0.38
+        ],
+        "C": [
+          0.22,
+          0.58
+        ],
+        "E": [
+          0.12,
+          0.48
+        ],
+        "A": [
+          0.32,
+          0.68
+        ],
+        "N": [
+          0.72,
+          1.0
+        ]
+      },
+      "incentives": [
+        "Safe return",
+        "Full cleanup"
+      ],
+      "concerns": [
+        "Health risks",
+        "Broken promises"
+      ],
+      "communication_style": {
+        "tone": "emotional",
+        "brevity": "low"
+      },
+      "experience_summary": "",
+      "salient_memories": [],
+      "private_context": {},
+      "implicit_goals": []
+    },
+    {
+      "actor_id": "actor_4",
+      "display_name": "Mayor Kobayashi",
+      "role": "Local Mayor",
+      "identity_core": {
+        "position": "Political",
+        "domain": "Municipal"
+      },
+      "personality_prior": {
+        "O": 0.6,
+        "C": 0.7,
+        "E": 0.8,
+        "A": 0.4,
+        "N": 0.5
+      },
+      "personality_envelope": {
+        "O": [
+          0.42,
+          0.78
+        ],
+        "C": [
+          0.52,
+          0.88
+        ],
+        "E": [
+          0.62,
+          0.98
+        ],
+        "A": [
+          0.22,
+          0.58
+        ],
+        "N": [
+          0.32,
+          0.68
+        ]
+      },
+      "incentives": [
+        "Tax revenue",
+        "Population stability"
+      ],
+      "concerns": [
+        "Public backlash",
+        "Economic collapse"
+      ],
+      "communication_style": {
+        "tone": "diplomatic",
+        "brevity": "moderate"
+      },
+      "experience_summary": "",
+      "salient_memories": [],
+      "private_context": {},
+      "implicit_goals": []
+    },
+    {
+      "actor_id": "actor_5",
+      "display_name": "Mr. Yamamoto",
+      "role": "Former Plant Worker",
+      "identity_core": {
+        "position": "Labor",
+        "domain": "Energy"
+      },
+      "personality_prior": {
+        "O": 0.4,
+        "C": 0.6,
+        "E": 0.7,
+        "A": 0.5,
+        "N": 0.3
+      },
+      "personality_envelope": {
+        "O": [
+          0.22,
+          0.58
+        ],
+        "C": [
+          0.42,
+          0.78
+        ],
+        "E": [
+          0.52,
+          0.88
+        ],
+        "A": [
+          0.32,
+          0.68
+        ],
+        "N": [
+          0.12,
+          0.48
+        ]
+      },
+      "incentives": [
+        "Job restoration",
+        "Industry pride"
+      ],
+      "concerns": [
+        "Safety cuts",
+        "Stigma"
+      ],
+      "communication_style": {
+        "tone": "pragmatic",
+        "brevity": "moderate"
+      },
+      "experience_summary": "",
+      "salient_memories": [],
+      "private_context": {},
+      "implicit_goals": []
+    },
+    {
+      "actor_id": "actor_6",
+      "display_name": "Dr. Chen",
+      "role": "International Observer",
+      "identity_core": {
+        "position": "Academic",
+        "domain": "Health"
+      },
+      "personality_prior": {
+        "O": 0.8,
+        "C": 0.7,
+        "E": 0.5,
+        "A": 0.6,
+        "N": 0.4
+      },
+      "personality_envelope": {
+        "O": [
+          0.62,
+          0.98
+        ],
+        "C": [
+          0.52,
+          0.88
+        ],
+        "E": [
+          0.32,
+          0.68
+        ],
+        "A": [
+          0.42,
+          0.78
+        ],
+        "N": [
+          0.22,
+          0.58
+        ]
+      },
+      "incentives": [
+        "Data transparency",
+        "Global precedent"
+      ],
+      "concerns": [
+        "Local dismissal",
+        "Oversight gaps"
+      ],
+      "communication_style": {
+        "tone": "analytical",
+        "brevity": "high"
+      },
+      "experience_summary": "",
+      "salient_memories": [],
+      "private_context": {},
+      "implicit_goals": []
+    },
+    {
+      "actor_id": "actor_7",
+      "display_name": "Ms. Ito",
+      "role": "Renewables Lobbyist",
+      "identity_core": {
+        "position": "Advocacy",
+        "domain": "Energy"
+      },
+      "personality_prior": {
+        "O": 0.7,
+        "C": 0.5,
+        "E": 0.9,
+        "A": 0.3,
+        "N": 0.2
+      },
+      "personality_envelope": {
+        "O": [
+          0.52,
+          0.88
+        ],
+        "C": [
+          0.32,
+          0.68
+        ],
+        "E": [
+          0.72,
+          1.0
+        ],
+        "A": [
+          0.12,
+          0.48
+        ],
+        "N": [
+          0.02,
+          0.38
+        ]
+      },
+      "incentives": [
+        "Policy shift",
+        "Market share"
+      ],
+      "concerns": [
+        "Nuclear bias",
+        "Short-termism"
+      ],
+      "communication_style": {
+        "tone": "persuasive",
+        "brevity": "moderate"
+      },
+      "experience_summary": "",
+      "salient_memories": [],
+      "private_context": {},
+      "implicit_goals": []
+    },
+    {
+      "actor_id": "actor_8",
+      "display_name": "Officer Saito",
+      "role": "Disaster Response Vet",
+      "identity_core": {
+        "position": "Emergency",
+        "domain": "Safety"
+      },
+      "personality_prior": {
+        "O": 0.5,
+        "C": 0.9,
+        "E": 0.6,
+        "A": 0.2,
+        "N": 0.4
+      },
+      "personality_envelope": {
+        "O": [
+          0.32,
+          0.68
+        ],
+        "C": [
+          0.72,
+          1.0
+        ],
+        "E": [
+          0.42,
+          0.78
+        ],
+        "A": [
+          0.02,
+          0.38
+        ],
+        "N": [
+          0.22,
+          0.58
+        ]
+      },
+      "incentives": [
+        "Evacuation readiness",
+        "Drill frequency"
+      ],
+      "concerns": [
+        "Complacency",
+        "Resource gaps"
+      ],
+      "communication_style": {
+        "tone": "direct",
+        "brevity": "high"
+      },
+      "experience_summary": "",
+      "salient_memories": [],
+      "private_context": {},
+      "implicit_goals": []
+    },
+    {
+      "actor_id": "actor_9",
+      "display_name": "Grandfather Mori",
+      "role": "Shrine Keeper",
+      "identity_core": {
+        "position": "Cultural",
+        "domain": "Tradition"
+      },
+      "personality_prior": {
+        "O": 0.2,
+        "C": 0.8,
+        "E": 0.3,
+        "A": 0.9,
+        "N": 0.6
+      },
+      "personality_envelope": {
+        "O": [
+          0.02,
+          0.38
+        ],
+        "C": [
+          0.62,
+          0.98
+        ],
+        "E": [
+          0.12,
+          0.48
+        ],
+        "A": [
+          0.72,
+          1.0
+        ],
+        "N": [
+          0.42,
+          0.78
+        ]
+      },
+      "incentives": [
+        "Ancestral land respect",
+        "Community healing"
+      ],
+      "concerns": [
+        "Corporate influence",
+        "Spiritual pollution"
+      ],
+      "communication_style": {
+        "tone": "reverent",
+        "brevity": "low"
+      },
+      "experience_summary": "",
+      "salient_memories": [],
+      "private_context": {},
+      "implicit_goals": []
+    },
+    {
+      "actor_id": "actor_10",
+      "display_name": "Ms. Park",
+      "role": "Korean Import Regulator",
+      "identity_core": {
+        "position": "Trade",
+        "domain": "International"
+      },
+      "personality_prior": {
+        "O": 0.6,
+        "C": 0.8,
+        "E": 0.4,
+        "A": 0.5,
+        "N": 0.3
+      },
+      "personality_envelope": {
+        "O": [
+          0.42,
+          0.78
+        ],
+        "C": [
+          0.62,
+          0.98
+        ],
+        "E": [
+          0.22,
+          0.58
+        ],
+        "A": [
+          0.32,
+          0.68
+        ],
+        "N": [
+          0.12,
+          0.48
+        ]
+      },
+      "incentives": [
+        "Consumer protection",
+        "Trade stability"
+      ],
+      "concerns": [
+        "Testing lag",
+        "Diplomatic tension"
+      ],
+      "communication_style": {
+        "tone": "formal",
+        "brevity": "moderate"
+      },
+      "experience_summary": "",
+      "salient_memories": [],
+      "private_context": {},
+      "implicit_goals": []
+    }
+  ],
+  "phases": [
+    {
+      "name": "OPENING",
+      "goal": "Establish positions and baseline safety perceptions",
+      "style": "neutral",
+      "max_turns": 6,
+      "cues": [
+        "Recent test results",
+        "New compensation offers"
+      ],
+      "target_actor_ids": [],
+      "visibility": "public",
+      "description": ""
+    },
+    {
+      "name": "TENSION",
+      "goal": "Surface conflicts between economic needs and safety fears",
+      "style": "disagreement",
+      "max_turns": 6,
+      "cues": [
+        "Protest footage",
+        "Blackout warnings"
+      ],
+      "target_actor_ids": [],
+      "visibility": "public",
+      "description": ""
+    },
+    {
+      "name": "NEGOTIATION",
+      "goal": "Explore compromise solutions for monitoring and guarantees",
+      "style": "consensus",
+      "max_turns": 6,
+      "cues": [
+        "Third-party mediator",
+        "Energy alternatives report"
+      ],
+      "target_actor_ids": [],
+      "visibility": "public",
+      "description": ""
+    },
+    {
+      "name": "CLOSING",
+      "goal": "Reach provisional agreement with implementation conditions",
+      "style": "neutral",
+      "max_turns": 4,
+      "cues": [
+        "Draft memorandum",
+        "Evacuation drill demonstration"
+      ],
+      "target_actor_ids": [],
+      "visibility": "public",
+      "description": ""
+    }
+  ],
+  "scenario_family": "post-disaster_recovery",
+  "simulation_mode": "exploratory",
+  "outcome_spec": {
+    "fixed_ending": true,
+    "target_end_state": {
+      "alignment": "increase",
+      "uncertainty": "decrease"
+    },
+    "evaluation_focus": [
+      "persona_stability",
+      "action_coherence"
+    ]
+  },
+  "world_events": [
+    {
+      "event_id": "evt_1",
+      "title": "South Korea Ban Expansion",
+      "description": "Seoul announces expanded Japanese seafood import restrictions",
+      "trigger_phase": "TENSION",
+      "trigger_turn": null,
+      "visibility": "public",
+      "affected_actor_ids": [],
+      "metadata": {}
+    },
+    {
+      "event_id": "evt_2",
+      "title": "Summer Heatwave",
+      "description": "Record temperatures trigger electricity conservation requests",
+      "trigger_phase": "NEGOTIATION",
+      "trigger_turn": null,
+      "visibility": "public",
+      "affected_actor_ids": [],
+      "metadata": {}
+    }
+  ],
+  "world_state_schema": [
+    "alignment",
+    "trust",
+    "uncertainty",
+    "execution_confidence",
+    "risk",
+    "public_trust",
+    "economic_stress",
+    "safety_confidence"
+  ],
+  "initial_world_state": {
+    "alignment": 0.5,
+    "trust": 0.5,
+    "uncertainty": 0.5,
+    "execution_confidence": 0.5,
+    "risk": 0.5,
+    "public_trust": 0.3,
+    "economic_stress": 0.8,
+    "safety_confidence": 0.4
+  },
+  "allowed_action_types": [
+    "assign_owner",
+    "request_evidence",
+    "publish_update",
+    "narrow_scope",
+    "pilot",
+    "commit_resource",
+    "defer_decision",
+    "preserve_autonomy"
+  ],
+  "transition_rules": {
+    "OPENING": {
+      "request_evidence": {
+        "global_deltas": {
+          "uncertainty": -0.08,
+          "risk": -0.08
+        },
+        "owner_local_deltas": {
+          "execution_confidence": 0.04
+        },
+        "target_local_deltas": {},
+        "feedback_template": "evidence action shifts the visible state."
+      },
+      "publish_update": {
+        "global_deltas": {
+          "trust": 0.08,
+          "alignment": 0.08
+        },
+        "owner_local_deltas": {
+          "trust": 0.04
+        },
+        "target_local_deltas": {
+          "trust": 0.04
+        },
+        "feedback_template": "communication action shifts the visible state."
+      }
+    },
+    "TENSION": {
+      "request_evidence": {
+        "global_deltas": {
+          "uncertainty": -0.08,
+          "risk": -0.08
+        },
+        "owner_local_deltas": {
+          "execution_confidence": 0.04
+        },
+        "target_local_deltas": {},
+        "feedback_template": "evidence action shifts the visible state."
+      },
+      "narrow_scope": {
+        "global_deltas": {
+          "risk": -0.08,
+          "uncertainty": -0.08
+        },
+        "owner_local_deltas": {
+          "trust": 0.04
+        },
+        "target_local_deltas": {},
+        "feedback_template": "scope action shifts the visible state."
+      },
+      "pilot": {
+        "global_deltas": {
+          "uncertainty": -0.08,
+          "risk": -0.08
+        },
+        "owner_local_deltas": {
+          "execution_confidence": 0.04
+        },
+        "target_local_deltas": {},
+        "feedback_template": "scope action shifts the visible state."
+      },
+      "defer_decision": {
+        "global_deltas": {
+          "uncertainty": -0.08
+        },
+        "owner_local_deltas": {
+          "trust": 0.04
+        },
+        "target_local_deltas": {},
+        "feedback_template": "timing action shifts the visible state."
+      },
+      "preserve_autonomy": {
+        "global_deltas": {
+          "trust": 0.08
+        },
+        "owner_local_deltas": {
+          "trust": 0.04
+        },
+        "target_local_deltas": {
+          "trust": 0.04
+        },
+        "feedback_template": "governance action shifts the visible state."
+      }
+    },
+    "NEGOTIATION": {
+      "assign_owner": {
+        "global_deltas": {
+          "execution_confidence": 0.08,
+          "alignment": 0.08
+        },
+        "owner_local_deltas": {
+          "execution_confidence": 0.04
+        },
+        "target_local_deltas": {},
+        "feedback_template": "ownership action shifts the visible state."
+      },
+      "pilot": {
+        "global_deltas": {
+          "uncertainty": -0.08,
+          "risk": -0.08
+        },
+        "owner_local_deltas": {
+          "execution_confidence": 0.04
+        },
+        "target_local_deltas": {},
+        "feedback_template": "scope action shifts the visible state."
+      },
+      "publish_update": {
+        "global_deltas": {
+          "trust": 0.08,
+          "alignment": 0.08
+        },
+        "owner_local_deltas": {
+          "trust": 0.04
+        },
+        "target_local_deltas": {
+          "trust": 0.04
+        },
+        "feedback_template": "communication action shifts the visible state."
+      },
+      "commit_resource": {
+        "global_deltas": {
+          "execution_confidence": 0.08
+        },
+        "owner_local_deltas": {
+          "execution_confidence": 0.04
+        },
+        "target_local_deltas": {},
+        "feedback_template": "resourcing action shifts the visible state."
+      },
+      "preserve_autonomy": {
+        "global_deltas": {
+          "trust": 0.08
+        },
+        "owner_local_deltas": {
+          "trust": 0.04
+        },
+        "target_local_deltas": {
+          "trust": 0.04
+        },
+        "feedback_template": "governance action shifts the visible state."
+      },
+      "narrow_scope": {
+        "global_deltas": {
+          "risk": -0.08,
+          "uncertainty": -0.08
+        },
+        "owner_local_deltas": {
+          "trust": 0.04
+        },
+        "target_local_deltas": {},
+        "feedback_template": "scope action shifts the visible state."
+      }
+    },
+    "CLOSING": {
+      "assign_owner": {
+        "global_deltas": {
+          "execution_confidence": 0.08,
+          "alignment": 0.08
+        },
+        "owner_local_deltas": {
+          "execution_confidence": 0.04
+        },
+        "target_local_deltas": {},
+        "feedback_template": "ownership action shifts the visible state."
+      },
+      "publish_update": {
+        "global_deltas": {
+          "trust": 0.08,
+          "alignment": 0.08
+        },
+        "owner_local_deltas": {
+          "trust": 0.04
+        },
+        "target_local_deltas": {
+          "trust": 0.04
+        },
+        "feedback_template": "communication action shifts the visible state."
+      },
+      "defer_decision": {
+        "global_deltas": {
+          "uncertainty": -0.08
+        },
+        "owner_local_deltas": {
+          "trust": 0.04
+        },
+        "target_local_deltas": {},
+        "feedback_template": "timing action shifts the visible state."
+      }
+    }
+  },
+  "state_visibility_rules": {
+    "global_keys": [
+      "public_trust",
+      "economic_stress",
+      "safety_confidence"
+    ],
+    "local_keys": [
+      "trust",
+      "job_security",
+      "family_risk"
+    ],
+    "max_recent_actions": 2
+  },
+  "metadata": {
+    "phase_action_policies": {
+      "OPENING": {
+        "action_mode": "shadow",
+        "diversity_required": true,
+        "duplicate_penalty": 0.16,
+        "uniqueness_bonus": 0.08,
+        "convergence_backoff_threshold": 0.95,
+        "allow_no_action": true,
+        "family_cap": 2,
+        "max_same_family_per_phase": 2,
+        "max_actions_per_phase": 2,
+        "sparsity_threshold": 0.52,
+        "style_slot_limit": 4,
+        "pool_max_concurrency": 2,
+        "planner_cache": true
+      },
+      "TENSION": {
+        "action_mode": "direct",
+        "diversity_required": true,
+        "duplicate_penalty": 0.16,
+        "uniqueness_bonus": 0.08,
+        "convergence_backoff_threshold": 0.95,
+        "allow_no_action": true,
+        "family_cap": 2,
+        "max_same_family_per_phase": 2,
+        "max_actions_per_phase": 2,
+        "sparsity_threshold": 0.52,
+        "style_slot_limit": 4,
+        "pool_max_concurrency": 2,
+        "planner_cache": false
+      },
+      "NEGOTIATION": {
+        "action_mode": "execute",
+        "diversity_required": true,
+        "duplicate_penalty": 0.32,
+        "uniqueness_bonus": 0.18,
+        "convergence_backoff_threshold": 0.9,
+        "allow_no_action": true,
+        "family_cap": 1,
+        "max_same_family_per_phase": 1,
+        "max_actions_per_phase": 3,
+        "sparsity_threshold": 0.55,
+        "style_slot_limit": 4,
+        "pool_max_concurrency": 2,
+        "planner_cache": false
+      },
+      "CLOSING": {
+        "action_mode": "shadow",
+        "diversity_required": true,
+        "duplicate_penalty": 0.16,
+        "uniqueness_bonus": 0.08,
+        "convergence_backoff_threshold": 0.95,
+        "allow_no_action": true,
+        "family_cap": 2,
+        "max_same_family_per_phase": 2,
+        "max_actions_per_phase": 2,
+        "sparsity_threshold": 0.52,
+        "style_slot_limit": 4,
+        "pool_max_concurrency": 1,
+        "planner_cache": true
+      }
+    },
+    "actor_action_preferences": {
+      "actor_1": {
+        "default": {
+          "primary_families": [
+            "evidence",
+            "communication"
+          ],
+          "secondary_families": [
+            "scope",
+            "ownership"
+          ],
+          "avoid_families": [],
+          "state_priority_keys": [
+            "execution_confidence",
+            "alignment",
+            "trust"
+          ],
+          "preferred_action_types": [],
+          "preferred_target_keys": [
+            "execution_confidence",
+            "alignment"
+          ]
+        }
+      },
+      "actor_2": {
+        "default": {
+          "primary_families": [
+            "technical_evidence"
+          ]
+        }
+      },
+      "actor_3": {
+        "default": {
+          "primary_families": [
+            "personal_story"
+          ]
+        }
+      },
+      "actor_4": {
+        "default": {
+          "primary_families": [
+            "evidence",
+            "communication"
+          ],
+          "secondary_families": [
+            "scope",
+            "ownership"
+          ],
+          "avoid_families": [],
+          "state_priority_keys": [
+            "execution_confidence",
+            "alignment",
+            "trust"
+          ],
+          "preferred_action_types": [],
+          "preferred_target_keys": [
+            "execution_confidence",
+            "alignment"
+          ]
+        }
+      },
+      "actor_5": {
+        "default": {
+          "primary_families": [
+            "evidence",
+            "communication"
+          ],
+          "secondary_families": [
+            "scope",
+            "ownership"
+          ],
+          "avoid_families": [],
+          "state_priority_keys": [
+            "execution_confidence",
+            "alignment",
+            "trust"
+          ],
+          "preferred_action_types": [],
+          "preferred_target_keys": [
+            "execution_confidence",
+            "alignment"
+          ]
+        }
+      },
+      "actor_6": {
+        "default": {
+          "primary_families": [
+            "evidence",
+            "communication"
+          ],
+          "secondary_families": [
+            "scope",
+            "ownership"
+          ],
+          "avoid_families": [],
+          "state_priority_keys": [
+            "execution_confidence",
+            "alignment",
+            "trust"
+          ],
+          "preferred_action_types": [],
+          "preferred_target_keys": [
+            "execution_confidence",
+            "alignment"
+          ]
+        }
+      },
+      "actor_7": {
+        "default": {
+          "primary_families": [
+            "evidence",
+            "communication"
+          ],
+          "secondary_families": [
+            "scope",
+            "ownership"
+          ],
+          "avoid_families": [],
+          "state_priority_keys": [
+            "execution_confidence",
+            "alignment",
+            "trust"
+          ],
+          "preferred_action_types": [],
+          "preferred_target_keys": [
+            "execution_confidence",
+            "alignment"
+          ]
+        }
+      },
+      "actor_8": {
+        "default": {
+          "primary_families": [
+            "evidence",
+            "communication"
+          ],
+          "secondary_families": [
+            "scope",
+            "ownership"
+          ],
+          "avoid_families": [],
+          "state_priority_keys": [
+            "execution_confidence",
+            "alignment",
+            "trust"
+          ],
+          "preferred_action_types": [],
+          "preferred_target_keys": [
+            "execution_confidence",
+            "alignment"
+          ]
+        }
+      },
+      "actor_9": {
+        "default": {
+          "primary_families": [
+            "communication",
+            "scope"
+          ],
+          "secondary_families": [
+            "governance",
+            "timing"
+          ],
+          "avoid_families": [],
+          "state_priority_keys": [
+            "execution_confidence",
+            "alignment",
+            "trust"
+          ],
+          "preferred_action_types": [],
+          "preferred_target_keys": [
+            "execution_confidence",
+            "alignment"
+          ]
+        }
+      },
+      "actor_10": {
+        "default": {
+          "primary_families": [
+            "evidence",
+            "communication"
+          ],
+          "secondary_families": [
+            "scope",
+            "ownership"
+          ],
+          "avoid_families": [],
+          "state_priority_keys": [
+            "execution_confidence",
+            "alignment",
+            "trust"
+          ],
+          "preferred_action_types": [],
+          "preferred_target_keys": [
+            "execution_confidence",
+            "alignment"
+          ]
+        }
+      }
+    },
+    "metadata_completeness_score": 1.0,
+    "missing_contract_fields": [],
+    "builder_trace": {
+      "builder_trace_id": "builder:fukushima_nuclear_restart_10actor",
+      "brief_id": "fukushima_nuclear_restart_10actor",
+      "builder_version": "brief_builder_v2",
+      "generation_attempts": 1,
+      "scenario_family": "post-disaster_recovery",
+      "input_understanding": {
+        "brief_excerpt": "Japan's Fukushima-area nuclear reactor restart debate (2012-present). After the 2011 meltdown, all 54 reactors were shut down. Gradual restarts began against fierce local opposition, while Japan strug",
+        "detected_keywords": [],
+        "simulation_mode": "exploratory"
+      },
+      "stakeholder_extraction": [
+        {
+          "actor_id": "actor_1",
+          "display_name": "Haruto",
+          "role": "Fishing Cooperative Leader"
+        },
+        {
+          "actor_id": "actor_2",
+          "display_name": "Dr. Tanaka",
+          "role": "TEPCO Safety Engineer"
+        },
+        {
+          "actor_id": "actor_3",
+          "display_name": "Mrs. Sato",
+          "role": "Evacuee"
+        },
+        {
+          "actor_id": "actor_4",
+          "display_name": "Mayor Kobayashi",
+          "role": "Local Mayor"
+        },
+        {
+          "actor_id": "actor_5",
+          "display_name": "Mr. Yamamoto",
+          "role": "Former Plant Worker"
+        },
+        {
+          "actor_id": "actor_6",
+          "display_name": "Dr. Chen",
+          "role": "International Observer"
+        },
+        {
+          "actor_id": "actor_7",
+          "display_name": "Ms. Ito",
+          "role": "Renewables Lobbyist"
+        },
+        {
+          "actor_id": "actor_8",
+          "display_name": "Officer Saito",
+          "role": "Disaster Response Vet"
+        },
+        {
+          "actor_id": "actor_9",
+          "display_name": "Grandfather Mori",
+          "role": "Shrine Keeper"
+        },
+        {
+          "actor_id": "actor_10",
+          "display_name": "Ms. Park",
+          "role": "Korean Import Regulator"
+        }
+      ],
+      "stakeholder_expansion": [],
+      "phase_template_selection": {
+        "phase_names": [
+          "OPENING",
+          "TENSION",
+          "NEGOTIATION",
+          "CLOSING"
+        ],
+        "phase_count": 4
+      },
+      "world_state_schema_selection": {
+        "world_state_schema": [
+          "alignment",
+          "trust",
+          "uncertainty",
+          "execution_confidence",
+          "risk",
+          "public_trust",
+          "economic_stress",
+          "safety_confidence"
+        ]
+      },
+      "allowed_action_types_selection": {
+        "allowed_action_types": [
+          "assign_owner",
+          "request_evidence",
+          "publish_update",
+          "narrow_scope",
+          "pilot",
+          "commit_resource",
+          "defer_decision",
+          "preserve_autonomy"
+        ]
+      },
+      "transition_rules_selection": {
+        "phase_rule_counts": {
+          "OPENING": 2,
+          "TENSION": 5,
+          "NEGOTIATION": 6,
+          "CLOSING": 3
+        }
+      },
+      "phase_action_policies_generation": {
+        "OPENING": {
+          "action_mode": "shadow"
+        },
+        "TENSION": {
+          "action_mode": "direct"
+        }
+      },
+      "actor_action_preferences_generation": {
+        "actor_2": {
+          "default": {
+            "primary_families": [
+              "technical_evidence"
+            ]
+          }
+        },
+        "actor_3": {
+          "default": {
+            "primary_families": [
+              "personal_story"
+            ]
+          }
+        }
+      },
+      "metadata_completeness_score": 1.0,
+      "missing_contract_fields": []
+    }
+  },
+  "evaluation_targets": [
+    "persona_stability",
+    "action_coherence"
+  ]
+}

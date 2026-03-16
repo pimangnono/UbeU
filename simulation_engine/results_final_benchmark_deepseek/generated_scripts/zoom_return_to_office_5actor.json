@@ -1,0 +1,860 @@
+{
+  "simulation_id": "zoom_return_to_office_5actor",
+  "title": "Zoom Return-to-Office Mandate",
+  "objective": "Explore tensions between productivity, accessibility, and commercial real estate commitments through stakeholder negotiations about hybrid work policies.",
+  "brief": "Zoom's return-to-office mandate (2023). The company that became synonymous with remote work told employees living within 50 miles to come to the office at least twice a week. Stakeholders: a deaf employee who thrives with remote async communication and whose productivity dropped 40% in open-plan offices, an engineering manager who believes in-person whiteboard sessions produce better architecture decisions, Zoom's commercial real estate lease negotiator who secured long-term office leases pre-pandemic, and a competitor (Microsoft Teams) enterprise sales director spotting a recruiting opportunity among disgruntled Zoom employees.",
+  "stakeholders": [
+    {
+      "actor_id": "actor_1",
+      "display_name": "Jordan",
+      "role": "Deaf Software Engineer",
+      "identity_core": {
+        "position": "Senior Engineer",
+        "domain": "Video Codecs"
+      },
+      "personality_prior": {
+        "O": 0.8,
+        "C": 0.9,
+        "E": 0.3,
+        "A": 0.6,
+        "N": 0.4
+      },
+      "personality_envelope": {
+        "O": [
+          0.62,
+          0.98
+        ],
+        "C": [
+          0.72,
+          1.0
+        ],
+        "E": [
+          0.12,
+          0.48
+        ],
+        "A": [
+          0.42,
+          0.78
+        ],
+        "N": [
+          0.22,
+          0.58
+        ]
+      },
+      "incentives": [
+        "Accessible workflows",
+        "Async-first culture"
+      ],
+      "concerns": [
+        "Audio-dependent office spaces",
+        "Commute time waste"
+      ],
+      "communication_style": {
+        "tone": "fact-based",
+        "brevity": "high"
+      },
+      "experience_summary": "",
+      "salient_memories": [],
+      "private_context": {},
+      "implicit_goals": []
+    },
+    {
+      "actor_id": "actor_2",
+      "display_name": "Priya",
+      "role": "Engineering Director",
+      "identity_core": {
+        "position": "R&D Leadership",
+        "domain": "Platform Architecture"
+      },
+      "personality_prior": {
+        "O": 0.5,
+        "C": 0.7,
+        "E": 0.8,
+        "A": 0.4,
+        "N": 0.3
+      },
+      "personality_envelope": {
+        "O": [
+          0.32,
+          0.68
+        ],
+        "C": [
+          0.52,
+          0.88
+        ],
+        "E": [
+          0.62,
+          0.98
+        ],
+        "A": [
+          0.22,
+          0.58
+        ],
+        "N": [
+          0.12,
+          0.48
+        ]
+      },
+      "incentives": [
+        "Design cohesion",
+        "Mentorship visibility"
+      ],
+      "concerns": [
+        "Remote design debt",
+        "Onboarding friction"
+      ],
+      "communication_style": {
+        "tone": "persuasive",
+        "brevity": "moderate"
+      },
+      "experience_summary": "",
+      "salient_memories": [],
+      "private_context": {},
+      "implicit_goals": []
+    },
+    {
+      "actor_id": "actor_3",
+      "display_name": "Carlos",
+      "role": "CRE Lease Strategist",
+      "identity_core": {
+        "position": "VP Workplace",
+        "domain": "Facilities"
+      },
+      "personality_prior": {
+        "O": 0.3,
+        "C": 0.9,
+        "E": 0.6,
+        "A": 0.2,
+        "N": 0.7
+      },
+      "personality_envelope": {
+        "O": [
+          0.12,
+          0.48
+        ],
+        "C": [
+          0.72,
+          1.0
+        ],
+        "E": [
+          0.42,
+          0.78
+        ],
+        "A": [
+          0.02,
+          0.38
+        ],
+        "N": [
+          0.52,
+          0.88
+        ]
+      },
+      "incentives": [
+        "Lease utilization",
+        "Executive optics"
+      ],
+      "concerns": [
+        "Sunk costs",
+        "Sublease penalties"
+      ],
+      "communication_style": {
+        "tone": "authoritative",
+        "brevity": "low"
+      },
+      "experience_summary": "",
+      "salient_memories": [],
+      "private_context": {},
+      "implicit_goals": []
+    },
+    {
+      "actor_id": "actor_4",
+      "display_name": "Naomi",
+      "role": "Teams Talent Scout",
+      "identity_core": {
+        "position": "Enterprise Recruiter",
+        "domain": "Competitive Hiring"
+      },
+      "personality_prior": {
+        "O": 0.7,
+        "C": 0.6,
+        "E": 0.9,
+        "A": 0.3,
+        "N": 0.2
+      },
+      "personality_envelope": {
+        "O": [
+          0.52,
+          0.88
+        ],
+        "C": [
+          0.42,
+          0.78
+        ],
+        "E": [
+          0.72,
+          1.0
+        ],
+        "A": [
+          0.12,
+          0.48
+        ],
+        "N": [
+          0.02,
+          0.38
+        ]
+      },
+      "incentives": [
+        "Top talent acquisition",
+        "Market share growth"
+      ],
+      "concerns": [
+        "Relocation resistance",
+        "Brand loyalty"
+      ],
+      "communication_style": {
+        "tone": "opportunistic",
+        "brevity": "moderate"
+      },
+      "experience_summary": "",
+      "salient_memories": [],
+      "private_context": {},
+      "implicit_goals": []
+    },
+    {
+      "actor_id": "actor_5",
+      "display_name": "Avery",
+      "role": "Employee Resource Group Lead",
+      "identity_core": {
+        "position": "DEI Chair",
+        "domain": "Workplace Inclusion"
+      },
+      "personality_prior": {
+        "O": 0.9,
+        "C": 0.5,
+        "E": 0.7,
+        "A": 0.8,
+        "N": 0.5
+      },
+      "personality_envelope": {
+        "O": [
+          0.72,
+          1.0
+        ],
+        "C": [
+          0.32,
+          0.68
+        ],
+        "E": [
+          0.52,
+          0.88
+        ],
+        "A": [
+          0.62,
+          0.98
+        ],
+        "N": [
+          0.32,
+          0.68
+        ]
+      },
+      "incentives": [
+        "Policy equity",
+        "Retention metrics"
+      ],
+      "concerns": [
+        "Disability exclusion",
+        "Culture erosion"
+      ],
+      "communication_style": {
+        "tone": "empathetic",
+        "brevity": "low"
+      },
+      "experience_summary": "",
+      "salient_memories": [],
+      "private_context": {},
+      "implicit_goals": []
+    }
+  ],
+  "phases": [
+    {
+      "name": "OPENING",
+      "goal": "Surface core positions and constraints",
+      "style": "neutral",
+      "max_turns": 4,
+      "cues": [
+        "Productivity data",
+        "Lease terms"
+      ],
+      "target_actor_ids": [],
+      "visibility": "public",
+      "description": ""
+    },
+    {
+      "name": "TENSION",
+      "goal": "Reveal fundamental conflicts",
+      "style": "disagreement",
+      "max_turns": 4,
+      "cues": [
+        "Accessibility lawsuits",
+        "Competitor poaching"
+      ],
+      "target_actor_ids": [],
+      "visibility": "public",
+      "description": ""
+    },
+    {
+      "name": "NEGOTIATION",
+      "goal": "Explore hybrid alternatives",
+      "style": "consensus",
+      "max_turns": 4,
+      "cues": [
+        "Team-by-team exceptions",
+        "Office redesign concepts"
+      ],
+      "target_actor_ids": [],
+      "visibility": "public",
+      "description": ""
+    },
+    {
+      "name": "CLOSING",
+      "goal": "Commit to policy adjustments",
+      "style": "neutral",
+      "max_turns": 2,
+      "cues": [
+        "Press release drafts",
+        "All-hands talking points"
+      ],
+      "target_actor_ids": [],
+      "visibility": "public",
+      "description": ""
+    }
+  ],
+  "scenario_family": "workplace_policy",
+  "simulation_mode": "guided",
+  "outcome_spec": {
+    "fixed_ending": true,
+    "target_end_state": {
+      "alignment": "increase",
+      "uncertainty": "decrease"
+    },
+    "evaluation_focus": [
+      "persona_stability",
+      "action_coherence"
+    ]
+  },
+  "world_events": [
+    {
+      "event_id": "evt_1",
+      "title": "DOJ Accessibility Investigation",
+      "description": "Federal regulators request documentation on workplace accommodations",
+      "trigger_phase": "TENSION",
+      "trigger_turn": null,
+      "visibility": "public",
+      "affected_actor_ids": [],
+      "metadata": {}
+    },
+    {
+      "event_id": "evt_2",
+      "title": "Competitor Flex Work Campaign",
+      "description": "Microsoft launches targeted ads highlighting Teams' remote-first culture",
+      "trigger_phase": "NEGOTIATION",
+      "trigger_turn": null,
+      "visibility": "public",
+      "affected_actor_ids": [],
+      "metadata": {}
+    }
+  ],
+  "world_state_schema": [
+    "alignment",
+    "trust",
+    "uncertainty",
+    "execution_confidence",
+    "risk",
+    "talent_retention",
+    "legal_risk",
+    "facility_utilization"
+  ],
+  "initial_world_state": {
+    "alignment": 0.5,
+    "trust": 0.5,
+    "uncertainty": 0.5,
+    "execution_confidence": 0.5,
+    "risk": 0.5,
+    "talent_retention": 0.5,
+    "legal_risk": 0.3,
+    "facility_utilization": 0.8
+  },
+  "allowed_action_types": [
+    "assign_owner",
+    "request_evidence",
+    "publish_update",
+    "narrow_scope",
+    "pilot",
+    "commit_resource",
+    "defer_decision",
+    "preserve_autonomy"
+  ],
+  "transition_rules": {
+    "OPENING": {
+      "request_evidence": {
+        "global_deltas": {
+          "uncertainty": -0.08,
+          "risk": -0.08
+        },
+        "owner_local_deltas": {
+          "execution_confidence": 0.04
+        },
+        "target_local_deltas": {},
+        "feedback_template": "evidence action shifts the visible state."
+      },
+      "publish_update": {
+        "global_deltas": {
+          "trust": 0.08,
+          "alignment": 0.08
+        },
+        "owner_local_deltas": {
+          "trust": 0.04
+        },
+        "target_local_deltas": {
+          "trust": 0.04
+        },
+        "feedback_template": "communication action shifts the visible state."
+      }
+    },
+    "TENSION": {
+      "request_evidence": {
+        "global_deltas": {
+          "uncertainty": -0.08,
+          "risk": -0.08
+        },
+        "owner_local_deltas": {
+          "execution_confidence": 0.04
+        },
+        "target_local_deltas": {},
+        "feedback_template": "evidence action shifts the visible state."
+      },
+      "narrow_scope": {
+        "global_deltas": {
+          "risk": -0.08,
+          "uncertainty": -0.08
+        },
+        "owner_local_deltas": {
+          "trust": 0.04
+        },
+        "target_local_deltas": {},
+        "feedback_template": "scope action shifts the visible state."
+      },
+      "pilot": {
+        "global_deltas": {
+          "uncertainty": -0.08,
+          "risk": -0.08
+        },
+        "owner_local_deltas": {
+          "execution_confidence": 0.04
+        },
+        "target_local_deltas": {},
+        "feedback_template": "scope action shifts the visible state."
+      },
+      "defer_decision": {
+        "global_deltas": {
+          "uncertainty": -0.08
+        },
+        "owner_local_deltas": {
+          "trust": 0.04
+        },
+        "target_local_deltas": {},
+        "feedback_template": "timing action shifts the visible state."
+      },
+      "preserve_autonomy": {
+        "global_deltas": {
+          "trust": 0.08
+        },
+        "owner_local_deltas": {
+          "trust": 0.04
+        },
+        "target_local_deltas": {
+          "trust": 0.04
+        },
+        "feedback_template": "governance action shifts the visible state."
+      }
+    },
+    "NEGOTIATION": {
+      "assign_owner": {
+        "global_deltas": {
+          "execution_confidence": 0.08,
+          "alignment": 0.08
+        },
+        "owner_local_deltas": {
+          "execution_confidence": 0.04
+        },
+        "target_local_deltas": {},
+        "feedback_template": "ownership action shifts the visible state."
+      },
+      "pilot": {
+        "global_deltas": {
+          "uncertainty": -0.08,
+          "risk": -0.08
+        },
+        "owner_local_deltas": {
+          "execution_confidence": 0.04
+        },
+        "target_local_deltas": {},
+        "feedback_template": "scope action shifts the visible state."
+      },
+      "publish_update": {
+        "global_deltas": {
+          "trust": 0.08,
+          "alignment": 0.08
+        },
+        "owner_local_deltas": {
+          "trust": 0.04
+        },
+        "target_local_deltas": {
+          "trust": 0.04
+        },
+        "feedback_template": "communication action shifts the visible state."
+      },
+      "commit_resource": {
+        "global_deltas": {
+          "execution_confidence": 0.08
+        },
+        "owner_local_deltas": {
+          "execution_confidence": 0.04
+        },
+        "target_local_deltas": {},
+        "feedback_template": "resourcing action shifts the visible state."
+      },
+      "preserve_autonomy": {
+        "global_deltas": {
+          "trust": 0.08
+        },
+        "owner_local_deltas": {
+          "trust": 0.04
+        },
+        "target_local_deltas": {
+          "trust": 0.04
+        },
+        "feedback_template": "governance action shifts the visible state."
+      },
+      "narrow_scope": {
+        "global_deltas": {
+          "risk": -0.08,
+          "uncertainty": -0.08
+        },
+        "owner_local_deltas": {
+          "trust": 0.04
+        },
+        "target_local_deltas": {},
+        "feedback_template": "scope action shifts the visible state."
+      }
+    },
+    "CLOSING": {
+      "assign_owner": {
+        "global_deltas": {
+          "execution_confidence": 0.08,
+          "alignment": 0.08
+        },
+        "owner_local_deltas": {
+          "execution_confidence": 0.04
+        },
+        "target_local_deltas": {},
+        "feedback_template": "ownership action shifts the visible state."
+      },
+      "publish_update": {
+        "global_deltas": {
+          "trust": 0.08,
+          "alignment": 0.08
+        },
+        "owner_local_deltas": {
+          "trust": 0.04
+        },
+        "target_local_deltas": {
+          "trust": 0.04
+        },
+        "feedback_template": "communication action shifts the visible state."
+      },
+      "defer_decision": {
+        "global_deltas": {
+          "uncertainty": -0.08
+        },
+        "owner_local_deltas": {
+          "trust": 0.04
+        },
+        "target_local_deltas": {},
+        "feedback_template": "timing action shifts the visible state."
+      }
+    }
+  },
+  "state_visibility_rules": {
+    "global_keys": [
+      "talent_retention",
+      "legal_risk",
+      "facility_utilization"
+    ],
+    "local_keys": [
+      "trust",
+      "influence",
+      "alignment"
+    ],
+    "max_recent_actions": 2
+  },
+  "metadata": {
+    "phase_action_policies": {
+      "OPENING": {
+        "action_mode": "shadow",
+        "diversity_required": false,
+        "duplicate_penalty": 0.16,
+        "uniqueness_bonus": 0.08,
+        "convergence_backoff_threshold": 0.95,
+        "allow_no_action": true,
+        "family_cap": 2,
+        "max_same_family_per_phase": 2,
+        "max_actions_per_phase": 2,
+        "sparsity_threshold": 0.68,
+        "style_slot_limit": 3,
+        "pool_max_concurrency": 2,
+        "planner_cache": true
+      },
+      "TENSION": {
+        "action_mode": "shadow",
+        "diversity_required": true,
+        "duplicate_penalty": 0.16,
+        "uniqueness_bonus": 0.08,
+        "convergence_backoff_threshold": 0.95,
+        "allow_no_action": true,
+        "family_cap": 2,
+        "max_same_family_per_phase": 2,
+        "max_actions_per_phase": 2,
+        "sparsity_threshold": 0.68,
+        "style_slot_limit": 3,
+        "pool_max_concurrency": 2,
+        "planner_cache": false
+      },
+      "NEGOTIATION": {
+        "action_mode": "execute",
+        "diversity_required": true,
+        "duplicate_penalty": 0.32,
+        "uniqueness_bonus": 0.18,
+        "convergence_backoff_threshold": 0.9,
+        "allow_no_action": true,
+        "family_cap": 1,
+        "max_same_family_per_phase": 1,
+        "max_actions_per_phase": 3,
+        "sparsity_threshold": 0.82,
+        "style_slot_limit": 4,
+        "pool_max_concurrency": 2,
+        "planner_cache": false
+      },
+      "CLOSING": {
+        "action_mode": "execute",
+        "diversity_required": false,
+        "duplicate_penalty": 0.16,
+        "uniqueness_bonus": 0.08,
+        "convergence_backoff_threshold": 0.95,
+        "allow_no_action": true,
+        "family_cap": 2,
+        "max_same_family_per_phase": 2,
+        "max_actions_per_phase": 2,
+        "sparsity_threshold": 0.68,
+        "style_slot_limit": 3,
+        "pool_max_concurrency": 1,
+        "planner_cache": true
+      }
+    },
+    "actor_action_preferences": {
+      "actor_1": {
+        "default": {
+          "primary_families": [
+            "request_accommodation"
+          ]
+        }
+      },
+      "actor_2": {
+        "default": {
+          "primary_families": [
+            "ownership",
+            "evidence"
+          ],
+          "secondary_families": [
+            "scope",
+            "resourcing"
+          ],
+          "avoid_families": [],
+          "state_priority_keys": [
+            "execution_confidence",
+            "alignment",
+            "trust"
+          ],
+          "preferred_action_types": [],
+          "preferred_target_keys": [
+            "execution_confidence",
+            "alignment"
+          ]
+        }
+      },
+      "actor_3": {
+        "default": {
+          "primary_families": [
+            "evidence",
+            "communication"
+          ],
+          "secondary_families": [
+            "scope",
+            "ownership"
+          ],
+          "avoid_families": [],
+          "state_priority_keys": [
+            "execution_confidence",
+            "alignment",
+            "trust"
+          ],
+          "preferred_action_types": [],
+          "preferred_target_keys": [
+            "execution_confidence",
+            "alignment"
+          ]
+        }
+      },
+      "actor_4": {
+        "default": {
+          "primary_families": [
+            "threaten_exit"
+          ]
+        }
+      },
+      "actor_5": {
+        "default": {
+          "primary_families": [
+            "evidence",
+            "communication"
+          ],
+          "secondary_families": [
+            "scope",
+            "ownership"
+          ],
+          "avoid_families": [],
+          "state_priority_keys": [
+            "execution_confidence",
+            "alignment",
+            "trust"
+          ],
+          "preferred_action_types": [],
+          "preferred_target_keys": [
+            "execution_confidence",
+            "alignment"
+          ]
+        }
+      }
+    },
+    "metadata_completeness_score": 1.0,
+    "missing_contract_fields": [],
+    "builder_trace": {
+      "builder_trace_id": "builder:zoom_return_to_office_5actor",
+      "brief_id": "zoom_return_to_office_5actor",
+      "builder_version": "brief_builder_v2",
+      "generation_attempts": 1,
+      "scenario_family": "workplace_policy",
+      "input_understanding": {
+        "brief_excerpt": "Zoom's return-to-office mandate (2023). The company that became synonymous with remote work told employees living within 50 miles to come to the office at least twice a week. Stakeholders: a deaf empl",
+        "detected_keywords": [],
+        "simulation_mode": "guided"
+      },
+      "stakeholder_extraction": [
+        {
+          "actor_id": "actor_1",
+          "display_name": "Jordan",
+          "role": "Deaf Software Engineer"
+        },
+        {
+          "actor_id": "actor_2",
+          "display_name": "Priya",
+          "role": "Engineering Director"
+        },
+        {
+          "actor_id": "actor_3",
+          "display_name": "Carlos",
+          "role": "CRE Lease Strategist"
+        },
+        {
+          "actor_id": "actor_4",
+          "display_name": "Naomi",
+          "role": "Teams Talent Scout"
+        },
+        {
+          "actor_id": "actor_5",
+          "display_name": "Avery",
+          "role": "Employee Resource Group Lead"
+        }
+      ],
+      "stakeholder_expansion": [],
+      "phase_template_selection": {
+        "phase_names": [
+          "OPENING",
+          "TENSION",
+          "NEGOTIATION",
+          "CLOSING"
+        ],
+        "phase_count": 4
+      },
+      "world_state_schema_selection": {
+        "world_state_schema": [
+          "alignment",
+          "trust",
+          "uncertainty",
+          "execution_confidence",
+          "risk",
+          "talent_retention",
+          "legal_risk",
+          "facility_utilization"
+        ]
+      },
+      "allowed_action_types_selection": {
+        "allowed_action_types": [
+          "assign_owner",
+          "request_evidence",
+          "publish_update",
+          "narrow_scope",
+          "pilot",
+          "commit_resource",
+          "defer_decision",
+          "preserve_autonomy"
+        ]
+      },
+      "transition_rules_selection": {
+        "phase_rule_counts": {
+          "OPENING": 2,
+          "TENSION": 5,
+          "NEGOTIATION": 6,
+          "CLOSING": 3
+        }
+      },
+      "phase_action_policies_generation": {
+        "OPENING": {
+          "action_mode": "shadow"
+        }
+      },
+      "actor_action_preferences_generation": {
+        "actor_1": {
+          "default": {
+            "primary_families": [
+              "request_accommodation"
+            ]
+          }
+        },
+        "actor_4": {
+          "default": {
+            "primary_families": [
+              "threaten_exit"
+            ]
+          }
+        }
+      },
+      "metadata_completeness_score": 1.0,
+      "missing_contract_fields": []
+    }
+  },
+  "evaluation_targets": [
+    "persona_stability",
+    "action_coherence"
+  ]
+}
