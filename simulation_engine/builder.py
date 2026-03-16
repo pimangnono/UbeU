@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import copy
 import re
+from dataclasses import asdict, dataclass
 from typing import Any
 
 from .action_layer import ACTION_TYPES, ACTION_FAMILIES
@@ -280,6 +281,172 @@ def infer_scenario_family(brief: str, stakeholders: list[dict[str, Any]], title:
     return "generic"
 
 
+@dataclass
+class StructuralProfile:
+    polarity: str          # "adversarial" | "fragmented" | "collaborative"
+    pressure: str          # "high" | "medium" | "low"
+    initial_tension: float # 0.05 - 0.25
+    sycophancy_threshold: float  # 0.40 - 0.55 (lower = stricter)
+    trust_decay_boost: float     # 1.0 - 1.5 (multiplier on negative trust deltas)
+    tension_floor_base: float    # 0.0 - 0.15
+
+
+def infer_structural_profile(stakeholders: list[dict], phases: list[dict]) -> StructuralProfile:
+    """Classify scenario structure from stakeholder incentive/concern conflict."""
+    # 1. Polarity: count pairwise incentive-concern keyword conflicts
+    all_incentive_words = []
+    all_concern_words = []
+    for s in stakeholders:
+        all_incentive_words.append(set(w.lower() for phrase in s.get("incentives", []) for w in phrase.split()))
+        all_concern_words.append(set(w.lower() for phrase in s.get("concerns", []) for w in phrase.split()))
+
+    conflict_pairs = 0
+    total_pairs = 0
+    for i in range(len(stakeholders)):
+        for j in range(i + 1, len(stakeholders)):
+            total_pairs += 1
+            # A's incentives in B's concerns and vice versa
+            ab = len(all_incentive_words[i] & all_concern_words[j])
+            ba = len(all_incentive_words[j] & all_concern_words[i])
+            denom = max(len(all_incentive_words[i]) + len(all_incentive_words[j]), 1)
+            if (ab + ba) / denom > 0.15:
+                conflict_pairs += 1
+
+    conflict_ratio = conflict_pairs / max(total_pairs, 1)
+
+    if conflict_ratio > 0.4:
+        polarity = "adversarial"
+    elif conflict_ratio > 0.15:
+        polarity = "fragmented"
+    else:
+        polarity = "collaborative"
+
+    # 2. Pressure: actor count + phase count
+    n_actors = len(stakeholders)
+    n_phases = len(phases)
+    pressure = "high" if (n_actors >= 5 and n_phases >= 4) else ("medium" if n_actors >= 3 else "low")
+
+    # 3. Derive parameters from classification
+    PROFILES = {
+        "adversarial": {"initial_tension": 0.22, "sycophancy_threshold": 0.40,
+                        "trust_decay_boost": 1.5, "tension_floor_base": 0.12},
+        "fragmented":  {"initial_tension": 0.12, "sycophancy_threshold": 0.48,
+                        "trust_decay_boost": 1.2, "tension_floor_base": 0.06},
+        "collaborative": {"initial_tension": 0.04, "sycophancy_threshold": 0.55,
+                          "trust_decay_boost": 1.0, "tension_floor_base": 0.0},
+    }
+    params = dict(PROFILES[polarity])
+    # Adjust for pressure
+    if pressure == "high":
+        params["initial_tension"] = min(0.30, params["initial_tension"] + 0.04)
+
+    return StructuralProfile(polarity=polarity, pressure=pressure, **params)
+
+
+@dataclass
+class ScriptOverrides:
+    """User-provided overrides to structural classification."""
+    polarity: str | None = None
+    initial_tension: float | None = None
+    tension_floor_base: float | None = None
+    trust_decay_boost: float | None = None
+    sycophancy_threshold: float | None = None
+
+
+def apply_overrides(script_data: dict, overrides: ScriptOverrides) -> dict:
+    """Apply user overrides to a script's structural profile."""
+    data = copy.deepcopy(script_data)
+    profile = data.get("metadata", {}).get("structural_profile", {})
+
+    if overrides.polarity is not None:
+        profile["polarity"] = overrides.polarity
+    if overrides.initial_tension is not None:
+        profile["initial_tension"] = overrides.initial_tension
+    if overrides.tension_floor_base is not None:
+        profile["tension_floor_base"] = overrides.tension_floor_base
+    if overrides.trust_decay_boost is not None:
+        profile["trust_decay_boost"] = overrides.trust_decay_boost
+    if overrides.sycophancy_threshold is not None:
+        profile["sycophancy_threshold"] = overrides.sycophancy_threshold
+
+    data["metadata"]["structural_profile"] = profile
+    return data
+
+
+def inspect_script(script_data: dict) -> dict[str, Any]:
+    """Inspect a generated script's structural classification and parameters."""
+    profile = script_data.get("metadata", {}).get("structural_profile", {})
+    stakeholders = script_data.get("stakeholders", [])
+    phases = script_data.get("phases", [])
+    initial_ws = script_data.get("initial_world_state", {})
+
+    # Per-pair conflict analysis
+    pair_conflicts = []
+    for i, a in enumerate(stakeholders):
+        a_inc = set(w.lower() for p in a.get("incentives", []) for w in p.split())
+        a_con = set(w.lower() for p in a.get("concerns", []) for w in p.split())
+        for j, b in enumerate(stakeholders):
+            if j <= i:
+                continue
+            b_inc = set(w.lower() for p in b.get("incentives", []) for w in p.split())
+            b_con = set(w.lower() for p in b.get("concerns", []) for w in p.split())
+            ab = a_inc & b_con
+            ba = b_inc & a_con
+            if ab or ba:
+                pair_conflicts.append({
+                    "actors": (a.get("display_name"), b.get("display_name")),
+                    "conflict_words": list(ab | ba),
+                    "severity": len(ab) + len(ba),
+                })
+
+    return {
+        "simulation_id": script_data.get("simulation_id"),
+        "structural_profile": profile,
+        "actor_count": len(stakeholders),
+        "phase_count": len(phases),
+        "phase_styles": [p.get("style") for p in phases],
+        "initial_world_state": initial_ws,
+        "pair_conflicts": sorted(pair_conflicts, key=lambda x: -x["severity"]),
+        "tension_floor_estimates": {
+            f"{c['actors'][0]} vs {c['actors'][1]}": round(
+                profile.get("tension_floor_base", 0) + 0.18 * c["severity"] / max(len(stakeholders), 1),
+                3,
+            )
+            for c in pair_conflicts
+        },
+    }
+
+
+def print_inspection(inspection: dict) -> None:
+    """Pretty-print a script inspection report."""
+    print(f"\n{'='*60}")
+    print(f"SCRIPT INSPECTION: {inspection['simulation_id']}")
+    print(f"{'='*60}")
+
+    profile = inspection["structural_profile"]
+    print(f"\n  Structural Classification:")
+    print(f"    Polarity:    {profile.get('polarity', 'unknown')}")
+    print(f"    Pressure:    {profile.get('pressure', 'unknown')}")
+    print(f"    Init Tension: {profile.get('initial_tension', 0):.2f}")
+    print(f"    Sycophancy Threshold: {profile.get('sycophancy_threshold', 0.55):.2f}")
+    print(f"    Trust Decay Boost: {profile.get('trust_decay_boost', 1.0):.1f}x")
+
+    print(f"\n  Actors: {inspection['actor_count']}")
+    print(f"  Phases: {inspection['phase_count']} ({', '.join(str(s) for s in inspection['phase_styles'])})")
+
+    if inspection["pair_conflicts"]:
+        print(f"\n  Stakeholder Conflicts:")
+        for c in inspection["pair_conflicts"][:5]:
+            print(f"    {c['actors'][0]} vs {c['actors'][1]}: {', '.join(c['conflict_words'][:5])}")
+
+    if inspection["tension_floor_estimates"]:
+        print(f"\n  Tension Floor Estimates:")
+        for pair, floor in inspection["tension_floor_estimates"].items():
+            print(f"    {pair}: {floor:.3f}")
+
+    print(f"\n{'='*60}\n")
+
+
 def infer_simulation_mode(scenario_family: str) -> str:
     if scenario_family in {"brand_crisis", "resource_scarcity"}:
         return "exploratory"
@@ -350,6 +517,9 @@ def enrich_generated_script_payload(
         stakeholders=stakeholders,
         world_state_schema=world_state_schema,
     )
+    structural_profile = infer_structural_profile(stakeholders, data["phases"])
+    metadata["structural_profile"] = asdict(structural_profile)
+
     missing_fields = missing_contract_fields(data={**data, "metadata": metadata})
     completeness = compute_metadata_completeness(missing_fields)
     builder_trace = build_builder_trace(

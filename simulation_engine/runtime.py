@@ -37,11 +37,12 @@ class StakeholderSimulationRuntime:
         script: SimulationScript,
         gen_client,
         ablation_config: SimulationAblationConfig | None = None,
+        semantic_scorer=None,
     ):
         self.script = script
         self.gen_client = gen_client
         self.ablation_config = ablation_config or DEFAULT_ABLATION_CONFIG
-        self.state_store = InMemoryStateStore(SimulationStateLedger(script))
+        self.state_store = InMemoryStateStore(SimulationStateLedger(script, semantic_scorer=semantic_scorer))
         self.ledger = self.state_store.ledger
         self.actors = {
             actor.actor_id: StakeholderActor(
@@ -153,7 +154,9 @@ class StakeholderSimulationRuntime:
 
     def advance_phase(self):
         if self.phase_index < len(self.script.phases) - 1:
+            outgoing_phase = self.current_phase.name
             self.phase_index += 1
+            self.ledger.resolve_phase_commitments(outgoing_phase)
 
     def to_runtime_summary(self) -> dict[str, Any]:
         latest_world = self.ledger.latest_world_state()

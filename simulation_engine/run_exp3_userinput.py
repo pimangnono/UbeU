@@ -73,7 +73,7 @@ The JSON must follow this exact schema:
 }
 
 Rules:
-- Generate 3-4 stakeholders based on the brief
+- Generate stakeholders based on the brief (see actor count instruction below)
 - Personality priors (OCEAN) should vary across stakeholders — don't cluster them
 - Each stakeholder needs distinct incentives and concerns that create natural tension
 - Phase names MUST be exactly: OPENING, TENSION, NEGOTIATION, CLOSING (in that order)
@@ -83,35 +83,94 @@ Rules:
 """
 
 
-async def generate_script_from_brief(gen_client, brief: str, brief_id: str) -> SimulationScript:
-    """Generate a complete SimulationScript from a user's brief."""
-    prompt = f"Generate a simulation script for this scenario:\n\n{brief}"
+async def generate_script_from_brief(
+    gen_client,
+    brief: str,
+    brief_id: str,
+    *,
+    actor_count: int | None = None,
+    simulation_mode: str | None = None,
+    max_retries: int = 3,
+) -> SimulationScript:
+    """Generate a complete SimulationScript from a user's brief.
 
-    response = await gen_client.generate(
-        prompt=prompt,
-        system_instruction=SCRIPT_GENERATION_SYSTEM,
-        temperature=0.7,
-        max_tokens=2000,
-    )
+    Args:
+        gen_client: LLM client for generation.
+        brief: The scenario brief text.
+        brief_id: Unique identifier for the brief.
+        actor_count: Target number of stakeholders. If set, the prompt
+            instructs the LLM to generate exactly this many, and the
+            result is validated (regenerated on mismatch).
+        simulation_mode: Override simulation_mode ("guided" or "exploratory").
+            Injected into the generated payload before enrichment.
+        max_retries: Maximum generation attempts on parse/validation failure.
+    """
+    actor_instruction = ""
+    if actor_count is not None:
+        actor_instruction = (
+            f"\n\nIMPORTANT: Generate exactly {actor_count} stakeholders. "
+            f"Each must have a unique actor_id (actor_1 through actor_{actor_count}), "
+            f"a distinct role, and varied OCEAN personality priors."
+        )
 
-    # Clean response — strip markdown fences if present
-    text = response.strip()
-    if text.startswith("```"):
-        text = text.split("\n", 1)[1] if "\n" in text else text[3:]
-    if text.endswith("```"):
-        text = text[:-3]
-    text = text.strip()
-    if text.startswith("json"):
-        text = text[4:].strip()
+    prompt = f"Generate a simulation script for this scenario:\n\n{brief}{actor_instruction}"
 
-    data = json.loads(text)
-    enriched = enrich_generated_script_payload(
-        data,
-        brief=brief,
-        brief_id=brief_id,
-        generation_attempts=1,
-    )
-    return validate_enriched_script(enriched)
+    last_error: Exception | None = None
+    for attempt in range(1, max_retries + 1):
+        try:
+            response = await gen_client.generate(
+                prompt=prompt,
+                system_instruction=SCRIPT_GENERATION_SYSTEM,
+                temperature=0.7,
+                max_tokens=4000 if (actor_count or 0) > 5 else 2000,
+            )
+
+            # Clean response — strip markdown fences if present
+            text = response.strip()
+            if text.startswith("```"):
+                text = text.split("\n", 1)[1] if "\n" in text else text[3:]
+            if text.endswith("```"):
+                text = text[:-3]
+            text = text.strip()
+            if text.startswith("json"):
+                text = text[4:].strip()
+
+            data = json.loads(text)
+
+            # Override simulation_mode if requested
+            if simulation_mode is not None:
+                data["simulation_mode"] = simulation_mode
+
+            enriched = enrich_generated_script_payload(
+                data,
+                brief=brief,
+                brief_id=brief_id,
+                generation_attempts=attempt,
+            )
+            script = validate_enriched_script(enriched)
+
+            # Validate actor count if specified
+            if actor_count is not None and len(script.stakeholders) != actor_count:
+                raise ValueError(
+                    f"Expected {actor_count} stakeholders, got {len(script.stakeholders)}"
+                )
+
+            # Inspect structural classification before running
+            from simulation_engine.builder import inspect_script, print_inspection
+            inspection = inspect_script(enriched)
+            print_inspection(inspection)
+
+            return script
+
+        except Exception as e:
+            last_error = e
+            if attempt < max_retries:
+                print(
+                    f"  [attempt {attempt}/{max_retries}] Generation failed: {e}. Retrying...",
+                    flush=True,
+                )
+
+    raise last_error  # type: ignore[misc]
 
 
 TEST_BRIEFS = [

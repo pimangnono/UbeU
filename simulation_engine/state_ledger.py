@@ -5,7 +5,12 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass, field
 from typing import Any, Optional
 
-from experiment.memory_backend import Commitment, extract_commitments
+from experiment.memory_backend import (
+    Commitment,
+    check_commitment_fulfilled,
+    extract_commitments,
+    is_commitment_stale,
+)
 
 from .action_layer import (
     ActionProposal,
@@ -15,6 +20,7 @@ from .action_layer import (
     build_phase_feedback,
     default_local_state,
 )
+from .episodic_memory import EpisodicMemory, RelationalEpisode
 from .script import SimulationScript
 
 
@@ -49,6 +55,16 @@ _NEGATIVE_REL = (
     "won't work",
     "too risky",
     "not convinced",
+    "reject",
+    "refuse",
+    "deny",
+    "exploit",
+    "threaten",
+    "liable",
+    "lawsuit",
+    "sue",
+    "violation",
+    "breach",
 )
 _CHALLENGE_REL = (
     "but",
@@ -62,6 +78,13 @@ _CHALLENGE_REL = (
     "need more proof",
     "push back",
     "challenge",
+    "skeptic",
+    "doubt",
+    "question the",
+    "unconvinced",
+    "resist",
+    "unacceptable",
+    "inadequate",
 )
 
 
@@ -145,8 +168,9 @@ class ActorDynamicState:
 class SimulationStateLedger:
     """Shared multi-actor state ledger for the product runtime."""
 
-    def __init__(self, script: SimulationScript):
+    def __init__(self, script: SimulationScript, semantic_scorer=None):
         self.script = script
+        self.semantic_scorer = semantic_scorer
         self.turns: list[LedgerTurn] = []
         self.actor_states: dict[str, ActorDynamicState] = {}
         self.commitments_by_actor: dict[str, list[Commitment]] = {}
@@ -159,6 +183,7 @@ class SimulationStateLedger:
         self.action_audits: dict[str, dict[str, Any]] = {}
         self.world_state_history: list[WorldStateSnapshot] = []
         self.phase_state_feedback: dict[str, dict[str, dict[str, Any]]] = {}
+        self.episodic_memory = EpisodicMemory()
 
         actor_ids = script.actor_ids
         self.world_state_history.append(
@@ -202,6 +227,31 @@ class SimulationStateLedger:
                     target_actor_id=other_id,
                 )
 
+        # Compute per-pair tension floors from incentive/concern conflict
+        self.tension_floors: dict[tuple[str, str], float] = {}
+        profile_data = script.metadata.get("structural_profile", {})
+        base_floor = profile_data.get("tension_floor_base", 0.0)
+
+        for actor_id in actor_ids:
+            actor_spec = script.get_actor(actor_id)
+            a_incentives = set(w.lower() for p in actor_spec.incentives for w in p.split())
+            a_concerns = set(w.lower() for p in actor_spec.concerns for w in p.split())
+            for other_id in actor_ids:
+                if other_id == actor_id:
+                    continue
+                other_spec = script.get_actor(other_id)
+                b_incentives = set(w.lower() for p in other_spec.incentives for w in p.split())
+                b_concerns = set(w.lower() for p in other_spec.concerns for w in p.split())
+                ab = len(a_incentives & b_concerns)
+                ba = len(b_incentives & a_concerns)
+                denom = max(len(a_incentives) + len(b_incentives), 1)
+                conflict_ratio = (ab + ba) / denom
+                floor = min(0.40, base_floor + 0.18 * conflict_ratio)
+                self.tension_floors[(actor_id, other_id)] = round(floor, 4)
+                # Set initial tension to floor
+                edge = self.relationships[(actor_id, other_id)]
+                edge.tension = floor
+
     def append_turn(
         self,
         actor_id: str,
@@ -226,12 +276,16 @@ class SimulationStateLedger:
         )
         self.turns.append(turn)
         self.add_commitments_from_text(actor_id, content, turn.turn_index, phase_name)
+        # Lifecycle: resolve fulfilled and stale commitments for the speaking actor
+        self.resolve_fulfilled_commitments(actor_id, content)
+        self.resolve_stale_commitments(actor_id, turn.turn_index)
         self.update_relationships_from_text(
             actor_id,
             content,
             turn.turn_index,
             turn_trace_id=str(turn.metadata.get("turn_trace_id", "")) or None,
         )
+        self.episodic_memory.decay_all()
         return turn
 
     def add_commitments_from_text(
@@ -288,7 +342,8 @@ class SimulationStateLedger:
         prior_tension = edge.tension
         edge.sentiment = sentiment
         edge.trust = _clip_unit(edge.trust + trust_delta)
-        edge.tension = _clip_unit(edge.tension + tension_delta)
+        floor = self.tension_floors.get((source_actor_id, target_actor_id), 0.0)
+        edge.tension = max(floor, _clip_unit(edge.tension + tension_delta))
         edge.last_turn = turn_index
         if evidence:
             edge.evidence.append(evidence)
@@ -316,6 +371,10 @@ class SimulationStateLedger:
         actor_state.trust_map[target_actor_id] = edge.trust
         actor_state.stance_map[target_actor_id] = round(0.5 - edge.tension, 4)
 
+    def _structural_trust_decay_boost(self) -> float:
+        profile = self.script.metadata.get("structural_profile", {})
+        return profile.get("trust_decay_boost", 1.0)
+
     def update_relationships_from_text(
         self,
         actor_id: str,
@@ -326,6 +385,7 @@ class SimulationStateLedger:
         lowered = content.lower()
         updates: list[RelationshipEdge] = []
         actor_map = self.script.actor_map
+        trust_decay_boost = self._structural_trust_decay_boost()
 
         for target_actor_id, actor in actor_map.items():
             if target_actor_id == actor_id:
@@ -334,35 +394,83 @@ class SimulationStateLedger:
             if name not in lowered:
                 continue
 
-            positive_hit = any(token in lowered for token in _POSITIVE_REL)
-            negative_hit = any(token in lowered for token in _NEGATIVE_REL)
-            challenge_hit = any(token in lowered for token in _CHALLENGE_REL)
+            # --- Negation-aware keyword matching ---
+            positive_hit = False
+            negative_hit = False
+            challenge_hit = False
 
+            # Check each positive keyword with negation guard
+            for token in _POSITIVE_REL:
+                idx = lowered.find(token)
+                if idx < 0:
+                    continue
+                # Check for negation within 15 chars before the match
+                prefix = lowered[max(0, idx - 15):idx]
+                if any(neg in prefix for neg in ("don't ", "do not ", "doesn't ", "not ", "never ", "no ", "isn't ")):
+                    negative_hit = True  # "I don't agree" → negative
+                else:
+                    positive_hit = True
+
+            for token in _NEGATIVE_REL:
+                if token in lowered:
+                    negative_hit = True
+
+            for token in _CHALLENGE_REL:
+                if token in lowered:
+                    challenge_hit = True
+
+            # --- Sentiment + delta calculation ---
             sentiment = "neutral"
             trust_delta = 0.0
             tension_delta = 0.0
+
             if positive_hit and challenge_hit and not negative_hit:
                 sentiment = "challenging"
-                trust_delta = 0.04
-                tension_delta = 0.11
+                trust_delta = 0.02
+                tension_delta = 0.13
             elif negative_hit and positive_hit:
                 sentiment = "challenging"
-                trust_delta = -0.04
-                tension_delta = 0.13
+                trust_delta = -0.06 * trust_decay_boost
+                tension_delta = 0.16
             elif negative_hit:
                 sentiment = "negative"
-                trust_delta = -0.12
-                tension_delta = 0.16
+                trust_delta = -0.18 * trust_decay_boost
+                tension_delta = 0.22
             elif challenge_hit:
                 sentiment = "challenging"
-                trust_delta = -0.03
-                tension_delta = 0.09
+                trust_delta = -0.05 * trust_decay_boost
+                tension_delta = 0.12
             elif positive_hit:
                 sentiment = "positive"
-                trust_delta = 0.12
-                tension_delta = -0.05
+                # Asymmetric de-escalation: harder to reduce tension near floor
+                floor = self.tension_floors.get((actor_id, target_actor_id), 0.0)
+                edge = self.relationships[(actor_id, target_actor_id)]
+                distance_from_floor = max(0, edge.tension - floor)
+                tension_delta = -0.03 * min(1.0, distance_from_floor / max(edge.tension, 0.01))
+                tension_delta = max(tension_delta, -0.02)  # cap de-escalation per turn
+                trust_delta = 0.08
             else:
                 continue
+
+            # --- Semantic override for ambiguous cases ---
+            if self.semantic_scorer:
+                sem_scores = self.semantic_scorer.sentiment_score(content)
+                # Semantic override: if keywords say positive but semantic says challenging/negative
+                if positive_hit and not negative_hit and not challenge_hit:
+                    if sem_scores["challenging"] > sem_scores["positive"] + 0.05:
+                        sentiment = "challenging"
+                        trust_delta = -0.03
+                        tension_delta = 0.08
+                    elif sem_scores["negative"] > sem_scores["positive"] + 0.08:
+                        sentiment = "negative"
+                        trust_delta = -0.12 * trust_decay_boost
+                        tension_delta = 0.18
+                # Semantic catch: if keywords miss everything but semantic detects challenge
+                elif not positive_hit and not negative_hit and not challenge_hit:
+                    if sem_scores["challenging"] > 0.55 or sem_scores["negative"] > 0.55:
+                        sentiment = "challenging"
+                        trust_delta = -0.03
+                        tension_delta = 0.06
 
             self.update_relationship(
                 source_actor_id=actor_id,
@@ -375,6 +483,18 @@ class SimulationStateLedger:
                 turn_trace_id=turn_trace_id,
             )
             updates.append(self.relationships[(actor_id, target_actor_id)])
+
+            # Record episodic memory
+            self.episodic_memory.add_episode(RelationalEpisode(
+                turn_index=turn_index,
+                source_actor_id=actor_id,
+                target_actor_id=target_actor_id,
+                sentiment=sentiment,
+                trust_delta=trust_delta,
+                tension_delta=tension_delta,
+                excerpt=content[:80],
+                phase_name=self.turns[-1].phase_name if self.turns else "",
+            ))
 
         return updates
 
@@ -482,6 +602,61 @@ class SimulationStateLedger:
             cid for cid in actor_state.open_commitments
             if cid != commitment_id
         ]
+
+    def resolve_fulfilled_commitments(
+        self,
+        actor_id: str,
+        turn_text: str,
+    ) -> list[str]:
+        """Mark commitments as fulfilled if the turn content satisfies them."""
+        resolved_ids: list[str] = []
+        for commitment in self.get_open_commitments(actor_id):
+            if check_commitment_fulfilled(turn_text, commitment):
+                commitment.status = "fulfilled"
+                resolved_ids.append(commitment.commitment_id)
+        if resolved_ids:
+            actor_state = self.actor_states[actor_id]
+            actor_state.open_commitments = [
+                cid for cid in actor_state.open_commitments
+                if cid not in resolved_ids
+            ]
+        return resolved_ids
+
+    def resolve_stale_commitments(
+        self,
+        actor_id: str,
+        current_turn: int,
+        max_age: int = 8,
+    ) -> list[str]:
+        """Mark commitments older than *max_age* turns as stale."""
+        stale_ids: list[str] = []
+        for commitment in self.get_open_commitments(actor_id):
+            if is_commitment_stale(commitment, current_turn, max_age):
+                commitment.status = "stale"
+                stale_ids.append(commitment.commitment_id)
+        if stale_ids:
+            actor_state = self.actor_states[actor_id]
+            actor_state.open_commitments = [
+                cid for cid in actor_state.open_commitments
+                if cid not in stale_ids
+            ]
+        return stale_ids
+
+    def resolve_phase_commitments(self, phase_name: str) -> list[str]:
+        """Resolve all commitments with due_phase matching *phase_name* across all actors."""
+        resolved_ids: list[str] = []
+        for actor_id in list(self.actor_states):
+            for commitment in self.get_open_commitments(actor_id):
+                if commitment.due_phase == phase_name:
+                    commitment.status = "phase_resolved"
+                    resolved_ids.append(commitment.commitment_id)
+            if resolved_ids:
+                actor_state = self.actor_states[actor_id]
+                actor_state.open_commitments = [
+                    cid for cid in actor_state.open_commitments
+                    if cid not in resolved_ids
+                ]
+        return resolved_ids
 
     def visible_turns_for(self, actor_id: str, max_turns: int = 8) -> list[LedgerTurn]:
         visible: list[LedgerTurn] = []
@@ -764,4 +939,5 @@ class SimulationStateLedger:
                 for audit in self.ordered_action_audits()
                 if audit.get("actor_id") == actor_id
             ][-2:],
+            "episodic_memory_context": self.episodic_memory.format_memory_context(actor_id),
         }

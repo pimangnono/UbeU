@@ -5,6 +5,7 @@ from __future__ import annotations
 import asyncio
 import hashlib
 import json
+import os
 from dataclasses import dataclass
 from pathlib import Path
 from statistics import mean, pstdev
@@ -34,8 +35,8 @@ from .metrics import (
     estimate_actor_traits_from_turns,
     persona_drift_mae,
 )
-from .runtime import StakeholderSimulationRuntime
-from .reporting import save_benchmark_outputs
+from .runtime import RuntimeTurnView, StakeholderSimulationRuntime
+from .reporting import atomic_write_json, save_benchmark_outputs
 
 DEFAULT_STYLE_SLOTS = ["integrator", "planner", "challenger", "skeptic"]
 
@@ -53,11 +54,13 @@ class BenchmarkRunResult:
     repetition_index: int = 0
     trace_bundle_path: str = ""
     builder_trace_ref: str = ""
+    script_id: str = ""
 
     def to_dict(self) -> dict[str, Any]:
         return {
             "condition": self.condition,
             "simulation_id": self.simulation_id,
+            "script_id": self.script_id,
             "runtime_summary": self.runtime_summary,
             "metrics": self.metrics.to_dict(),
             "selection_audits": self.selection_audits,
@@ -118,12 +121,14 @@ def _serialize_run_result(result: BenchmarkRunResult) -> dict[str, Any]:
     repetition_index = int(getattr(result, "repetition_index", 0) or 0)
     trace_bundle_path = str(getattr(result, "trace_bundle_path", "") or "")
     builder_trace_ref = str(getattr(result, "builder_trace_ref", "") or "")
+    script_id = str(getattr(result, "script_id", "") or result.simulation_id)
     payload["suite_id"] = suite_id
     payload["track_id"] = track_id
     payload["run_id"] = run_id
     payload["repetition_index"] = repetition_index
     payload["trace_bundle_path"] = trace_bundle_path
     payload["builder_trace_ref"] = builder_trace_ref
+    payload["script_id"] = script_id
     runtime_summary = dict(payload.get("runtime_summary", {}))
     runtime_summary["suite_id"] = suite_id
     runtime_summary["track_id"] = track_id
@@ -168,6 +173,7 @@ class SimulationBenchmarkRunner:
                 runtime_summary=graph_result["runtime_summary"],
                 metrics=graph_result["metrics"],
                 selection_audits=graph_result["selection_audits"],
+                script_id=graph_result.get("script_id", graph_result["simulation_id"]),
             )
 
         return await self._run_single_manual(script, condition)
@@ -227,6 +233,65 @@ class SimulationBenchmarkRunner:
                         "mode": "naive",
                         "generation_meta": dict(response_payload.get("generation_meta", {})),
                     }
+                elif base_condition == "naive_informed":
+                    # Generate 4 candidates (same as engine) but select by
+                    # drift-only scoring — no controller intelligence.
+                    pool = await actor.generate_candidate_pool_styles(
+                        turns=context["turns"],
+                        phase_style=phase.style,
+                        style_slots=runtime.script.style_slots_for_phase(phase.name, self.style_slots),
+                        actor_snapshot=None,
+                        phase_name=phase.name,
+                        phase_cues=phase.cues,
+                    )
+                    if not pool:
+                        # Fallback: generate a single naive response
+                        response_payload = await actor.generate_response_payload(
+                            turns=context["turns"],
+                            phase_style=phase.style,
+                            actor_snapshot=None,
+                            phase_name=phase.name,
+                            phase_cues=phase.cues,
+                        )
+                        text = response_payload["text"]
+                        selected_meta = {
+                            "mode": "naive_informed",
+                            "pool_size": 0,
+                            "selected_drift": 0.0,
+                            "generation_meta": dict(response_payload.get("generation_meta", {})),
+                            "used_fallback": True,
+                        }
+                    else:
+                        best_candidate = pool[0]
+                        best_drift = float("inf")
+                        candidate_landscape = []
+                        for candidate in pool:
+                            preview_turns = list(context["turns"]) + [
+                                RuntimeTurnView(
+                                    turn_number=len(context["turns"]),
+                                    speaker_name=actor.display_name,
+                                    content=candidate["text"],
+                                )
+                            ]
+                            inferred = estimate_actor_traits_from_turns(preview_turns, actor.display_name)
+                            drift = persona_drift_mae(actor.actor_spec.personality_prior, inferred)
+                            candidate_landscape.append({
+                                "slot": candidate.get("slot"),
+                                "drift": drift,
+                                "inferred_traits": inferred,
+                            })
+                            if drift < best_drift:
+                                best_drift = drift
+                                best_candidate = candidate
+                        text = best_candidate["text"]
+                        selected_meta = {
+                            "mode": "naive_informed",
+                            "pool_size": len(pool),
+                            "selected_drift": best_drift,
+                            "candidate_landscape": candidate_landscape,
+                            "slot": best_candidate.get("slot"),
+                            "generation_meta": dict(best_candidate.get("generation_meta", {})),
+                        }
                 else:
                     controller = controllers[actor_id]
                     drift_nudge = (
@@ -520,6 +585,7 @@ class SimulationBenchmarkRunner:
             runtime_summary=runtime.to_runtime_summary(),
             metrics=compute_runtime_metrics(runtime),
             selection_audits=selection_audits,
+            script_id=script.simulation_id,
         )
 
     async def run_suite(
@@ -579,17 +645,21 @@ class SimulationBenchmarkRunner:
                     f"[benchmark] resumed from checkpoint: {completed_runs}/{total_runs} runs already completed",
                     flush=True,
                 )
-                with open(checkpoint_path / "progress.json", "w") as handle:
-                    json.dump(
-                        {
-                            "completed_runs": completed_runs,
-                            "total_runs": total_runs,
-                            "last_script_id": run_results[-1].simulation_id,
-                            "last_condition": run_results[-1].condition,
-                        },
-                        handle,
-                        indent=2,
-                    )
+                atomic_write_json(
+                    checkpoint_path / "progress.json",
+                    {
+                        "completed_runs": completed_runs,
+                        "total_runs": total_runs,
+                        "last_script_id": run_results[-1].simulation_id,
+                        "last_condition": run_results[-1].condition,
+                    },
+                    indent=2,
+                )
+
+        # How many runs were loaded from the old checkpoint (0 if fast resume)
+        _prior_checkpoint_runs = len(run_results)
+        _new_runs_since_merge = 0
+        _FULL_MERGE_INTERVAL = 30  # full save every N new runs
 
         for script in scripts:
             for condition in conditions:
@@ -605,30 +675,58 @@ class SimulationBenchmarkRunner:
                     )
                     run_results.append(run_result)
                     completed_runs += 1
+                    _new_runs_since_merge += 1
                     print(
                         f"[benchmark] completed {completed_runs}/{total_runs}: "
                         f"{script.simulation_id} | {condition}",
                         flush=True,
                     )
-                    partial_results = {
-                        "config": {**config, "suite_id": suite_id},
-                        "suite_id": suite_id,
-                        "runs": [_serialize_run_result(result) for result in run_results],
-                        "aggregate": aggregate_benchmark_runs(run_results),
-                        "aggregate_by_script": aggregate_benchmark_runs_by_script(run_results),
-                        "aggregate_by_mode": aggregate_benchmark_runs_by_mode(run_results),
-                        "aggregate_by_family": aggregate_benchmark_runs_by_family(run_results),
-                    }
                     if checkpoint_path is not None:
-                        save_benchmark_outputs(partial_results, checkpoint_path)
-                        progress_payload = {
-                            "completed_runs": completed_runs,
-                            "total_runs": total_runs,
-                            "last_script_id": script.simulation_id,
-                            "last_condition": condition,
-                        }
-                        with open(checkpoint_path / "progress.json", "w") as handle:
-                            json.dump(progress_payload, handle, indent=2)
+                        # Always: fast append to delta JSONL + update progress
+                        _append_run_to_delta(checkpoint_path, run_result)
+                        atomic_write_json(
+                            checkpoint_path / "progress.json",
+                            {
+                                "completed_runs": completed_runs,
+                                "total_runs": total_runs,
+                                "last_script_id": script.simulation_id,
+                                "last_condition": condition,
+                            },
+                            indent=2,
+                        )
+                        # Periodic full merge: every N runs, merge old+delta
+                        if _new_runs_since_merge >= _FULL_MERGE_INTERVAL:
+                            _do_full_checkpoint_merge(
+                                checkpoint_path, run_results, config,
+                                suite_id, _prior_checkpoint_runs,
+                            )
+                            _new_runs_since_merge = 0
+
+        # Final full merge at end
+        if checkpoint_path is not None and _new_runs_since_merge > 0:
+            _do_full_checkpoint_merge(
+                checkpoint_path, run_results, config,
+                suite_id, _prior_checkpoint_runs,
+            )
+
+        # If fast-resumed, run_results only has new runs. Load complete
+        # data from the just-saved merged file for the return value.
+        if _prior_checkpoint_runs == 0 and checkpoint_path is not None:
+            merged_path = checkpoint_path / "benchmark_runs.json"
+            if merged_path.exists():
+                try:
+                    full_payload = json.loads(merged_path.read_text())
+                    return {
+                        "config": full_payload.get("config", {**config, "suite_id": suite_id}),
+                        "suite_id": suite_id,
+                        "runs": full_payload.get("runs", []),
+                        "aggregate": full_payload.get("aggregate", {}),
+                        "aggregate_by_script": full_payload.get("aggregate_by_script", {}),
+                        "aggregate_by_mode": full_payload.get("aggregate_by_mode", {}),
+                        "aggregate_by_family": full_payload.get("aggregate_by_family", {}),
+                    }
+                except (json.JSONDecodeError, OSError):
+                    pass  # fall through to return new-only results
 
         return {
             "config": {**config, "suite_id": suite_id},
@@ -690,7 +788,7 @@ def _summarize_rows(rows: list[BenchmarkRunResult]) -> dict[str, Any]:
     relation_overshoot_values = [row.metrics.relationship_overshoot_rate for row in rows]
     commitment_values = [row.metrics.commitment_contradiction_rate for row in rows]
     envelope_values = [row.metrics.envelope_violations for row in rows]
-    turn_counts = [row.runtime_summary["turn_count"] for row in rows]
+    turn_counts = [row.runtime_summary.get("turn_count", 0) for row in rows]
     per_trait_error_mean = {
         trait: round(
             mean(row.metrics.per_trait_error_mean.get(trait, 0.0) for row in rows),
@@ -709,6 +807,9 @@ def _summarize_rows(rows: list[BenchmarkRunResult]) -> dict[str, Any]:
     role_action_diversity = [row.metrics.role_action_diversity_score for row in rows]
     negotiation_uniqueness = [row.metrics.negotiation_uniqueness_rate for row in rows]
     fallback_rates = [row.metrics.fallback_utterance_rate for row in rows]
+    dialogue_coherence = [row.metrics.dialogue_coherence_score for row in rows]
+    repetition = [row.metrics.repetition_rate for row in rows]
+    topic_drift = [row.metrics.topic_drift_rate for row in rows]
     fallback_type_keys = sorted(
         {
             key
@@ -722,6 +823,36 @@ def _summarize_rows(rows: list[BenchmarkRunResult]) -> dict[str, Any]:
     }
     clean_rows = [row for row in rows if row.metrics.fallback_utterance_rate < 0.30]
     contaminated_rows = [row for row in rows if row.metrics.fallback_utterance_rate >= 0.30]
+    # Aggregate phase_quality across runs
+    phase_quality_agg: dict[str, dict[str, list[float]]] = {}
+    phase_feature_agg: dict[str, dict[str, list[float]]] = {}
+    for row in rows:
+        pq = row.metrics.phase_quality or {}
+        for phase_name, quality in pq.items():
+            if phase_name not in phase_quality_agg:
+                phase_quality_agg[phase_name] = {"drift": [], "convergence": [], "diversity": []}
+            for metric_key in ("drift", "convergence", "diversity"):
+                phase_quality_agg[phase_name][metric_key].append(quality.get(metric_key, 0.0))
+            # Aggregate per-phase mean features
+            mean_feats = quality.get("mean_features", {})
+            if mean_feats:
+                if phase_name not in phase_feature_agg:
+                    phase_feature_agg[phase_name] = {}
+                for feat, val in mean_feats.items():
+                    phase_feature_agg[phase_name].setdefault(feat, []).append(float(val))
+    phase_quality_mean: dict[str, dict[str, float]] = {}
+    for phase_name, metrics_lists in phase_quality_agg.items():
+        phase_quality_mean[phase_name] = {
+            k: round(mean(v), 4) if v else 0.0
+            for k, v in metrics_lists.items()
+        }
+        # Include aggregated mean features per phase
+        if phase_name in phase_feature_agg:
+            phase_quality_mean[phase_name]["mean_features"] = {
+                feat: round(mean(vals), 4)
+                for feat, vals in sorted(phase_feature_agg[phase_name].items())
+            }
+
     trajectory_variance = aggregate_phase_end_state_variance([row.metrics for row in rows])
     zero_variance_metrics = [
         name
@@ -736,6 +867,9 @@ def _summarize_rows(rows: list[BenchmarkRunResult]) -> dict[str, Any]:
             "role_action_diversity": role_action_diversity,
             "negotiation_uniqueness": negotiation_uniqueness,
             "fallback_utterance_rate": fallback_rates,
+            "dialogue_coherence_score": dialogue_coherence,
+            "repetition_rate": repetition,
+            "topic_drift_rate": topic_drift,
         }.items()
         if len(values) > 1 and pstdev(values) == 0.0
     ]
@@ -772,7 +906,13 @@ def _summarize_rows(rows: list[BenchmarkRunResult]) -> dict[str, Any]:
         "role_action_diversity_score_mean": round(mean(role_action_diversity), 4),
         "negotiation_uniqueness_rate_mean": round(mean(negotiation_uniqueness), 4),
         "fallback_utterance_rate_mean": round(mean(fallback_rates), 4),
+        "dialogue_coherence_score_mean": round(mean(dialogue_coherence), 4),
+        "repetition_rate_mean": round(mean(repetition), 4),
+        "topic_drift_rate_mean": round(mean(topic_drift), 4),
+        "phase_quality_mean": phase_quality_mean,
         "fallback_type_rate_mean": fallback_type_rate_mean,
+        "semantic_identity_consistency_mean": round(mean(row.metrics.semantic_identity_consistency for row in rows), 4),
+        "commitment_fulfillment_rate_mean": round(mean(row.metrics.commitment_fulfillment_rate for row in rows), 4),
         "state_trajectory_variance_mean": trajectory_variance,
         "per_trait_error_mean": per_trait_error_mean,
         "turn_count_mean": round(mean(turn_counts), 2),
@@ -783,6 +923,9 @@ def _summarize_rows(rows: list[BenchmarkRunResult]) -> dict[str, Any]:
             "relationship_overshoot_rate": _mean_ci(relation_overshoot_values),
             "commitment_contradiction": _mean_ci(commitment_values),
             "envelope_violations": _mean_ci([float(value) for value in envelope_values]),
+            "dialogue_coherence_score": _mean_ci(dialogue_coherence),
+            "repetition_rate": _mean_ci(repetition),
+            "topic_drift_rate": _mean_ci(topic_drift),
         },
         "ci_width": {
             "persona_drift_mae": round(_mean_ci(drift_values)[1] - _mean_ci(drift_values)[0], 4),
@@ -791,6 +934,9 @@ def _summarize_rows(rows: list[BenchmarkRunResult]) -> dict[str, Any]:
             "relationship_overshoot_rate": round(_mean_ci(relation_overshoot_values)[1] - _mean_ci(relation_overshoot_values)[0], 4),
             "commitment_contradiction": round(_mean_ci(commitment_values)[1] - _mean_ci(commitment_values)[0], 4),
             "envelope_violations": round(_mean_ci([float(value) for value in envelope_values])[1] - _mean_ci([float(value) for value in envelope_values])[0], 4),
+            "dialogue_coherence_score": round(_mean_ci(dialogue_coherence)[1] - _mean_ci(dialogue_coherence)[0], 4),
+            "repetition_rate": round(_mean_ci(repetition)[1] - _mean_ci(repetition)[0], 4),
+            "topic_drift_rate": round(_mean_ci(topic_drift)[1] - _mean_ci(topic_drift)[0], 4),
         },
         "metric_confidence": {
             "persona_drift_mae": "high",
@@ -817,6 +963,56 @@ def _summarize_rows(rows: list[BenchmarkRunResult]) -> dict[str, Any]:
             mean(row.metrics.commitment_contradiction_rate for row in clean_rows),
             4,
         )
+
+    # Aggregate feature breakdowns: mean raw features across all actors/runs
+    feature_totals: dict[str, list[float]] = {}
+    for row in rows:
+        if not row.metrics.actor_feature_breakdowns:
+            continue
+        for actor_id, breakdown in row.metrics.actor_feature_breakdowns.items():
+            for feat, val in (breakdown.get("raw_features") or {}).items():
+                feature_totals.setdefault(feat, []).append(float(val))
+    if feature_totals:
+        summary["mean_raw_features"] = {
+            feat: round(mean(vals), 4) for feat, vals in sorted(feature_totals.items())
+        }
+
+    # Aggregate per-archetype trait errors
+    archetype_errors: dict[str, list[dict[str, float]]] = {}
+    for row in rows:
+        labels = row.metrics.actor_labels
+        errors = row.metrics.actor_trait_errors
+        for actor_id, label in labels.items():
+            error_map = errors.get(actor_id, {})
+            if error_map:
+                archetype_errors.setdefault(label, []).append(error_map)
+    if archetype_errors:
+        archetype_summary: dict[str, dict[str, float]] = {}
+        for label, error_list in sorted(archetype_errors.items()):
+            trait_means = {}
+            for trait in ("O", "C", "E", "A", "N"):
+                vals = [e.get(trait, 0.0) for e in error_list]
+                trait_means[trait] = round(mean(vals), 4) if vals else 0.0
+            trait_means["mae"] = round(mean(trait_means.values()), 4)
+            trait_means["n"] = len(error_list)
+            archetype_summary[label] = trait_means
+        summary["per_archetype_trait_error"] = archetype_summary
+
+    # Aggregate influence attribution stats
+    dp_counts = []
+    concentrations = []
+    for row in rows:
+        ia = row.metrics.influence_attribution
+        if not ia:
+            continue
+        dp_counts.append(ia.get("summary", {}).get("total_decision_points", 0))
+        concentrations.append(ia.get("summary", {}).get("mean_influence_concentration", 0.0))
+    if dp_counts:
+        summary["influence_attribution_summary"] = {
+            "mean_decision_points_per_run": round(mean(dp_counts), 2),
+            "mean_influence_concentration": round(mean(concentrations), 3) if concentrations else 0.0,
+        }
+
     return summary
 
 
@@ -835,6 +1031,150 @@ def run_benchmark_sync(
     )
 
 
+def _deserialize_run_lightweight(row: dict) -> "BenchmarkRunResult":
+    """Reconstruct BenchmarkRunResult from serialized dict (metrics only, skip heavy data)."""
+    metrics_data = row.get("metrics", {})
+    if not isinstance(metrics_data, dict):
+        metrics_data = {}
+    metrics = BenchmarkRunMetrics(**metrics_data)
+    sim_id = row.get("simulation_id", "")
+    return BenchmarkRunResult(
+        condition=row.get("condition", ""),
+        simulation_id=sim_id,
+        runtime_summary={},
+        metrics=metrics,
+        selection_audits=[],
+        suite_id=str(row.get("suite_id") or ""),
+        track_id=str(row.get("track_id") or ""),
+        run_id=str(row.get("run_id") or ""),
+        repetition_index=int(row.get("repetition_index") or 0),
+        trace_bundle_path=str(row.get("trace_bundle_path") or ""),
+        builder_trace_ref=str(row.get("builder_trace_ref") or ""),
+        script_id=str(row.get("script_id") or sim_id),
+    )
+
+
+def _do_full_checkpoint_merge(
+    checkpoint_path: Path,
+    run_results: list["BenchmarkRunResult"],
+    config: dict,
+    suite_id: str,
+    prior_checkpoint_runs: int,
+) -> None:
+    """Merge old checkpoint data + new in-memory runs → full save.
+
+    If prior_checkpoint_runs == 0 (fast resume), run_results only has new runs.
+    We load old runs from benchmark_runs.json, combine, and compute correct aggregates.
+    """
+    if prior_checkpoint_runs == 0 and (checkpoint_path / "benchmark_runs.json").exists():
+        # Fast-resumed: old data is on disk, new runs are in run_results
+        try:
+            old_payload = json.loads((checkpoint_path / "benchmark_runs.json").read_text())
+            old_serialized = old_payload.get("runs", [])
+        except (json.JSONDecodeError, OSError):
+            old_serialized = []
+        all_serialized = old_serialized + [_serialize_run_result(r) for r in run_results]
+        # Reconstruct lightweight BenchmarkRunResult objects for aggregation
+        old_results = []
+        for row in old_serialized:
+            try:
+                old_results.append(_deserialize_run_lightweight(row))
+            except (TypeError, KeyError):
+                continue
+        all_results_for_agg = old_results + list(run_results)
+    else:
+        # All data is in memory (fresh run or slow-path resume)
+        all_serialized = [_serialize_run_result(r) for r in run_results]
+        all_results_for_agg = list(run_results)
+
+    full_results = {
+        "config": {**config, "suite_id": suite_id},
+        "suite_id": suite_id,
+        "runs": all_serialized,
+        "aggregate": aggregate_benchmark_runs(all_results_for_agg),
+        "aggregate_by_script": aggregate_benchmark_runs_by_script(all_results_for_agg),
+        "aggregate_by_mode": aggregate_benchmark_runs_by_mode(all_results_for_agg),
+        "aggregate_by_family": aggregate_benchmark_runs_by_family(all_results_for_agg),
+    }
+    save_benchmark_outputs(full_results, checkpoint_path)
+
+    # Clear delta JSONL after successful merge
+    delta_path = checkpoint_path / "benchmark_runs_delta.jsonl"
+    if delta_path.exists():
+        delta_path.unlink()
+
+
+def _reconstruct_run_counts_from_progress(
+    checkpoint_path: Path,
+    scripts: list[Any],
+    conditions: list[str],
+    repetitions: int,
+) -> dict[tuple[str, str], int] | None:
+    """Reconstruct which runs are done from progress.json + deterministic ordering.
+
+    Since runs execute in strict order (scripts × conditions × reps), we can
+    reconstruct the full skip map from just the completed_runs count.
+    Returns None if progress.json is missing or invalid.
+    """
+    progress_path = checkpoint_path / "progress.json"
+    if not progress_path.exists():
+        return None
+    try:
+        progress = json.loads(progress_path.read_text())
+    except (json.JSONDecodeError, OSError):
+        return None
+
+    completed = progress.get("completed_runs", 0)
+    if completed <= 0:
+        return None
+
+    run_counts: dict[tuple[str, str], int] = {}
+    count = 0
+    for script in scripts:
+        for condition in conditions:
+            key = (script.simulation_id, condition)
+            for _rep in range(repetitions):
+                if count >= completed:
+                    return run_counts
+                run_counts[key] = run_counts.get(key, 0) + 1
+                count += 1
+    return run_counts
+
+
+def _append_run_to_delta(checkpoint_path: Path, run_result: "BenchmarkRunResult") -> None:
+    """Append a single run result to the delta JSONL file (fast, append-only)."""
+    delta_path = checkpoint_path / "benchmark_runs_delta.jsonl"
+    row = json.dumps(_serialize_run_result(run_result), default=str, separators=(",", ":"))
+    with open(delta_path, "a") as f:
+        f.write(row + "\n")
+        f.flush()
+        os.fsync(f.fileno())
+
+
+def _merge_old_and_delta(checkpoint_path: Path) -> list[dict]:
+    """Merge runs from old benchmark_runs.json + delta JSONL into one list."""
+    old_runs: list[dict] = []
+    runs_path = checkpoint_path / "benchmark_runs.json"
+    if runs_path.exists():
+        try:
+            payload = json.loads(runs_path.read_text())
+            old_runs = payload.get("runs", [])
+        except (json.JSONDecodeError, OSError):
+            pass
+
+    delta_path = checkpoint_path / "benchmark_runs_delta.jsonl"
+    if delta_path.exists():
+        try:
+            for line in delta_path.read_text().splitlines():
+                line = line.strip()
+                if line:
+                    old_runs.append(json.loads(line))
+        except (json.JSONDecodeError, OSError):
+            pass
+
+    return old_runs
+
+
 def _load_checkpoint_results(
     checkpoint_path: Path,
     scripts: list[Any],
@@ -842,6 +1182,19 @@ def _load_checkpoint_results(
     repetitions: int,
     style_slots: list[str],
 ) -> tuple[list[BenchmarkRunResult], dict[tuple[str, str], int]]:
+    # ── Fast path: reconstruct skip counts from progress.json ──────────
+    fast_counts = _reconstruct_run_counts_from_progress(
+        checkpoint_path, scripts, conditions, repetitions
+    )
+    if fast_counts is not None:
+        completed = sum(fast_counts.values())
+        print(
+            f"[benchmark] fast resume: reconstructed {completed} completed run counts from progress.json",
+            flush=True,
+        )
+        return [], fast_counts
+
+    # ── Slow fallback: load full benchmark_runs.json ───────────────────
     runs_path = checkpoint_path / "benchmark_runs.json"
     if not runs_path.exists():
         return [], {}
@@ -901,6 +1254,7 @@ def _load_checkpoint_results(
                 repetition_index=int(row.get("repetition_index") or 0),
                 trace_bundle_path=str(row.get("trace_bundle_path") or ""),
                 builder_trace_ref=str(row.get("builder_trace_ref") or ""),
+                script_id=str(row.get("script_id") or simulation_id),
             )
         )
         run_counts[key] = run_counts.get(key, 0) + 1

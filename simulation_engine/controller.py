@@ -23,6 +23,7 @@ from .action_layer import (
     normalize_planned_action_artifact,
 )
 from .ablation import DEFAULT_ABLATION_CONFIG, SimulationAblationConfig
+from .actor import SLOT_ACTION_VOCABULARY
 from .action_priors import (
     action_activation_score,
     action_role_fit_score,
@@ -71,6 +72,29 @@ SYCOPHANCY_ACK_PATTERNS = (
     "totally agree",
     "i agree",
 )
+
+PHASE_WEIGHT_MODIFIERS: dict[str, dict[str, float]] = {
+    "OPENING": {
+        "identity_consistency": 1.2,
+        "sycophancy_risk": 0.8,
+    },
+    "TENSION": {
+        "sycophancy_risk": 1.8,
+        "relationship_consistency": 1.4,
+        "situational_adequacy": 1.3,
+        "genericity_penalty": 1.3,
+    },
+    "NEGOTIATION": {
+        "commitment_continuity": 1.3,
+        "interaction_progress": 1.5,
+        "sycophancy_risk": 1.4,
+    },
+    "CLOSING": {
+        "sycophancy_risk": 1.0,
+        "identity_consistency": 1.3,
+        "redundancy_penalty": 1.4,
+    },
+}
 
 POLAR_SIGNAL_LIBRARY = {
     "O": {
@@ -278,10 +302,14 @@ class PersonaStateController:
         actor_spec: StakeholderActorSpec,
         actor_name_map: dict[str, str] | None = None,
         ablation_config: SimulationAblationConfig | None = None,
+        structural_profile: dict[str, Any] | None = None,
+        semantic_scorer=None,
     ):
         self.actor_spec = actor_spec
         self.actor_name_map = actor_name_map or {}
         self.ablation_config = ablation_config or DEFAULT_ABLATION_CONFIG
+        self.structural_profile = structural_profile or {}
+        self.semantic_scorer = semantic_scorer
         self.selection_audits: list[dict[str, Any]] = []
 
     def build_nudge(self, actor_snapshot: dict[str, Any]) -> str | None:
@@ -677,6 +705,9 @@ class PersonaStateController:
                 dialogue_family_guardrail_active = bool(
                     action_context.get("use_dialogue_family_guardrail") and planned_action_artifact and action_role_prior
                 )
+            # Check for structured intended_action from JSON mode
+            intended_action = row.get("intended_action")
+            structured_action_bonus = 0.0
             if action_context and action_context.get("use_action_aware_scoring"):
                 action_proposal = heuristic_action_proposal(
                     script=action_context["script"],
@@ -690,6 +721,15 @@ class PersonaStateController:
                     valid_target_keys=list(action_context.get("valid_target_keys", [])),
                     allowed_action_types=list(action_context.get("allowed_action_types", [])),
                 )
+                # Prefer structured intended_action over heuristic extraction
+                if intended_action and intended_action != "none":
+                    if action_proposal:
+                        action_proposal.action_type = intended_action
+                    # Bonus when intended_action matches slot's action vocabulary
+                    slot = row.get("slot", "")
+                    slot_vocab = SLOT_ACTION_VOCABULARY.get(slot, [])
+                    if intended_action in slot_vocab:
+                        structured_action_bonus = 0.03
                 action_executability = heuristic_action_executability_score(
                     text=text,
                     valid_target_keys=list(action_context.get("valid_target_keys", [])),
@@ -835,18 +875,45 @@ class PersonaStateController:
                     "reason": "action_aware_scoring_disabled",
                 }
 
+            # Phase weight modifiers (structural adaptation)
+            phase_mods = PHASE_WEIGHT_MODIFIERS.get(phase.name, {}) if self.ablation_config.use_structural_adaptation else {}
+
+            # Semantic scoring components
+            sem_identity_weight = 0.0
+            identity_keyword_weight = 0.16
+            trait_keyword_weight = 0.14 if self.ablation_config.use_banded_target_matching else 0.0
+            semantic_trait_scores: dict[str, float] = {}
+            if self.semantic_scorer and self.ablation_config.use_structural_adaptation:
+                sem_identity = self.semantic_scorer.identity_similarity(self.actor_spec.actor_id, text)
+                sem_identity_weight = 0.04
+                identity_keyword_weight = 0.12
+                # Trait alignment: semantic for O and C
+                prior = self.actor_spec.personality_prior
+                for s_trait in ("O", "C"):
+                    p = prior.get(s_trait, 0.5)
+                    pole = "high" if p >= 0.55 else ("low" if p <= 0.45 else None)
+                    if pole:
+                        sem_trait = self.semantic_scorer.trait_alignment(self.actor_spec.actor_id, text, s_trait, pole)
+                        semantic_trait_scores[f"semantic_trait_{s_trait}"] = round(0.02 * sem_trait, 4)
+                if semantic_trait_scores:
+                    trait_keyword_weight = 0.10 if self.ablation_config.use_banded_target_matching else 0.0
+            else:
+                sem_identity = 0.0
+
             weighted_positive = {
-                "identity_consistency": round(0.16 * identity_consistency, 4),
+                "identity_consistency": round(identity_keyword_weight * phase_mods.get("identity_consistency", 1.0) * identity_consistency, 4),
+                "semantic_identity": round(sem_identity_weight * phase_mods.get("identity_consistency", 1.0) * sem_identity, 4),
                 "persona_consistency": round(0.17 * (1.0 - drift), 4),
                 "trait_target_alignment": round(
-                    0.14 * trait_target_alignment if self.ablation_config.use_banded_target_matching else 0.0,
+                    trait_keyword_weight * phase_mods.get("trait_target_alignment", 1.0) * trait_target_alignment if self.ablation_config.use_banded_target_matching else 0.0,
                     4,
                 ),
+                **semantic_trait_scores,
                 "social_trait_alignment": round(0.16 * social_trait_alignment, 4),
-                "relationship_consistency": round(0.10 * relationship_consistency, 4),
-                "commitment_continuity": round(0.10 * commitment_continuity, 4),
-                "situational_adequacy": round(0.09 * situational_adequacy, 4),
-                "interaction_progress": round(0.04 * interaction_progress, 4),
+                "relationship_consistency": round(0.10 * phase_mods.get("relationship_consistency", 1.0) * relationship_consistency, 4),
+                "commitment_continuity": round(0.10 * phase_mods.get("commitment_continuity", 1.0) * commitment_continuity, 4),
+                "situational_adequacy": round(0.09 * phase_mods.get("situational_adequacy", 1.0) * situational_adequacy, 4),
+                "interaction_progress": round(0.04 * phase_mods.get("interaction_progress", 1.0) * interaction_progress, 4),
                 "policy_match": round(0.02 * policy_match, 4),
                 "action_executability": round(
                     0.10 * action_executability * action_weight_multiplier
@@ -884,14 +951,17 @@ class PersonaStateController:
                     else 0.0,
                     4,
                 ),
+                "structured_action_bonus": round(structured_action_bonus, 4),
             }
             weighted_negative = {
                 "contradiction_penalty": round(-0.18 * contradiction_penalty, 4),
                 "envelope_penalty": round(-0.18 * envelope_penalty, 4),
-                "sycophancy_risk": round(-0.08 * sycophancy_risk, 4),
+                "sycophancy_risk": round(-0.14 * phase_mods.get("sycophancy_risk", 1.0) * sycophancy_risk * (
+                    1.5 if actor_snapshot.get("actor_state", {}).get("sycophancy_risk", 0.0) > 0.55 else 1.0
+                ), 4),
                 "expressive_stability_penalty": round(-0.10 * expressive_stability_penalty, 4),
-                "redundancy_penalty": round(-0.07 * redundancy_penalty, 4),
-                "genericity_penalty": round(-0.07 * genericity_penalty, 4),
+                "redundancy_penalty": round(-0.07 * phase_mods.get("redundancy_penalty", 1.0) * redundancy_penalty, 4),
+                "genericity_penalty": round(-0.07 * phase_mods.get("genericity_penalty", 1.0) * genericity_penalty, 4),
                 "phase_action_duplication_penalty": round(
                     -(0.15 * phase_action_duplication_penalty * action_weight_multiplier)
                     if action_context and action_context.get("use_action_aware_scoring")
@@ -1537,6 +1607,15 @@ class PersonaStateController:
         )
 
         risk = 0.08
+        # Structural amplification: adversarial scenarios penalize agreement more
+        if self.ablation_config.use_structural_adaptation:
+            polarity = self.structural_profile.get("polarity", "collaborative")
+            if polarity == "adversarial":
+                risk += 0.10
+                if acknowledges:
+                    risk += 0.08
+            elif polarity == "fragmented":
+                risk += 0.04
         if acknowledges:
             risk += 0.22
         if names_last_speaker:
