@@ -1,0 +1,1275 @@
+{
+  "simulation_id": "nyc_congestion_pricing_10actor",
+  "title": "Manhattan Congestion Pricing Standoff",
+  "objective": "Simulate stakeholder negotiations around the paused $15 congestion toll for Manhattan below 60th Street, balancing revenue needs against economic and access concerns.",
+  "brief": "NYC congestion pricing (2024). The MTA approved a $15 toll for vehicles entering Manhattan below 60th Street, then Governor Hochul indefinitely paused it weeks before launch citing economic concerns. Stakeholders: an outer-borough delivery driver with no viable transit alternative who would pay $3,900/year in new tolls, an MTA capital projects manager with $15B in planned subway upgrades dependent on toll revenue, a small business owner in the congestion zone hoping for fewer cars but worried about delivery cost increases, and a hospital ambulance services coordinator worried about toll exemption complexity delaying emergency response.",
+  "stakeholders": [
+    {
+      "actor_id": "actor_1",
+      "display_name": "Diego",
+      "role": "Outer-borough package delivery driver (UPS/FedEx)",
+      "identity_core": {
+        "position": "frontline worker",
+        "domain": "logistics"
+      },
+      "personality_prior": {
+        "O": 0.3,
+        "C": 0.7,
+        "E": 0.5,
+        "A": 0.4,
+        "N": 0.6
+      },
+      "personality_envelope": {
+        "O": [
+          0.12,
+          0.48
+        ],
+        "C": [
+          0.52,
+          0.88
+        ],
+        "E": [
+          0.32,
+          0.68
+        ],
+        "A": [
+          0.22,
+          0.58
+        ],
+        "N": [
+          0.42,
+          0.78
+        ]
+      },
+      "incentives": [
+        "avoid bankruptcy from tolls",
+        "preserve current routes"
+      ],
+      "concerns": [
+        "no electric vehicle subsidies",
+        "forced career change"
+      ],
+      "communication_style": {
+        "tone": "frustrated",
+        "brevity": "low"
+      },
+      "experience_summary": "",
+      "salient_memories": [],
+      "private_context": {},
+      "implicit_goals": []
+    },
+    {
+      "actor_id": "actor_2",
+      "display_name": "Camille",
+      "role": "MTA Capital Projects Director",
+      "identity_core": {
+        "position": "executive",
+        "domain": "public infrastructure"
+      },
+      "personality_prior": {
+        "O": 0.6,
+        "C": 0.9,
+        "E": 0.7,
+        "A": 0.3,
+        "N": 0.2
+      },
+      "personality_envelope": {
+        "O": [
+          0.42,
+          0.78
+        ],
+        "C": [
+          0.72,
+          1.0
+        ],
+        "E": [
+          0.52,
+          0.88
+        ],
+        "A": [
+          0.12,
+          0.48
+        ],
+        "N": [
+          0.02,
+          0.38
+        ]
+      },
+      "incentives": [
+        "secure $15B subway funding",
+        "meet federal air quality mandates"
+      ],
+      "concerns": [
+        "political interference",
+        "creditor lawsuits"
+      ],
+      "communication_style": {
+        "tone": "technocratic",
+        "brevity": "high"
+      },
+      "experience_summary": "",
+      "salient_memories": [],
+      "private_context": {},
+      "implicit_goals": []
+    },
+    {
+      "actor_id": "actor_3",
+      "display_name": "Raj",
+      "role": "Brick-and-mortar bookstore owner (Congestion Zone)",
+      "identity_core": {
+        "position": "small business owner",
+        "domain": "retail"
+      },
+      "personality_prior": {
+        "O": 0.5,
+        "C": 0.4,
+        "E": 0.8,
+        "A": 0.6,
+        "N": 0.5
+      },
+      "personality_envelope": {
+        "O": [
+          0.32,
+          0.68
+        ],
+        "C": [
+          0.22,
+          0.58
+        ],
+        "E": [
+          0.62,
+          0.98
+        ],
+        "A": [
+          0.42,
+          0.78
+        ],
+        "N": [
+          0.32,
+          0.68
+        ]
+      },
+      "incentives": [
+        "increase foot traffic",
+        "reduce delivery surcharges"
+      ],
+      "concerns": [
+        "Amazon advantage",
+        "tourist drop-off"
+      ],
+      "communication_style": {
+        "tone": "pragmatic",
+        "brevity": "moderate"
+      },
+      "experience_summary": "",
+      "salient_memories": [],
+      "private_context": {},
+      "implicit_goals": []
+    },
+    {
+      "actor_id": "actor_4",
+      "display_name": "Dr. Chen",
+      "role": "Mt. Sinai ER Transport Coordinator",
+      "identity_core": {
+        "position": "medical professional",
+        "domain": "emergency services"
+      },
+      "personality_prior": {
+        "O": 0.4,
+        "C": 0.8,
+        "E": 0.3,
+        "A": 0.7,
+        "N": 0.4
+      },
+      "personality_envelope": {
+        "O": [
+          0.22,
+          0.58
+        ],
+        "C": [
+          0.62,
+          0.98
+        ],
+        "E": [
+          0.12,
+          0.48
+        ],
+        "A": [
+          0.52,
+          0.88
+        ],
+        "N": [
+          0.22,
+          0.58
+        ]
+      },
+      "incentives": [
+        "guarantee ambulance exemptions",
+        "standardize emergency protocols"
+      ],
+      "concerns": [
+        "bureaucratic delays",
+        "first responder morale"
+      ],
+      "communication_style": {
+        "tone": "urgent",
+        "brevity": "high"
+      },
+      "experience_summary": "",
+      "salient_memories": [],
+      "private_context": {},
+      "implicit_goals": []
+    },
+    {
+      "actor_id": "actor_5",
+      "display_name": "Governor's Chief of Staff",
+      "role": "Hochul Administration Representative",
+      "identity_core": {
+        "position": "political operative",
+        "domain": "state government"
+      },
+      "personality_prior": {
+        "O": 0.2,
+        "C": 0.5,
+        "E": 0.9,
+        "A": 0.5,
+        "N": 0.7
+      },
+      "personality_envelope": {
+        "O": [
+          0.02,
+          0.38
+        ],
+        "C": [
+          0.32,
+          0.68
+        ],
+        "E": [
+          0.72,
+          1.0
+        ],
+        "A": [
+          0.32,
+          0.68
+        ],
+        "N": [
+          0.52,
+          0.88
+        ]
+      },
+      "incentives": [
+        "appease suburban voters",
+        "find compromise solution"
+      ],
+      "concerns": [
+        "primary challenge",
+        "media narratives"
+      ],
+      "communication_style": {
+        "tone": "diplomatic",
+        "brevity": "moderate"
+      },
+      "experience_summary": "",
+      "salient_memories": [],
+      "private_context": {},
+      "implicit_goals": []
+    },
+    {
+      "actor_id": "actor_6",
+      "display_name": "Tiffany",
+      "role": "Uber/Lyft Driver Association Leader",
+      "identity_core": {
+        "position": "gig worker advocate",
+        "domain": "ride-hailing"
+      },
+      "personality_prior": {
+        "O": 0.7,
+        "C": 0.3,
+        "E": 0.8,
+        "A": 0.5,
+        "N": 0.3
+      },
+      "personality_envelope": {
+        "O": [
+          0.52,
+          0.88
+        ],
+        "C": [
+          0.12,
+          0.48
+        ],
+        "E": [
+          0.62,
+          0.98
+        ],
+        "A": [
+          0.32,
+          0.68
+        ],
+        "N": [
+          0.12,
+          0.48
+        ]
+      },
+      "incentives": [
+        "offset tolls with fare increases",
+        "block taxi exemptions"
+      ],
+      "concerns": [
+        "driver attrition",
+        "algorithm exploitation"
+      ],
+      "communication_style": {
+        "tone": "confrontational",
+        "brevity": "low"
+      },
+      "experience_summary": "",
+      "salient_memories": [],
+      "private_context": {},
+      "implicit_goals": []
+    },
+    {
+      "actor_id": "actor_7",
+      "display_name": "Javier",
+      "role": "Teamsters Local 814 Secretary-Treasurer",
+      "identity_core": {
+        "position": "union leader",
+        "domain": "organized labor"
+      },
+      "personality_prior": {
+        "O": 0.5,
+        "C": 0.6,
+        "E": 0.7,
+        "A": 0.8,
+        "N": 0.4
+      },
+      "personality_envelope": {
+        "O": [
+          0.32,
+          0.68
+        ],
+        "C": [
+          0.42,
+          0.78
+        ],
+        "E": [
+          0.52,
+          0.88
+        ],
+        "A": [
+          0.62,
+          0.98
+        ],
+        "N": [
+          0.22,
+          0.58
+        ]
+      },
+      "incentives": [
+        "protect 12,000 member jobs",
+        "negotiate hardship funds"
+      ],
+      "concerns": [
+        "givebacks elsewhere",
+        "weakened bargaining position"
+      ],
+      "communication_style": {
+        "tone": "solidaristic",
+        "brevity": "moderate"
+      },
+      "experience_summary": "",
+      "salient_memories": [],
+      "private_context": {},
+      "implicit_goals": []
+    },
+    {
+      "actor_id": "actor_8",
+      "display_name": "Elijah",
+      "role": "Environmental Justice Coalition Organizer",
+      "identity_core": {
+        "position": "activist",
+        "domain": "climate policy"
+      },
+      "personality_prior": {
+        "O": 0.9,
+        "C": 0.4,
+        "E": 0.6,
+        "A": 0.3,
+        "N": 0.2
+      },
+      "personality_envelope": {
+        "O": [
+          0.72,
+          1.0
+        ],
+        "C": [
+          0.22,
+          0.58
+        ],
+        "E": [
+          0.42,
+          0.78
+        ],
+        "A": [
+          0.12,
+          0.48
+        ],
+        "N": [
+          0.02,
+          0.38
+        ]
+      },
+      "incentives": [
+        "lock in emissions reductions",
+        "divest from car infrastructure"
+      ],
+      "concerns": [
+        "sellout compromises",
+        "borough inequity"
+      ],
+      "communication_style": {
+        "tone": "righteous",
+        "brevity": "low"
+      },
+      "experience_summary": "",
+      "salient_memories": [],
+      "private_context": {},
+      "implicit_goals": []
+    },
+    {
+      "actor_id": "actor_9",
+      "display_name": "Commissioner Russo",
+      "role": "NYPD Traffic Chief",
+      "identity_core": {
+        "position": "law enforcement",
+        "domain": "public safety"
+      },
+      "personality_prior": {
+        "O": 0.3,
+        "C": 0.8,
+        "E": 0.4,
+        "A": 0.2,
+        "N": 0.3
+      },
+      "personality_envelope": {
+        "O": [
+          0.12,
+          0.48
+        ],
+        "C": [
+          0.62,
+          0.98
+        ],
+        "E": [
+          0.22,
+          0.58
+        ],
+        "A": [
+          0.02,
+          0.38
+        ],
+        "N": [
+          0.12,
+          0.48
+        ]
+      },
+      "incentives": [
+        "reduce gridlock",
+        "avoid enforcement nightmare"
+      ],
+      "concerns": [
+        "plate evasion tactics",
+        "overtime costs"
+      ],
+      "communication_style": {
+        "tone": "authoritative",
+        "brevity": "high"
+      },
+      "experience_summary": "",
+      "salient_memories": [],
+      "private_context": {},
+      "implicit_goals": []
+    },
+    {
+      "actor_id": "actor_10",
+      "display_name": "Maya",
+      "role": "Disabled Transit Riders Alliance Director",
+      "identity_core": {
+        "position": "accessibility advocate",
+        "domain": "public transit"
+      },
+      "personality_prior": {
+        "O": 0.6,
+        "C": 0.5,
+        "E": 0.5,
+        "A": 0.9,
+        "N": 0.4
+      },
+      "personality_envelope": {
+        "O": [
+          0.42,
+          0.78
+        ],
+        "C": [
+          0.32,
+          0.68
+        ],
+        "E": [
+          0.32,
+          0.68
+        ],
+        "A": [
+          0.72,
+          1.0
+        ],
+        "N": [
+          0.22,
+          0.58
+        ]
+      },
+      "incentives": [
+        "accelerate elevator installations",
+        "expand Access-A-Ride"
+      ],
+      "concerns": [
+        "service cuts",
+        "last-mile gaps"
+      ],
+      "communication_style": {
+        "tone": "persistent",
+        "brevity": "moderate"
+      },
+      "experience_summary": "",
+      "salient_memories": [],
+      "private_context": {},
+      "implicit_goals": []
+    }
+  ],
+  "phases": [
+    {
+      "name": "OPENING",
+      "goal": "Establish baseline positions and pain points",
+      "style": "neutral",
+      "max_turns": 6,
+      "cues": [
+        "Show initial toll impact calculations",
+        "Map existing exemptions"
+      ],
+      "target_actor_ids": [],
+      "visibility": "public",
+      "description": ""
+    },
+    {
+      "name": "TENSION",
+      "goal": "Surface fundamental conflicts and worst-case scenarios",
+      "style": "disagreement",
+      "max_turns": 6,
+      "cues": [
+        "Reveal MTA bond covenant risks",
+        "Project driver bankruptcy rates"
+      ],
+      "target_actor_ids": [],
+      "visibility": "public",
+      "description": ""
+    },
+    {
+      "name": "NEGOTIATION",
+      "goal": "Explore phased implementations and compromise structures",
+      "style": "consensus",
+      "max_turns": 6,
+      "cues": [
+        "Test income-based toll relief",
+        "Evaluate congestion surcharge alternatives"
+      ],
+      "target_actor_ids": [],
+      "visibility": "public",
+      "description": ""
+    },
+    {
+      "name": "CLOSING",
+      "goal": "Secure conditional commitments from key parties",
+      "style": "neutral",
+      "max_turns": 4,
+      "cues": [
+        "Draft memorandum of understanding",
+        "Outline enforcement protocols"
+      ],
+      "target_actor_ids": [],
+      "visibility": "public",
+      "description": ""
+    }
+  ],
+  "scenario_family": "urban_policy",
+  "simulation_mode": "guided",
+  "outcome_spec": {
+    "fixed_ending": true,
+    "target_end_state": {
+      "alignment": "increase",
+      "uncertainty": "decrease"
+    },
+    "evaluation_focus": [
+      "persona_stability",
+      "action_coherence"
+    ]
+  },
+  "world_events": [
+    {
+      "event_id": "evt_1",
+      "title": "Federal Transit Administration Warning",
+      "description": "FTA threatens to claw back $1B in already-allocated funds if MTA can't demonstrate secured revenue streams within 90 days",
+      "trigger_phase": "TENSION",
+      "trigger_turn": null,
+      "visibility": "public",
+      "affected_actor_ids": [],
+      "metadata": {}
+    },
+    {
+      "event_id": "evt_2",
+      "title": "Trucker Slowdown Protest",
+      "description": "Delivery drivers organize rolling roadblocks on East River bridges, creating immediate traffic chaos",
+      "trigger_phase": "NEGOTIATION",
+      "trigger_turn": null,
+      "visibility": "public",
+      "affected_actor_ids": [],
+      "metadata": {}
+    }
+  ],
+  "world_state_schema": [
+    "alignment",
+    "trust",
+    "uncertainty",
+    "execution_confidence",
+    "risk",
+    "revenue_secured",
+    "public_approval",
+    "implementation_risk"
+  ],
+  "initial_world_state": {
+    "alignment": 0.5,
+    "trust": 0.5,
+    "uncertainty": 0.5,
+    "execution_confidence": 0.5,
+    "risk": 0.5,
+    "revenue_secured": 0.2,
+    "public_approval": 0.4,
+    "implementation_risk": 0.8
+  },
+  "allowed_action_types": [
+    "assign_owner",
+    "request_evidence",
+    "publish_update",
+    "narrow_scope",
+    "pilot",
+    "commit_resource",
+    "defer_decision",
+    "preserve_autonomy"
+  ],
+  "transition_rules": {
+    "OPENING": {
+      "request_evidence": {
+        "global_deltas": {
+          "uncertainty": -0.08,
+          "risk": -0.08
+        },
+        "owner_local_deltas": {
+          "execution_confidence": 0.04
+        },
+        "target_local_deltas": {},
+        "feedback_template": "evidence action shifts the visible state."
+      },
+      "publish_update": {
+        "global_deltas": {
+          "trust": 0.08,
+          "alignment": 0.08
+        },
+        "owner_local_deltas": {
+          "trust": 0.04
+        },
+        "target_local_deltas": {
+          "trust": 0.04
+        },
+        "feedback_template": "communication action shifts the visible state."
+      }
+    },
+    "TENSION": {
+      "request_evidence": {
+        "global_deltas": {
+          "uncertainty": -0.08,
+          "risk": -0.08
+        },
+        "owner_local_deltas": {
+          "execution_confidence": 0.04
+        },
+        "target_local_deltas": {},
+        "feedback_template": "evidence action shifts the visible state."
+      },
+      "narrow_scope": {
+        "global_deltas": {
+          "risk": -0.08,
+          "uncertainty": -0.08
+        },
+        "owner_local_deltas": {
+          "trust": 0.04
+        },
+        "target_local_deltas": {},
+        "feedback_template": "scope action shifts the visible state."
+      },
+      "pilot": {
+        "global_deltas": {
+          "uncertainty": -0.08,
+          "risk": -0.08
+        },
+        "owner_local_deltas": {
+          "execution_confidence": 0.04
+        },
+        "target_local_deltas": {},
+        "feedback_template": "scope action shifts the visible state."
+      },
+      "defer_decision": {
+        "global_deltas": {
+          "uncertainty": -0.08
+        },
+        "owner_local_deltas": {
+          "trust": 0.04
+        },
+        "target_local_deltas": {},
+        "feedback_template": "timing action shifts the visible state."
+      },
+      "preserve_autonomy": {
+        "global_deltas": {
+          "trust": 0.08
+        },
+        "owner_local_deltas": {
+          "trust": 0.04
+        },
+        "target_local_deltas": {
+          "trust": 0.04
+        },
+        "feedback_template": "governance action shifts the visible state."
+      }
+    },
+    "NEGOTIATION": {
+      "assign_owner": {
+        "global_deltas": {
+          "execution_confidence": 0.08,
+          "alignment": 0.08
+        },
+        "owner_local_deltas": {
+          "execution_confidence": 0.04
+        },
+        "target_local_deltas": {},
+        "feedback_template": "ownership action shifts the visible state."
+      },
+      "pilot": {
+        "global_deltas": {
+          "uncertainty": -0.08,
+          "risk": -0.08
+        },
+        "owner_local_deltas": {
+          "execution_confidence": 0.04
+        },
+        "target_local_deltas": {},
+        "feedback_template": "scope action shifts the visible state."
+      },
+      "publish_update": {
+        "global_deltas": {
+          "trust": 0.08,
+          "alignment": 0.08
+        },
+        "owner_local_deltas": {
+          "trust": 0.04
+        },
+        "target_local_deltas": {
+          "trust": 0.04
+        },
+        "feedback_template": "communication action shifts the visible state."
+      },
+      "commit_resource": {
+        "global_deltas": {
+          "execution_confidence": 0.08
+        },
+        "owner_local_deltas": {
+          "execution_confidence": 0.04
+        },
+        "target_local_deltas": {},
+        "feedback_template": "resourcing action shifts the visible state."
+      },
+      "preserve_autonomy": {
+        "global_deltas": {
+          "trust": 0.08
+        },
+        "owner_local_deltas": {
+          "trust": 0.04
+        },
+        "target_local_deltas": {
+          "trust": 0.04
+        },
+        "feedback_template": "governance action shifts the visible state."
+      },
+      "narrow_scope": {
+        "global_deltas": {
+          "risk": -0.08,
+          "uncertainty": -0.08
+        },
+        "owner_local_deltas": {
+          "trust": 0.04
+        },
+        "target_local_deltas": {},
+        "feedback_template": "scope action shifts the visible state."
+      }
+    },
+    "CLOSING": {
+      "assign_owner": {
+        "global_deltas": {
+          "execution_confidence": 0.08,
+          "alignment": 0.08
+        },
+        "owner_local_deltas": {
+          "execution_confidence": 0.04
+        },
+        "target_local_deltas": {},
+        "feedback_template": "ownership action shifts the visible state."
+      },
+      "publish_update": {
+        "global_deltas": {
+          "trust": 0.08,
+          "alignment": 0.08
+        },
+        "owner_local_deltas": {
+          "trust": 0.04
+        },
+        "target_local_deltas": {
+          "trust": 0.04
+        },
+        "feedback_template": "communication action shifts the visible state."
+      },
+      "defer_decision": {
+        "global_deltas": {
+          "uncertainty": -0.08
+        },
+        "owner_local_deltas": {
+          "trust": 0.04
+        },
+        "target_local_deltas": {},
+        "feedback_template": "timing action shifts the visible state."
+      }
+    }
+  },
+  "state_visibility_rules": {
+    "global_keys": [
+      "revenue_secured",
+      "public_approval",
+      "implementation_risk"
+    ],
+    "local_keys": [
+      "trust",
+      "execution_confidence",
+      "alignment"
+    ],
+    "max_recent_actions": 2
+  },
+  "metadata": {
+    "phase_action_policies": {
+      "OPENING": {
+        "action_mode": "shadow",
+        "diversity_required": false,
+        "duplicate_penalty": 0.16,
+        "uniqueness_bonus": 0.08,
+        "convergence_backoff_threshold": 0.95,
+        "allow_no_action": true,
+        "family_cap": 2,
+        "max_same_family_per_phase": 2,
+        "max_actions_per_phase": 2,
+        "sparsity_threshold": 0.68,
+        "style_slot_limit": 3,
+        "pool_max_concurrency": 2,
+        "planner_cache": true
+      },
+      "TENSION": {
+        "action_mode": "direct",
+        "diversity_required": true,
+        "duplicate_penalty": 0.16,
+        "uniqueness_bonus": 0.08,
+        "convergence_backoff_threshold": 0.95,
+        "allow_no_action": true,
+        "family_cap": 2,
+        "max_same_family_per_phase": 2,
+        "max_actions_per_phase": 2,
+        "sparsity_threshold": 0.68,
+        "style_slot_limit": 3,
+        "pool_max_concurrency": 2,
+        "planner_cache": false
+      },
+      "NEGOTIATION": {
+        "action_mode": "execute",
+        "diversity_required": true,
+        "duplicate_penalty": 0.32,
+        "uniqueness_bonus": 0.18,
+        "convergence_backoff_threshold": 0.9,
+        "allow_no_action": true,
+        "family_cap": 1,
+        "max_same_family_per_phase": 1,
+        "max_actions_per_phase": 3,
+        "sparsity_threshold": 0.82,
+        "style_slot_limit": 4,
+        "pool_max_concurrency": 2,
+        "planner_cache": false
+      },
+      "CLOSING": {
+        "action_mode": "execute",
+        "diversity_required": false,
+        "duplicate_penalty": 0.16,
+        "uniqueness_bonus": 0.08,
+        "convergence_backoff_threshold": 0.95,
+        "allow_no_action": true,
+        "family_cap": 2,
+        "max_same_family_per_phase": 2,
+        "max_actions_per_phase": 2,
+        "sparsity_threshold": 0.68,
+        "style_slot_limit": 3,
+        "pool_max_concurrency": 1,
+        "planner_cache": true
+      }
+    },
+    "actor_action_preferences": {
+      "actor_1": {
+        "default": {
+          "primary_families": [
+            "evidence",
+            "communication"
+          ],
+          "secondary_families": [
+            "scope",
+            "ownership"
+          ],
+          "avoid_families": [],
+          "state_priority_keys": [
+            "execution_confidence",
+            "alignment",
+            "trust"
+          ],
+          "preferred_action_types": [],
+          "preferred_target_keys": [
+            "execution_confidence",
+            "alignment"
+          ]
+        }
+      },
+      "actor_2": {
+        "default": {
+          "primary_families": [
+            "evidence"
+          ]
+        }
+      },
+      "actor_3": {
+        "default": {
+          "primary_families": [
+            "evidence",
+            "communication"
+          ],
+          "secondary_families": [
+            "scope",
+            "ownership"
+          ],
+          "avoid_families": [],
+          "state_priority_keys": [
+            "execution_confidence",
+            "alignment",
+            "trust"
+          ],
+          "preferred_action_types": [],
+          "preferred_target_keys": [
+            "execution_confidence",
+            "alignment"
+          ]
+        }
+      },
+      "actor_4": {
+        "default": {
+          "primary_families": [
+            "ownership",
+            "resourcing"
+          ],
+          "secondary_families": [
+            "evidence",
+            "communication"
+          ],
+          "avoid_families": [],
+          "state_priority_keys": [
+            "execution_confidence",
+            "alignment",
+            "trust"
+          ],
+          "preferred_action_types": [],
+          "preferred_target_keys": [
+            "execution_confidence",
+            "alignment"
+          ]
+        }
+      },
+      "actor_5": {
+        "default": {
+          "primary_families": [
+            "compromise"
+          ]
+        }
+      },
+      "actor_6": {
+        "default": {
+          "primary_families": [
+            "evidence",
+            "communication"
+          ],
+          "secondary_families": [
+            "scope",
+            "ownership"
+          ],
+          "avoid_families": [],
+          "state_priority_keys": [
+            "execution_confidence",
+            "alignment",
+            "trust"
+          ],
+          "preferred_action_types": [],
+          "preferred_target_keys": [
+            "execution_confidence",
+            "alignment"
+          ]
+        }
+      },
+      "actor_7": {
+        "default": {
+          "primary_families": [
+            "evidence",
+            "communication"
+          ],
+          "secondary_families": [
+            "scope",
+            "ownership"
+          ],
+          "avoid_families": [],
+          "state_priority_keys": [
+            "execution_confidence",
+            "alignment",
+            "trust"
+          ],
+          "preferred_action_types": [],
+          "preferred_target_keys": [
+            "execution_confidence",
+            "alignment"
+          ]
+        }
+      },
+      "actor_8": {
+        "default": {
+          "primary_families": [
+            "evidence",
+            "communication"
+          ],
+          "secondary_families": [
+            "scope",
+            "ownership"
+          ],
+          "avoid_families": [],
+          "state_priority_keys": [
+            "execution_confidence",
+            "alignment",
+            "trust"
+          ],
+          "preferred_action_types": [],
+          "preferred_target_keys": [
+            "execution_confidence",
+            "alignment"
+          ]
+        }
+      },
+      "actor_9": {
+        "default": {
+          "primary_families": [
+            "evidence",
+            "communication"
+          ],
+          "secondary_families": [
+            "scope",
+            "ownership"
+          ],
+          "avoid_families": [],
+          "state_priority_keys": [
+            "execution_confidence",
+            "alignment",
+            "trust"
+          ],
+          "preferred_action_types": [],
+          "preferred_target_keys": [
+            "execution_confidence",
+            "alignment"
+          ]
+        }
+      },
+      "actor_10": {
+        "default": {
+          "primary_families": [
+            "ownership",
+            "evidence"
+          ],
+          "secondary_families": [
+            "scope",
+            "resourcing"
+          ],
+          "avoid_families": [],
+          "state_priority_keys": [
+            "execution_confidence",
+            "alignment",
+            "trust"
+          ],
+          "preferred_action_types": [],
+          "preferred_target_keys": [
+            "execution_confidence",
+            "alignment"
+          ]
+        }
+      }
+    },
+    "metadata_completeness_score": 1.0,
+    "missing_contract_fields": [],
+    "builder_trace": {
+      "builder_trace_id": "builder:nyc_congestion_pricing_10actor",
+      "brief_id": "nyc_congestion_pricing_10actor",
+      "builder_version": "brief_builder_v2",
+      "generation_attempts": 1,
+      "scenario_family": "urban_policy",
+      "input_understanding": {
+        "brief_excerpt": "NYC congestion pricing (2024). The MTA approved a $15 toll for vehicles entering Manhattan below 60th Street, then Governor Hochul indefinitely paused it weeks before launch citing economic concerns. ",
+        "detected_keywords": [
+          "launch"
+        ],
+        "simulation_mode": "guided"
+      },
+      "stakeholder_extraction": [
+        {
+          "actor_id": "actor_1",
+          "display_name": "Diego",
+          "role": "Outer-borough package delivery driver (UPS/FedEx)"
+        },
+        {
+          "actor_id": "actor_2",
+          "display_name": "Camille",
+          "role": "MTA Capital Projects Director"
+        },
+        {
+          "actor_id": "actor_3",
+          "display_name": "Raj",
+          "role": "Brick-and-mortar bookstore owner (Congestion Zone)"
+        },
+        {
+          "actor_id": "actor_4",
+          "display_name": "Dr. Chen",
+          "role": "Mt. Sinai ER Transport Coordinator"
+        },
+        {
+          "actor_id": "actor_5",
+          "display_name": "Governor's Chief of Staff",
+          "role": "Hochul Administration Representative"
+        },
+        {
+          "actor_id": "actor_6",
+          "display_name": "Tiffany",
+          "role": "Uber/Lyft Driver Association Leader"
+        },
+        {
+          "actor_id": "actor_7",
+          "display_name": "Javier",
+          "role": "Teamsters Local 814 Secretary-Treasurer"
+        },
+        {
+          "actor_id": "actor_8",
+          "display_name": "Elijah",
+          "role": "Environmental Justice Coalition Organizer"
+        },
+        {
+          "actor_id": "actor_9",
+          "display_name": "Commissioner Russo",
+          "role": "NYPD Traffic Chief"
+        },
+        {
+          "actor_id": "actor_10",
+          "display_name": "Maya",
+          "role": "Disabled Transit Riders Alliance Director"
+        }
+      ],
+      "stakeholder_expansion": [],
+      "phase_template_selection": {
+        "phase_names": [
+          "OPENING",
+          "TENSION",
+          "NEGOTIATION",
+          "CLOSING"
+        ],
+        "phase_count": 4
+      },
+      "world_state_schema_selection": {
+        "world_state_schema": [
+          "alignment",
+          "trust",
+          "uncertainty",
+          "execution_confidence",
+          "risk",
+          "revenue_secured",
+          "public_approval",
+          "implementation_risk"
+        ]
+      },
+      "allowed_action_types_selection": {
+        "allowed_action_types": [
+          "assign_owner",
+          "request_evidence",
+          "publish_update",
+          "narrow_scope",
+          "pilot",
+          "commit_resource",
+          "defer_decision",
+          "preserve_autonomy"
+        ]
+      },
+      "transition_rules_selection": {
+        "phase_rule_counts": {
+          "OPENING": 2,
+          "TENSION": 5,
+          "NEGOTIATION": 6,
+          "CLOSING": 3
+        }
+      },
+      "phase_action_policies_generation": {
+        "OPENING": {
+          "action_mode": "shadow"
+        },
+        "TENSION": {
+          "action_mode": "direct"
+        }
+      },
+      "actor_action_preferences_generation": {
+        "actor_2": {
+          "default": {
+            "primary_families": [
+              "evidence"
+            ]
+          }
+        },
+        "actor_5": {
+          "default": {
+            "primary_families": [
+              "compromise"
+            ]
+          }
+        }
+      },
+      "metadata_completeness_score": 1.0,
+      "missing_contract_fields": []
+    }
+  },
+  "evaluation_targets": [
+    "persona_stability",
+    "action_coherence"
+  ]
+}

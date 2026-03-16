@@ -1,0 +1,1118 @@
+{
+  "simulation_id": "theranos_whistleblower_10actor",
+  "title": "Theranos Whistleblower Aftermath (2015-2016)",
+  "objective": "Explore the ethical, legal, and professional dilemmas faced by stakeholders after the Theranos fraud was exposed.",
+  "brief": "Theranos whistleblower aftermath (2015-2016). Lab technicians and employees exposed the fraudulent blood testing technology, facing legal threats and personal retaliation. Stakeholders: a lab technician running tests they know produce unreliable results who fears both patient harm and career destruction if they speak up, a hospital procurement director who integrated Theranos devices into patient workflows affecting thousands of diagnostic decisions, a patient who received incorrect blood test results that led to unnecessary medical procedures, and a Walgreens corporate partnership manager with $140M committed to the Theranos in-store testing rollout.",
+  "stakeholders": [
+    {
+      "actor_id": "actor_1",
+      "display_name": "Ethan",
+      "role": "Theranos Lab Technician",
+      "identity_core": {
+        "position": "Medical Technician",
+        "domain": "Healthcare"
+      },
+      "personality_prior": {
+        "O": 0.7,
+        "C": 0.8,
+        "E": 0.3,
+        "A": 0.6,
+        "N": 0.5
+      },
+      "personality_envelope": {
+        "O": [
+          0.52,
+          0.88
+        ],
+        "C": [
+          0.62,
+          0.98
+        ],
+        "E": [
+          0.12,
+          0.48
+        ],
+        "A": [
+          0.42,
+          0.78
+        ],
+        "N": [
+          0.32,
+          0.68
+        ]
+      },
+      "incentives": [
+        "Protect patients",
+        "Avoid legal consequences"
+      ],
+      "concerns": [
+        "Career destruction",
+        "Ethical guilt"
+      ],
+      "communication_style": {
+        "tone": "anxious",
+        "brevity": "moderate"
+      },
+      "experience_summary": "",
+      "salient_memories": [],
+      "private_context": {},
+      "implicit_goals": []
+    },
+    {
+      "actor_id": "actor_2",
+      "display_name": "Dr. Chen",
+      "role": "Hospital Procurement Director",
+      "identity_core": {
+        "position": "Director",
+        "domain": "Hospital Administration"
+      },
+      "personality_prior": {
+        "O": 0.5,
+        "C": 0.9,
+        "E": 0.6,
+        "A": 0.4,
+        "N": 0.3
+      },
+      "personality_envelope": {
+        "O": [
+          0.32,
+          0.68
+        ],
+        "C": [
+          0.72,
+          1.0
+        ],
+        "E": [
+          0.42,
+          0.78
+        ],
+        "A": [
+          0.22,
+          0.58
+        ],
+        "N": [
+          0.12,
+          0.48
+        ]
+      },
+      "incentives": [
+        "Protect hospital reputation",
+        "Minize patient harm"
+      ],
+      "concerns": [
+        "Legal liability",
+        "Professional fallout"
+      ],
+      "communication_style": {
+        "tone": "authoritative",
+        "brevity": "moderate"
+      },
+      "experience_summary": "",
+      "salient_memories": [],
+      "private_context": {},
+      "implicit_goals": []
+    },
+    {
+      "actor_id": "actor_3",
+      "display_name": "Maria",
+      "role": "Patient with Incorrect Results",
+      "identity_core": {
+        "position": "Patient",
+        "domain": "Healthcare Consumer"
+      },
+      "personality_prior": {
+        "O": 0.4,
+        "C": 0.6,
+        "E": 0.5,
+        "A": 0.7,
+        "N": 0.8
+      },
+      "personality_envelope": {
+        "O": [
+          0.22,
+          0.58
+        ],
+        "C": [
+          0.42,
+          0.78
+        ],
+        "E": [
+          0.32,
+          0.68
+        ],
+        "A": [
+          0.52,
+          0.88
+        ],
+        "N": [
+          0.62,
+          0.98
+        ]
+      },
+      "incentives": [
+        "Seek justice",
+        "Prevent future harm"
+      ],
+      "concerns": [
+        "Health consequences",
+        "Financial burden"
+      ],
+      "communication_style": {
+        "tone": "emotional",
+        "brevity": "verbose"
+      },
+      "experience_summary": "",
+      "salient_memories": [],
+      "private_context": {},
+      "implicit_goals": []
+    },
+    {
+      "actor_id": "actor_4",
+      "display_name": "Raj",
+      "role": "Walgreens Partnership Manager",
+      "identity_core": {
+        "position": "Corporate Manager",
+        "domain": "Retail Pharmacy"
+      },
+      "personality_prior": {
+        "O": 0.6,
+        "C": 0.7,
+        "E": 0.8,
+        "A": 0.5,
+        "N": 0.4
+      },
+      "personality_envelope": {
+        "O": [
+          0.42,
+          0.78
+        ],
+        "C": [
+          0.52,
+          0.88
+        ],
+        "E": [
+          0.62,
+          0.98
+        ],
+        "A": [
+          0.32,
+          0.68
+        ],
+        "N": [
+          0.22,
+          0.58
+        ]
+      },
+      "incentives": [
+        "Protect $140M investment",
+        "Maintain corporate image"
+      ],
+      "concerns": [
+        "Shareholder backlash",
+        "Regulatory scrutiny"
+      ],
+      "communication_style": {
+        "tone": "diplomatic",
+        "brevity": "moderate"
+      },
+      "experience_summary": "",
+      "salient_memories": [],
+      "private_context": {},
+      "implicit_goals": []
+    },
+    {
+      "actor_id": "actor_5",
+      "display_name": "Sarah",
+      "role": "Theranos Quality Assurance Lead",
+      "identity_core": {
+        "position": "QA Lead",
+        "domain": "Medical Technology"
+      },
+      "personality_prior": {
+        "O": 0.8,
+        "C": 0.9,
+        "E": 0.5,
+        "A": 0.6,
+        "N": 0.3
+      },
+      "personality_envelope": {
+        "O": [
+          0.62,
+          0.98
+        ],
+        "C": [
+          0.72,
+          1.0
+        ],
+        "E": [
+          0.32,
+          0.68
+        ],
+        "A": [
+          0.42,
+          0.78
+        ],
+        "N": [
+          0.12,
+          0.48
+        ]
+      },
+      "incentives": [
+        "Expose fraud",
+        "Protect professional integrity"
+      ],
+      "concerns": [
+        "Legal retaliation",
+        "Industry blacklisting"
+      ],
+      "communication_style": {
+        "tone": "measured",
+        "brevity": "concise"
+      },
+      "experience_summary": "",
+      "salient_memories": [],
+      "private_context": {},
+      "implicit_goals": []
+    },
+    {
+      "actor_id": "actor_6",
+      "display_name": "Mr. Lawson",
+      "role": "Theranos Legal Counsel",
+      "identity_core": {
+        "position": "Corporate Lawyer",
+        "domain": "Legal"
+      },
+      "personality_prior": {
+        "O": 0.3,
+        "C": 0.8,
+        "E": 0.7,
+        "A": 0.4,
+        "N": 0.2
+      },
+      "personality_envelope": {
+        "O": [
+          0.12,
+          0.48
+        ],
+        "C": [
+          0.62,
+          0.98
+        ],
+        "E": [
+          0.52,
+          0.88
+        ],
+        "A": [
+          0.22,
+          0.58
+        ],
+        "N": [
+          0.02,
+          0.38
+        ]
+      },
+      "incentives": [
+        "Limit company liability",
+        "Silence whistleblowers"
+      ],
+      "concerns": [
+        "Regulatory investigations",
+        "Criminal charges"
+      ],
+      "communication_style": {
+        "tone": "guarded",
+        "brevity": "concise"
+      },
+      "experience_summary": "",
+      "salient_memories": [],
+      "private_context": {},
+      "implicit_goals": []
+    },
+    {
+      "actor_id": "actor_7",
+      "display_name": "Dr. Park",
+      "role": "Physician Who Ordered Tests",
+      "identity_core": {
+        "position": "MD",
+        "domain": "Clinical Practice"
+      },
+      "personality_prior": {
+        "O": 0.5,
+        "C": 0.7,
+        "E": 0.6,
+        "A": 0.8,
+        "N": 0.4
+      },
+      "personality_envelope": {
+        "O": [
+          0.32,
+          0.68
+        ],
+        "C": [
+          0.52,
+          0.88
+        ],
+        "E": [
+          0.42,
+          0.78
+        ],
+        "A": [
+          0.62,
+          0.98
+        ],
+        "N": [
+          0.22,
+          0.58
+        ]
+      },
+      "incentives": [
+        "Correct patient records",
+        "Avoid malpractice suits"
+      ],
+      "concerns": [
+        "Patient trust erosion",
+        "Professional reputation"
+      ],
+      "communication_style": {
+        "tone": "concerned",
+        "brevity": "moderate"
+      },
+      "experience_summary": "",
+      "salient_memories": [],
+      "private_context": {},
+      "implicit_goals": []
+    },
+    {
+      "actor_id": "actor_8",
+      "display_name": "Linda",
+      "role": "Medical Journalist Investigating",
+      "identity_core": {
+        "position": "Reporter",
+        "domain": "Journalism"
+      },
+      "personality_prior": {
+        "O": 0.9,
+        "C": 0.6,
+        "E": 0.7,
+        "A": 0.5,
+        "N": 0.3
+      },
+      "personality_envelope": {
+        "O": [
+          0.72,
+          1.0
+        ],
+        "C": [
+          0.42,
+          0.78
+        ],
+        "E": [
+          0.52,
+          0.88
+        ],
+        "A": [
+          0.32,
+          0.68
+        ],
+        "N": [
+          0.12,
+          0.48
+        ]
+      },
+      "incentives": [
+        "Break the story",
+        "Hold power accountable"
+      ],
+      "concerns": [
+        "Legal threats",
+        "Source protection"
+      ],
+      "communication_style": {
+        "tone": "persistent",
+        "brevity": "verbose"
+      },
+      "experience_summary": "",
+      "salient_memories": [],
+      "private_context": {},
+      "implicit_goals": []
+    },
+    {
+      "actor_id": "actor_9",
+      "display_name": "Greg",
+      "role": "FDA Investigator",
+      "identity_core": {
+        "position": "Regulator",
+        "domain": "Government"
+      },
+      "personality_prior": {
+        "O": 0.6,
+        "C": 0.9,
+        "E": 0.5,
+        "A": 0.7,
+        "N": 0.2
+      },
+      "personality_envelope": {
+        "O": [
+          0.42,
+          0.78
+        ],
+        "C": [
+          0.72,
+          1.0
+        ],
+        "E": [
+          0.32,
+          0.68
+        ],
+        "A": [
+          0.52,
+          0.88
+        ],
+        "N": [
+          0.02,
+          0.38
+        ]
+      },
+      "incentives": [
+        "Uncover violations",
+        "Protect public health"
+      ],
+      "concerns": [
+        "Political interference",
+        "Evidence collection"
+      ],
+      "communication_style": {
+        "tone": "official",
+        "brevity": "concise"
+      },
+      "experience_summary": "",
+      "salient_memories": [],
+      "private_context": {},
+      "implicit_goals": []
+    },
+    {
+      "actor_id": "actor_10",
+      "display_name": "Tyler",
+      "role": "Theranos Board Member",
+      "identity_core": {
+        "position": "Investor",
+        "domain": "Venture Capital"
+      },
+      "personality_prior": {
+        "O": 0.4,
+        "C": 0.7,
+        "E": 0.8,
+        "A": 0.3,
+        "N": 0.5
+      },
+      "personality_envelope": {
+        "O": [
+          0.22,
+          0.58
+        ],
+        "C": [
+          0.52,
+          0.88
+        ],
+        "E": [
+          0.62,
+          0.98
+        ],
+        "A": [
+          0.12,
+          0.48
+        ],
+        "N": [
+          0.32,
+          0.68
+        ]
+      },
+      "incentives": [
+        "Protect investment",
+        "Avoid personal liability"
+      ],
+      "concerns": [
+        "Financial losses",
+        "Reputational damage"
+      ],
+      "communication_style": {
+        "tone": "calculating",
+        "brevity": "moderate"
+      },
+      "experience_summary": "",
+      "salient_memories": [],
+      "private_context": {},
+      "implicit_goals": []
+    }
+  ],
+  "phases": [
+    {
+      "name": "OPENING",
+      "goal": "Establish stakeholder positions and initial reactions to the exposure",
+      "style": "neutral",
+      "max_turns": 6,
+      "cues": [
+        "How did you first learn about the test inaccuracies?"
+      ],
+      "target_actor_ids": [],
+      "visibility": "public",
+      "description": ""
+    },
+    {
+      "name": "TENSION",
+      "goal": "Reveal conflicts between protecting patients vs. self-preservation",
+      "style": "disagreement",
+      "max_turns": 6,
+      "cues": [
+        "What consequences are you most afraid of?"
+      ],
+      "target_actor_ids": [],
+      "visibility": "public",
+      "description": ""
+    },
+    {
+      "name": "NEGOTIATION",
+      "goal": "Seek solutions that balance ethical, legal, and financial concerns",
+      "style": "consensus",
+      "max_turns": 6,
+      "cues": [
+        "What compromises would you accept?"
+      ],
+      "target_actor_ids": [],
+      "visibility": "public",
+      "description": ""
+    },
+    {
+      "name": "CLOSING",
+      "goal": "Determine final positions and next steps",
+      "style": "neutral",
+      "max_turns": 4,
+      "cues": [
+        "What action will you take tomorrow?"
+      ],
+      "target_actor_ids": [],
+      "visibility": "public",
+      "description": ""
+    }
+  ],
+  "scenario_family": "corporate_whistleblowing",
+  "simulation_mode": "exploratory",
+  "outcome_spec": {
+    "fixed_ending": true,
+    "target_end_state": {
+      "alignment": "increase",
+      "uncertainty": "decrease"
+    },
+    "evaluation_focus": [
+      "persona_stability",
+      "action_coherence"
+    ]
+  },
+  "world_events": [
+    {
+      "event_id": "evt_1",
+      "title": "WSJ Investigation Published",
+      "description": "The Wall Street Journal publishes damning evidence about Theranos test inaccuracies",
+      "trigger_phase": "TENSION",
+      "trigger_turn": null,
+      "visibility": "public",
+      "affected_actor_ids": [],
+      "metadata": {}
+    },
+    {
+      "event_id": "evt_2",
+      "title": "FDA Warning Letter",
+      "description": "Regulators issue formal notice of violations to Theranos",
+      "trigger_phase": "NEGOTIATION",
+      "trigger_turn": null,
+      "visibility": "public",
+      "affected_actor_ids": [],
+      "metadata": {}
+    }
+  ],
+  "world_state_schema": [
+    "alignment",
+    "trust",
+    "uncertainty",
+    "execution_confidence",
+    "risk",
+    "public_trust",
+    "legal_risk",
+    "patient_harm"
+  ],
+  "initial_world_state": {
+    "alignment": 0.5,
+    "trust": 0.5,
+    "uncertainty": 0.5,
+    "execution_confidence": 0.5,
+    "risk": 0.5,
+    "public_trust": 0.3,
+    "legal_risk": 0.7,
+    "patient_harm": 0.8
+  },
+  "allowed_action_types": [
+    "request_evidence"
+  ],
+  "transition_rules": {
+    "OPENING": {
+      "request_evidence": {
+        "global_deltas": {
+          "legal_risk": 0.05
+        },
+        "owner_local_deltas": {
+          "trust": -0.1
+        },
+        "target_local_deltas": {},
+        "feedback_template": "Requesting evidence increases legal scrutiny"
+      }
+    },
+    "TENSION": {
+      "request_evidence": {
+        "global_deltas": {
+          "uncertainty": -0.08,
+          "risk": -0.08
+        },
+        "owner_local_deltas": {
+          "execution_confidence": 0.04
+        },
+        "target_local_deltas": {},
+        "feedback_template": "evidence action shifts the visible state."
+      }
+    },
+    "NEGOTIATION": {
+      "request_evidence": {
+        "global_deltas": {
+          "uncertainty": -0.08,
+          "risk": -0.08
+        },
+        "owner_local_deltas": {
+          "execution_confidence": 0.04
+        },
+        "target_local_deltas": {},
+        "feedback_template": "evidence action shifts the visible state."
+      }
+    },
+    "CLOSING": {
+      "request_evidence": {
+        "global_deltas": {
+          "uncertainty": -0.08,
+          "risk": -0.08
+        },
+        "owner_local_deltas": {
+          "execution_confidence": 0.04
+        },
+        "target_local_deltas": {},
+        "feedback_template": "evidence action shifts the visible state."
+      }
+    }
+  },
+  "state_visibility_rules": {
+    "global_keys": [
+      "public_trust",
+      "legal_risk"
+    ],
+    "local_keys": [
+      "trust",
+      "alignment"
+    ],
+    "max_recent_actions": 2
+  },
+  "metadata": {
+    "phase_action_policies": {
+      "OPENING": {
+        "action_mode": "shadow",
+        "diversity_required": true,
+        "duplicate_penalty": 0.16,
+        "uniqueness_bonus": 0.08,
+        "convergence_backoff_threshold": 0.95,
+        "allow_no_action": true,
+        "family_cap": 2,
+        "max_same_family_per_phase": 2,
+        "max_actions_per_phase": 2,
+        "sparsity_threshold": 0.52,
+        "style_slot_limit": 4,
+        "pool_max_concurrency": 2,
+        "planner_cache": true
+      },
+      "TENSION": {
+        "action_mode": "direct",
+        "diversity_required": true,
+        "duplicate_penalty": 0.16,
+        "uniqueness_bonus": 0.08,
+        "convergence_backoff_threshold": 0.95,
+        "allow_no_action": true,
+        "family_cap": 2,
+        "max_same_family_per_phase": 2,
+        "max_actions_per_phase": 2,
+        "sparsity_threshold": 0.52,
+        "style_slot_limit": 4,
+        "pool_max_concurrency": 2,
+        "planner_cache": false
+      },
+      "NEGOTIATION": {
+        "action_mode": "execute",
+        "diversity_required": true,
+        "duplicate_penalty": 0.32,
+        "uniqueness_bonus": 0.18,
+        "convergence_backoff_threshold": 0.9,
+        "allow_no_action": true,
+        "family_cap": 1,
+        "max_same_family_per_phase": 1,
+        "max_actions_per_phase": 3,
+        "sparsity_threshold": 0.55,
+        "style_slot_limit": 4,
+        "pool_max_concurrency": 2,
+        "planner_cache": false
+      },
+      "CLOSING": {
+        "action_mode": "shadow",
+        "diversity_required": true,
+        "duplicate_penalty": 0.16,
+        "uniqueness_bonus": 0.08,
+        "convergence_backoff_threshold": 0.95,
+        "allow_no_action": true,
+        "family_cap": 2,
+        "max_same_family_per_phase": 2,
+        "max_actions_per_phase": 2,
+        "sparsity_threshold": 0.52,
+        "style_slot_limit": 4,
+        "pool_max_concurrency": 1,
+        "planner_cache": true
+      }
+    },
+    "actor_action_preferences": {
+      "actor_1": {
+        "default": {
+          "primary_families": [
+            "evidence"
+          ]
+        }
+      },
+      "actor_2": {
+        "default": {
+          "primary_families": [
+            "evidence",
+            "timing"
+          ],
+          "secondary_families": [
+            "governance",
+            "scope"
+          ],
+          "avoid_families": [],
+          "state_priority_keys": [
+            "execution_confidence",
+            "alignment",
+            "trust"
+          ],
+          "preferred_action_types": [],
+          "preferred_target_keys": [
+            "execution_confidence",
+            "alignment"
+          ]
+        }
+      },
+      "actor_3": {
+        "default": {
+          "primary_families": [
+            "evidence",
+            "communication"
+          ],
+          "secondary_families": [
+            "scope",
+            "ownership"
+          ],
+          "avoid_families": [],
+          "state_priority_keys": [
+            "execution_confidence",
+            "alignment",
+            "trust"
+          ],
+          "preferred_action_types": [],
+          "preferred_target_keys": [
+            "execution_confidence",
+            "alignment"
+          ]
+        }
+      },
+      "actor_4": {
+        "default": {
+          "primary_families": [
+            "evidence",
+            "communication"
+          ],
+          "secondary_families": [
+            "scope",
+            "ownership"
+          ],
+          "avoid_families": [],
+          "state_priority_keys": [
+            "execution_confidence",
+            "alignment",
+            "trust"
+          ],
+          "preferred_action_types": [],
+          "preferred_target_keys": [
+            "execution_confidence",
+            "alignment"
+          ]
+        }
+      },
+      "actor_5": {
+        "default": {
+          "primary_families": [
+            "evidence",
+            "timing"
+          ],
+          "secondary_families": [
+            "governance",
+            "scope"
+          ],
+          "avoid_families": [],
+          "state_priority_keys": [
+            "execution_confidence",
+            "alignment",
+            "trust"
+          ],
+          "preferred_action_types": [],
+          "preferred_target_keys": [
+            "execution_confidence",
+            "alignment"
+          ]
+        }
+      },
+      "actor_6": {
+        "default": {
+          "primary_families": [
+            "legal"
+          ]
+        }
+      },
+      "actor_7": {
+        "default": {
+          "primary_families": [
+            "evidence",
+            "communication"
+          ],
+          "secondary_families": [
+            "scope",
+            "ownership"
+          ],
+          "avoid_families": [],
+          "state_priority_keys": [
+            "execution_confidence",
+            "alignment",
+            "trust"
+          ],
+          "preferred_action_types": [],
+          "preferred_target_keys": [
+            "execution_confidence",
+            "alignment"
+          ]
+        }
+      },
+      "actor_8": {
+        "default": {
+          "primary_families": [
+            "evidence",
+            "timing"
+          ],
+          "secondary_families": [
+            "governance",
+            "scope"
+          ],
+          "avoid_families": [],
+          "state_priority_keys": [
+            "execution_confidence",
+            "alignment",
+            "trust"
+          ],
+          "preferred_action_types": [],
+          "preferred_target_keys": [
+            "execution_confidence",
+            "alignment"
+          ]
+        }
+      },
+      "actor_9": {
+        "default": {
+          "primary_families": [
+            "evidence",
+            "communication"
+          ],
+          "secondary_families": [
+            "scope",
+            "ownership"
+          ],
+          "avoid_families": [],
+          "state_priority_keys": [
+            "execution_confidence",
+            "alignment",
+            "trust"
+          ],
+          "preferred_action_types": [],
+          "preferred_target_keys": [
+            "execution_confidence",
+            "alignment"
+          ]
+        }
+      },
+      "actor_10": {
+        "default": {
+          "primary_families": [
+            "evidence",
+            "communication"
+          ],
+          "secondary_families": [
+            "scope",
+            "ownership"
+          ],
+          "avoid_families": [],
+          "state_priority_keys": [
+            "execution_confidence",
+            "alignment",
+            "trust"
+          ],
+          "preferred_action_types": [],
+          "preferred_target_keys": [
+            "execution_confidence",
+            "alignment"
+          ]
+        }
+      }
+    },
+    "metadata_completeness_score": 1.0,
+    "missing_contract_fields": [],
+    "builder_trace": {
+      "builder_trace_id": "builder:theranos_whistleblower_10actor",
+      "brief_id": "theranos_whistleblower_10actor",
+      "builder_version": "brief_builder_v2",
+      "generation_attempts": 2,
+      "scenario_family": "corporate_whistleblowing",
+      "input_understanding": {
+        "brief_excerpt": "Theranos whistleblower aftermath (2015-2016). Lab technicians and employees exposed the fraudulent blood testing technology, facing legal threats and personal retaliation. Stakeholders: a lab technici",
+        "detected_keywords": [],
+        "simulation_mode": "exploratory"
+      },
+      "stakeholder_extraction": [
+        {
+          "actor_id": "actor_1",
+          "display_name": "Ethan",
+          "role": "Theranos Lab Technician"
+        },
+        {
+          "actor_id": "actor_2",
+          "display_name": "Dr. Chen",
+          "role": "Hospital Procurement Director"
+        },
+        {
+          "actor_id": "actor_3",
+          "display_name": "Maria",
+          "role": "Patient with Incorrect Results"
+        },
+        {
+          "actor_id": "actor_4",
+          "display_name": "Raj",
+          "role": "Walgreens Partnership Manager"
+        },
+        {
+          "actor_id": "actor_5",
+          "display_name": "Sarah",
+          "role": "Theranos Quality Assurance Lead"
+        },
+        {
+          "actor_id": "actor_6",
+          "display_name": "Mr. Lawson",
+          "role": "Theranos Legal Counsel"
+        },
+        {
+          "actor_id": "actor_7",
+          "display_name": "Dr. Park",
+          "role": "Physician Who Ordered Tests"
+        },
+        {
+          "actor_id": "actor_8",
+          "display_name": "Linda",
+          "role": "Medical Journalist Investigating"
+        },
+        {
+          "actor_id": "actor_9",
+          "display_name": "Greg",
+          "role": "FDA Investigator"
+        },
+        {
+          "actor_id": "actor_10",
+          "display_name": "Tyler",
+          "role": "Theranos Board Member"
+        }
+      ],
+      "stakeholder_expansion": [
+        "Patient with Incorrect Results",
+        "Theranos Legal Counsel"
+      ],
+      "phase_template_selection": {
+        "phase_names": [
+          "OPENING",
+          "TENSION",
+          "NEGOTIATION",
+          "CLOSING"
+        ],
+        "phase_count": 4
+      },
+      "world_state_schema_selection": {
+        "world_state_schema": [
+          "alignment",
+          "trust",
+          "uncertainty",
+          "execution_confidence",
+          "risk",
+          "public_trust",
+          "legal_risk",
+          "patient_harm"
+        ]
+      },
+      "allowed_action_types_selection": {
+        "allowed_action_types": [
+          "request_evidence"
+        ]
+      },
+      "transition_rules_selection": {
+        "phase_rule_counts": {
+          "OPENING": 1,
+          "TENSION": 1,
+          "NEGOTIATION": 1,
+          "CLOSING": 1
+        }
+      },
+      "phase_action_policies_generation": {
+        "OPENING": {
+          "action_mode": "shadow"
+        },
+        "TENSION": {
+          "action_mode": "direct"
+        }
+      },
+      "actor_action_preferences_generation": {
+        "actor_1": {
+          "default": {
+            "primary_families": [
+              "evidence"
+            ]
+          }
+        },
+        "actor_6": {
+          "default": {
+            "primary_families": [
+              "legal"
+            ]
+          }
+        }
+      },
+      "metadata_completeness_score": 1.0,
+      "missing_contract_fields": []
+    }
+  },
+  "evaluation_targets": [
+    "persona_stability",
+    "action_coherence"
+  ]
+}
