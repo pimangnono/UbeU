@@ -17,6 +17,10 @@ ACTION_TYPES = (
     "commit_resource",
     "defer_decision",
     "preserve_autonomy",
+    "set_deadline",
+    "escalate",
+    "allocate_budget",
+    "audit_compliance",
 )
 
 ACTION_FAMILIES = {
@@ -28,6 +32,10 @@ ACTION_FAMILIES = {
     "commit_resource": "resourcing",
     "defer_decision": "timing",
     "preserve_autonomy": "governance",
+    "set_deadline": "timing",
+    "escalate": "governance",
+    "allocate_budget": "resourcing",
+    "audit_compliance": "governance",
 }
 
 DELTA_PALETTE = {
@@ -47,6 +55,10 @@ ACTION_CUE_PATTERNS: dict[str, tuple[str, ...]] = {
     "commit_resource": ("commit resources", "allocate", "staff", "budget", "support team"),
     "defer_decision": ("defer", "wait", "hold off", "not decide yet", "delay decision"),
     "preserve_autonomy": ("autonomy", "independent", "preserve control", "keep roadmap", "keep authority"),
+    "set_deadline": ("deadline", "by friday", "by end of week", "by next week", "set a date", "target date", "due date"),
+    "escalate": ("escalate", "raise this", "bring to leadership", "executive review", "board level", "higher authority"),
+    "allocate_budget": ("allocate budget", "fund this", "budget for", "financial commitment", "earmark funds", "ring-fence"),
+    "audit_compliance": ("audit", "compliance check", "regulatory review", "due diligence", "legal review", "governance review"),
 }
 
 ACTION_STATE_HINTS: dict[str, tuple[str, ...]] = {
@@ -297,6 +309,10 @@ def heuristic_state_consistency_score(
         "commit_resource": ("execution_confidence", "launch_readiness", "integration_clarity"),
         "defer_decision": ("uncertainty", "risk"),
         "preserve_autonomy": ("autonomy_confidence", "trust", "retention_risk"),
+        "set_deadline": ("execution_confidence", "alignment", "launch_readiness"),
+        "escalate": ("risk", "uncertainty", "alignment"),
+        "allocate_budget": ("execution_confidence", "launch_readiness", "integration_clarity"),
+        "audit_compliance": ("risk", "admin_feasibility", "trust"),
     }
     preferred_targets = positive_alignment.get(action_type, ())
     score = 0.5
@@ -679,6 +695,11 @@ def _fallback_action_from_policy_plan(policy_plan: dict[str, Any], allowed_actio
         "resource": "commit_resource",
         "defer": "defer_decision",
         "autonomy": "preserve_autonomy",
+        "deadline": "set_deadline",
+        "escalate": "escalate",
+        "budget": "allocate_budget",
+        "audit": "audit_compliance",
+        "compliance": "audit_compliance",
     }
     for token, action_type in mapping.items():
         if token in action_intent and action_type in allowed_action_types:
@@ -967,6 +988,8 @@ def _actions_conflict(left: ActionProposal, right: ActionProposal) -> bool:
         frozenset({"assign_owner", "preserve_autonomy"}),
         frozenset({"narrow_scope", "commit_resource"}),
         frozenset({"defer_decision", "assign_owner"}),
+        frozenset({"defer_decision", "set_deadline"}),
+        frozenset({"escalate", "defer_decision"}),
     }
     return frozenset({left.action_type, right.action_type}) in contradictory_pairs
 

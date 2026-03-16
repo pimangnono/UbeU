@@ -12,6 +12,7 @@ class StakeholderGraphState(TypedDict, total=False):
     base_condition: str
     style_slots: list[str]
     ablation_config: Any
+    shared_semantic_scorer: Any
 
     runtime: Any
     controllers: dict[str, Any]

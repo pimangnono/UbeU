@@ -206,6 +206,46 @@ def detect_commitment_contradiction(candidate_text: str, commitments: list[Commi
     return False
 
 
+def check_commitment_fulfilled(
+    turn_text: str,
+    commitment: Commitment,
+    min_overlap: float = 0.6,
+) -> bool:
+    """Return True if *turn_text* fulfils *commitment* (high token overlap, no negation)."""
+    lower = turn_text.lower()
+    if any(neg in lower for neg in ["won't", "can't", "not going to", "no longer"]):
+        return False
+    cand_tokens = set(re.findall(r"[a-zA-Z]{3,}", lower))
+    ct = set(re.findall(r"[a-zA-Z]{3,}", commitment.content.lower()))
+    if not ct:
+        return False
+    overlap = len(cand_tokens & ct) / len(ct)
+    return overlap >= min_overlap
+
+
+def is_commitment_stale(
+    commitment: Commitment,
+    current_turn: int,
+    max_age: int = 8,
+) -> bool:
+    """Return True if commitment is older than *max_age* turns."""
+    return (current_turn - commitment.created_turn) >= max_age
+
+
+def format_commitment_context(commitments: list[Commitment]) -> str:
+    """Build a concise commitment summary for injection into the generation prompt."""
+    if not commitments:
+        return ""
+    lines = []
+    for c in commitments[:5]:
+        phase_tag = f" ({c.due_phase})" if c.due_phase else ""
+        lines.append(f"- \"{c.content}\"{phase_tag}")
+    return (
+        "\nYour prior positions:\n"
+        + "\n".join(lines)
+    )
+
+
 def score_relationship_consistency(candidate_text: str, relationships: list[RelationshipSignal]) -> float:
     if not relationships:
         return 0.5

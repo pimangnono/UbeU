@@ -7,6 +7,7 @@ with specific OCEAN profiles.
 """
 
 import asyncio
+import json
 import logging
 import os
 import random
@@ -26,6 +27,21 @@ DEFAULT_CANDIDATE_PROMPT = (
     "Respond naturally, concisely, and realistically to the ongoing conversation."
 )
 DEFAULT_FALLBACK_RESPONSE = "I think we should consider all the options before deciding."
+
+ALL_ACTION_TYPES = (
+    "assign_owner", "commit_resource", "publish_update", "narrow_scope",
+    "defer_decision", "set_deadline", "escalate", "allocate_budget",
+    "audit_compliance", "preserve_autonomy", "request_evidence", "pilot", "none",
+)
+
+CANDIDATE_RESPONSE_SCHEMA_INSTRUCTION = """
+Respond in JSON with this exact structure:
+{
+  "dialogue": "<your in-character response>",
+  "intended_action": "<one of: assign_owner|commit_resource|publish_update|narrow_scope|defer_decision|set_deadline|escalate|allocate_budget|audit_compliance|preserve_autonomy|request_evidence|pilot|none>",
+  "stance_shift": "<one of: maintain|soften|harden|pivot>"
+}
+"""
 
 
 @dataclass
@@ -59,7 +75,7 @@ class ExperimentCandidateAgent:
         self._current_nudge: Optional[str] = None
         self.candidate_name = candidate_name
         self._response_retry_attempts = max(
-            1, int(os.getenv("SIM_CANDIDATE_RETRY_ATTEMPTS", "4"))
+            1, int(os.getenv("SIM_CANDIDATE_RETRY_ATTEMPTS", "6"))
         )
         self._response_retry_base_delay = max(
             0.0, float(os.getenv("SIM_CANDIDATE_RETRY_BASE_DELAY", "1.0"))
@@ -72,7 +88,7 @@ class ExperimentCandidateAgent:
             0.0, float(os.getenv("SIM_CANDIDATE_RETRY_JITTER", "0.25"))
         )
         self._response_request_timeout_seconds = max(
-            0.0, float(os.getenv("SIM_CANDIDATE_REQUEST_TIMEOUT_SECONDS", "45.0"))
+            0.0, float(os.getenv("SIM_CANDIDATE_REQUEST_TIMEOUT_SECONDS", "60.0"))
         )
         self._pool_max_concurrency = max(
             1, int(os.getenv("SIM_CANDIDATE_POOL_MAX_CONCURRENCY", "2"))
@@ -116,11 +132,17 @@ class ExperimentCandidateAgent:
         temperature: float,
         max_tokens: int,
         operation_name: str,
+        use_json_mode: bool = False,
     ) -> str:
         last_error: Exception | None = None
         for attempt in range(self._response_retry_attempts):
             try:
-                generation_coro = self.client.generate(
+                gen_method = (
+                    self.client.generate_structured
+                    if use_json_mode
+                    else self.client.generate
+                )
+                generation_coro = gen_method(
                     prompt=prompt,
                     system_instruction=system_instruction,
                     temperature=temperature,
@@ -201,6 +223,9 @@ class ExperimentCandidateAgent:
         phase_cues: Optional[list[str]] = None,
         target_traits: Optional[list[str]] = None,
         enable_trait_execution: bool = False,
+        commitment_context: Optional[str] = None,
+        use_json_mode: bool = False,
+        slot_action_vocabulary: Optional[list[str]] = None,
     ) -> GenerationPayload:
         """
         Generate a candidate response given the conversation history.
@@ -261,26 +286,47 @@ class ExperimentCandidateAgent:
                 "if ambiguity/options appear, include at least one alternative or reframe and name a tradeoff; "
                 "if planning/ownership is needed, include at least one concrete owner/deadline/next-step/follow-up element."
             )
+        commitment_hint = commitment_context or ""
+
+        # Build structured JSON instruction when JSON mode is enabled
+        json_schema_instruction = ""
+        if use_json_mode:
+            if slot_action_vocabulary:
+                action_list = "|".join(slot_action_vocabulary + ["none"])
+                json_schema_instruction = (
+                    f"\n\nRespond in JSON with this exact structure:\n"
+                    f'{{"dialogue": "<your in-character response>", '
+                    f'"intended_action": "<one of: {action_list}>", '
+                    f'"stance_shift": "<one of: maintain|soften|harden|pivot>"}}'
+                )
+            else:
+                json_schema_instruction = CANDIDATE_RESPONSE_SCHEMA_INSTRUCTION
 
         prompt = f"""Here is the recent conversation:
 
 {history}
 {style_hint}
-{phase_hint}{cues_hint}{traits_hint}{style_hint_extra}{policy_text}{execution_hint}
+{phase_hint}{cues_hint}{traits_hint}{style_hint_extra}{policy_text}{execution_hint}{commitment_hint}
 
-Respond as {self.candidate_name} in this discussion. Keep your response natural, concise (1-3 sentences), and in character. Do not include your name as a prefix."""
+Respond as {self.candidate_name} in this discussion. Keep your response natural, concise (1-3 sentences), and in character. Do not include your name as a prefix.{json_schema_instruction}"""
 
         # Append constraint suffix if requested (legacy hook; no regeneration in v1.1)
         if constraint_suffix:
             prompt += constraint_suffix
 
+        # When using JSON mode, system instruction must mention JSON (OpenAI requirement)
+        system_instruction = self.system_prompt
+        if use_json_mode:
+            system_instruction += "\n\nAlways respond in valid JSON."
+
         try:
             response = await self._generate_with_retry(
                 prompt=prompt,
-                system_instruction=self.system_prompt,
+                system_instruction=system_instruction,
                 temperature=0.7,
-                max_tokens=200,
+                max_tokens=250 if use_json_mode else 200,
                 operation_name="candidate_response",
+                use_json_mode=use_json_mode,
             )
         except Exception as e:
             logger.error(f"Candidate generation failed: {e}")
@@ -293,6 +339,25 @@ Respond as {self.candidate_name} in this discussion. Keep your response natural,
                     "operation_name": "candidate_response",
                 },
             )
+
+        # Parse structured JSON response when JSON mode is enabled
+        intended_action = None
+        stance_shift = None
+        if use_json_mode:
+            try:
+                text = response.strip()
+                if "{" in text and "}" in text:
+                    text = text[text.find("{"):text.rfind("}") + 1]
+                parsed = json.loads(text)
+                if isinstance(parsed, dict):
+                    response = parsed.get("dialogue", response)
+                    raw_action = parsed.get("intended_action", "none")
+                    if raw_action in ALL_ACTION_TYPES:
+                        intended_action = raw_action
+                    stance_shift = parsed.get("stance_shift")
+            except (json.JSONDecodeError, ValueError):
+                # Fallback: treat entire response as dialogue text
+                logger.debug("JSON parse failed for candidate response, using raw text")
 
         # Clean up the response
         response = response.strip()
@@ -314,6 +379,8 @@ Respond as {self.candidate_name} in this discussion. Keep your response natural,
                 "fallback_type": None,
                 "fallback_reason": None,
                 "operation_name": "candidate_response",
+                "intended_action": intended_action,
+                "stance_shift": stance_shift,
             },
         )
 
@@ -394,43 +461,36 @@ Transcript:
 
 Return JSON only."""
 
+        fallback_plan = {
+            "stance": "synthesize",
+            "goal_mode": "coordinate",
+            "planning_depth": "milestone",
+            "novelty_move": "none",
+            "social_tactic": "align",
+            "risk_posture": "balanced",
+            "memory_focus": "commitment",
+        }
         try:
             resp = await self._generate_with_retry(
                 prompt=prompt,
-                system_instruction="Return JSON only. Be concise.",
+                system_instruction="You are a policy plan generator. Respond in JSON only. Be concise.",
                 temperature=0.3,
                 max_tokens=200,
                 operation_name="policy_plan",
+                use_json_mode=True,
             )
         except Exception:
-            return {
-                "stance": "synthesize",
-                "goal_mode": "coordinate",
-                "planning_depth": "milestone",
-                "novelty_move": "none",
-                "social_tactic": "align",
-                "risk_posture": "balanced",
-                "memory_focus": "commitment",
-            }
+            return dict(fallback_plan)
 
-        # Best-effort JSON parse
+        # Parse JSON response (json_object mode guarantees valid JSON)
         text = resp.strip()
         if "{" in text and "}" in text:
             text = text[text.find("{"):text.rfind("}") + 1]
         try:
-            import json
             data = json.loads(text)
-            return data if isinstance(data, dict) else {}
+            return data if isinstance(data, dict) else dict(fallback_plan)
         except Exception:
-            return {
-                "stance": "synthesize",
-                "goal_mode": "coordinate",
-                "planning_depth": "milestone",
-                "novelty_move": "none",
-                "social_tactic": "align",
-                "risk_posture": "balanced",
-                "memory_focus": "commitment",
-            }
+            return dict(fallback_plan)
 
     async def generate_candidate_pool_styles(
         self,
@@ -445,6 +505,9 @@ Return JSON only."""
         policy_plan: Optional[dict] = None,
         enable_trait_execution: bool = False,
         max_concurrency_override: Optional[int] = None,
+        commitment_context: Optional[str] = None,
+        use_json_mode: bool = False,
+        slot_action_vocabularies: Optional[dict[str, list[str]]] = None,
     ) -> list[dict]:
         """
         Generate candidates for best-of-styles selection (BCFC v3).
@@ -459,6 +522,7 @@ Return JSON only."""
                 target_traits=target_traits,
             )
         async def _run_slot(slot: str) -> GenerationPayload:
+            slot_vocab = (slot_action_vocabularies or {}).get(slot)
             return await self.generate_response_payload(
                 turns=turns,
                 scenario_brief=scenario_brief,
@@ -470,6 +534,9 @@ Return JSON only."""
                 phase_cues=phase_cues,
                 target_traits=target_traits,
                 enable_trait_execution=enable_trait_execution,
+                commitment_context=commitment_context,
+                use_json_mode=use_json_mode,
+                slot_action_vocabulary=slot_vocab,
             )
 
         tasks = [lambda slot=slot: _run_slot(slot) for slot in style_slots]
@@ -482,12 +549,19 @@ Return JSON only."""
         )
         outputs: list[dict] = []
         for slot, payload in zip(style_slots, payloads):
-            outputs.append({
+            meta = dict(payload.generation_meta)
+            candidate_dict = {
                 "slot": slot,
                 "text": payload.text,
                 "policy_plan": policy_plan,
-                "generation_meta": dict(payload.generation_meta),
-            })
+                "generation_meta": meta,
+            }
+            # Promote structured fields to top-level for controller access
+            if meta.get("intended_action"):
+                candidate_dict["intended_action"] = meta["intended_action"]
+            if meta.get("stance_shift"):
+                candidate_dict["stance_shift"] = meta["stance_shift"]
+            outputs.append(candidate_dict)
         surviving = [
             item for item in outputs
             if not item.get("generation_meta", {}).get("used_fallback", False)

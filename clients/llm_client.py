@@ -185,6 +185,51 @@ class LLMClient:
             self.total_requests += 1
             raise
 
+    async def generate_structured(
+        self,
+        prompt: str,
+        system_instruction: Optional[str] = None,
+        temperature: float = 0.3,
+        max_tokens: int = 500,
+        tier: ModelTier = ModelTier.PRO,
+    ) -> str:
+        """
+        Generate a response with JSON mode enforced via response_format.
+
+        The system instruction MUST mention "JSON" for OpenAI-compatible
+        providers to accept the json_object response_format.
+        """
+        await self.rate_limiter.wait_if_needed()
+
+        messages = []
+        if system_instruction:
+            messages.append({"role": "system", "content": system_instruction})
+        messages.append({"role": "user", "content": prompt})
+
+        try:
+            response = await asyncio.wait_for(
+                self.client.chat.completions.create(
+                    model=self._get_model_name(tier),
+                    messages=messages,
+                    temperature=temperature,
+                    max_tokens=max_tokens,
+                    response_format={"type": "json_object"},
+                ),
+                timeout=120.0,
+            )
+
+            self.rate_limiter.record_request()
+            self.total_requests += 1
+
+            content = response.choices[0].message.content
+            self._record_usage(response, self._get_model_name(tier))
+            return content if content else ""
+
+        except Exception:
+            self.rate_limiter.record_request()
+            self.total_requests += 1
+            raise
+
     async def generate_chat(
         self,
         messages: list[dict[str, str]],
@@ -442,6 +487,17 @@ class MockLLMClient:
             return "I'm not sure that would work."
         else:
             return "This is a mock response for testing."
+
+    async def generate_structured(
+        self,
+        prompt: str,
+        system_instruction: Optional[str] = None,
+        temperature: float = 0.3,
+        max_tokens: int = 500,
+        tier: ModelTier = ModelTier.PRO,
+    ) -> str:
+        """Mock structured generation — returns same as generate()."""
+        return await self.generate(prompt, system_instruction, temperature, max_tokens, tier)
 
     async def generate_chat(
         self,

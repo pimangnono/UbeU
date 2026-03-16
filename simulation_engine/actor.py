@@ -6,6 +6,7 @@ import asyncio
 from typing import Any, Optional
 
 from experiment.candidate_agent import ExperimentCandidateAgent
+from experiment.memory_backend import Commitment, format_commitment_context
 
 from .ablation import DEFAULT_ABLATION_CONFIG, SimulationAblationConfig
 from .action_priors import apply_actor_action_preferences, infer_role_action_prior
@@ -15,10 +16,10 @@ from .script import StakeholderActorSpec
 # different families, ensuring diversity at the generation level rather than selection.
 # Families: ownership, evidence, communication, scope, resourcing, timing, governance
 SLOT_ACTION_VOCABULARY: dict[str, list[str]] = {
-    "integrator": ["assign_owner", "commit_resource"],       # ownership, resourcing
-    "planner": ["publish_update", "narrow_scope"],           # communication, scope
-    "challenger": ["defer_decision", "preserve_autonomy"],   # timing, governance
-    "skeptic": ["request_evidence", "pilot"],                # evidence, scope-adjacent experimentation
+    "integrator": ["assign_owner", "commit_resource", "publish_update"],   # ownership, resourcing, communication
+    "planner": ["narrow_scope", "defer_decision", "set_deadline"],         # scope, timing, timing
+    "challenger": ["preserve_autonomy", "request_evidence", "escalate"],   # governance, evidence, governance
+    "skeptic": ["pilot", "allocate_budget", "audit_compliance"],           # scope, resourcing, governance
 }
 
 
@@ -105,8 +106,10 @@ class StakeholderActor:
     def _phase_specific_guidance(self, phase_name: Optional[str]) -> str:
         if phase_name == "CLOSING":
             return (
-                "Even while summarizing or closing, maintain your distinct stakeholder perspective. "
-                "Do not collapse into generic consensus language just to end the discussion neatly."
+                "Even while closing, maintain your distinct stakeholder perspective and unresolved concerns. "
+                "Do not collapse into generic consensus. If you had disagreements, carry them through — "
+                "real stakeholders do not suddenly agree on everything. State your final position clearly, "
+                "including any remaining reservations."
             )
         return ""
 
@@ -417,11 +420,15 @@ class StakeholderActor:
         ) or "none"
         goals_summary = ", ".join(goals[:3]) or "none"
 
+        episodic_context = actor_snapshot.get("episodic_memory_context", "")
+        episodic_line = f"\n{episodic_context}" if episodic_context else ""
+
         return (
             persona_anchor
             + self_question
             + implicit_goal_line
             + state_trajectory_line
+            + episodic_line
             + "\nHidden actor-state context: "
             f"stress={stress:.2f}; "
             f"beliefs={belief_summary}; "
@@ -469,6 +476,10 @@ class StakeholderActor:
                 "commit_resource",
                 "defer_decision",
                 "preserve_autonomy",
+                "set_deadline",
+                "escalate",
+                "allocate_budget",
+                "audit_compliance",
             ]),
             valid_target_keys=list(valid_target_keys or world_state.keys()),
         )
@@ -484,6 +495,10 @@ class StakeholderActor:
                 "commit_resource",
                 "defer_decision",
                 "preserve_autonomy",
+                "set_deadline",
+                "escalate",
+                "allocate_budget",
+                "audit_compliance",
             ]),
             valid_target_keys=list(valid_target_keys or world_state.keys()),
         )
@@ -618,6 +633,19 @@ class StakeholderActor:
             self._policy_plan_cache[cache_key] = dict(augmented)
         return augmented
 
+    def _extract_commitment_context(self, actor_snapshot: Optional[dict[str, Any]]) -> str:
+        """Build a commitment summary string from the actor snapshot."""
+        if not actor_snapshot:
+            return ""
+        raw_commitments = actor_snapshot.get("open_commitments", [])
+        if not raw_commitments:
+            return ""
+        commitments = [
+            Commitment(**c) if isinstance(c, dict) else c
+            for c in raw_commitments
+        ]
+        return format_commitment_context(commitments)
+
     async def generate_response_payload(
         self,
         turns,
@@ -642,6 +670,7 @@ class StakeholderActor:
         if constraint_suffix:
             hidden_context += "\n" + constraint_suffix.strip()
         scenario_brief = self.world_brief + hidden_context
+        commitment_context = self._extract_commitment_context(actor_snapshot)
         payload = await self._delegate.generate_response_payload(
             turns=turns,
             scenario_brief=scenario_brief,
@@ -653,6 +682,7 @@ class StakeholderActor:
             phase_cues=phase_cues,
             target_traits=target_traits,
             enable_trait_execution=enable_trait_execution,
+            commitment_context=commitment_context,
         )
         return {
             "text": payload.text,
@@ -711,6 +741,7 @@ class StakeholderActor:
         if constraint_suffix:
             hidden_context += "\n" + constraint_suffix.strip()
         scenario_brief = self.world_brief + hidden_context
+        commitment_context = self._extract_commitment_context(actor_snapshot)
 
         preferred_action_types = (policy_plan or {}).get("_preferred_action_types", [])
         if len(style_slots) > 1:
@@ -743,6 +774,9 @@ class StakeholderActor:
                         policy_plan=slot_plan,
                         enable_trait_execution=enable_trait_execution,
                         max_concurrency_override=1,
+                        commitment_context=commitment_context,
+                        use_json_mode=True,
+                        slot_action_vocabularies=SLOT_ACTION_VOCABULARY,
                     )
 
             all_results = await asyncio.gather(
@@ -762,4 +796,7 @@ class StakeholderActor:
             policy_plan=policy_plan,
             enable_trait_execution=enable_trait_execution,
             max_concurrency_override=max_concurrency_override,
+            commitment_context=commitment_context,
+            use_json_mode=True,
+            slot_action_vocabularies=SLOT_ACTION_VOCABULARY,
         )

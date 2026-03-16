@@ -27,11 +27,28 @@ class StakeholderSimulationNodes:
     async def bootstrap_runtime(self, state: StakeholderGraphState) -> dict[str, Any]:
         script = state["script"]
         ablation_config = state.get("ablation_config", DEFAULT_ABLATION_CONFIG)
+
+        # Use shared semantic scorer if available (avoids reloading model per run)
+        semantic_scorer = state.get("shared_semantic_scorer")
+        if semantic_scorer is None and ablation_config.use_structural_adaptation:
+            try:
+                from .semantic_scorer import SemanticScorer
+                semantic_scorer = SemanticScorer()
+            except ImportError:
+                pass  # sentence-transformers not installed
+        if semantic_scorer is not None and ablation_config.use_structural_adaptation:
+            # Clear response cache from previous run to prevent memory leak
+            semantic_scorer.clear_response_cache()
+            for actor_spec in script.stakeholders:
+                semantic_scorer.init_for_actor(actor_spec)
+
         runtime = StakeholderSimulationRuntime(
             script=script,
             gen_client=state["gen_client"],
             ablation_config=ablation_config,
+            semantic_scorer=semantic_scorer,
         )
+        structural_profile = script.metadata.get("structural_profile", {})
         actor_name_map = {
             actor_id: actor.display_name
             for actor_id, actor in runtime.actors.items()
@@ -41,6 +58,8 @@ class StakeholderSimulationNodes:
                 actor.actor_spec,
                 actor_name_map=actor_name_map,
                 ablation_config=ablation_config,
+                structural_profile=structural_profile,
+                semantic_scorer=semantic_scorer,
             )
             for actor_id, actor in runtime.actors.items()
         }

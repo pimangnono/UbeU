@@ -3672,3 +3672,543 @@
 2026-03-09 23:32:46,584 [ERROR] experiment.candidate_agent: Candidate generation failed: Request timed out.
 2026-03-09 23:32:46,630 [ERROR] experiment.candidate_agent: Candidate generation failed: Request timed out.
 2026-03-09 23:55:37,062 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.0s.
+2026-03-10 04:57:22,006 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-10 13:48:54,839 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-10 13:48:54,841 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-10 14:18:21,781 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-10 14:18:53,870 [ERROR] experiment.candidate_agent: Candidate generation failed: Request timed out.
+2026-03-10 14:19:25,258 [ERROR] experiment.candidate_agent: Candidate generation failed: Request timed out.
+2026-03-10 14:32:54,129 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-10 14:43:16,970 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-10 15:13:52,069 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-10 15:26:45,974 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-10 15:37:18,607 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.0s.
+2026-03-10 15:37:25,437 [WARNING] experiment.candidate_agent: candidate_response generation attempt 2/4 failed with transient error: Connection error.. Retrying in 2.4s.
+2026-03-10 16:09:45,176 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-10 16:22:00,516 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/4 failed with transient error: . Retrying in 1.2s.
+2026-03-10 18:14:02,619 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-10 23:28:22,198 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-11 00:36:26,548 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-11 01:37:39,729 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.0s.
+2026-03-11 01:37:39,732 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-11 01:56:23,718 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.0s.
+2026-03-11 01:56:23,718 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.2s.
+2026-03-11 02:15:03,935 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/4 failed with transient error: . Retrying in 1.0s.
+2026-03-11 02:32:28,571 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/4 failed with transient error: . Retrying in 1.2s.
+2026-03-11 02:50:26,975 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-11 03:21:32,018 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-11 03:42:16,665 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-11 03:42:16,667 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.2s.
+2026-03-11 04:00:16,071 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/4 failed with transient error: . Retrying in 1.2s.
+2026-03-11 04:16:39,820 [WARNING] experiment.candidate_agent: policy_plan generation attempt 2/4 failed with transient error: . Retrying in 2.3s.
+2026-03-11 04:22:29,837 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-11 04:22:29,838 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-11 04:38:33,740 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-11 04:55:09,737 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/4 failed with transient error: . Retrying in 1.2s.
+2026-03-11 05:19:35,717 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.0s.
+2026-03-11 05:19:36,285 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-11 05:23:31,303 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-11 05:23:32,678 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.0s.
+2026-03-11 05:59:52,401 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.2s.
+2026-03-11 06:24:31,701 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-11 06:24:31,702 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-11 06:41:51,992 [WARNING] experiment.candidate_agent: candidate_response generation attempt 2/4 failed with transient error: . Retrying in 1.7s.
+2026-03-11 06:41:54,551 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-11 06:59:03,454 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-11 07:09:33,355 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-11 07:24:36,285 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-11 08:00:44,165 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-11 08:20:25,948 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-11 10:05:31,396 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-11 10:05:33,612 [WARNING] experiment.candidate_agent: candidate_response generation attempt 2/4 failed with transient error: Connection error.. Retrying in 2.4s.
+2026-03-11 10:05:37,311 [WARNING] experiment.candidate_agent: candidate_response generation attempt 3/4 failed with transient error: Connection error.. Retrying in 3.3s.
+2026-03-11 10:05:42,044 [ERROR] experiment.candidate_agent: Candidate generation failed: Connection error.
+2026-03-11 10:05:43,478 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: Connection error.. Retrying in 1.2s.
+2026-03-11 10:39:20,949 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-11 10:39:51,748 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-11 10:57:50,949 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-11 11:23:13,188 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-11 11:42:19,672 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-11 11:42:19,673 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.2s.
+2026-03-11 11:47:18,947 [WARNING] experiment.candidate_agent: candidate_response generation attempt 2/4 failed with transient error: . Retrying in 1.9s.
+2026-03-11 11:47:19,290 [WARNING] experiment.candidate_agent: candidate_response generation attempt 2/4 failed with transient error: . Retrying in 2.4s.
+2026-03-11 12:20:44,207 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/4 failed with transient error: . Retrying in 1.2s.
+2026-03-11 12:32:41,171 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-11 13:01:17,160 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-11 13:29:08,631 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-11 13:33:07,139 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-11 13:40:24,829 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.0s.
+2026-03-11 14:09:23,526 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-11 14:31:11,672 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-11 14:58:36,354 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-11 15:18:04,799 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/4 failed with transient error: . Retrying in 1.0s.
+2026-03-11 15:47:36,387 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-11 15:47:38,066 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-11 15:59:02,820 [WARNING] experiment.candidate_agent: candidate_response generation attempt 2/4 failed with transient error: . Retrying in 2.3s.
+2026-03-11 16:16:22,387 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-11 16:21:02,718 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-11 16:21:03,661 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-11 16:24:16,182 [WARNING] experiment.candidate_agent: candidate_response generation attempt 2/4 failed with transient error: . Retrying in 2.0s.
+2026-03-11 16:24:17,088 [WARNING] experiment.candidate_agent: candidate_response generation attempt 2/4 failed with transient error: . Retrying in 1.5s.
+2026-03-11 16:40:19,234 [WARNING] experiment.candidate_agent: candidate_response generation attempt 3/4 failed with transient error: . Retrying in 3.8s.
+2026-03-11 16:40:19,687 [WARNING] experiment.candidate_agent: candidate_response generation attempt 3/4 failed with transient error: . Retrying in 3.4s.
+2026-03-11 16:54:43,260 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-11 16:54:47,669 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-11 17:16:43,623 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-11 17:52:50,877 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-11 18:01:03,936 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.0s.
+2026-03-11 18:24:04,504 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-11 18:33:33,755 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-11 19:27:32,803 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.2s.
+2026-03-11 19:41:10,108 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.0s.
+2026-03-11 20:00:49,484 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/4 failed with transient error: . Retrying in 1.2s.
+2026-03-11 20:48:42,079 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-11 21:12:20,899 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.0s.
+2026-03-11 21:16:36,148 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-11 21:16:38,800 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-11 22:05:07,147 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-11 22:06:05,664 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-11 22:06:59,312 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-11 22:08:31,756 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-11 22:08:34,313 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-11 22:09:17,541 [WARNING] experiment.candidate_agent: candidate_response generation attempt 2/4 failed with transient error: . Retrying in 1.9s.
+2026-03-11 22:10:10,167 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.0s.
+2026-03-11 22:10:12,829 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-11 22:13:36,175 [WARNING] experiment.candidate_agent: candidate_response generation attempt 2/4 failed with transient error: . Retrying in 2.3s.
+2026-03-11 22:13:38,618 [WARNING] experiment.candidate_agent: candidate_response generation attempt 2/4 failed with transient error: . Retrying in 2.4s.
+2026-03-11 22:14:38,258 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.0s.
+2026-03-11 22:14:41,632 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.2s.
+2026-03-11 22:15:38,122 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.2s.
+2026-03-11 22:16:32,576 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-11 22:16:37,020 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-11 22:17:47,600 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-11 22:21:40,903 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-11 22:23:08,999 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.2s.
+2026-03-11 22:23:55,179 [WARNING] experiment.candidate_agent: candidate_response generation attempt 2/4 failed with transient error: . Retrying in 1.6s.
+2026-03-11 22:24:43,898 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.2s.
+2026-03-11 22:25:37,023 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.2s.
+2026-03-11 22:26:52,986 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-11 22:27:39,052 [WARNING] experiment.candidate_agent: candidate_response generation attempt 2/4 failed with transient error: . Retrying in 2.4s.
+2026-03-11 22:28:26,429 [WARNING] experiment.candidate_agent: candidate_response generation attempt 3/4 failed with transient error: . Retrying in 4.3s.
+2026-03-11 22:29:15,782 [ERROR] experiment.candidate_agent: Candidate generation failed: 
+2026-03-11 22:30:10,393 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-11 22:31:06,429 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-11 22:31:52,248 [WARNING] experiment.candidate_agent: candidate_response generation attempt 2/4 failed with transient error: . Retrying in 2.0s.
+2026-03-11 22:32:40,631 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.2s.
+2026-03-11 22:33:32,266 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-11 22:34:18,166 [WARNING] experiment.candidate_agent: candidate_response generation attempt 2/4 failed with transient error: . Retrying in 1.7s.
+2026-03-11 22:35:57,769 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-11 22:37:02,167 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-11 22:38:03,506 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.0s.
+2026-03-11 22:39:15,075 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-11 22:40:05,763 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.0s.
+2026-03-11 22:41:16,238 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.2s.
+2026-03-11 22:42:09,352 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-11 22:44:17,803 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.0s.
+2026-03-11 22:46:09,498 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/4 failed with transient error: . Retrying in 1.0s.
+2026-03-11 22:47:26,805 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-11 22:48:19,999 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-11 22:49:38,528 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.2s.
+2026-03-11 22:50:44,970 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-11 22:51:30,831 [WARNING] experiment.candidate_agent: candidate_response generation attempt 2/4 failed with transient error: . Retrying in 2.2s.
+2026-03-11 22:52:30,312 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-11 22:52:30,312 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.2s.
+2026-03-11 22:53:31,906 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-11 22:56:55,871 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-11 22:57:41,808 [WARNING] experiment.candidate_agent: candidate_response generation attempt 2/4 failed with transient error: . Retrying in 2.4s.
+2026-03-11 22:58:39,366 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-11 22:58:39,366 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-11 22:59:25,253 [WARNING] experiment.candidate_agent: candidate_response generation attempt 2/4 failed with transient error: . Retrying in 2.0s.
+2026-03-11 23:00:23,999 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.2s.
+2026-03-11 23:17:42,919 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.0s.
+2026-03-11 23:18:34,236 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-11 23:19:20,328 [WARNING] experiment.candidate_agent: policy_plan generation attempt 2/4 failed with transient error: . Retrying in 2.0s.
+2026-03-11 23:20:21,363 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.2s.
+2026-03-11 23:21:23,480 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.2s.
+2026-03-11 23:22:37,300 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.0s.
+2026-03-11 23:23:40,700 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-11 23:24:33,849 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-11 23:33:09,293 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-11 23:36:00,072 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.2s.
+2026-03-11 23:36:59,859 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-11 23:38:00,012 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-11 23:38:00,013 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-11 23:38:54,420 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.0s.
+2026-03-11 23:39:43,348 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-11 23:40:38,249 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-11 23:41:34,143 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-11 23:42:29,279 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-11 23:43:54,294 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-11 23:44:56,405 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-11 23:46:11,812 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.2s.
+2026-03-11 23:47:36,283 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.2s.
+2026-03-11 23:48:25,008 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-11 23:49:51,521 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.2s.
+2026-03-11 23:51:00,564 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.2s.
+2026-03-11 23:51:46,792 [WARNING] experiment.candidate_agent: candidate_response generation attempt 2/4 failed with transient error: . Retrying in 1.5s.
+2026-03-11 23:53:13,823 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-11 23:54:12,510 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.2s.
+2026-03-11 23:54:58,737 [WARNING] experiment.candidate_agent: candidate_response generation attempt 2/4 failed with transient error: . Retrying in 2.2s.
+2026-03-11 23:56:25,164 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-11 23:56:25,166 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-11 23:57:11,049 [WARNING] experiment.candidate_agent: candidate_response generation attempt 2/4 failed with transient error: . Retrying in 2.5s.
+2026-03-11 23:58:13,107 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-11 23:58:13,108 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.0s.
+2026-03-11 23:58:59,107 [WARNING] experiment.candidate_agent: candidate_response generation attempt 2/4 failed with transient error: . Retrying in 2.2s.
+2026-03-11 23:59:08,582 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.0s.
+2026-03-12 00:00:16,909 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.0s.
+2026-03-12 00:01:28,209 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.2s.
+2026-03-12 00:02:42,058 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.0s.
+2026-03-12 00:03:59,768 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.2s.
+2026-03-12 00:03:59,769 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.2s.
+2026-03-12 00:05:16,549 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-12 00:06:44,599 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-12 00:08:15,503 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-12 00:09:09,009 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-12 00:09:11,326 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.2s.
+2026-03-12 00:10:01,824 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.2s.
+2026-03-12 00:11:16,976 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-12 00:12:02,925 [WARNING] experiment.candidate_agent: candidate_response generation attempt 2/4 failed with transient error: . Retrying in 1.8s.
+2026-03-12 00:12:49,725 [WARNING] experiment.candidate_agent: candidate_response generation attempt 3/4 failed with transient error: . Retrying in 4.1s.
+2026-03-12 00:13:38,817 [ERROR] experiment.candidate_agent: Candidate generation failed: 
+2026-03-12 00:15:23,828 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-12 00:16:30,549 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-12 00:31:19,229 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-12 00:32:05,161 [WARNING] experiment.candidate_agent: candidate_response generation attempt 2/4 failed with transient error: . Retrying in 1.7s.
+2026-03-12 00:32:57,609 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-12 00:45:54,922 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-12 01:06:08,690 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.0s.
+2026-03-12 01:07:11,529 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-12 01:08:16,821 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.2s.
+2026-03-12 01:42:54,013 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-12 01:43:47,554 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.2s.
+2026-03-12 01:45:36,174 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.2s.
+2026-03-12 02:03:36,252 [WARNING] experiment.candidate_agent: candidate_response generation attempt 2/4 failed with transient error: . Retrying in 2.0s.
+2026-03-12 02:18:02,263 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.0s.
+2026-03-12 02:19:17,870 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-12 02:54:47,716 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-12 02:55:52,285 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.2s.
+2026-03-12 03:13:42,232 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.0s.
+2026-03-12 03:14:37,062 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.2s.
+2026-03-12 03:15:23,305 [WARNING] experiment.candidate_agent: candidate_response generation attempt 2/4 failed with transient error: . Retrying in 1.8s.
+2026-03-12 03:16:10,128 [WARNING] experiment.candidate_agent: candidate_response generation attempt 3/4 failed with transient error: . Retrying in 4.2s.
+2026-03-12 03:17:26,569 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-12 03:34:47,756 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-12 03:35:33,550 [WARNING] experiment.candidate_agent: candidate_response generation attempt 2/4 failed with transient error: . Retrying in 2.5s.
+2026-03-12 03:36:39,698 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.0s.
+2026-03-12 03:36:41,563 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.2s.
+2026-03-12 03:52:56,743 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/4 failed with transient error: . Retrying in 1.2s.
+2026-03-12 04:08:54,526 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-12 04:09:40,337 [WARNING] experiment.candidate_agent: candidate_response generation attempt 2/4 failed with transient error: . Retrying in 1.7s.
+2026-03-12 04:10:30,970 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-12 04:11:16,869 [WARNING] experiment.candidate_agent: policy_plan generation attempt 2/4 failed with transient error: . Retrying in 2.3s.
+2026-03-12 04:18:40,234 [WARNING] experiment.candidate_agent: policy_plan generation attempt 3/4 failed with transient error: . Retrying in 3.6s.
+2026-03-12 04:44:52,193 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-12 04:45:43,727 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-12 05:02:43,757 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.2s.
+2026-03-12 05:19:54,083 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-12 05:21:03,303 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.2s.
+2026-03-12 05:38:06,563 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-12 05:55:03,690 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-12 06:12:15,983 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.2s.
+2026-03-12 06:12:20,326 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.0s.
+2026-03-12 06:20:30,716 [WARNING] experiment.candidate_agent: candidate_response generation attempt 2/4 failed with transient error: . Retrying in 1.7s.
+2026-03-12 06:37:08,786 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-12 06:38:25,463 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-12 06:56:24,837 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-12 07:12:21,407 [WARNING] experiment.candidate_agent: policy_plan generation attempt 2/4 failed with transient error: . Retrying in 1.8s.
+2026-03-12 07:21:41,699 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-12 07:54:04,704 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.2s.
+2026-03-12 07:55:54,941 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-12 07:56:43,791 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-12 08:00:41,790 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.2s.
+2026-03-12 10:16:44,605 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-12 11:12:51,020 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.2s.
+2026-03-12 11:14:15,171 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-12 11:20:40,307 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.0s.
+2026-03-12 12:02:34,503 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-12 12:03:07,307 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-12 12:03:09,378 [WARNING] experiment.candidate_agent: candidate_response generation attempt 2/4 failed with transient error: Connection error.. Retrying in 2.0s.
+2026-03-12 12:03:12,487 [ERROR] experiment.candidate_agent: Candidate generation failed: Request timed out.
+2026-03-12 12:03:12,519 [WARNING] experiment.candidate_agent: candidate_response generation attempt 3/4 failed with transient error: Connection error.. Retrying in 4.5s.
+2026-03-12 12:03:18,360 [ERROR] experiment.candidate_agent: Candidate generation failed: Connection error.
+2026-03-12 13:02:35,364 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-12 13:03:07,415 [ERROR] experiment.candidate_agent: Candidate generation failed: Request timed out.
+2026-03-12 13:04:10,036 [ERROR] experiment.candidate_agent: Candidate generation failed: Request timed out.
+2026-03-12 13:04:10,176 [ERROR] experiment.candidate_agent: Candidate generation failed: Request timed out.
+2026-03-12 13:04:41,410 [ERROR] experiment.candidate_agent: Candidate generation failed: Request timed out.
+2026-03-12 13:04:41,419 [ERROR] experiment.candidate_agent: Candidate generation failed: Request timed out.
+2026-03-12 13:04:42,769 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/4 failed with transient error: Connection error.. Retrying in 1.1s.
+2026-03-12 13:04:45,205 [WARNING] experiment.candidate_agent: policy_plan generation attempt 2/4 failed with transient error: Connection error.. Retrying in 1.6s.
+2026-03-12 13:04:48,200 [WARNING] experiment.candidate_agent: policy_plan generation attempt 3/4 failed with transient error: Connection error.. Retrying in 3.8s.
+2026-03-12 13:05:04,699 [ERROR] experiment.candidate_agent: Candidate generation failed: Request timed out.
+2026-03-12 13:05:04,758 [ERROR] experiment.candidate_agent: Candidate generation failed: Request timed out.
+2026-03-12 13:05:06,045 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: Connection error.. Retrying in 1.1s.
+2026-03-12 13:05:06,103 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: Connection error.. Retrying in 1.2s.
+2026-03-12 13:05:08,451 [WARNING] experiment.candidate_agent: candidate_response generation attempt 2/4 failed with transient error: Connection error.. Retrying in 2.3s.
+2026-03-12 13:05:08,650 [WARNING] experiment.candidate_agent: candidate_response generation attempt 2/4 failed with transient error: Connection error.. Retrying in 1.8s.
+2026-03-12 13:05:11,910 [WARNING] experiment.candidate_agent: candidate_response generation attempt 3/4 failed with transient error: Connection error.. Retrying in 3.8s.
+2026-03-12 13:05:12,161 [WARNING] experiment.candidate_agent: candidate_response generation attempt 3/4 failed with transient error: Connection error.. Retrying in 3.7s.
+2026-03-12 13:05:47,052 [ERROR] experiment.candidate_agent: Candidate generation failed: Request timed out.
+2026-03-12 13:05:47,122 [ERROR] experiment.candidate_agent: Candidate generation failed: Request timed out.
+2026-03-12 13:06:00,487 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/4 failed with transient error: Connection error.. Retrying in 1.0s.
+2026-03-12 13:06:02,736 [WARNING] experiment.candidate_agent: policy_plan generation attempt 2/4 failed with transient error: Connection error.. Retrying in 1.8s.
+2026-03-12 13:35:48,110 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-12 13:35:48,112 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.0s.
+2026-03-12 14:24:58,769 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.0s.
+2026-03-12 14:41:10,675 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-12 14:54:59,169 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-12 15:13:15,700 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-12 15:27:27,406 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.0s.
+2026-03-12 15:48:56,094 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.0s.
+2026-03-12 15:48:56,095 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-12 16:04:48,198 [WARNING] experiment.candidate_agent: candidate_response generation attempt 2/4 failed with transient error: . Retrying in 2.0s.
+2026-03-12 16:04:48,380 [WARNING] experiment.candidate_agent: candidate_response generation attempt 2/4 failed with transient error: . Retrying in 2.1s.
+2026-03-12 16:29:18,225 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-12 17:11:32,740 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-12 17:16:09,043 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/4 failed with transient error: . Retrying in 1.2s.
+2026-03-12 17:30:24,803 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-12 17:30:24,804 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-12 17:34:09,593 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-12 17:55:30,362 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-12 18:58:12,833 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-12 19:15:17,005 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-12 19:50:41,508 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-12 20:15:59,169 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-12 20:33:33,783 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.2s.
+2026-03-12 20:49:24,357 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-12 21:07:49,643 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-12 21:07:51,612 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-12 21:17:09,915 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/4 failed with transient error: . Retrying in 1.0s.
+2026-03-12 21:51:22,778 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.0s.
+2026-03-12 22:11:10,888 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.0s.
+2026-03-12 22:31:41,427 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.0s.
+2026-03-12 22:31:41,429 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.0s.
+2026-03-12 23:12:40,826 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.0s.
+2026-03-12 23:34:43,888 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.0s.
+2026-03-12 23:34:43,890 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.2s.
+2026-03-12 23:37:07,175 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-12 23:45:30,650 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-12 23:54:07,007 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-13 00:30:52,825 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-13 00:46:12,341 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-13 00:46:15,467 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-13 00:56:26,259 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-13 01:12:33,246 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-13 01:28:44,526 [WARNING] experiment.candidate_agent: policy_plan generation attempt 2/4 failed with transient error: . Retrying in 2.3s.
+2026-03-13 01:48:16,084 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-13 02:23:26,507 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.0s.
+2026-03-13 03:54:50,582 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.0s.
+2026-03-13 04:13:44,363 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-13 04:47:04,819 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-13 04:47:04,819 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.0s.
+2026-03-13 05:18:58,844 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.2s.
+2026-03-13 05:37:02,207 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-13 06:13:16,146 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-13 06:32:36,778 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-13 06:51:40,458 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-13 07:08:10,124 [ERROR] experiment.candidate_agent: Candidate generation failed: Request timed out.
+2026-03-13 07:42:47,814 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-13 07:42:47,815 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-13 08:00:57,288 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-13 08:20:44,548 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.2s.
+2026-03-13 08:52:23,968 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/4 failed with transient error: . Retrying in 1.2s.
+2026-03-13 09:13:38,740 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-13 09:34:46,146 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.0s.
+2026-03-13 09:42:56,847 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-13 09:42:57,965 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.2s.
+2026-03-13 09:44:52,902 [WARNING] experiment.candidate_agent: candidate_response generation attempt 2/4 failed with transient error: . Retrying in 1.7s.
+2026-03-13 10:08:06,671 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.2s.
+2026-03-13 10:08:07,524 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.2s.
+2026-03-13 11:08:34,137 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-13 12:13:27,140 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-13 13:04:59,404 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-13 13:15:21,871 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-13 13:15:23,000 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.0s.
+2026-03-13 13:15:24,072 [WARNING] experiment.candidate_agent: candidate_response generation attempt 2/4 failed with transient error: Connection error.. Retrying in 1.6s.
+2026-03-13 13:15:25,464 [WARNING] experiment.candidate_agent: candidate_response generation attempt 2/4 failed with transient error: Connection error.. Retrying in 1.7s.
+2026-03-13 13:26:11,169 [ERROR] experiment.candidate_agent: Candidate generation failed: Request timed out.
+2026-03-13 13:26:22,616 [ERROR] experiment.candidate_agent: Candidate generation failed: Request timed out.
+2026-03-13 13:46:53,400 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-13 13:46:53,402 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-13 14:09:43,898 [WARNING] experiment.candidate_agent: candidate_response generation attempt 2/4 failed with transient error: . Retrying in 2.1s.
+2026-03-13 14:09:44,112 [WARNING] experiment.candidate_agent: candidate_response generation attempt 2/4 failed with transient error: . Retrying in 1.7s.
+2026-03-13 14:18:04,605 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-13 14:45:01,800 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.0s.
+2026-03-13 15:00:06,255 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.2s.
+2026-03-13 15:08:58,888 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.0s.
+2026-03-13 15:16:26,359 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.0s.
+2026-03-13 15:23:22,516 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-13 15:54:04,341 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.0s.
+2026-03-13 15:54:04,342 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.0s.
+2026-03-13 16:02:25,811 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/4 failed with transient error: . Retrying in 1.0s.
+2026-03-13 16:07:39,742 [WARNING] experiment.candidate_agent: policy_plan generation attempt 2/4 failed with transient error: . Retrying in 1.9s.
+2026-03-13 16:14:35,736 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.2s.
+2026-03-13 16:14:38,688 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.0s.
+2026-03-13 16:19:48,010 [WARNING] experiment.candidate_agent: candidate_response generation attempt 2/4 failed with transient error: . Retrying in 1.7s.
+2026-03-13 16:19:50,742 [WARNING] experiment.candidate_agent: candidate_response generation attempt 2/4 failed with transient error: . Retrying in 2.2s.
+2026-03-13 16:35:22,012 [WARNING] experiment.candidate_agent: candidate_response generation attempt 3/4 failed with transient error: . Retrying in 4.5s.
+2026-03-13 17:01:50,757 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-13 17:08:22,508 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-13 17:34:26,651 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/4 failed with transient error: . Retrying in 1.2s.
+2026-03-13 17:36:31,292 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-13 17:39:23,804 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-13 17:55:15,304 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.9s.
+2026-03-13 17:55:19,247 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-13 18:07:39,577 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 1.0s.
+2026-03-13 18:26:11,139 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/4 failed with transient error: . Retrying in 1.1s.
+2026-03-13 18:44:10,337 [WARNING] experiment.candidate_agent: policy_plan generation attempt 2/4 failed with transient error: . Retrying in 2.2s.
+2026-03-13 19:23:12,737 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-13 19:23:13,759 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/4 failed with transient error: . Retrying in 0.8s.
+2026-03-13 23:55:39,924 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/6 failed with transient error: . Retrying in 1.2s.
+2026-03-14 00:30:21,272 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/6 failed with transient error: . Retrying in 1.1s.
+2026-03-14 00:50:35,420 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 1.2s.
+2026-03-14 00:50:35,421 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 1.1s.
+2026-03-14 01:39:48,331 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/6 failed with transient error: . Retrying in 0.9s.
+2026-03-14 02:13:54,339 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 0.8s.
+2026-03-14 02:40:49,914 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 1.1s.
+2026-03-14 02:40:49,915 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 1.0s.
+2026-03-14 02:59:05,118 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/6 failed with transient error: . Retrying in 0.9s.
+2026-03-14 03:18:07,311 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 0.8s.
+2026-03-14 03:18:08,143 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 1.1s.
+2026-03-14 03:35:19,481 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 0.9s.
+2026-03-14 03:35:19,481 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 0.9s.
+2026-03-14 03:59:03,796 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 0.8s.
+2026-03-14 03:59:03,798 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 1.2s.
+2026-03-14 04:16:13,396 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 1.1s.
+2026-03-14 04:16:13,398 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 1.1s.
+2026-03-14 04:34:20,291 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 1.2s.
+2026-03-14 05:42:47,800 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/6 failed with transient error: . Retrying in 0.8s.
+2026-03-14 05:59:32,909 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 1.0s.
+2026-03-14 06:33:41,478 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 1.0s.
+2026-03-14 07:01:45,434 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/6 failed with transient error: . Retrying in 1.2s.
+2026-03-14 07:19:35,501 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 0.9s.
+2026-03-14 07:19:38,658 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 1.2s.
+2026-03-14 08:01:04,422 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 0.8s.
+2026-03-14 08:01:04,424 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 1.2s.
+2026-03-14 08:17:16,222 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/6 failed with transient error: . Retrying in 0.9s.
+2026-03-14 08:30:04,021 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 0.8s.
+2026-03-14 08:30:04,857 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 1.2s.
+2026-03-14 08:52:25,486 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 1.1s.
+2026-03-14 08:52:27,951 [WARNING] experiment.candidate_agent: candidate_response generation attempt 2/6 failed with transient error: Connection error.. Retrying in 1.6s.
+2026-03-14 08:52:29,595 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 1.0s.
+2026-03-14 08:52:30,964 [WARNING] experiment.candidate_agent: candidate_response generation attempt 3/6 failed with transient error: Connection error.. Retrying in 3.7s.
+2026-03-14 08:52:31,916 [WARNING] experiment.candidate_agent: candidate_response generation attempt 2/6 failed with transient error: Connection error.. Retrying in 2.1s.
+2026-03-14 08:52:35,429 [WARNING] experiment.candidate_agent: candidate_response generation attempt 3/6 failed with transient error: Connection error.. Retrying in 4.5s.
+2026-03-14 08:52:35,965 [WARNING] experiment.candidate_agent: candidate_response generation attempt 4/6 failed with transient error: Connection error.. Retrying in 8.9s.
+2026-03-14 08:52:41,244 [WARNING] experiment.candidate_agent: candidate_response generation attempt 4/6 failed with transient error: Connection error.. Retrying in 9.1s.
+2026-03-14 08:52:46,235 [WARNING] experiment.candidate_agent: candidate_response generation attempt 5/6 failed with transient error: Connection error.. Retrying in 7.1s.
+2026-03-14 08:52:51,604 [WARNING] experiment.candidate_agent: candidate_response generation attempt 5/6 failed with transient error: Connection error.. Retrying in 6.7s.
+2026-03-14 08:55:18,933 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 1.0s.
+2026-03-14 08:55:37,163 [WARNING] experiment.candidate_agent: candidate_response generation attempt 2/6 failed with transient error: Connection error.. Retrying in 1.9s.
+2026-03-14 08:55:40,337 [WARNING] experiment.candidate_agent: candidate_response generation attempt 3/6 failed with transient error: Connection error.. Retrying in 4.0s.
+2026-03-14 08:55:45,738 [WARNING] experiment.candidate_agent: candidate_response generation attempt 4/6 failed with transient error: Connection error.. Retrying in 7.4s.
+2026-03-14 08:55:54,382 [WARNING] experiment.candidate_agent: candidate_response generation attempt 5/6 failed with transient error: Connection error.. Retrying in 9.0s.
+2026-03-14 08:57:55,267 [ERROR] experiment.candidate_agent: Candidate generation failed: Connection error.
+2026-03-14 08:57:56,511 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: Connection error.. Retrying in 1.2s.
+2026-03-14 08:57:57,790 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 1.2s.
+2026-03-14 08:57:59,045 [WARNING] experiment.candidate_agent: candidate_response generation attempt 2/6 failed with transient error: Connection error.. Retrying in 1.9s.
+2026-03-14 09:47:08,488 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 1.1s.
+2026-03-14 12:13:33,333 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 1.2s.
+2026-03-14 12:49:51,687 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 0.9s.
+2026-03-14 12:49:53,168 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 0.8s.
+2026-03-14 12:49:53,655 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 1.1s.
+2026-03-14 12:49:53,658 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 0.9s.
+2026-03-14 13:01:38,809 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 1.1s.
+2026-03-14 13:01:44,758 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 1.0s.
+2026-03-14 13:01:46,485 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 1.2s.
+2026-03-14 13:16:36,373 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 1.0s.
+2026-03-14 13:16:36,374 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 1.2s.
+2026-03-14 13:27:31,439 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 1.2s.
+2026-03-14 13:27:31,441 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 1.2s.
+2026-03-14 13:51:27,560 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/6 failed with transient error: . Retrying in 0.8s.
+2026-03-14 15:06:10,343 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 0.8s.
+2026-03-14 15:06:10,345 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 0.9s.
+2026-03-14 16:18:51,791 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/6 failed with transient error: Connection error.. Retrying in 1.0s.
+2026-03-14 16:18:54,045 [WARNING] experiment.candidate_agent: policy_plan generation attempt 2/6 failed with transient error: Connection error.. Retrying in 2.3s.
+2026-03-14 16:18:57,685 [WARNING] experiment.candidate_agent: policy_plan generation attempt 3/6 failed with transient error: Connection error.. Retrying in 3.4s.
+2026-03-14 16:19:02,480 [WARNING] experiment.candidate_agent: policy_plan generation attempt 4/6 failed with transient error: Connection error.. Retrying in 6.9s.
+2026-03-14 16:19:10,831 [WARNING] experiment.candidate_agent: policy_plan generation attempt 5/6 failed with transient error: Connection error.. Retrying in 9.4s.
+2026-03-14 16:19:22,792 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: Connection error.. Retrying in 0.9s.
+2026-03-14 16:19:22,976 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: Connection error.. Retrying in 0.9s.
+2026-03-14 16:19:24,939 [WARNING] experiment.candidate_agent: candidate_response generation attempt 2/6 failed with transient error: Connection error.. Retrying in 2.2s.
+2026-03-14 16:19:25,236 [WARNING] experiment.candidate_agent: candidate_response generation attempt 2/6 failed with transient error: Connection error.. Retrying in 2.2s.
+2026-03-14 16:19:28,325 [WARNING] experiment.candidate_agent: candidate_response generation attempt 3/6 failed with transient error: Connection error.. Retrying in 4.3s.
+2026-03-14 16:19:28,806 [WARNING] experiment.candidate_agent: candidate_response generation attempt 3/6 failed with transient error: Connection error.. Retrying in 4.1s.
+2026-03-14 16:46:23,057 [WARNING] experiment.candidate_agent: candidate_response generation attempt 4/6 failed with transient error: Connection error.. Retrying in 8.2s.
+2026-03-14 16:46:23,517 [WARNING] experiment.candidate_agent: candidate_response generation attempt 4/6 failed with transient error: Connection error.. Retrying in 7.5s.
+2026-03-14 17:32:35,072 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 1.0s.
+2026-03-14 17:32:35,075 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 0.8s.
+2026-03-14 19:18:18,874 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 0.8s.
+2026-03-14 20:00:55,287 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 1.2s.
+2026-03-14 20:00:55,287 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 1.0s.
+2026-03-14 20:07:05,512 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/6 failed with transient error: . Retrying in 1.2s.
+2026-03-14 23:01:23,808 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 0.8s.
+2026-03-14 23:20:49,892 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 0.8s.
+2026-03-14 23:20:50,576 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 0.8s.
+2026-03-15 01:36:23,628 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 1.1s.
+2026-03-15 01:36:33,064 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 1.2s.
+2026-03-15 05:02:40,301 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 1.1s.
+2026-03-15 08:51:50,234 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 0.8s.
+2026-03-16 00:58:29,951 [INFO] sentence_transformers.SentenceTransformer: Use pytorch device_name: mps
+2026-03-16 00:58:29,951 [INFO] sentence_transformers.SentenceTransformer: Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2026-03-16 00:58:31,707 [WARNING] huggingface_hub.utils._http: Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-03-16 01:01:02,901 [INFO] sentence_transformers.SentenceTransformer: Use pytorch device_name: mps
+2026-03-16 01:01:02,901 [INFO] sentence_transformers.SentenceTransformer: Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2026-03-16 01:01:04,263 [WARNING] huggingface_hub.utils._http: Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-03-16 01:06:01,615 [INFO] sentence_transformers.SentenceTransformer: Use pytorch device_name: mps
+2026-03-16 01:06:01,624 [INFO] sentence_transformers.SentenceTransformer: Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2026-03-16 01:10:51,160 [INFO] sentence_transformers.SentenceTransformer: Use pytorch device_name: mps
+2026-03-16 01:10:51,162 [INFO] sentence_transformers.SentenceTransformer: Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2026-03-16 01:12:58,467 [INFO] sentence_transformers.SentenceTransformer: Use pytorch device_name: mps
+2026-03-16 01:12:58,467 [INFO] sentence_transformers.SentenceTransformer: Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2026-03-16 01:13:00,434 [WARNING] huggingface_hub.utils._http: Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-03-16 03:00:27,144 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 1.1s.
+2026-03-16 03:12:04,785 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 0.8s.
+2026-03-16 05:56:05,808 [INFO] sentence_transformers.SentenceTransformer: Use pytorch device_name: mps
+2026-03-16 05:56:05,808 [INFO] sentence_transformers.SentenceTransformer: Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2026-03-16 05:56:06,566 [WARNING] huggingface_hub.utils._http: Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-03-16 06:50:47,019 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 1.0s.
+2026-03-16 09:23:38,515 [INFO] sentence_transformers.SentenceTransformer: Use pytorch device_name: mps
+2026-03-16 09:23:38,515 [INFO] sentence_transformers.SentenceTransformer: Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2026-03-16 09:23:38,945 [WARNING] huggingface_hub.utils._http: Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-03-16 09:26:01,065 [INFO] sentence_transformers.SentenceTransformer: Use pytorch device_name: mps
+2026-03-16 09:26:01,065 [INFO] sentence_transformers.SentenceTransformer: Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2026-03-16 09:26:01,413 [WARNING] huggingface_hub.utils._http: Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-03-16 09:26:51,154 [INFO] sentence_transformers.SentenceTransformer: Use pytorch device_name: mps
+2026-03-16 09:26:51,155 [INFO] sentence_transformers.SentenceTransformer: Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2026-03-16 09:26:52,251 [WARNING] huggingface_hub.utils._http: Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-03-16 09:27:15,786 [INFO] sentence_transformers.SentenceTransformer: Use pytorch device_name: mps
+2026-03-16 09:27:15,786 [INFO] sentence_transformers.SentenceTransformer: Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2026-03-16 09:27:16,108 [WARNING] huggingface_hub.utils._http: Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-03-16 09:34:18,680 [INFO] sentence_transformers.SentenceTransformer: Use pytorch device_name: mps
+2026-03-16 09:34:18,681 [INFO] sentence_transformers.SentenceTransformer: Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2026-03-16 09:34:19,208 [WARNING] huggingface_hub.utils._http: Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-03-16 09:35:15,149 [INFO] sentence_transformers.SentenceTransformer: Use pytorch device_name: mps
+2026-03-16 09:35:15,149 [INFO] sentence_transformers.SentenceTransformer: Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2026-03-16 09:35:16,382 [WARNING] huggingface_hub.utils._http: Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-03-16 09:44:06,622 [INFO] sentence_transformers.SentenceTransformer: Use pytorch device_name: mps
+2026-03-16 09:44:06,622 [INFO] sentence_transformers.SentenceTransformer: Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2026-03-16 09:44:07,195 [WARNING] huggingface_hub.utils._http: Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-03-16 09:54:34,324 [INFO] sentence_transformers.SentenceTransformer: Use pytorch device_name: mps
+2026-03-16 09:54:34,325 [INFO] sentence_transformers.SentenceTransformer: Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2026-03-16 09:54:37,633 [WARNING] huggingface_hub.utils._http: Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-03-16 11:37:35,448 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 0.9s.
+2026-03-16 11:37:35,451 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 1.1s.
+2026-03-16 11:59:20,803 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 1.2s.
+2026-03-16 13:23:41,667 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/6 failed with transient error: . Retrying in 1.0s.
+2026-03-16 14:12:04,812 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 1.1s.
+2026-03-16 14:12:04,814 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 0.8s.
+2026-03-16 14:47:33,940 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 1.2s.
+2026-03-16 14:47:33,945 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 0.8s.
+2026-03-16 15:34:34,454 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 1.0s.
+2026-03-16 16:56:24,225 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 1.2s.
+2026-03-16 17:18:09,691 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 0.9s.
+2026-03-16 18:10:02,920 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 0.8s.
+2026-03-16 18:10:06,570 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 1.2s.
+2026-03-16 19:44:45,033 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 0.8s.
+2026-03-16 19:55:15,460 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 0.8s.
+2026-03-16 20:06:56,442 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 1.2s.
+2026-03-16 20:06:57,425 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 1.1s.
+2026-03-16 20:47:03,209 [WARNING] experiment.candidate_agent: policy_plan generation attempt 1/6 failed with transient error: . Retrying in 1.1s.
+2026-03-16 21:41:34,889 [WARNING] experiment.candidate_agent: candidate_response generation attempt 1/6 failed with transient error: . Retrying in 1.0s.

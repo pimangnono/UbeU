@@ -49,32 +49,82 @@ def _e_feature_contribution(features) -> float:
     )
 
 
+def _a_feature_contribution(features) -> float:
+    """Raw agreeableness feature contribution (acknowledgment, disagreement, negation)."""
+    return (
+        0.10 * min(features.acknowledgment_count, 4)
+        - 0.10 * min(features.disagreement_count, 4)
+        - 0.02 * min(features.negation_count, 6)
+    )
+
+
+def _n_feature_contribution(features) -> float:
+    """Raw neuroticism feature contribution (hedging, self-doubt, reassurance, apology, emotion)."""
+    return (
+        0.08 * min(features.hedge_count, 4)
+        + 0.10 * min(features.self_doubt_count, 3)
+        + 0.08 * min(features.reassurance_seeking_count, 3)
+        + 0.06 * min(features.apology_count, 2)
+        + 0.04 * min(features.emotional_word_count, 3)
+    )
+
+
 def estimate_actor_traits_from_turns(
     turns: list[RuntimeTurnView],
     actor_name: str,
 ) -> dict[str, float]:
     """Estimate OCEAN expression using existing behavioral feature extraction."""
-    features = extract_features(turns=turns, candidate_name=actor_name)
+    traits, _ = estimate_actor_traits_with_breakdown(turns, actor_name)
+    return traits
 
-    openness = _clip_unit(
-        0.25
-        + 0.10 * min(features.idea_count, 4)
-        + 0.10 * min(features.hypothetical_count, 3)
-        + 0.90 * min(features.unique_word_ratio, 0.20)
-    )
-    # Dynamic C calibration: measure relative to conversation baseline.
-    # LLMs inherently produce structured output (planning words, structure markers),
-    # which inflates C estimates equally for all actors. By comparing against other
-    # speakers in the same conversation, the shared bias cancels out.
-    actor_c = _c_feature_contribution(features)
+
+def estimate_actor_traits_with_breakdown(
+    turns: list[RuntimeTurnView],
+    actor_name: str,
+) -> tuple[dict[str, float], dict[str, Any]]:
+    """Return (ocean_traits, feature_breakdown).
+
+    The breakdown captures all intermediate values from trait estimation
+    so that claims about trait scores can be traced to specific features.
+    """
+    features = extract_features(turns=turns, candidate_name=actor_name)
+    raw_features = features.to_dict()
+
+    # Openness contributions
+    o_idea = 0.10 * min(features.idea_count, 4)
+    o_hypothetical = 0.10 * min(features.hypothetical_count, 3)
+    o_unique_word = 0.90 * min(features.unique_word_ratio, 0.20)
+    o_total = 0.25 + o_idea + o_hypothetical + o_unique_word
+    openness = _clip_unit(o_total)
+
+    # Dynamic calibration: compare against other speakers' features.
     other_speakers = [name for name in {t.speaker_name for t in turns} if name != actor_name]
-    if other_speakers:
-        baseline = sum(
-            _c_feature_contribution(extract_features(turns=turns, candidate_name=s))
-            for s in other_speakers
-        ) / len(other_speakers)
-        conscientiousness = _clip_unit(0.50 + 0.55 * (actor_c - baseline))
+    other_features = {
+        s: extract_features(turns=turns, candidate_name=s) for s in other_speakers
+    } if other_speakers else {}
+
+    calibration_mode: dict[str, str] = {"O": "static"}
+    trait_contributions: dict[str, dict[str, Any]] = {
+        "O": {
+            "idea_count": round(o_idea, 4),
+            "hypothetical_count": round(o_hypothetical, 4),
+            "unique_word_ratio": round(o_unique_word, 4),
+            "total": round(o_total, 4),
+        },
+    }
+
+    # Dynamic C calibration
+    actor_c = _c_feature_contribution(features)
+    c_planning = 0.08 * min(features.planning_count, 4)
+    c_structure = 0.10 * min(features.structure_marker_count, 3)
+    c_reference = 0.08 * min(features.reference_back_count, 3)
+    c_action = 0.10 * min(features.action_item_count, 3)
+    if other_features:
+        c_baseline = sum(_c_feature_contribution(f) for f in other_features.values()) / len(other_features)
+        conscientiousness = _clip_unit(0.50 + 0.55 * (actor_c - c_baseline))
+        calibration_mode["C"] = "dynamic"
     else:
+        c_baseline = 0.0
         conscientiousness = _clip_unit(
             0.12
             + 0.06 * min(features.planning_count, 4)
@@ -82,37 +132,117 @@ def estimate_actor_traits_from_turns(
             + 0.06 * min(features.reference_back_count, 3)
             + 0.08 * min(features.action_item_count, 3)
         )
-    actor_e = _e_feature_contribution(features)
-    if other_speakers:
-        e_baseline = sum(
-            _e_feature_contribution(extract_features(turns=turns, candidate_name=s))
-            for s in other_speakers
-        ) / len(other_speakers)
-        extraversion = _clip_unit(0.50 + 0.65 * (actor_e - e_baseline))
-    else:
-        extraversion = _clip_unit(0.20 + actor_e)
-    agreeableness = _clip_unit(
-        0.45
-        + 0.10 * min(features.acknowledgment_count, 4)
-        - 0.10 * min(features.disagreement_count, 4)
-        - 0.02 * min(features.negation_count, 6)
-    )
-    neuroticism = _clip_unit(
-        0.18
-        + 0.08 * min(features.hedge_count, 4)
-        + 0.10 * min(features.self_doubt_count, 3)
-        + 0.08 * min(features.reassurance_seeking_count, 3)
-        + 0.06 * min(features.apology_count, 2)
-        + 0.04 * min(features.emotional_word_count, 3)
-    )
+        calibration_mode["C"] = "static"
+    trait_contributions["C"] = {
+        "planning_count": round(c_planning, 4),
+        "structure_marker_count": round(c_structure, 4),
+        "reference_back_count": round(c_reference, 4),
+        "action_item_count": round(c_action, 4),
+        "total": round(actor_c, 4),
+        "baseline": round(c_baseline, 4),
+        "calibrated": round(conscientiousness, 4),
+    }
 
-    return {
+    # Dynamic E calibration
+    actor_e = _e_feature_contribution(features)
+    e_words = min(features.avg_words_per_turn, 80.0) / 120.0
+    e_name = 0.08 * min(features.name_mention_count, 3)
+    e_question = 0.12 * min(features.question_ratio, 1.0)
+    e_initiation = 0.10 * min(features.turn_initiation_ratio, 1.0)
+    if other_features:
+        e_baseline = sum(_e_feature_contribution(f) for f in other_features.values()) / len(other_features)
+        extraversion = _clip_unit(0.50 + 0.65 * (actor_e - e_baseline))
+        calibration_mode["E"] = "dynamic"
+    else:
+        e_baseline = 0.0
+        extraversion = _clip_unit(0.20 + actor_e)
+        calibration_mode["E"] = "static"
+    trait_contributions["E"] = {
+        "avg_words_per_turn": round(e_words, 4),
+        "name_mention_count": round(e_name, 4),
+        "question_ratio": round(e_question, 4),
+        "turn_initiation_ratio": round(e_initiation, 4),
+        "total": round(actor_e, 4),
+        "baseline": round(e_baseline, 4),
+        "calibrated": round(extraversion, 4),
+    }
+
+    # Dynamic A calibration
+    actor_a = _a_feature_contribution(features)
+    a_ack = 0.10 * min(features.acknowledgment_count, 4)
+    a_disagree = -0.10 * min(features.disagreement_count, 4)
+    a_negation = -0.02 * min(features.negation_count, 6)
+    if other_features:
+        a_baseline = sum(_a_feature_contribution(f) for f in other_features.values()) / len(other_features)
+        agreeableness = _clip_unit(0.50 + 0.50 * (actor_a - a_baseline))
+        calibration_mode["A"] = "dynamic"
+    else:
+        a_baseline = 0.0
+        agreeableness = _clip_unit(
+            0.45
+            + 0.10 * min(features.acknowledgment_count, 4)
+            - 0.10 * min(features.disagreement_count, 4)
+            - 0.02 * min(features.negation_count, 6)
+        )
+        calibration_mode["A"] = "static"
+    trait_contributions["A"] = {
+        "acknowledgment_count": round(a_ack, 4),
+        "disagreement_count": round(a_disagree, 4),
+        "negation_count": round(a_negation, 4),
+        "total": round(actor_a, 4),
+        "baseline": round(a_baseline, 4),
+        "calibrated": round(agreeableness, 4),
+    }
+
+    # Dynamic N calibration
+    actor_n = _n_feature_contribution(features)
+    n_hedge = 0.08 * min(features.hedge_count, 4)
+    n_self_doubt = 0.10 * min(features.self_doubt_count, 3)
+    n_reassurance = 0.08 * min(features.reassurance_seeking_count, 3)
+    n_apology = 0.06 * min(features.apology_count, 2)
+    n_emotional = 0.04 * min(features.emotional_word_count, 3)
+    if other_features:
+        n_baseline = sum(_n_feature_contribution(f) for f in other_features.values()) / len(other_features)
+        neuroticism = _clip_unit(0.50 + 0.50 * (actor_n - n_baseline))
+        calibration_mode["N"] = "dynamic"
+    else:
+        n_baseline = 0.0
+        neuroticism = _clip_unit(
+            0.18
+            + 0.08 * min(features.hedge_count, 4)
+            + 0.10 * min(features.self_doubt_count, 3)
+            + 0.08 * min(features.reassurance_seeking_count, 3)
+            + 0.06 * min(features.apology_count, 2)
+            + 0.04 * min(features.emotional_word_count, 3)
+        )
+        calibration_mode["N"] = "static"
+    trait_contributions["N"] = {
+        "hedge_count": round(n_hedge, 4),
+        "self_doubt_count": round(n_self_doubt, 4),
+        "reassurance_seeking_count": round(n_reassurance, 4),
+        "apology_count": round(n_apology, 4),
+        "emotional_word_count": round(n_emotional, 4),
+        "total": round(actor_n, 4),
+        "baseline": round(n_baseline, 4),
+        "calibrated": round(neuroticism, 4),
+    }
+
+    traits = {
         "O": openness,
         "C": conscientiousness,
         "E": extraversion,
         "A": agreeableness,
         "N": neuroticism,
     }
+
+    breakdown = {
+        "raw_features": raw_features,
+        "trait_contributions": trait_contributions,
+        "calibration_mode": calibration_mode,
+        "other_speaker_count": len(other_speakers),
+    }
+
+    return traits, breakdown
 
 
 def estimate_actor_traits_from_recent_turns(
@@ -505,7 +635,7 @@ class BenchmarkRunMetrics:
     persona_drift_mae: float
     relationship_inconsistency: float
     commitment_contradiction_rate: float
-    envelope_violations: int
+    envelope_violations: float  # per-actor average (normalized by actor count)
     per_trait_error_mean: dict[str, float]
     actor_labels: dict[str, str]
     actor_display_names: dict[str, str]
@@ -526,6 +656,16 @@ class BenchmarkRunMetrics:
     fallback_utterance_rate: float = 0.0
     fallback_type_rates: dict[str, float] | None = None
     phase_end_world_states: list[dict[str, float]] | None = None
+    dialogue_coherence_score: float = 0.0
+    repetition_rate: float = 0.0
+    topic_drift_rate: float = 0.0
+    phase_quality: dict[str, dict[str, float]] | None = None
+    actor_personality_priors: dict[str, dict[str, float]] | None = None
+    actor_personality_envelopes: dict[str, dict[str, list[float]]] | None = None
+    actor_feature_breakdowns: dict[str, dict[str, Any]] | None = None
+    influence_attribution: dict[str, Any] | None = None
+    semantic_identity_consistency: float = 0.0
+    commitment_fulfillment_rate: float = 0.0
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -553,26 +693,170 @@ class BenchmarkRunMetrics:
             "fallback_utterance_rate": self.fallback_utterance_rate,
             "fallback_type_rates": self.fallback_type_rates or {},
             "phase_end_world_states": self.phase_end_world_states or [],
+            "dialogue_coherence_score": self.dialogue_coherence_score,
+            "repetition_rate": self.repetition_rate,
+            "topic_drift_rate": self.topic_drift_rate,
+            "phase_quality": self.phase_quality or {},
+            "actor_personality_priors": self.actor_personality_priors or {},
+            "actor_personality_envelopes": self.actor_personality_envelopes or {},
+            "actor_feature_breakdowns": self.actor_feature_breakdowns or {},
+            "influence_attribution": self.influence_attribution or {},
+            "semantic_identity_consistency": self.semantic_identity_consistency,
+            "commitment_fulfillment_rate": self.commitment_fulfillment_rate,
         }
+
+
+def _token_set(text: str) -> set[str]:
+    """Simple whitespace-based tokenization, lowercased."""
+    return set(text.lower().split())
+
+
+def dialogue_coherence_score(runtime: StakeholderSimulationRuntime) -> float:
+    """Token overlap between consecutive turns — measures whether speakers address each other."""
+    turns = runtime.ledger.turns
+    if len(turns) < 2:
+        return 0.0
+    overlaps: list[float] = []
+    for prior, current in zip(turns, turns[1:]):
+        if prior.actor_id == current.actor_id:
+            continue
+        tokens_prior = _token_set(prior.content)
+        tokens_current = _token_set(current.content)
+        if not tokens_prior or not tokens_current:
+            continue
+        overlap = len(tokens_prior & tokens_current)
+        overlaps.append(overlap / max(len(tokens_prior | tokens_current), 1))
+    return round(sum(overlaps) / max(len(overlaps), 1), 4) if overlaps else 0.0
+
+
+def repetition_rate(runtime: StakeholderSimulationRuntime) -> float:
+    """Fraction of turn-pairs where same actor repeats >50% of their previous content."""
+    turns = runtime.ledger.turns
+    if len(turns) < 2:
+        return 0.0
+    by_actor: dict[str, list] = {}
+    for turn in turns:
+        by_actor.setdefault(turn.actor_id, []).append(turn)
+    repetitions = 0
+    total_pairs = 0
+    for actor_turns in by_actor.values():
+        for prior, current in zip(actor_turns, actor_turns[1:]):
+            total_pairs += 1
+            tokens_prior = _token_set(prior.content)
+            tokens_current = _token_set(current.content)
+            if not tokens_prior:
+                continue
+            overlap = len(tokens_prior & tokens_current) / len(tokens_prior)
+            if overlap > 0.50:
+                repetitions += 1
+    return round(repetitions / max(total_pairs, 1), 4)
+
+
+def topic_drift_rate(runtime: StakeholderSimulationRuntime) -> float:
+    """Fraction of turns where content diverges from phase cue keywords."""
+    turns = runtime.ledger.turns
+    if not turns:
+        return 0.0
+    phase_cues: dict[str, set[str]] = {}
+    for phase in runtime.script.phases:
+        cue_tokens: set[str] = set()
+        for cue in (phase.cues or []):
+            cue_tokens.update(cue.lower().split())
+        phase_cues[phase.name] = cue_tokens
+
+    divergent = 0
+    evaluated = 0
+    for turn in turns:
+        cues = phase_cues.get(turn.phase_name, set())
+        if not cues:
+            continue
+        evaluated += 1
+        turn_tokens = _token_set(turn.content)
+        overlap = len(turn_tokens & cues)
+        if overlap == 0:
+            divergent += 1
+    return round(divergent / max(evaluated, 1), 4)
+
+
+def semantic_identity_consistency(runtime: StakeholderSimulationRuntime) -> float:
+    """Mean per-actor identity similarity from SemanticScorer.
+
+    Returns 0.0 if SemanticScorer is not available (e.g. naive condition).
+    """
+    try:
+        from .semantic_scorer import SemanticScorer
+    except ImportError:
+        return 0.0
+
+    scorer = getattr(runtime, "_semantic_scorer", None)
+    if scorer is None:
+        # Try to build one from actor specs
+        try:
+            scorer = SemanticScorer()
+            for actor_id, actor in runtime.actors.items():
+                scorer.register_actor(actor.actor_spec)
+        except Exception:
+            return 0.0
+
+    similarities: list[float] = []
+    for actor_id, actor in runtime.actors.items():
+        actor_turns = [t for t in runtime.ledger.turns if t.actor_id == actor_id]
+        for turn in actor_turns:
+            sim = scorer.identity_similarity(actor_id, turn.content)
+            if sim != 0.5:  # 0.5 means no cached identity
+                similarities.append(sim)
+
+    return round(sum(similarities) / max(len(similarities), 1), 4) if similarities else 0.0
+
+
+def commitment_fulfillment_rate(runtime: StakeholderSimulationRuntime) -> float:
+    """Fraction of commitments that were fulfilled (vs total extracted)."""
+    total = 0
+    fulfilled = 0
+    for actor_id, commitments in runtime.ledger.commitments_by_actor.items():
+        for c in commitments:
+            total += 1
+            if c.status == "fulfilled":
+                fulfilled += 1
+    return round(fulfilled / max(total, 1), 4)
 
 
 def compute_runtime_metrics(runtime: StakeholderSimulationRuntime) -> BenchmarkRunMetrics:
     actor_trait_estimates: dict[str, dict[str, float]] = {}
     actor_trait_errors: dict[str, dict[str, float]] = {}
+    actor_personality_priors: dict[str, dict[str, float]] = {}
+    actor_personality_envelopes: dict[str, dict[str, list[float]]] = {}
+    actor_feature_breakdowns: dict[str, dict[str, Any]] = {}
     drift_values: list[float] = []
     envelope_violations = 0
     per_trait_buckets: dict[str, list[float]] = {trait: [] for trait in TRAIT_KEYS}
 
     for actor_id, actor in runtime.actors.items():
         turns = runtime.visible_turns_for_actor(actor_id, max_turns=999)
-        inferred = estimate_actor_traits_from_turns(turns, actor.display_name)
+        inferred, breakdown = estimate_actor_traits_with_breakdown(turns, actor.display_name)
         errors = trait_absolute_errors(actor.actor_spec.personality_prior, inferred)
         actor_trait_estimates[actor_id] = inferred
         actor_trait_errors[actor_id] = errors
+        actor_feature_breakdowns[actor_id] = breakdown
+        actor_personality_priors[actor_id] = dict(actor.actor_spec.personality_prior)
+        actor_personality_envelopes[actor_id] = {
+            trait: list(bounds)
+            for trait, bounds in actor.actor_spec.personality_envelope.items()
+        }
         drift_values.append(persona_drift_mae(actor.actor_spec.personality_prior, inferred))
         envelope_violations += envelope_violation_count(actor.actor_spec, inferred)
         for trait, error in errors.items():
             per_trait_buckets[trait].append(error)
+
+    num_actors = max(len(runtime.actors), 1)
+
+    # Compute influence attribution from runtime summary
+    influence_attribution_data: dict[str, Any] | None = None
+    try:
+        from .influence_attribution import build_influence_attribution
+        influence_attribution_data = build_influence_attribution(runtime.to_runtime_summary())
+    except Exception:
+        pass
 
     return BenchmarkRunMetrics(
         persona_drift_mae=round(sum(drift_values) / max(len(drift_values), 1), 4),
@@ -580,7 +864,7 @@ def compute_runtime_metrics(runtime: StakeholderSimulationRuntime) -> BenchmarkR
         relationship_shift_rate=relationship_shift_rate(runtime),
         relationship_overshoot_rate=relationship_overshoot_rate(runtime),
         commitment_contradiction_rate=commitment_contradiction_rate(runtime),
-        envelope_violations=envelope_violations,
+        envelope_violations=round(envelope_violations / num_actors, 4),
         per_trait_error_mean={
             trait: round(sum(values) / max(len(values), 1), 4)
             for trait, values in per_trait_buckets.items()
@@ -602,7 +886,98 @@ def compute_runtime_metrics(runtime: StakeholderSimulationRuntime) -> BenchmarkR
         fallback_utterance_rate=fallback_utterance_rate(runtime),
         fallback_type_rates=fallback_type_rates(runtime),
         phase_end_world_states=phase_end_world_states(runtime),
+        dialogue_coherence_score=dialogue_coherence_score(runtime),
+        repetition_rate=repetition_rate(runtime),
+        topic_drift_rate=topic_drift_rate(runtime),
+        phase_quality=compute_phase_level_quality(runtime),
+        actor_personality_priors=actor_personality_priors,
+        actor_personality_envelopes=actor_personality_envelopes,
+        actor_feature_breakdowns=actor_feature_breakdowns,
+        influence_attribution=influence_attribution_data,
+        semantic_identity_consistency=semantic_identity_consistency(runtime),
+        commitment_fulfillment_rate=commitment_fulfillment_rate(runtime),
     )
+
+
+def compute_phase_level_quality(runtime: StakeholderSimulationRuntime) -> dict[str, dict[str, float]]:
+    """Compute per-phase drift, convergence, and diversity.
+
+    Returns dict mapping phase_name -> {drift, convergence, diversity}.
+    """
+    phase_quality: dict[str, dict[str, float]] = {}
+    phase_turns: dict[str, list] = {}
+
+    for turn in runtime.ledger.turns:
+        phase_turns.setdefault(turn.phase_name, []).append(turn)
+
+    for phase_name, turns in phase_turns.items():
+        # Phase-level drift: estimate traits from only this phase's turns
+        drift_values: list[float] = []
+        for actor_id, actor in runtime.actors.items():
+            phase_actor_turns = [t for t in turns if t.actor_id == actor_id]
+            if not phase_actor_turns:
+                continue
+            view_turns = [
+                RuntimeTurnView(
+                    turn_number=t.turn_index,
+                    speaker_name=t.display_name,
+                    content=t.content,
+                )
+                for t in turns
+            ]
+            inferred = estimate_actor_traits_from_turns(view_turns, actor.display_name)
+            drift_values.append(persona_drift_mae(actor.actor_spec.personality_prior, inferred))
+
+        # Phase-level action convergence and diversity
+        phase_action_rows = _phase_action_family_rows(runtime)
+        families = phase_action_rows.get(phase_name, [])
+        if families and len(families) >= 2:
+            unique_count = len({f for _, f in families})
+            convergence = (len(families) - unique_count) / max(len(families) - 1, 1)
+            diversity = unique_count / max(len(families), 1)
+        else:
+            convergence = 0.0
+            diversity = 0.0
+
+        # Phase-level behavioral feature extraction (top diagnostic features)
+        mean_features: dict[str, float] = {}
+        feature_accumulators: dict[str, list[float]] = {}
+        diagnostic_feature_keys = (
+            "hedge_count", "self_doubt_count", "reassurance_seeking_count",
+            "apology_count", "emotional_word_count",
+            "disagreement_count", "acknowledgment_count", "negation_count",
+            "idea_count", "unique_word_ratio",
+        )
+        for actor_id, actor in runtime.actors.items():
+            phase_actor_turns = [t for t in turns if t.actor_id == actor_id]
+            if not phase_actor_turns:
+                continue
+            view_turns_for_features = [
+                RuntimeTurnView(
+                    turn_number=t.turn_index,
+                    speaker_name=t.display_name,
+                    content=t.content,
+                )
+                for t in phase_actor_turns
+            ]
+            if not view_turns_for_features:
+                continue
+            actor_features = extract_features(turns=view_turns_for_features, candidate_name=actor.display_name)
+            feature_dict = actor_features.to_dict()
+            for key in diagnostic_feature_keys:
+                feature_accumulators.setdefault(key, []).append(float(feature_dict.get(key, 0.0)))
+        for key in diagnostic_feature_keys:
+            values = feature_accumulators.get(key, [])
+            mean_features[key] = round(sum(values) / max(len(values), 1), 4) if values else 0.0
+
+        phase_quality[phase_name] = {
+            "drift": round(sum(drift_values) / max(len(drift_values), 1), 4) if drift_values else 0.0,
+            "convergence": round(convergence, 4),
+            "diversity": round(diversity, 4),
+            "mean_features": mean_features,
+        }
+
+    return phase_quality
 
 
 def aggregate_phase_end_state_variance(rows: list[BenchmarkRunMetrics]) -> float:

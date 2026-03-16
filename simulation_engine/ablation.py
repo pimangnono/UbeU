@@ -6,9 +6,10 @@ from dataclasses import asdict, dataclass
 from typing import Literal
 
 
-BaseBenchmarkCondition = Literal["naive", "engine", "engine_controller"]
+BaseBenchmarkCondition = Literal["naive", "naive_informed", "engine", "engine_controller"]
 BenchmarkCondition = Literal[
     "naive",
+    "naive_informed",
     "engine",
     "engine_controller",
     "naive_action_baseline",
@@ -19,6 +20,7 @@ BenchmarkCondition = Literal[
     "engine_controller_no_banded_target_matching",
     "engine_controller_no_extended_ledger",
     "engine_controller_no_tie_routing",
+    "engine_structural",
 ]
 
 
@@ -33,6 +35,7 @@ class SimulationAblationConfig:
     use_action_layer: bool = False
     use_action_aware_scoring: bool = False
     use_softmax_sampling: bool = False
+    use_structural_adaptation: bool = False
 
     def to_dict(self) -> dict[str, bool]:
         return asdict(self)
@@ -42,6 +45,7 @@ DEFAULT_ABLATION_CONFIG = SimulationAblationConfig()
 
 ALL_BENCHMARK_CONDITIONS: list[str] = [
     "naive",
+    "naive_informed",
     "engine",
     "engine_controller",
     "naive_action_baseline",
@@ -52,6 +56,7 @@ ALL_BENCHMARK_CONDITIONS: list[str] = [
     "engine_controller_no_banded_target_matching",
     "engine_controller_no_extended_ledger",
     "engine_controller_no_tie_routing",
+    "engine_structural",
 ]
 
 
@@ -61,6 +66,10 @@ def resolve_benchmark_condition(
     """Map a benchmark condition label to its base runtime mode and toggles."""
     mapping: dict[str, tuple[BaseBenchmarkCondition, SimulationAblationConfig]] = {
         "naive": ("naive", DEFAULT_ABLATION_CONFIG),
+        "naive_informed": (
+            "naive_informed",
+            SimulationAblationConfig(use_action_layer=True),
+        ),
         "engine": ("engine", DEFAULT_ABLATION_CONFIG),
         "engine_controller": ("engine_controller", DEFAULT_ABLATION_CONFIG),
         "naive_action_baseline": (
@@ -94,6 +103,10 @@ def resolve_benchmark_condition(
         "engine_controller_no_tie_routing": (
             "engine_controller",
             SimulationAblationConfig(use_tie_routing=False),
+        ),
+        "engine_structural": (
+            "engine_controller",
+            SimulationAblationConfig(use_action_layer=True, use_structural_adaptation=True),
         ),
     }
     if condition not in mapping:

@@ -3,11 +3,15 @@
 from __future__ import annotations
 
 import json
+import os
+import tempfile
 from collections import Counter, defaultdict
 from datetime import datetime
 from pathlib import Path
 from statistics import mean
 from typing import Any
+
+from experiment.behavioral_features import extract_features
 
 
 def build_trace_bundle(results: dict[str, Any], output_dir: str | Path) -> dict[str, str]:
@@ -95,6 +99,18 @@ def build_trace_bundle(results: dict[str, Any], output_dir: str | Path) -> dict[
                     is_selected = rank - 1 == int(audit.get("selected_index", -1))
                     if is_selected:
                         selected_candidate_trace_id = candidate_trace_id
+                    # Extract feature counts for selected candidate
+                    feature_counts_data = None
+                    if is_selected:
+                        candidate_text = score_row.get("text_excerpt", "")
+                        if candidate_text:
+                            try:
+                                from .runtime import RuntimeTurnView
+                                _feature_turn = RuntimeTurnView(turn_number=0, speaker_name="candidate", content=candidate_text)
+                                _features = extract_features(turns=[_feature_turn], candidate_name="candidate")
+                                feature_counts_data = _features.to_dict()
+                            except Exception:
+                                pass
                     row = {
                         "candidate_trace_id": candidate_trace_id,
                         "turn_trace_id": turn_trace_id,
@@ -112,6 +128,7 @@ def build_trace_bundle(results: dict[str, Any], output_dir: str | Path) -> dict[
                         "tie_break_reason": audit.get("tie_break_reason", ""),
                         "planned_action_artifact": dict(score_row.get("planned_action_artifact") or {}),
                         "compiled_action_family": score_row.get("compiled_action_family") or "none",
+                        "feature_counts": feature_counts_data,
                     }
                     candidate_scores.append(row)
                     trace_events.append({"event_type": "candidate_score", **row})
@@ -145,6 +162,7 @@ def build_trace_bundle(results: dict[str, Any], output_dir: str | Path) -> dict[
                 "actor_role": dict(runtime_summary.get("actor_labels") or {}).get(turn_actor_id, ""),
                 "input_state_ref": f"state:{phase_trace_id}:before:{turn_index}",
                 "policy_plan_ref": f"policy_plan:{turn_trace_id}" if dict(turn.get("metadata") or {}).get("policy_plan") else "",
+                "policy_plan": dict(turn.get("metadata") or {}).get("policy_plan") or {},
                 "selected_candidate_trace_id": selected_candidate_trace_id,
                 "selection_reason_summary": _selection_reason_summary(audit),
                 "drift_before": drift_before,
@@ -291,6 +309,8 @@ def build_trace_bundle(results: dict[str, Any], output_dir: str | Path) -> dict[
                 )
                 if phase_name
             ],
+            "decision_pattern_summary": _build_decision_pattern_summary(selection_map),
+            "influence_attribution": _build_run_influence_attribution(runtime_summary),
         }
         run_outcomes.append(run_outcome)
 
@@ -365,15 +385,41 @@ def build_trace_bundle(results: dict[str, Any], output_dir: str | Path) -> dict[
 
 
 def _write_json(path: str | Path, payload: Any) -> None:
-    Path(path).write_text(json.dumps(payload, indent=2, default=str))
+    target = Path(path)
+    target.parent.mkdir(parents=True, exist_ok=True)
+    fd, tmp = tempfile.mkstemp(dir=target.parent, suffix=".tmp", prefix=target.stem)
+    try:
+        with os.fdopen(fd, "w") as f:
+            json.dump(payload, f, indent=2, default=str)
+            f.flush()
+            os.fsync(f.fileno())
+        os.replace(tmp, target)
+    except BaseException:
+        try:
+            os.unlink(tmp)
+        except OSError:
+            pass
+        raise
 
 
 def _write_jsonl(path: str | Path, rows: list[dict[str, Any]]) -> None:
-    handle = Path(path)
-    with handle.open("w") as stream:
-        for row in rows:
-            stream.write(json.dumps(row, default=str))
-            stream.write("\n")
+    target = Path(path)
+    target.parent.mkdir(parents=True, exist_ok=True)
+    fd, tmp = tempfile.mkstemp(dir=target.parent, suffix=".tmp", prefix=target.stem)
+    try:
+        with os.fdopen(fd, "w") as f:
+            for row in rows:
+                f.write(json.dumps(row, default=str))
+                f.write("\n")
+            f.flush()
+            os.fsync(f.fileno())
+        os.replace(tmp, target)
+    except BaseException:
+        try:
+            os.unlink(tmp)
+        except OSError:
+            pass
+        raise
 
 
 def _selection_audit_map(run: dict[str, Any]) -> dict[tuple[str, str, int], dict[str, Any]]:
@@ -849,3 +895,77 @@ def _build_track_metric_attributions(track_outcomes: list[dict[str, Any]]) -> li
                 }
             )
     return rows
+
+
+def _build_decision_pattern_summary(
+    selection_map: dict[tuple[str, str, int], dict[str, Any]],
+) -> dict[str, Any]:
+    """Aggregate selection audits into a decision pattern summary for run_outcomes."""
+    positive_counter: Counter = Counter()
+    negative_counter: Counter = Counter()
+    phase_positive: dict[str, Counter] = defaultdict(Counter)
+    phase_negative: dict[str, Counter] = defaultdict(Counter)
+    tie_count = 0
+    total = 0
+
+    for (_, phase_name, _), audit in selection_map.items():
+        total += 1
+        if audit.get("tie_detected"):
+            tie_count += 1
+        for score_row in list(audit.get("score_rows") or []):
+            components = dict(score_row.get("score_components") or {})
+            penalties = dict(score_row.get("penalty_components") or {})
+            for name, value in components.items():
+                if float(value or 0) > 0:
+                    positive_counter[name] += 1
+                    phase_positive[phase_name][name] += 1
+            for name, value in penalties.items():
+                if float(value or 0) < 0:
+                    negative_counter[name] += 1
+                    phase_negative[phase_name][name] += 1
+
+    dominant_positive = positive_counter.most_common(1)[0][0] if positive_counter else "none"
+    dominant_negative = negative_counter.most_common(1)[0][0] if negative_counter else "none"
+
+    # Detect phase shift: compare top driver in first vs last phase
+    phase_names = sorted(phase_positive.keys())
+    phase_shift = ""
+    if len(phase_names) >= 2:
+        first_phase = phase_names[0]
+        last_phase = phase_names[-1]
+        first_top = phase_positive[first_phase].most_common(1)
+        last_top = phase_positive[last_phase].most_common(1)
+        if first_top and last_top and first_top[0][0] != last_top[0][0]:
+            phase_shift = f"{last_phase} shifts from {first_top[0][0]} to {last_top[0][0]}"
+
+    return {
+        "dominant_positive_driver": dominant_positive,
+        "dominant_negative_driver": dominant_negative,
+        "phase_shift": phase_shift,
+        "tie_break_rate": round(tie_count / max(total, 1), 4),
+    }
+
+
+def _build_run_influence_attribution(
+    runtime_summary: dict[str, Any],
+) -> dict[str, Any] | None:
+    """Compute influence attribution for a single run. Returns None on failure."""
+    try:
+        from .influence_attribution import build_influence_attribution
+        result = build_influence_attribution(runtime_summary)
+        if not result or not result.get("decision_points"):
+            return None
+        # Keep only top 5 decision points to limit file size
+        top_points = sorted(
+            result["decision_points"],
+            key=lambda dp: max((inf.get("influence_score", 0) for inf in dp.get("influences", [{}])), default=0),
+            reverse=True,
+        )[:5]
+        return {
+            "decision_point_count": result["summary"]["total_decision_points"],
+            "decision_points": top_points,
+            "most_influential_actor": result["summary"].get("most_influential_actor", ""),
+            "influence_concentration": result["summary"].get("mean_influence_concentration", 0.0),
+        }
+    except Exception:
+        return None
