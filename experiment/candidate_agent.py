@@ -430,6 +430,7 @@ Respond as {self.candidate_name} in this discussion. Keep your response natural,
         phase_name: Optional[str] = None,
         phase_cues: Optional[list[str]] = None,
         target_traits: Optional[list[str]] = None,
+        disposition_hint: Optional[str] = None,
     ) -> dict:
         """
         Generate a latent policy plan (hierarchical persona scaffold).
@@ -442,6 +443,7 @@ Respond as {self.candidate_name} in this discussion. Keep your response natural,
         phase_hint = f"Phase: {phase_name}" if phase_name else "Phase: unknown"
         cues_hint = f"Cues: {', '.join(phase_cues)}" if phase_cues else "Cues: none"
         traits_hint = f"Target traits: {', '.join(target_traits)}" if target_traits else "Target traits: none"
+        disposition_line = f"Strategic disposition: {disposition_hint}" if disposition_hint else ""
 
         prompt = f"""Given the discussion, output a compact JSON with fields:
 stance (support/oppose/synthesize/probe),
@@ -456,6 +458,7 @@ Scenario: {scenario_brief}
 {phase_hint}
 {cues_hint}
 {traits_hint}
+{disposition_line}
 Transcript:
 {history}
 

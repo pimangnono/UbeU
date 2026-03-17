@@ -30,7 +30,9 @@ The JSON must follow this exact schema:
       "personality_prior": {"O": <0.0-1.0>, "C": <0.0-1.0>, "E": <0.0-1.0>, "A": <0.0-1.0>, "N": <0.0-1.0>},
       "incentives": ["<incentive1>", "<incentive2>"],
       "concerns": ["<concern1>", "<concern2>"],
-      "communication_style": {"tone": "<tone>", "brevity": "moderate"}
+      "communication_style": {"tone": "<tone>", "brevity": "moderate"},
+      "strategic_disposition": "<cooperative|neutral|competitive|adversarial> (default: neutral)",
+      "disposition_strength": "<0.0-1.0> (default: 0.5)"
     }
   ],
   "phases": [
@@ -78,6 +80,8 @@ Rules:
 - Each stakeholder needs distinct incentives and concerns that create natural tension
 - Phase names MUST be exactly: OPENING, TENSION, NEGOTIATION, CLOSING (in that order)
 - Include 1-2 world events that add pressure or new information
+- If the brief implies competing interests, set some stakeholders to "competitive" or "adversarial"
+- Default to "neutral" if no clear disposition is implied
 - Prefer valid action-layer metadata, but do not invent nonsense if uncertain
 - Output ONLY the JSON, no markdown fences or explanation
 """
