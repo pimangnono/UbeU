@@ -180,7 +180,7 @@ class StakeholderActor:
 ## Simulation Mode
 {simulation_mode_guidance}
 
-## Constraints
+{self._build_disposition_section()}## Constraints
 - Stay faithful to your stable identity core.
 - You may be influenced by events and persuasion, but do not collapse into a generic assistant voice.
 - Keep your reactions grounded in your incentives, concerns, and personality prior.
@@ -206,6 +206,33 @@ class StakeholderActor:
             "- Work toward a stable, decision-useful discussion state when it fits your role.\n"
             f"- Desired end-state direction: {target_summary}."
         )
+
+    _DISPOSITION_PROMPTS = {
+        "cooperative": (
+            "You naturally seek common ground and mutual benefit. "
+            "You prefer building coalitions, making concessions when reasonable, "
+            "and finding win-win solutions. You extend trust early."
+        ),
+        "competitive": (
+            "You prioritize your stakeholder interests over group harmony. "
+            "You negotiate hard, push back on proposals that don't serve your goals, "
+            "and only cooperate when it clearly benefits you."
+        ),
+        "adversarial": (
+            "You actively oppose positions that threaten your interests. "
+            "You challenge other stakeholders' assumptions, resist compromise, "
+            "and defend your position firmly. You are skeptical of others' motives."
+        ),
+    }
+
+    def _build_disposition_section(self) -> str:
+        disposition = self.actor_spec.strategic_disposition
+        strength = self.actor_spec.disposition_strength
+        if disposition == "neutral" or disposition not in self._DISPOSITION_PROMPTS:
+            return ""
+        intensity = "strongly" if strength >= 0.7 else ("somewhat" if strength <= 0.3 else "")
+        label = f"{intensity} {disposition}".strip()
+        return f"## Strategic Disposition\nYou are {label}.\n{self._DISPOSITION_PROMPTS[disposition]}\n\n"
 
     def _build_trait_expression_guidance(self) -> str:
         if not self.ablation_config.use_trait_expression_prior:
@@ -502,6 +529,27 @@ class StakeholderActor:
             ]),
             valid_target_keys=list(valid_target_keys or world_state.keys()),
         )
+        # Disposition-based action preference bias
+        disposition = self.actor_spec.strategic_disposition
+        d_strength = self.actor_spec.disposition_strength
+        _COOPERATIVE_ACTIONS = ["commit_resource", "publish_update", "assign_owner", "pilot"]
+        _COMPETITIVE_ACTIONS = ["preserve_autonomy", "narrow_scope", "defer_decision"]
+        _ADVERSARIAL_ACTIONS = ["escalate", "preserve_autonomy", "request_evidence"]
+        if disposition == "cooperative" and d_strength >= 0.4:
+            target_actions = [
+                a for a in _COOPERATIVE_ACTIONS if a in (allowed_action_types or _COOPERATIVE_ACTIONS)
+            ]
+            role_prior.preferred_action_types = target_actions + [
+                a for a in role_prior.preferred_action_types if a not in _COOPERATIVE_ACTIONS
+            ]
+        elif disposition in ("competitive", "adversarial") and d_strength >= 0.4:
+            source_actions = _ADVERSARIAL_ACTIONS if disposition == "adversarial" else _COMPETITIVE_ACTIONS
+            target_actions = [
+                a for a in source_actions if a in (allowed_action_types or source_actions)
+            ]
+            role_prior.preferred_action_types = target_actions + [
+                a for a in role_prior.preferred_action_types if a not in source_actions
+            ]
         if "action_intent" not in plan:
             if role_prior.preferred_action_types:
                 plan["action_intent"] = role_prior.preferred_action_types[0]
@@ -612,12 +660,18 @@ class StakeholderActor:
             cached = dict(self._policy_plan_cache[cache_key])
             cached["_cache_hit"] = True
             return cached
+        disposition_hint = None
+        d = self.actor_spec.strategic_disposition
+        if d != "neutral":
+            intensity = "strongly" if self.actor_spec.disposition_strength >= 0.7 else ""
+            disposition_hint = f"{intensity} {d}".strip()
         policy_plan = await self._delegate.generate_policy_plan(
             turns=turns,
             scenario_brief=scenario_brief,
             phase_name=phase_name,
             phase_cues=phase_cues,
             target_traits=target_traits,
+            disposition_hint=disposition_hint,
         )
         augmented = self._augment_policy_plan(
             policy_plan,

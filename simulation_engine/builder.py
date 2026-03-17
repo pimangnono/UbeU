@@ -314,6 +314,15 @@ def infer_structural_profile(stakeholders: list[dict], phases: list[dict]) -> St
 
     conflict_ratio = conflict_pairs / max(total_pairs, 1)
 
+    # Boost polarity if actors have explicit adversarial/competitive dispositions
+    adversarial_count = sum(
+        1 for s in stakeholders
+        if s.get("strategic_disposition") in ("adversarial", "competitive")
+    )
+    if adversarial_count > 0:
+        disposition_boost = 0.10 * (adversarial_count / len(stakeholders))
+        conflict_ratio = min(1.0, conflict_ratio + disposition_boost)
+
     if conflict_ratio > 0.4:
         polarity = "adversarial"
     elif conflict_ratio > 0.15:

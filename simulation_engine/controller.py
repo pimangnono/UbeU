@@ -1583,6 +1583,14 @@ class PersonaStateController:
             score += 0.20
         if policy_plan.get("stance") == "oppose" and any(token in lowered for token in ("disagree", "push back", "won't work")):
             score += 0.20
+        # Disposition-based keyword bonus
+        disposition = self.actor_spec.strategic_disposition
+        if disposition == "cooperative":
+            if any(token in lowered for token in ("together", "collaborate", "support", "agree", "common ground")):
+                score += 0.15
+        elif disposition in ("competitive", "adversarial"):
+            if any(token in lowered for token in ("disagree", "push back", "my position", "however", "but")):
+                score += 0.15
         return max(0.0, min(1.0, score))
 
     def _sycophancy_risk(
@@ -1626,6 +1634,15 @@ class PersonaStateController:
             risk += 0.16
         if not any(token in lowered for token in ("risk", "concern", "tradeoff", "owner", "data", "constraint", "timeline")):
             risk += 0.10
+        # Disposition-based sycophancy threshold adjustment
+        disposition = self.actor_spec.strategic_disposition
+        d_strength = self.actor_spec.disposition_strength
+        if disposition == "cooperative":
+            risk -= 0.08 * d_strength  # cooperative actors: acknowledgment is natural, reduce risk
+        elif disposition == "adversarial":
+            risk += 0.10 * d_strength  # adversarial actors: agreement is more suspicious
+        elif disposition == "competitive":
+            risk += 0.05 * d_strength
 
         signals = {
             "acknowledgment_without_position": int(acknowledges and not asserts_self),

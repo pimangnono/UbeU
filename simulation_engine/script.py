@@ -64,6 +64,10 @@ class StakeholderActorSpec:
     salient_memories: list[str] = field(default_factory=list)
     private_context: dict[str, Any] = field(default_factory=dict)
     implicit_goals: list[str] = field(default_factory=list)
+    strategic_disposition: str = "neutral"          # "cooperative" | "neutral" | "competitive" | "adversarial"
+    disposition_strength: float = 0.5               # 0.0 (weak) ~ 1.0 (strong)
+
+    VALID_DISPOSITIONS = {"cooperative", "neutral", "competitive", "adversarial"}
 
     def __post_init__(self):
         self.personality_prior = normalize_personality_vector(self.personality_prior)
@@ -74,6 +78,9 @@ class StakeholderActorSpec:
                 trait: tuple(bounds)
                 for trait, bounds in self.personality_envelope.items()
             }
+        if self.strategic_disposition not in self.VALID_DISPOSITIONS:
+            self.strategic_disposition = "neutral"
+        self.disposition_strength = max(0.0, min(1.0, self.disposition_strength))
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> "StakeholderActorSpec":
@@ -91,6 +98,8 @@ class StakeholderActorSpec:
             salient_memories=list(data.get("salient_memories", [])),
             private_context=dict(data.get("private_context", {})),
             implicit_goals=list(data.get("implicit_goals", [])),
+            strategic_disposition=data.get("strategic_disposition", "neutral"),
+            disposition_strength=float(data.get("disposition_strength", 0.5)),
         )
 
     def to_dict(self) -> dict[str, Any]:
