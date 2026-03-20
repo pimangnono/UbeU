@@ -192,6 +192,7 @@ class SimulationScript:
     state_visibility_rules: dict[str, Any] = field(default_factory=dict)
     metadata: dict[str, Any] = field(default_factory=dict)
     evaluation_targets: list[str] = field(default_factory=list)
+    initial_relationships: list[dict[str, str]] = field(default_factory=list)
 
     def __post_init__(self):
         if not self.world_state_schema:
@@ -245,6 +246,7 @@ class SimulationScript:
             state_visibility_rules=dict(data.get("state_visibility_rules", {})),
             metadata=dict(data.get("metadata", {})),
             evaluation_targets=list(data.get("evaluation_targets", [])),
+            initial_relationships=list(data.get("initial_relationships", [])),
         )
 
     def to_dict(self) -> dict[str, Any]:
@@ -266,6 +268,7 @@ class SimulationScript:
             "state_visibility_rules": dict(self.state_visibility_rules),
             "metadata": dict(self.metadata),
             "evaluation_targets": list(self.evaluation_targets),
+            "initial_relationships": list(self.initial_relationships),
         }
 
     @property
@@ -332,12 +335,12 @@ class SimulationScript:
             "duplicate_penalty": 0.28 if phase_name == "NEGOTIATION" else 0.14,
             "uniqueness_bonus": 0.14 if phase_name == "NEGOTIATION" else 0.06,
             "convergence_backoff_threshold": 0.9 if phase_name == "NEGOTIATION" else 0.95,
-            "action_mode": "execute" if phase_name in {"NEGOTIATION", "CLOSING"} else "shadow",
+            "action_mode": "execute" if phase_name in {"TENSION", "NEGOTIATION", "CLOSING"} else "shadow",
             "allow_no_action": True,
             "family_cap": 1 if phase_name == "NEGOTIATION" else 2,
             "max_same_family_per_phase": 1 if phase_name == "NEGOTIATION" else 2,
             "max_actions_per_phase": 3 if phase_name == "NEGOTIATION" else 2,
-            "sparsity_threshold": 0.76 if phase_name == "NEGOTIATION" else 0.68,
+            "sparsity_threshold": 0.58 if phase_name == "NEGOTIATION" else 0.50,
             "style_slot_limit": 4,
             "pool_max_concurrency": 2,
             "planner_cache": False,
@@ -350,13 +353,13 @@ class SimulationScript:
                 "family_cap": 1 if phase_name == "NEGOTIATION" else 2,
                 "max_same_family_per_phase": 1 if phase_name == "NEGOTIATION" else 2,
                 "max_actions_per_phase": 2 if phase_name == "NEGOTIATION" else 2,
-                "sparsity_threshold": 0.55 if phase_name == "NEGOTIATION" else 0.52,
+                "sparsity_threshold": 0.45 if phase_name == "NEGOTIATION" else 0.40,
                 "style_slot_limit": 3 if phase_name == "NEGOTIATION" else 4,
             })
-            if phase_name in {"OPENING", "TENSION", "CLOSING"}:
-                default_policy["action_mode"] = "shadow"
-            else:
+            if phase_name in {"TENSION", "NEGOTIATION", "CLOSING"}:
                 default_policy["action_mode"] = "execute"
+            else:
+                default_policy["action_mode"] = "shadow"
         metadata_policy = (
             dict(self.metadata.get("phase_action_policies", {})).get(phase_name, {})
             if isinstance(self.metadata, dict)
