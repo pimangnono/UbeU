@@ -1,0 +1,173 @@
+\chapter{Experimental Setup}
+
+This chapter details the experimental design used to validate the simulation engine. The benchmark is designed to answer one primary question: \textit{does the complete engine deliver meaningful improvement over uncontrolled LLM generation in maintaining persona fidelity during multi-stakeholder deliberation?}
+
+
+\section{Scenarios}
+
+The benchmark comprises 20 real-world policy and corporate scenarios drawn from six domains (Table~\ref{tab:scenarios}). Each scenario is instantiated at three actor scales (3, 5, and 10 agents), yielding 60 unique simulation scripts.
+
+\begin{table}[t]
+\centering
+\caption{20 Benchmark Scenarios by Domain}
+\label{tab:scenarios}
+\begin{tabular}{p{3cm}cp{5cm}}
+\toprule
+Domain & $n$ & Examples \\
+\midrule
+Policy / Regulatory    & 7 & EU GDPR, NYC Congestion Pricing, CA AB5 Gig Worker Law, Australia Robodebt \\
+Corporate Crisis       & 4 & FTX Collapse, Boeing 737 MAX, WeWork IPO, Theranos \\
+Labor / Workplace      & 3 & Starbucks Unionization, Amazon Labor, Zoom RTO \\
+Ethics / Technology    & 2 & UK Post Office Horizon, Microsoft-Activision Merger \\
+Financial / Consumer   & 2 & Netflix Password Crackdown, Peloton Demand Cliff \\
+Public Health / Infra. & 2 & Flint Water Crisis, Fukushima Nuclear Restart \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Real-world scenarios were selected to leverage LLM pre-training knowledge, enabling richer and more contextually grounded stakeholder responses. This design choice is acknowledged as a limitation: LLMs may exhibit training data leakage effects when simulating well-documented events, potentially producing responses informed by factual recall rather than genuine persona-driven reasoning.
+
+Each scenario specifies a \textit{structural profile} comprising a conflict ratio (how polarized the stakeholder positions are), urgency level, and stakeholder power distribution. This structural profile modulates the engine's sycophancy detection sensitivity and action layer behavior.
+
+
+\section{Experimental Conditions}
+
+Two experimental conditions are compared:
+
+\textbf{Engine Structural (\engine):} The full simulation engine with all six components active---Persona State Controller, 4-Slot Candidate Pool, Sycophancy Detection, Commitment Lifecycle, Action Layer, and Strategic Disposition. The controller performs deterministic candidate scoring and selection at every turn. Each turn generates 4 candidate responses and selects the one with the highest persona fidelity score.
+
+\textbf{Naive Baseline (\naive):} Each actor receives only a persona prompt (OCEAN personality priors, role description, incentives, and concerns) and generates a single response per turn without candidate pooling, scoring, or any engine-level control. This represents the standard approach to LLM-based role-playing and serves as the baseline against which engine improvements are measured.
+
+\textbf{Justification for binary comparison.} The choice of a binary comparison (full engine vs.\ no engine) rather than component-level ablation is motivated by prior iterative experimentation (Experiments~1--6, Arms~A/B) that already validated individual component contributions through incremental additions. The key findings from this ablation history are:
+
+\begin{itemize}[leftmargin=*, itemsep=1pt]
+    \item Softmax sampling ($\tau=0.12$) for candidate selection \textit{increased} drift by 12.7\% compared to deterministic best-candidate selection, with zero improvement in diversity, demonstrating that the diversity ceiling is structural (generation-level), not selection-level.
+    \item Dynamic C-trait calibration (relative-to-conversation-baseline) reduced Conscientiousness error by 38\% (0.280 $\to$ 0.173), while three rounds of static coefficient adjustment failed.
+    \item Commitment lifecycle with soft prompt injection (``Your prior positions:'') achieved zero contradictions across 144 runs, while the directive variant (``stay consistent unless explicitly revising'') collapsed diversity to 0.45.
+    \item Per-slot action vocabulary rotation improved convergence from 0.786 to 0.661 and diversity from 0.500 to 0.583, but could not overcome structural role similarity inherent in the scenario design.
+\end{itemize}
+
+The present benchmark therefore focuses on the practically relevant question: does the \textit{complete, optimized} engine justify its additional computational cost ($4\times$ LLM calls per turn) over the naive baseline?
+
+
+\section{Scale}
+
+Table~\ref{tab:scale} summarizes the benchmark scale.
+
+\begin{table}[t]
+\centering
+\caption{Benchmark Scale}
+\label{tab:scale}
+\begin{tabular}{lr}
+\toprule
+Parameter & Value \\
+\midrule
+Simulation scripts                & 60 \\
+Conditions                        & 2 \\
+Repetitions per script            & $\sim$34 (variable) \\
+\textbf{Total runs}               & \textbf{4,080} \\
+  \quad Engine runs               & 2,056 \\
+  \quad Naive runs                & 2,024 \\
+Average turns per run             & 11 \\
+LLM calls per run (engine)       & $\sim$88 \\
+LLM calls per run (naive)        & $\sim$22 \\
+Total LLM calls (estimated)      & $\sim$120,000+ \\
+Approximate total runtime         & $\sim$50 hours \\
+Generation model                  & DeepSeek V3 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\section{Metrics}
+\label{sec:metrics}
+
+The evaluation framework comprises two tiers of metrics: \textit{primary metrics} that directly measure persona fidelity (the core research question), and \textit{secondary metrics} that capture behavioral characteristics providing insight into how the engine changes conversation dynamics.
+
+\subsection{Primary Metrics}
+
+\textbf{Persona Drift MAE.} The primary metric is the Mean Absolute Error between the inferred OCEAN trait expression and the assigned personality prior, averaged across all five traits and all turns within a run:
+
+\begin{equation}
+    \text{Drift} = \frac{1}{5} \sum_{t \in \text{OCEAN}} \left| \hat{\theta}_t - \pi_t \right|
+    \label{eq:drift}
+\end{equation}
+
+\noindent where $\hat{\theta}_t$ is the estimated trait value from the 30-feature extraction pipeline and $\pi_t$ is the assigned prior. Lower values indicate better persona maintenance. This metric operationalizes the intuition that a ``good'' simulation is one where actors consistently behave in accordance with their assigned personality profiles.
+
+\textit{Justification:} MAE was chosen over MSE because persona drift in practice involves small, consistent deviations rather than occasional large spikes; MAE provides a more interpretable measure of typical per-trait error magnitude. The choice of OCEAN trait estimation through behavioral feature extraction (rather than LLM self-assessment) follows from Stureborg~\etal's finding that LLM-based evaluators are inconsistent and biased~\cite{stureborg2024inconsistent}---a deterministic pipeline ensures reproducibility.
+
+\textbf{Envelope Violations.} The count of OCEAN traits exceeding a threshold $\tau = 0.15$ from the assigned prior per run:
+
+\begin{equation}
+    \text{Violations} = \sum_{t \in \text{OCEAN}} \mathbb{1}\!\left[|\hat{\theta}_t - \pi_t| > \tau\right]
+    \label{eq:envelope}
+\end{equation}
+
+\textit{Justification:} While Drift MAE captures the average deviation, Envelope Violations capture the \textit{frequency} of significant personality boundary breaches. A low Drift MAE with high Envelope Violations would indicate that the engine controls most traits well but occasionally fails catastrophically on specific traits---a pattern that the Drift MAE alone would mask.
+
+
+\subsection{Secondary Metrics --- Conversation Dynamics}
+
+\textbf{Commitment Contradiction Rate.} The proportion of turns containing statements that directly contradict a prior commitment made by the same actor (detected through the Commitment Lifecycle tracker). A value of 0.000 indicates perfect positional consistency.
+
+\textit{Justification:} Self-contradiction is the most egregious form of persona failure in deliberation. A stakeholder who commits to ``prioritizing worker safety'' and subsequently argues for ``cutting safety inspection budgets'' undermines the entire simulation's credibility. This metric directly measures the Commitment Lifecycle component's effectiveness.
+
+\textbf{Commitment Fulfillment Rate.} The proportion of stated commitments that are subsequently fulfilled within the simulation. Higher values indicate more reliable follow-through.
+
+\textbf{Convergence.} Pairwise semantic similarity across actors' utterances within a turn, computed using sentence-transformer embeddings (all-MiniLM-L6-v2):
+
+\begin{equation}
+    \text{Convergence} = \frac{2}{n(n-1)} \sum_{i < j} \text{cos}(\mathbf{e}_i, \mathbf{e}_j)
+    \label{eq:convergence}
+\end{equation}
+
+\noindent where $\mathbf{e}_i$ is the embedding of actor $i$'s utterance. Values approaching 1.0 indicate homogenization of viewpoints.
+
+\textit{Justification:} Convergence directly measures the sycophancy convergence problem identified in Section~1.2. In a healthy deliberation, actors should maintain distinct perspectives (moderate convergence) rather than repeating each other's points (high convergence). This metric enables quantitative comparison of how effectively the engine resists RLHF-driven consensus formation.
+
+\textbf{Diversity.} The ratio of unique action types to total actions within a run, measuring behavioral diversity:
+
+\begin{equation}
+    \text{Diversity} = \frac{|\text{unique action types}|}{|\text{total actions}|}
+    \label{eq:diversity}
+\end{equation}
+
+\textit{Justification:} Diversity captures whether the engine produces varied behavioral responses or whether actors default to the same action patterns. Low diversity combined with high action count would indicate that the action vocabulary is being used monotonously.
+
+
+\subsection{Secondary Metrics --- Behavioral Features}
+
+\textbf{Acknowledgment Count.} Sycophantic agreement expressions (``great point'', ``I agree'', ``makes sense'') per turn. This is the most direct measure of the sycophancy problem.
+
+\textbf{Disagreement Count.} Explicit disagreement expressions (``I disagree'', ``however'', ``but actually'') per turn. Authentic disagreement is essential for informative deliberation.
+
+\textbf{Idea Count.} Novel proposals (``what if'', ``we could'', ``how about'') per turn, measuring the informational value of the simulation.
+
+\textbf{Self-Doubt Count.} Expressions of self-doubt (``I'm probably wrong'', ``I could be mistaken'') per turn. This metric directly probes the RLHF behavioral ceiling for Neuroticism.
+
+\textbf{Action-Plan Alignment.} The proportion of executed actions that are consistent with the actor's stated policy plan, measuring behavioral coherence between stated intentions and actions.
+
+\textbf{Action Validity Rate.} The proportion of extracted actions that are structurally valid (\ie, have a recognized action type, valid target key, and appropriate phase). This metric evaluates the quality of the hybrid extraction pipeline.
+
+
+\section{Statistical Methods}
+
+All comparisons employ a \textbf{paired design}: the same simulation script is run under both conditions, and differences are computed within each script pair. This design eliminates between-script variability (different scenarios, actor counts, and inherent difficulty levels) and increases statistical power.
+
+\textbf{Paired $t$-test:} Used for primary comparisons of drift MAE and envelope violations. The null hypothesis is that the engine produces no improvement over the naive baseline ($H_0\colon \mu_{\text{diff}} = 0$).
+
+\textbf{Cohen's $d$ (paired):} Effect size calculated as the mean of paired differences divided by the standard deviation of differences:
+
+\begin{equation}
+    d = \frac{\bar{X}_{\text{diff}}}{s_{\text{diff}}}
+    \label{eq:cohens_d}
+\end{equation}
+
+Interpreted as small ($|d| < 0.2$), medium ($|d| \approx 0.5$), and large ($|d| > 0.8$).
+
+\textbf{95\% Confidence Intervals:} Computed for all primary metrics to assess the precision of estimated effects.
+
+\textbf{Bonferroni Correction:} Applied when conducting multiple comparisons (\eg, 20 scenarios $\times$ 5 traits $= 100$ per-trait per-scenario tests) to control the family-wise error rate at $\alpha = 0.05$. The corrected significance threshold for 100 comparisons is $\alpha' = 0.0005$.
+
+\textbf{Justification for paired design.} Scenario difficulty varies substantially: Flint Water Crisis (best engine drift: 0.149) and Zoom Return-to-Office (worst: 0.187) differ by 25\% in absolute drift, reflecting differences in stakeholder polarization, scenario complexity, and LLM pre-training familiarity. An unpaired design would require much larger sample sizes to detect the engine's systematic 5.7\% improvement amid this between-scenario noise. The paired design eliminates this variability entirely, enabling detection of the effect with $n=60$ script pairs.

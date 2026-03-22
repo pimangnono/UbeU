@@ -1,0 +1,1282 @@
+{
+  "per_scenario": [
+    {
+      "scenario_id": "australia_robodebt",
+      "num_runs": 192,
+      "resolution_type_match": 0.6,
+      "stakeholder_position_alignment": 0.2017,
+      "dynamics_surfacing": 0.4111,
+      "turning_point_coverage": 0.0,
+      "world_state_direction_accuracy": 0.4782,
+      "action_distribution_alignment": 0.7658,
+      "outcome_fidelity_score": 0.4009,
+      "condition": "engine_structural",
+      "actor_count": 10,
+      "simulation_mode": "exploratory",
+      "scenario_type": "policy",
+      "difficulty_index": 0.7625,
+      "adjusted_drift": 0.2228
+    },
+    {
+      "scenario_id": "australia_robodebt",
+      "num_runs": 192,
+      "resolution_type_match": 0.6,
+      "stakeholder_position_alignment": 0.025,
+      "dynamics_surfacing": 0.3,
+      "turning_point_coverage": 0.0,
+      "world_state_direction_accuracy": 0.0,
+      "action_distribution_alignment": 0.0,
+      "outcome_fidelity_score": 0.1862,
+      "condition": "naive",
+      "actor_count": 10,
+      "simulation_mode": "exploratory",
+      "scenario_type": "policy",
+      "difficulty_index": 0.7625,
+      "adjusted_drift": 0.2349
+    },
+    {
+      "scenario_id": "boeing_737max_return",
+      "num_runs": 184,
+      "resolution_type_match": 0.6739,
+      "stakeholder_position_alignment": 0.5701,
+      "dynamics_surfacing": 0.6986,
+      "turning_point_coverage": 0.0,
+      "world_state_direction_accuracy": 0.6441,
+      "action_distribution_alignment": 0.674,
+      "outcome_fidelity_score": 0.581,
+      "condition": "engine_structural",
+      "actor_count": 10,
+      "simulation_mode": "guided",
+      "scenario_type": "non_policy",
+      "difficulty_index": 0.5875,
+      "adjusted_drift": 0.2816
+    },
+    {
+      "scenario_id": "boeing_737max_return",
+      "num_runs": 182,
+      "resolution_type_match": 1.0,
+      "stakeholder_position_alignment": 0.1085,
+      "dynamics_surfacing": 0.65,
+      "turning_point_coverage": 0.0,
+      "world_state_direction_accuracy": 0.1,
+      "action_distribution_alignment": 0.0,
+      "outcome_fidelity_score": 0.3721,
+      "condition": "naive",
+      "actor_count": 10,
+      "simulation_mode": "guided",
+      "scenario_type": "non_policy",
+      "difficulty_index": 0.5875,
+      "adjusted_drift": 0.2825
+    },
+    {
+      "scenario_id": "california_ab5_gig_classification",
+      "num_runs": 176,
+      "resolution_type_match": 0.0,
+      "stakeholder_position_alignment": 0.3953,
+      "dynamics_surfacing": 0.4691,
+      "turning_point_coverage": 0.0,
+      "world_state_direction_accuracy": 0.2023,
+      "action_distribution_alignment": 0.762,
+      "outcome_fidelity_score": 0.2992,
+      "condition": "engine_structural",
+      "actor_count": 10,
+      "simulation_mode": "guided",
+      "scenario_type": "policy",
+      "difficulty_index": 0.7625,
+      "adjusted_drift": 0.2
+    },
+    {
+      "scenario_id": "california_ab5_gig_classification",
+      "num_runs": 172,
+      "resolution_type_match": 0.0,
+      "stakeholder_position_alignment": 0.3915,
+      "dynamics_surfacing": 0.3,
+      "turning_point_coverage": 0.0,
+      "world_state_direction_accuracy": 0.1592,
+      "action_distribution_alignment": 0.0,
+      "outcome_fidelity_score": 0.1817,
+      "condition": "naive",
+      "actor_count": 10,
+      "simulation_mode": "guided",
+      "scenario_type": "policy",
+      "difficulty_index": 0.7625,
+      "adjusted_drift": 0.2174
+    },
+    {
+      "scenario_id": "eu_gdpr_implementation",
+      "num_runs": 166,
+      "resolution_type_match": 0.3373,
+      "stakeholder_position_alignment": 0.0883,
+      "dynamics_surfacing": 0.4051,
+      "turning_point_coverage": 0.0,
+      "world_state_direction_accuracy": 0.1945,
+      "action_distribution_alignment": 0.7784,
+      "outcome_fidelity_score": 0.2776,
+      "condition": "engine_structural",
+      "actor_count": 10,
+      "simulation_mode": "guided",
+      "scenario_type": "policy",
+      "difficulty_index": 0.7625,
+      "adjusted_drift": 0.2044
+    },
+    {
+      "scenario_id": "eu_gdpr_implementation",
+      "num_runs": 164,
+      "resolution_type_match": 0.0,
+      "stakeholder_position_alignment": 0.0256,
+      "dynamics_surfacing": 0.3,
+      "turning_point_coverage": 0.0,
+      "world_state_direction_accuracy": 0.0,
+      "action_distribution_alignment": 0.0,
+      "outcome_fidelity_score": 0.0664,
+      "condition": "naive",
+      "actor_count": 10,
+      "simulation_mode": "guided",
+      "scenario_type": "policy",
+      "difficulty_index": 0.7625,
+      "adjusted_drift": 0.2219
+    },
+    {
+      "scenario_id": "flint_water_crisis",
+      "num_runs": 156,
+      "resolution_type_match": 0.0,
+      "stakeholder_position_alignment": 0.1133,
+      "dynamics_surfacing": 0.4056,
+      "turning_point_coverage": 0.0,
+      "world_state_direction_accuracy": 0.1,
+      "action_distribution_alignment": 0.7625,
+      "outcome_fidelity_score": 0.2007,
+      "condition": "engine_structural",
+      "actor_count": 10,
+      "simulation_mode": "exploratory",
+      "scenario_type": "policy",
+      "difficulty_index": 1.0,
+      "adjusted_drift": 0.1791
+    },
+    {
+      "scenario_id": "flint_water_crisis",
+      "num_runs": 156,
+      "resolution_type_match": 0.0,
+      "stakeholder_position_alignment": 0.025,
+      "dynamics_surfacing": 0.3,
+      "turning_point_coverage": 0.0,
+      "world_state_direction_accuracy": 0.1,
+      "action_distribution_alignment": 0.0,
+      "outcome_fidelity_score": 0.0812,
+      "condition": "naive",
+      "actor_count": 10,
+      "simulation_mode": "exploratory",
+      "scenario_type": "policy",
+      "difficulty_index": 1.0,
+      "adjusted_drift": 0.1924
+    },
+    {
+      "scenario_id": "ftx_collapse",
+      "num_runs": 144,
+      "resolution_type_match": 0.0,
+      "stakeholder_position_alignment": 0.05,
+      "dynamics_surfacing": 0.4139,
+      "turning_point_coverage": 0.0,
+      "world_state_direction_accuracy": 0.0471,
+      "action_distribution_alignment": 0.5842,
+      "outcome_fidelity_score": 0.1608,
+      "condition": "engine_structural",
+      "actor_count": 10,
+      "simulation_mode": "exploratory",
+      "scenario_type": "non_policy",
+      "difficulty_index": 1.0,
+      "adjusted_drift": 0.1725
+    },
+    {
+      "scenario_id": "ftx_collapse",
+      "num_runs": 144,
+      "resolution_type_match": 0.0,
+      "stakeholder_position_alignment": 0.05,
+      "dynamics_surfacing": 0.3,
+      "turning_point_coverage": 0.0,
+      "world_state_direction_accuracy": 0.0,
+      "action_distribution_alignment": 0.0,
+      "outcome_fidelity_score": 0.0725,
+      "condition": "naive",
+      "actor_count": 10,
+      "simulation_mode": "exploratory",
+      "scenario_type": "non_policy",
+      "difficulty_index": 1.0,
+      "adjusted_drift": 0.1805
+    },
+    {
+      "scenario_id": "fukushima_nuclear_restart",
+      "num_runs": 136,
+      "resolution_type_match": 1.0,
+      "stakeholder_position_alignment": 0.4263,
+      "dynamics_surfacing": 0.4667,
+      "turning_point_coverage": 0.0,
+      "world_state_direction_accuracy": 0.2,
+      "action_distribution_alignment": 0.6271,
+      "outcome_fidelity_score": 0.4926,
+      "condition": "engine_structural",
+      "actor_count": 10,
+      "simulation_mode": "exploratory",
+      "scenario_type": "policy",
+      "difficulty_index": 0.675,
+      "adjusted_drift": 0.2496
+    },
+    {
+      "scenario_id": "fukushima_nuclear_restart",
+      "num_runs": 134,
+      "resolution_type_match": 1.0,
+      "stakeholder_position_alignment": 0.2746,
+      "dynamics_surfacing": 0.3,
+      "turning_point_coverage": 0.0,
+      "world_state_direction_accuracy": 0.4,
+      "action_distribution_alignment": 0.0,
+      "outcome_fidelity_score": 0.3887,
+      "condition": "naive",
+      "actor_count": 10,
+      "simulation_mode": "exploratory",
+      "scenario_type": "policy",
+      "difficulty_index": 0.675,
+      "adjusted_drift": 0.2618
+    },
+    {
+      "scenario_id": "japan_intern_training_reform",
+      "num_runs": 128,
+      "resolution_type_match": 0.5313,
+      "stakeholder_position_alignment": 0.3887,
+      "dynamics_surfacing": 0.3844,
+      "turning_point_coverage": 0.0,
+      "world_state_direction_accuracy": 0.4531,
+      "action_distribution_alignment": 0.6553,
+      "outcome_fidelity_score": 0.4138,
+      "condition": "engine_structural",
+      "actor_count": 10,
+      "simulation_mode": "guided",
+      "scenario_type": "policy",
+      "difficulty_index": 0.5875,
+      "adjusted_drift": 0.2854
+    },
+    {
+      "scenario_id": "japan_intern_training_reform",
+      "num_runs": 124,
+      "resolution_type_match": 1.0,
+      "stakeholder_position_alignment": 0.2863,
+      "dynamics_surfacing": 0.3,
+      "turning_point_coverage": 0.0,
+      "world_state_direction_accuracy": 0.625,
+      "action_distribution_alignment": 0.0,
+      "outcome_fidelity_score": 0.4253,
+      "condition": "naive",
+      "actor_count": 10,
+      "simulation_mode": "guided",
+      "scenario_type": "policy",
+      "difficulty_index": 0.5875,
+      "adjusted_drift": 0.2973
+    },
+    {
+      "scenario_id": "microsoft_activision_merger",
+      "num_runs": 118,
+      "resolution_type_match": 0.0,
+      "stakeholder_position_alignment": 0.5112,
+      "dynamics_surfacing": 0.7191,
+      "turning_point_coverage": 0.0,
+      "world_state_direction_accuracy": 0.6071,
+      "action_distribution_alignment": 0.8514,
+      "outcome_fidelity_score": 0.4478,
+      "condition": "engine_structural",
+      "actor_count": 10,
+      "simulation_mode": "guided",
+      "scenario_type": "non_policy",
+      "difficulty_index": 0.57,
+      "adjusted_drift": 0.2983
+    },
+    {
+      "scenario_id": "microsoft_activision_merger",
+      "num_runs": 116,
+      "resolution_type_match": 0.0,
+      "stakeholder_position_alignment": 0.0259,
+      "dynamics_surfacing": 0.65,
+      "turning_point_coverage": 0.0,
+      "world_state_direction_accuracy": 0.1,
+      "action_distribution_alignment": 0.0,
+      "outcome_fidelity_score": 0.1515,
+      "condition": "naive",
+      "actor_count": 10,
+      "simulation_mode": "guided",
+      "scenario_type": "non_policy",
+      "difficulty_index": 0.57,
+      "adjusted_drift": 0.3204
+    },
+    {
+      "scenario_id": "netflix_password_crackdown",
+      "num_runs": 108,
+      "resolution_type_match": 0.0,
+      "stakeholder_position_alignment": 0.2461,
+      "dynamics_surfacing": 0.4556,
+      "turning_point_coverage": 0.0,
+      "world_state_direction_accuracy": 0.4524,
+      "action_distribution_alignment": 0.8059,
+      "outcome_fidelity_score": 0.3011,
+      "condition": "engine_structural",
+      "actor_count": 10,
+      "simulation_mode": "guided",
+      "scenario_type": "non_policy",
+      "difficulty_index": 0.675,
+      "adjusted_drift": 0.2799
+    },
+    {
+      "scenario_id": "netflix_password_crackdown",
+      "num_runs": 108,
+      "resolution_type_match": 0.0,
+      "stakeholder_position_alignment": 0.15,
+      "dynamics_surfacing": 0.3,
+      "turning_point_coverage": 0.0,
+      "world_state_direction_accuracy": 0.0,
+      "action_distribution_alignment": 0.0,
+      "outcome_fidelity_score": 0.0975,
+      "condition": "naive",
+      "actor_count": 10,
+      "simulation_mode": "guided",
+      "scenario_type": "non_policy",
+      "difficulty_index": 0.675,
+      "adjusted_drift": 0.3074
+    },
+    {
+      "scenario_id": "nyc_congestion_pricing",
+      "num_runs": 96,
+      "resolution_type_match": 0.0,
+      "stakeholder_position_alignment": 0.1089,
+      "dynamics_surfacing": 0.4417,
+      "turning_point_coverage": 0.0,
+      "world_state_direction_accuracy": 0.0667,
+      "action_distribution_alignment": 0.6886,
+      "outcome_fidelity_score": 0.1944,
+      "condition": "engine_structural",
+      "actor_count": 10,
+      "simulation_mode": "guided",
+      "scenario_type": "policy",
+      "difficulty_index": 0.825,
+      "adjusted_drift": 0.1875
+    },
+    {
+      "scenario_id": "nyc_congestion_pricing",
+      "num_runs": 96,
+      "resolution_type_match": 0.0,
+      "stakeholder_position_alignment": 0.3417,
+      "dynamics_surfacing": 0.3,
+      "turning_point_coverage": 0.0,
+      "world_state_direction_accuracy": 0.2,
+      "action_distribution_alignment": 0.0,
+      "outcome_fidelity_score": 0.1754,
+      "condition": "naive",
+      "actor_count": 10,
+      "simulation_mode": "guided",
+      "scenario_type": "policy",
+      "difficulty_index": 0.825,
+      "adjusted_drift": 0.1984
+    },
+    {
+      "scenario_id": "peloton_demand_cliff",
+      "num_runs": 88,
+      "resolution_type_match": 0.0,
+      "stakeholder_position_alignment": 0.075,
+      "dynamics_surfacing": 0.3909,
+      "turning_point_coverage": 0.0,
+      "world_state_direction_accuracy": 0.0,
+      "action_distribution_alignment": 0.5763,
+      "outcome_fidelity_score": 0.1546,
+      "condition": "engine_structural",
+      "actor_count": 10,
+      "simulation_mode": "exploratory",
+      "scenario_type": "non_policy",
+      "difficulty_index": 0.9125,
+      "adjusted_drift": 0.177
+    },
+    {
+      "scenario_id": "peloton_demand_cliff",
+      "num_runs": 86,
+      "resolution_type_match": 0.0,
+      "stakeholder_position_alignment": 0.075,
+      "dynamics_surfacing": 0.3,
+      "turning_point_coverage": 0.0,
+      "world_state_direction_accuracy": 0.0,
+      "action_distribution_alignment": 0.0,
+      "outcome_fidelity_score": 0.0788,
+      "condition": "naive",
+      "actor_count": 10,
+      "simulation_mode": "exploratory",
+      "scenario_type": "non_policy",
+      "difficulty_index": 0.9125,
+      "adjusted_drift": 0.1884
+    },
+    {
+      "scenario_id": "sf_homelessness_policy",
+      "num_runs": 80,
+      "resolution_type_match": 0.0,
+      "stakeholder_position_alignment": 0.09,
+      "dynamics_surfacing": 0.4167,
+      "turning_point_coverage": 0.0,
+      "world_state_direction_accuracy": 0.0,
+      "action_distribution_alignment": 0.8464,
+      "outcome_fidelity_score": 0.1905,
+      "condition": "engine_structural",
+      "actor_count": 10,
+      "simulation_mode": "exploratory",
+      "scenario_type": "policy",
+      "difficulty_index": 0.9125,
+      "adjusted_drift": 0.1766
+    },
+    {
+      "scenario_id": "sf_homelessness_policy",
+      "num_runs": 76,
+      "resolution_type_match": 0.0,
+      "stakeholder_position_alignment": 0.0908,
+      "dynamics_surfacing": 0.3,
+      "turning_point_coverage": 0.0,
+      "world_state_direction_accuracy": 0.0,
+      "action_distribution_alignment": 0.0,
+      "outcome_fidelity_score": 0.0827,
+      "condition": "naive",
+      "actor_count": 10,
+      "simulation_mode": "exploratory",
+      "scenario_type": "policy",
+      "difficulty_index": 0.9125,
+      "adjusted_drift": 0.1958
+    },
+    {
+      "scenario_id": "singapore_hdb_waittime_crisis",
+      "num_runs": 70,
+      "resolution_type_match": 0.7371,
+      "stakeholder_position_alignment": 0.4629,
+      "dynamics_surfacing": 0.3902,
+      "turning_point_coverage": 0.0,
+      "world_state_direction_accuracy": 0.5622,
+      "action_distribution_alignment": 0.6108,
+      "outcome_fidelity_score": 0.4866,
+      "condition": "engine_structural",
+      "actor_count": 10,
+      "simulation_mode": "guided",
+      "scenario_type": "policy",
+      "difficulty_index": 0.4825,
+      "adjusted_drift": 0.3937
+    },
+    {
+      "scenario_id": "singapore_hdb_waittime_crisis",
+      "num_runs": 68,
+      "resolution_type_match": 1.0,
+      "stakeholder_position_alignment": 0.0265,
+      "dynamics_surfacing": 0.3,
+      "turning_point_coverage": 0.0,
+      "world_state_direction_accuracy": 0.0,
+      "action_distribution_alignment": 0.0,
+      "outcome_fidelity_score": 0.2666,
+      "condition": "naive",
+      "actor_count": 10,
+      "simulation_mode": "guided",
+      "scenario_type": "policy",
+      "difficulty_index": 0.4825,
+      "adjusted_drift": 0.417
+    },
+    {
+      "scenario_id": "starbucks_unionization",
+      "num_runs": 60,
+      "resolution_type_match": 0.0,
+      "stakeholder_position_alignment": 0.025,
+      "dynamics_surfacing": 0.4139,
+      "turning_point_coverage": 0.0,
+      "world_state_direction_accuracy": 0.0,
+      "action_distribution_alignment": 0.6007,
+      "outcome_fidelity_score": 0.1491,
+      "condition": "engine_structural",
+      "actor_count": 10,
+      "simulation_mode": "guided",
+      "scenario_type": "non_policy",
+      "difficulty_index": 0.825,
+      "adjusted_drift": 0.1935
+    },
+    {
+      "scenario_id": "starbucks_unionization",
+      "num_runs": 60,
+      "resolution_type_match": 0.0,
+      "stakeholder_position_alignment": 0.025,
+      "dynamics_surfacing": 0.3,
+      "turning_point_coverage": 0.0,
+      "world_state_direction_accuracy": 0.0,
+      "action_distribution_alignment": 0.0,
+      "outcome_fidelity_score": 0.0663,
+      "condition": "naive",
+      "actor_count": 10,
+      "simulation_mode": "guided",
+      "scenario_type": "non_policy",
+      "difficulty_index": 0.825,
+      "adjusted_drift": 0.2066
+    },
+    {
+      "scenario_id": "svb_bank_run",
+      "num_runs": 48,
+      "resolution_type_match": 0.0,
+      "stakeholder_position_alignment": 0.1811,
+      "dynamics_surfacing": 0.4417,
+      "turning_point_coverage": 0.0,
+      "world_state_direction_accuracy": 0.1942,
+      "action_distribution_alignment": 0.7252,
+      "outcome_fidelity_score": 0.2353,
+      "condition": "engine_structural",
+      "actor_count": 10,
+      "simulation_mode": "exploratory",
+      "scenario_type": "non_policy",
+      "difficulty_index": 0.5875,
+      "adjusted_drift": 0.271
+    },
+    {
+      "scenario_id": "svb_bank_run",
+      "num_runs": 48,
+      "resolution_type_match": 0.0,
+      "stakeholder_position_alignment": 0.025,
+      "dynamics_surfacing": 0.3,
+      "turning_point_coverage": 0.0,
+      "world_state_direction_accuracy": 0.1,
+      "action_distribution_alignment": 0.0,
+      "outcome_fidelity_score": 0.0813,
+      "condition": "naive",
+      "actor_count": 10,
+      "simulation_mode": "exploratory",
+      "scenario_type": "non_policy",
+      "difficulty_index": 0.5875,
+      "adjusted_drift": 0.2901
+    },
+    {
+      "scenario_id": "theranos_whistleblower",
+      "num_runs": 40,
+      "resolution_type_match": 0.0,
+      "stakeholder_position_alignment": 0.0755,
+      "dynamics_surfacing": 0.3933,
+      "turning_point_coverage": 0.0,
+      "world_state_direction_accuracy": 0.1413,
+      "action_distribution_alignment": 0.5777,
+      "outcome_fidelity_score": 0.1765,
+      "condition": "engine_structural",
+      "actor_count": 10,
+      "simulation_mode": "exploratory",
+      "scenario_type": "non_policy",
+      "difficulty_index": 1.0,
+      "adjusted_drift": 0.1793
+    },
+    {
+      "scenario_id": "theranos_whistleblower",
+      "num_runs": 38,
+      "resolution_type_match": 0.0,
+      "stakeholder_position_alignment": 0.0237,
+      "dynamics_surfacing": 0.3,
+      "turning_point_coverage": 0.0,
+      "world_state_direction_accuracy": 0.0,
+      "action_distribution_alignment": 0.0,
+      "outcome_fidelity_score": 0.0659,
+      "condition": "naive",
+      "actor_count": 10,
+      "simulation_mode": "exploratory",
+      "scenario_type": "non_policy",
+      "difficulty_index": 1.0,
+      "adjusted_drift": 0.186
+    },
+    {
+      "scenario_id": "uk_post_office_horizon",
+      "num_runs": 32,
+      "resolution_type_match": 0.6,
+      "stakeholder_position_alignment": 0.1302,
+      "dynamics_surfacing": 0.426,
+      "turning_point_coverage": 0.0,
+      "world_state_direction_accuracy": 0.2767,
+      "action_distribution_alignment": 0.674,
+      "outcome_fidelity_score": 0.3467,
+      "condition": "engine_structural",
+      "actor_count": 10,
+      "simulation_mode": "exploratory",
+      "scenario_type": "policy",
+      "difficulty_index": 0.85,
+      "adjusted_drift": 0.2109
+    },
+    {
+      "scenario_id": "uk_post_office_horizon",
+      "num_runs": 28,
+      "resolution_type_match": 0.6,
+      "stakeholder_position_alignment": 0.075,
+      "dynamics_surfacing": 0.3,
+      "turning_point_coverage": 0.0,
+      "world_state_direction_accuracy": 0.1,
+      "action_distribution_alignment": 0.0,
+      "outcome_fidelity_score": 0.2137,
+      "condition": "naive",
+      "actor_count": 10,
+      "simulation_mode": "exploratory",
+      "scenario_type": "policy",
+      "difficulty_index": 0.85,
+      "adjusted_drift": 0.2206
+    },
+    {
+      "scenario_id": "wework_ipo_collapse",
+      "num_runs": 22,
+      "resolution_type_match": 0.0,
+      "stakeholder_position_alignment": 0.0273,
+      "dynamics_surfacing": 0.4417,
+      "turning_point_coverage": 0.0,
+      "world_state_direction_accuracy": 0.0,
+      "action_distribution_alignment": 0.9007,
+      "outcome_fidelity_score": 0.1852,
+      "condition": "engine_structural",
+      "actor_count": 10,
+      "simulation_mode": "exploratory",
+      "scenario_type": "non_policy",
+      "difficulty_index": 1.0,
+      "adjusted_drift": 0.1765
+    },
+    {
+      "scenario_id": "wework_ipo_collapse",
+      "num_runs": 20,
+      "resolution_type_match": 0.0,
+      "stakeholder_position_alignment": 0.03,
+      "dynamics_surfacing": 0.3,
+      "turning_point_coverage": 0.0,
+      "world_state_direction_accuracy": 0.0,
+      "action_distribution_alignment": 0.0,
+      "outcome_fidelity_score": 0.0675,
+      "condition": "naive",
+      "actor_count": 10,
+      "simulation_mode": "exploratory",
+      "scenario_type": "non_policy",
+      "difficulty_index": 1.0,
+      "adjusted_drift": 0.1839
+    },
+    {
+      "scenario_id": "zoom_return_to_office",
+      "num_runs": 12,
+      "resolution_type_match": 0.0,
+      "stakeholder_position_alignment": 0.3756,
+      "dynamics_surfacing": 0.4278,
+      "turning_point_coverage": 0.0,
+      "world_state_direction_accuracy": 0.6436,
+      "action_distribution_alignment": 0.7217,
+      "outcome_fidelity_score": 0.3481,
+      "condition": "engine_structural",
+      "actor_count": 10,
+      "simulation_mode": "guided",
+      "scenario_type": "non_policy",
+      "difficulty_index": 0.6575,
+      "adjusted_drift": 0.2822
+    },
+    {
+      "scenario_id": "zoom_return_to_office",
+      "num_runs": 12,
+      "resolution_type_match": 0.0,
+      "stakeholder_position_alignment": 0.15,
+      "dynamics_surfacing": 0.3,
+      "turning_point_coverage": 0.0,
+      "world_state_direction_accuracy": 0.0,
+      "action_distribution_alignment": 0.0,
+      "outcome_fidelity_score": 0.0975,
+      "condition": "naive",
+      "actor_count": 10,
+      "simulation_mode": "guided",
+      "scenario_type": "non_policy",
+      "difficulty_index": 0.6575,
+      "adjusted_drift": 0.3038
+    }
+  ],
+  "aggregate_by_mode": {
+    "exploratory:engine_structural": {
+      "mean": 0.2544,
+      "n": 10
+    },
+    "exploratory:naive": {
+      "mean": 0.1318,
+      "n": 10
+    },
+    "guided:engine_structural": {
+      "mean": 0.3499,
+      "n": 10
+    },
+    "guided:naive": {
+      "mean": 0.19,
+      "n": 10
+    }
+  },
+  "aggregate_by_condition": {
+    "engine_structural": {
+      "mean": 0.3021,
+      "n": 20
+    },
+    "naive": {
+      "mean": 0.1609,
+      "n": 20
+    }
+  },
+  "aggregate_by_actor_count": {
+    "10:engine_structural": {
+      "mean": 0.3021,
+      "n": 20
+    },
+    "10:naive": {
+      "mean": 0.1609,
+      "n": 20
+    }
+  },
+  "diagnostics": [
+    {
+      "diagnostic_id": "B1_trait_error_outcome_correlation",
+      "title": "Trait Error \u2192 Outcome Correlation",
+      "finding": "Per-trait error correlations with outcome fidelity: O=-0.056, C=0.200, E=-0.192, A=-0.059, N=0.011. Overall drift r=-0.0825. Most negative trait: E (r=-0.192).",
+      "evidence": {
+        "per_trait_r": {
+          "O": -0.0555,
+          "C": 0.1996,
+          "E": -0.1917,
+          "A": -0.0585,
+          "N": 0.0112
+        },
+        "drift_r": -0.0825,
+        "n": 4080
+      }
+    },
+    {
+      "diagnostic_id": "B2_action_type_bias",
+      "title": "Action Type Bias Analysis",
+      "finding": "Overused families: none. Underused families: communication, resourcing, timing, governance. Bias vector: {'ownership': 0.0123, 'evidence': -0.0068, 'communication': -0.1187, 'scope': -0.016, 'resourcing': -0.1168, 'timing': -0.1333, 'governance': -0.2025}.",
+      "evidence": {
+        "sim_freq": {
+          "ownership": 0.1991839762611276,
+          "evidence": 0.3371970820969337,
+          "communication": 0.19757665677546984,
+          "scope": 0.14527695351137487,
+          "resourcing": 0.05637982195845697,
+          "timing": 0.0,
+          "governance": 0.035793768545994066
+        },
+        "gt_mean": {
+          "ownership": 0.18685294117648105,
+          "evidence": 0.34404411764704895,
+          "communication": 0.3162500000000003,
+          "scope": 0.16126470588235775,
+          "resourcing": 0.1732205882353008,
+          "timing": 0.1332941176470568,
+          "governance": 0.23833823529413434
+        },
+        "bias": {
+          "ownership": 0.0123,
+          "evidence": -0.0068,
+          "communication": -0.1187,
+          "scope": -0.016,
+          "resourcing": -0.1168,
+          "timing": -0.1333,
+          "governance": -0.2025
+        }
+      }
+    },
+    {
+      "diagnostic_id": "B3_phase_attribution",
+      "title": "Phase Attribution",
+      "finding": "Phase accuracy: {'NEGOTIATION': 0.4514, 'CLOSING': 0.517}. Best phase: CLOSING. Worst phase: NEGOTIATION.",
+      "evidence": {
+        "phase_accuracy": {
+          "NEGOTIATION": 0.4514,
+          "CLOSING": 0.517
+        },
+        "n_runs": 4080
+      }
+    },
+    {
+      "diagnostic_id": "B4_convergence_outcome",
+      "title": "Convergence \u2192 Outcome Correlation",
+      "finding": "Convergence-outcome Pearson r=0.038 (n=4080). Q1 fidelity: 0.1974, Q4 fidelity: 0.2012.",
+      "evidence": {
+        "pearson_r": 0.038,
+        "quartiles": {
+          "Q1_low": {
+            "convergence_range": [
+              0.0,
+              0.0
+            ],
+            "mean_outcome_fidelity": 0.1974,
+            "n": 1020
+          },
+          "Q2": {
+            "convergence_range": [
+              0.0,
+              0.25
+            ],
+            "mean_outcome_fidelity": 0.1667,
+            "n": 1020
+          },
+          "Q3": {
+            "convergence_range": [
+              0.25,
+              0.7167
+            ],
+            "mean_outcome_fidelity": 0.1638,
+            "n": 1020
+          },
+          "Q4_high": {
+            "convergence_range": [
+              0.7167,
+              1.0
+            ],
+            "mean_outcome_fidelity": 0.2012,
+            "n": 1020
+          }
+        }
+      }
+    },
+    {
+      "diagnostic_id": "B5_relationship_dynamics_gap",
+      "title": "Relationship Dynamics Gap",
+      "finding": "De-escalation bias: 100.0% of adversarial scenarios simulated as non-adversarial (n=231000). Mean tension in expected-high scenarios: 0.000. Mean tension in expected-low/medium scenarios: 0.000.",
+      "evidence": {
+        "deescalation_rate": 1.0,
+        "n_adversarial_runs": 231000,
+        "mean_tension_expected_high": 0.0,
+        "mean_tension_expected_other": 0.0
+      }
+    },
+    {
+      "diagnostic_id": "B6_archetype_difficulty",
+      "title": "Archetype Difficulty Ranking",
+      "finding": "Hardest archetypes to simulate (highest trait error): pediatrician (0.251), urban_planner (0.241), activist_investor (0.240), community_pastor (0.234), vpn_product_manager (0.232).",
+      "evidence": {
+        "archetype_summary": {
+          "single_parent_debtor": {
+            "mean_trait_error": 0.1628,
+            "n": 384
+          },
+          "call_center_worker": {
+            "mean_trait_error": 0.151,
+            "n": 384
+          },
+          "government_data_scientist": {
+            "mean_trait_error": 0.2114,
+            "n": 256
+          },
+          "social_worker": {
+            "mean_trait_error": 0.1938,
+            "n": 384
+          },
+          "airline_ceo": {
+            "mean_trait_error": 0.1793,
+            "n": 366
+          },
+          "pilots_union": {
+            "mean_trait_error": 0.1756,
+            "n": 366
+          },
+          "insurance_underwriter": {
+            "mean_trait_error": 0.131,
+            "n": 366
+          },
+          "victim_family_member": {
+            "mean_trait_error": 0.1982,
+            "n": 246
+          },
+          "gig_worker": {
+            "mean_trait_error": 0.1662,
+            "n": 348
+          },
+          "union_organizer": {
+            "mean_trait_error": 0.1899,
+            "n": 348
+          },
+          "small_business_owner": {
+            "mean_trait_error": 0.126,
+            "n": 516
+          },
+          "disability_advocate": {
+            "mean_trait_error": 0.1493,
+            "n": 348
+          },
+          "startup_founder": {
+            "mean_trait_error": 0.1685,
+            "n": 330
+          },
+          "enforcement_officer": {
+            "mean_trait_error": 0.1826,
+            "n": 330
+          },
+          "adtech_engineer": {
+            "mean_trait_error": 0.1379,
+            "n": 330
+          },
+          "medical_researcher": {
+            "mean_trait_error": 0.2124,
+            "n": 218
+          },
+          "pediatrician": {
+            "mean_trait_error": 0.2511,
+            "n": 312
+          },
+          "water_plant_operator": {
+            "mean_trait_error": 0.1286,
+            "n": 312
+          },
+          "state_budget_analyst": {
+            "mean_trait_error": 0.1177,
+            "n": 208
+          },
+          "community_pastor": {
+            "mean_trait_error": 0.2342,
+            "n": 312
+          },
+          "retail_trader": {
+            "mean_trait_error": 0.1525,
+            "n": 288
+          },
+          "quant_analyst": {
+            "mean_trait_error": 0.2034,
+            "n": 288
+          },
+          "charitable_foundation": {
+            "mean_trait_error": 0.1833,
+            "n": 192
+          },
+          "financial_regulator": {
+            "mean_trait_error": 0.1624,
+            "n": 192
+          },
+          "fishing_cooperative_leader": {
+            "mean_trait_error": 0.1534,
+            "n": 270
+          },
+          "safety_engineer": {
+            "mean_trait_error": 0.1957,
+            "n": 270
+          },
+          "evacuee": {
+            "mean_trait_error": 0.2027,
+            "n": 182
+          },
+          "local_mayor": {
+            "mean_trait_error": 0.1426,
+            "n": 270
+          },
+          "foreign_trainee": {
+            "mean_trait_error": 0.1587,
+            "n": 88
+          },
+          "factory_owner": {
+            "mean_trait_error": 0.1906,
+            "n": 252
+          },
+          "immigration_lawyer": {
+            "mean_trait_error": 0.2097,
+            "n": 252
+          },
+          "language_school_operator": {
+            "mean_trait_error": 0.164,
+            "n": 168
+          },
+          "creative_director": {
+            "mean_trait_error": 0.1788,
+            "n": 234
+          },
+          "esports_organizer": {
+            "mean_trait_error": 0.1987,
+            "n": 234
+          },
+          "cloud_engineer": {
+            "mean_trait_error": 0.195,
+            "n": 234
+          },
+          "indie_developer": {
+            "mean_trait_error": 0.145,
+            "n": 154
+          },
+          "parent_subscriber": {
+            "mean_trait_error": 0.1615,
+            "n": 216
+          },
+          "licensing_negotiator": {
+            "mean_trait_error": 0.1964,
+            "n": 216
+          },
+          "competitor_strategist": {
+            "mean_trait_error": 0.2131,
+            "n": 216
+          },
+          "vpn_product_manager": {
+            "mean_trait_error": 0.2315,
+            "n": 144
+          },
+          "delivery_driver": {
+            "mean_trait_error": 0.1182,
+            "n": 192
+          },
+          "transit_manager": {
+            "mean_trait_error": 0.1705,
+            "n": 192
+          },
+          "hospital_coordinator": {
+            "mean_trait_error": 0.157,
+            "n": 128
+          },
+          "factory_supervisor": {
+            "mean_trait_error": 0.1145,
+            "n": 174
+          },
+          "fitness_instructor": {
+            "mean_trait_error": 0.1867,
+            "n": 174
+          },
+          "activist_investor": {
+            "mean_trait_error": 0.2399,
+            "n": 174
+          },
+          "outreach_worker": {
+            "mean_trait_error": 0.2119,
+            "n": 156
+          },
+          "er_physician": {
+            "mean_trait_error": 0.1841,
+            "n": 156
+          },
+          "formerly_homeless_mentor": {
+            "mean_trait_error": 0.1368,
+            "n": 48
+          },
+          "young_couple": {
+            "mean_trait_error": 0.1566,
+            "n": 138
+          },
+          "construction_union_rep": {
+            "mean_trait_error": 0.1837,
+            "n": 138
+          },
+          "elderly_homeowner": {
+            "mean_trait_error": 0.203,
+            "n": 138
+          },
+          "urban_planner": {
+            "mean_trait_error": 0.2406,
+            "n": 90
+          },
+          "barista_organizer": {
+            "mean_trait_error": 0.134,
+            "n": 120
+          },
+          "store_manager": {
+            "mean_trait_error": 0.1703,
+            "n": 120
+          },
+          "customer_advocate": {
+            "mean_trait_error": 0.1874,
+            "n": 120
+          },
+          "real_estate_analyst": {
+            "mean_trait_error": 0.2014,
+            "n": 80
+          },
+          "startup_ceo": {
+            "mean_trait_error": 0.1887,
+            "n": 96
+          },
+          "commercial_banker": {
+            "mean_trait_error": 0.164,
+            "n": 96
+          },
+          "fdic_examiner": {
+            "mean_trait_error": 0.1509,
+            "n": 96
+          },
+          "vc_partner": {
+            "mean_trait_error": 0.2159,
+            "n": 64
+          },
+          "lab_technician": {
+            "mean_trait_error": 0.207,
+            "n": 78
+          },
+          "hospital_procurement": {
+            "mean_trait_error": 0.1516,
+            "n": 78
+          },
+          "patient": {
+            "mean_trait_error": 0.1703,
+            "n": 78
+          },
+          "walgreens_partner_manager": {
+            "mean_trait_error": 0.1779,
+            "n": 54
+          },
+          "sub_postmaster": {
+            "mean_trait_error": 0.1872,
+            "n": 60
+          },
+          "fujitsu_developer": {
+            "mean_trait_error": 0.2115,
+            "n": 60
+          },
+          "community_member": {
+            "mean_trait_error": 0.1318,
+            "n": 40
+          },
+          "internal_auditor": {
+            "mean_trait_error": 0.1371,
+            "n": 20
+          },
+          "enterprise_tenant": {
+            "mean_trait_error": 0.1723,
+            "n": 42
+          },
+          "community_manager": {
+            "mean_trait_error": 0.1949,
+            "n": 42
+          },
+          "softbank_investor": {
+            "mean_trait_error": 0.1986,
+            "n": 42
+          },
+          "small_business_subletter": {
+            "mean_trait_error": 0.1282,
+            "n": 26
+          },
+          "deaf_employee": {
+            "mean_trait_error": 0.202,
+            "n": 24
+          },
+          "engineering_manager": {
+            "mean_trait_error": 0.1576,
+            "n": 24
+          }
+        },
+        "ranked": [
+          "pediatrician",
+          "urban_planner",
+          "activist_investor",
+          "community_pastor",
+          "vpn_product_manager",
+          "vc_partner",
+          "competitor_strategist",
+          "medical_researcher",
+          "outreach_worker",
+          "fujitsu_developer",
+          "government_data_scientist",
+          "immigration_lawyer",
+          "lab_technician",
+          "quant_analyst",
+          "elderly_homeowner",
+          "evacuee",
+          "deaf_employee",
+          "real_estate_analyst",
+          "esports_organizer",
+          "softbank_investor",
+          "victim_family_member",
+          "licensing_negotiator",
+          "safety_engineer",
+          "cloud_engineer",
+          "community_manager",
+          "social_worker",
+          "factory_owner",
+          "union_organizer",
+          "startup_ceo",
+          "customer_advocate",
+          "sub_postmaster",
+          "fitness_instructor",
+          "er_physician",
+          "construction_union_rep",
+          "charitable_foundation",
+          "enforcement_officer",
+          "airline_ceo",
+          "creative_director",
+          "walgreens_partner_manager",
+          "pilots_union",
+          "enterprise_tenant",
+          "transit_manager",
+          "store_manager",
+          "patient",
+          "startup_founder",
+          "gig_worker",
+          "language_school_operator",
+          "commercial_banker",
+          "single_parent_debtor",
+          "financial_regulator",
+          "parent_subscriber",
+          "foreign_trainee",
+          "engineering_manager",
+          "hospital_coordinator",
+          "young_couple",
+          "fishing_cooperative_leader",
+          "retail_trader",
+          "hospital_procurement",
+          "call_center_worker",
+          "fdic_examiner",
+          "disability_advocate",
+          "indie_developer",
+          "local_mayor",
+          "adtech_engineer",
+          "internal_auditor",
+          "formerly_homeless_mentor",
+          "barista_organizer",
+          "community_member",
+          "insurance_underwriter",
+          "water_plant_operator",
+          "small_business_subletter",
+          "small_business_owner",
+          "delivery_driver",
+          "state_budget_analyst",
+          "factory_supervisor"
+        ]
+      }
+    }
+  ],
+  "recommendations": [
+    {
+      "finding": "Action family 'communication' is underused (bias=-0.119)",
+      "parameter": "action vocabulary rotation",
+      "file": "controller.py / script phases",
+      "recommendation": "Add explicit cues for 'communication' family in generated scripts.",
+      "confidence": "medium",
+      "rationale": "Systematic underused bias across scenarios",
+      "supporting_evidence": {
+        "bias": -0.1187
+      }
+    },
+    {
+      "finding": "Action family 'resourcing' is underused (bias=-0.117)",
+      "parameter": "action vocabulary rotation",
+      "file": "controller.py / script phases",
+      "recommendation": "Add explicit cues for 'resourcing' family in generated scripts.",
+      "confidence": "medium",
+      "rationale": "Systematic underused bias across scenarios",
+      "supporting_evidence": {
+        "bias": -0.1168
+      }
+    },
+    {
+      "finding": "Action family 'timing' is underused (bias=-0.133)",
+      "parameter": "action vocabulary rotation",
+      "file": "controller.py / script phases",
+      "recommendation": "Add explicit cues for 'timing' family in generated scripts.",
+      "confidence": "medium",
+      "rationale": "Systematic underused bias across scenarios",
+      "supporting_evidence": {
+        "bias": -0.1333
+      }
+    },
+    {
+      "finding": "Action family 'governance' is underused (bias=-0.203)",
+      "parameter": "action vocabulary rotation",
+      "file": "controller.py / script phases",
+      "recommendation": "Add explicit cues for 'governance' family in generated scripts.",
+      "confidence": "medium",
+      "rationale": "Systematic underused bias across scenarios",
+      "supporting_evidence": {
+        "bias": -0.2025
+      }
+    },
+    {
+      "finding": "De-escalation bias: 100.0% of adversarial scenarios are too cooperative",
+      "parameter": "NEGATIVE/CHALLENGE keyword sets, tension_delta values",
+      "file": "state_ledger.py",
+      "recommendation": "Expand _NEGATIVE_REL and _CHALLENGE_REL keyword tuples in state_ledger.py. Increase tension_delta magnitude for detected conflict. Consider adding sycophancy penalty increase for high-tension scenarios.",
+      "confidence": "high",
+      "rationale": "Engine systematically de-escalates when reality was adversarial (RLHF sycophancy)",
+      "supporting_evidence": {
+        "deescalation_rate": 1.0
+      }
+    }
+  ]
+}

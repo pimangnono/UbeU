@@ -1,3 +1,9 @@
+# Simulation results cache
+simulation_engine/.sim_results/
+
+# Large benchmark run files (>100MB, too large for GitHub)
+**/benchmark_runs.json
+
 # Python
 __pycache__/
 *.py[cod]
