@@ -1,0 +1,14 @@
+{
+  "num_runs": 0,
+  "aggregate_by_condition": {},
+  "aggregate_by_actor_count": {},
+  "strategy_distribution_by_condition": {},
+  "statistical_tests": {
+    "error": {
+      "message": "Need both engine and naive runs for comparison"
+    }
+  },
+  "aggregate_by_scenario": {},
+  "scenario_statistical_tests": {},
+  "per_run_summary": []
+}
