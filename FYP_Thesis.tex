@@ -104,7 +104,7 @@ of the Nanyang Technological University
 \chapter*{Abstract}
 \addcontentsline{toc}{chapter}{Abstract}
 
-Large Language Models (LLMs) are widely used for role-play simulations due to their capability to follow a persona with assigned behavioural traits. However, three recurring problems undermine the validity of such simulations: (1) persona drift, where the model gradually departs from its assigned profile as dialogue accumulates; (2) sycophancy, where the model defaults toward agreement under conflict; and (3) an RLHF-imposed behavioural ceiling, where the model resists producing anxiety, self-doubt, or confrontational disagreement. This study presents a simulation engine with three layers --- Generation, Control, and State --- comprising a Persona State Controller, 4-Slot Candidate Pool, Sycophancy Detection, Commitment Lifecycle, Action Layer, and Strategic Disposition calibration to maintain behavioural fidelity in pressured simulation settings. The engine was tested on 20 real-world scenarios over 4,080 runs with three actor scales (3, 5, and 10 stakeholders). Compared with naive prompting, the engine reduced persona drift by 5.7\% and envelope violations by 9.9\%, while also improving commitment fulfillment and deterministic outcome fidelity. However, the study also reveals persistent limitations in simulating Neuroticism and low Agreeableness, suggesting a structural ceiling imposed by current RLHF-trained models. A follow-up benchmark with recalibrated hyperparameters reproduced the same qualitative pattern. These findings suggest that orchestration-level control can improve behavioural fidelity without fine-tuning the underlying model, but only within the bounds of the model's expressible behavioural repertoire.
+Large Language Models (LLMs) are widely used for role-play simulations due to their capability to follow a persona with assigned behavioural traits. However, three recurring problems undermine the validity of such simulations: (1) persona drift, where the model gradually departs from its assigned profile as dialogue accumulates; (2) sycophancy, where the model defaults toward agreement under conflict; and (3) an RLHF-imposed behavioural ceiling, where the model resists producing anxiety, self-doubt, or confrontational disagreement. This study presents a simulation engine with three layers --- Generation, Control, and State --- comprising a Persona State Controller, 4-Slot Candidate Pool, Sycophancy Detection, Commitment Lifecycle, Action Layer, and Strategic Disposition calibration to maintain behavioural fidelity in pressured simulation settings. The main benchmark used DeepSeek V3 across 4,080 runs on 20 real-world scenarios with three actor scales (3, 5, and 10 stakeholders). Compared with naive prompting, the engine reduced persona drift by 5.7\% and envelope violations by 9.9\%, while also improving commitment fulfillment and deterministic outcome fidelity. However, the study also reveals persistent limitations in simulating Neuroticism and low Agreeableness, suggesting a structural ceiling imposed by current RLHF-trained models. A separate cross-model validation with GPT-4o-mini reproduced the same qualitative pattern. These findings suggest that orchestration-level control can improve behavioural fidelity without fine-tuning the underlying model, but only within the bounds of the model's expressible behavioural repertoire.
 
 \textbf{Keywords:} LLM simulation, persona fidelity, multi-agent deliberation, OCEAN personality model, sycophancy, RLHF
 
@@ -112,11 +112,9 @@ Large Language Models (LLMs) are widely used for role-play simulations due to th
 \chapter*{Acknowledgments}
 \addcontentsline{toc}{chapter}{Acknowledgments}
 
-The author would like to express his heartfelt gratitude to his Final Year Project supervisor, Dr. Owen Noel Newton Fernando, from the College of Computing and Data Science at Nanyang Technological University, for his unwavering support, encouragement, and invaluable guidance throughout the course of this project.
+The author would like to express her heartfelt gratitude to her Final Year Project supervisor, Dr. Owen Noel Newton Fernando, from the College of Computing and Data Science at Nanyang Technological University, for his unwavering support, encouragement, and invaluable guidance throughout the course of this project.
 
-The author would also like to thank his peers who have contributed to the completion of this study. Their insights, collaboration, and feedback have been invaluable in refining this work.
-
-Finally, the author wishes to extend his deepest appreciation to his family and friends for their patience, support, and encouragement throughout this journey. Their constant belief and reassurance have been a source of strength and motivation.
+The author would also like to extend her deepest appreciation to her family and friends for their patience, support, and encouragement throughout this journey. Their constant belief and reassurance have been a source of strength and motivation.
 
 % ── Table of Contents ────────────────────────────────────────────────
 \pagebreak
@@ -221,7 +219,7 @@ The Big Five (OCEAN) personality model---comprising Openness, Conscientiousness,
 
 Many studies use OCEAN over MBTI for a specific reason: OCEAN measures personality on continuous scales (0.0--1.0 per trait), while MBTI assigns discrete categories (e.g., INTJ, ENFP). In a simulation where behavioural drift needs to be detected and corrected turn by turn, continuous values are essential --- they allow the engine to compute how far an agent has drifted from its assigned profile, which is not possible with categorical labels. Jiang~\etal~\cite{jiang2024personallm} further show that Big Five-style trait prompts can be operationalised in LLM personality studies and evaluated from generated text, making OCEAN a practical framework for LLM-based simulation.
 
-The application of OCEAN to LLMs has been explored in several directions. Lee~\etal~\cite{lee2025trait} developed TRAIT, a personality test designed for LLMs with psychometric rigor, finding that LLMs do exhibit distinct personality profiles. Hilliard~\etal~\cite{hilliard2024eliciting} investigated how prompting strategies affect Big Five trait expression. In interactive settings, Zhou~\etal~\cite{zhou2024sotopia} introduced a benchmark for social interaction among language agents, and Huang~\etal~\cite{huang2025bigfive} explored how assigned Big Five traits shape collective decision-making in multi-agent settings.
+The application of OCEAN to LLMs has been explored in several directions. Lee~\etal~\cite{lee2025trait} developed TRAIT, a personality test designed for LLMs with psychometric rigor, finding that LLMs do exhibit distinct personality profiles. Hilliard~\etal~\cite{hilliard2024eliciting} investigated how prompting strategies affect Big Five trait expression. In interactive settings, Zhou~\etal~\cite{zhou2024sotopia} introduced a benchmark for social interaction among language agents, and Ren and Xu~\cite{ren2025bigfive} explored how assigned Big Five traits shape collective decision-making in multi-agent settings.
 
 However, OCEAN has not yet been applied to high-stakes multi-stakeholder deliberation, where personality traits manifest as \textit{communication styles} under pressure rather than self-reported attitudes in surveys. Research shows that traits like Neuroticism and Agreeableness express differently under high-stakes conditions~\cite{byrne2015chokes, green2019personality}, which means a simulation framework must account for pressure-dependent trait expression --- something no existing OCEAN-based LLM study has addressed.
 
@@ -492,14 +490,15 @@ These four components are combined into a weighted sum, where the weights change
 \centering
 \caption{Stage-Specific Weight Modifiers}
 \label{tab:phase_weights}
-\begin{tabular}{lccccl}
+\footnotesize
+\begin{tabular}{lccccp{4cm}}
 \toprule
 Stage & Persona & Syc. & Social & Env. & Rationale \\
 \midrule
-OPENING & 1.2$\times$ & 0.8$\times$ & 1.0$\times$ & 1.0$\times$ & Establishing positions; persona matters most \\
-TENSION & 1.0$\times$ & 1.8$\times$ & 1.4$\times$ & 1.0$\times$ & Conflict stage; agreement is most suspicious here \\
-NEGOTIATION & 1.0$\times$ & 1.0$\times$ & 1.0$\times$ & 1.3$\times$ & Compromise stage; prevent extreme trait violations \\
-CLOSING & 1.3$\times$ & 1.0$\times$ & 1.0$\times$ & 1.4$\times$ & ``Summarize and agree'' tendency; reinforce persona \\
+OPENING & 1.2$\times$ & 0.8$\times$ & 1.0$\times$ & 1.0$\times$ & Persona matters most early on \\
+TENSION & 1.0$\times$ & 1.8$\times$ & 1.4$\times$ & 1.0$\times$ & Agreement is most suspicious here \\
+NEGOTIATION & 1.0$\times$ & 1.0$\times$ & 1.0$\times$ & 1.3$\times$ & Prevent extreme trait violations \\
+CLOSING & 1.3$\times$ & 1.0$\times$ & 1.0$\times$ & 1.4$\times$ & Counter ``summarize and agree'' \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -513,30 +512,31 @@ This section covers step 6: how the engine extracts structured actions from dial
 
 \subsection{12 Action Types}
 
-Dialogue alone does not capture the decisions stakeholders make during deliberation. When a regulator says ``we should audit the compliance records before proceeding,'' that is not just a statement --- it is an action (\texttt{audit\_compliance}) that should reduce uncertainty in the simulation state. The engine defines 12 action types organised in 6 families (Table~\ref{tab:actions}), each with a specific effect on the simulation's state variables.
+Dialogue alone does not capture the decisions stakeholders make during deliberation. When a regulator says ``we should audit the compliance records before proceeding,'' that is not just a statement --- it is an action (\texttt{audit\_compliance}) that should reduce uncertainty in the simulation state. The engine defines 12 action types organised in 7 families (Table~\ref{tab:actions}), each with a specific effect on the simulation's state variables.
 
-The 6 families are informed by speech act theory~\cite{searle1975taxonomy} and deliberation dialogue frameworks~\cite{walton1995commitment}. Searle's taxonomy classifies speech acts into directives (requesting action), commissives (committing to future action), and declarations (changing the state of affairs) --- which map directly to action families like Evidence (directives: requesting data), Resourcing (commissives: committing resources), and Governance (declarations: escalating or auditing). Walton and Krabbe's deliberation model defines moves such as propose, revise, and recommend, which correspond to Scope (narrowing or piloting proposals) and Timing (setting deadlines or deferring). The 12 specific action types within these families were refined from patterns observed across the 20 benchmark scenarios during preliminary experiments (Section~4.1).
+The 12 specific action types within these families were refined from patterns observed across the 20 benchmark scenarios during preliminary experiments (Section~4.1). The family grouping was then used to keep the action layer compact while preserving distinctions between qualitatively different kinds of intervention, such as narrowing a proposal's scope, committing resources, deferring a decision, or escalating to formal review.
 
 \begin{table}[t]
 \centering
 \caption{12 Structured Action Types and Their Effects}
 \label{tab:actions}
-\begin{tabular}{llcl}
+\scriptsize
+\begin{tabular}{p{1.5cm}lcp{3.5cm}}
 \toprule
-Family & Action Type & State Effect & Why This Effect \\
+Family & Action Type & Effect & Rationale \\
 \midrule
 Ownership   & \texttt{assign\_owner}      & trust +0.04 & Taking responsibility builds trust \\
 Evidence    & \texttt{request\_evidence}   & uncertainty $-$0.04 & Asking for data reduces ambiguity \\
 Comms       & \texttt{publish\_update}     & alignment +0.04 & Transparency increases alignment \\
 \multirow{2}{*}{Scope}
             & \texttt{narrow\_scope}       & uncertainty $-$0.04 & Focusing reduces unknowns \\
-            & \texttt{pilot}               & risk $-$0.08 & Testing before full rollout reduces risk \\
+            & \texttt{pilot}               & risk $-$0.08 & Testing before rollout reduces risk \\
 \multirow{2}{*}{Resourcing}
-            & \texttt{commit\_resource}    & confidence +0.08 & Backing words with resources signals commitment \\
+            & \texttt{commit\_resource}    & confidence +0.08 & Resources signal commitment \\
             & \texttt{allocate\_budget}    & confidence +0.08 & Same as above \\
 \multirow{2}{*}{Timing}
             & \texttt{set\_deadline}       & uncertainty $-$0.04 & Deadlines create clarity \\
-            & \texttt{defer\_decision}     & tension $-$0.04 & Delaying can reduce immediate pressure \\
+            & \texttt{defer\_decision}     & tension $-$0.04 & Delay reduces immediate pressure \\
 \multirow{3}{*}{Governance}
             & \texttt{preserve\_autonomy}  & tension +0.08 & Resisting control increases friction \\
             & \texttt{escalate}            & tension +0.12 & Escalating raises the stakes \\
@@ -959,6 +959,7 @@ Table~\ref{tab:scenario_fidelity} presents the per-scenario fidelity breakdown.
 \caption{Per-Scenario Outcome Fidelity (Top 5 and Bottom 5)}
 \label{tab:scenario_fidelity}
 \small
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{llcc}
 \toprule
 Scenario & Characteristic & \engine & \naive \\
@@ -977,7 +978,8 @@ FTX Collapse            & Financial fraud, blame attribution                 & \
 Theranos Whistleblower  & Corporate ethics, whistleblower vs management      & \cellcolor{better} 0.176 & 0.066 \\
 WeWork IPO              & Corporate governance failure, investor conflict    & \cellcolor{better} 0.185 & 0.068 \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
+}
 \end{table}
 
 The engine achieves near-universal advantage: it outperforms or matches the naive prompting on 19 of 20 scenarios, with one scenario showing a small reversal. The scenarios with the lowest fidelity scores are characterized by adversarial dynamics that the engine systematically de-escalates. The outcome analysis reveals a 100\% de-escalation bias: every adversarial scenario is simulated as non-adversarial.
@@ -1068,7 +1070,7 @@ The benchmark's headline effects remain statistically significant at $p < 0.001$
 
 As described in Section~4.7, a separate 360-run validation was conducted with GPT-4o-mini under the same experimental design to test whether the engine's effect is model-independent. Table~\ref{tab:crossmodel} compares the results.
 
-\begin{table}[t]
+\begin{table}[H]
 \centering
 \caption{Cross-Model Comparison: DeepSeek V3 vs GPT-4o-mini}
 \label{tab:crossmodel}

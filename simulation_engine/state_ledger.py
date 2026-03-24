@@ -227,6 +227,32 @@ class SimulationStateLedger:
                     target_actor_id=other_id,
                 )
 
+        # Apply user-defined initial relationships (from web UI)
+        _init_rel_map: dict[tuple[str, str], dict[str, str]] = {}
+        for rel in getattr(script, "initial_relationships", []):
+            src = rel.get("source", "")
+            tgt = rel.get("target", "")
+            if src and tgt and (src, tgt) in self.relationships:
+                _init_rel_map[(src, tgt)] = rel
+                _init_rel_map[(tgt, src)] = {
+                    "source": tgt, "target": src, "label": rel.get("label", ""),
+                }
+
+        for (src, tgt), rel_data in _init_rel_map.items():
+            edge = self.relationships[(src, tgt)]
+            label = rel_data.get("label", "").lower()
+            # Set initial trust/tension based on relationship label
+            if any(kw in label for kw in ("allies", "ally", "cooperative", "support", "partner")):
+                edge.trust = 0.65
+                edge.sentiment = "positive"
+                self.actor_states[src].trust_map[tgt] = 0.65
+            elif any(kw in label for kw in ("tension", "conflict", "competing", "rival", "adversar")):
+                edge.trust = 0.35
+                edge.tension = 0.20
+                edge.sentiment = "negative"
+                self.actor_states[src].trust_map[tgt] = 0.35
+                self.actor_states[src].stance_map[tgt] = -0.20
+
         # Compute per-pair tension floors from incentive/concern conflict
         self.tension_floors: dict[tuple[str, str], float] = {}
         profile_data = script.metadata.get("structural_profile", {})
@@ -248,9 +274,9 @@ class SimulationStateLedger:
                 conflict_ratio = (ab + ba) / denom
                 floor = min(0.40, base_floor + 0.18 * conflict_ratio)
                 self.tension_floors[(actor_id, other_id)] = round(floor, 4)
-                # Set initial tension to floor
+                # Set initial tension to floor (respect user-set values)
                 edge = self.relationships[(actor_id, other_id)]
-                edge.tension = floor
+                edge.tension = max(edge.tension, floor)
 
     def append_turn(
         self,
@@ -341,6 +367,9 @@ class SimulationStateLedger:
         prior_trust = edge.trust
         prior_tension = edge.tension
         edge.sentiment = sentiment
+        # Clamp per-turn deltas to prevent relationship overshoot
+        trust_delta = max(-0.12, min(0.10, trust_delta))
+        tension_delta = max(-0.04, min(0.15, tension_delta))
         edge.trust = _clip_unit(edge.trust + trust_delta)
         floor = self.tension_floors.get((source_actor_id, target_actor_id), 0.0)
         edge.tension = max(floor, _clip_unit(edge.tension + tension_delta))
@@ -427,19 +456,19 @@ class SimulationStateLedger:
             if positive_hit and challenge_hit and not negative_hit:
                 sentiment = "challenging"
                 trust_delta = 0.02
-                tension_delta = 0.13
+                tension_delta = 0.09
             elif negative_hit and positive_hit:
                 sentiment = "challenging"
-                trust_delta = -0.06 * trust_decay_boost
-                tension_delta = 0.16
+                trust_delta = -0.04 * trust_decay_boost
+                tension_delta = 0.10
             elif negative_hit:
                 sentiment = "negative"
-                trust_delta = -0.18 * trust_decay_boost
-                tension_delta = 0.22
+                trust_delta = -0.10 * trust_decay_boost
+                tension_delta = 0.14
             elif challenge_hit:
                 sentiment = "challenging"
-                trust_delta = -0.05 * trust_decay_boost
-                tension_delta = 0.12
+                trust_delta = -0.03 * trust_decay_boost
+                tension_delta = 0.08
             elif positive_hit:
                 sentiment = "positive"
                 # Asymmetric de-escalation: harder to reduce tension near floor
@@ -463,8 +492,8 @@ class SimulationStateLedger:
                         tension_delta = 0.08
                     elif sem_scores["negative"] > sem_scores["positive"] + 0.08:
                         sentiment = "negative"
-                        trust_delta = -0.12 * trust_decay_boost
-                        tension_delta = 0.18
+                        trust_delta = -0.08 * trust_decay_boost
+                        tension_delta = 0.12
                 # Semantic catch: if keywords miss everything but semantic detects challenge
                 elif not positive_hit and not negative_hit and not challenge_hit:
                     if sem_scores["challenging"] > 0.55 or sem_scores["negative"] > 0.55:

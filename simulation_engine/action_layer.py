@@ -801,6 +801,14 @@ def validate_action_proposal(
         if repaired:
             proposal.action_type = repaired
             proposal.validation_trace.append("repaired_action_type_from_fallback")
+    # Fuzzy action type repair: try substring match against allowed types
+    if proposal.action_type not in allowed_action_types:
+        lowered_type = (proposal.action_type or "").lower().replace("-", "_").replace(" ", "_")
+        for allowed in allowed_action_types:
+            if lowered_type in allowed or allowed in lowered_type:
+                proposal.action_type = allowed
+                proposal.validation_trace.append("repaired_action_type_fuzzy")
+                break
     if proposal.action_type not in allowed_action_types:
         proposal.status = "rejected"
         proposal.rejection_reason = "invalid_action_type"
@@ -813,6 +821,14 @@ def validate_action_proposal(
         elif len(valid_target_keys) == 1:
             proposal.target_key = valid_target_keys[0]
             proposal.validation_trace.append("repaired_target_single_phase_key")
+        else:
+            # Fuzzy target key repair: substring match against valid keys
+            lowered_key = (proposal.target_key or "").lower().replace("-", "_").replace(" ", "_")
+            for vk in valid_target_keys:
+                if lowered_key in vk or vk in lowered_key:
+                    proposal.target_key = vk
+                    proposal.validation_trace.append("repaired_target_key_fuzzy")
+                    break
     if proposal.target_key not in valid_target_keys:
         proposal.status = "rejected"
         proposal.rejection_reason = "invalid_target_key"
@@ -825,13 +841,31 @@ def validate_action_proposal(
         proposal.owner_actor_id = proposal.actor_id
         proposal.validation_trace.append("repaired_owner_from_actor")
     if proposal.target_actor_id and proposal.target_actor_id not in script.actor_ids:
-        proposal.status = "rejected"
-        proposal.rejection_reason = "invalid_target_actor"
-        return proposal
+        # Try normalizing actor ID format (e.g., "actor1" → "actor_1")
+        normalized = proposal.target_actor_id.lower().replace("-", "_").replace(" ", "_")
+        matched_actor = None
+        for aid in script.actor_ids:
+            if normalized == aid or normalized.replace("_", "") == aid.replace("_", ""):
+                matched_actor = aid
+                break
+        if matched_actor:
+            proposal.target_actor_id = matched_actor
+            proposal.validation_trace.append("repaired_target_actor_fuzzy")
+        else:
+            proposal.status = "rejected"
+            proposal.rejection_reason = "invalid_target_actor"
+            return proposal
     if proposal.deadline_phase and proposal.deadline_phase not in {phase.name for phase in script.phases}:
-        proposal.status = "rejected"
-        proposal.rejection_reason = "invalid_deadline_phase"
-        return proposal
+        # Try case-insensitive phase matching
+        phase_map = {phase.name.upper(): phase.name for phase in script.phases}
+        upper_deadline = proposal.deadline_phase.upper()
+        if upper_deadline in phase_map:
+            proposal.deadline_phase = phase_map[upper_deadline]
+            proposal.validation_trace.append("repaired_deadline_phase_case")
+        else:
+            proposal.status = "rejected"
+            proposal.rejection_reason = "invalid_deadline_phase"
+            return proposal
     if proposal.strength not in DELTA_PALETTE:
         proposal.strength = "medium"
     proposal.confidence = clip_unit(proposal.confidence)

@@ -1,3 +1,12 @@
+# Node
+node_modules/
+
+# Build cache
+.vite/
+
+# Compiled documents
+*.pdf
+
 # Simulation results cache
 simulation_engine/.sim_results/
 
