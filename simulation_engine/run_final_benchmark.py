@@ -324,6 +324,22 @@ def save_final_outputs(results: dict, output_dir: Path) -> None:
     except Exception as e:
         print(f"  Warning: outcome analysis failed: {e}", flush=True)
 
+    # Game theory post-hoc analysis
+    try:
+        from simulation_engine.game_theory_analysis import (
+            run_game_theory_analysis,
+            save_game_theory_report,
+            save_game_theory_json,
+        )
+        print("\n[Phase C] Running game theory analysis...", flush=True)
+        gt_results, gt_classifications = run_game_theory_analysis(output_dir)
+        save_game_theory_report(gt_results, output_dir / "game_theory_report.md", gt_classifications)
+        save_game_theory_json(gt_results, output_dir / "game_theory_analysis.json")
+        print("  - game_theory_report.md", flush=True)
+        print("  - game_theory_analysis.json", flush=True)
+    except Exception as e:
+        print(f"  Warning: game theory analysis failed: {e}", flush=True)
+
     print(f"\n[output] All results saved to {output_dir}/", flush=True)
     print(f"  - benchmark_report.md", flush=True)
     print(f"  - benchmark_aggregate.json", flush=True)
@@ -392,6 +408,7 @@ async def main():
     parser.add_argument("--skip-generation", action="store_true", help="Skip generation, use existing scripts")
     parser.add_argument("--scripts-dir", type=str, default=None, help="Source scripts directory (default: <output-dir>/generated_scripts)")
     parser.add_argument("--output-dir", type=str, default=OUTPUT_DIR, help="Output directory")
+    parser.add_argument("--repetitions", type=int, default=None, help="Override repetition count (default: from config)")
     args = parser.parse_args()
 
     from experiment.run_experiment import create_clients
@@ -416,7 +433,7 @@ async def main():
         briefs = list(FINAL_BENCHMARK_BRIEFS)
         actor_counts = list(ACTOR_COUNTS)
         conditions = list(CONDITIONS)
-        repetitions = REPETITIONS
+        repetitions = args.repetitions if args.repetitions is not None else REPETITIONS
 
     # Phase A: Script Generation
     if args.skip_generation:

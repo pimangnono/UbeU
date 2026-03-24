@@ -788,13 +788,13 @@ def semantic_identity_consistency(runtime: StakeholderSimulationRuntime) -> floa
     except ImportError:
         return 0.0
 
-    scorer = getattr(runtime, "_semantic_scorer", None)
+    scorer = getattr(runtime.ledger, "semantic_scorer", None)
     if scorer is None:
         # Try to build one from actor specs
         try:
             scorer = SemanticScorer()
             for actor_id, actor in runtime.actors.items():
-                scorer.register_actor(actor.actor_spec)
+                scorer.init_for_actor(actor.actor_spec)
         except Exception:
             return 0.0
 
