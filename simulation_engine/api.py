@@ -12,9 +12,10 @@ import uuid
 from pathlib import Path
 from typing import Any
 
-from fastapi import FastAPI, WebSocket, WebSocketDisconnect
+from fastapi import FastAPI, HTTPException, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
+from simulation_engine.results_analysis import ensure_results_analysis
 
 # Persistent result storage directory (survives server reloads)
 _RESULTS_DIR = Path(__file__).parent / ".sim_results"
@@ -213,16 +214,19 @@ async def generate_script(req: BriefRequest) -> dict[str, Any]:
     """Generate a SimulationScript from a brief description."""
     from simulation_engine.run_exp3_userinput import generate_script_from_brief
 
-    client = _get_client()
-    brief_id = f"web_{uuid.uuid4().hex[:8]}"
-    script = await generate_script_from_brief(
-        client,
-        req.brief,
-        brief_id,
-        actor_count=req.actor_count,
-        simulation_mode=req.simulation_mode,
-    )
-    return script.to_dict()
+    try:
+        client = _get_client()
+        brief_id = f"web_{uuid.uuid4().hex[:8]}"
+        script = await generate_script_from_brief(
+            client,
+            req.brief,
+            brief_id,
+            actor_count=req.actor_count,
+            simulation_mode=req.simulation_mode,
+        )
+        return script.to_dict()
+    except Exception as exc:
+        raise HTTPException(status_code=502, detail=str(exc)) from exc
 
 
 @app.post("/api/simulate")
@@ -256,11 +260,13 @@ async def get_results(simulation_id: str) -> dict[str, Any]:
     if sim is not None:
         if sim["status"] != "complete":
             return {"status": sim["status"], "events_so_far": len(sim["events"])}
+        sim["result"] = ensure_results_analysis(sim["result"])
         return sim["result"]
 
     # Fall back to disk (survives server reloads)
     disk_result = _load_result(simulation_id)
     if disk_result:
+        disk_result = ensure_results_analysis(disk_result)
         return disk_result
 
     return {"error": "Simulation not found"}
@@ -464,6 +470,7 @@ async def _run_simulation(simulation_id: str, script, condition: str):
             "conclusion": conclusion,
             "script": script_dict,
         }
+        full_result = ensure_results_analysis(full_result)
         sim["result"] = full_result
         sim["status"] = "complete"
         _save_result(simulation_id, full_result)

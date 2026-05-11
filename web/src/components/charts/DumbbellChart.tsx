@@ -1,4 +1,4 @@
-import { ACTOR_COLORS, TRAIT_LABELS, type OceanTraits } from '../../types/simulation';
+import { ACTOR_COLORS, type OceanTraits } from '../../types/simulation';
 
 interface DumbbellChartProps {
   actorPriors: Record<string, OceanTraits>;

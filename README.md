@@ -1,94 +1,95 @@
-# UbeU V3: Dual-Mode AI Interview Platform
+# UbeU Simulation Engine
 
-A research platform for AI-simulated interviews, supporting two distinct assessment modes:
+UbeU is a multi-stakeholder simulation demo for exploring how AI-generated actors debate, negotiate, and shift their positions over time.
 
-## Overview
+The current product surface in this repository is the web demo:
+- `Setup`: choose a scenario, generate stakeholders, review the simulation, and launch it
+- `Live Monitoring`: watch turns, relationship shifts, and actions stream in real time
+- `Results`: inspect outcome analysis, actor analysis, relationship change, and transcript evidence
 
-**Mode 1: Case Study Interview**
-- 1-on-1 with AI Facilitator (data clerk only)
-- Assesses logical/analytical thinking
-- Evidence-based scoring on 6 dimensions
+## Requirements
 
-**Mode 2: Group Discussion**
-- 1-to-many with 3 AI agents (Alex, Jordan, Riley)
-- Assesses Big Five personality traits
-- Behavioral signal extraction with facet-level inference
+- Python 3.10+
+- Node.js 18+
+- An `OPENROUTER_API_KEY` environment variable for script generation and simulation runs
 
-## Quick Start
+## Backend Setup
+
+Install Python dependencies from the repo root:
 
 ```bash
-# Install dependencies
 pip install -r requirements.txt
+```
 
-# Set environment variables
+Set your API key:
+
+```bash
 export OPENROUTER_API_KEY=your_key_here
-
-# Run the application
-streamlit run ui/app.py
 ```
 
-## Project Structure
+Start the backend on port `8000`:
 
-```
-UbeU_V2/
-├── agents/           # AI agent implementations
-│   ├── facilitator_agent.py    # Mode 1: Data clerk
-│   ├── group_agents.py         # Mode 2: Alex, Jordan, Riley
-│   └── trait_selector.py       # Speaker selection strategy
-├── engines/          # Interview session engines
-│   ├── case_engine.py          # Mode 1 engine
-│   └── group_engine.py         # Mode 2 engine
-├── evaluation/       # Post-session assessment
-│   ├── logic_evaluator.py      # 6-dimension rubric scoring
-│   └── trait_evaluator.py      # OCEAN trait inference
-├── config/           # Configuration files
-│   ├── logic_rubric.py         # Scoring rubrics
-│   ├── case_studies.py         # Business cases
-│   └── group_scenarios.py      # Discussion scenarios
-├── clients/          # LLM API clients
-├── ui/               # Streamlit interface
-├── utils/            # Shared utilities and models
-└── pipeline/         # Data flow management
+```bash
+python3 -m uvicorn simulation_engine.api:app --host 0.0.0.0 --port 8000
 ```
 
-## Modes
+## Frontend Setup
 
-### Mode 1: Case Study (Logical Assessment)
+In a second terminal, install the web dependencies:
 
-Dimensions assessed:
-1. Problem Structuring
-2. Hypothesis-Driven Thinking
-3. Quantitative Reasoning
-4. Data Synthesis
-5. Recommendation Quality
-6. Communication Clarity
+```bash
+cd web
+npm install
+```
 
-Each score (1-5) backed by direct transcript quotes.
+Start the Vite dev server on port `5173`:
 
-### Mode 2: Group Discussion (Personality Assessment)
+```bash
+npm run dev -- --host 127.0.0.1 --port 5173
+```
 
-Traits assessed (Big Five / OCEAN):
-- Openness
-- Conscientiousness
-- Extraversion
-- Agreeableness
-- Neuroticism
+Open:
 
-Agent roles:
-- **Alex**: Assertive Challenger (tests conflict handling)
-- **Jordan**: Supportive Collaborator (tests idea engagement)
-- **Riley**: Quiet Skeptic (tests engagement with quiet members)
+```text
+http://127.0.0.1:5173
+```
 
-## Academic Context
+## Demo Flow
 
-This platform is part of an NTU Final Year Thesis in Computer Science.
+To run the Singapore HDB demo in the web UI:
 
-Research Questions:
-1. Can AI-facilitated case interviews produce reliable logical assessments?
-2. Can multi-party group discussions with AI agents produce valid personality estimates?
+1. Open `http://127.0.0.1:5173/setup`
+2. Choose `Singapore HDB Wait Time Crisis`
+3. Set the actor count you want
+4. Choose either:
+   - `Guided`: you provide a desired outcome
+   - `Exploratory`: the discussion evolves without a fixed target outcome
+5. Click `Generate Stakeholders`
+6. Review the generated actors and relationships
+7. Click `Review & Launch`
+8. Click `Launch Simulation`
+9. Watch the run in `Live Monitoring`
+10. Open `View Result` when the run completes
 
-## References
+## Notes
 
-- DialogLab (Hu et al., UIST 2025) - Multi-party conversation design
-- Assessment Center methodology (Arthur et al., 2003)
-- BFI-44 personality framework (John & Srivastava, 1999)
+- The frontend talks to the backend through Vite proxies:
+  - `/api` -> `http://localhost:8000`
+  - `/ws` -> `ws://localhost:8000`
+- If the UI says the WebSocket failed, first confirm the backend is still listening on port `8000`.
+- Results are persisted under `simulation_engine/.sim_results/` so they survive backend restarts.
+
+## Useful Commands
+
+Run backend tests:
+
+```bash
+PYTHONPATH=. pytest -q
+```
+
+Run the frontend production build:
+
+```bash
+cd web
+npm run build
+```

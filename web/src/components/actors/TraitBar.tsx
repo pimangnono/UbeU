@@ -1,5 +1,3 @@
-import { TRAIT_LABELS } from '../../types/simulation';
-
 interface TraitBarProps {
   trait: string;
   value: number;

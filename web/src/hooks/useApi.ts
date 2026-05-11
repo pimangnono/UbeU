@@ -8,7 +8,24 @@ async function fetchJson<T>(url: string, init?: RequestInit): Promise<T> {
     headers: { 'Content-Type': 'application/json' },
     ...init,
   });
-  if (!res.ok) throw new Error(`API error: ${res.status}`);
+  if (!res.ok) {
+    let message = `API error: ${res.status}`;
+    const contentType = res.headers.get('content-type') ?? '';
+
+    try {
+      if (contentType.includes('application/json')) {
+        const data = await res.json() as { detail?: string; message?: string };
+        message = data.detail || data.message || message;
+      } else {
+        const text = await res.text();
+        if (text.trim()) message = text.trim();
+      }
+    } catch {
+      // Fall back to the default message.
+    }
+
+    throw new Error(message);
+  }
   return res.json();
 }
 

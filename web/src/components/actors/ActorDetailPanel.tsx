@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion';
 import { InfoLabel } from '../ui/Tooltip';
 import { TraitBars } from './TraitBar';
 import { DispositionChip } from './DispositionChip';

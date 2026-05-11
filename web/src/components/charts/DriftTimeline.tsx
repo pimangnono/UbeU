@@ -1,6 +1,6 @@
 import { ResponsiveLine } from '@nivo/line';
 import { ACTOR_COLORS } from '../../types/simulation';
-import type { ActorStateRecord, OceanTraits } from '../../types/simulation';
+import type { ActorStateRecord } from '../../types/simulation';
 
 interface DriftTimelineProps {
   actorStateEvents: ActorStateRecord[];
@@ -23,7 +23,7 @@ export function DriftTimeline({ actorStateEvents, actorIds, actorNames }: DriftT
       color: ACTOR_COLORS[idx % ACTOR_COLORS.length],
       data: events.map((e) => ({
         x: e.turn_index,
-        y: e.drift_score,
+        y: e.drift_score ?? e.new_state?.drift_score ?? 0,
       })),
     };
   }).filter((d) => d.data.length > 0);

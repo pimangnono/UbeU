@@ -44,6 +44,7 @@ const STEP_LABELS = ['Scenario Brief', 'Actors & Config', 'Review & Launch'];
 export default function Setup() {
   const navigate = useNavigate();
   const [step, setStep] = useState<WizardStep>(1);
+  const [generateError, setGenerateError] = useState<string | null>(null);
   const [brief, setBrief] = useState('');
   const [actorCount, setActorCount] = useState<number>(3);
   const [simulationMode, setSimulationMode] = useState<'guided' | 'exploratory'>('guided');
@@ -75,6 +76,9 @@ export default function Setup() {
   });
 
   const handleGenerate = async () => {
+    setGenerateError(null);
+    setScript(null);
+    setRelationships([]);
     setStep(2);
     abortRef.current = new AbortController();
     try {
@@ -88,8 +92,12 @@ export default function Setup() {
         setScript(result);
         setRelationships(generateInitialRelationships(result.stakeholders));
       }
-    } catch {
-      // aborted or failed — stay on loading or go back
+    } catch (error) {
+      if (!abortRef.current.signal.aborted) {
+        setGenerateError(error instanceof Error ? error.message : 'Failed to generate stakeholders.');
+      }
+    } finally {
+      abortRef.current = null;
     }
   };
 
@@ -103,6 +111,7 @@ export default function Setup() {
     if (prevStep === 1) {
       setScript(null);
       setRelationships([]);
+      setGenerateError(null);
     }
     setStep(prevStep);
   };
@@ -327,6 +336,23 @@ export default function Setup() {
               exit={{ opacity: 0 }}
             >
               <LoadingActors count={actorCount} />
+            </motion.div>
+          )}
+
+          {step === 2 && !script && !generateScript.isPending && generateError && (
+            <motion.div
+              key="step2-error"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+            >
+              <GlassCard className="p-6 border border-red-200 bg-red-50/70">
+                <h2 className="text-base font-semibold text-red-700 mb-2">Actor generation failed</h2>
+                <p className="text-sm text-red-700/90">{generateError}</p>
+                <p className="text-sm text-text-secondary mt-3">
+                  모델이 유효하지 않은 JSON을 반환했거나 백엔드 생성 요청이 실패했습니다. 다시 시도하고, 반복되면 모델/프롬프트 설정을 확인하세요.
+                </p>
+              </GlassCard>
             </motion.div>
           )}
 

@@ -7,7 +7,7 @@ import { useSimulationWS } from '../hooks/useSimulationWS';
 import { ChatBubble } from '../components/transcript/ChatBubble';
 import { PhaseDivider } from '../components/transcript/PhaseDivider';
 import { ACTOR_COLORS, DISPOSITION_CONFIG } from '../types/simulation';
-import type { Disposition, RelationshipEvent } from '../types/simulation';
+import type { Disposition } from '../types/simulation';
 
 const DISPOSITION_ICONS: Record<string, React.ReactNode> = {
   'heart-handshake': <HeartHandshake size={10} />,

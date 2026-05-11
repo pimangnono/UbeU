@@ -83,8 +83,50 @@ Rules:
 - If the brief implies competing interests, set some stakeholders to "competitive" or "adversarial"
 - Default to "neutral" if no clear disposition is implied
 - Prefer valid action-layer metadata, but do not invent nonsense if uncertain
+- Use strict JSON syntax with double quotes for all keys and string values
+- Do not include trailing commas, comments, markdown fences, or prose before/after the JSON object
 - Output ONLY the JSON, no markdown fences or explanation
 """
+
+
+def _parse_script_generation_json(text: str) -> dict:
+    """Parse a model response into a JSON object for script generation."""
+    cleaned = text.strip()
+    if cleaned.startswith("```"):
+        cleaned = cleaned.split("\n", 1)[1] if "\n" in cleaned else cleaned[3:]
+    if cleaned.endswith("```"):
+        cleaned = cleaned[:-3]
+    cleaned = cleaned.strip()
+    if cleaned.startswith("json"):
+        cleaned = cleaned[4:].strip()
+    if "{" in cleaned and "}" in cleaned:
+        cleaned = cleaned[cleaned.find("{"):cleaned.rfind("}") + 1]
+
+    payload = json.loads(cleaned)
+    if not isinstance(payload, dict):
+        raise ValueError("Generated payload is not a JSON object")
+    return payload
+
+
+async def _repair_script_generation_json(gen_client, broken_text: str) -> dict:
+    """Ask the model to repair malformed JSON into a single valid object."""
+    repair_prompt = (
+        "Repair the malformed JSON below into one valid JSON object.\n"
+        "Preserve the original structure and meaning as much as possible.\n"
+        "Use strict JSON syntax only.\n\n"
+        f"{broken_text}"
+    )
+    repaired = await gen_client.generate_structured(
+        prompt=repair_prompt,
+        system_instruction=(
+            "You repair malformed JSON. "
+            "Return exactly one valid JSON object with double-quoted keys and strings. "
+            "Do not add markdown or explanation."
+        ),
+        temperature=0.0,
+        max_tokens=4000,
+    )
+    return _parse_script_generation_json(repaired)
 
 
 async def generate_script_from_brief(
@@ -117,29 +159,26 @@ async def generate_script_from_brief(
             f"a distinct role, and varied OCEAN personality priors."
         )
 
-    prompt = f"Generate a simulation script for this scenario:\n\n{brief}{actor_instruction}"
+    prompt = (
+        "Generate a simulation script for this scenario.\n\n"
+        f"{brief}{actor_instruction}\n\n"
+        "Return exactly one valid JSON object matching the schema. "
+        "Do not wrap it in markdown."
+    )
 
     last_error: Exception | None = None
     for attempt in range(1, max_retries + 1):
         try:
-            response = await gen_client.generate(
+            response = await gen_client.generate_structured(
                 prompt=prompt,
                 system_instruction=SCRIPT_GENERATION_SYSTEM,
-                temperature=0.7,
+                temperature=0.3,
                 max_tokens=4000 if (actor_count or 0) > 5 else 2000,
             )
-
-            # Clean response — strip markdown fences if present
-            text = response.strip()
-            if text.startswith("```"):
-                text = text.split("\n", 1)[1] if "\n" in text else text[3:]
-            if text.endswith("```"):
-                text = text[:-3]
-            text = text.strip()
-            if text.startswith("json"):
-                text = text[4:].strip()
-
-            data = json.loads(text)
+            try:
+                data = _parse_script_generation_json(response)
+            except (json.JSONDecodeError, ValueError):
+                data = await _repair_script_generation_json(gen_client, response)
 
             # Override simulation_mode if requested
             if simulation_mode is not None:
