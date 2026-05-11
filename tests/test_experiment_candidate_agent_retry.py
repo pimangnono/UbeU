@@ -145,7 +145,7 @@ def test_generate_response_payload_records_timeout_fallback_type():
 
 
 def test_generate_candidate_pool_styles_keeps_non_fallback_candidates():
-    client = _FlakyClient(failures_before_success=2, error_text="Connection error.")
+    client = _FlakyClient(failures_before_success=1, error_text="Connection error.")
     agent = ExperimentCandidateAgent(client=client, candidate_name="Candidate")
     agent._response_retry_attempts = 1
     agent._response_retry_base_delay = 0.0
@@ -157,6 +157,7 @@ def test_generate_candidate_pool_styles_keeps_non_fallback_candidates():
             scenario_brief="Test scenario",
             phase_style="neutral",
             style_slots=["planner", "skeptic"],
+            policy_plan={"stance": "synthesize"},
         )
 
     pool = asyncio.run(_run())
@@ -178,6 +179,7 @@ def test_generate_candidate_pool_styles_collapses_all_fallbacks_into_empty_pool_
             scenario_brief="Test scenario",
             phase_style="neutral",
             style_slots=["planner", "skeptic"],
+            policy_plan={"stance": "synthesize"},
         )
 
     pool = asyncio.run(_run())
