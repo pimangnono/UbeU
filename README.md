@@ -59,7 +59,7 @@ http://127.0.0.1:5173
 To run the Singapore HDB demo in the web UI:
 
 1. Open `http://127.0.0.1:5173/setup`
-2. Choose `Singapore HDB Wait Time Crisis`
+2. Choose one scenario or write on your own
 3. Set the actor count you want
 4. Choose either:
    - `Guided`: you provide a desired outcome
